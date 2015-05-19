@@ -1,0 +1,96 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="SwqlStudio.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="OperationTimeout" Type="System.Int32" Scope="Application">
+      <Value Profile="(Default)">2</Value>
+    </Setting>
+    <Setting Name="DefaultInfoServicePort" Type="System.Int32" Scope="Application">
+      <Value Profile="(Default)">17777</Value>
+    </Setting>
+    <Setting Name="OrionEndpointPath" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">SolarWinds/InformationService/Orion/ssl</Value>
+    </Setting>
+    <Setting Name="EOCEndpointPath" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">SolarWinds/InformationService/EOC</Value>
+    </Setting>
+    <Setting Name="IPAMEndpointPath" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">SW/InformationService/IPAM</Value>
+    </Setting>
+    <Setting Name="PreviousServers" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="PreviousUsers" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="NCMEndpointPath" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">SolarWinds/InformationService/Cirrus/ssl</Value>
+    </Setting>
+    <Setting Name="OrionHttpsEndpointPath" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">SolarWinds/InformationService/OrionBasic</Value>
+    </Setting>
+    <Setting Name="DefaultInfoServiceHttpsPort" Type="System.Int32" Scope="Application">
+      <Value Profile="(Default)">17778</Value>
+    </Setting>
+    <Setting Name="NCMForwarderEndpointPath" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">SolarWinds/InformationService/NCMIntegration/ssl</Value>
+    </Setting>
+    <Setting Name="NCMWindowsEndpointPath" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">SolarWinds/InformationService/Cirrus</Value>
+    </Setting>
+    <Setting Name="OrionEndpointPathCompressed" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">SolarWinds/InformationService/Orion/ssl/compressed</Value>
+    </Setting>
+    <Setting Name="OrionEndpointPathAD" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">SolarWinds/InformationService/Orion/ad</Value>
+    </Setting>
+    <Setting Name="OrionEndpointPathADCompressed" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">SolarWinds/InformationService/Orion/ad/compressed</Value>
+    </Setting>
+    <Setting Name="ShowCompressedModes" Type="System.Boolean" Scope="Application">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="OrionEndpointPathCertificate" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">SolarWinds/InformationService/Orion/certificate</Value>
+    </Setting>
+    <Setting Name="PreviousServerType" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="CertificateSubjectName" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">SolarWinds-Orion</Value>
+    </Setting>
+    <Setting Name="OrionV3EndpointPath" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">SolarWinds/InformationService/v3/Orion/ssl</Value>
+    </Setting>
+    <Setting Name="OrionV3HttpsEndpointPath" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">SolarWinds/InformationService/v3/OrionBasic</Value>
+    </Setting>
+    <Setting Name="OrionV3EndpointPathAD" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">SolarWinds/InformationService/v3/Orion/ad</Value>
+    </Setting>
+    <Setting Name="OrionV3EndpointPathADCompressed" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">SolarWinds/InformationService/v3/Orion/ad/compressed</Value>
+    </Setting>
+    <Setting Name="OrionV3EndpointPathCompressed" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">SolarWinds/InformationService/v3/Orion/ssl/compressed</Value>
+    </Setting>
+    <Setting Name="OrionV3EndpointPathCertificate" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">SolarWinds/InformationService/v3/Orion/certificate</Value>
+    </Setting>
+    <Setting Name="JavaEndpointPath" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">services/InformationService</Value>
+    </Setting>
+    <Setting Name="UpdateRequired" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="DefaultJavaInfoServicePort" Type="System.Int32" Scope="Application">
+      <Value Profile="(Default)">8443</Value>
+    </Setting>
+    <Setting Name="UseActiveSubscriber" Type="System.Boolean" Scope="Application">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="EntityGroupingMode" Type="System.String" Scope="User">
+      <Value Profile="(Default)">ByNamespace</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

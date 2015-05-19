@@ -6,6 +6,10 @@ This project contains the samples, SWQL Studio graphical query tool, and PowerSh
 
 You can download a pre-compiled [installer for the Orion SDK tools](http://knowledgebase.solarwinds.com/kb/questions/5811/Downloading+the+SolarWinds+Orion+SDK) from SolarWinds.
 
+## Wiki
+
+We will be moving the documentation into the Github [OrionSDK wiki](https://github.com/solarwinds/OrionSDK/wiki/Alerts). For now there is just one page that describes the alerting entities introduced in the 2015 Orion platform releases.
+
 ## Forum
 
 You can discuss the Orion SDK with SolarWinds staff and other SDK users on the [Orion SDK thwack forum](https://thwack.solarwinds.com/community/labs_tht/orion-sdk).

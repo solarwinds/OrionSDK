@@ -1,0 +1,151 @@
+﻿
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <title>SolarWinds Information Service v3.0 Schema Documentation</title>
+    <link href="SchemaDoc.css" type="text/css" rel="stylesheet" />
+  </head>
+  <body>
+    <h1>SolarWinds Information Service v3.0 Schema Documentation</h1>
+    <p>
+      <a href="index.html">Index</a>
+    </p>
+    <h1>
+      <a name="Orion.APM.ComponentStatus">Orion.APM.ComponentStatus</a>
+    </h1>
+    <p>
+        Base type:
+        <a href="System.StatisticsEntity.html">System.StatisticsEntity</a></p>
+    <h2>Properties</h2>
+    <table>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Notes</th>
+      </tr>
+      <tr>
+        <td>ID</td>
+        <td>System.Int64</td>
+        <td />
+      </tr>
+      <tr>
+        <td>ApplicationID</td>
+        <td>System.Int32</td>
+        <td />
+      </tr>
+      <tr>
+        <td>ComponentID</td>
+        <td>System.Int64</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Availability</td>
+        <td>System.Int32</td>
+        <td />
+      </tr>
+      <tr>
+        <td>PercentAvailability</td>
+        <td>System.Double</td>
+        <td />
+      </tr>
+      <tr>
+        <td>TimeStamp</td>
+        <td>System.DateTime</td>
+        <td />
+      </tr>
+      <tr>
+        <td>RecordCount</td>
+        <td>System.Int64</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Archive</td>
+        <td>System.Byte</td>
+        <td />
+      </tr>
+      <tr>
+        <td>ObservationTimestamp</td>
+        <td>System.DateTime</td>
+        <td />
+      </tr>
+      <tr>
+        <td>ObservationFrequency</td>
+        <td>System.DateTime</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Weight</td>
+        <td>System.Double</td>
+        <td>
+          Default='1.0'.
+        </td>
+      </tr>
+      <tr>
+        <td>DisplayName</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Description</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>InstanceType</td>
+        <td>System.Type</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Uri</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>PortEvidence</td>
+        <td>
+          <a href="Orion.APM.PortEvidence.html">Orion.APM.PortEvidence</a>
+        </td>
+        <td>
+        Defined by relationship Orion.APM.ComponentStatusHostsPortEvidence (System.Hosting)
+      </td>
+      </tr>
+      <tr>
+        <td>DynamicEvidence</td>
+        <td>
+          <a href="Orion.APM.DynamicEvidence.html">Orion.APM.DynamicEvidence</a>
+        </td>
+        <td>
+        Defined by relationship Orion.APM.ComponentStatusHostsDynamicEvidence (System.Hosting)
+      </td>
+      </tr>
+      <tr>
+        <td>ProcessEvidence</td>
+        <td>
+          <a href="Orion.APM.ProcessEvidence.html">Orion.APM.ProcessEvidence</a>
+        </td>
+        <td>
+        Defined by relationship Orion.APM.ComponentStatusHostsProcessEvidence (System.Hosting)
+      </td>
+      </tr>
+      <tr>
+        <td>ChartEvidence</td>
+        <td>
+          <a href="Orion.APM.ChartEvidence.html">Orion.APM.ChartEvidence</a>
+        </td>
+        <td>
+        Defined by relationship Orion.APM.ComponentStatusHostsChartEvidence (System.Hosting)
+      </td>
+      </tr>
+      <tr>
+        <td>Component</td>
+        <td>
+          <a href="Orion.APM.Component.html">Orion.APM.Component</a>
+        </td>
+        <td>
+        Defined by relationship Orion.APM.ComponentHostsStatus (System.Hosting)
+      </td>
+      </tr>
+    </table>
+  </body>
+</html>

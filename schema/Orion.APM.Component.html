@@ -1,0 +1,363 @@
+﻿
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <title>SolarWinds Information Service v3.0 Schema Documentation</title>
+    <link href="SchemaDoc.css" type="text/css" rel="stylesheet" />
+  </head>
+  <body>
+    <h1>SolarWinds Information Service v3.0 Schema Documentation</h1>
+    <p>
+      <a href="index.html">Index</a>
+    </p>
+    <h1>
+      <a name="Orion.APM.Component">Orion.APM.Component</a>
+    </h1>
+    <p>
+        Base type:
+        <a href="System.ManagedEntity.html">System.ManagedEntity</a></p>
+    <h2>Properties</h2>
+    <table>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Notes</th>
+      </tr>
+      <tr>
+        <td>ComponentID</td>
+        <td>System.Int64</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Name</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>ShortName</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>ComponentType</td>
+        <td>System.Int32</td>
+        <td />
+      </tr>
+      <tr>
+        <td>ComponentEvidenceType</td>
+        <td>System.Int32</td>
+        <td />
+      </tr>
+      <tr>
+        <td>ApplicationID</td>
+        <td>System.Int32</td>
+        <td />
+      </tr>
+      <tr>
+        <td>TemplateID</td>
+        <td>System.Int64</td>
+        <td />
+      </tr>
+      <tr>
+        <td>ComponentName</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>FullyQualifiedName</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>UserDescription</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>UserNotes</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>ComponentOrder</td>
+        <td>System.Int32</td>
+        <td />
+      </tr>
+      <tr>
+        <td>ApplicationItemID</td>
+        <td>System.Int32</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Description</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Unmanaged</td>
+        <td>System.Boolean</td>
+        <td />
+      </tr>
+      <tr>
+        <td>UnmanageFrom</td>
+        <td>System.DateTime</td>
+        <td />
+      </tr>
+      <tr>
+        <td>UnmanageUntil</td>
+        <td>System.DateTime</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Status</td>
+        <td>System.Int32</td>
+        <td />
+      </tr>
+      <tr>
+        <td>StatusDescription</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Status</td>
+        <td>System.Int32</td>
+        <td />
+      </tr>
+      <tr>
+        <td>StatusDescription</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>StatusLED</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>UnManaged</td>
+        <td>System.Boolean</td>
+        <td>
+          Default='false'.
+        </td>
+      </tr>
+      <tr>
+        <td>UnManageFrom</td>
+        <td>System.DateTime</td>
+        <td />
+      </tr>
+      <tr>
+        <td>UnManageUntil</td>
+        <td>System.DateTime</td>
+        <td />
+      </tr>
+      <tr>
+        <td>DetailsUrl</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Image</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>AncestorDisplayNames</td>
+        <td>System.String[]</td>
+        <td />
+      </tr>
+      <tr>
+        <td>AncestorDetailsUrls</td>
+        <td>System.String[]</td>
+        <td />
+      </tr>
+      <tr>
+        <td>StatusIconHint</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>DisplayName</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Description</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>InstanceType</td>
+        <td>System.Type</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Uri</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>WebUri</td>
+        <td>
+          <a href="Orion.APM.ComponentWebUri.html">Orion.APM.ComponentWebUri</a>
+        </td>
+        <td>
+        Defined by relationship Orion.APM.ComponentHostsWebUri (System.Hosting)
+      </td>
+      </tr>
+      <tr>
+        <td>CurrentStatus</td>
+        <td>
+          <a href="Orion.APM.CurrentComponentStatus.html">Orion.APM.CurrentComponentStatus</a>
+        </td>
+        <td>
+        Defined by relationship Orion.APM.ComponentHostsCurrentStatus (System.Hosting)
+      </td>
+      </tr>
+      <tr>
+        <td>CurrentStatistics</td>
+        <td>
+          <a href="Orion.APM.CurrentStatistics.html">Orion.APM.CurrentStatistics</a>
+        </td>
+        <td>
+        Defined by relationship Orion.APM.ComponentCurrentStatistics (System.Hosting)
+      </td>
+      </tr>
+      <tr>
+        <td>ComponentStatus</td>
+        <td>
+          <a href="Orion.APM.ComponentStatus.html">Orion.APM.ComponentStatus</a>
+        </td>
+        <td>
+        Defined by relationship Orion.APM.ComponentHostsStatus (System.Hosting)
+      </td>
+      </tr>
+      <tr>
+        <td>PortEvidenceChart</td>
+        <td>
+          <a href="Orion.APM.PortEvidenceChart.html">Orion.APM.PortEvidenceChart</a>
+        </td>
+        <td>
+        Defined by relationship Orion.APM.ComponentHostsPortEvidenceChart (System.Hosting)
+      </td>
+      </tr>
+      <tr>
+        <td>DynamicEvidenceChart</td>
+        <td>
+          <a href="Orion.APM.DynamicEvidenceChart.html">Orion.APM.DynamicEvidenceChart</a>
+        </td>
+        <td>
+        Defined by relationship Orion.APM.ComponentHostsDynamicEvidenceChart (System.Hosting)
+      </td>
+      </tr>
+      <tr>
+        <td>ProcessEvidenceChart</td>
+        <td>
+          <a href="Orion.APM.ProcessEvidenceChart.html">Orion.APM.ProcessEvidenceChart</a>
+        </td>
+        <td>
+        Defined by relationship Orion.APM.ComponentHostsProcessEvidenceChart (System.Hosting)
+      </td>
+      </tr>
+      <tr>
+        <td>WindowsEvent</td>
+        <td>
+          <a href="Orion.APM.WindowsEvent.html">Orion.APM.WindowsEvent</a>
+        </td>
+        <td>
+        Defined by relationship Orion.APM.ComponentHostsWindowsEvent (System.Hosting)
+      </td>
+      </tr>
+      <tr>
+        <td>ChartEvidence2</td>
+        <td>
+          <a href="Orion.APM.ChartEvidence2.html">Orion.APM.ChartEvidence2</a>
+        </td>
+        <td>
+        Defined by relationship Orion.APM.ComponentHostsChartEvidence2 (System.Hosting)
+      </td>
+      </tr>
+      <tr>
+        <td>ResponseTime</td>
+        <td>
+          <a href="Orion.APM.ResponseTime.html">Orion.APM.ResponseTime</a>
+        </td>
+        <td>
+        Defined by relationship Orion.APM.ComponentResponseTime (System.Hosting)
+      </td>
+      </tr>
+      <tr>
+        <td>HistoricalCPULoad</td>
+        <td>
+          <a href="Orion.APM.HistoricalCPULoad.html">Orion.APM.HistoricalCPULoad</a>
+        </td>
+        <td>
+        Defined by relationship Orion.APM.ComponentHistoricalCPULoadHosting (System.Hosting)
+      </td>
+      </tr>
+      <tr>
+        <td>HistoricalMemory</td>
+        <td>
+          <a href="Orion.APM.HistoricalMemory.html">Orion.APM.HistoricalMemory</a>
+        </td>
+        <td>
+        Defined by relationship Orion.APM.ComponentHistoricalMemoryHosting (System.Hosting)
+      </td>
+      </tr>
+      <tr>
+        <td>StatisticsUsage</td>
+        <td>
+          <a href="Orion.APM.StatisticsUsage.html">Orion.APM.StatisticsUsage</a>
+        </td>
+        <td>
+        Defined by relationship Orion.APM.ComponentStatisticsUsageHosting (System.Hosting)
+      </td>
+      </tr>
+      <tr>
+        <td>ScheduledTasks</td>
+        <td>
+          <a href="Orion.APM.Wstm.Task.html">Orion.APM.Wstm.Task</a>
+        </td>
+        <td>
+        Defined by relationship Orion.APM.ComponentHostsScheduledTasks (System.Hosting)
+      </td>
+      </tr>
+      <tr>
+        <td>Application</td>
+        <td>
+          <a href="Orion.APM.Application.html">Orion.APM.Application</a>
+        </td>
+        <td>
+        Defined by relationship Orion.APM.ApplicationHostsComponent (System.Hosting)
+      </td>
+      </tr>
+      <tr>
+        <td>ComponentDefinition</td>
+        <td>
+          <a href="Orion.APM.ComponentDefinition.html">Orion.APM.ComponentDefinition</a>
+        </td>
+        <td>
+        Defined by relationship Orion.APM.ComponentDefinitionReferencesComponent (System.Reference)
+      </td>
+      </tr>
+      <tr>
+        <td>ComponentAlert</td>
+        <td>
+          <a href="Orion.APM.ComponentAlert.html">Orion.APM.ComponentAlert</a>
+        </td>
+        <td>
+        Defined by relationship Orion.APM.ComponentAlertReferencesComponent (System.Reference)
+      </td>
+      </tr>
+      <tr>
+        <td>MultipleStatisticData</td>
+        <td>
+          <a href="Orion.APM.MultipleStatisticData.html">Orion.APM.MultipleStatisticData</a>
+        </td>
+        <td>
+        Defined by relationship Orion.APM.MultipleStatisticDataReferencesComponent (System.Reference)
+      </td>
+      </tr>
+    </table>
+  </body>
+</html>

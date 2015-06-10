@@ -1,0 +1,6 @@
+﻿body { font: 14px Arial; }
+h1 { margin-top: 2em; font-size: 18px; }
+h2 { font-size: 16px; }
+table { border-collapse: collapse; }
+tr:nth-child(even) { background-color: #ddd; }
+td { padding-right: 10px; }

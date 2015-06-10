@@ -1,0 +1,208 @@
+﻿
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <title>SolarWinds Information Service v3.0 Schema Documentation</title>
+    <link href="SchemaDoc.css" type="text/css" rel="stylesheet" />
+  </head>
+  <body>
+    <h1>SolarWinds Information Service v3.0 Schema Documentation</h1>
+    <p>
+      <a href="index.html">Index</a>
+    </p>
+    <h1>
+      <a name="Orion.VIM.VCenters">Orion.VIM.VCenters</a>
+    </h1>
+    <p>
+        Base type:
+        <a href="Orion.VIM.ManagedEntity.html">Orion.VIM.ManagedEntity</a></p>
+    <h2>Properties</h2>
+    <table>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Notes</th>
+      </tr>
+      <tr>
+        <td>VCenterID</td>
+        <td>System.Int32</td>
+        <td />
+      </tr>
+      <tr>
+        <td>NodeID</td>
+        <td>System.Int32</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Name</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>VMwareProductName</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>VMwareProductVersion</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>PollingJobID</td>
+        <td>System.Guid</td>
+        <td />
+      </tr>
+      <tr>
+        <td>ServiceURIID</td>
+        <td>System.Int64</td>
+        <td />
+      </tr>
+      <tr>
+        <td>CredentialID</td>
+        <td>System.Int64</td>
+        <td />
+      </tr>
+      <tr>
+        <td>HostStatus</td>
+        <td>System.Int32</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Model</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Vendor</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>BuildNumber</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>BiosSerial</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>IPAddress</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>ConnectionState</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>StatusMessage</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Status</td>
+        <td>System.Int32</td>
+        <td />
+      </tr>
+      <tr>
+        <td>StatusDescription</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>StatusLED</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>UnManaged</td>
+        <td>System.Boolean</td>
+        <td>
+          Default='false'.
+        </td>
+      </tr>
+      <tr>
+        <td>UnManageFrom</td>
+        <td>System.DateTime</td>
+        <td />
+      </tr>
+      <tr>
+        <td>UnManageUntil</td>
+        <td>System.DateTime</td>
+        <td />
+      </tr>
+      <tr>
+        <td>StatusIconHint</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>TriggeredAlarmDescription</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>DetailsUrl</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Image</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>DisplayName</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Description</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>InstanceType</td>
+        <td>System.Type</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Uri</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>DataCenters</td>
+        <td>
+          <a href="Orion.VIM.DataCenters.html">Orion.VIM.DataCenters</a>
+        </td>
+        <td>
+        Defined by relationship Orion.VIM.VCentersToDataCentersMappingReference (System.Reference)
+      </td>
+      </tr>
+      <tr>
+        <td>ResourcePools</td>
+        <td>
+          <a href="Orion.VIM.ResourcePools.html">Orion.VIM.ResourcePools</a>
+        </td>
+        <td>
+        Defined by relationship Orion.VIM.VCentersToResourcePoolsMappingReference (System.Reference)
+      </td>
+      </tr>
+      <tr>
+        <td>Node</td>
+        <td>
+          <a href="Orion.Nodes.html">Orion.Nodes</a>
+        </td>
+        <td>
+        Defined by relationship Orion.VIM.NodesToVCenters (System.Reference)
+      </td>
+      </tr>
+    </table>
+  </body>
+</html>

@@ -1,0 +1,245 @@
+﻿
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <title>SolarWinds Information Service v3.0 Schema Documentation</title>
+    <link href="SchemaDoc.css" type="text/css" rel="stylesheet" />
+  </head>
+  <body>
+    <h1>SolarWinds Information Service v3.0 Schema Documentation</h1>
+    <p>
+      <a href="index.html">Index</a>
+    </p>
+    <h1>
+      <a name="Orion.HardwareHealth.HardwareItem">Orion.HardwareHealth.HardwareItem</a>
+    </h1>
+    <p>
+        Base type:
+        <a href="System.ManagedEntity.html">System.ManagedEntity</a></p>
+    <h2>Properties</h2>
+    <table>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Notes</th>
+      </tr>
+      <tr>
+        <td>ID</td>
+        <td>System.Int32</td>
+        <td />
+      </tr>
+      <tr>
+        <td>NodeID</td>
+        <td>System.Int32</td>
+        <td />
+      </tr>
+      <tr>
+        <td>HardwareCategoryStatusID</td>
+        <td>System.Int32</td>
+        <td />
+      </tr>
+      <tr>
+        <td>UniqueName</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Name</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Value</td>
+        <td>System.Double</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Unit</td>
+        <td>System.Int32</td>
+        <td />
+      </tr>
+      <tr>
+        <td>OriginalStatus</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Message</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>IsDeleted</td>
+        <td>System.Boolean</td>
+        <td />
+      </tr>
+      <tr>
+        <td>FullyQualifiedName</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>HasHistoricalData</td>
+        <td>System.Boolean</td>
+        <td />
+      </tr>
+      <tr>
+        <td>HardwareCategoryID</td>
+        <td>System.Int32</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Description</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>UnManaged</td>
+        <td>System.Boolean</td>
+        <td />
+      </tr>
+      <tr>
+        <td>UnManageFrom</td>
+        <td>System.DateTime</td>
+        <td />
+      </tr>
+      <tr>
+        <td>UnManageUntil</td>
+        <td>System.DateTime</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Status</td>
+        <td>System.Int32</td>
+        <td />
+      </tr>
+      <tr>
+        <td>StatusDescription</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>StatusLED</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>UnManaged</td>
+        <td>System.Boolean</td>
+        <td>
+          Default='false'.
+        </td>
+      </tr>
+      <tr>
+        <td>UnManageFrom</td>
+        <td>System.DateTime</td>
+        <td />
+      </tr>
+      <tr>
+        <td>UnManageUntil</td>
+        <td>System.DateTime</td>
+        <td />
+      </tr>
+      <tr>
+        <td>DetailsUrl</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Image</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>AncestorDisplayNames</td>
+        <td>System.String[]</td>
+        <td />
+      </tr>
+      <tr>
+        <td>AncestorDetailsUrls</td>
+        <td>System.String[]</td>
+        <td />
+      </tr>
+      <tr>
+        <td>StatusIconHint</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>DisplayName</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Description</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>InstanceType</td>
+        <td>System.Type</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Uri</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>WebUri</td>
+        <td>
+          <a href="Orion.HardwareHealth.HardwareItemWebUri.html">Orion.HardwareHealth.HardwareItemWebUri</a>
+        </td>
+        <td>
+        Defined by relationship Orion.HardwareHealth.HardwareItemHostsWebUri (System.Hosting)
+      </td>
+      </tr>
+      <tr>
+        <td>HardwareItemStatistics</td>
+        <td>
+          <a href="Orion.HardwareHealth.HardwareItemStatistics.html">Orion.HardwareHealth.HardwareItemStatistics</a>
+        </td>
+        <td>
+        Defined by relationship Orion.HardwareHealth.HardwareItemHostsHardwareItemStatistics (System.Hosting)
+      </td>
+      </tr>
+      <tr>
+        <td>HardwareItemValueStatistics</td>
+        <td>
+          <a href="Orion.HardwareHealth.HardwareItemValueStatistics.html">Orion.HardwareHealth.HardwareItemValueStatistics</a>
+        </td>
+        <td>
+        Defined by relationship Orion.HardwareHealth.HardwareItemHostsHardwareItemValueStatistics (System.Hosting)
+      </td>
+      </tr>
+      <tr>
+        <td>HardwareItemStatusStatistics</td>
+        <td>
+          <a href="Orion.HardwareHealth.HardwareItemStatusStatistics.html">Orion.HardwareHealth.HardwareItemStatusStatistics</a>
+        </td>
+        <td>
+        Defined by relationship Orion.HardwareHealth.HardwareItemHostsHardwareItemStatusStatistics (System.Hosting)
+      </td>
+      </tr>
+      <tr>
+        <td>HardwareCategoryStatus</td>
+        <td>
+          <a href="Orion.HardwareHealth.HardwareCategoryStatus.html">Orion.HardwareHealth.HardwareCategoryStatus</a>
+        </td>
+        <td>
+        Defined by relationship Orion.HardwareHealth.HardwareCategoryStatusHostsHardwareItem (System.Hosting)
+      </td>
+      </tr>
+      <tr>
+        <td>Node</td>
+        <td>
+          <a href="Orion.Nodes.html">Orion.Nodes</a>
+        </td>
+        <td>
+        Defined by relationship Orion.HardwareHealth.NodeHostsHardwareItem (System.Reference)
+      </td>
+      </tr>
+    </table>
+  </body>
+</html>

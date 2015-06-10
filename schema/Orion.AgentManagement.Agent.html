@@ -1,0 +1,212 @@
+﻿
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <title>SolarWinds Information Service v3.0 Schema Documentation</title>
+    <link href="SchemaDoc.css" type="text/css" rel="stylesheet" />
+  </head>
+  <body>
+    <h1>SolarWinds Information Service v3.0 Schema Documentation</h1>
+    <p>
+      <a href="index.html">Index</a>
+    </p>
+    <h1>
+      <a name="Orion.AgentManagement.Agent">Orion.AgentManagement.Agent</a>
+    </h1>
+    <p>
+        Base type:
+        <a href="System.Entity.html">System.Entity</a></p>
+    <h2>Properties</h2>
+    <table>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Notes</th>
+      </tr>
+      <tr>
+        <td>AgentId</td>
+        <td>System.Int32</td>
+        <td />
+      </tr>
+      <tr>
+        <td>AgentGuid</td>
+        <td>System.Guid</td>
+        <td />
+      </tr>
+      <tr>
+        <td>NodeId</td>
+        <td>System.Int32</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Name</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Hostname</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>DNSName</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>IP</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>OSVersion</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>PollingEngineId</td>
+        <td>System.Int32</td>
+        <td />
+      </tr>
+      <tr>
+        <td>ConnectionStatus</td>
+        <td>System.Int32</td>
+        <td />
+      </tr>
+      <tr>
+        <td>ConnectionStatusMessage</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>ConnectionStatusTimestamp</td>
+        <td>System.DateTime</td>
+        <td />
+      </tr>
+      <tr>
+        <td>AgentStatus</td>
+        <td>System.Int32</td>
+        <td />
+      </tr>
+      <tr>
+        <td>AgentStatusMessage</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>AgentStatusTimestamp</td>
+        <td>System.DateTime</td>
+        <td />
+      </tr>
+      <tr>
+        <td>IsActiveAgent</td>
+        <td>System.Boolean</td>
+        <td />
+      </tr>
+      <tr>
+        <td>AgentVersion</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>AutoUpdateEnabled</td>
+        <td>System.Boolean</td>
+        <td />
+      </tr>
+      <tr>
+        <td>OrionIdColumn</td>
+        <td>System.String</td>
+        <td>
+          Default='AgentId'.
+        </td>
+      </tr>
+      <tr>
+        <td>DisplayName</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Description</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>InstanceType</td>
+        <td>System.Type</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Uri</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Engine</td>
+        <td>
+          <a href="Orion.Engines.html">Orion.Engines</a>
+        </td>
+        <td>
+        Defined by relationship Orion.AgentManagement.AgentReferencesEngine (System.Reference)
+      </td>
+      </tr>
+      <tr>
+        <td>Plugins</td>
+        <td>
+          <a href="Orion.AgentManagement.AgentPlugin.html">Orion.AgentManagement.AgentPlugin</a>
+        </td>
+        <td>
+        Defined by relationship Orion.AgentManagement.AgentHostsPlugin (System.Hosting)
+      </td>
+      </tr>
+      <tr>
+        <td>Node</td>
+        <td>
+          <a href="Orion.Nodes.html">Orion.Nodes</a>
+        </td>
+        <td>
+        Defined by relationship Orion.AgentManagement.NodeHostsAgent (System.Hosting)
+      </td>
+      </tr>
+    </table>
+    <h2>Verbs</h2>
+    <table>
+      <tr>
+        <th>Name</th>
+        <th>Summary</th>
+      </tr>
+      <tr>
+        <td>Deploy</td>
+        <td />
+      </tr>
+      <tr>
+        <td>DeployToNode</td>
+        <td />
+      </tr>
+      <tr>
+        <td>DeployPlugin</td>
+        <td />
+      </tr>
+      <tr>
+        <td>UninstallPlugin</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Delete</td>
+        <td />
+      </tr>
+      <tr>
+        <td>ApproveReboot</td>
+        <td />
+      </tr>
+      <tr>
+        <td>ApproveUpdate</td>
+        <td />
+      </tr>
+      <tr>
+        <td>ValidateDeploymentCredentials</td>
+        <td />
+      </tr>
+    </table>
+  </body>
+</html>

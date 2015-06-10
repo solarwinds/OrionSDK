@@ -1,0 +1,238 @@
+﻿
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <title>SolarWinds Information Service v3.0 Schema Documentation</title>
+    <link href="SchemaDoc.css" type="text/css" rel="stylesheet" />
+  </head>
+  <body>
+    <h1>SolarWinds Information Service v3.0 Schema Documentation</h1>
+    <p>
+      <a href="index.html">Index</a>
+    </p>
+    <h1>
+      <a name="Orion.VIM.Clusters">Orion.VIM.Clusters</a>
+    </h1>
+    <p>
+        Base type:
+        <a href="Orion.VIM.ManagedEntity.html">Orion.VIM.ManagedEntity</a></p>
+    <h2>Properties</h2>
+    <table>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Notes</th>
+      </tr>
+      <tr>
+        <td>ClusterID</td>
+        <td>System.Int32</td>
+        <td />
+      </tr>
+      <tr>
+        <td>ManagedObjectID</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>DataCenterID</td>
+        <td>System.Int32</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Name</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>TotalMemory</td>
+        <td>System.Int64</td>
+        <td />
+      </tr>
+      <tr>
+        <td>TotalCpu</td>
+        <td>System.Int64</td>
+        <td />
+      </tr>
+      <tr>
+        <td>CpuCoreCount</td>
+        <td>System.Int32</td>
+        <td />
+      </tr>
+      <tr>
+        <td>CpuThreadCount</td>
+        <td>System.Int32</td>
+        <td />
+      </tr>
+      <tr>
+        <td>EffectiveCpu</td>
+        <td>System.Int64</td>
+        <td />
+      </tr>
+      <tr>
+        <td>EffectiveMemory</td>
+        <td>System.Int64</td>
+        <td />
+      </tr>
+      <tr>
+        <td>DrsBehaviour</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>DrsStatus</td>
+        <td>System.Boolean</td>
+        <td />
+      </tr>
+      <tr>
+        <td>DrsVmotionRate</td>
+        <td>System.Int32</td>
+        <td />
+      </tr>
+      <tr>
+        <td>HaAdmissionControlStatus</td>
+        <td>System.Boolean</td>
+        <td />
+      </tr>
+      <tr>
+        <td>HaStatus</td>
+        <td>System.Boolean</td>
+        <td />
+      </tr>
+      <tr>
+        <td>HaFailoverLevel</td>
+        <td>System.Int32</td>
+        <td />
+      </tr>
+      <tr>
+        <td>ConfigStatus</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>OverallStatus</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>CPULoad</td>
+        <td>System.Single</td>
+        <td />
+      </tr>
+      <tr>
+        <td>CPUUsageMHz</td>
+        <td>System.Int64</td>
+        <td />
+      </tr>
+      <tr>
+        <td>MemoryUsage</td>
+        <td>System.Single</td>
+        <td />
+      </tr>
+      <tr>
+        <td>MemoryUsageMB</td>
+        <td>System.Int64</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Status</td>
+        <td>System.Int32</td>
+        <td />
+      </tr>
+      <tr>
+        <td>StatusDescription</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>StatusLED</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>UnManaged</td>
+        <td>System.Boolean</td>
+        <td>
+          Default='false'.
+        </td>
+      </tr>
+      <tr>
+        <td>UnManageFrom</td>
+        <td>System.DateTime</td>
+        <td />
+      </tr>
+      <tr>
+        <td>UnManageUntil</td>
+        <td>System.DateTime</td>
+        <td />
+      </tr>
+      <tr>
+        <td>StatusIconHint</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>TriggeredAlarmDescription</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>DetailsUrl</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Image</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>DisplayName</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Description</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>InstanceType</td>
+        <td>System.Type</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Uri</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Hosts</td>
+        <td>
+          <a href="Orion.VIM.Hosts.html">Orion.VIM.Hosts</a>
+        </td>
+        <td>
+        Defined by relationship Orion.VIM.ClusterToHostsMappingReference (System.Reference)
+      </td>
+      </tr>
+      <tr>
+        <td>ClusterStatistics</td>
+        <td>
+          <a href="Orion.VIM.ClusterStatistics.html">Orion.VIM.ClusterStatistics</a>
+        </td>
+        <td>
+        Defined by relationship Orion.VIM.ClusterClusterStatistics (System.Hosting)
+      </td>
+      </tr>
+      <tr>
+        <td>DataCenter</td>
+        <td>
+          <a href="Orion.VIM.DataCenters.html">Orion.VIM.DataCenters</a>
+        </td>
+        <td>
+        Defined by relationship Orion.VIM.DataCenterToClustersMappingReference (System.Reference)
+      </td>
+      </tr>
+    </table>
+  </body>
+</html>

@@ -1,0 +1,157 @@
+﻿
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <title>SolarWinds Information Service v3.0 Schema Documentation</title>
+    <link href="SchemaDoc.css" type="text/css" rel="stylesheet" />
+  </head>
+  <body>
+    <h1>SolarWinds Information Service v3.0 Schema Documentation</h1>
+    <p>
+      <a href="index.html">Index</a>
+    </p>
+    <h1>
+      <a name="IPAM.IPHistory">IPAM.IPHistory</a>
+    </h1>
+    <p>
+        Base type:
+        <a href="System.Entity.html">System.Entity</a></p>
+    <h2>Properties</h2>
+    <table>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Notes</th>
+      </tr>
+      <tr>
+        <td>HistoryId</td>
+        <td>System.Int32</td>
+        <td />
+      </tr>
+      <tr>
+        <td>IPNodeId</td>
+        <td>System.Int32</td>
+        <td />
+      </tr>
+      <tr>
+        <td>IPAddress</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>IPAddressN</td>
+        <td>System.Guid</td>
+        <td />
+      </tr>
+      <tr>
+        <td>HistoryType</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>HistoryTypeN</td>
+        <td>System.Byte</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Time</td>
+        <td>System.DateTime</td>
+        <td />
+      </tr>
+      <tr>
+        <td>UserName</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>FromValue</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>IntoValue</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Source</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>SourceN</td>
+        <td>System.Byte</td>
+        <td />
+      </tr>
+      <tr>
+        <td>ModifiedBy</td>
+        <td>System.Int16</td>
+        <td />
+      </tr>
+      <tr>
+        <td>ICMP</td>
+        <td>System.Boolean</td>
+        <td />
+      </tr>
+      <tr>
+        <td>SNMP</td>
+        <td>System.Boolean</td>
+        <td />
+      </tr>
+      <tr>
+        <td>DNS</td>
+        <td>System.Boolean</td>
+        <td />
+      </tr>
+      <tr>
+        <td>DHCP</td>
+        <td>System.Boolean</td>
+        <td />
+      </tr>
+      <tr>
+        <td>ARP</td>
+        <td>System.Boolean</td>
+        <td />
+      </tr>
+      <tr>
+        <td>DisplayName</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Description</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>InstanceType</td>
+        <td>System.Type</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Uri</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>IPNode</td>
+        <td>
+          <a href="IPAM.IPNode.html">IPAM.IPNode</a>
+        </td>
+        <td>
+        Defined by relationship IPAM.IPNodeHostsIPHistory (System.Hosting)
+      </td>
+      </tr>
+      <tr>
+        <td>IPNodeGrid</td>
+        <td>
+          <a href="IPAM.IPNodeGrid.html">IPAM.IPNodeGrid</a>
+        </td>
+        <td>
+        Defined by relationship IPAM.IPNodeGridRefIPHistory (System.Reference)
+      </td>
+      </tr>
+    </table>
+  </body>
+</html>

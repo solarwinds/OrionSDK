@@ -1,0 +1,226 @@
+﻿
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <title>SolarWinds Information Service v3.0 Schema Documentation</title>
+    <link href="SchemaDoc.css" type="text/css" rel="stylesheet" />
+  </head>
+  <body>
+    <h1>SolarWinds Information Service v3.0 Schema Documentation</h1>
+    <p>
+      <a href="index.html">Index</a>
+    </p>
+    <h1>
+      <a name="Orion.APM.IIS.Application">Orion.APM.IIS.Application</a>
+    </h1>
+    <p>
+        Base type:
+        <a href="Orion.APM.Application.html">Orion.APM.Application</a></p>
+    <p>
+        Summary:
+        
+			This entity presents SAM application.
+		</p>
+    <h2>Properties</h2>
+    <table>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Notes</th>
+      </tr>
+      <tr>
+        <td>AdditionalJobStatus</td>
+        <td>System.Int32</td>
+        <td>Status of the additional job.'
+        </td>
+      </tr>
+      <tr>
+        <td>AdditionalJobTimeStamp</td>
+        <td>System.DateTime</td>
+        <td>Timestamp of the additional job.'
+        </td>
+      </tr>
+      <tr>
+        <td>ApplicationID</td>
+        <td>System.Int32</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Name</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>NodeID</td>
+        <td>System.Int32</td>
+        <td />
+      </tr>
+      <tr>
+        <td>ApplicationTemplateID</td>
+        <td>System.Int32</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Unmanaged</td>
+        <td>System.Boolean</td>
+        <td />
+      </tr>
+      <tr>
+        <td>UnmanageFrom</td>
+        <td>System.DateTime</td>
+        <td />
+      </tr>
+      <tr>
+        <td>UnmanageUntil</td>
+        <td>System.DateTime</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Created</td>
+        <td>System.DateTime</td>
+        <td />
+      </tr>
+      <tr>
+        <td>LastModified</td>
+        <td>System.DateTime</td>
+        <td />
+      </tr>
+      <tr>
+        <td>ID</td>
+        <td>System.Int32</td>
+        <td />
+      </tr>
+      <tr>
+        <td>FullyQualifiedName</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>ComponentOrderSettingLevel</td>
+        <td>System.Int32</td>
+        <td />
+      </tr>
+      <tr>
+        <td>CustomApplicationType</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>HasCredentials</td>
+        <td>System.Boolean</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Description</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Status</td>
+        <td>System.Int32</td>
+        <td />
+      </tr>
+      <tr>
+        <td>StatusDescription</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Status</td>
+        <td>System.Int32</td>
+        <td />
+      </tr>
+      <tr>
+        <td>StatusDescription</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>StatusLED</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>UnManaged</td>
+        <td>System.Boolean</td>
+        <td>
+          Default='false'.
+        </td>
+      </tr>
+      <tr>
+        <td>UnManageFrom</td>
+        <td>System.DateTime</td>
+        <td />
+      </tr>
+      <tr>
+        <td>UnManageUntil</td>
+        <td>System.DateTime</td>
+        <td />
+      </tr>
+      <tr>
+        <td>DetailsUrl</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Image</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>AncestorDisplayNames</td>
+        <td>System.String[]</td>
+        <td />
+      </tr>
+      <tr>
+        <td>AncestorDetailsUrls</td>
+        <td>System.String[]</td>
+        <td />
+      </tr>
+      <tr>
+        <td>StatusIconHint</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>DisplayName</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Description</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>InstanceType</td>
+        <td>System.Type</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Uri</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Site</td>
+        <td>
+          <a href="Orion.APM.IIS.Site.html">Orion.APM.IIS.Site</a>
+        </td>
+        <td>
+        Defined by relationship Orion.APM.IIS.ApplicationHostsSite (System.Hosting)
+      </td>
+      </tr>
+      <tr>
+        <td>ApplicationPool</td>
+        <td>
+          <a href="Orion.APM.IIS.ApplicationPool.html">Orion.APM.IIS.ApplicationPool</a>
+        </td>
+        <td>
+        Defined by relationship Orion.APM.IIS.ApplicationHostsApplicationPool (System.Hosting)
+      </td>
+      </tr>
+    </table>
+  </body>
+</html>

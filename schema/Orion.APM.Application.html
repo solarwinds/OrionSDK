@@ -1,0 +1,300 @@
+﻿
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <title>SolarWinds Information Service v3.0 Schema Documentation</title>
+    <link href="SchemaDoc.css" type="text/css" rel="stylesheet" />
+  </head>
+  <body>
+    <h1>SolarWinds Information Service v3.0 Schema Documentation</h1>
+    <p>
+      <a href="index.html">Index</a>
+    </p>
+    <h1>
+      <a name="Orion.APM.Application">Orion.APM.Application</a>
+    </h1>
+    <p>Abstract</p>
+    <p>
+        Base type:
+        <a href="System.ManagedEntity.html">System.ManagedEntity</a></p>
+    <h2>Properties</h2>
+    <table>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Notes</th>
+      </tr>
+      <tr>
+        <td>ApplicationID</td>
+        <td>System.Int32</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Name</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>NodeID</td>
+        <td>System.Int32</td>
+        <td />
+      </tr>
+      <tr>
+        <td>ApplicationTemplateID</td>
+        <td>System.Int32</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Unmanaged</td>
+        <td>System.Boolean</td>
+        <td />
+      </tr>
+      <tr>
+        <td>UnmanageFrom</td>
+        <td>System.DateTime</td>
+        <td />
+      </tr>
+      <tr>
+        <td>UnmanageUntil</td>
+        <td>System.DateTime</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Created</td>
+        <td>System.DateTime</td>
+        <td />
+      </tr>
+      <tr>
+        <td>LastModified</td>
+        <td>System.DateTime</td>
+        <td />
+      </tr>
+      <tr>
+        <td>ID</td>
+        <td>System.Int32</td>
+        <td />
+      </tr>
+      <tr>
+        <td>FullyQualifiedName</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>ComponentOrderSettingLevel</td>
+        <td>System.Int32</td>
+        <td />
+      </tr>
+      <tr>
+        <td>CustomApplicationType</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>HasCredentials</td>
+        <td>System.Boolean</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Description</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Status</td>
+        <td>System.Int32</td>
+        <td />
+      </tr>
+      <tr>
+        <td>StatusDescription</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Status</td>
+        <td>System.Int32</td>
+        <td />
+      </tr>
+      <tr>
+        <td>StatusDescription</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>StatusLED</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>UnManaged</td>
+        <td>System.Boolean</td>
+        <td>
+          Default='false'.
+        </td>
+      </tr>
+      <tr>
+        <td>UnManageFrom</td>
+        <td>System.DateTime</td>
+        <td />
+      </tr>
+      <tr>
+        <td>UnManageUntil</td>
+        <td>System.DateTime</td>
+        <td />
+      </tr>
+      <tr>
+        <td>DetailsUrl</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Image</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>AncestorDisplayNames</td>
+        <td>System.String[]</td>
+        <td />
+      </tr>
+      <tr>
+        <td>AncestorDetailsUrls</td>
+        <td>System.String[]</td>
+        <td />
+      </tr>
+      <tr>
+        <td>StatusIconHint</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>DisplayName</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Description</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>InstanceType</td>
+        <td>System.Type</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Uri</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>CustomProperties</td>
+        <td>
+          <a href="Orion.APM.ApplicationCustomProperties.html">Orion.APM.ApplicationCustomProperties</a>
+        </td>
+        <td>
+        Defined by relationship Orion.APM.ApplicationHostsCustomProperties (System.Hosting)
+      </td>
+      </tr>
+      <tr>
+        <td>WebUri</td>
+        <td>
+          <a href="Orion.APM.ApplicationWebUri.html">Orion.APM.ApplicationWebUri</a>
+        </td>
+        <td>
+        Defined by relationship Orion.APM.ApplicationHostsWebUri (System.Hosting)
+      </td>
+      </tr>
+      <tr>
+        <td>CurrentStatus</td>
+        <td>
+          <a href="Orion.APM.CurrentApplicationStatus.html">Orion.APM.CurrentApplicationStatus</a>
+        </td>
+        <td>
+        Defined by relationship Orion.APM.ApplicationHostsCurrentStatus (System.Hosting)
+      </td>
+      </tr>
+      <tr>
+        <td>Components</td>
+        <td>
+          <a href="Orion.APM.Component.html">Orion.APM.Component</a>
+        </td>
+        <td>
+        Defined by relationship Orion.APM.ApplicationHostsComponent (System.Hosting)
+      </td>
+      </tr>
+      <tr>
+        <td>ApplicationStatus</td>
+        <td>
+          <a href="Orion.APM.ApplicationStatus.html">Orion.APM.ApplicationStatus</a>
+        </td>
+        <td>
+        Defined by relationship Orion.APM.ApplicationHostsStatus (System.Hosting)
+      </td>
+      </tr>
+      <tr>
+        <td>RelyNode</td>
+        <td>
+          <a href="Orion.Nodes.html">Orion.Nodes</a>
+        </td>
+        <td>
+        Defined by relationship Orion.Rely.APM.ApplicationRelyOnNodes (System.Reliance)
+      </td>
+      </tr>
+      <tr>
+        <td>Node</td>
+        <td>
+          <a href="Orion.Nodes.html">Orion.Nodes</a>
+        </td>
+        <td>
+        Defined by relationship Orion.APM.NodeHostsApplication (System.Hosting)
+      </td>
+      </tr>
+      <tr>
+        <td>Template</td>
+        <td>
+          <a href="Orion.APM.ApplicationTemplate.html">Orion.APM.ApplicationTemplate</a>
+        </td>
+        <td>
+        Defined by relationship Orion.APM.ApplicationTemplateReferencesApplication (System.Reference)
+      </td>
+      </tr>
+      <tr>
+        <td>ApplicationAlert</td>
+        <td>
+          <a href="Orion.APM.ApplicationAlert.html">Orion.APM.ApplicationAlert</a>
+        </td>
+        <td>
+        Defined by relationship Orion.APM.ApplicationAlertReferencesApplication (System.Reference)
+      </td>
+      </tr>
+    </table>
+    <h2>Verbs</h2>
+    <table>
+      <tr>
+        <th>Name</th>
+        <th>Summary</th>
+      </tr>
+      <tr>
+        <td>Unmanage</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Remanage</td>
+        <td />
+      </tr>
+      <tr>
+        <td>CreateApplication</td>
+        <td />
+      </tr>
+      <tr>
+        <td>DeleteApplication</td>
+        <td />
+      </tr>
+      <tr>
+        <td>PollNow</td>
+        <td />
+      </tr>
+    </table>
+  </body>
+</html>

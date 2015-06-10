@@ -1,0 +1,235 @@
+﻿
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <title>SolarWinds Information Service v3.0 Schema Documentation</title>
+    <link href="SchemaDoc.css" type="text/css" rel="stylesheet" />
+  </head>
+  <body>
+    <h1>SolarWinds Information Service v3.0 Schema Documentation</h1>
+    <p>
+      <a href="index.html">Index</a>
+    </p>
+    <h1>
+      <a name="Orion.AssetInventory.Polling">Orion.AssetInventory.Polling</a>
+    </h1>
+    <p>
+        Base type:
+        <a href="System.Entity.html">System.Entity</a></p>
+    <h2>Properties</h2>
+    <table>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Notes</th>
+      </tr>
+      <tr>
+        <td>NodeID</td>
+        <td>System.Int32</td>
+        <td />
+      </tr>
+      <tr>
+        <td>PollingDescriptionName</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>LastPollDateTime</td>
+        <td>System.DateTime</td>
+        <td />
+      </tr>
+      <tr>
+        <td>DisplayName</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Description</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>InstanceType</td>
+        <td>System.Type</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Uri</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>ServerInformation</td>
+        <td>
+          <a href="Orion.AssetInventory.ServerInformation.html">Orion.AssetInventory.ServerInformation</a>
+        </td>
+        <td>
+        Defined by relationship Orion.AssetInventory.NodesAIServerInformation (System.Reference)
+      </td>
+      </tr>
+      <tr>
+        <td>Processor</td>
+        <td>
+          <a href="Orion.AssetInventory.Processor.html">Orion.AssetInventory.Processor</a>
+        </td>
+        <td>
+        Defined by relationship Orion.AssetInventory.NodesAIProcessor (System.Reference)
+      </td>
+      </tr>
+      <tr>
+        <td>MemoryModule</td>
+        <td>
+          <a href="Orion.AssetInventory.MemoryModule.html">Orion.AssetInventory.MemoryModule</a>
+        </td>
+        <td>
+        Defined by relationship Orion.AssetInventory.NodesAIMemoryModule (System.Reference)
+      </td>
+      </tr>
+      <tr>
+        <td>HardDrive</td>
+        <td>
+          <a href="Orion.AssetInventory.HardDrive.html">Orion.AssetInventory.HardDrive</a>
+        </td>
+        <td>
+        Defined by relationship Orion.AssetInventory.NodesAIHardDrive (System.Reference)
+      </td>
+      </tr>
+      <tr>
+        <td>LogicalDrive</td>
+        <td>
+          <a href="Orion.AssetInventory.LogicalDrive.html">Orion.AssetInventory.LogicalDrive</a>
+        </td>
+        <td>
+        Defined by relationship Orion.AssetInventory.NodesAILogicalDrive (System.Reference)
+      </td>
+      </tr>
+      <tr>
+        <td>Software</td>
+        <td>
+          <a href="Orion.AssetInventory.Software.html">Orion.AssetInventory.Software</a>
+        </td>
+        <td>
+        Defined by relationship Orion.AssetInventory.NodesAISoftware (System.Reference)
+      </td>
+      </tr>
+      <tr>
+        <td>Driver</td>
+        <td>
+          <a href="Orion.AssetInventory.Driver.html">Orion.AssetInventory.Driver</a>
+        </td>
+        <td>
+        Defined by relationship Orion.AssetInventory.NodesAIDriver (System.Reference)
+      </td>
+      </tr>
+      <tr>
+        <td>USBController</td>
+        <td>
+          <a href="Orion.AssetInventory.USBController.html">Orion.AssetInventory.USBController</a>
+        </td>
+        <td>
+        Defined by relationship Orion.AssetInventory.NodesAIUSBController (System.Reference)
+      </td>
+      </tr>
+      <tr>
+        <td>NetworkInterface</td>
+        <td>
+          <a href="Orion.AssetInventory.NetworkInterface.html">Orion.AssetInventory.NetworkInterface</a>
+        </td>
+        <td>
+        Defined by relationship Orion.AssetInventory.NodesAINetworkInterface (System.Reference)
+      </td>
+      </tr>
+      <tr>
+        <td>VideoCard</td>
+        <td>
+          <a href="Orion.AssetInventory.VideoCard.html">Orion.AssetInventory.VideoCard</a>
+        </td>
+        <td>
+        Defined by relationship Orion.AssetInventory.NodesAIVideoCard (System.Reference)
+      </td>
+      </tr>
+      <tr>
+        <td>SoundCard</td>
+        <td>
+          <a href="Orion.AssetInventory.SoundCard.html">Orion.AssetInventory.SoundCard</a>
+        </td>
+        <td>
+        Defined by relationship Orion.AssetInventory.NodesAISoundCard (System.Reference)
+      </td>
+      </tr>
+      <tr>
+        <td>Monitor</td>
+        <td>
+          <a href="Orion.AssetInventory.Monitor.html">Orion.AssetInventory.Monitor</a>
+        </td>
+        <td>
+        Defined by relationship Orion.AssetInventory.NodesAIMonitor (System.Reference)
+      </td>
+      </tr>
+      <tr>
+        <td>Peripherals</td>
+        <td>
+          <a href="Orion.AssetInventory.Peripherals.html">Orion.AssetInventory.Peripherals</a>
+        </td>
+        <td>
+        Defined by relationship Orion.AssetInventory.NodesAIPeripherals (System.Reference)
+      </td>
+      </tr>
+      <tr>
+        <td>RemovableMedia</td>
+        <td>
+          <a href="Orion.AssetInventory.RemovableMedia.html">Orion.AssetInventory.RemovableMedia</a>
+        </td>
+        <td>
+        Defined by relationship Orion.AssetInventory.NodesAIRemovableMedia (System.Reference)
+      </td>
+      </tr>
+      <tr>
+        <td>Firmware</td>
+        <td>
+          <a href="Orion.AssetInventory.Firmware.html">Orion.AssetInventory.Firmware</a>
+        </td>
+        <td>
+        Defined by relationship Orion.AssetInventory.NodesAIFirmware (System.Reference)
+      </td>
+      </tr>
+      <tr>
+        <td>StorageController</td>
+        <td>
+          <a href="Orion.AssetInventory.StorageController.html">Orion.AssetInventory.StorageController</a>
+        </td>
+        <td>
+        Defined by relationship Orion.AssetInventory.NodesAIStorageController (System.Reference)
+      </td>
+      </tr>
+      <tr>
+        <td>OutOfBandManagement</td>
+        <td>
+          <a href="Orion.AssetInventory.OutOfBandManagement.html">Orion.AssetInventory.OutOfBandManagement</a>
+        </td>
+        <td>
+        Defined by relationship Orion.AssetInventory.NodesAIOutOfBandManagement (System.Reference)
+      </td>
+      </tr>
+      <tr>
+        <td>OSUpdates</td>
+        <td>
+          <a href="Orion.AssetInventory.OSUpdates.html">Orion.AssetInventory.OSUpdates</a>
+        </td>
+        <td>
+        Defined by relationship Orion.AssetInventory.NodesAIOSUpdates (System.Reference)
+      </td>
+      </tr>
+      <tr>
+        <td>Node</td>
+        <td>
+          <a href="Orion.Nodes.html">Orion.Nodes</a>
+        </td>
+        <td>
+        Defined by relationship Orion.AssetInventory.NodesAIPolling (System.Reference)
+      </td>
+      </tr>
+    </table>
+  </body>
+</html>

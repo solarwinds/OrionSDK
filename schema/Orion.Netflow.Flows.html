@@ -1,0 +1,324 @@
+﻿
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <title>SolarWinds Information Service v3.0 Schema Documentation</title>
+    <link href="SchemaDoc.css" type="text/css" rel="stylesheet" />
+  </head>
+  <body>
+    <h1>SolarWinds Information Service v3.0 Schema Documentation</h1>
+    <p>
+      <a href="index.html">Index</a>
+    </p>
+    <h1>
+      <a name="Orion.Netflow.Flows">Orion.Netflow.Flows</a>
+    </h1>
+    <p>
+        Base type:
+        <a href="System.StatisticsEntity.html">System.StatisticsEntity</a></p>
+    <h2>Properties</h2>
+    <table>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Notes</th>
+      </tr>
+      <tr>
+        <td>ApplicationID</td>
+        <td>System.Int32</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Bytes</td>
+        <td>System.Single</td>
+        <td />
+      </tr>
+      <tr>
+        <td>DestinationASID</td>
+        <td>System.Int32</td>
+        <td />
+      </tr>
+      <tr>
+        <td>DestinationCountryCode</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>DestinationDomain</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>DestinationHostname</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>DestinationIP</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>DestinationIPGroupSegmentID</td>
+        <td>System.Int32</td>
+        <td />
+      </tr>
+      <tr>
+        <td>InterfaceIDRx</td>
+        <td>System.Int32</td>
+        <td />
+      </tr>
+      <tr>
+        <td>InterfaceIDTx</td>
+        <td>System.Int32</td>
+        <td />
+      </tr>
+      <tr>
+        <td>NodeID</td>
+        <td>System.Int32</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Packets</td>
+        <td>System.Single</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Port</td>
+        <td>System.Int32</td>
+        <td />
+      </tr>
+      <tr>
+        <td>ProtocolID</td>
+        <td>System.Byte</td>
+        <td />
+      </tr>
+      <tr>
+        <td>SourceASID</td>
+        <td>System.Int32</td>
+        <td />
+      </tr>
+      <tr>
+        <td>SourceCountryCode</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>SourceDomain</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>SourceHostname</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>SourceIP</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>SourceIPGroupSegmentID</td>
+        <td>System.Int32</td>
+        <td />
+      </tr>
+      <tr>
+        <td>TimeStamp</td>
+        <td>System.DateTime</td>
+        <td />
+      </tr>
+      <tr>
+        <td>ToSID</td>
+        <td>System.Int32</td>
+        <td />
+      </tr>
+      <tr>
+        <td>IngressBytes</td>
+        <td>System.Single</td>
+        <td />
+      </tr>
+      <tr>
+        <td>EgressBytes</td>
+        <td>System.Single</td>
+        <td />
+      </tr>
+      <tr>
+        <td>IngressPackets</td>
+        <td>System.Single</td>
+        <td />
+      </tr>
+      <tr>
+        <td>EgressPackets</td>
+        <td>System.Single</td>
+        <td />
+      </tr>
+      <tr>
+        <td>TotalBytes</td>
+        <td>System.Single</td>
+        <td />
+      </tr>
+      <tr>
+        <td>TotalPackets</td>
+        <td>System.Single</td>
+        <td />
+      </tr>
+      <tr>
+        <td>EnabledApplicationID</td>
+        <td>System.Int32</td>
+        <td />
+      </tr>
+      <tr>
+        <td>ApplicationEnabled</td>
+        <td>System.Boolean</td>
+        <td />
+      </tr>
+      <tr>
+        <td>ObservationTimestamp</td>
+        <td>System.DateTime</td>
+        <td />
+      </tr>
+      <tr>
+        <td>ObservationFrequency</td>
+        <td>System.DateTime</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Weight</td>
+        <td>System.Double</td>
+        <td>
+          Default='1.0'.
+        </td>
+      </tr>
+      <tr>
+        <td>DisplayName</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Description</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>InstanceType</td>
+        <td>System.Type</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Uri</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Node</td>
+        <td>
+          <a href="Orion.Nodes.html">Orion.Nodes</a>
+        </td>
+        <td>
+        Defined by relationship Orion.Netflow.NodesReferencesFlows (System.Reference)
+      </td>
+      </tr>
+      <tr>
+        <td>IngressInterface</td>
+        <td>
+          <a href="Orion.NPM.Interfaces.html">Orion.NPM.Interfaces</a>
+        </td>
+        <td>
+        Defined by relationship Orion.Netflow.IngressInterfacesReferencesFlows (System.Reference)
+      </td>
+      </tr>
+      <tr>
+        <td>EgressInterface</td>
+        <td>
+          <a href="Orion.NPM.Interfaces.html">Orion.NPM.Interfaces</a>
+        </td>
+        <td>
+        Defined by relationship Orion.Netflow.EgressInterfacesReferencesFlows (System.Reference)
+      </td>
+      </tr>
+      <tr>
+        <td>Protocol</td>
+        <td>
+          <a href="Orion.Netflow.Protocols.html">Orion.Netflow.Protocols</a>
+        </td>
+        <td>
+        Defined by relationship Orion.Netflow.ProtocolsReferencesFlows (System.Reference)
+      </td>
+      </tr>
+      <tr>
+        <td>ToS</td>
+        <td>
+          <a href="Orion.Netflow.TypesOfService.html">Orion.Netflow.TypesOfService</a>
+        </td>
+        <td>
+        Defined by relationship Orion.Netflow.TypesOfServiceReferencesFlows (System.Reference)
+      </td>
+      </tr>
+      <tr>
+        <td>SourceAutonomousSystem</td>
+        <td>
+          <a href="Orion.Netflow.AutonomousSystems.html">Orion.Netflow.AutonomousSystems</a>
+        </td>
+        <td>
+        Defined by relationship Orion.Netflow.SourceAutonomousSystemsReferencesFlows (System.Reference)
+      </td>
+      </tr>
+      <tr>
+        <td>DestinationAutonomousSystem</td>
+        <td>
+          <a href="Orion.Netflow.AutonomousSystems.html">Orion.Netflow.AutonomousSystems</a>
+        </td>
+        <td>
+        Defined by relationship Orion.Netflow.DestinationAutonomousSystemsReferencesFlows (System.Reference)
+      </td>
+      </tr>
+      <tr>
+        <td>SourceCountry</td>
+        <td>
+          <a href="Orion.Netflow.Countries.html">Orion.Netflow.Countries</a>
+        </td>
+        <td>
+        Defined by relationship Orion.Netflow.SourceCountryReferencesFlows (System.Reference)
+      </td>
+      </tr>
+      <tr>
+        <td>DestinationCountry</td>
+        <td>
+          <a href="Orion.Netflow.Countries.html">Orion.Netflow.Countries</a>
+        </td>
+        <td>
+        Defined by relationship Orion.Netflow.DestinationCountryReferencesFlows (System.Reference)
+      </td>
+      </tr>
+      <tr>
+        <td>Application</td>
+        <td>
+          <a href="Orion.Netflow.Applications.html">Orion.Netflow.Applications</a>
+        </td>
+        <td>
+        Defined by relationship Orion.Netflow.ApplicationReferencesFlows (System.Reference)
+      </td>
+      </tr>
+      <tr>
+        <td>SourceIPGroup</td>
+        <td>
+          <a href="Orion.Netflow.IPAddressGroups.html">Orion.Netflow.IPAddressGroups</a>
+        </td>
+        <td>
+        Defined by relationship Orion.Netflow.SourceIPAddressGroupsReferencesFlows (System.Reference)
+      </td>
+      </tr>
+      <tr>
+        <td>DestinationIPGroup</td>
+        <td>
+          <a href="Orion.Netflow.IPAddressGroups.html">Orion.Netflow.IPAddressGroups</a>
+        </td>
+        <td>
+        Defined by relationship Orion.Netflow.DestinationIPAddressGroupsReferencesFlows (System.Reference)
+      </td>
+      </tr>
+    </table>
+  </body>
+</html>

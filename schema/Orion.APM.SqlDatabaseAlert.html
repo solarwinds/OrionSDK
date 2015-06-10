@@ -1,0 +1,152 @@
+﻿
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <title>SolarWinds Information Service v3.0 Schema Documentation</title>
+    <link href="SchemaDoc.css" type="text/css" rel="stylesheet" />
+  </head>
+  <body>
+    <h1>SolarWinds Information Service v3.0 Schema Documentation</h1>
+    <p>
+      <a href="index.html">Index</a>
+    </p>
+    <h1>
+      <a name="Orion.APM.SqlDatabaseAlert">Orion.APM.SqlDatabaseAlert</a>
+    </h1>
+    <p>
+        Base type:
+        <a href="System.Entity.html">System.Entity</a></p>
+    <h2>Properties</h2>
+    <table>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Notes</th>
+      </tr>
+      <tr>
+        <td>ApplicationID</td>
+        <td>System.Int32</td>
+        <td />
+      </tr>
+      <tr>
+        <td>DatabaseID</td>
+        <td>System.Int32</td>
+        <td />
+      </tr>
+      <tr>
+        <td>DatabaseName</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Collation</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>OperationalState</td>
+        <td>System.Int32</td>
+        <td />
+      </tr>
+      <tr>
+        <td>RecoveryModel</td>
+        <td>System.Byte</td>
+        <td />
+      </tr>
+      <tr>
+        <td>CompatibilityLevel</td>
+        <td>System.Byte</td>
+        <td />
+      </tr>
+      <tr>
+        <td>LastBackup</td>
+        <td>System.DateTime</td>
+        <td />
+      </tr>
+      <tr>
+        <td>DatabaseSize</td>
+        <td>System.Int64</td>
+        <td />
+      </tr>
+      <tr>
+        <td>DatabaseFreeSpace</td>
+        <td>System.Int64</td>
+        <td />
+      </tr>
+      <tr>
+        <td>DatabaseFreeSpaceInPercents</td>
+        <td>System.Int64</td>
+        <td />
+      </tr>
+      <tr>
+        <td>TransactionLogSize</td>
+        <td>System.Int64</td>
+        <td />
+      </tr>
+      <tr>
+        <td>TransactionLogFreeSpace</td>
+        <td>System.Int64</td>
+        <td />
+      </tr>
+      <tr>
+        <td>TransactionLogFreeSpaceInPercents</td>
+        <td>System.Int64</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Status</td>
+        <td>System.Int32</td>
+        <td />
+      </tr>
+      <tr>
+        <td>DisplayStatus</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>DatabaseTimeStamp</td>
+        <td>System.DateTime</td>
+        <td />
+      </tr>
+      <tr>
+        <td>DisplayName</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Description</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>InstanceType</td>
+        <td>System.Type</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Uri</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>SqlDatabase</td>
+        <td>
+          <a href="Orion.APM.SqlDatabase.html">Orion.APM.SqlDatabase</a>
+        </td>
+        <td>
+        Defined by relationship Orion.APM.SqlDatabaseAlertReferencesSqlDatabase (System.Reference)
+      </td>
+      </tr>
+      <tr>
+        <td>SqlApplicationAlert</td>
+        <td>
+          <a href="Orion.APM.SqlServerApplicationAlert.html">Orion.APM.SqlServerApplicationAlert</a>
+        </td>
+        <td>
+        Defined by relationship Orion.APM.SqlServerApplicationAlertHostsSqlDatabaseAlert (System.Hosting)
+      </td>
+      </tr>
+    </table>
+  </body>
+</html>

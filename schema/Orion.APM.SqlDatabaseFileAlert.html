@@ -1,0 +1,197 @@
+﻿
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <title>SolarWinds Information Service v3.0 Schema Documentation</title>
+    <link href="SchemaDoc.css" type="text/css" rel="stylesheet" />
+  </head>
+  <body>
+    <h1>SolarWinds Information Service v3.0 Schema Documentation</h1>
+    <p>
+      <a href="index.html">Index</a>
+    </p>
+    <h1>
+      <a name="Orion.APM.SqlDatabaseFileAlert">Orion.APM.SqlDatabaseFileAlert</a>
+    </h1>
+    <p>
+        Base type:
+        <a href="System.Entity.html">System.Entity</a></p>
+    <h2>Properties</h2>
+    <table>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Notes</th>
+      </tr>
+      <tr>
+        <td>ApplicationID</td>
+        <td>System.Int32</td>
+        <td />
+      </tr>
+      <tr>
+        <td>DatabaseID</td>
+        <td>System.Int32</td>
+        <td />
+      </tr>
+      <tr>
+        <td>VolumeID</td>
+        <td>System.Int32</td>
+        <td />
+      </tr>
+      <tr>
+        <td>VolumeCaption</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>VolumeStatus</td>
+        <td>System.Int32</td>
+        <td />
+      </tr>
+      <tr>
+        <td>VolumeDisplayStatus</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>VolumeQueueLength</td>
+        <td>System.Double</td>
+        <td />
+      </tr>
+      <tr>
+        <td>VolumeLatency</td>
+        <td>System.Double</td>
+        <td />
+      </tr>
+      <tr>
+        <td>VolumeLatencyInMilliseconds</td>
+        <td>System.Double</td>
+        <td />
+      </tr>
+      <tr>
+        <td>VolumeTotalDiskIOPS</td>
+        <td>System.Double</td>
+        <td />
+      </tr>
+      <tr>
+        <td>ID</td>
+        <td>System.Int32</td>
+        <td />
+      </tr>
+      <tr>
+        <td>FileName</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>PhysicalName</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>FileType</td>
+        <td>System.Byte</td>
+        <td />
+      </tr>
+      <tr>
+        <td>DatabaseFileStatus</td>
+        <td>System.Int32</td>
+        <td />
+      </tr>
+      <tr>
+        <td>DatabaseFileDisplayStatus</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>DatabaseFileTimeStamp</td>
+        <td>System.DateTime</td>
+        <td />
+      </tr>
+      <tr>
+        <td>AutoGrowth</td>
+        <td>System.Byte</td>
+        <td />
+      </tr>
+      <tr>
+        <td>AvailableAutoGrowSpace</td>
+        <td>System.Int64</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Growth</td>
+        <td>System.Int32</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Size</td>
+        <td>System.Int64</td>
+        <td />
+      </tr>
+      <tr>
+        <td>MaxSize</td>
+        <td>System.Int64</td>
+        <td />
+      </tr>
+      <tr>
+        <td>UsedSpace</td>
+        <td>System.Int64</td>
+        <td />
+      </tr>
+      <tr>
+        <td>DatabaseFileFreeSpace</td>
+        <td>System.Int64</td>
+        <td />
+      </tr>
+      <tr>
+        <td>DatabaseFileFreeSpaceInPercents</td>
+        <td>System.Int64</td>
+        <td />
+      </tr>
+      <tr>
+        <td>IsPercentGrowth</td>
+        <td>System.Boolean</td>
+        <td />
+      </tr>
+      <tr>
+        <td>DisplayName</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Description</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>InstanceType</td>
+        <td>System.Type</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Uri</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>SqlDatabase</td>
+        <td>
+          <a href="Orion.APM.SqlDatabase.html">Orion.APM.SqlDatabase</a>
+        </td>
+        <td>
+        Defined by relationship Orion.APM.SqlDatabaseFileAlertReferencesSqlDatabase (System.Reference)
+      </td>
+      </tr>
+      <tr>
+        <td>SqlApplicationAlert</td>
+        <td>
+          <a href="Orion.APM.SqlServerApplicationAlert.html">Orion.APM.SqlServerApplicationAlert</a>
+        </td>
+        <td>
+        Defined by relationship Orion.APM.SqlServerApplicationAlertHostsSqlDatabaseFileAlert (System.Hosting)
+      </td>
+      </tr>
+    </table>
+  </body>
+</html>

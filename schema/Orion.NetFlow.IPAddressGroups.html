@@ -1,0 +1,82 @@
+﻿
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <title>SolarWinds Information Service v3.0 Schema Documentation</title>
+    <link href="SchemaDoc.css" type="text/css" rel="stylesheet" />
+  </head>
+  <body>
+    <h1>SolarWinds Information Service v3.0 Schema Documentation</h1>
+    <p>
+      <a href="index.html">Index</a>
+    </p>
+    <h1>
+      <a name="Orion.Netflow.IPAddressGroups">Orion.Netflow.IPAddressGroups</a>
+    </h1>
+    <p>
+        Base type:
+        <a href="System.Entity.html">System.Entity</a></p>
+    <h2>Properties</h2>
+    <table>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Notes</th>
+      </tr>
+      <tr>
+        <td>IPAddressGroupID</td>
+        <td>System.Int32</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Name</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Enabled</td>
+        <td>System.Boolean</td>
+        <td />
+      </tr>
+      <tr>
+        <td>DisplayName</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Description</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>InstanceType</td>
+        <td>System.Type</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Uri</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>SourceFlows</td>
+        <td>
+          <a href="Orion.Netflow.Flows.html">Orion.Netflow.Flows</a>
+        </td>
+        <td>
+        Defined by relationship Orion.Netflow.SourceIPAddressGroupsReferencesFlows (System.Reference)
+      </td>
+      </tr>
+      <tr>
+        <td>DestinationFlows</td>
+        <td>
+          <a href="Orion.Netflow.Flows.html">Orion.Netflow.Flows</a>
+        </td>
+        <td>
+        Defined by relationship Orion.Netflow.DestinationIPAddressGroupsReferencesFlows (System.Reference)
+      </td>
+      </tr>
+    </table>
+  </body>
+</html>

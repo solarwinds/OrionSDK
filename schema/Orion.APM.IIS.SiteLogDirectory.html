@@ -1,0 +1,138 @@
+﻿
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <title>SolarWinds Information Service v3.0 Schema Documentation</title>
+    <link href="SchemaDoc.css" type="text/css" rel="stylesheet" />
+  </head>
+  <body>
+    <h1>SolarWinds Information Service v3.0 Schema Documentation</h1>
+    <p>
+      <a href="index.html">Index</a>
+    </p>
+    <h1>
+      <a name="Orion.APM.IIS.SiteLogDirectory">Orion.APM.IIS.SiteLogDirectory</a>
+    </h1>
+    <p>
+        Base type:
+        <a href="System.Entity.html">System.Entity</a></p>
+    <p>
+        Summary:
+        
+			This entity presents details of site's log file's.
+		</p>
+    <h2>Properties</h2>
+    <table>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Notes</th>
+      </tr>
+      <tr>
+        <td>SiteID</td>
+        <td>System.Int32</td>
+        <td>The unique integer representation of target site.'
+        </td>
+      </tr>
+      <tr>
+        <td>SiteName</td>
+        <td>System.String</td>
+        <td>The string value that contains the unique name of the web site.'
+        </td>
+      </tr>
+      <tr>
+        <td>DisplayName</td>
+        <td>System.String</td>
+        <td>The string value that contains the site log directory and site name.'
+        </td>
+      </tr>
+      <tr>
+        <td>Directory</td>
+        <td>System.String</td>
+        <td>The string value that specifies the name of the directory where log files are stored.'
+        </td>
+      </tr>
+      <tr>
+        <td>Enabled</td>
+        <td>System.Boolean</td>
+        <td>The boolean value that specifices if logging is enabled for site.'
+        </td>
+      </tr>
+      <tr>
+        <td>FilesCount</td>
+        <td>System.Int32</td>
+        <td>The integer value that specifies the count of web site log files.'
+        </td>
+      </tr>
+      <tr>
+        <td>FilesCountStatus</td>
+        <td>System.Int32</td>
+        <td>The integer value that specifies status of the count of web site log files.'
+        </td>
+      </tr>
+      <tr>
+        <td>FilesSize</td>
+        <td>System.Double</td>
+        <td>The double value that specifies the size of web site log files.'
+        </td>
+      </tr>
+      <tr>
+        <td>FilesSizeStatus</td>
+        <td>System.Int32</td>
+        <td>The integer value that specifies status of the size of web site log files.'
+        </td>
+      </tr>
+      <tr>
+        <td>VolumeID</td>
+        <td>System.Int32</td>
+        <td>The unique integer representation of web site log file's volume.'
+        </td>
+      </tr>
+      <tr>
+        <td>VolumeSize</td>
+        <td>System.Int64</td>
+        <td>The integer value that specifies size of web site log file's volume. '
+        </td>
+      </tr>
+      <tr>
+        <td>DisplayName</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Description</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>InstanceType</td>
+        <td>System.Type</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Uri</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Site</td>
+        <td>
+          <a href="Orion.APM.IIS.Site.html">Orion.APM.IIS.Site</a>
+        </td>
+        <td>
+        Defined by relationship Orion.APM.IIS.SiteLogFileReferencesSite (System.Reference)
+      </td>
+      </tr>
+      <tr>
+        <td>SiteLogDirectoryStatistics</td>
+        <td>
+          <a href="Orion.APM.IIS.SiteLogDirectoryStatistics.html">Orion.APM.IIS.SiteLogDirectoryStatistics</a>
+        </td>
+        <td>
+        Defined by relationship Orion.APM.IIS.SiteLogDirectoryStatisticsReferencesSiteLogDirectory (System.Reference)
+      </td>
+      </tr>
+    </table>
+  </body>
+</html>

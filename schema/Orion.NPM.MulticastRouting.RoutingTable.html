@@ -1,0 +1,229 @@
+﻿
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <title>SolarWinds Information Service v3.0 Schema Documentation</title>
+    <link href="SchemaDoc.css" type="text/css" rel="stylesheet" />
+  </head>
+  <body>
+    <h1>SolarWinds Information Service v3.0 Schema Documentation</h1>
+    <p>
+      <a href="index.html">Index</a>
+    </p>
+    <h1>
+      <a name="Orion.NPM.MulticastRouting.RoutingTable">Orion.NPM.MulticastRouting.RoutingTable</a>
+    </h1>
+    <p>
+        Base type:
+        <a href="System.Entity.html">System.Entity</a></p>
+    <h2>Properties</h2>
+    <table>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Notes</th>
+      </tr>
+      <tr>
+        <td>MulticastID</td>
+        <td>System.Int32</td>
+        <td />
+      </tr>
+      <tr>
+        <td>MulticastGroupNodeID</td>
+        <td>System.Int32</td>
+        <td />
+      </tr>
+      <tr>
+        <td>MulticastSourceID</td>
+        <td>System.Int32</td>
+        <td />
+      </tr>
+      <tr>
+        <td>SourceInterfaceIndex</td>
+        <td>System.Int32</td>
+        <td />
+      </tr>
+      <tr>
+        <td>UpstreamNeighborIPGUID</td>
+        <td>System.Guid</td>
+        <td />
+      </tr>
+      <tr>
+        <td>UpTime</td>
+        <td>System.Int32</td>
+        <td />
+      </tr>
+      <tr>
+        <td>ExpiryTime</td>
+        <td>System.Int32</td>
+        <td />
+      </tr>
+      <tr>
+        <td>MulticastProtocolID</td>
+        <td>System.Int32</td>
+        <td />
+      </tr>
+      <tr>
+        <td>UpstreamIPAddressGUID</td>
+        <td>System.Guid</td>
+        <td />
+      </tr>
+      <tr>
+        <td>UpstreamIPMask</td>
+        <td>System.Byte</td>
+        <td />
+      </tr>
+      <tr>
+        <td>UpstreamRoutingProtocolID</td>
+        <td>System.Int32</td>
+        <td />
+      </tr>
+      <tr>
+        <td>UpstreamRIBType</td>
+        <td>System.Byte</td>
+        <td />
+      </tr>
+      <tr>
+        <td>InTotalPkts</td>
+        <td>System.Int64</td>
+        <td />
+      </tr>
+      <tr>
+        <td>SourceTotalPkts</td>
+        <td>System.Int64</td>
+        <td />
+      </tr>
+      <tr>
+        <td>InTotalOctets</td>
+        <td>System.Int64</td>
+        <td />
+      </tr>
+      <tr>
+        <td>InCurrentBps</td>
+        <td>System.Single</td>
+        <td />
+      </tr>
+      <tr>
+        <td>InPps</td>
+        <td>System.Single</td>
+        <td />
+      </tr>
+      <tr>
+        <td>InSourcePps</td>
+        <td>System.Single</td>
+        <td />
+      </tr>
+      <tr>
+        <td>InBps</td>
+        <td>System.Single</td>
+        <td />
+      </tr>
+      <tr>
+        <td>InLimit</td>
+        <td>System.Int64</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Flags</td>
+        <td>System.Int32</td>
+        <td />
+      </tr>
+      <tr>
+        <td>IPVersion</td>
+        <td>System.Byte</td>
+        <td />
+      </tr>
+      <tr>
+        <td>ChangeType</td>
+        <td>System.Byte</td>
+        <td />
+      </tr>
+      <tr>
+        <td>LastChangeUTC</td>
+        <td>System.DateTime</td>
+        <td />
+      </tr>
+      <tr>
+        <td>UpstreamNeighborIP</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>UpstreamIPAddress</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Description</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>DisplayName</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Description</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>InstanceType</td>
+        <td>System.Type</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Uri</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>GroupNodeInterfaces</td>
+        <td>
+          <a href="Orion.NPM.MulticastRouting.GroupNodeInterfaces.html">Orion.NPM.MulticastRouting.GroupNodeInterfaces</a>
+        </td>
+        <td>
+        Defined by relationship Orion.NPM.MulticastRouting.RoutingTableReferencesGroupNodeInterfaces (System.Reference)
+      </td>
+      </tr>
+      <tr>
+        <td>Source</td>
+        <td>
+          <a href="Orion.NPM.MulticastRouting.Sources.html">Orion.NPM.MulticastRouting.Sources</a>
+        </td>
+        <td>
+        Defined by relationship Orion.NPM.MulticastRouting.RoutingTableReferencesSources (System.Reference)
+      </td>
+      </tr>
+      <tr>
+        <td>MulticastRoutingTable</td>
+        <td>
+          <a href="Orion.NPM.MulticastRouting.MulticastRoutingTableChanges.html">Orion.NPM.MulticastRouting.MulticastRoutingTableChanges</a>
+        </td>
+        <td>
+        Defined by relationship Orion.NPM.MulticastRouting.RoutingTableReferencesMulticastRoutingTableChanges (System.Reference)
+      </td>
+      </tr>
+      <tr>
+        <td>MulticastDataHistory</td>
+        <td>
+          <a href="Orion.NPM.MulticastRouting.DataHistory.html">Orion.NPM.MulticastRouting.DataHistory</a>
+        </td>
+        <td>
+        Defined by relationship Orion.NPM.MulticastRouting.RoutingTableReferencesDataHistory (System.Reference)
+      </td>
+      </tr>
+      <tr>
+        <td>GroupNode</td>
+        <td>
+          <a href="Orion.NPM.MulticastRouting.GroupNodes.html">Orion.NPM.MulticastRouting.GroupNodes</a>
+        </td>
+        <td>
+        Defined by relationship Orion.NPM.MulticastRouting.GroupNodesHostsRoutingTable (System.Hosting)
+      </td>
+      </tr>
+    </table>
+  </body>
+</html>

@@ -1,0 +1,285 @@
+﻿
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <title>SolarWinds Information Service v3.0 Schema Documentation</title>
+    <link href="SchemaDoc.css" type="text/css" rel="stylesheet" />
+  </head>
+  <body>
+    <h1>SolarWinds Information Service v3.0 Schema Documentation</h1>
+    <p>
+      <a href="index.html">Index</a>
+    </p>
+    <h1>
+      <a name="Orion.SEUM.Agents">Orion.SEUM.Agents</a>
+    </h1>
+    <p>
+        Base type:
+        <a href="System.ManagedEntity.html">System.ManagedEntity</a></p>
+    <h2>Properties</h2>
+    <table>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Notes</th>
+      </tr>
+      <tr>
+        <td>AgentId</td>
+        <td>System.Int32</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Name</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Hostname</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>DNSName</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>IP</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>OSVersion</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Password</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Url</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Port</td>
+        <td>System.Int32</td>
+        <td />
+      </tr>
+      <tr>
+        <td>UseProxy</td>
+        <td>System.Boolean</td>
+        <td />
+      </tr>
+      <tr>
+        <td>ProxyUrl</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>UseProxyAuthentication</td>
+        <td>System.Boolean</td>
+        <td />
+      </tr>
+      <tr>
+        <td>ProxyUserName</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>ProxyPassword</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>PollingEngineId</td>
+        <td>System.Int32</td>
+        <td />
+      </tr>
+      <tr>
+        <td>JobId</td>
+        <td>System.Guid</td>
+        <td />
+      </tr>
+      <tr>
+        <td>ConnectionStatus</td>
+        <td>System.Int32</td>
+        <td />
+      </tr>
+      <tr>
+        <td>ConnectionStatusMessage</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>InCloud</td>
+        <td>System.Boolean</td>
+        <td />
+      </tr>
+      <tr>
+        <td>AgentGuid</td>
+        <td>System.Guid</td>
+        <td />
+      </tr>
+      <tr>
+        <td>IsActiveAgent</td>
+        <td>System.Boolean</td>
+        <td />
+      </tr>
+      <tr>
+        <td>AgentVersion</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>LoadPercentage</td>
+        <td>System.Int32</td>
+        <td />
+      </tr>
+      <tr>
+        <td>RDPEnabled</td>
+        <td>System.Boolean</td>
+        <td />
+      </tr>
+      <tr>
+        <td>OrionIdColumn</td>
+        <td>System.String</td>
+        <td>
+          Default='AgentId'.
+        </td>
+      </tr>
+      <tr>
+        <td>Unmanaged</td>
+        <td>System.Boolean</td>
+        <td>
+          Default='false'.
+        </td>
+      </tr>
+      <tr>
+        <td>Status</td>
+        <td>System.Int32</td>
+        <td />
+      </tr>
+      <tr>
+        <td>StatusDescription</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>StatusLED</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>UnManaged</td>
+        <td>System.Boolean</td>
+        <td>
+          Default='false'.
+        </td>
+      </tr>
+      <tr>
+        <td>UnManageFrom</td>
+        <td>System.DateTime</td>
+        <td />
+      </tr>
+      <tr>
+        <td>UnManageUntil</td>
+        <td>System.DateTime</td>
+        <td />
+      </tr>
+      <tr>
+        <td>DetailsUrl</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Image</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>AncestorDisplayNames</td>
+        <td>System.String[]</td>
+        <td />
+      </tr>
+      <tr>
+        <td>AncestorDetailsUrls</td>
+        <td>System.String[]</td>
+        <td />
+      </tr>
+      <tr>
+        <td>StatusIconHint</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>DisplayName</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Description</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>InstanceType</td>
+        <td>System.Type</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Uri</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Transactions</td>
+        <td>
+          <a href="Orion.SEUM.Transactions.html">Orion.SEUM.Transactions</a>
+        </td>
+        <td>
+        Defined by relationship Orion.SEUM.AgentHostsTransactions (System.Hosting)
+      </td>
+      </tr>
+      <tr>
+        <td>Engine</td>
+        <td>
+          <a href="Orion.Engines.html">Orion.Engines</a>
+        </td>
+        <td>
+        Defined by relationship Orion.SEUM.AgentReferencesEngine (System.Reference)
+      </td>
+      </tr>
+      <tr>
+        <td>AgentStatuses</td>
+        <td>
+          <a href="Orion.SEUM.AgentStatus.html">Orion.SEUM.AgentStatus</a>
+        </td>
+        <td>
+        Defined by relationship Orion.SEUM.AgentReferencesAgentStatus (System.Reference)
+      </td>
+      </tr>
+      <tr>
+        <td>AgentStatusReports</td>
+        <td>
+          <a href="Orion.SEUM.AgentStatusReport.html">Orion.SEUM.AgentStatusReport</a>
+        </td>
+        <td>
+        Defined by relationship Orion.SEUM.AgentReferencesAgentStatusReport (System.Reference)
+      </td>
+      </tr>
+      <tr>
+        <td>WebUri</td>
+        <td>
+          <a href="Orion.SEUM.AgentWebUri.html">Orion.SEUM.AgentWebUri</a>
+        </td>
+        <td>
+        Defined by relationship Orion.SEUM.AgentHostsWebUri (System.Hosting)
+      </td>
+      </tr>
+    </table>
+  </body>
+</html>

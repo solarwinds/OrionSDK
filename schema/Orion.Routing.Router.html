@@ -1,0 +1,118 @@
+﻿
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <title>SolarWinds Information Service v3.0 Schema Documentation</title>
+    <link href="SchemaDoc.css" type="text/css" rel="stylesheet" />
+  </head>
+  <body>
+    <h1>SolarWinds Information Service v3.0 Schema Documentation</h1>
+    <p>
+      <a href="index.html">Index</a>
+    </p>
+    <h1>
+      <a name="Orion.Routing.Router">Orion.Routing.Router</a>
+    </h1>
+    <p>
+        Base type:
+        <a href="System.Entity.html">System.Entity</a></p>
+    <h2>Properties</h2>
+    <table>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Notes</th>
+      </tr>
+      <tr>
+        <td>NodeID</td>
+        <td>System.Int32</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Description</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Caption</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>DisplayName</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Description</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>InstanceType</td>
+        <td>System.Type</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Uri</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>RoutingTable</td>
+        <td>
+          <a href="Orion.Routing.RoutingTable.html">Orion.Routing.RoutingTable</a>
+        </td>
+        <td>
+        Defined by relationship Orion.Routing.RouterHostsRoutingTable (System.Reference)
+      </td>
+      </tr>
+      <tr>
+        <td>RoutingDetails</td>
+        <td>
+          <a href="Orion.Routing.RoutingDetails.html">Orion.Routing.RoutingDetails</a>
+        </td>
+        <td>
+        Defined by relationship Orion.RouterHostsRoutingDetails (System.Hosting)
+      </td>
+      </tr>
+      <tr>
+        <td>Neighbors</td>
+        <td>
+          <a href="Orion.Routing.Neighbors.html">Orion.Routing.Neighbors</a>
+        </td>
+        <td>
+        Defined by relationship Orion.RouterHostsNeighbors (System.Hosting)
+      </td>
+      </tr>
+      <tr>
+        <td>RoutingTableFlap</td>
+        <td>
+          <a href="Orion.Routing.RoutingTableFlap.html">Orion.Routing.RoutingTableFlap</a>
+        </td>
+        <td>
+        Defined by relationship Orion.RouterHostsRoutingTableFlap (System.Hosting)
+      </td>
+      </tr>
+      <tr>
+        <td>DefaultRouteChange</td>
+        <td>
+          <a href="Orion.Routing.DefaultRouteChange.html">Orion.Routing.DefaultRouteChange</a>
+        </td>
+        <td>
+        Defined by relationship Orion.RouterHostsDefaultRouteChange (System.Hosting)
+      </td>
+      </tr>
+      <tr>
+        <td>Nodes</td>
+        <td>
+          <a href="Orion.Nodes.html">Orion.Nodes</a>
+        </td>
+        <td>
+        Defined by relationship Orion.NodesHostsRouter (System.Hosting)
+      </td>
+      </tr>
+    </table>
+  </body>
+</html>

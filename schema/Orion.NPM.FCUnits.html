@@ -1,0 +1,140 @@
+﻿
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <title>SolarWinds Information Service v3.0 Schema Documentation</title>
+    <link href="SchemaDoc.css" type="text/css" rel="stylesheet" />
+  </head>
+  <body>
+    <h1>SolarWinds Information Service v3.0 Schema Documentation</h1>
+    <p>
+      <a href="index.html">Index</a>
+    </p>
+    <h1>
+      <a name="Orion.NPM.FCUnits">Orion.NPM.FCUnits</a>
+    </h1>
+    <p>
+        Base type:
+        <a href="System.Entity.html">System.Entity</a></p>
+    <h2>Properties</h2>
+    <table>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Notes</th>
+      </tr>
+      <tr>
+        <td>ID</td>
+        <td>System.Int64</td>
+        <td />
+      </tr>
+      <tr>
+        <td>NodeID</td>
+        <td>System.Int32</td>
+        <td />
+      </tr>
+      <tr>
+        <td>ConnUnitID</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Type</td>
+        <td>System.Int32</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Product</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Name</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>SerialNumber</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>PortCount</td>
+        <td>System.Int32</td>
+        <td />
+      </tr>
+      <tr>
+        <td>State</td>
+        <td>System.Int32</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Status</td>
+        <td>System.Int32</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Description</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>DisplayName</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Description</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>InstanceType</td>
+        <td>System.Type</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Uri</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>FCPorts</td>
+        <td>
+          <a href="Orion.NPM.FCPorts.html">Orion.NPM.FCPorts</a>
+        </td>
+        <td>
+        Defined by relationship Orion.FCUnitsHostsFCPorts (System.Hosting)
+      </td>
+      </tr>
+      <tr>
+        <td>FCRevisions</td>
+        <td>
+          <a href="Orion.NPM.FCRevisions.html">Orion.NPM.FCRevisions</a>
+        </td>
+        <td>
+        Defined by relationship Orion.FCUnitsHostsFCRevisions (System.Hosting)
+      </td>
+      </tr>
+      <tr>
+        <td>FCSensors</td>
+        <td>
+          <a href="Orion.NPM.FCSensors.html">Orion.NPM.FCSensors</a>
+        </td>
+        <td>
+        Defined by relationship Orion.FCUnitsHostsFCSensors (System.Hosting)
+      </td>
+      </tr>
+      <tr>
+        <td>Nodes</td>
+        <td>
+          <a href="Orion.Nodes.html">Orion.Nodes</a>
+        </td>
+        <td>
+        Defined by relationship Orion.NodesHostsFCUnits (System.Hosting)
+      </td>
+      </tr>
+    </table>
+  </body>
+</html>

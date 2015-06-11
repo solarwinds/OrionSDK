@@ -4,8 +4,13 @@ from getpass import getpass
 from datetime import datetime, timedelta
 
 """
-Make sure to set a valid nodeID in line 50 before using!
+Make sure to set a valid nodeID in line 55 before using!
 """
+def _json_serial(obj):
+	"""JSON serializer for objects not serializable by default json code"""
+	if isinstance(obj, datetime):
+		serial = obj.isoformat()
+		return serial
 
 class SwisClient:
 	def __init__(self, hostname, username, password):
@@ -30,16 +35,9 @@ class SwisClient:
 	def delete(self, uri):
 		self._req("DELETE", uri)
 
-	def _json_serial(obj):
-		"""JSON serializer for objects not serializable by default json code"""
-
-		if isinstance(obj, datetime):
-			serial = obj.isoformat()
-			return serial
-
 	def _req(self, method, frag, data=None):
 		return requests.request(method, self.url + frag, 
-			data=json.dumps(data, default=SwisClient._json_serial), 
+			data=json.dumps(data, default=_json_serial), 
 			verify=False, 
 			auth=self.credentials, 
 			headers={'Content-Type': 'application/json'})

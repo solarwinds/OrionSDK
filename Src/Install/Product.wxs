@@ -56,7 +56,7 @@
 
     <WixVariable Id='WixUIBannerBmp' Value='Graphics\installer_banner.bmp' />
     <WixVariable Id='WixUIDialogBmp' Value='Graphics\installer_background.bmp' />
-    <WixVariable Id="WixUILicenseRtf" Value="SolarWindsGeneralEula.rtf" />
+    <WixVariable Id="WixUILicenseRtf" Value="LICENSE.rtf" />
 
     <Property Id="WIXUI_INSTALLDIR" Value="INSTALLDIR" />
     

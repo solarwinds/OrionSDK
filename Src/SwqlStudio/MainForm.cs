@@ -36,6 +36,8 @@ namespace SwqlStudio
 
         public event EventHandler<IndicationEventArgs> IndicationReceived;
 
+        private ServerList serverList = new ServerList();
+
         public MainForm()
         {
             InitializeComponent();
@@ -165,12 +167,25 @@ namespace SwqlStudio
 
                 try
                 {
-                    ConnectionInfo info = nc.ConnectionInfo;
-                    info.NotificationSubscriber = this;
-                    info.Connect();
+                    ConnectionInfo info;
+                    bool alreadyExists = false;
+                    alreadyExists = serverList.TryGet(nc.ConnectionInfo.ServerType, nc.ConnectionInfo.Server, nc.ConnectionInfo.UserName, out info);
+                    if (!alreadyExists)
+                    {
+                        info = nc.ConnectionInfo;
+                        info.NotificationSubscriber = this;
+                        info.Connect();
+                        serverList.Add(info);
+
+                        info.ConnectionClosed += (sender, args) => serverList.Remove(info);
+                    }
 
                     CreateQueryTab(info.Title, info);
-                    objectExplorer.AddServer(new SwisMetaDataProvider(info), info);
+                    
+                    if (!alreadyExists)
+                    {
+                        objectExplorer.AddServer(new SwisMetaDataProvider(info), info);
+                    }
                 }
                 catch (FaultException<InfoServiceFaultContract> ex)
                 {
@@ -220,6 +235,13 @@ namespace SwqlStudio
             tab.Controls.Add(queryTab);
             fileTabs.Controls.Add(tab);
             fileTabs.SelectedTab = tab;
+
+            info.ConnectionClosed += (sender, args) =>
+            {
+                RemoveQueryTab(queryTab);
+                Application.DoEvents();
+            };
+
             return queryTab;
         }
 

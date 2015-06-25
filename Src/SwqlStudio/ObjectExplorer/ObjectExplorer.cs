@@ -324,6 +324,7 @@ namespace SwqlStudio
                 serverContextMenu.MenuItems.Add("Activity Monitor", (s, e) => OpenActivityMonitor(_contextMenuNode));
 
             serverContextMenu.MenuItems.Add("Generate C# Code...", (s, e) => GenerateCSharpCode(_contextMenuNode));
+            serverContextMenu.MenuItems.Add("Close", (s, e) => CloseServer(_contextMenuNode));
 
             _serverContextMenuItems.Add(connection.Title, serverContextMenu);
 
@@ -342,6 +343,27 @@ namespace SwqlStudio
             {
                 // Node exists.  Just focus on it.
                 _tree.SelectedNode = existingNodes[0];
+            }
+
+            connection.ConnectionClosed += (o, e) =>
+            {
+                _tableContextMenuItems.Remove(connection.Title);
+                tableContextMenu.Dispose();
+                tableContextMenu = null;
+
+                _serverContextMenuItems.Remove(connection.Title);
+                serverContextMenu.Dispose();
+                serverContextMenu = null;
+            };
+        }
+
+        private void CloseServer(TreeNode contextMenuNode)
+        {
+            TreeNodeWithConnectionInfo node = contextMenuNode as TreeNodeWithConnectionInfo;
+            if (node != null)
+            {
+                node.Connection.Close();
+                _tree.Nodes.Remove(node);
             }
         }
 

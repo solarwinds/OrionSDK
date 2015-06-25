@@ -29,6 +29,8 @@ namespace SwqlStudio
         private NotificationDeliveryServiceProxy _notificationDeliveryServiceProxy;
         private SubscriberInfo _activeSubscriberInfo;
 
+        public event EventHandler<EventArgs> ConnectionClosed;
+
         public ConnectionInfo(string server, string username, string password, string serverType)
         {
             ServerType = serverType;
@@ -333,6 +335,12 @@ namespace SwqlStudio
             {
                 _proxy.Dispose();
                 _proxy = null;
+
+                var listeners = ConnectionClosed;
+                if (listeners != null)
+                {
+                    listeners.Invoke(this, EventArgs.Empty);
+                }
             }
         }
 
@@ -342,6 +350,30 @@ namespace SwqlStudio
                        {
                            QueryParameters = QueryParameters
                        };
+        }
+
+        protected bool Equals(ConnectionInfo other)
+        {
+            return string.Equals(_server, other._server) && string.Equals(_username, other._username) && string.Equals(ServerType, other.ServerType);
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            if (obj.GetType() != this.GetType()) return false;
+            return Equals((ConnectionInfo)obj);
+        }
+
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                var hashCode = _server.GetHashCode();
+                hashCode = (hashCode * 397) ^ _username.GetHashCode();
+                hashCode = (hashCode * 397) ^ ServerType.GetHashCode();
+                return hashCode;
+            }
         }
     }
 }

@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi"
+     xmlns:util="http://schemas.microsoft.com/wix/UtilExtension"
+     xmlns:ps="http://schemas.microsoft.com/wix/PSExtension"
+     xmlns:netfx="http://schemas.microsoft.com/wix/NetFxExtension">
+
+  <?include GlobalVariables.wxi ?>
+
+  <?define InstallUtilExe32 = "[WindowsFolder]\Microsoft.NET\Framework\v2.0.50727\InstallUtil.exe" ?>
+  <?define InstallUtilExe64 = "[WindowsFolder]\Microsoft.NET\Framework64\v2.0.50727\InstallUtil.exe" ?>
+  <?define TempDir = "[TempFolder]" ?>
+
+  <Product
+    Id="*"
+    Name="SolarWinds Orion SDK v$(var.Version)"
+    Language="1033"
+    Version="$(var.Version)"
+    Manufacturer="SolarWinds"
+    UpgradeCode="584A809C-D4F9-4312-96A9-BAFFDCB9393A">
+
+    <Package
+      InstallerVersion="200"
+      Compressed="yes"
+      InstallScope="perMachine" />
+
+    <PropertyRef Id="NETFRAMEWORK35"/>
+
+    <Condition Message="This application requires .NET Framework 3.5. Please install the .NET Framework then run this installer again.">
+      <![CDATA[Installed OR NETFRAMEWORK35]]>
+    </Condition>
+
+    <?include AddRemovePrograms.wxi ?>
+
+    <Upgrade Id="584A809C-D4F9-4312-96A9-BAFFDCB9393A">
+      <UpgradeVersion Minimum="1.0.0"
+                      IncludeMinimum="yes"
+                      Maximum="$(var.Version)"
+                      IncludeMaximum="no"
+                      Property="PATCHFOUND" />
+
+      <UpgradeVersion Minimum="$(var.Version)"
+                      IncludeMinimum="no"
+                      OnlyDetect="yes"
+                      Property="NEWERVERSIONDETECTED" />
+    </Upgrade>
+
+    <Media Id="1" Cabinet="orionsdk.cab" EmbedCab="yes" />
+
+    <!-- Prevent downgrading -->
+    <CustomAction Id="PreventDowngrading" Error="Newer version already installed." />
+
+    <InstallExecuteSequence>
+      <Custom Action="PreventDowngrading" After="FindRelatedProducts">NEWERVERSIONDETECTED</Custom>
+      <RemoveExistingProducts After="InstallInitialize" />
+    </InstallExecuteSequence>
+
+    <WixVariable Id='WixUIBannerBmp' Value='Graphics\installer_banner.bmp' />
+    <WixVariable Id='WixUIDialogBmp' Value='Graphics\installer_background.bmp' />
+    <WixVariable Id="WixUILicenseRtf" Value="LICENSE.rtf" />
+
+    <Property Id="WIXUI_INSTALLDIR" Value="INSTALLDIR" />
+    
+    <UI Id="Product_UI">
+
+      <TextStyle Id="WixUI_Font_Normal" FaceName="Tahoma" Size="8" />
+      <TextStyle Id="WixUI_Font_Bigger" FaceName="Tahoma" Size="12" />
+      <TextStyle Id="WixUI_Font_Title" FaceName="Tahoma" Size="9" Bold="yes" />
+
+      <Property Id="DefaultUIFont" Value="WixUI_Font_Normal" />
+      <Property Id="WixUI_Mode" Value="Mondo" />
+
+      <DialogRef Id="ErrorDlg" />
+      <DialogRef Id="FatalError" />
+      <DialogRef Id="FilesInUse" />
+      <DialogRef Id="MsiRMFilesInUse" />
+      <DialogRef Id="PrepareDlg" />
+      <DialogRef Id="ProgressDlg" />
+      <DialogRef Id="ResumeDlg" />
+      <DialogRef Id="UserExit" />
+
+      <Publish Dialog="ExitDialog" Control="Finish" Event="EndDialog" Value="Return">1</Publish>
+
+      <Publish Dialog="WelcomeDlg" Control="Next" Event="NewDialog" Value="VerifyReadyDlg">PATCHFOUND</Publish>
+      <Publish Dialog="WelcomeDlg" Control="Next" Event="NewDialog" Value="LicenseAgreementDlg">NOT PATCHFOUND</Publish>
+
+      <Publish Dialog="LicenseAgreementDlg" Control="Back" Event="NewDialog" Value="WelcomeDlg">1</Publish>
+      <Publish Dialog="LicenseAgreementDlg" Control="Next" Event="NewDialog" Value="InstallDirDlg">LicenseAccepted = "1"</Publish>
+
+      <Publish Dialog="InstallDirDlg" Control="Back" Event="NewDialog" Value="MaintenanceTypeDlg">WixUI_InstallMode = "Change"</Publish>
+      <Publish Dialog="InstallDirDlg" Control="Back" Event="NewDialog" Value="LicenseAgreementDlg">1</Publish>
+      <Publish Dialog="InstallDirDlg" Control="Next" Event="NewDialog" Value="VerifyReadyDlg">1</Publish>
+      <Publish Dialog="InstallDirDlg" Control="ChangeFolder" Property="_BrowseProperty" Value="[WIXUI_INSTALLDIR]">1</Publish>
+      <Publish Dialog="InstallDirDlg" Control="ChangeFolder" Event="SpawnDialog" Value="BrowseDlg">1</Publish>
+
+      <Publish Dialog="VerifyReadyDlg" Control="Back" Event="NewDialog" Value="WelcomeDlg">PATCHFOUND</Publish>
+      <Publish Dialog="VerifyReadyDlg" Control="Back" Event="NewDialog" Value="MaintenanceTypeDlg">WixUI_InstallMode = "Repair" OR WixUI_InstallMode = "Remove"</Publish>
+      <Publish Dialog="VerifyReadyDlg" Control="Back" Event="NewDialog" Value="InstallDirDlg">NOT PATCHFOUND</Publish>
+
+      <Publish Dialog="MaintenanceWelcomeDlg" Control="Next" Event="NewDialog" Value="MaintenanceTypeDlg">1</Publish>
+
+      <Publish Dialog="MaintenanceTypeDlg" Control="ChangeButton" Event="NewDialog" Value="InstallDirDlg">1</Publish>
+      <Publish Dialog="MaintenanceTypeDlg" Control="RepairButton" Event="NewDialog" Value="VerifyReadyDlg">1</Publish>
+      <Publish Dialog="MaintenanceTypeDlg" Control="RemoveButton" Event="NewDialog" Value="VerifyReadyDlg">1</Publish>
+      <Publish Dialog="MaintenanceTypeDlg" Control="Back" Event="NewDialog" Value="MaintenanceWelcomeDlg">1</Publish>
+    </UI>
+
+    <UIRef Id="WixUI_Common" />
+
+    <Directory Id="TARGETDIR" Name="SourceDir">
+      <Directory Id="ProgramFilesFolder">
+        <Directory Id="SolarWinds" Name="SolarWinds">
+          <Directory Id="INSTALLDIR" Name="Orion SDK">
+            
+            <Directory Id="SwqlStudioDir" Name="SWQL Studio">
+              <Component Id="SwqlStudioComponent" Guid="BC0A98E5-219C-4d5a-9A14-A10A13546DB8">
+                <File Id="SwqlStudioExe" Source="$(var.SwqlStudio.TargetDir)\SwqlStudio.exe" />
+                <File Source="$(var.SwqlStudio.TargetDir)\SwqlStudio.exe.config" />
+                <File Source="$(var.SwqlStudio.TargetDir)\log4net.dll" />
+                <File Source="$(var.SwqlStudio.TargetDir)\ScintillaNet.dll" />
+                <File Source="$(var.SwqlStudio.TargetDir)\SolarWinds.SDK.Swis.Contract.dll" />
+                <File Source="$(var.SwqlStudio.TargetDir)\SolarWinds.Logging.dll" />
+                <File Source="$(var.SwqlStudio.TargetDir)\Security.Cryptography.dll" />
+              </Component>
+              
+              <Component Id="SwisSnapInComponent" Guid="D229051F-C183-4D52-99CD-8C171031086D">
+                <File Id="SwisPowerShell" Source="$(var.SwisPowerShell.TargetDir)\SwisPowerShell.dll" KeyPath="yes" Assembly=".net" AssemblyApplication="SwisPowerShell">
+                  <ps:SnapIn Id="SwisSnapIn" />                  
+                </File>
+              </Component>
+            </Directory>
+
+          </Directory>
+        </Directory>
+      </Directory>
+
+      <Directory Id="ProgramMenuFolder" Name="Programs">
+        <Directory Id="ProgramMenuDir" Name="SolarWinds Orion SDK">
+          <Component Id="ProgramMenuDirComponent" Guid="5D7CB7DD-5A30-434b-9543-4FB42EEB1670">
+            <RegistryKey Root="HKCU" Key="Software\SolarWinds\Orion\SDK\Uninstall">
+              <RegistryValue Value="Shortcuts" Type="string" KeyPath="yes" />
+            </RegistryKey>
+
+            <Shortcut Id="ShortcutToSwqlStudio" Directory="ProgramMenuDir"
+                      Name="SWQL Studio"
+                      Target="[#SwqlStudioExe]" />
+
+            <util:InternetShortcut Id="ShortcutToSDKForum" Directory="ProgramMenuDir"
+                                   Name="Orion SDK Forum on thwack_"
+                                   Target="https://thwack.solarwinds.com/community/labs_tht/orion-sdk" />
+
+            <util:InternetShortcut Id="ShortcutToSDKWiki" Directory="ProgramMenuDir"
+                                   Name="Orion SDK Documentation on GitHub"
+                                   Target="https://github.com/solarwinds/OrionSDK/wiki" />
+
+            <util:InternetShortcut Id="ShortcutToSchemaDoc" Directory="ProgramMenuDir"
+                                   Name="Orion Schema Reference"
+                                   Target="https://solarwinds.github.io/OrionSDK/schema/" />
+
+            <RemoveFolder Id='RemoveProgramMenuDir' On='uninstall' />
+          </Component>
+        </Directory>
+      </Directory>
+
+    </Directory>
+
+    <Property Id="InstallSwisSnapIn32" Value='unset'/>
+    <CustomAction Id='Set_InstallSwisSnapIn32' Property='InstallSwisSnapIn32' Value="&quot;$(var.InstallUtilExe32)&quot; /LogToConsole=false /LogFile= /InstallStateDir=$(var.TempDir) &quot;[#SwisPowerShell]&quot;"/>
+    <CustomAction Id="InstallSwisSnapIn32"
+           BinaryKey="WixCA" DllEntry="CAQuietExec"
+            Execute="deferred" Return="ignore" Impersonate="no">
+    </CustomAction>
+
+    <Property Id="UnInstallSwisSnapIn32" Value='unset'/>
+    <CustomAction Id='Set_UnInstallSwisSnapIn32' Property='UnInstallSwisSnapIn32' Value="&quot;$(var.InstallUtilExe32)&quot; /u /LogToConsole=false /LogFile= /InstallStateDir=$(var.TempDir) &quot;[#SwisPowerShell]&quot;"/>
+    <CustomAction Id="UnInstallSwisSnapIn32"
+           BinaryKey="WixCA" DllEntry="CAQuietExec"
+            Execute="deferred" Return="ignore" Impersonate="no">
+    </CustomAction>
+
+    <Property Id="InstallSwisSnapIn64" Value='unset'/>
+    <CustomAction Id='Set_InstallSwisSnapIn64' Property='InstallSwisSnapIn64' Value="&quot;$(var.InstallUtilExe64)&quot; /LogToConsole=false /LogFile= /InstallStateDir=$(var.TempDir) &quot;[#SwisPowerShell]&quot;"/>
+    <CustomAction Id="InstallSwisSnapIn64"
+            BinaryKey="WixCA" DllEntry="CAQuietExec64"
+            Execute="deferred" Return="ignore" Impersonate="no">
+    </CustomAction>
+
+    <Property Id="UnInstallSwisSnapIn64" Value='unset'/>
+    <CustomAction Id='Set_UnInstallSwisSnapIn64' Property='UnInstallSwisSnapIn64' Value="&quot;$(var.InstallUtilExe64)&quot; /u /LogToConsole=false /LogFile= /InstallStateDir=$(var.TempDir) &quot;[#SwisPowerShell]&quot;"/>
+    <CustomAction Id="UnInstallSwisSnapIn64"
+            BinaryKey="WixCA" DllEntry="CAQuietExec64"
+            Execute="deferred" Return="ignore" Impersonate="no">
+    </CustomAction>
+
+    <Feature Id="OrionSDK" Title="Orion SDK" Level="1">
+      <ComponentRef Id="SwqlStudioComponent" />
+      <ComponentRef Id="ProgramMenuDirComponent" />
+      <ComponentRef Id="SwisSnapInComponent" />
+    </Feature>
+
+    <InstallExecuteSequence>
+      <Custom Action='Set_InstallSwisSnapIn32' After='CostFinalize'>NOT REMOVE</Custom>
+      <Custom Action='InstallSwisSnapIn32'  Before='InstallFinalize'>NOT REMOVE</Custom>
+      <Custom Action='Set_InstallSwisSnapIn64' After='CostFinalize'>NOT REMOVE</Custom>
+      <Custom Action='InstallSwisSnapIn64'  Before='InstallFinalize'>NOT REMOVE</Custom>
+
+      <Custom Action='Set_UnInstallSwisSnapIn32' After='InstallValidate'>Installed AND (REMOVE="ALL") AND NOT (PATCHFOUND OR UPGRADINGPRODUCTCODE)</Custom>
+      <Custom Action='UnInstallSwisSnapIn32'  Before='UnpublishComponents'>Installed AND (REMOVE="ALL") AND NOT (PATCHFOUND OR UPGRADINGPRODUCTCODE)</Custom>
+      <Custom Action='Set_UnInstallSwisSnapIn64' After='InstallValidate'>Installed AND (REMOVE="ALL") AND NOT (PATCHFOUND OR UPGRADINGPRODUCTCODE)</Custom>
+      <Custom Action='UnInstallSwisSnapIn64'  Before='UnpublishComponents'>Installed AND (REMOVE="ALL") AND NOT (PATCHFOUND OR UPGRADINGPRODUCTCODE)</Custom>
+    </InstallExecuteSequence>
+
+    <UIRef Id="WixUI_ErrorProgressText"/>
+  </Product>
+</Wix>

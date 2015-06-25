@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Include>
+  <!--<Property Id="ARPCOMMENTS" Value="Acme Corporation Comments" />-->
+  <!--<Property Id="ARPCONTACT" Value="Put your name in here" />-->
+  <Property Id="ARPPRODUCTICON" Value="SolarWindsIcon.ico" />
+  <!--<Property Id="ARPHELPLINK" Value="Your help link" />-->
+  <!--<Property Id="ARPREADME" Value="Your README link" />-->
+  <Property Id="ARPURLINFOABOUT" Value="http://www.solarwinds.com/support/" />
+  <!--<Property Id="ARPURLUPDATEINFO" Value="Your &apos;Update&apos; URL" />-->
+  <!--<Property Id="ARPHELPTELEPHONE" Value="URL where users can find your support phone number" />-->
+  <!--<Property Id="ARPAUTHORIZEDCDFPREFIX" Value="URL of the update channel for the application" />-->
+  <!--<Property Id="ARPSIZE" Value="3" />-->
+
+  <!--
+  <Property Id="ARPNOMODIFY" Value="0" />
+  <Property Id="ARPNOREPAIR" Value="0" />
+  <Property Id="ARPNOREMOVE" Value="0" />
+  <Property Id="ARPSYSTEMCOMPONENT" Value="0" />
+  -->
+
+  <Icon Id="SolarWindsIcon.ico" SourceFile="Orion_generic_icon_orange.ico" />
+
+  <!-- Set up ARPINSTALLLOCATION property -->
+  <CustomAction Id="SetARPINSTALLLOCATION" Property="ARPINSTALLLOCATION" Value="[INSTALLDIR]" />
+
+  <!-- Sequences -->
+  <InstallExecuteSequence>
+    <Custom Action="SetARPINSTALLLOCATION" After="InstallValidate"></Custom>
+  </InstallExecuteSequence>
+</Include>

@@ -1,0 +1,12 @@
+paraffin -update VBClient.wxs
+move VBClient.PARAFFIN VBClient.wxs
+paraffin -update JavaClient.wxs
+move JavaClient.PARAFFIN JavaClient.wxs
+paraffin -update PerlClient.wxs
+move PerlClient.PARAFFIN PerlClient.wxs
+paraffin -update PowerShellSamples.wxs
+move PowerShellSamples.PARAFFIN PowerShellSamples.wxs
+paraffin -update SchemaDoc.wxs
+move SchemaDoc.PARAFFIN SchemaDoc.wxs
+paraffin -update  CSClient.wxs
+move CSClient.PARAFFIN CSClient.wxs

@@ -99,7 +99,10 @@ namespace SwqlStudio
 
         public string GetSelectedOrAllText()
         {
-            return Selections.IsEmpty ? Text : Selections[0].ToString();
+            var text = SelectedText;
+            if (string.IsNullOrEmpty(text))
+                text = Text;
+            return text;
         }
 
         protected override void OnKeyPress(KeyPressEventArgs e)

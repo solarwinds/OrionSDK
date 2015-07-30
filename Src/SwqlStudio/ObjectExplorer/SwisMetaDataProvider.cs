@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using SwqlStudio.Metadata;
 
@@ -19,11 +20,14 @@ namespace SwqlStudio
 
         public void Refresh()
         {
-            const string query = 
+            const string queryTemplate = 
             @"SELECT Entity.FullName, Entity.Namespace, Entity.BaseType, (Entity.Type ISA 'System.Indication') AS IsIndication,
 	Entity.Properties.Name, Entity.Properties.Type, Entity.Properties.IsNavigable, Entity.Properties.IsInherited, Entity.Properties.IsKey,
-	Entity.Verbs.EntityName, Entity.Verbs.Name, Entity.IsAbstract, Entity.CanCreate, Entity.CanDelete, Entity.CanInvoke, Entity.CanRead, Entity.CanUpdate
+	Entity.Verbs.EntityName, Entity.Verbs.Name, Entity.IsAbstract{0}
 FROM Metadata.Entity";
+            const string crudFragment = ", Entity.CanCreate, Entity.CanDelete, Entity.CanInvoke, Entity.CanRead, Entity.CanUpdate";
+
+            string query = string.Format(queryTemplate, SupportsAccessControl() ? crudFragment : string.Empty);
 
             entities = info.Query<Entity>(query).ToDictionary(entity => entity.FullName);
 
@@ -33,6 +37,16 @@ FROM Metadata.Entity";
                 if (entity.BaseType != null && entities.TryGetValue(entity.BaseType, out baseEntity))
                     entity.BaseEntity = baseEntity;
             }
+        }
+
+        public bool SupportsAccessControl()
+        {
+            const string query = @"SELECT Name
+FROM Metadata.Property
+WHERE EntityName='Metadata.Entity' AND Name='CanCreate'";
+
+            DataTable dt = info.Query(query);
+            return dt != null && dt.Rows.Count == 1;
         }
 
         public IEnumerable<VerbArgument> GetVerbArguments(Verb verb)

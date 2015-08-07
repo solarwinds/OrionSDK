@@ -3,6 +3,7 @@ using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
 using ScintillaNET;
+using System.Collections.Generic;
 
 namespace SwqlStudio
 {
@@ -18,14 +19,10 @@ namespace SwqlStudio
             
             StyleClearAll(); // Propagates the settings from Style.Default to all language-specific lexer styles
 
-            SetKeywords(0, @"all any and as asc between class desc distinct exists false full group
-        having in inner into is isa from join left like not null or outer right
-        select set some true union where end when then else case on top return xml
-        raw auto with limitation rows to order by desc totalrows noplancache queryplan");
-
-            SetKeywords(4, @"toutc tolocal getdate getutcdate datetime isnull tostring escapeswisurivalue splitstringtoarray floor round ceiling yeardiff monthdiff weekdiff daydiff hourdiff minutediff seconddiff milliseconddiff year quarterofyear dayofyear month week day hour minute second millisecond uriequals arraycontains datetrunc changetimezone toupper tolower concat substring adddate addyear addmonth addweek addday addhour addminute addsecond addmillisecond arraylength arrayvalueat"); // User Keywords 1 - scalar functions
-
-            SetKeywords(5, @"min max avg count sum"); // User Keywords 2 - aggregate functions
+            // TODO: wait for newest nuget package, it will ocntains this method!!!
+            //this.AutoCSetFillUps(" {}[]().,:;+-*/%&|^!~=<>?@#'\"\\");
+            foreach (var words in LexerService.Instance.LexerKeywords)
+                SetKeywords(words.Item1, string.Join(" ", words.Item2));
 
             //// Default (whitespace) style index.
             //Styles[Style.Sql.Default].ForeColor = Color.Black;
@@ -125,5 +122,22 @@ namespace SwqlStudio
         }
 
         public event Action Execute;
+
+        protected override void OnCharAdded(CharAddedEventArgs e)
+        {
+            base.OnCharAdded(e);
+
+            // Find the word start
+            var currentPos = this.CurrentPosition;
+            var wordStartPos = this.WordStartPosition(currentPos, true);
+
+            var lenEntered = currentPos - wordStartPos;
+            if (lenEntered <= 0)
+                return;
+
+            // Display the autocompletion list
+            var keywords = string.Join(" ", LexerService.Instance.AutoCompletionKeywords);
+            this.AutoCShow(lenEntered, keywords);
+        }
     }
 }

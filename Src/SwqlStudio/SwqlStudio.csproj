@@ -135,6 +135,7 @@
     <Compile Include="InvokeVerbTab.Designer.cs">
       <DependentUpon>InvokeVerbTab.cs</DependentUpon>
     </Compile>
+    <Compile Include="LexerService.cs" />
     <Compile Include="LogHeaderMessageInspector.cs" />
     <Compile Include="LogHeaderReaderBehavior.cs" />
     <Compile Include="Metadata\Entity.cs" />

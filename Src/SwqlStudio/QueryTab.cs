@@ -149,11 +149,6 @@ namespace SwqlStudio
             return str;
         }
 
-        private void sciTextEditorControl1_ModifiedChanged(object sender, System.EventArgs e)
-        {
-            IsDirty = sciTextEditorControl1.Modified;
-        }
-
         public void CopySelectionToClipboard()
         {
             if (sciTextEditorControl1.Focused)
@@ -339,6 +334,18 @@ namespace SwqlStudio
                         {
                             grid.Columns.Add(column.ColumnName, column.ColumnName);
                             grid.Columns[column.ColumnName].DataPropertyName = column.ColumnName;
+
+                        }
+
+                        if (table.Columns.Contains("Uri"))
+                        {
+                            grid.AllowUserToDeleteRows = true;
+                            grid.ReadOnly = false;
+                        }
+                        else
+                        {
+                            grid.AllowUserToDeleteRows = false;
+                            grid.ReadOnly = true;
                         }
 
                         grid.DataSource = arg.Results;
@@ -608,6 +615,36 @@ namespace SwqlStudio
         private void gridContextMenuStrip_Opening(object sender, System.ComponentModel.CancelEventArgs e)
         {
             deleteToolStripMenuItem.Enabled = dataGridView1.Columns.Contains("Uri") && dataGridView1.SelectedRows.Count > 0;
+        }
+
+        private void dataGridView1_UserDeletingRow(object sender, DataGridViewRowCancelEventArgs e)
+        {
+            try
+            {
+                var uri = (string)e.Row.Cells["Uri"].Value;
+                ConnectionInfo.DoWithExceptionTranslation(() => connectionInfo.Proxy.Delete(uri));
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(this, ex.Message, "SWQL Studio", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                e.Cancel = true;
+            }
+        }
+
+        private void dataGridView1_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        {
+            var row = dataGridView1.Rows[e.RowIndex];
+            var column = dataGridView1.Columns[e.ColumnIndex];
+            try
+            {
+                var uri = (string)row.Cells["Uri"].Value;
+                var props = new PropertyBag {{column.DataPropertyName, row.Cells[e.ColumnIndex].Value}};
+                ConnectionInfo.DoWithExceptionTranslation(() => connectionInfo.Proxy.Update(uri, props));
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(this, ex.Message, "SWQL Studio", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
         }
     }
 }

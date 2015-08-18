@@ -35,26 +35,27 @@ namespace SwqlStudio
             this.gridContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.saveResultsAsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.deleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.queryWorker = new System.ComponentModel.BackgroundWorker();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.sciTextEditorControl1 = new SwqlStudio.SciTextEditorControl();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.resultTab = new System.Windows.Forms.TabPage();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.queryPlanTab = new System.Windows.Forms.TabPage();
-            this.xmlBrowser1 = new SwqlStudio.XmlRender.XmlBrowser();
-            this.errorMessagesBrowser = new SwqlStudio.XmlRender.XmlBrowser();
             this.rawXmlTab = new System.Windows.Forms.TabPage();
             this.errorMessagesTab = new System.Windows.Forms.TabPage();
-            this.rawXmlBrowser = new SwqlStudio.XmlRender.XmlBrowser();
             this.logTab = new System.Windows.Forms.TabPage();
             this.logTextbox = new System.Windows.Forms.TextBox();
             this.notificationTab = new System.Windows.Forms.TabPage();
+            this.subscriptionWorker = new System.ComponentModel.BackgroundWorker();
+            this.sciTextEditorControl1 = new SwqlStudio.SciTextEditorControl();
+            this.xmlBrowser1 = new SwqlStudio.XmlRender.XmlBrowser();
+            this.rawXmlBrowser = new SwqlStudio.XmlRender.XmlBrowser();
+            this.errorMessagesBrowser = new SwqlStudio.XmlRender.XmlBrowser();
             this.subscriptionTab1 = new SwqlStudio.SubscriptionTab();
             this.queryStatusBar1 = new SwqlStudio.QueryStatusBar();
-            this.subscriptionWorker = new System.ComponentModel.BackgroundWorker();
-            this.deleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.gridContextMenuStrip.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
@@ -75,7 +76,7 @@ namespace SwqlStudio
             this.saveResultsAsToolStripMenuItem,
             this.deleteToolStripMenuItem});
             this.gridContextMenuStrip.Name = "gridContextMenuStrip";
-            this.gridContextMenuStrip.Size = new System.Drawing.Size(162, 92);
+            this.gridContextMenuStrip.Size = new System.Drawing.Size(162, 70);
             this.gridContextMenuStrip.Opening += new System.ComponentModel.CancelEventHandler(this.gridContextMenuStrip_Opening);
             // 
             // toolStripMenuItem2
@@ -91,6 +92,13 @@ namespace SwqlStudio
             this.saveResultsAsToolStripMenuItem.Size = new System.Drawing.Size(161, 22);
             this.saveResultsAsToolStripMenuItem.Text = "&Save Results as...";
             this.saveResultsAsToolStripMenuItem.Click += new System.EventHandler(this.saveResultsAsToolStripMenuItem_Click);
+            // 
+            // deleteToolStripMenuItem
+            // 
+            this.deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
+            this.deleteToolStripMenuItem.Size = new System.Drawing.Size(161, 22);
+            this.deleteToolStripMenuItem.Text = "Delete";
+            this.deleteToolStripMenuItem.Click += new System.EventHandler(this.deleteToolStripMenuItem_Click);
             // 
             // queryWorker
             // 
@@ -115,17 +123,6 @@ namespace SwqlStudio
             this.splitContainer1.Size = new System.Drawing.Size(474, 353);
             this.splitContainer1.SplitterDistance = 117;
             this.splitContainer1.TabIndex = 0;
-            // 
-            // sciTextEditorControl1
-            // 
-            this.sciTextEditorControl1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.sciTextEditorControl1.FileName = null;
-            this.sciTextEditorControl1.WrapMode = WrapMode.Word;
-            this.sciTextEditorControl1.Location = new System.Drawing.Point(0, 0);
-            this.sciTextEditorControl1.Margin = new System.Windows.Forms.Padding(0);
-            this.sciTextEditorControl1.Name = "sciTextEditorControl1";
-            this.sciTextEditorControl1.Size = new System.Drawing.Size(474, 117);
-            this.sciTextEditorControl1.TabIndex = 0;
             // 
             // tabControl1
             // 
@@ -165,14 +162,14 @@ namespace SwqlStudio
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.ContextMenuStrip = this.gridContextMenuStrip;
             this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridView1.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.dataGridView1.Location = new System.Drawing.Point(0, 0);
             this.dataGridView1.Margin = new System.Windows.Forms.Padding(0);
             this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.ReadOnly = true;
             this.dataGridView1.Size = new System.Drawing.Size(466, 206);
             this.dataGridView1.TabIndex = 0;
             this.dataGridView1.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dataGridView1_CellFormatting);
+            this.dataGridView1.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellValueChanged);
+            this.dataGridView1.UserDeletingRow += new System.Windows.Forms.DataGridViewRowCancelEventHandler(this.dataGridView1_UserDeletingRow);
             // 
             // queryPlanTab
             // 
@@ -184,18 +181,6 @@ namespace SwqlStudio
             this.queryPlanTab.Text = "Query Plan";
             this.queryPlanTab.UseVisualStyleBackColor = true;
             // 
-            // xmlBrowser1
-            // 
-            this.xmlBrowser1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.xmlBrowser1.Location = new System.Drawing.Point(0, 0);
-            this.xmlBrowser1.MinimumSize = new System.Drawing.Size(20, 20);
-            this.xmlBrowser1.Name = "xmlBrowser1";
-            this.xmlBrowser1.Size = new System.Drawing.Size(466, 206);
-            this.xmlBrowser1.TabIndex = 0;
-            this.xmlBrowser1.XmlDocument = null;
-            this.xmlBrowser1.XmlDocumentTransformType = SwqlStudio.XmlRender.XmlBrowser.XslTransformType.XSL;
-            this.xmlBrowser1.XmlText = "";
-            // 
             // rawXmlTab
             // 
             this.rawXmlTab.Controls.Add(this.rawXmlBrowser);
@@ -206,18 +191,6 @@ namespace SwqlStudio
             this.rawXmlTab.Text = "Raw XML";
             this.rawXmlTab.UseVisualStyleBackColor = true;
             // 
-            // rawXmlBrowser
-            // 
-            this.rawXmlBrowser.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.rawXmlBrowser.Location = new System.Drawing.Point(0, 0);
-            this.rawXmlBrowser.MinimumSize = new System.Drawing.Size(20, 20);
-            this.rawXmlBrowser.Name = "rawXmlBrowser";
-            this.rawXmlBrowser.Size = new System.Drawing.Size(466, 206);
-            this.rawXmlBrowser.TabIndex = 0;
-            this.rawXmlBrowser.XmlDocument = null;
-            this.rawXmlBrowser.XmlDocumentTransformType = SwqlStudio.XmlRender.XmlBrowser.XslTransformType.XSL;
-            this.rawXmlBrowser.XmlText = "";
-            // 
             // errorMessagesTab
             // 
             this.errorMessagesTab.Controls.Add(this.errorMessagesBrowser);
@@ -227,18 +200,6 @@ namespace SwqlStudio
             this.errorMessagesTab.TabIndex = 4;
             this.errorMessagesTab.Text = "Errors";
             this.errorMessagesTab.UseVisualStyleBackColor = true;
-            ///
-            /// errorMessagesBrowser
-            /// 
-            this.errorMessagesBrowser.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.errorMessagesBrowser.Location = new System.Drawing.Point(0, 0);
-            this.errorMessagesBrowser.MinimumSize = new System.Drawing.Size(20, 20);
-            this.errorMessagesBrowser.Name = "errorMessageBrowser";
-            this.errorMessagesBrowser.Size = new System.Drawing.Size(466, 206);
-            this.errorMessagesBrowser.TabIndex = 0;
-            this.errorMessagesBrowser.XmlDocument = null;
-            this.errorMessagesBrowser.XmlDocumentTransformType = SwqlStudio.XmlRender.XmlBrowser.XslTransformType.XSL;
-            this.errorMessagesBrowser.XmlText = "";
             // 
             // logTab
             // 
@@ -274,6 +235,61 @@ namespace SwqlStudio
             this.notificationTab.Text = "Notifications";
             this.notificationTab.UseVisualStyleBackColor = true;
             // 
+            // subscriptionWorker
+            // 
+            this.subscriptionWorker.WorkerReportsProgress = true;
+            this.subscriptionWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.subscriptionWorker_DoWork);
+            this.subscriptionWorker.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.subscriptionWorker_ProgressChanged);
+            this.subscriptionWorker.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.subscriptionWorker_RunWorkerCompleted);
+            // 
+            // sciTextEditorControl1
+            // 
+            this.sciTextEditorControl1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.sciTextEditorControl1.FileName = null;
+            this.sciTextEditorControl1.Lexer = ScintillaNET.Lexer.Sql;
+            this.sciTextEditorControl1.Location = new System.Drawing.Point(0, 0);
+            this.sciTextEditorControl1.Margin = new System.Windows.Forms.Padding(0);
+            this.sciTextEditorControl1.Name = "sciTextEditorControl1";
+            this.sciTextEditorControl1.Size = new System.Drawing.Size(474, 117);
+            this.sciTextEditorControl1.TabIndex = 0;
+            this.sciTextEditorControl1.WrapMode = ScintillaNET.WrapMode.Word;
+            // 
+            // xmlBrowser1
+            // 
+            this.xmlBrowser1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.xmlBrowser1.Location = new System.Drawing.Point(0, 0);
+            this.xmlBrowser1.MinimumSize = new System.Drawing.Size(20, 20);
+            this.xmlBrowser1.Name = "xmlBrowser1";
+            this.xmlBrowser1.Size = new System.Drawing.Size(466, 206);
+            this.xmlBrowser1.TabIndex = 0;
+            this.xmlBrowser1.XmlDocument = null;
+            this.xmlBrowser1.XmlDocumentTransformType = SwqlStudio.XmlRender.XmlBrowser.XslTransformType.XSL;
+            this.xmlBrowser1.XmlText = "";
+            // 
+            // rawXmlBrowser
+            // 
+            this.rawXmlBrowser.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.rawXmlBrowser.Location = new System.Drawing.Point(0, 0);
+            this.rawXmlBrowser.MinimumSize = new System.Drawing.Size(20, 20);
+            this.rawXmlBrowser.Name = "rawXmlBrowser";
+            this.rawXmlBrowser.Size = new System.Drawing.Size(466, 206);
+            this.rawXmlBrowser.TabIndex = 0;
+            this.rawXmlBrowser.XmlDocument = null;
+            this.rawXmlBrowser.XmlDocumentTransformType = SwqlStudio.XmlRender.XmlBrowser.XslTransformType.XSL;
+            this.rawXmlBrowser.XmlText = "";
+            // 
+            // errorMessagesBrowser
+            // 
+            this.errorMessagesBrowser.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.errorMessagesBrowser.Location = new System.Drawing.Point(0, 0);
+            this.errorMessagesBrowser.MinimumSize = new System.Drawing.Size(20, 20);
+            this.errorMessagesBrowser.Name = "errorMessagesBrowser";
+            this.errorMessagesBrowser.Size = new System.Drawing.Size(466, 206);
+            this.errorMessagesBrowser.TabIndex = 0;
+            this.errorMessagesBrowser.XmlDocument = null;
+            this.errorMessagesBrowser.XmlDocumentTransformType = SwqlStudio.XmlRender.XmlBrowser.XslTransformType.XSL;
+            this.errorMessagesBrowser.XmlText = "";
+            // 
             // subscriptionTab1
             // 
             this.subscriptionTab1.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -293,20 +309,6 @@ namespace SwqlStudio
             this.queryStatusBar1.TabIndex = 1;
             this.queryStatusBar1.Text = "queryStatusBar1";
             // 
-            // subscriptionWorker
-            // 
-            this.subscriptionWorker.WorkerReportsProgress = true;
-            this.subscriptionWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.subscriptionWorker_DoWork);
-            this.subscriptionWorker.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.subscriptionWorker_ProgressChanged);
-            this.subscriptionWorker.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.subscriptionWorker_RunWorkerCompleted);
-            // 
-            // deleteToolStripMenuItem
-            // 
-            this.deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
-            this.deleteToolStripMenuItem.Size = new System.Drawing.Size(161, 22);
-            this.deleteToolStripMenuItem.Text = "Delete";
-            this.deleteToolStripMenuItem.Click += new System.EventHandler(this.deleteToolStripMenuItem_Click);
-            // 
             // QueryTab
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -319,6 +321,7 @@ namespace SwqlStudio
             this.gridContextMenuStrip.ResumeLayout(false);
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
             this.tabControl1.ResumeLayout(false);
             this.resultTab.ResumeLayout(false);

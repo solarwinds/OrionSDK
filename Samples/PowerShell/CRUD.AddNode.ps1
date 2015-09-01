@@ -42,6 +42,12 @@ $poller = @{
   NetObjectType="N";
   NetObjectID=$nodeProps["NodeID"];
 }
+# Status
+$poller["PollerType"]="N.Status.ICMP.Native";
+$pollerUri = New-SwisObject $swis -EntityType "Orion.Pollers" -Properties $poller
+# Response time
+$poller["PollerType"]="N.ResponseTime.ICMP.Native";
+$pollerUri = New-SwisObject $swis -EntityType "Orion.Pollers" -Properties $poller
 # Details
 $poller["PollerType"]="N.Details.SNMP.Generic";
 $pollerUri = New-SwisObject $swis -EntityType "Orion.Pollers" -Properties $poller

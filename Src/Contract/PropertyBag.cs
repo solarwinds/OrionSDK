@@ -162,7 +162,10 @@ namespace SolarWinds.InformationService.Contract2
 
                     writer.WriteString(value);
 
-                    writer.WriteEndElement();
+                    if (kvp.Value is string && ((string)kvp.Value) == String.Empty)
+                        writer.WriteFullEndElement();
+                    else
+                        writer.WriteEndElement();
                 }
                 else
                 {

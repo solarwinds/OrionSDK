@@ -130,7 +130,6 @@ namespace SolarWinds.InformationService.Contract2
             Assert.That(stringArray.GetValue(1), Is.EqualTo("PollInterval"));
         }
 
-
         [Test]
         public void SerializationHelper_Deserialize_DateTime()
         {
@@ -357,6 +356,21 @@ namespace SolarWinds.InformationService.Contract2
             string xml = DataContractSerialize(doubleNested);
             var bag2 = DataContractDeserialize<OldContract.PropertyBag>(xml);
             Assert.That(bag2["prop"], Is.EqualTo("value"));
+        }
+
+        [Test]
+        public void EmptyAndNullStrings()
+        {
+            PropertyBag bag = new PropertyBag
+            {
+                {"p0", (string) null},
+                {"p1", ""}
+            };
+
+            string xml = DataContractSerialize(bag);
+            var bag2 = DataContractDeserialize<PropertyBag>(xml);
+            Assert.That(bag2["p0"], Is.Null);
+            Assert.That(bag2["p1"], Is.Empty);
         }
 
         [Test]

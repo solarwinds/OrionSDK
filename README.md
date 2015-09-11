@@ -8,7 +8,9 @@ You can download a pre-compiled [installer for the Orion SDK tools](http://knowl
 
 ## Wiki
 
-We will be moving the documentation into the Github [OrionSDK wiki](https://github.com/solarwinds/OrionSDK/wiki/Alerts). For now there is just one page that describes the alerting entities introduced in the 2015 Orion platform releases.
+Documentation for the API and SDK tools can be found in the the GitHub [OrionSDK wiki](https://github.com/solarwinds/OrionSDK/wiki/Alerts).
+
+There is also generated reference documentation for the [Orion schema](http://solarwinds.github.io/OrionSDK/schema/).
 
 ## Forum
 

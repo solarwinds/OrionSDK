@@ -25,12 +25,22 @@
         <th>Notes</th>
       </tr>
       <tr>
+        <td>CustomPollerAssignmentID</td>
+        <td>System.Guid</td>
+        <td />
+      </tr>
+      <tr>
         <td>InterfaceID</td>
         <td>System.Int32</td>
         <td />
       </tr>
       <tr>
         <td>Description</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>DetailsUrl</td>
         <td>System.String</td>
         <td />
       </tr>
@@ -106,6 +116,11 @@
       </tr>
       <tr>
         <td>CustomPollerName</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>StatusDescription</td>
         <td>System.String</td>
         <td />
       </tr>
@@ -187,15 +202,6 @@
         <td />
       </tr>
       <tr>
-        <td>CustomPoller</td>
-        <td>
-          <a href="Orion.NPM.InterfaceCustomPollers.html">Orion.NPM.InterfaceCustomPollers</a>
-        </td>
-        <td>
-        Defined by relationship Orion.CustomPollerAssignmentOnInterfaceHostsInterfaceCustomPollers (System.Hosting)
-      </td>
-      </tr>
-      <tr>
         <td>CustomPollerStatus</td>
         <td>
           <a href="Orion.NPM.CustomPollerStatusOnInterface.html">Orion.NPM.CustomPollerStatusOnInterface</a>
@@ -211,6 +217,15 @@
         </td>
         <td>
         Defined by relationship Orion.NPM.InterfacesHostsCustomPollerAssignmentOnInterface (System.Hosting)
+      </td>
+      </tr>
+      <tr>
+        <td>CustomPoller</td>
+        <td>
+          <a href="Orion.NPM.InterfaceCustomPollers.html">Orion.NPM.InterfaceCustomPollers</a>
+        </td>
+        <td>
+        Defined by relationship Orion.InterfaceCustomPollersReferencesCustomPollerAssignmentOnInterface (System.Reference)
       </td>
       </tr>
     </table>

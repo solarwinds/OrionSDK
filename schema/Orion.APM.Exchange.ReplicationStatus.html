@@ -17,6 +17,11 @@
     <p>
         Base type:
         <a href="System.Entity.html">System.Entity</a></p>
+    <p>
+        Summary:
+        
+			This entity presents the Exchange server replication status information.
+		</p>
     <h2>Properties</h2>
     <table>
       <tr>
@@ -27,32 +32,44 @@
       <tr>
         <td>ID</td>
         <td>System.Int32</td>
-        <td />
+        <td>The unique integer representation of replication status.'
+        </td>
       </tr>
       <tr>
         <td>ApplicationID</td>
         <td>System.Int32</td>
-        <td />
+        <td>The unique integer representation of parent SAM application.'
+        </td>
       </tr>
       <tr>
         <td>CheckName</td>
         <td>System.String</td>
-        <td />
+        <td>The string value that contains replication entity name (ClusterService, ReplayService, ActiveManager...).'
+        </td>
       </tr>
       <tr>
         <td>Status</td>
         <td>System.Int32</td>
-        <td />
+        <td>The integer value that contains replication entity status.'
+        </td>
       </tr>
       <tr>
         <td>StatusName</td>
         <td>System.String</td>
-        <td />
+        <td>The string value that contains replication entity status.'
+        </td>
       </tr>
       <tr>
         <td>Error</td>
         <td>System.String</td>
-        <td />
+        <td>The string value that contains replication status error message.'
+        </td>
+      </tr>
+      <tr>
+        <td>DetailsUrl</td>
+        <td>System.String</td>
+        <td>URL to replication details page. Used in alerting.'
+        </td>
       </tr>
       <tr>
         <td>DisplayName</td>
@@ -73,6 +90,24 @@
         <td>Uri</td>
         <td>System.String</td>
         <td />
+      </tr>
+      <tr>
+        <td>ReplicationStatusAlert</td>
+        <td>
+          <a href="Orion.APM.Exchange.ReplicationStatusAlert.html">Orion.APM.Exchange.ReplicationStatusAlert</a>
+        </td>
+        <td>
+        Defined by relationship Orion.APM.Exchange.ReplicationStatusAlertReferencesReplicationStatus (System.Reference)
+      </td>
+      </tr>
+      <tr>
+        <td>ExchangeApplication</td>
+        <td>
+          <a href="Orion.APM.Exchange.Application.html">Orion.APM.Exchange.Application</a>
+        </td>
+        <td>
+        Defined by relationship Orion.APM.Exchange.ApplicationHostsReplicationStatus (System.Hosting)
+      </td>
       </tr>
     </table>
   </body>

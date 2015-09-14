@@ -17,6 +17,9 @@
     <p>
         Base type:
         <a href="System.ExtensionEntity.html">System.ExtensionEntity</a></p>
+    <p>
+        Summary:
+        This entity presents dynamic evidence column schema. Used to present script monitors output. </p>
     <h2>Properties</h2>
     <table>
       <tr>
@@ -27,157 +30,188 @@
       <tr>
         <td>ColumnSchemaID</td>
         <td>System.Int32</td>
-        <td />
+        <td>The unique integer representation of column schema.'
+        </td>
       </tr>
       <tr>
         <td>ParentID</td>
         <td>System.Int32</td>
-        <td />
+        <td>The unique integer representation of parent column schema.'
+        </td>
       </tr>
       <tr>
         <td>ComponentID</td>
         <td>System.Int64</td>
-        <td />
+        <td>The unique integer representation of parent component.'
+        </td>
       </tr>
       <tr>
         <td>ComponentTemplateID</td>
         <td>System.Int64</td>
-        <td />
+        <td>The unique integer representation of parent component template.'
+        </td>
       </tr>
       <tr>
         <td>Type</td>
         <td>System.Int16</td>
-        <td />
+        <td>The integer value that contains the component type.'
+        </td>
       </tr>
       <tr>
         <td>IsDisabled</td>
         <td>System.Boolean</td>
-        <td />
+        <td>The boolean value that specifies if dynamic evidence output is disabled.'
+        </td>
       </tr>
       <tr>
         <td>Name</td>
         <td>System.String</td>
-        <td />
+        <td>The string value that contains the name of dynamic evidence output.'
+        </td>
       </tr>
       <tr>
         <td>Label</td>
         <td>System.String</td>
-        <td />
+        <td>The string value that contains the dynamic evidence output label.'
+        </td>
       </tr>
       <tr>
         <td>IsLabelOverridden</td>
         <td>System.Boolean</td>
-        <td />
+        <td>The boolean value that specifies if dynamic evidence output label is overridden.'
+        </td>
       </tr>
       <tr>
         <td>ThresholdOperator</td>
         <td>System.Int16</td>
-        <td />
+        <td>The integer value that contains the threshold operator(0 -greater than;1 - greater than or equal to;2 - equal to;3 - less than or equal to;4 - less than;5 - not equal to.).'
+        </td>
       </tr>
       <tr>
         <td>ThresholdWarning</td>
         <td>System.Double</td>
-        <td />
+        <td>The integer value that contains the threshold warning level.'
+        </td>
       </tr>
       <tr>
         <td>ThresholdCritical</td>
         <td>System.Double</td>
-        <td />
+        <td>The integer value that contains the threshold critical level.'
+        </td>
       </tr>
       <tr>
         <td>IsThresholdOverridden</td>
         <td>System.Boolean</td>
-        <td />
+        <td>The boolean value that specifies if threshold is overridden.'
+        </td>
       </tr>
       <tr>
         <td>DataTransformExpression</td>
         <td>System.String</td>
-        <td />
+        <td>The string value that contains the data transformation expression.'
+        </td>
       </tr>
       <tr>
         <td>DataTransformEnabled</td>
         <td>System.Boolean</td>
-        <td />
+        <td>The boolean value that specifies if data transformation is enabled.'
+        </td>
       </tr>
       <tr>
         <td>DataTransformCheckedRadioButton</td>
         <td>System.Int32</td>
-        <td />
+        <td>The integer value that contains data transformation radio button value.'
+        </td>
       </tr>
       <tr>
         <td>DataTransformFormulaIndex</td>
         <td>System.Int32</td>
-        <td />
+        <td>The integer value that contains data transformation formula index.'
+        </td>
       </tr>
       <tr>
         <td>DataTransformFormulaOptions</td>
         <td>System.String</td>
-        <td />
+        <td>The string value that contains the data transformation formula options.'
+        </td>
       </tr>
       <tr>
         <td>IsDataTransformOverridden</td>
         <td>System.Boolean</td>
-        <td />
+        <td>The boolean value that specifies if data transform expression is overridden.'
+        </td>
       </tr>
       <tr>
         <td>ComputeBaseline</td>
         <td>System.Boolean</td>
-        <td />
+        <td>The boolean value that specifies if compute baseline option is enabled for threshold.'
+        </td>
       </tr>
       <tr>
         <td>UseBaseline</td>
         <td>System.Boolean</td>
-        <td />
+        <td>The boolean value that specifies if use baseline option is enabled for threshold.'
+        </td>
       </tr>
       <tr>
         <td>WarningFormula</td>
         <td>System.String</td>
-        <td />
+        <td>The string value that contains the warning formula.'
+        </td>
       </tr>
       <tr>
         <td>CriticalFormula</td>
         <td>System.String</td>
-        <td />
+        <td>The string value that contains the critical formula.'
+        </td>
       </tr>
       <tr>
         <td>BaselineFrom</td>
         <td>System.DateTime</td>
-        <td />
+        <td>The date and time from which baseline data is calculated.'
+        </td>
       </tr>
       <tr>
         <td>BaselineTo</td>
         <td>System.DateTime</td>
-        <td />
+        <td>The date and time until which baseline data is calculated.'
+        </td>
       </tr>
       <tr>
         <td>BaselineApplied</td>
         <td>System.DateTime</td>
-        <td />
+        <td>The date and time when baseline calculation was enabled for threshold.'
+        </td>
       </tr>
       <tr>
         <td>BaselineApplyError</td>
         <td>System.String</td>
-        <td />
+        <td>The string value that contains the baseline apply error.'
+        </td>
       </tr>
       <tr>
         <td>WarningPolls</td>
         <td>System.Int32</td>
-        <td />
+        <td>The integer value that contains the number of warning polls.'
+        </td>
       </tr>
       <tr>
         <td>WarningPollsInterval</td>
         <td>System.Int32</td>
-        <td />
+        <td>The integer value that contains the warning polls interval.'
+        </td>
       </tr>
       <tr>
         <td>CriticalPolls</td>
         <td>System.Int32</td>
-        <td />
+        <td>The integer value that contains the number of critical polls.'
+        </td>
       </tr>
       <tr>
         <td>CriticalPollsInterval</td>
         <td>System.Int32</td>
-        <td />
+        <td>The integer value that contains the critical polls interval.'
+        </td>
       </tr>
       <tr>
         <td>DisplayName</td>

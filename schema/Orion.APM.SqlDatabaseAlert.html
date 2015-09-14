@@ -17,6 +17,11 @@
     <p>
         Base type:
         <a href="System.Entity.html">System.Entity</a></p>
+    <p>
+        Summary:
+        
+			This entity presents SQL database. Used in alerting.
+		</p>
     <h2>Properties</h2>
     <table>
       <tr>
@@ -27,87 +32,116 @@
       <tr>
         <td>ApplicationID</td>
         <td>System.Int32</td>
-        <td />
+        <td>The unique integer representation of parent application.'
+        </td>
       </tr>
       <tr>
         <td>DatabaseID</td>
         <td>System.Int32</td>
-        <td />
+        <td>The unique integer representation of SQL database.'
+        </td>
       </tr>
       <tr>
         <td>DatabaseName</td>
         <td>System.String</td>
-        <td />
+        <td>The string value that contains database name.'
+        </td>
       </tr>
       <tr>
         <td>Collation</td>
         <td>System.String</td>
-        <td />
+        <td>The string value that contains the database collation.'
+        </td>
       </tr>
       <tr>
         <td>OperationalState</td>
         <td>System.Int32</td>
-        <td />
+        <td>The integer value that contains the database operational state (Online, Restoring, Recovering,Recovery pending, Suspect, Emergency, Offline and Copying).'
+        </td>
       </tr>
       <tr>
         <td>RecoveryModel</td>
         <td>System.Byte</td>
-        <td />
+        <td>The integer value that contains the database recovery model.'
+        </td>
       </tr>
       <tr>
         <td>CompatibilityLevel</td>
         <td>System.Byte</td>
-        <td />
+        <td>The integer value that contains the database compatibility level.'
+        </td>
       </tr>
       <tr>
         <td>LastBackup</td>
         <td>System.DateTime</td>
-        <td />
+        <td>The date of last database backup.'
+        </td>
       </tr>
       <tr>
         <td>DatabaseSize</td>
         <td>System.Int64</td>
-        <td />
+        <td>The long value that contains the database size.'
+        </td>
       </tr>
       <tr>
         <td>DatabaseFreeSpace</td>
         <td>System.Int64</td>
-        <td />
+        <td>The long value that contains the database free space.'
+        </td>
       </tr>
       <tr>
         <td>DatabaseFreeSpaceInPercents</td>
         <td>System.Int64</td>
-        <td />
+        <td>The percentage representation of free database space.'
+        </td>
       </tr>
       <tr>
         <td>TransactionLogSize</td>
         <td>System.Int64</td>
-        <td />
+        <td>The long value that contains the database log size.'
+        </td>
       </tr>
       <tr>
         <td>TransactionLogFreeSpace</td>
         <td>System.Int64</td>
-        <td />
+        <td>The long value that contains the transaction log free space.'
+        </td>
       </tr>
       <tr>
         <td>TransactionLogFreeSpaceInPercents</td>
         <td>System.Int64</td>
-        <td />
+        <td>The percentage representation of free transaction log space.'
+        </td>
       </tr>
       <tr>
         <td>Status</td>
         <td>System.Int32</td>
-        <td />
+        <td>The status of an database.'
+        </td>
       </tr>
       <tr>
         <td>DisplayStatus</td>
         <td>System.String</td>
-        <td />
+        <td>The status of an database.'
+        </td>
       </tr>
       <tr>
         <td>DatabaseTimeStamp</td>
         <td>System.DateTime</td>
-        <td />
+        <td>The date of last poll for database.'
+        </td>
+      </tr>
+      <tr>
+        <td>MirroringState</td>
+        <td>System.Int32</td>
+        <td>The mirroring state of an database.'
+        </td>
+      </tr>
+      <tr>
+        <td>DaysFromLastBackup</td>
+        <td>System.Int32</td>
+        <td>Number of days passed since last database backup.'
+        </td>
       </tr>
       <tr>
         <td>DisplayName</td>
@@ -130,21 +164,21 @@
         <td />
       </tr>
       <tr>
-        <td>SqlDatabase</td>
-        <td>
-          <a href="Orion.APM.SqlDatabase.html">Orion.APM.SqlDatabase</a>
-        </td>
-        <td>
-        Defined by relationship Orion.APM.SqlDatabaseAlertReferencesSqlDatabase (System.Reference)
-      </td>
-      </tr>
-      <tr>
         <td>SqlApplicationAlert</td>
         <td>
           <a href="Orion.APM.SqlServerApplicationAlert.html">Orion.APM.SqlServerApplicationAlert</a>
         </td>
         <td>
         Defined by relationship Orion.APM.SqlServerApplicationAlertHostsSqlDatabaseAlert (System.Hosting)
+      </td>
+      </tr>
+      <tr>
+        <td>SqlDatabase</td>
+        <td>
+          <a href="Orion.APM.SqlDatabase.html">Orion.APM.SqlDatabase</a>
+        </td>
+        <td>
+        Defined by relationship Orion.APM.SqlDatabaseAlertReferencesSqlDatabase (System.Reference)
       </td>
       </tr>
     </table>

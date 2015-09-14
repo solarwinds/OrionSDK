@@ -17,6 +17,11 @@
     <p>
         Base type:
         <a href="System.ManagedEntity.html">System.ManagedEntity</a></p>
+    <p>
+        Summary:
+        
+			This entity presents the mailbox database information.
+		</p>
     <h2>Properties</h2>
     <table>
       <tr>
@@ -27,117 +32,146 @@
       <tr>
         <td>ID</td>
         <td>System.Int32</td>
-        <td />
+        <td>The unique integer representation of mailbox database.'
+        </td>
       </tr>
       <tr>
         <td>Identity</td>
         <td>System.String</td>
-        <td />
+        <td>The unique string representation of mailbox database.'
+        </td>
       </tr>
       <tr>
         <td>Guid</td>
         <td>System.Guid</td>
-        <td />
+        <td>The mailbox database GUID.'
+        </td>
       </tr>
       <tr>
         <td>Status</td>
         <td>System.Int32</td>
-        <td />
+        <td>The integer value that contains mailbox database status.'
+        </td>
       </tr>
       <tr>
         <td>ServerName</td>
         <td>System.String</td>
-        <td />
+        <td>The string value that contains the name of parent node.'
+        </td>
       </tr>
       <tr>
         <td>ServerNodeID</td>
         <td>System.Int32</td>
-        <td />
+        <td>The unique integer representation of parent node.'
+        </td>
       </tr>
       <tr>
         <td>PreferredServer</td>
         <td>System.String</td>
-        <td />
+        <td>The string value that contains the name of preferred server.'
+        </td>
       </tr>
       <tr>
         <td>PreferredNodeID</td>
         <td>System.Int32</td>
-        <td />
+        <td>The unique integer representation of proffered node.'
+        </td>
       </tr>
       <tr>
         <td>MasterType</td>
         <td>System.Int32</td>
-        <td />
+        <td>The integer that contains the type of mailbox database master.'
+        </td>
       </tr>
       <tr>
         <td>DisplayMasterType</td>
         <td>System.String</td>
-        <td />
+        <td>The string value that contains the type of mailbox database master.'
+        </td>
       </tr>
       <tr>
         <td>MasterServerID</td>
         <td>System.Int32</td>
-        <td />
+        <td>The unique integer representation of the master server for the mailbox database.'
+        </td>
       </tr>
       <tr>
         <td>MasterDagID</td>
         <td>System.Int32</td>
-        <td />
+        <td>The unique integer representation of the master server database availability group.'
+        </td>
       </tr>
       <tr>
         <td>LastFullBackup</td>
         <td>System.DateTime</td>
-        <td />
+        <td>The date and time of the last complete backup of the mailbox database.'
+        </td>
       </tr>
       <tr>
         <td>LastIncrementalBackup</td>
         <td>System.DateTime</td>
-        <td />
+        <td>The date and time of the last incremental backup of the mailbox database.'
+        </td>
       </tr>
       <tr>
         <td>CircularLoggingEnabled</td>
         <td>System.Boolean</td>
-        <td />
+        <td>The boolean value that contains circular logging enabled value.'
+        </td>
       </tr>
       <tr>
         <td>IssueWarningQuota</td>
         <td>System.Int64</td>
-        <td />
+        <td>The long value that contains the mailbox database size at which a warning message is sent to the user.'
+        </td>
       </tr>
       <tr>
         <td>ProhibitSendQuota</td>
         <td>System.Int64</td>
-        <td />
+        <td>The long value that contains the mailbox database size at which users can no longer send messages.'
+        </td>
       </tr>
       <tr>
         <td>ProhibitSendReceiveQuota</td>
         <td>System.Int64</td>
-        <td />
+        <td>The long value that contains the mailbox database size at which the user is prohibited from sending or receiving email messages.'
+        </td>
       </tr>
       <tr>
         <td>LastSuccessfulMailboxPoll</td>
         <td>System.DateTime</td>
-        <td />
+        <td>The date of last successful poll for mailboxes.'
+        </td>
       </tr>
       <tr>
         <td>ActiveCopyID</td>
         <td>System.Int32</td>
-        <td />
+        <td>The unique integer representation of database active copy.'
+        </td>
       </tr>
       <tr>
         <td>TotalMailboxes</td>
         <td>System.Int32</td>
-        <td />
+        <td>The integer value that contains the number of mailboxes.'
+        </td>
       </tr>
       <tr>
         <td>AvgMailBoxSize</td>
         <td>System.Int64</td>
-        <td />
+        <td>The integer value that contains the average mailbox size.'
+        </td>
       </tr>
       <tr>
         <td>StatusDescription</td>
         <td>System.String</td>
-        <td />
+        <td>The string value that contains mailbox database status description.'
+        </td>
+      </tr>
+      <tr>
+        <td>DetailsUrl</td>
+        <td>System.String</td>
+        <td>URL to mailbox database details page. Used in alerting.'
+        </td>
       </tr>
       <tr>
         <td>Status</td>
@@ -244,21 +278,21 @@
       </td>
       </tr>
       <tr>
-        <td>ActiveCopy</td>
-        <td>
-          <a href="Orion.APM.Exchange.DatabaseCopy.html">Orion.APM.Exchange.DatabaseCopy</a>
-        </td>
-        <td>
-        Defined by relationship Orion.APM.Exchange.ActiveDatabaseCopyReferencesDatabase (System.Reference)
-      </td>
-      </tr>
-      <tr>
         <td>DatabaseAlert</td>
         <td>
           <a href="Orion.APM.Exchange.DatabaseAlert.html">Orion.APM.Exchange.DatabaseAlert</a>
         </td>
         <td>
         Defined by relationship Orion.APM.Exchange.DatabaseAlertReferencesDatabase (System.Reference)
+      </td>
+      </tr>
+      <tr>
+        <td>ActiveCopy</td>
+        <td>
+          <a href="Orion.APM.Exchange.DatabaseCopy.html">Orion.APM.Exchange.DatabaseCopy</a>
+        </td>
+        <td>
+        Defined by relationship Orion.APM.Exchange.ActiveDatabaseCopyReferencesDatabase (System.Reference)
       </td>
       </tr>
     </table>

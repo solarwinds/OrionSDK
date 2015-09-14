@@ -1,0 +1,157 @@
+﻿
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <title>SolarWinds Information Service v3.0 Schema Documentation</title>
+    <link href="SchemaDoc.css" type="text/css" rel="stylesheet" />
+  </head>
+  <body>
+    <h1>SolarWinds Information Service v3.0 Schema Documentation</h1>
+    <p>
+      <a href="index.html">Index</a>
+    </p>
+    <h1>
+      <a name="Orion.Netflow.CBQoSPolicy">Orion.Netflow.CBQoSPolicy</a>
+    </h1>
+    <p>
+        Base type:
+        <a href="System.Entity.html">System.Entity</a></p>
+    <h2>Properties</h2>
+    <table>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Notes</th>
+      </tr>
+      <tr>
+        <td>PolicyID</td>
+        <td>System.Int32</td>
+        <td />
+      </tr>
+      <tr>
+        <td>NodeID</td>
+        <td>System.Int32</td>
+        <td />
+      </tr>
+      <tr>
+        <td>InterfaceID</td>
+        <td>System.Int32</td>
+        <td />
+      </tr>
+      <tr>
+        <td>PolicyMapID</td>
+        <td>System.Int32</td>
+        <td />
+      </tr>
+      <tr>
+        <td>ClassMapID</td>
+        <td>System.Int32</td>
+        <td />
+      </tr>
+      <tr>
+        <td>DirectionID</td>
+        <td>System.Int16</td>
+        <td />
+      </tr>
+      <tr>
+        <td>StartDate</td>
+        <td>System.DateTime</td>
+        <td />
+      </tr>
+      <tr>
+        <td>EndDate</td>
+        <td>System.DateTime</td>
+        <td />
+      </tr>
+      <tr>
+        <td>PolicyFullPathName</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>DisplayName</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Description</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>InstanceType</td>
+        <td>System.Type</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Uri</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Statistics</td>
+        <td>
+          <a href="Orion.Netflow.CBQoSStatistics.html">Orion.Netflow.CBQoSStatistics</a>
+        </td>
+        <td>
+        Defined by relationship Orion.Netflow.CBQoSPolicyReferencesCBQoSStatistics (System.Reference)
+      </td>
+      </tr>
+      <tr>
+        <td>Node</td>
+        <td>
+          <a href="Orion.Nodes.html">Orion.Nodes</a>
+        </td>
+        <td>
+        Defined by relationship Orion.Netflow.NodeReferencesCBQoSPolicy (System.Reference)
+      </td>
+      </tr>
+      <tr>
+        <td>Interface</td>
+        <td>
+          <a href="Orion.NPM.Interfaces.html">Orion.NPM.Interfaces</a>
+        </td>
+        <td>
+        Defined by relationship Orion.Netflow.InterfaceReferencesCBQoSPolicy (System.Reference)
+      </td>
+      </tr>
+      <tr>
+        <td>PolicyMetric</td>
+        <td>
+          <a href="Orion.Netflow.CBQoSPolicyMetric.html">Orion.Netflow.CBQoSPolicyMetric</a>
+        </td>
+        <td>
+        Defined by relationship Orion.Netflow.CBQoSPolicyMetricReferencesCBQoSPolicy (System.Reference)
+      </td>
+      </tr>
+      <tr>
+        <td>ClassMap</td>
+        <td>
+          <a href="Orion.Netflow.CBQoSClassMap.html">Orion.Netflow.CBQoSClassMap</a>
+        </td>
+        <td>
+        Defined by relationship Orion.Netflow.CBQoSClassMapReferencesCBQoSPolicy (System.Reference)
+      </td>
+      </tr>
+      <tr>
+        <td>PolicyMap</td>
+        <td>
+          <a href="Orion.Netflow.CBQoSPolicyMap.html">Orion.Netflow.CBQoSPolicyMap</a>
+        </td>
+        <td>
+        Defined by relationship Orion.Netflow.CBQoSPolicyMapReferencesCBQoSPolicy (System.Reference)
+      </td>
+      </tr>
+      <tr>
+        <td>DirectionDescription</td>
+        <td>
+          <a href="Orion.Netflow.CBQoSDirectionDescription.html">Orion.Netflow.CBQoSDirectionDescription</a>
+        </td>
+        <td>
+        Defined by relationship Orion.Netflow.CBQoSDirectionDescriptionReferencesCBQoSPolicy (System.Reference)
+      </td>
+      </tr>
+    </table>
+  </body>
+</html>

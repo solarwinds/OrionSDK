@@ -17,6 +17,11 @@
     <p>
         Base type:
         <a href="System.Entity.html">System.Entity</a></p>
+    <p>
+        Summary:
+        
+			This entity presents AppInsight for SQL application. Used in alerting.
+		</p>
     <h2>Properties</h2>
     <table>
       <tr>
@@ -27,62 +32,74 @@
       <tr>
         <td>ID</td>
         <td>System.Int32</td>
-        <td />
+        <td>The unique integer representation of application.'
+        </td>
       </tr>
       <tr>
         <td>ApplicationID</td>
         <td>System.Int32</td>
-        <td />
+        <td>The unique integer representation of application.'
+        </td>
       </tr>
       <tr>
         <td>Name</td>
         <td>System.String</td>
-        <td />
+        <td>The string value that contains the name of the application.'
+        </td>
       </tr>
       <tr>
         <td>NodeID</td>
         <td>System.Int32</td>
-        <td />
+        <td>The unique integer representation of parent node.'
+        </td>
       </tr>
       <tr>
         <td>Availability</td>
         <td>System.String</td>
-        <td />
+        <td>The integer value that contains the application availability.'
+        </td>
       </tr>
       <tr>
         <td>LastTimeUp</td>
         <td>System.DateTime</td>
-        <td />
+        <td>The date and time when application has Up status.'
+        </td>
       </tr>
       <tr>
         <td>TimeStamp</td>
         <td>System.DateTime</td>
-        <td />
+        <td>The date of last poll for application.'
+        </td>
       </tr>
       <tr>
         <td>TemplateDescription</td>
         <td>System.String</td>
-        <td />
+        <td>The string value that contains the application template description.'
+        </td>
       </tr>
       <tr>
         <td>InstanceName</td>
         <td>System.String</td>
-        <td />
+        <td>The string value that contains the name of SQL server instance.'
+        </td>
       </tr>
       <tr>
         <td>ProductVersion</td>
         <td>System.String</td>
-        <td />
+        <td>The string value that contains the SQL server version.'
+        </td>
       </tr>
       <tr>
         <td>ProductLevel</td>
         <td>System.String</td>
-        <td />
+        <td>The string value that contains the SQL server level.'
+        </td>
       </tr>
       <tr>
         <td>Edition</td>
         <td>System.String</td>
-        <td />
+        <td>The string value that contains the SQL server edition.'
+        </td>
       </tr>
       <tr>
         <td>DisplayName</td>
@@ -103,15 +120,6 @@
         <td>Uri</td>
         <td>System.String</td>
         <td />
-      </tr>
-      <tr>
-        <td>SqlApplication</td>
-        <td>
-          <a href="Orion.APM.SqlServerApplication.html">Orion.APM.SqlServerApplication</a>
-        </td>
-        <td>
-        Defined by relationship Orion.APM.SqlServerApplicationAlertReferencesSqlServerApplication (System.Reference)
-      </td>
       </tr>
       <tr>
         <td>SqlDatabase</td>
@@ -147,6 +155,15 @@
         </td>
         <td>
         Defined by relationship Orion.APM.SqlServerApplicationAlertHostsSqlQueryAlert (System.Hosting)
+      </td>
+      </tr>
+      <tr>
+        <td>SqlApplication</td>
+        <td>
+          <a href="Orion.APM.SqlServerApplication.html">Orion.APM.SqlServerApplication</a>
+        </td>
+        <td>
+        Defined by relationship Orion.APM.SqlServerApplicationAlertReferencesSqlServerApplication (System.Reference)
       </td>
       </tr>
     </table>

@@ -16,7 +16,10 @@
     </h1>
     <p>
         Base type:
-        <a href="System.Entity.html">System.Entity</a></p>
+        <a href="System.ManagedEntity.html">System.ManagedEntity</a></p>
+    <p>
+        Summary:
+        Contains information about all providers added to the platform</p>
     <h2>Properties</h2>
     <table>
       <tr>
@@ -30,12 +33,17 @@
         <td />
       </tr>
       <tr>
-        <td>Name</td>
-        <td>System.String</td>
+        <td>EngineID</td>
+        <td>System.Int32</td>
         <td />
       </tr>
       <tr>
-        <td>Status</td>
+        <td>TemplateID</td>
+        <td>System.Guid</td>
+        <td />
+      </tr>
+      <tr>
+        <td>PollingInterval</td>
         <td>System.Int32</td>
         <td />
       </tr>
@@ -45,17 +53,52 @@
         <td />
       </tr>
       <tr>
+        <td>HostName</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Name</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>UserCaption</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Caption</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>DisplayName</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Status</td>
+        <td>System.Int32</td>
+        <td />
+      </tr>
+      <tr>
+        <td>ProviderType</td>
+        <td>System.Int32</td>
+        <td />
+      </tr>
+      <tr>
+        <td>ProviderLocation</td>
+        <td>System.Int32</td>
+        <td />
+      </tr>
+      <tr>
         <td>CredentialType</td>
         <td>System.Int32</td>
         <td />
       </tr>
       <tr>
         <td>CredentialID</td>
-        <td>System.Int32</td>
-        <td />
-      </tr>
-      <tr>
-        <td>ProviderType</td>
         <td>System.Int32</td>
         <td />
       </tr>
@@ -72,6 +115,98 @@
       <tr>
         <td>LastSync</td>
         <td>System.DateTime</td>
+        <td />
+      </tr>
+      <tr>
+        <td>DetailsUrl</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Description</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Unmanaged</td>
+        <td>System.Boolean</td>
+        <td />
+      </tr>
+      <tr>
+        <td>UnmanageFrom</td>
+        <td>System.DateTime</td>
+        <td />
+      </tr>
+      <tr>
+        <td>UnmanageUntil</td>
+        <td>System.DateTime</td>
+        <td />
+      </tr>
+      <tr>
+        <td>StatusDescription</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>DeviceGroupID</td>
+        <td>System.Guid</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Status</td>
+        <td>System.Int32</td>
+        <td />
+      </tr>
+      <tr>
+        <td>StatusDescription</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>StatusLED</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>UnManaged</td>
+        <td>System.Boolean</td>
+        <td>
+          Default='false'.
+        </td>
+      </tr>
+      <tr>
+        <td>UnManageFrom</td>
+        <td>System.DateTime</td>
+        <td />
+      </tr>
+      <tr>
+        <td>UnManageUntil</td>
+        <td>System.DateTime</td>
+        <td />
+      </tr>
+      <tr>
+        <td>DetailsUrl</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Image</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>AncestorDisplayNames</td>
+        <td>System.String[]</td>
+        <td />
+      </tr>
+      <tr>
+        <td>AncestorDetailsUrls</td>
+        <td>System.String[]</td>
+        <td />
+      </tr>
+      <tr>
+        <td>StatusIconHint</td>
+        <td>System.String</td>
         <td />
       </tr>
       <tr>
@@ -93,6 +228,33 @@
         <td>Uri</td>
         <td>System.String</td>
         <td />
+      </tr>
+      <tr>
+        <td>CustomProperties</td>
+        <td>
+          <a href="Orion.SRM.ProviderCustomProperties.html">Orion.SRM.ProviderCustomProperties</a>
+        </td>
+        <td>
+        Defined by relationship Orion.SRM.ProviderHostsCustomProperties (System.Hosting)
+      </td>
+      </tr>
+      <tr>
+        <td>Engine</td>
+        <td>
+          <a href="Orion.SRM.Engines.html">Orion.SRM.Engines</a>
+        </td>
+        <td>
+        Defined by relationship Orion.SRM.EngineReferencesProviders (System.Reference)
+      </td>
+      </tr>
+      <tr>
+        <td>DeviceGroup</td>
+        <td>
+          <a href="Orion.SRM.DeviceGroups.html">Orion.SRM.DeviceGroups</a>
+        </td>
+        <td>
+        Defined by relationship Orion.SRM.DeviceGroupsReferencesProviders (System.Reference)
+      </td>
       </tr>
       <tr>
         <td>StorageArrays</td>

@@ -35,6 +35,11 @@
         <td />
       </tr>
       <tr>
+        <td>DiscoveryMode</td>
+        <td>System.Int32</td>
+        <td />
+      </tr>
+      <tr>
         <td>Name</td>
         <td>System.String</td>
         <td />
@@ -80,8 +85,23 @@
         <td />
       </tr>
       <tr>
+        <td>AdminStatus</td>
+        <td>System.Int32</td>
+        <td />
+      </tr>
+      <tr>
         <td>FilterSyntax</td>
         <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>LastDiscoveryDate</td>
+        <td>System.DateTime</td>
+        <td />
+      </tr>
+      <tr>
+        <td>LastDiscoveryProbeID</td>
+        <td>System.Int32</td>
         <td />
       </tr>
       <tr>
@@ -120,6 +140,16 @@
         <td />
       </tr>
       <tr>
+        <td>DataVolume</td>
+        <td>System.Double</td>
+        <td />
+      </tr>
+      <tr>
+        <td>DataVolumePerSec</td>
+        <td>System.Double</td>
+        <td />
+      </tr>
+      <tr>
         <td>Transactions</td>
         <td>System.Double</td>
         <td />
@@ -127,6 +157,21 @@
       <tr>
         <td>TransactionsPerMin</td>
         <td>System.Double</td>
+        <td />
+      </tr>
+      <tr>
+        <td>UnManaged</td>
+        <td>System.Boolean</td>
+        <td />
+      </tr>
+      <tr>
+        <td>UnManageFrom</td>
+        <td>System.DateTime</td>
+        <td />
+      </tr>
+      <tr>
+        <td>UnManageUntil</td>
+        <td>System.DateTime</td>
         <td />
       </tr>
       <tr>
@@ -213,6 +258,15 @@
         </td>
         <td>
         Defined by relationship Orion.DPI.ApplicationsToQoeStatistics (System.Reference)
+      </td>
+      </tr>
+      <tr>
+        <td>Thresholds</td>
+        <td>
+          <a href="Orion.DPI.ApplicationsThresholdsForAlerting.html">Orion.DPI.ApplicationsThresholdsForAlerting</a>
+        </td>
+        <td>
+        Defined by relationship Orion.DPI.ApplicationsToThresholds (System.Reference)
       </td>
       </tr>
       <tr>

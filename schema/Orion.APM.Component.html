@@ -17,6 +17,9 @@
     <p>
         Base type:
         <a href="System.ManagedEntity.html">System.ManagedEntity</a></p>
+    <p>
+        Summary:
+        This entity presents component.</p>
     <h2>Properties</h2>
     <table>
       <tr>
@@ -27,97 +30,122 @@
       <tr>
         <td>ComponentID</td>
         <td>System.Int64</td>
-        <td />
+        <td>The unique integer representation of component.'
+        </td>
       </tr>
       <tr>
         <td>Name</td>
         <td>System.String</td>
-        <td />
+        <td>The string value that contains the name of component.'
+        </td>
       </tr>
       <tr>
         <td>ShortName</td>
         <td>System.String</td>
-        <td />
+        <td>The string value that contains the component short name.'
+        </td>
       </tr>
       <tr>
         <td>ComponentType</td>
         <td>System.Int32</td>
-        <td />
+        <td>The integer value that contains the component type.'
+        </td>
       </tr>
       <tr>
         <td>ComponentEvidenceType</td>
         <td>System.Int32</td>
-        <td />
+        <td>The integer value that contains the component evidence type.'
+        </td>
       </tr>
       <tr>
         <td>ApplicationID</td>
         <td>System.Int32</td>
-        <td />
+        <td>The unique integer representation of parent application.'
+        </td>
       </tr>
       <tr>
         <td>TemplateID</td>
         <td>System.Int64</td>
-        <td />
+        <td>The unique integer representation of parent application template.'
+        </td>
       </tr>
       <tr>
         <td>ComponentName</td>
         <td>System.String</td>
-        <td />
+        <td>The string value that contains the name of component.'
+        </td>
+      </tr>
+      <tr>
+        <td>DetailsUrl</td>
+        <td>System.String</td>
+        <td>URL to component details page. Used in alerting.'
+        </td>
       </tr>
       <tr>
         <td>FullyQualifiedName</td>
         <td>System.String</td>
-        <td />
+        <td>The string value that contains the fully qualified name of parent node.'
+        </td>
       </tr>
       <tr>
         <td>UserDescription</td>
         <td>System.String</td>
-        <td />
+        <td>The string value that contains the component user description.'
+        </td>
       </tr>
       <tr>
         <td>UserNotes</td>
         <td>System.String</td>
-        <td />
+        <td>The string value that contains the component user notes.'
+        </td>
       </tr>
       <tr>
         <td>ComponentOrder</td>
         <td>System.Int32</td>
-        <td />
+        <td>The integer value that contains the component position.'
+        </td>
       </tr>
       <tr>
         <td>ApplicationItemID</td>
         <td>System.Int32</td>
-        <td />
+        <td>The unique integer representation of application item.'
+        </td>
       </tr>
       <tr>
         <td>Description</td>
         <td>System.String</td>
-        <td />
+        <td>The string value that contains component description.'
+        </td>
       </tr>
       <tr>
         <td>Unmanaged</td>
         <td>System.Boolean</td>
-        <td />
+        <td>The boolean value that specifies if component is unmanaged.'
+        </td>
       </tr>
       <tr>
         <td>UnmanageFrom</td>
         <td>System.DateTime</td>
-        <td />
+        <td>The date and time from which component is unmanaged.'
+        </td>
       </tr>
       <tr>
         <td>UnmanageUntil</td>
         <td>System.DateTime</td>
-        <td />
+        <td>The date and time until which component is unmanaged.'
+        </td>
       </tr>
       <tr>
         <td>Status</td>
         <td>System.Int32</td>
-        <td />
+        <td>The status of a component.'
+        </td>
       </tr>
       <tr>
         <td>StatusDescription</td>
         <td>System.String</td>
-        <td />
+        <td>The string value that contains component status description.'
+        </td>
       </tr>
       <tr>
         <td>Status</td>
@@ -314,12 +342,12 @@
       </td>
       </tr>
       <tr>
-        <td>ScheduledTasks</td>
+        <td>ComponentAlert</td>
         <td>
-          <a href="Orion.APM.Wstm.Task.html">Orion.APM.Wstm.Task</a>
+          <a href="Orion.APM.ComponentAlert.html">Orion.APM.ComponentAlert</a>
         </td>
         <td>
-        Defined by relationship Orion.APM.ComponentHostsScheduledTasks (System.Hosting)
+        Defined by relationship Orion.APM.ComponentAlertReferencesComponent (System.Reference)
       </td>
       </tr>
       <tr>
@@ -341,21 +369,21 @@
       </td>
       </tr>
       <tr>
-        <td>ComponentAlert</td>
-        <td>
-          <a href="Orion.APM.ComponentAlert.html">Orion.APM.ComponentAlert</a>
-        </td>
-        <td>
-        Defined by relationship Orion.APM.ComponentAlertReferencesComponent (System.Reference)
-      </td>
-      </tr>
-      <tr>
         <td>MultipleStatisticData</td>
         <td>
           <a href="Orion.APM.MultipleStatisticData.html">Orion.APM.MultipleStatisticData</a>
         </td>
         <td>
         Defined by relationship Orion.APM.MultipleStatisticDataReferencesComponent (System.Reference)
+      </td>
+      </tr>
+      <tr>
+        <td>ComponentAlertThresholds</td>
+        <td>
+          <a href="Orion.APM.ComponentAlertThresholds.html">Orion.APM.ComponentAlertThresholds</a>
+        </td>
+        <td>
+        Defined by relationship Orion.APM.ComponentAlertThresholdsReferencesComponent (System.Reference)
       </td>
       </tr>
     </table>

@@ -16,7 +16,7 @@
     </h1>
     <p>
         Base type:
-        <a href="System.Entity.html">System.Entity</a></p>
+        <a href="System.StatisticsEntity.html">System.StatisticsEntity</a></p>
     <h2>Properties</h2>
     <table>
       <tr>
@@ -75,6 +75,23 @@
         <td />
       </tr>
       <tr>
+        <td>ObservationTimestamp</td>
+        <td>System.DateTime</td>
+        <td />
+      </tr>
+      <tr>
+        <td>ObservationFrequency</td>
+        <td>System.DateTime</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Weight</td>
+        <td>System.Double</td>
+        <td>
+          Default='1.0'.
+        </td>
+      </tr>
+      <tr>
         <td>DisplayName</td>
         <td>System.String</td>
         <td />
@@ -93,6 +110,24 @@
         <td>Uri</td>
         <td>System.String</td>
         <td />
+      </tr>
+      <tr>
+        <td>Operations</td>
+        <td>
+          <a href="Orion.IpSla.Operations.html">Orion.IpSla.Operations</a>
+        </td>
+        <td>
+        Defined by relationship Orion.IpSla.OperationsReferencesPathHopOperationCurrentStats (System.Hosting)
+      </td>
+      </tr>
+      <tr>
+        <td>PathHop</td>
+        <td>
+          <a href="Orion.IpSla.PathHops.html">Orion.IpSla.PathHops</a>
+        </td>
+        <td>
+        Defined by relationship Orion.IpSla.PathHopsReferencesCurrentStats (System.Reference)
+      </td>
       </tr>
     </table>
   </body>

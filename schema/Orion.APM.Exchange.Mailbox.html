@@ -17,6 +17,11 @@
     <p>
         Base type:
         <a href="System.ManagedEntity.html">System.ManagedEntity</a></p>
+    <p>
+        Summary:
+        
+			This entity presents the mailbox information.
+		</p>
     <h2>Properties</h2>
     <table>
       <tr>
@@ -27,207 +32,260 @@
       <tr>
         <td>ID</td>
         <td>System.Int32</td>
-        <td />
+        <td>The unique integer representation of mailbox.'
+        </td>
       </tr>
       <tr>
         <td>DatabaseID</td>
         <td>System.Int32</td>
-        <td />
+        <td>The unique integer representation of parent mailbox database.'
+        </td>
       </tr>
       <tr>
         <td>DatabaseName</td>
         <td>System.String</td>
-        <td />
+        <td>The string value that contains database name.'
+        </td>
       </tr>
       <tr>
         <td>UserLogonName</td>
         <td>System.String</td>
-        <td />
+        <td>The string value that contains user login name.'
+        </td>
+      </tr>
+      <tr>
+        <td>UserName</td>
+        <td>System.String</td>
+        <td>The string value that contains user name.'
+        </td>
       </tr>
       <tr>
         <td>UniqueID</td>
         <td>System.Guid</td>
-        <td />
+        <td>The mailbox GUID.'
+        </td>
       </tr>
       <tr>
         <td>Type</td>
         <td>System.Int64</td>
-        <td />
+        <td>The long value that contains mailbox type.'
+        </td>
       </tr>
       <tr>
         <td>OrganizationalUnit</td>
         <td>System.String</td>
-        <td />
+        <td>The string value that contains mailbox organizational unit.'
+        </td>
       </tr>
       <tr>
         <td>PrimarySmtpAddress</td>
         <td>System.String</td>
-        <td />
+        <td>The string value that contains mailbox primary SMTP address.'
+        </td>
       </tr>
       <tr>
         <td>LastModified</td>
         <td>System.DateTime</td>
-        <td />
+        <td>The date and time of the last mailbox modification.'
+        </td>
       </tr>
       <tr>
         <td>TotalItemSize</td>
         <td>System.Int64</td>
-        <td />
+        <td>The long value that specifies mailbox items size.'
+        </td>
       </tr>
       <tr>
         <td>ItemCount</td>
         <td>System.Int32</td>
-        <td />
+        <td>The long value that specifies mailbox items count.'
+        </td>
       </tr>
       <tr>
         <td>AttachmentsSize</td>
         <td>System.Int64</td>
-        <td />
+        <td>The long value that specifies mailbox attachments size.'
+        </td>
       </tr>
       <tr>
         <td>AttachmentsCount</td>
         <td>System.Int32</td>
-        <td />
+        <td>The long value that specifies mailbox attachments count.'
+        </td>
       </tr>
       <tr>
         <td>LastLogonTime</td>
         <td>System.DateTime</td>
-        <td />
+        <td>The date and time of the last mailbox logon.'
+        </td>
       </tr>
       <tr>
         <td>LastLogonUserAccount</td>
         <td>System.String</td>
-        <td />
+        <td>The string value that contains the account name last used to log on to the mailbox.'
+        </td>
       </tr>
       <tr>
         <td>UseDatabaseQuotaDefaults</td>
         <td>System.Boolean</td>
-        <td />
+        <td>The boolean value that specifies whether this mailbox uses the database defaults for quota properties.'
+        </td>
       </tr>
       <tr>
         <td>ProhibitSendQuota</td>
         <td>System.Int64</td>
-        <td />
+        <td>The long value that contains the mailbox size at which users can no longer send messages.'
+        </td>
       </tr>
       <tr>
         <td>ProhibitSendReceiveQuota</td>
         <td>System.Int64</td>
-        <td />
+        <td>The long value that contains the mailbox  size at which the user is prohibited from sending or receiving email messages.'
+        </td>
       </tr>
       <tr>
         <td>IssueWarningQuota</td>
         <td>System.Int64</td>
-        <td />
+        <td>The long value that contains the mailbox size at which a warning message is sent to the user.'
+        </td>
       </tr>
       <tr>
         <td>PercentageOfUsedQuota</td>
         <td>System.Decimal</td>
-        <td />
+        <td>The decimal value that contains percentage of used quota.'
+        </td>
       </tr>
       <tr>
         <td>MessagesSentInternal</td>
         <td>System.Int32</td>
-        <td />
+        <td>The integer value that contain the number of sent internal emails.'
+        </td>
       </tr>
       <tr>
         <td>MessagesSentInternalSize</td>
         <td>System.Int64</td>
-        <td />
+        <td>The long value that contain the size of sent internal emails.'
+        </td>
       </tr>
       <tr>
         <td>MessagesSentExternal</td>
         <td>System.Int32</td>
-        <td />
+        <td>The integer value that contain the number of sent external emails.'
+        </td>
       </tr>
       <tr>
         <td>MessagesSentExternalSize</td>
         <td>System.Int64</td>
-        <td />
+        <td>The long value that contain the size of sent external emails.'
+        </td>
       </tr>
       <tr>
         <td>MessagesSent</td>
         <td>System.Int32</td>
-        <td />
+        <td>The integer value that contain the total number of sent emails.'
+        </td>
       </tr>
       <tr>
         <td>MessagesSentSize</td>
         <td>System.Int64</td>
-        <td />
+        <td>The long value that contain the total size of sent emails.'
+        </td>
       </tr>
       <tr>
         <td>MessagesReceivedInternal</td>
         <td>System.Int32</td>
-        <td />
+        <td>The integer value that contain the number of received internal emails.'
+        </td>
       </tr>
       <tr>
         <td>MessagesReceivedInternalSize</td>
         <td>System.Int64</td>
-        <td />
+        <td>The long value that contain the size of received internal emails.'
+        </td>
       </tr>
       <tr>
         <td>MessagesReceivedExternal</td>
         <td>System.Int32</td>
-        <td />
+        <td>The integer value that contain the number of received external emails.'
+        </td>
       </tr>
       <tr>
         <td>MessagesReceivedExternalSize</td>
         <td>System.Int64</td>
-        <td />
+        <td>The long value that contain the size of received external emails.'
+        </td>
       </tr>
       <tr>
         <td>MessagesReceived</td>
         <td>System.Int32</td>
-        <td />
+        <td>The integer value that contain the total number of received emails.'
+        </td>
       </tr>
       <tr>
         <td>MessagesReceivedSize</td>
         <td>System.Int64</td>
-        <td />
+        <td>The long value that contain the total size of received emails.'
+        </td>
       </tr>
       <tr>
         <td>MessagesSentLastSevenDaysInternal</td>
         <td>System.Int32</td>
-        <td />
+        <td>The integer value that contain the number of sent internal emails in last 7 days.'
+        </td>
       </tr>
       <tr>
         <td>MessagesSentLastSevenDaysExternal</td>
         <td>System.Int32</td>
-        <td />
+        <td>The integer value that contain the number of sent external emails in last 7 days.'
+        </td>
       </tr>
       <tr>
         <td>MessagesSentLastSevenDays</td>
         <td>System.Int32</td>
-        <td />
+        <td>The integer value that contain the total number of sent emails in last 7 days.'
+        </td>
       </tr>
       <tr>
         <td>MessagesSentLastThirtyDaysInternal</td>
         <td>System.Int32</td>
-        <td />
+        <td>The integer value that contain the number of sent internal emails in last 30 days.'
+        </td>
       </tr>
       <tr>
         <td>MessagesSentLastThirtyDaysExternal</td>
         <td>System.Int32</td>
-        <td />
+        <td>The integer value that contain the number of sent external emails in last 30 days.'
+        </td>
       </tr>
       <tr>
         <td>MessagesSentLastThirtyDays</td>
         <td>System.Int32</td>
-        <td />
+        <td>The integer value that contain the total number of sent emails in last 30 days.'
+        </td>
       </tr>
       <tr>
         <td>Description</td>
         <td>System.String</td>
-        <td />
+        <td>The string value that indicates mailbox entity description.'
+        </td>
       </tr>
       <tr>
         <td>Status</td>
         <td>System.Int32</td>
-        <td />
+        <td>The integer value that contains mailbox status.'
+        </td>
       </tr>
       <tr>
         <td>StatusDescription</td>
         <td>System.String</td>
-        <td />
+        <td>The string value that contains mailbox status description.'
+        </td>
+      </tr>
+      <tr>
+        <td>DetailsUrl</td>
+        <td>System.String</td>
+        <td>URL to mailbox details page. Used in alerting.'
+        </td>
       </tr>
       <tr>
         <td>Status</td>
@@ -307,21 +365,21 @@
         <td />
       </tr>
       <tr>
-        <td>Database</td>
-        <td>
-          <a href="Orion.APM.Exchange.Database.html">Orion.APM.Exchange.Database</a>
-        </td>
-        <td>
-        Defined by relationship Orion.APM.Exchange.MailboxHosting (System.Hosting)
-      </td>
-      </tr>
-      <tr>
         <td>MailboxAlert</td>
         <td>
           <a href="Orion.APM.Exchange.MailboxAlert.html">Orion.APM.Exchange.MailboxAlert</a>
         </td>
         <td>
         Defined by relationship Orion.APM.Exchange.MailboxAlertReferencesMailbox (System.Reference)
+      </td>
+      </tr>
+      <tr>
+        <td>Database</td>
+        <td>
+          <a href="Orion.APM.Exchange.Database.html">Orion.APM.Exchange.Database</a>
+        </td>
+        <td>
+        Defined by relationship Orion.APM.Exchange.MailboxHosting (System.Hosting)
       </td>
       </tr>
     </table>

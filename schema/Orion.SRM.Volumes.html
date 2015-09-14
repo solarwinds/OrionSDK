@@ -17,12 +17,20 @@
     <p>
         Base type:
         <a href="System.ManagedEntity.html">System.ManagedEntity</a></p>
+    <p>
+        Summary:
+        Contains information about all Volumes</p>
     <h2>Properties</h2>
     <table>
       <tr>
         <th>Name</th>
         <th>Type</th>
         <th>Notes</th>
+      </tr>
+      <tr>
+        <td>Description</td>
+        <td>System.String</td>
+        <td />
       </tr>
       <tr>
         <td>VolumeID</td>
@@ -75,8 +83,38 @@
         <td />
       </tr>
       <tr>
+        <td>CapacityFileSystemPercentage</td>
+        <td>System.Single</td>
+        <td />
+      </tr>
+      <tr>
         <td>CapacityFree</td>
         <td>System.Int64</td>
+        <td />
+      </tr>
+      <tr>
+        <td>CapacityFreePercentage</td>
+        <td>System.Single</td>
+        <td />
+      </tr>
+      <tr>
+        <td>PoolCapacityTotal</td>
+        <td>System.Int64</td>
+        <td />
+      </tr>
+      <tr>
+        <td>PoolCapacityAllocated</td>
+        <td>System.Int64</td>
+        <td />
+      </tr>
+      <tr>
+        <td>PoolCapacityFree</td>
+        <td>System.Int64</td>
+        <td />
+      </tr>
+      <tr>
+        <td>PoolCapacityFreePercentage</td>
+        <td>System.Single</td>
         <td />
       </tr>
       <tr>
@@ -96,6 +134,11 @@
       </tr>
       <tr>
         <td>IOPSOther</td>
+        <td>System.Single</td>
+        <td />
+      </tr>
+      <tr>
+        <td>IOPSReadWriteRatio</td>
         <td>System.Single</td>
         <td />
       </tr>
@@ -195,12 +238,37 @@
         <td />
       </tr>
       <tr>
+        <td>CapacityRunoutDate</td>
+        <td>System.DateTime</td>
+        <td />
+      </tr>
+      <tr>
         <td>Thin</td>
         <td>System.Boolean</td>
         <td />
       </tr>
       <tr>
         <td>DetailsUrl</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Unmanaged</td>
+        <td>System.Boolean</td>
+        <td />
+      </tr>
+      <tr>
+        <td>UnmanageFrom</td>
+        <td>System.DateTime</td>
+        <td />
+      </tr>
+      <tr>
+        <td>UnmanageUntil</td>
+        <td>System.DateTime</td>
+        <td />
+      </tr>
+      <tr>
+        <td>StatusDescription</td>
         <td>System.String</td>
         <td />
       </tr>
@@ -282,6 +350,150 @@
         <td />
       </tr>
       <tr>
+        <td>RelyPools</td>
+        <td>
+          <a href="Orion.SRM.Pools.html">Orion.SRM.Pools</a>
+        </td>
+        <td>
+        Defined by relationship Orion.Rely.SRM.VolumesRelyOnPools (System.Reliance)
+      </td>
+      </tr>
+      <tr>
+        <td>RelyVServers</td>
+        <td>
+          <a href="Orion.SRM.VServers.html">Orion.SRM.VServers</a>
+        </td>
+        <td>
+        Defined by relationship Orion.Rely.SRM.VolumesRelyOnVServers (System.Reliance)
+      </td>
+      </tr>
+      <tr>
+        <td>IOPSTotalThreshold</td>
+        <td>
+          <a href="Orion.SRM.VolumeIOPSTotalThreshold.html">Orion.SRM.VolumeIOPSTotalThreshold</a>
+        </td>
+        <td>
+        Defined by relationship Orion.VolumesHostsVolumeIOPSTotalThreshold (System.Hosting)
+      </td>
+      </tr>
+      <tr>
+        <td>IOPSReadThreshold</td>
+        <td>
+          <a href="Orion.SRM.VolumeIOPSReadThreshold.html">Orion.SRM.VolumeIOPSReadThreshold</a>
+        </td>
+        <td>
+        Defined by relationship Orion.VolumesHostsVolumeIOPSReadThreshold (System.Hosting)
+      </td>
+      </tr>
+      <tr>
+        <td>IOPSWriteThreshold</td>
+        <td>
+          <a href="Orion.SRM.VolumeIOPSWriteThreshold.html">Orion.SRM.VolumeIOPSWriteThreshold</a>
+        </td>
+        <td>
+        Defined by relationship Orion.VolumesHostsVolumeIOPSWriteThreshold (System.Hosting)
+      </td>
+      </tr>
+      <tr>
+        <td>IOPSOtherThreshold</td>
+        <td>
+          <a href="Orion.SRM.VolumeIOPSOtherThreshold.html">Orion.SRM.VolumeIOPSOtherThreshold</a>
+        </td>
+        <td>
+        Defined by relationship Orion.VolumesHostsVolumeIOPSOtherThreshold (System.Hosting)
+      </td>
+      </tr>
+      <tr>
+        <td>IOLatencyTotalThreshold</td>
+        <td>
+          <a href="Orion.SRM.VolumeIOLatencyTotalThreshold.html">Orion.SRM.VolumeIOLatencyTotalThreshold</a>
+        </td>
+        <td>
+        Defined by relationship Orion.VolumesHostsVolumeIOLatencyTotalThreshold (System.Hosting)
+      </td>
+      </tr>
+      <tr>
+        <td>IOLatencyReadThreshold</td>
+        <td>
+          <a href="Orion.SRM.VolumeIOLatencyReadThreshold.html">Orion.SRM.VolumeIOLatencyReadThreshold</a>
+        </td>
+        <td>
+        Defined by relationship Orion.VolumesHostsVolumeIOLatencyReadThreshold (System.Hosting)
+      </td>
+      </tr>
+      <tr>
+        <td>IOLatencyWriteThreshold</td>
+        <td>
+          <a href="Orion.SRM.VolumeIOLatencyWriteThreshold.html">Orion.SRM.VolumeIOLatencyWriteThreshold</a>
+        </td>
+        <td>
+        Defined by relationship Orion.VolumesHostsVolumeIOLatencyWriteThreshold (System.Hosting)
+      </td>
+      </tr>
+      <tr>
+        <td>IOLatencyOtherThreshold</td>
+        <td>
+          <a href="Orion.SRM.VolumeIOLatencyOtherThreshold.html">Orion.SRM.VolumeIOLatencyOtherThreshold</a>
+        </td>
+        <td>
+        Defined by relationship Orion.VolumesHostsVolumeIOLatencyOtherThreshold (System.Hosting)
+      </td>
+      </tr>
+      <tr>
+        <td>IOSizeTotalThreshold</td>
+        <td>
+          <a href="Orion.SRM.VolumeIOSizeTotalThreshold.html">Orion.SRM.VolumeIOSizeTotalThreshold</a>
+        </td>
+        <td>
+        Defined by relationship Orion.VolumesHostsVolumeIOSizeTotalThreshold (System.Hosting)
+      </td>
+      </tr>
+      <tr>
+        <td>IOSizeReadThreshold</td>
+        <td>
+          <a href="Orion.SRM.VolumeIOSizeReadThreshold.html">Orion.SRM.VolumeIOSizeReadThreshold</a>
+        </td>
+        <td>
+        Defined by relationship Orion.VolumesHostsVolumeIOSizeReadThreshold (System.Hosting)
+      </td>
+      </tr>
+      <tr>
+        <td>IOSizeWriteThreshold</td>
+        <td>
+          <a href="Orion.SRM.VolumeIOSizeWriteThreshold.html">Orion.SRM.VolumeIOSizeWriteThreshold</a>
+        </td>
+        <td>
+        Defined by relationship Orion.VolumesHostsVolumeIOSizeWriteThreshold (System.Hosting)
+      </td>
+      </tr>
+      <tr>
+        <td>BytesPSTotalThreshold</td>
+        <td>
+          <a href="Orion.SRM.VolumeBytesPSTotalThreshold.html">Orion.SRM.VolumeBytesPSTotalThreshold</a>
+        </td>
+        <td>
+        Defined by relationship Orion.VolumesHostsVolumeBytesPSTotalThreshold (System.Hosting)
+      </td>
+      </tr>
+      <tr>
+        <td>BytesPSReadThreshold</td>
+        <td>
+          <a href="Orion.SRM.VolumeBytesPSReadThreshold.html">Orion.SRM.VolumeBytesPSReadThreshold</a>
+        </td>
+        <td>
+        Defined by relationship Orion.VolumesHostsVolumeBytesPSReadThreshold (System.Hosting)
+      </td>
+      </tr>
+      <tr>
+        <td>BytesPSWriteThreshold</td>
+        <td>
+          <a href="Orion.SRM.VolumeBytesPSWriteThreshold.html">Orion.SRM.VolumeBytesPSWriteThreshold</a>
+        </td>
+        <td>
+        Defined by relationship Orion.VolumesHostsVolumeBytesPSWriteThreshold (System.Hosting)
+      </td>
+      </tr>
+      <tr>
         <td>CapacityStatistics</td>
         <td>
           <a href="Orion.SRM.VolumeCapacityStatistics.html">Orion.SRM.VolumeCapacityStatistics</a>
@@ -318,21 +530,39 @@
       </td>
       </tr>
       <tr>
-        <td>RelyPools</td>
+        <td>CustomProperties</td>
         <td>
-          <a href="Orion.SRM.Pools.html">Orion.SRM.Pools</a>
+          <a href="Orion.SRM.VolumeCustomProperties.html">Orion.SRM.VolumeCustomProperties</a>
         </td>
         <td>
-        Defined by relationship Orion.Rely.SRM.VolumesRelyOnPools (System.Reliance)
+        Defined by relationship Orion.SRM.VolumesHostsCustomProperties (System.Hosting)
       </td>
       </tr>
       <tr>
-        <td>RelyVServers</td>
+        <td>RelyFileShares</td>
         <td>
-          <a href="Orion.SRM.VServers.html">Orion.SRM.VServers</a>
+          <a href="Orion.SRM.FileShares.html">Orion.SRM.FileShares</a>
         </td>
         <td>
-        Defined by relationship Orion.Rely.SRM.VolumesRelyOnVServers (System.Reliance)
+        Defined by relationship Orion.Rely.SRM.FileSharesRelyOnVolumes (System.Reliance)
+      </td>
+      </tr>
+      <tr>
+        <td>RelyLUNs</td>
+        <td>
+          <a href="Orion.SRM.LUNs.html">Orion.SRM.LUNs</a>
+        </td>
+        <td>
+        Defined by relationship Orion.Rely.SRM.LUNsRelyOnVolume (System.Reliance)
+      </td>
+      </tr>
+      <tr>
+        <td>RelyServerVolumes</td>
+        <td>
+          <a href="Orion.Volumes.html">Orion.Volumes</a>
+        </td>
+        <td>
+        Defined by relationship Orion.Rely.SRM.ServerVolumesRelyOnNasVolumes (System.Reliance)
       </td>
       </tr>
       <tr>
@@ -360,24 +590,6 @@
         </td>
         <td>
         Defined by relationship Orion.SRM.VServersReferencesVolumes (System.Reference)
-      </td>
-      </tr>
-      <tr>
-        <td>RelyFileShares</td>
-        <td>
-          <a href="Orion.SRM.FileShares.html">Orion.SRM.FileShares</a>
-        </td>
-        <td>
-        Defined by relationship Orion.Rely.SRM.FileSharesRelyOnVolumes (System.Reliance)
-      </td>
-      </tr>
-      <tr>
-        <td>RelyLUNs</td>
-        <td>
-          <a href="Orion.SRM.LUNs.html">Orion.SRM.LUNs</a>
-        </td>
-        <td>
-        Defined by relationship Orion.Rely.SRM.LUNsRelyOnVolume (System.Reliance)
       </td>
       </tr>
     </table>

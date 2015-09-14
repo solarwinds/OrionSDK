@@ -17,6 +17,9 @@
     <p>
         Base type:
         <a href="System.Entity.html">System.Entity</a></p>
+    <p>
+        Summary:
+        This entity presents all applications. Used in alerting</p>
     <h2>Properties</h2>
     <table>
       <tr>
@@ -27,22 +30,74 @@
       <tr>
         <td>ID</td>
         <td>System.Int32</td>
-        <td />
+        <td>The unique integer representation of application.'
+        </td>
       </tr>
       <tr>
         <td>NodeID</td>
         <td>System.Int32</td>
-        <td />
+        <td>The unique integer representation of parent node.'
+        </td>
       </tr>
       <tr>
         <td>ApplicationName</td>
         <td>System.String</td>
-        <td />
+        <td>The string value that contains the name of the application.'
+        </td>
       </tr>
       <tr>
-        <td>ApplicationStatus</td>
+        <td>ApplicationAvailability</td>
         <td>System.String</td>
-        <td />
+        <td>The string value that contains the application availability.'
+        </td>
+      </tr>
+      <tr>
+        <td>ComponentsWithProblemsFormatted</td>
+        <td>System.String</td>
+        <td>The string value that contains the components with problems.'
+        </td>
+      </tr>
+      <tr>
+        <td>SystemSummaryFormatted</td>
+        <td>System.String</td>
+        <td>The string value that contains the system summary.'
+        </td>
+      </tr>
+      <tr>
+        <td>ComponentsWithProblems</td>
+        <td>System.String</td>
+        <td>Provides a comma-delimited list of components in a down, unknown, warning, or critical state.'
+        </td>
+      </tr>
+      <tr>
+        <td>ComponentsWithStatusFormattedHtml</td>
+        <td>System.String</td>
+        <td>List of components with component status Formatted with html tags for events that appear on the web console.'
+        </td>
+      </tr>
+      <tr>
+        <td>ComponentsWithStatus</td>
+        <td>System.String</td>
+        <td>Provides a comma-delimited list of all components and their current status.'
+        </td>
+      </tr>
+      <tr>
+        <td>ComponentsWithStatusFormatted</td>
+        <td>System.String</td>
+        <td>List of components with component status included formatted with html tags. Html formatting is used for send e-mail action to provide improved appearance of listed components.'
+        </td>
+      </tr>
+      <tr>
+        <td>ComponentsWithProblemsFormattedHtml</td>
+        <td>System.String</td>
+        <td>List of components that are not up along with component status included. Formatted with html tags for events that appear on the web console.'
+        </td>
+      </tr>
+      <tr>
+        <td>SystemSummaryFormattedHtml</td>
+        <td>System.String</td>
+        <td>System summary. Formatted with html tags for events that appear on the web console.'
+        </td>
       </tr>
       <tr>
         <td>DisplayName</td>

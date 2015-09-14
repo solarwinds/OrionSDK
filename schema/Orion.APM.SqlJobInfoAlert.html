@@ -17,6 +17,11 @@
     <p>
         Base type:
         <a href="System.Entity.html">System.Entity</a></p>
+    <p>
+        Summary:
+        
+			This entity presents SQL agent job information. Used in alerting.
+		</p>
     <h2>Properties</h2>
     <table>
       <tr>
@@ -27,42 +32,50 @@
       <tr>
         <td>ID</td>
         <td>System.Int32</td>
-        <td />
+        <td>The unique integer representation of SQL job.'
+        </td>
       </tr>
       <tr>
         <td>ApplicationID</td>
         <td>System.Int32</td>
-        <td />
+        <td>The unique integer representation of application.'
+        </td>
       </tr>
       <tr>
         <td>NodeID</td>
         <td>System.Int32</td>
-        <td />
+        <td>The unique integer representation of parent node.'
+        </td>
       </tr>
       <tr>
         <td>Name</td>
         <td>System.String</td>
-        <td />
+        <td>The string value that contains the agent job name.'
+        </td>
       </tr>
       <tr>
         <td>LastRunDate</td>
         <td>System.DateTime</td>
-        <td />
+        <td>The date and time of the last SQL agent job execution.'
+        </td>
       </tr>
       <tr>
         <td>LastRunDuration</td>
         <td>System.Int32</td>
-        <td />
+        <td>The integer value that contains the last SQL agent job execution duration.'
+        </td>
       </tr>
       <tr>
         <td>LastRunStatus</td>
         <td>System.Int32</td>
-        <td />
+        <td>The integer value that contains the last SQL agent job execution status.'
+        </td>
       </tr>
       <tr>
         <td>JobStatus</td>
         <td>System.String</td>
-        <td />
+        <td>The status of an SQL agent job.'
+        </td>
       </tr>
       <tr>
         <td>DisplayName</td>
@@ -85,12 +98,12 @@
         <td />
       </tr>
       <tr>
-        <td>SqlApplication</td>
+        <td>SqlJobInfo</td>
         <td>
-          <a href="Orion.APM.SqlServerApplication.html">Orion.APM.SqlServerApplication</a>
+          <a href="Orion.APM.SqlJobInfo.html">Orion.APM.SqlJobInfo</a>
         </td>
         <td>
-        Defined by relationship Orion.APM.SqlJobInfoAlertReferencesSqlServerApplication (System.Reference)
+        Defined by relationship Orion.APM.SqlJobInfoAlertReferencesSqlJobInfo (System.Reference)
       </td>
       </tr>
     </table>

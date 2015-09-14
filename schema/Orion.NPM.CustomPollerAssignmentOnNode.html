@@ -30,7 +30,17 @@
         <td />
       </tr>
       <tr>
+        <td>CustomPollerAssignmentID</td>
+        <td>System.Guid</td>
+        <td />
+      </tr>
+      <tr>
         <td>Description</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>DetailsUrl</td>
         <td>System.String</td>
         <td />
       </tr>
@@ -106,6 +116,11 @@
       </tr>
       <tr>
         <td>CustomPollerName</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>StatusDescription</td>
         <td>System.String</td>
         <td />
       </tr>
@@ -187,15 +202,6 @@
         <td />
       </tr>
       <tr>
-        <td>CustomPoller</td>
-        <td>
-          <a href="Orion.NPM.NodeCustomPollers.html">Orion.NPM.NodeCustomPollers</a>
-        </td>
-        <td>
-        Defined by relationship Orion.CustomPollerAssignmentOnNodeHostsNodeCustomPollers (System.Hosting)
-      </td>
-      </tr>
-      <tr>
         <td>CustomPollerStatus</td>
         <td>
           <a href="Orion.NPM.CustomPollerStatusOnNode.html">Orion.NPM.CustomPollerStatusOnNode</a>
@@ -205,12 +211,30 @@
       </td>
       </tr>
       <tr>
+        <td>CustomPollerStatusScalar</td>
+        <td>
+          <a href="Orion.NPM.CustomPollerStatusOnNodeScalar.html">Orion.NPM.CustomPollerStatusOnNodeScalar</a>
+        </td>
+        <td>
+        Defined by relationship Orion.CustomPollerAssignmentOnNodeHostsCustomPollerStatusOnNodeScalar (System.Reference)
+      </td>
+      </tr>
+      <tr>
         <td>Node</td>
         <td>
           <a href="Orion.Nodes.html">Orion.Nodes</a>
         </td>
         <td>
         Defined by relationship Orion.NodesHostsCustomPollerAssignmentOnNode (System.Hosting)
+      </td>
+      </tr>
+      <tr>
+        <td>CustomPoller</td>
+        <td>
+          <a href="Orion.NPM.NodeCustomPollers.html">Orion.NPM.NodeCustomPollers</a>
+        </td>
+        <td>
+        Defined by relationship Orion.NodeCustomPollerReferencesCustomPollerAssignmentOnNode (System.Reference)
       </td>
       </tr>
     </table>

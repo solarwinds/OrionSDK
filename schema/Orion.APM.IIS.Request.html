@@ -31,7 +31,7 @@
       </tr>
       <tr>
         <td>ID</td>
-        <td>System.Int32</td>
+        <td>System.Int64</td>
         <td>The unique integer representation of request.'
         </td>
       </tr>
@@ -66,6 +66,18 @@
         </td>
       </tr>
       <tr>
+        <td>DetailsUrl</td>
+        <td>System.String</td>
+        <td>URL to site details page. Used in alerting.'
+        </td>
+      </tr>
+      <tr>
+        <td>DisplayName</td>
+        <td>System.String</td>
+        <td>Display name for request. Used in alerting.'
+        </td>
+      </tr>
+      <tr>
         <td>DisplayName</td>
         <td>System.String</td>
         <td />
@@ -86,21 +98,21 @@
         <td />
       </tr>
       <tr>
-        <td>Site</td>
-        <td>
-          <a href="Orion.APM.IIS.Site.html">Orion.APM.IIS.Site</a>
-        </td>
-        <td>
-        Defined by relationship Orion.APM.IIS.RequestReferencesSite (System.Reference)
-      </td>
-      </tr>
-      <tr>
         <td>RequestDetails</td>
         <td>
           <a href="Orion.APM.IIS.RequestDetails.html">Orion.APM.IIS.RequestDetails</a>
         </td>
         <td>
-        Defined by relationship Orion.APM.IIS.RequestDetailsReferencesRequest (System.Reference)
+        Defined by relationship Orion.APM.IIS.RequestHostsRequestDetails (System.Hosting)
+      </td>
+      </tr>
+      <tr>
+        <td>Site</td>
+        <td>
+          <a href="Orion.APM.IIS.Site.html">Orion.APM.IIS.Site</a>
+        </td>
+        <td>
+        Defined by relationship Orion.APM.IIS.SiteHostsRequest (System.Hosting)
       </td>
       </tr>
     </table>

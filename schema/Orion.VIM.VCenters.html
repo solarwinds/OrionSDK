@@ -16,7 +16,7 @@
     </h1>
     <p>
         Base type:
-        <a href="Orion.VIM.ManagedEntity.html">Orion.VIM.ManagedEntity</a></p>
+        <a href="System.ManagedEntity.html">System.ManagedEntity</a></p>
     <h2>Properties</h2>
     <table>
       <tr>
@@ -100,7 +100,46 @@
         <td />
       </tr>
       <tr>
+        <td>PollingSource</td>
+        <td>System.Int32</td>
+        <td />
+      </tr>
+      <tr>
         <td>StatusMessage</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>ManagedStatus</td>
+        <td>System.Int32</td>
+        <td />
+      </tr>
+      <tr>
+        <td>ManagedStatusMessage</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>TriggeredAlarmDescription</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>OrionIdPrefix</td>
+        <td>System.String</td>
+        <td>
+          Default='N:'.
+        </td>
+      </tr>
+      <tr>
+        <td>OrionIdColumn</td>
+        <td>System.String</td>
+        <td>
+          Default='NodeID'.
+        </td>
+      </tr>
+      <tr>
+        <td>DetailsUrl</td>
         <td>System.String</td>
         <td />
       </tr>
@@ -137,22 +176,27 @@
         <td />
       </tr>
       <tr>
-        <td>StatusIconHint</td>
-        <td>System.String</td>
-        <td />
-      </tr>
-      <tr>
-        <td>TriggeredAlarmDescription</td>
-        <td>System.String</td>
-        <td />
-      </tr>
-      <tr>
         <td>DetailsUrl</td>
         <td>System.String</td>
         <td />
       </tr>
       <tr>
         <td>Image</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>AncestorDisplayNames</td>
+        <td>System.String[]</td>
+        <td />
+      </tr>
+      <tr>
+        <td>AncestorDetailsUrls</td>
+        <td>System.String[]</td>
+        <td />
+      </tr>
+      <tr>
+        <td>StatusIconHint</td>
         <td>System.String</td>
         <td />
       </tr>
@@ -195,12 +239,30 @@
       </td>
       </tr>
       <tr>
+        <td>RelyNode</td>
+        <td>
+          <a href="Orion.Nodes.html">Orion.Nodes</a>
+        </td>
+        <td>
+        Defined by relationship Orion.Rely.VIM.VCenterRelyOnNode (System.Reliance)
+      </td>
+      </tr>
+      <tr>
         <td>Node</td>
         <td>
           <a href="Orion.Nodes.html">Orion.Nodes</a>
         </td>
         <td>
         Defined by relationship Orion.VIM.NodesToVCenters (System.Reference)
+      </td>
+      </tr>
+      <tr>
+        <td>RelyDataCenters</td>
+        <td>
+          <a href="Orion.VIM.DataCenters.html">Orion.VIM.DataCenters</a>
+        </td>
+        <td>
+        Defined by relationship Orion.Rely.VIM.DataCentersRelyOnVCenter (System.Reliance)
       </td>
       </tr>
     </table>

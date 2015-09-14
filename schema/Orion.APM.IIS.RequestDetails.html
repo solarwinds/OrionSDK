@@ -30,8 +30,20 @@
         <th>Notes</th>
       </tr>
       <tr>
-        <td>RequestID</td>
+        <td>ID</td>
+        <td>System.Int64</td>
+        <td>The unique integer representation of request details.'
+        </td>
+      </tr>
+      <tr>
+        <td>SiteID</td>
         <td>System.Int32</td>
+        <td>The unique integer representation of request target site.'
+        </td>
+      </tr>
+      <tr>
+        <td>RequestID</td>
+        <td>System.Int64</td>
         <td>The unique integer representation of target request.'
         </td>
       </tr>
@@ -72,6 +84,18 @@
         </td>
       </tr>
       <tr>
+        <td>DetailsUrl</td>
+        <td>System.String</td>
+        <td>URL to site details page. Used in alerting.'
+        </td>
+      </tr>
+      <tr>
+        <td>DisplayName</td>
+        <td>System.String</td>
+        <td>Display name for request details. Used in alerting.'
+        </td>
+      </tr>
+      <tr>
         <td>DisplayName</td>
         <td>System.String</td>
         <td />
@@ -97,7 +121,7 @@
           <a href="Orion.APM.IIS.Request.html">Orion.APM.IIS.Request</a>
         </td>
         <td>
-        Defined by relationship Orion.APM.IIS.RequestDetailsReferencesRequest (System.Reference)
+        Defined by relationship Orion.APM.IIS.RequestHostsRequestDetails (System.Hosting)
       </td>
       </tr>
     </table>

@@ -17,6 +17,11 @@
     <p>
         Base type:
         <a href="System.Entity.html">System.Entity</a></p>
+    <p>
+        Summary:
+        
+			This entity presents SQL database file information.
+		</p>
     <h2>Properties</h2>
     <table>
       <tr>
@@ -27,97 +32,122 @@
       <tr>
         <td>DatabaseFileID</td>
         <td>System.Int32</td>
-        <td />
+        <td>The unique integer representation of database file.'
+        </td>
       </tr>
       <tr>
         <td>SqlDatabaseFileGroupID</td>
         <td>System.Int32</td>
-        <td />
+        <td>The unique integer representation of parent database file group.'
+        </td>
       </tr>
       <tr>
         <td>SqlDatabaseID</td>
         <td>System.Int32</td>
-        <td />
+        <td>The unique integer representation of parent SQL database.'
+        </td>
       </tr>
       <tr>
         <td>ServerFileID</td>
         <td>System.Int32</td>
-        <td />
+        <td>The unique integer representation of server database file.'
+        </td>
       </tr>
       <tr>
         <td>FileType</td>
         <td>System.Byte</td>
-        <td />
+        <td>The byte value that contains the database file type.'
+        </td>
       </tr>
       <tr>
         <td>Name</td>
         <td>System.String</td>
-        <td />
+        <td>The string value that contains the database file name.'
+        </td>
       </tr>
       <tr>
         <td>PhysicalName</td>
         <td>System.String</td>
-        <td />
+        <td>The string value that contains the database file physical name.'
+        </td>
       </tr>
       <tr>
         <td>Size</td>
         <td>System.Int64</td>
-        <td />
+        <td>The long value that contains the database file size.'
+        </td>
       </tr>
       <tr>
         <td>UsedSpace</td>
         <td>System.Int64</td>
-        <td />
+        <td>The long value that contains the database file used space.'
+        </td>
       </tr>
       <tr>
         <td>MaxSize</td>
         <td>System.Int64</td>
-        <td />
+        <td>The long value that contains the database file maximum size.'
+        </td>
       </tr>
       <tr>
         <td>Growth</td>
         <td>System.Int32</td>
-        <td />
+        <td>The integer value that contains the database file growth.'
+        </td>
       </tr>
       <tr>
         <td>IsPercentGrowth</td>
         <td>System.Boolean</td>
-        <td />
+        <td>The integer value that contains the database file growth in percent.'
+        </td>
       </tr>
       <tr>
         <td>AutoGrowth</td>
         <td>System.Byte</td>
-        <td />
+        <td>The integer value that contains the database file auto growth.'
+        </td>
       </tr>
       <tr>
         <td>VolumeID</td>
         <td>System.Int32</td>
-        <td />
+        <td>The unique integer representation of database file volume.'
+        </td>
       </tr>
       <tr>
         <td>Status</td>
         <td>System.Int32</td>
-        <td />
+        <td>The status of an database file.'
+        </td>
       </tr>
       <tr>
         <td>TimeStamp</td>
         <td>System.DateTime</td>
-        <td />
+        <td>The date of last poll for database file information.'
+        </td>
       </tr>
       <tr>
         <td>AvailableAutoGrowSpace</td>
         <td>System.Int64</td>
-        <td />
+        <td>The long value that contains the available auto growth space.'
+        </td>
       </tr>
       <tr>
         <td>UsedSpacePercentage</td>
         <td>System.Double</td>
-        <td />
+        <td>The percentage representation of database file space usage.'
+        </td>
       </tr>
       <tr>
         <td>WhiteSpaceFreePercentage</td>
         <td>System.Double</td>
-        <td />
+        <td>The percentage representation of free database file whitespace.'
+        </td>
+      </tr>
+      <tr>
+        <td>DetailsUrl</td>
+        <td>System.String</td>
+        <td>URL to database file details page. Used in alerting.'
+        </td>
       </tr>
       <tr>
         <td>DisplayName</td>
@@ -146,6 +176,15 @@
         </td>
         <td>
         Defined by relationship Orion.APM.SqlDatabaseFileHostsSqlDatabaseFileStatistic (System.Hosting)
+      </td>
+      </tr>
+      <tr>
+        <td>SqlDatabaseFileAlert</td>
+        <td>
+          <a href="Orion.APM.SqlDatabaseFileAlert.html">Orion.APM.SqlDatabaseFileAlert</a>
+        </td>
+        <td>
+        Defined by relationship Orion.APM.SqlDatabaseFileAlertReferencesSqlDatabaseFile (System.Reference)
       </td>
       </tr>
       <tr>

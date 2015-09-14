@@ -17,6 +17,9 @@
     <p>
         Base type:
         <a href="System.Entity.html">System.Entity</a></p>
+    <p>
+        Summary:
+        This entity contains dependencies defined by user and generated automatically</p>
     <h2>Properties</h2>
     <table>
       <tr>
@@ -65,6 +68,26 @@
         <td />
       </tr>
       <tr>
+        <td>ParentEntityType</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>ParentNetObjectID</td>
+        <td>System.Int32</td>
+        <td />
+      </tr>
+      <tr>
+        <td>ChildEntityType</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>ChildNetObjectID</td>
+        <td>System.Int32</td>
+        <td />
+      </tr>
+      <tr>
         <td>DisplayName</td>
         <td>System.String</td>
         <td />
@@ -83,6 +106,17 @@
         <td>Uri</td>
         <td>System.String</td>
         <td />
+      </tr>
+    </table>
+    <h2>Verbs</h2>
+    <table>
+      <tr>
+        <th>Name</th>
+        <th>Summary</th>
+      </tr>
+      <tr>
+        <td>RemoveDependencies</td>
+        <td>Ignore dependencies. Such dependencies are ingored in Autodependency calculation.</td>
       </tr>
     </table>
   </body>

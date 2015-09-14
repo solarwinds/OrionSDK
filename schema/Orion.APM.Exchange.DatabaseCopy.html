@@ -17,6 +17,11 @@
     <p>
         Base type:
         <a href="Orion.APM.ApplicationItem.html">Orion.APM.ApplicationItem</a></p>
+    <p>
+        Summary:
+        
+			This entity presents the mailbox database copy information.
+		</p>
     <h2>Properties</h2>
     <table>
       <tr>
@@ -27,87 +32,122 @@
       <tr>
         <td>ID</td>
         <td>System.Int32</td>
-        <td />
+        <td>The unique integer representation of mailbox database copy.'
+        </td>
       </tr>
       <tr>
         <td>DatabaseID</td>
         <td>System.Int32</td>
-        <td />
+        <td>The unique integer representation of mailbox database.'
+        </td>
       </tr>
       <tr>
         <td>DatabaseName</td>
         <td>System.String</td>
-        <td />
+        <td>The string value that contains the name of mailbox database.'
+        </td>
       </tr>
       <tr>
         <td>ActiveDatabaseCopy</td>
         <td>System.String</td>
-        <td />
+        <td>The string value that contains the name of active database copy.'
+        </td>
       </tr>
       <tr>
         <td>IsActive</td>
         <td>System.Boolean</td>
-        <td />
+        <td>The boolean value that specifies if database copy is active.'
+        </td>
       </tr>
       <tr>
         <td>LastInspectedLogTime</td>
         <td>System.DateTime</td>
-        <td />
+        <td>The modification time of the last log that was successfully validated by the node hosting the copy.'
+        </td>
       </tr>
       <tr>
         <td>CopyState</td>
         <td>System.Int32</td>
-        <td />
+        <td>The integer value that contains database copy state.'
+        </td>
       </tr>
       <tr>
         <td>DisplayCopyState</td>
         <td>System.String</td>
-        <td />
+        <td>The string value that contains database copy state.'
+        </td>
       </tr>
       <tr>
         <td>CopyQueueLength</td>
         <td>System.Int64</td>
-        <td />
+        <td> Indicates the number of log files waiting to be copied and inspected.'
+        </td>
       </tr>
       <tr>
         <td>ReplayQueueLength</td>
         <td>System.Int64</td>
-        <td />
+        <td> Indicates the number of log files waiting to be replayed into this copy of the database.'
+        </td>
       </tr>
       <tr>
         <td>StatusCopyQueueLength</td>
         <td>System.Int32</td>
-        <td />
+        <td> Indicates the number of log files waiting to be copied and inspected.'
+        </td>
       </tr>
       <tr>
         <td>StatusReplayQueueLength</td>
         <td>System.Int32</td>
-        <td />
+        <td> Indicates the number of log files waiting to be replayed into this copy of the database.'
+        </td>
       </tr>
       <tr>
         <td>ContentIndexState</td>
         <td>System.String</td>
-        <td />
+        <td> The string value that contains the content index state.'
+        </td>
       </tr>
       <tr>
         <td>TimeStamp</td>
         <td>System.DateTime</td>
-        <td />
+        <td>The date of last poll for database copy.'
+        </td>
       </tr>
       <tr>
         <td>ActivationPreference</td>
         <td>System.Int32</td>
-        <td />
+        <td>The integer value that contains database copy activation preference.'
+        </td>
       </tr>
       <tr>
         <td>Status</td>
         <td>System.Int32</td>
-        <td />
+        <td>The integer value that contains database copy status.'
+        </td>
       </tr>
       <tr>
         <td>StatusDescription</td>
         <td>System.String</td>
-        <td />
+        <td>The string value that contains database copy status description.'
+        </td>
+      </tr>
+      <tr>
+        <td>DetailsUrl</td>
+        <td>System.String</td>
+        <td>URL to database copy details page. Used in alerting.'
+        </td>
+      </tr>
+      <tr>
+        <td>WebUri</td>
+        <td>System.String</td>
+        <td>The string value that specifies the database copy details page URL. It is used by Network Atlas.'
+        </td>
+      </tr>
+      <tr>
+        <td>ItemType</td>
+        <td>System.String</td>
+        <td>The type of application item.'
+        </td>
       </tr>
       <tr>
         <td>ItemID</td>
@@ -121,6 +161,11 @@
       </tr>
       <tr>
         <td>Name</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>ItemType</td>
         <td>System.String</td>
         <td />
       </tr>
@@ -238,6 +283,15 @@
       </td>
       </tr>
       <tr>
+        <td>DatabaseCopyAlert</td>
+        <td>
+          <a href="Orion.APM.Exchange.DatabaseCopyAlert.html">Orion.APM.Exchange.DatabaseCopyAlert</a>
+        </td>
+        <td>
+        Defined by relationship Orion.APM.Exchange.DatabaseCopyAlertReferencesDatabaseCopy (System.Reference)
+      </td>
+      </tr>
+      <tr>
         <td>Database</td>
         <td>
           <a href="Orion.APM.Exchange.Database.html">Orion.APM.Exchange.Database</a>
@@ -253,15 +307,6 @@
         </td>
         <td>
         Defined by relationship Orion.APM.Exchange.ApplicatinHostsDatabaseCopy (System.Hosting)
-      </td>
-      </tr>
-      <tr>
-        <td>DatabaseCopyAlert</td>
-        <td>
-          <a href="Orion.APM.Exchange.DatabaseCopyAlert.html">Orion.APM.Exchange.DatabaseCopyAlert</a>
-        </td>
-        <td>
-        Defined by relationship Orion.APM.Exchange.DatabaseCopyAlertReferencesDatabaseCopy (System.Reference)
       </td>
       </tr>
     </table>

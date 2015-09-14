@@ -60,6 +60,11 @@
         <td />
       </tr>
       <tr>
+        <td>CallDetailsRecordName</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
         <td>DateTime</td>
         <td>System.DateTime</td>
         <td />
@@ -320,13 +325,6 @@
         <td />
       </tr>
       <tr>
-        <td>Status</td>
-        <td>System.Int32</td>
-        <td>
-          Default='0'.
-        </td>
-      </tr>
-      <tr>
         <td>CallSuccess</td>
         <td>System.Boolean</td>
         <td />
@@ -372,6 +370,21 @@
         <td />
       </tr>
       <tr>
+        <td>OrigFailedCall</td>
+        <td>System.Int32</td>
+        <td />
+      </tr>
+      <tr>
+        <td>DestFailedCall</td>
+        <td>System.Int32</td>
+        <td />
+      </tr>
+      <tr>
+        <td>DetailsUrl</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
         <td>ObservationTimestamp</td>
         <td>System.DateTime</td>
         <td />
@@ -407,6 +420,60 @@
         <td>Uri</td>
         <td>System.String</td>
         <td />
+      </tr>
+      <tr>
+        <td>OriginRegion</td>
+        <td>
+          <a href="Orion.IpSla.CCMRegions.html">Orion.IpSla.CCMRegions</a>
+        </td>
+        <td>
+        Defined by relationship Orion.IpSla.VoipCallDetailsReferencesOriginRegion (System.Reference)
+      </td>
+      </tr>
+      <tr>
+        <td>DestinationRegion</td>
+        <td>
+          <a href="Orion.IpSla.CCMRegions.html">Orion.IpSla.CCMRegions</a>
+        </td>
+        <td>
+        Defined by relationship Orion.IpSla.VoipCallDetailsReferencesDestinationRegion (System.Reference)
+      </td>
+      </tr>
+      <tr>
+        <td>OriginGateway</td>
+        <td>
+          <a href="Orion.IpSla.CCMGateways.html">Orion.IpSla.CCMGateways</a>
+        </td>
+        <td>
+        Defined by relationship Orion.IpSla.VoipCallDetailsReferencesOriginGateway (System.Reference)
+      </td>
+      </tr>
+      <tr>
+        <td>DestinationGateway</td>
+        <td>
+          <a href="Orion.IpSla.CCMGateways.html">Orion.IpSla.CCMGateways</a>
+        </td>
+        <td>
+        Defined by relationship Orion.IpSla.VoipCallDetailsReferencesDestinationGateway (System.Reference)
+      </td>
+      </tr>
+      <tr>
+        <td>OriginPhone</td>
+        <td>
+          <a href="Orion.IpSla.CCMPhones.html">Orion.IpSla.CCMPhones</a>
+        </td>
+        <td>
+        Defined by relationship Orion.IpSla.VoipCallDetailsReferencesOriginPhone (System.Reference)
+      </td>
+      </tr>
+      <tr>
+        <td>DestinationPhone</td>
+        <td>
+          <a href="Orion.IpSla.CCMPhones.html">Orion.IpSla.CCMPhones</a>
+        </td>
+        <td>
+        Defined by relationship Orion.IpSla.VoipCallDetailsReferencesDestinationPhone (System.Reference)
+      </td>
       </tr>
       <tr>
         <td>CCMMonitoring</td>

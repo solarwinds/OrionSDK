@@ -17,6 +17,11 @@
     <p>
         Base type:
         <a href="System.Entity.html">System.Entity</a></p>
+    <p>
+        Summary:
+        
+			This entity presents the windows scheduler task. Used in alerting.
+		</p>
     <h2>Properties</h2>
     <table>
       <tr>
@@ -27,57 +32,68 @@
       <tr>
         <td>ID</td>
         <td>System.Int64</td>
-        <td />
+        <td>Unique integer windows scheduler task representation.'
+        </td>
       </tr>
       <tr>
         <td>ApplicationID</td>
         <td>System.Int32</td>
-        <td />
+        <td>The unique integer representation of parent application.'
+        </td>
       </tr>
       <tr>
         <td>NodeID</td>
         <td>System.Int32</td>
-        <td />
+        <td>The unique integer representation of parent node.'
+        </td>
       </tr>
       <tr>
         <td>Name</td>
         <td>System.String</td>
-        <td />
+        <td>The string value that contains the name of the windows scheduler task.'
+        </td>
       </tr>
       <tr>
         <td>NextRunTime</td>
         <td>System.DateTime</td>
-        <td />
+        <td>The date and time when windows scheduler task will be executed next time.'
+        </td>
       </tr>
       <tr>
         <td>LastRunTime</td>
         <td>System.DateTime</td>
-        <td />
+        <td>The date and time when windows scheduler task was executed last time.'
+        </td>
       </tr>
       <tr>
         <td>DateOfCreation</td>
         <td>System.DateTime</td>
-        <td />
+        <td>The date and time when windows scheduler task was created.'
+        </td>
       </tr>
       <tr>
         <td>TaskState</td>
         <td>System.String</td>
-        <td />
+        <td>The integer value that contains the windows scheduler task state(0 - Failed; 1 - Succeeded; 2 - Retry; 3 -Cancelled).'
+        </td>
       </tr>
       <tr>
         <td>LastRunResult</td>
         <td>System.String</td>
-        <td />
+        <td>The long value that contains the windows scheduler task last run result.'
+        </td>
       </tr>
       <tr>
         <td>Author</td>
         <td>System.String</td>
-        <td />
+        <td>The string value that contains the windows scheduler task author name.'
+        </td>
       </tr>
       <tr>
         <td>Description</td>
         <td>System.String</td>
-        <td />
+        <td>The string value that contains the windows scheduler task description.'
+        </td>
       </tr>
       <tr>
         <td>DisplayName</td>
@@ -100,12 +116,12 @@
         <td />
       </tr>
       <tr>
-        <td>Node</td>
+        <td>ScheduledTask</td>
         <td>
-          <a href="Orion.Nodes.html">Orion.Nodes</a>
+          <a href="Orion.APM.Wstm.Task.html">Orion.APM.Wstm.Task</a>
         </td>
         <td>
-        Defined by relationship Orion.APM.ScheduledTaskAlertReferencesNode (System.Reference)
+        Defined by relationship Orion.APM.ScheduledTaskAlertReferencesScheduledTask (System.Reference)
       </td>
       </tr>
     </table>

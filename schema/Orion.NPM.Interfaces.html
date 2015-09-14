@@ -235,6 +235,26 @@
         <td />
       </tr>
       <tr>
+        <td>CRCAlignErrorsThisHour</td>
+        <td>System.Single</td>
+        <td />
+      </tr>
+      <tr>
+        <td>CRCAlignErrorsToday</td>
+        <td>System.Single</td>
+        <td />
+      </tr>
+      <tr>
+        <td>LateCollisionsThisHour</td>
+        <td>System.Single</td>
+        <td />
+      </tr>
+      <tr>
+        <td>LateCollisionsToday</td>
+        <td>System.Single</td>
+        <td />
+      </tr>
+      <tr>
         <td>MaxInBpsToday</td>
         <td>System.Single</td>
         <td />
@@ -409,6 +429,56 @@
         </td>
       </tr>
       <tr>
+        <td>DuplexMode</td>
+        <td>System.Int32</td>
+        <td />
+      </tr>
+      <tr>
+        <td>SkippedPollingCycles</td>
+        <td>System.Int32</td>
+        <td />
+      </tr>
+      <tr>
+        <td>MinutesSinceLastSync</td>
+        <td>System.Int32</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Status</td>
+        <td>System.Int32</td>
+        <td />
+      </tr>
+      <tr>
+        <td>InterfaceResponding</td>
+        <td>System.Boolean</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Description</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>DetailsUrl</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>ObsoleteDataCurrentSettingValue</td>
+        <td>System.Int32</td>
+        <td />
+      </tr>
+      <tr>
+        <td>ObsoleteDataFeatureStatus</td>
+        <td>System.Int32</td>
+        <td />
+      </tr>
+      <tr>
+        <td>HasObsoleteData</td>
+        <td>System.Boolean</td>
+        <td />
+      </tr>
+      <tr>
         <td>Status</td>
         <td>System.Int32</td>
         <td />
@@ -531,6 +601,15 @@
       </td>
       </tr>
       <tr>
+        <td>InterfaceDowntimeHistory</td>
+        <td>
+          <a href="Orion.NPM.InterfaceNetObjectDowntime.html">Orion.NPM.InterfaceNetObjectDowntime</a>
+        </td>
+        <td>
+        Defined by relationship Orion.NPM.InterfaceHostsNetObjectDowntime (System.Hosting)
+      </td>
+      </tr>
+      <tr>
         <td>Errors</td>
         <td>
           <a href="Orion.NPM.InterfaceErrors.html">Orion.NPM.InterfaceErrors</a>
@@ -576,6 +655,42 @@
       </td>
       </tr>
       <tr>
+        <td>IPAddress</td>
+        <td>
+          <a href="Orion.NodeIPAddresses.html">Orion.NodeIPAddresses</a>
+        </td>
+        <td>
+        Defined by relationship Orion.NPM.InterfaceIPAddress (System.Reference)
+      </td>
+      </tr>
+      <tr>
+        <td>ForecastCapacity</td>
+        <td>
+          <a href="Orion.NPM.InterfacesForecastCapacity.html">Orion.NPM.InterfacesForecastCapacity</a>
+        </td>
+        <td>
+        Defined by relationship Orion.NPM.InterfacesHostsForecastCapacity (System.Hosting)
+      </td>
+      </tr>
+      <tr>
+        <td>VoIPCallManager</td>
+        <td>
+          <a href="Orion.IpSla.CCMMonitoring.html">Orion.IpSla.CCMMonitoring</a>
+        </td>
+        <td>
+        Defined by relationship Orion.Ipsla.CCMMonitoringReferencesInterfaces (System.Reference)
+      </td>
+      </tr>
+      <tr>
+        <td>VoIPInterface</td>
+        <td>
+          <a href="Orion.IpSla.InfrastructureNodes.html">Orion.IpSla.InfrastructureNodes</a>
+        </td>
+        <td>
+        Defined by relationship Orion.Ipsla.InfrastructureNodesReferencesInterfaces (System.Reference)
+      </td>
+      </tr>
+      <tr>
         <td>MulticastInterface</td>
         <td>
           <a href="Orion.NPM.MulticastRouting.Interfaces.html">Orion.NPM.MulticastRouting.Interfaces</a>
@@ -603,6 +718,24 @@
       </td>
       </tr>
       <tr>
+        <td>NetflowSource</td>
+        <td>
+          <a href="Orion.Netflow.Source.html">Orion.Netflow.Source</a>
+        </td>
+        <td>
+        Defined by relationship Orion.Netflow.InterfaceReferencesSource (System.Reference)
+      </td>
+      </tr>
+      <tr>
+        <td>CBQoSPolicies</td>
+        <td>
+          <a href="Orion.Netflow.CBQoSPolicy.html">Orion.Netflow.CBQoSPolicy</a>
+        </td>
+        <td>
+        Defined by relationship Orion.Netflow.InterfaceReferencesCBQoSPolicy (System.Reference)
+      </td>
+      </tr>
+      <tr>
         <td>CustomPollerAssignmentOnInterface</td>
         <td>
           <a href="Orion.NPM.CustomPollerAssignmentOnInterface.html">Orion.NPM.CustomPollerAssignmentOnInterface</a>
@@ -618,6 +751,24 @@
         </td>
         <td>
         Defined by relationship Orion.NPM.InterfacesReferencesVRFInterfaces (System.Reference)
+      </td>
+      </tr>
+      <tr>
+        <td>EWEntity</td>
+        <td>
+          <a href="Orion.NPM.EW.Entity.html">Orion.NPM.EW.Entity</a>
+        </td>
+        <td>
+        Defined by relationship Orion.EWEntityReferencesInterface (System.Reference)
+      </td>
+      </tr>
+      <tr>
+        <td>FCPort</td>
+        <td>
+          <a href="Orion.NPM.FCPorts.html">Orion.NPM.FCPorts</a>
+        </td>
+        <td>
+        Defined by relationship Orion.NPM.PortsReferenceInterfaces (System.Reference)
       </td>
       </tr>
       <tr>
@@ -654,6 +805,10 @@
       </tr>
       <tr>
         <td>AddInterfacesOnNode</td>
+        <td />
+      </tr>
+      <tr>
+        <td>CreateInterfacesPluginConfiguration</td>
         <td />
       </tr>
     </table>

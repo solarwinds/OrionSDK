@@ -17,6 +17,11 @@
     <p>
         Base type:
         <a href="Orion.APM.Application.html">Orion.APM.Application</a></p>
+    <p>
+        Summary:
+        
+			This entity presents AppInsight for SQL application.
+		</p>
     <h2>Properties</h2>
     <table>
       <tr>
@@ -27,22 +32,26 @@
       <tr>
         <td>InstanceName</td>
         <td>System.String</td>
-        <td />
+        <td>The string value that contains the name of SQL server instance.'
+        </td>
       </tr>
       <tr>
         <td>ProductVersion</td>
         <td>System.String</td>
-        <td />
+        <td>The string value that contains the SQL server version.'
+        </td>
       </tr>
       <tr>
         <td>ProductLevel</td>
         <td>System.String</td>
-        <td />
+        <td>The string value that contains the SQL server level.'
+        </td>
       </tr>
       <tr>
         <td>Edition</td>
         <td>System.String</td>
-        <td />
+        <td>The string value that contains the SQL server edition.'
+        </td>
       </tr>
       <tr>
         <td>ApplicationID</td>
@@ -51,6 +60,11 @@
       </tr>
       <tr>
         <td>Name</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>DisplayName</td>
         <td>System.String</td>
         <td />
       </tr>
@@ -95,6 +109,11 @@
         <td />
       </tr>
       <tr>
+        <td>DetailsUrl</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
         <td>FullyQualifiedName</td>
         <td>System.String</td>
         <td />
@@ -126,6 +145,21 @@
       </tr>
       <tr>
         <td>StatusDescription</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Image</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Uri</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>InstanceType</td>
         <td>System.String</td>
         <td />
       </tr>
@@ -216,6 +250,15 @@
       </td>
       </tr>
       <tr>
+        <td>SqlJobInfo</td>
+        <td>
+          <a href="Orion.APM.SqlJobInfo.html">Orion.APM.SqlJobInfo</a>
+        </td>
+        <td>
+        Defined by relationship Orion.APM.SqlServerApplicationHostsSqlJobInfo (System.Hosting)
+      </td>
+      </tr>
+      <tr>
         <td>SqlClusterNodes</td>
         <td>
           <a href="Orion.APM.SqlClusterNode.html">Orion.APM.SqlClusterNode</a>
@@ -231,15 +274,6 @@
         </td>
         <td>
         Defined by relationship Orion.APM.SqlServerApplicationAlertReferencesSqlServerApplication (System.Reference)
-      </td>
-      </tr>
-      <tr>
-        <td>SqlJobInfoAlert</td>
-        <td>
-          <a href="Orion.APM.SqlJobInfoAlert.html">Orion.APM.SqlJobInfoAlert</a>
-        </td>
-        <td>
-        Defined by relationship Orion.APM.SqlJobInfoAlertReferencesSqlServerApplication (System.Reference)
       </td>
       </tr>
     </table>

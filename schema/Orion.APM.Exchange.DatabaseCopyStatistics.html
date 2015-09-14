@@ -17,6 +17,11 @@
     <p>
         Base type:
         <a href="System.StatisticsEntity.html">System.StatisticsEntity</a></p>
+    <p>
+        Summary:
+        
+			This entity presents the database copy statistics.
+		</p>
     <h2>Properties</h2>
     <table>
       <tr>
@@ -27,42 +32,50 @@
       <tr>
         <td>TimeStamp</td>
         <td>System.DateTime</td>
-        <td />
+        <td>The date of poll for database copy.'
+        </td>
       </tr>
       <tr>
         <td>DatabaseCopyID</td>
         <td>System.Int32</td>
-        <td />
+        <td>The unique integer representation of database copy.'
+        </td>
       </tr>
       <tr>
         <td>Status</td>
         <td>System.Int32</td>
-        <td />
+        <td>The integer value that contains database copy status.'
+        </td>
       </tr>
       <tr>
         <td>CopyState</td>
         <td>System.Int32</td>
-        <td />
+        <td>The integer value that contains database copy state.'
+        </td>
       </tr>
       <tr>
         <td>CopyQueueLength</td>
         <td>System.Int64</td>
-        <td />
+        <td> Indicates the number of log files waiting to be copied and inspected.'
+        </td>
       </tr>
       <tr>
         <td>ReplayQueueLength</td>
         <td>System.Int64</td>
-        <td />
+        <td> Indicates the number of log files waiting to be replayed into this copy of the database.'
+        </td>
       </tr>
       <tr>
         <td>ContentIndexState</td>
         <td>System.String</td>
-        <td />
+        <td> The string value that contains the content index state.'
+        </td>
       </tr>
       <tr>
         <td>IsActive</td>
         <td>System.Boolean</td>
-        <td />
+        <td>The boolean value that specifies if database copy is active.'
+        </td>
       </tr>
       <tr>
         <td>ObservationTimestamp</td>

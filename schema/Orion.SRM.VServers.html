@@ -17,6 +17,9 @@
     <p>
         Base type:
         <a href="System.ManagedEntity.html">System.ManagedEntity</a></p>
+    <p>
+        Summary:
+        Contains information about all VServers</p>
     <h2>Properties</h2>
     <table>
       <tr>
@@ -160,6 +163,46 @@
         <td />
       </tr>
       <tr>
+        <td>CapacityRunoutSlope</td>
+        <td>System.Single</td>
+        <td />
+      </tr>
+      <tr>
+        <td>CapacityRunoutOffset</td>
+        <td>System.Single</td>
+        <td />
+      </tr>
+      <tr>
+        <td>CapacityRunout</td>
+        <td>System.DateTime</td>
+        <td />
+      </tr>
+      <tr>
+        <td>CapacityRunoutDate</td>
+        <td>System.DateTime</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Unmanaged</td>
+        <td>System.Boolean</td>
+        <td />
+      </tr>
+      <tr>
+        <td>UnmanageFrom</td>
+        <td>System.DateTime</td>
+        <td />
+      </tr>
+      <tr>
+        <td>UnmanageUntil</td>
+        <td>System.DateTime</td>
+        <td />
+      </tr>
+      <tr>
+        <td>StatusDescription</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
         <td>Status</td>
         <td>System.Int32</td>
         <td />
@@ -237,6 +280,105 @@
         <td />
       </tr>
       <tr>
+        <td>RelyStorageArrayForVServer</td>
+        <td>
+          <a href="Orion.SRM.StorageArrays.html">Orion.SRM.StorageArrays</a>
+        </td>
+        <td>
+        Defined by relationship Orion.Rely.SRM.VServersRelyOnStorageArrays (System.Reliance)
+      </td>
+      </tr>
+      <tr>
+        <td>IOPSTotalThreshold</td>
+        <td>
+          <a href="Orion.SRM.VServerIOPSTotalThreshold.html">Orion.SRM.VServerIOPSTotalThreshold</a>
+        </td>
+        <td>
+        Defined by relationship Orion.VServersHostsVServerIOPSTotalThreshold (System.Hosting)
+      </td>
+      </tr>
+      <tr>
+        <td>IOPSReadThreshold</td>
+        <td>
+          <a href="Orion.SRM.VServerIOPSReadThreshold.html">Orion.SRM.VServerIOPSReadThreshold</a>
+        </td>
+        <td>
+        Defined by relationship Orion.VServersHostsVServerIOPSReadThreshold (System.Hosting)
+      </td>
+      </tr>
+      <tr>
+        <td>IOPSWriteThreshold</td>
+        <td>
+          <a href="Orion.SRM.VServerIOPSWriteThreshold.html">Orion.SRM.VServerIOPSWriteThreshold</a>
+        </td>
+        <td>
+        Defined by relationship Orion.VServersHostsVServerIOPSWriteThreshold (System.Hosting)
+      </td>
+      </tr>
+      <tr>
+        <td>IOPSOtherThreshold</td>
+        <td>
+          <a href="Orion.SRM.VServerIOPSOtherThreshold.html">Orion.SRM.VServerIOPSOtherThreshold</a>
+        </td>
+        <td>
+        Defined by relationship Orion.VServersHostsVServerIOPSOtherThreshold (System.Hosting)
+      </td>
+      </tr>
+      <tr>
+        <td>IOSizeTotalThreshold</td>
+        <td>
+          <a href="Orion.SRM.VServerIOSizeTotalThreshold.html">Orion.SRM.VServerIOSizeTotalThreshold</a>
+        </td>
+        <td>
+        Defined by relationship Orion.VServersHostsVServerIOSizeTotalThreshold (System.Hosting)
+      </td>
+      </tr>
+      <tr>
+        <td>IOSizeReadThreshold</td>
+        <td>
+          <a href="Orion.SRM.VServerIOSizeReadThreshold.html">Orion.SRM.VServerIOSizeReadThreshold</a>
+        </td>
+        <td>
+        Defined by relationship Orion.VServersHostsVServerIOSizeReadThreshold (System.Hosting)
+      </td>
+      </tr>
+      <tr>
+        <td>IOSizeWriteThreshold</td>
+        <td>
+          <a href="Orion.SRM.VServerIOSizeWriteThreshold.html">Orion.SRM.VServerIOSizeWriteThreshold</a>
+        </td>
+        <td>
+        Defined by relationship Orion.VServersHostsVServerIOSizeWriteThreshold (System.Hosting)
+      </td>
+      </tr>
+      <tr>
+        <td>BytesPSTotalThreshold</td>
+        <td>
+          <a href="Orion.SRM.VServerBytesPSTotalThreshold.html">Orion.SRM.VServerBytesPSTotalThreshold</a>
+        </td>
+        <td>
+        Defined by relationship Orion.VServersHostsVServerBytesPSTotalThreshold (System.Hosting)
+      </td>
+      </tr>
+      <tr>
+        <td>BytesPSReadThreshold</td>
+        <td>
+          <a href="Orion.SRM.VServerBytesPSReadThreshold.html">Orion.SRM.VServerBytesPSReadThreshold</a>
+        </td>
+        <td>
+        Defined by relationship Orion.VServersHostsVServerBytesPSReadThreshold (System.Hosting)
+      </td>
+      </tr>
+      <tr>
+        <td>BytesPSWriteThreshold</td>
+        <td>
+          <a href="Orion.SRM.VServerBytesPSWriteThreshold.html">Orion.SRM.VServerBytesPSWriteThreshold</a>
+        </td>
+        <td>
+        Defined by relationship Orion.VServersHostsVServerBytesPSWriteThreshold (System.Hosting)
+      </td>
+      </tr>
+      <tr>
         <td>Volumes</td>
         <td>
           <a href="Orion.SRM.Volumes.html">Orion.SRM.Volumes</a>
@@ -264,21 +406,30 @@
       </td>
       </tr>
       <tr>
-        <td>RelyStorageArrayForVServer</td>
-        <td>
-          <a href="Orion.SRM.StorageArrays.html">Orion.SRM.StorageArrays</a>
-        </td>
-        <td>
-        Defined by relationship Orion.Rely.SRM.VServersRelyOnStorageArrays (System.Reliance)
-      </td>
-      </tr>
-      <tr>
         <td>CustomProperties</td>
         <td>
           <a href="Orion.SRM.VServersCustomProperties.html">Orion.SRM.VServersCustomProperties</a>
         </td>
         <td>
         Defined by relationship Orion.SRM.VServersHostsCustomProperties (System.Hosting)
+      </td>
+      </tr>
+      <tr>
+        <td>RelyVolumes</td>
+        <td>
+          <a href="Orion.SRM.Volumes.html">Orion.SRM.Volumes</a>
+        </td>
+        <td>
+        Defined by relationship Orion.Rely.SRM.VolumesRelyOnVServers (System.Reliance)
+      </td>
+      </tr>
+      <tr>
+        <td>RelyServerVolumes</td>
+        <td>
+          <a href="Orion.Volumes.html">Orion.Volumes</a>
+        </td>
+        <td>
+        Defined by relationship Orion.Rely.SRM.ServerVolumesRelyOnVservers (System.Reliance)
       </td>
       </tr>
       <tr>
@@ -297,15 +448,6 @@
         </td>
         <td>
         Defined by relationship Orion.SRM.VolumesReferencesVServer (System.Reference)
-      </td>
-      </tr>
-      <tr>
-        <td>RelyVolumes</td>
-        <td>
-          <a href="Orion.SRM.Volumes.html">Orion.SRM.Volumes</a>
-        </td>
-        <td>
-        Defined by relationship Orion.Rely.SRM.VolumesRelyOnVServers (System.Reliance)
       </td>
       </tr>
     </table>

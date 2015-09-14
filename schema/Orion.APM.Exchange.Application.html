@@ -17,6 +17,11 @@
     <p>
         Base type:
         <a href="Orion.APM.Application.html">Orion.APM.Application</a></p>
+    <p>
+        Summary:
+        
+			This entity presents the Exchange application information.
+		</p>
     <h2>Properties</h2>
     <table>
       <tr>
@@ -27,37 +32,44 @@
       <tr>
         <td>ServerIdentity</td>
         <td>System.String</td>
-        <td />
+        <td>The unique string representation of Exchange server.'
+        </td>
       </tr>
       <tr>
         <td>ServerGuid</td>
         <td>System.Guid</td>
-        <td />
+        <td>The Exchange server GUID.'
+        </td>
       </tr>
       <tr>
         <td>DomainID</td>
         <td>System.Int32</td>
-        <td />
+        <td>The unique integer representation of Exchange server domain.'
+        </td>
       </tr>
       <tr>
         <td>AdminDisplayVersion</td>
         <td>System.String</td>
-        <td />
+        <td>The string value that contains the Exchange server build information.'
+        </td>
       </tr>
       <tr>
         <td>DatabaseAvailabilityGroupID</td>
         <td>System.Int32</td>
-        <td />
+        <td>The unique integer representation of database availability group.'
+        </td>
       </tr>
       <tr>
         <td>ServerRole</td>
         <td>System.String</td>
-        <td />
+        <td>The string value that contains the Exchange server role.'
+        </td>
       </tr>
       <tr>
         <td>HasMessageTrackingLog</td>
         <td>System.Boolean</td>
-        <td />
+        <td>The boolean value that specifies if message tracking log is enabled or no.'
+        </td>
       </tr>
       <tr>
         <td>ApplicationID</td>
@@ -66,6 +78,11 @@
       </tr>
       <tr>
         <td>Name</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>DisplayName</td>
         <td>System.String</td>
         <td />
       </tr>
@@ -110,6 +127,11 @@
         <td />
       </tr>
       <tr>
+        <td>DetailsUrl</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
         <td>FullyQualifiedName</td>
         <td>System.String</td>
         <td />
@@ -141,6 +163,21 @@
       </tr>
       <tr>
         <td>StatusDescription</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Image</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Uri</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>InstanceType</td>
         <td>System.String</td>
         <td />
       </tr>
@@ -222,6 +259,15 @@
         <td />
       </tr>
       <tr>
+        <td>ReplicationStatus</td>
+        <td>
+          <a href="Orion.APM.Exchange.ReplicationStatus.html">Orion.APM.Exchange.ReplicationStatus</a>
+        </td>
+        <td>
+        Defined by relationship Orion.APM.Exchange.ApplicationHostsReplicationStatus (System.Hosting)
+      </td>
+      </tr>
+      <tr>
         <td>DatabaseCopies</td>
         <td>
           <a href="Orion.APM.Exchange.DatabaseCopy.html">Orion.APM.Exchange.DatabaseCopy</a>
@@ -231,21 +277,12 @@
       </td>
       </tr>
       <tr>
-        <td>ApplicationAlert</td>
+        <td>ExchangeApplicationAlert</td>
         <td>
           <a href="Orion.APM.Exchange.ApplicationAlert.html">Orion.APM.Exchange.ApplicationAlert</a>
         </td>
         <td>
         Defined by relationship Orion.APM.Exchange.ApplicationAlertReferencesApplication (System.Reference)
-      </td>
-      </tr>
-      <tr>
-        <td>ReplicationStatusAlert</td>
-        <td>
-          <a href="Orion.APM.Exchange.ReplicationStatusAlert.html">Orion.APM.Exchange.ReplicationStatusAlert</a>
-        </td>
-        <td>
-        Defined by relationship Orion.APM.Exchange.ReplicationStatusAlertReferencesExchangeApplication (System.Reference)
       </td>
       </tr>
     </table>

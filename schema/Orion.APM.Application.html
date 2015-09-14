@@ -18,6 +18,11 @@
     <p>
         Base type:
         <a href="System.ManagedEntity.html">System.ManagedEntity</a></p>
+    <p>
+        Summary:
+        
+			This entity presents all applications.
+		</p>
     <h2>Properties</h2>
     <table>
       <tr>
@@ -28,87 +33,134 @@
       <tr>
         <td>ApplicationID</td>
         <td>System.Int32</td>
-        <td />
+        <td>The unique integer representation of application.'
+        </td>
       </tr>
       <tr>
         <td>Name</td>
         <td>System.String</td>
-        <td />
+        <td>The string value that contains the name of the application.'
+        </td>
+      </tr>
+      <tr>
+        <td>DisplayName</td>
+        <td>System.String</td>
+        <td>String value containing a user friendly name of the Application.'
+        </td>
       </tr>
       <tr>
         <td>NodeID</td>
         <td>System.Int32</td>
-        <td />
+        <td>The unique integer representation of parent node.'
+        </td>
       </tr>
       <tr>
         <td>ApplicationTemplateID</td>
         <td>System.Int32</td>
-        <td />
+        <td>The unique integer representation of application template.'
+        </td>
       </tr>
       <tr>
         <td>Unmanaged</td>
         <td>System.Boolean</td>
-        <td />
+        <td>The boolean value that specifies if application is unmanaged.'
+        </td>
       </tr>
       <tr>
         <td>UnmanageFrom</td>
         <td>System.DateTime</td>
-        <td />
+        <td>The date and time from which application is unmanaged.'
+        </td>
       </tr>
       <tr>
         <td>UnmanageUntil</td>
         <td>System.DateTime</td>
-        <td />
+        <td>The date and time until which application is unmanaged.'
+        </td>
       </tr>
       <tr>
         <td>Created</td>
         <td>System.DateTime</td>
-        <td />
+        <td>The date and time when application was created.'
+        </td>
       </tr>
       <tr>
         <td>LastModified</td>
         <td>System.DateTime</td>
-        <td />
+        <td>The date and time of the last application modification.'
+        </td>
       </tr>
       <tr>
         <td>ID</td>
         <td>System.Int32</td>
-        <td />
+        <td>The unique integer representation of application.'
+        </td>
+      </tr>
+      <tr>
+        <td>DetailsUrl</td>
+        <td>System.String</td>
+        <td>URL to application details page. Used in alerting.'
+        </td>
       </tr>
       <tr>
         <td>FullyQualifiedName</td>
         <td>System.String</td>
-        <td />
+        <td>The string value that contains the fully qualified name of parent node.'
+        </td>
       </tr>
       <tr>
         <td>ComponentOrderSettingLevel</td>
         <td>System.Int32</td>
-        <td />
+        <td>The integer value that contains the component order setting level.'
+        </td>
       </tr>
       <tr>
         <td>CustomApplicationType</td>
         <td>System.String</td>
-        <td />
+        <td>The string value that contains the custom application type.'
+        </td>
       </tr>
       <tr>
         <td>HasCredentials</td>
         <td>System.Boolean</td>
-        <td />
+        <td>The boolean value that specifies if application has credentials.'
+        </td>
       </tr>
       <tr>
         <td>Description</td>
         <td>System.String</td>
-        <td />
+        <td>The string value that contains application entity description.'
+        </td>
       </tr>
       <tr>
         <td>Status</td>
         <td>System.Int32</td>
-        <td />
+        <td>The status of a application.'
+        </td>
       </tr>
       <tr>
         <td>StatusDescription</td>
         <td>System.String</td>
-        <td />
+        <td>The string value that contains application status description.'
+        </td>
+      </tr>
+      <tr>
+        <td>Image</td>
+        <td>System.String</td>
+        <td>This property is not used.'
+        </td>
+      </tr>
+      <tr>
+        <td>Uri</td>
+        <td>System.String</td>
+        <td>String value containing SWIS Entity URI path.'
+        </td>
+      </tr>
+      <tr>
+        <td>InstanceType</td>
+        <td>System.String</td>
+        <td>String value containing a concrete type of the Application.'
+        </td>
       </tr>
       <tr>
         <td>Status</td>
@@ -242,6 +294,24 @@
       </td>
       </tr>
       <tr>
+        <td>ApplicationAlert</td>
+        <td>
+          <a href="Orion.APM.ApplicationAlert.html">Orion.APM.ApplicationAlert</a>
+        </td>
+        <td>
+        Defined by relationship Orion.APM.ApplicationAlertReferencesApplication (System.Reference)
+      </td>
+      </tr>
+      <tr>
+        <td>ScheduledTasks</td>
+        <td>
+          <a href="Orion.APM.Wstm.Task.html">Orion.APM.Wstm.Task</a>
+        </td>
+        <td>
+        Defined by relationship Orion.APM.ApplicationHostsScheduledTasks (System.Hosting)
+      </td>
+      </tr>
+      <tr>
         <td>Node</td>
         <td>
           <a href="Orion.Nodes.html">Orion.Nodes</a>
@@ -259,15 +329,6 @@
         Defined by relationship Orion.APM.ApplicationTemplateReferencesApplication (System.Reference)
       </td>
       </tr>
-      <tr>
-        <td>ApplicationAlert</td>
-        <td>
-          <a href="Orion.APM.ApplicationAlert.html">Orion.APM.ApplicationAlert</a>
-        </td>
-        <td>
-        Defined by relationship Orion.APM.ApplicationAlertReferencesApplication (System.Reference)
-      </td>
-      </tr>
     </table>
     <h2>Verbs</h2>
     <table>
@@ -277,23 +338,23 @@
       </tr>
       <tr>
         <td>Unmanage</td>
-        <td />
+        <td>Unmanage existed application.</td>
       </tr>
       <tr>
         <td>Remanage</td>
-        <td />
+        <td>Remanage existed application.</td>
       </tr>
       <tr>
         <td>CreateApplication</td>
-        <td />
+        <td>Create new application.</td>
       </tr>
       <tr>
         <td>DeleteApplication</td>
-        <td />
+        <td>Delete existed application.</td>
       </tr>
       <tr>
         <td>PollNow</td>
-        <td />
+        <td>Poll existed application.</td>
       </tr>
     </table>
   </body>

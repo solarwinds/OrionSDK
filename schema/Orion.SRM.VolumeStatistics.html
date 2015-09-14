@@ -17,12 +17,34 @@
     <p>
         Base type:
         <a href="System.StatisticsEntity.html">System.StatisticsEntity</a></p>
+    <p>
+        Summary:
+        Stores Volume statistics.
+		
+					Namely:
+							IO
+							IO Size
+							IO Latency							
+							IOPS							
+							IOPS R/W Ratio
+							Hit IO
+							Bytes
+							Cache Hit Ratio
+							R/W Ratio
+							Throughput
+							Queue Length
+		</p>
     <h2>Properties</h2>
     <table>
       <tr>
         <th>Name</th>
         <th>Type</th>
         <th>Notes</th>
+      </tr>
+      <tr>
+        <td>Description</td>
+        <td>System.String</td>
+        <td />
       </tr>
       <tr>
         <td>VolumeID</td>
@@ -66,6 +88,11 @@
       </tr>
       <tr>
         <td>IOPSOther</td>
+        <td>System.Single</td>
+        <td />
+      </tr>
+      <tr>
+        <td>IOPSReadWriteRatio</td>
         <td>System.Single</td>
         <td />
       </tr>
@@ -146,6 +173,16 @@
       </tr>
       <tr>
         <td>CacheHitRatio</td>
+        <td>System.Single</td>
+        <td />
+      </tr>
+      <tr>
+        <td>RatioRead</td>
+        <td>System.Single</td>
+        <td />
+      </tr>
+      <tr>
+        <td>RatioWrite</td>
         <td>System.Single</td>
         <td />
       </tr>

@@ -17,6 +17,9 @@
     <p>
         Base type:
         <a href="System.ManagedEntity.html">System.ManagedEntity</a></p>
+    <p>
+        Summary:
+        Contains information about all storage arrays added to the platform</p>
     <h2>Properties</h2>
     <table>
       <tr>
@@ -25,13 +28,18 @@
         <th>Notes</th>
       </tr>
       <tr>
+        <td>Description</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
         <td>StorageArrayID</td>
         <td>System.Int32</td>
         <td />
       </tr>
       <tr>
         <td>IPAddress</td>
-        <td>System.Int32</td>
+        <td>System.String</td>
         <td />
       </tr>
       <tr>
@@ -90,6 +98,11 @@
         <td />
       </tr>
       <tr>
+        <td>CapacityRawUsedPercentage</td>
+        <td>System.Single</td>
+        <td />
+      </tr>
+      <tr>
         <td>CapacityRawFree</td>
         <td>System.Int64</td>
         <td />
@@ -110,8 +123,18 @@
         <td />
       </tr>
       <tr>
+        <td>CapacityUserUsedPercentage</td>
+        <td>System.Single</td>
+        <td />
+      </tr>
+      <tr>
         <td>CapacityUserFree</td>
         <td>System.Int64</td>
+        <td />
+      </tr>
+      <tr>
+        <td>CapacityUserFreePercentage</td>
+        <td>System.Single</td>
         <td />
       </tr>
       <tr>
@@ -131,6 +154,11 @@
       </tr>
       <tr>
         <td>IOPSOther</td>
+        <td>System.Single</td>
+        <td />
+      </tr>
+      <tr>
+        <td>IOPSReadWriteRatio</td>
         <td>System.Single</td>
         <td />
       </tr>
@@ -220,6 +248,11 @@
         <td />
       </tr>
       <tr>
+        <td>CapacityRunoutDate</td>
+        <td>System.DateTime</td>
+        <td />
+      </tr>
+      <tr>
         <td>OperStatus</td>
         <td>System.Int32</td>
         <td />
@@ -256,6 +289,18 @@
       </tr>
       <tr>
         <td>DetailsUrl</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>OrionIdColumn</td>
+        <td>System.String</td>
+        <td>
+          Default='StorageArrayID'.
+        </td>
+      </tr>
+      <tr>
+        <td>StatusDescription</td>
         <td>System.String</td>
         <td />
       </tr>
@@ -337,21 +382,102 @@
         <td />
       </tr>
       <tr>
+        <td>IOPSTotalThreshold</td>
+        <td>
+          <a href="Orion.SRM.StorageArrayIOPSTotalThreshold.html">Orion.SRM.StorageArrayIOPSTotalThreshold</a>
+        </td>
+        <td>
+        Defined by relationship Orion.StorageArraysHostsStorageArrayIOPSTotalThreshold (System.Hosting)
+      </td>
+      </tr>
+      <tr>
+        <td>IOPSReadThreshold</td>
+        <td>
+          <a href="Orion.SRM.StorageArrayIOPSReadThreshold.html">Orion.SRM.StorageArrayIOPSReadThreshold</a>
+        </td>
+        <td>
+        Defined by relationship Orion.StorageArraysHostsStorageArrayIOPSReadThreshold (System.Hosting)
+      </td>
+      </tr>
+      <tr>
+        <td>IOPSWriteThreshold</td>
+        <td>
+          <a href="Orion.SRM.StorageArrayIOPSWriteThreshold.html">Orion.SRM.StorageArrayIOPSWriteThreshold</a>
+        </td>
+        <td>
+        Defined by relationship Orion.StorageArraysHostsStorageArrayIOPSWriteThreshold (System.Hosting)
+      </td>
+      </tr>
+      <tr>
+        <td>IOPSOtherThreshold</td>
+        <td>
+          <a href="Orion.SRM.StorageArrayIOPSOtherThreshold.html">Orion.SRM.StorageArrayIOPSOtherThreshold</a>
+        </td>
+        <td>
+        Defined by relationship Orion.StorageArraysHostsStorageArrayIOPSOtherThreshold (System.Hosting)
+      </td>
+      </tr>
+      <tr>
+        <td>IOSizeTotalThreshold</td>
+        <td>
+          <a href="Orion.SRM.StorageArrayIOSizeTotalThreshold.html">Orion.SRM.StorageArrayIOSizeTotalThreshold</a>
+        </td>
+        <td>
+        Defined by relationship Orion.StorageArraysHostsStorageArrayIOSizeTotalThreshold (System.Hosting)
+      </td>
+      </tr>
+      <tr>
+        <td>IOSizeReadThreshold</td>
+        <td>
+          <a href="Orion.SRM.StorageArrayIOSizeReadThreshold.html">Orion.SRM.StorageArrayIOSizeReadThreshold</a>
+        </td>
+        <td>
+        Defined by relationship Orion.StorageArraysHostsStorageArrayIOSizeReadThreshold (System.Hosting)
+      </td>
+      </tr>
+      <tr>
+        <td>IOSizeWriteThreshold</td>
+        <td>
+          <a href="Orion.SRM.StorageArrayIOSizeWriteThreshold.html">Orion.SRM.StorageArrayIOSizeWriteThreshold</a>
+        </td>
+        <td>
+        Defined by relationship Orion.StorageArraysHostsStorageArrayIOSizeWriteThreshold (System.Hosting)
+      </td>
+      </tr>
+      <tr>
+        <td>BytesPSTotalThreshold</td>
+        <td>
+          <a href="Orion.SRM.StorageArrayBytesPSTotalThreshold.html">Orion.SRM.StorageArrayBytesPSTotalThreshold</a>
+        </td>
+        <td>
+        Defined by relationship Orion.StorageArraysHostsStorageArrayBytesPSTotalThreshold (System.Hosting)
+      </td>
+      </tr>
+      <tr>
+        <td>BytesPSReadThreshold</td>
+        <td>
+          <a href="Orion.SRM.StorageArrayBytesPSReadThreshold.html">Orion.SRM.StorageArrayBytesPSReadThreshold</a>
+        </td>
+        <td>
+        Defined by relationship Orion.StorageArraysHostsStorageArrayBytesPSReadThreshold (System.Hosting)
+      </td>
+      </tr>
+      <tr>
+        <td>BytesPSWriteThreshold</td>
+        <td>
+          <a href="Orion.SRM.StorageArrayBytesPSWriteThreshold.html">Orion.SRM.StorageArrayBytesPSWriteThreshold</a>
+        </td>
+        <td>
+        Defined by relationship Orion.StorageArraysHostsStorageArrayBytesPSWriteThreshold (System.Hosting)
+      </td>
+      </tr>
+      <tr>
         <td>Providers</td>
         <td>
           <a href="Orion.SRM.Providers.html">Orion.SRM.Providers</a>
         </td>
         <td>
         Defined by relationship Orion.SRM.StorageArraysReferencesProviders (System.Reference)
-      </td>
-      </tr>
-      <tr>
-        <td>WebUri</td>
-        <td>
-          <a href="Orion.SRM.StorageArrayWebUri.html">Orion.SRM.StorageArrayWebUri</a>
-        </td>
-        <td>
-        Defined by relationship Orion.SRM.StorageArraysHostsWebUri (System.Hosting)
       </td>
       </tr>
       <tr>
@@ -436,12 +562,21 @@
       </td>
       </tr>
       <tr>
-        <td>Template</td>
+        <td>CustomProperties</td>
         <td>
-          <a href="Orion.SRM.Templates.html">Orion.SRM.Templates</a>
+          <a href="Orion.SRM.StorageArrayCustomProperties.html">Orion.SRM.StorageArrayCustomProperties</a>
         </td>
         <td>
-        Defined by relationship Orion.SRM.TemplatesReferencesStorageArrays (System.Reference)
+        Defined by relationship Orion.SRM.StorageArrayHostsCustomProperties (System.Hosting)
+      </td>
+      </tr>
+      <tr>
+        <td>WebUri</td>
+        <td>
+          <a href="Orion.SRM.StorageArrayWebUri.html">Orion.SRM.StorageArrayWebUri</a>
+        </td>
+        <td>
+        Defined by relationship Orion.SRM.StorageArraysHostsWebUri (System.Hosting)
       </td>
       </tr>
       <tr>
@@ -463,12 +598,39 @@
       </td>
       </tr>
       <tr>
+        <td>RelyLUNs</td>
+        <td>
+          <a href="Orion.SRM.LUNs.html">Orion.SRM.LUNs</a>
+        </td>
+        <td>
+        Defined by relationship Orion.Rely.SRM.LUNsRelyOnStorageArrays (System.Reliance)
+      </td>
+      </tr>
+      <tr>
         <td>RelyServerVolumes</td>
         <td>
           <a href="Orion.Volumes.html">Orion.Volumes</a>
         </td>
         <td>
         Defined by relationship Orion.Rely.SRM.ServerVolumesRelyOnStorageArrays (System.Reliance)
+      </td>
+      </tr>
+      <tr>
+        <td>Engine</td>
+        <td>
+          <a href="Orion.SRM.Engines.html">Orion.SRM.Engines</a>
+        </td>
+        <td>
+        Defined by relationship Orion.SRM.EngineReferencesStorageArrays (System.Reference)
+      </td>
+      </tr>
+      <tr>
+        <td>Template</td>
+        <td>
+          <a href="Orion.SRM.Templates.html">Orion.SRM.Templates</a>
+        </td>
+        <td>
+        Defined by relationship Orion.SRM.TemplatesReferencesStorageArrays (System.Reference)
       </td>
       </tr>
     </table>

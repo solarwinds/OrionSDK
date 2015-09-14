@@ -17,12 +17,20 @@
     <p>
         Base type:
         <a href="System.ManagedEntity.html">System.ManagedEntity</a></p>
+    <p>
+        Summary:
+        Contains information about all LUNs</p>
     <h2>Properties</h2>
     <table>
       <tr>
         <th>Name</th>
         <th>Type</th>
         <th>Notes</th>
+      </tr>
+      <tr>
+        <td>Description</td>
+        <td>System.String</td>
+        <td />
       </tr>
       <tr>
         <td>LUNID</td>
@@ -95,6 +103,31 @@
         <td />
       </tr>
       <tr>
+        <td>CapacityFreePercentage</td>
+        <td>System.Single</td>
+        <td />
+      </tr>
+      <tr>
+        <td>PoolCapacityTotal</td>
+        <td>System.Int64</td>
+        <td />
+      </tr>
+      <tr>
+        <td>PoolCapacityAllocated</td>
+        <td>System.Int64</td>
+        <td />
+      </tr>
+      <tr>
+        <td>PoolCapacityFree</td>
+        <td>System.Int64</td>
+        <td />
+      </tr>
+      <tr>
+        <td>PoolCapacityFreePercentage</td>
+        <td>System.Single</td>
+        <td />
+      </tr>
+      <tr>
         <td>IOPSTotal</td>
         <td>System.Single</td>
         <td />
@@ -111,6 +144,11 @@
       </tr>
       <tr>
         <td>IOPSOther</td>
+        <td>System.Single</td>
+        <td />
+      </tr>
+      <tr>
+        <td>IOPSReadWriteRatio</td>
         <td>System.Single</td>
         <td />
       </tr>
@@ -210,6 +248,11 @@
         <td />
       </tr>
       <tr>
+        <td>CapacityRunoutDate</td>
+        <td>System.DateTime</td>
+        <td />
+      </tr>
+      <tr>
         <td>Thin</td>
         <td>System.Boolean</td>
         <td />
@@ -236,6 +279,26 @@
       </tr>
       <tr>
         <td>DetailsUrl</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Unmanaged</td>
+        <td>System.Boolean</td>
+        <td />
+      </tr>
+      <tr>
+        <td>UnmanageFrom</td>
+        <td>System.DateTime</td>
+        <td />
+      </tr>
+      <tr>
+        <td>UnmanageUntil</td>
+        <td>System.DateTime</td>
+        <td />
+      </tr>
+      <tr>
+        <td>StatusDescription</td>
         <td>System.String</td>
         <td />
       </tr>
@@ -317,6 +380,159 @@
         <td />
       </tr>
       <tr>
+        <td>RelyPools</td>
+        <td>
+          <a href="Orion.SRM.Pools.html">Orion.SRM.Pools</a>
+        </td>
+        <td>
+        Defined by relationship Orion.Rely.SRM.LUNsRelyOnPools (System.Reliance)
+      </td>
+      </tr>
+      <tr>
+        <td>RelyStorageArrayForLuns</td>
+        <td>
+          <a href="Orion.SRM.StorageArrays.html">Orion.SRM.StorageArrays</a>
+        </td>
+        <td>
+        Defined by relationship Orion.Rely.SRM.LUNsRelyOnStorageArrays (System.Reliance)
+      </td>
+      </tr>
+      <tr>
+        <td>RelyVolume</td>
+        <td>
+          <a href="Orion.SRM.Volumes.html">Orion.SRM.Volumes</a>
+        </td>
+        <td>
+        Defined by relationship Orion.Rely.SRM.LUNsRelyOnVolume (System.Reliance)
+      </td>
+      </tr>
+      <tr>
+        <td>IOPSTotalThreshold</td>
+        <td>
+          <a href="Orion.SRM.LUNIOPSTotalThreshold.html">Orion.SRM.LUNIOPSTotalThreshold</a>
+        </td>
+        <td>
+        Defined by relationship Orion.LUNsHostsLUNIOPSTotalThreshold (System.Hosting)
+      </td>
+      </tr>
+      <tr>
+        <td>IOPSReadThreshold</td>
+        <td>
+          <a href="Orion.SRM.LUNIOPSReadThreshold.html">Orion.SRM.LUNIOPSReadThreshold</a>
+        </td>
+        <td>
+        Defined by relationship Orion.LUNsHostsLUNIOPSReadThreshold (System.Hosting)
+      </td>
+      </tr>
+      <tr>
+        <td>IOPSWriteThreshold</td>
+        <td>
+          <a href="Orion.SRM.LUNIOPSWriteThreshold.html">Orion.SRM.LUNIOPSWriteThreshold</a>
+        </td>
+        <td>
+        Defined by relationship Orion.LUNsHostsLUNIOPSWriteThreshold (System.Hosting)
+      </td>
+      </tr>
+      <tr>
+        <td>IOPSOtherThreshold</td>
+        <td>
+          <a href="Orion.SRM.LUNIOPSOtherThreshold.html">Orion.SRM.LUNIOPSOtherThreshold</a>
+        </td>
+        <td>
+        Defined by relationship Orion.LUNsHostsLUNIOPSOtherThreshold (System.Hosting)
+      </td>
+      </tr>
+      <tr>
+        <td>IOLatencyTotalThreshold</td>
+        <td>
+          <a href="Orion.SRM.LUNIOLatencyTotalThreshold.html">Orion.SRM.LUNIOLatencyTotalThreshold</a>
+        </td>
+        <td>
+        Defined by relationship Orion.LUNsHostsLUNIOLatencyTotalThreshold (System.Hosting)
+      </td>
+      </tr>
+      <tr>
+        <td>IOLatencyReadThreshold</td>
+        <td>
+          <a href="Orion.SRM.LUNIOLatencyReadThreshold.html">Orion.SRM.LUNIOLatencyReadThreshold</a>
+        </td>
+        <td>
+        Defined by relationship Orion.LUNsHostsLUNIOLatencyReadThreshold (System.Hosting)
+      </td>
+      </tr>
+      <tr>
+        <td>IOLatencyWriteThreshold</td>
+        <td>
+          <a href="Orion.SRM.LUNIOLatencyWriteThreshold.html">Orion.SRM.LUNIOLatencyWriteThreshold</a>
+        </td>
+        <td>
+        Defined by relationship Orion.LUNsHostsLUNIOLatencyWriteThreshold (System.Hosting)
+      </td>
+      </tr>
+      <tr>
+        <td>IOLatencyOtherThreshold</td>
+        <td>
+          <a href="Orion.SRM.LUNIOLatencyOtherThreshold.html">Orion.SRM.LUNIOLatencyOtherThreshold</a>
+        </td>
+        <td>
+        Defined by relationship Orion.LUNsHostsLUNIOLatencyOtherThreshold (System.Hosting)
+      </td>
+      </tr>
+      <tr>
+        <td>IOSizeTotalThreshold</td>
+        <td>
+          <a href="Orion.SRM.LUNIOSizeTotalThreshold.html">Orion.SRM.LUNIOSizeTotalThreshold</a>
+        </td>
+        <td>
+        Defined by relationship Orion.LUNsHostsLUNIOSizeTotalThreshold (System.Hosting)
+      </td>
+      </tr>
+      <tr>
+        <td>IOSizeReadThreshold</td>
+        <td>
+          <a href="Orion.SRM.LUNIOSizeReadThreshold.html">Orion.SRM.LUNIOSizeReadThreshold</a>
+        </td>
+        <td>
+        Defined by relationship Orion.LUNsHostsLUNIOSizeReadThreshold (System.Hosting)
+      </td>
+      </tr>
+      <tr>
+        <td>IOSizeWriteThreshold</td>
+        <td>
+          <a href="Orion.SRM.LUNIOSizeWriteThreshold.html">Orion.SRM.LUNIOSizeWriteThreshold</a>
+        </td>
+        <td>
+        Defined by relationship Orion.LUNsHostsLUNIOSizeWriteThreshold (System.Hosting)
+      </td>
+      </tr>
+      <tr>
+        <td>BytesPSTotalThreshold</td>
+        <td>
+          <a href="Orion.SRM.LUNBytesPSTotalThreshold.html">Orion.SRM.LUNBytesPSTotalThreshold</a>
+        </td>
+        <td>
+        Defined by relationship Orion.LUNsHostsLUNBytesPSTotalThreshold (System.Hosting)
+      </td>
+      </tr>
+      <tr>
+        <td>BytesPSReadThreshold</td>
+        <td>
+          <a href="Orion.SRM.LUNBytesPSReadThreshold.html">Orion.SRM.LUNBytesPSReadThreshold</a>
+        </td>
+        <td>
+        Defined by relationship Orion.LUNsHostsLUNBytesPSReadThreshold (System.Hosting)
+      </td>
+      </tr>
+      <tr>
+        <td>BytesPSWriteThreshold</td>
+        <td>
+          <a href="Orion.SRM.LUNBytesPSWriteThreshold.html">Orion.SRM.LUNBytesPSWriteThreshold</a>
+        </td>
+        <td>
+        Defined by relationship Orion.LUNsHostsLUNBytesPSWriteThreshold (System.Hosting)
+      </td>
+      </tr>
+      <tr>
         <td>CapacityStatistics</td>
         <td>
           <a href="Orion.SRM.LUNCapacityStatistics.html">Orion.SRM.LUNCapacityStatistics</a>
@@ -335,174 +551,48 @@
       </td>
       </tr>
       <tr>
-        <td>RelyPools</td>
+        <td>LunMaskings</td>
         <td>
-          <a href="Orion.SRM.Pools.html">Orion.SRM.Pools</a>
+          <a href="Orion.SRM.LunMasking.html">Orion.SRM.LunMasking</a>
         </td>
         <td>
-        Defined by relationship Orion.Rely.SRM.LUNsRelyOnPools (System.Reliance)
+        Defined by relationship Orion.SRM.LUNsReferencesLunMasking (System.Reference)
       </td>
       </tr>
       <tr>
-        <td>RelyVolume</td>
+        <td>CustomProperties</td>
         <td>
-          <a href="Orion.SRM.Volumes.html">Orion.SRM.Volumes</a>
+          <a href="Orion.SRM.LUNCustomProperties.html">Orion.SRM.LUNCustomProperties</a>
         </td>
         <td>
-        Defined by relationship Orion.Rely.SRM.LUNsRelyOnVolume (System.Reliance)
+        Defined by relationship Orion.SRM.LUNsHostsCustomProperties (System.Hosting)
       </td>
       </tr>
       <tr>
-        <td>Thresholds</td>
+        <td>ServerVolumes</td>
         <td>
-          <a href="Orion.SRM.LUNsThresholds.html">Orion.SRM.LUNsThresholds</a>
+          <a href="Orion.Volumes.html">Orion.Volumes</a>
         </td>
         <td>
-        Defined by relationship Orion.SRM.LUNsThresholds (System.Hosting)
+        Defined by relationship Orion.SRM.LUNsReferencesServerVolumes (System.Reference)
       </td>
       </tr>
       <tr>
-        <td>IOPSTotalThreshold</td>
+        <td>Datastores</td>
         <td>
-          <a href="Orion.SRM.LUNsIOPSTotalThreshold.html">Orion.SRM.LUNsIOPSTotalThreshold</a>
+          <a href="Orion.VIM.Datastores.html">Orion.VIM.Datastores</a>
         </td>
         <td>
-        Defined by relationship Orion.SRM.LUNsIOPSTotalThreshold (System.Hosting)
+        Defined by relationship Orion.SRM.LUNsReferencesDatastores (System.Reference)
       </td>
       </tr>
       <tr>
-        <td>IOPSReadThreshold</td>
+        <td>VirtualMachines</td>
         <td>
-          <a href="Orion.SRM.LUNsIOPSReadThreshold.html">Orion.SRM.LUNsIOPSReadThreshold</a>
+          <a href="Orion.VIM.VirtualMachines.html">Orion.VIM.VirtualMachines</a>
         </td>
         <td>
-        Defined by relationship Orion.SRM.LUNsIOPSReadThreshold (System.Hosting)
-      </td>
-      </tr>
-      <tr>
-        <td>IOPSWriteThreshold</td>
-        <td>
-          <a href="Orion.SRM.LUNsIOPSWriteThreshold.html">Orion.SRM.LUNsIOPSWriteThreshold</a>
-        </td>
-        <td>
-        Defined by relationship Orion.SRM.LUNsIOPSWriteThreshold (System.Hosting)
-      </td>
-      </tr>
-      <tr>
-        <td>IOPSOtherThreshold</td>
-        <td>
-          <a href="Orion.SRM.LUNsIOPSOtherThreshold.html">Orion.SRM.LUNsIOPSOtherThreshold</a>
-        </td>
-        <td>
-        Defined by relationship Orion.SRM.LUNsIOPSOtherThreshold (System.Hosting)
-      </td>
-      </tr>
-      <tr>
-        <td>IOLatencyTotalThreshold</td>
-        <td>
-          <a href="Orion.SRM.LUNsIOLatencyTotalThreshold.html">Orion.SRM.LUNsIOLatencyTotalThreshold</a>
-        </td>
-        <td>
-        Defined by relationship Orion.SRM.LUNsIOLatencyTotalThreshold (System.Hosting)
-      </td>
-      </tr>
-      <tr>
-        <td>IOLatencyReadThreshold</td>
-        <td>
-          <a href="Orion.SRM.LUNsIOLatencyReadThreshold.html">Orion.SRM.LUNsIOLatencyReadThreshold</a>
-        </td>
-        <td>
-        Defined by relationship Orion.SRM.LUNsIOLatencyReadThreshold (System.Hosting)
-      </td>
-      </tr>
-      <tr>
-        <td>IOLatencyWriteThreshold</td>
-        <td>
-          <a href="Orion.SRM.LUNsIOLatencyWriteThreshold.html">Orion.SRM.LUNsIOLatencyWriteThreshold</a>
-        </td>
-        <td>
-        Defined by relationship Orion.SRM.LUNsIOLatencyWriteThreshold (System.Hosting)
-      </td>
-      </tr>
-      <tr>
-        <td>IOLatencyOtherThreshold</td>
-        <td>
-          <a href="Orion.SRM.LUNsIOLatencyOtherThreshold.html">Orion.SRM.LUNsIOLatencyOtherThreshold</a>
-        </td>
-        <td>
-        Defined by relationship Orion.SRM.LUNsIOLatencyOtherThreshold (System.Hosting)
-      </td>
-      </tr>
-      <tr>
-        <td>IOSizeTotalThreshold</td>
-        <td>
-          <a href="Orion.SRM.LUNsIOSizeTotalThreshold.html">Orion.SRM.LUNsIOSizeTotalThreshold</a>
-        </td>
-        <td>
-        Defined by relationship Orion.SRM.LUNsIOSizeTotalThreshold (System.Hosting)
-      </td>
-      </tr>
-      <tr>
-        <td>IOSizeReadThreshold</td>
-        <td>
-          <a href="Orion.SRM.LUNsIOSizeReadThreshold.html">Orion.SRM.LUNsIOSizeReadThreshold</a>
-        </td>
-        <td>
-        Defined by relationship Orion.SRM.LUNsIOSizeReadThreshold (System.Hosting)
-      </td>
-      </tr>
-      <tr>
-        <td>IOSizeWriteThreshold</td>
-        <td>
-          <a href="Orion.SRM.LUNsIOSizeWriteThreshold.html">Orion.SRM.LUNsIOSizeWriteThreshold</a>
-        </td>
-        <td>
-        Defined by relationship Orion.SRM.LUNsIOSizeWriteThreshold (System.Hosting)
-      </td>
-      </tr>
-      <tr>
-        <td>BytesPSTotalThreshold</td>
-        <td>
-          <a href="Orion.SRM.LUNsBytesPSTotalThreshold.html">Orion.SRM.LUNsBytesPSTotalThreshold</a>
-        </td>
-        <td>
-        Defined by relationship Orion.SRM.LUNsBytesPSTotalThreshold (System.Hosting)
-      </td>
-      </tr>
-      <tr>
-        <td>BytesPSReadThreshold</td>
-        <td>
-          <a href="Orion.SRM.LUNsBytesPSReadThreshold.html">Orion.SRM.LUNsBytesPSReadThreshold</a>
-        </td>
-        <td>
-        Defined by relationship Orion.SRM.LUNsBytesPSReadThreshold (System.Hosting)
-      </td>
-      </tr>
-      <tr>
-        <td>BytesPSWriteThreshold</td>
-        <td>
-          <a href="Orion.SRM.LUNsBytesPSWriteThreshold.html">Orion.SRM.LUNsBytesPSWriteThreshold</a>
-        </td>
-        <td>
-        Defined by relationship Orion.SRM.LUNsBytesPSWriteThreshold (System.Hosting)
-      </td>
-      </tr>
-      <tr>
-        <td>StorageArray</td>
-        <td>
-          <a href="Orion.SRM.StorageArrays.html">Orion.SRM.StorageArrays</a>
-        </td>
-        <td>
-        Defined by relationship Orion.SRM.StorageArraysReferencesLUNs (System.Reference)
-      </td>
-      </tr>
-      <tr>
-        <td>Pools</td>
-        <td>
-          <a href="Orion.SRM.Pools.html">Orion.SRM.Pools</a>
-        </td>
-        <td>
-        Defined by relationship Orion.SRM.PoolsReferencesLUNs (System.Reference)
+        Defined by relationship Orion.SRM.LUNsReferencesVirtualMachines (System.Reference)
       </td>
       </tr>
       <tr>
@@ -521,6 +611,33 @@
         </td>
         <td>
         Defined by relationship Orion.Rely.SRM.DatastoresRelyOnLUNs (System.Reliance)
+      </td>
+      </tr>
+      <tr>
+        <td>RelyVirtualMachines</td>
+        <td>
+          <a href="Orion.VIM.VirtualMachines.html">Orion.VIM.VirtualMachines</a>
+        </td>
+        <td>
+        Defined by relationship Orion.Rely.SRM.VirtualMachinesRelyOnLUNs (System.Reliance)
+      </td>
+      </tr>
+      <tr>
+        <td>StorageArray</td>
+        <td>
+          <a href="Orion.SRM.StorageArrays.html">Orion.SRM.StorageArrays</a>
+        </td>
+        <td>
+        Defined by relationship Orion.SRM.StorageArraysReferencesLUNs (System.Reference)
+      </td>
+      </tr>
+      <tr>
+        <td>Pools</td>
+        <td>
+          <a href="Orion.SRM.Pools.html">Orion.SRM.Pools</a>
+        </td>
+        <td>
+        Defined by relationship Orion.SRM.PoolsReferencesLUNs (System.Reference)
       </td>
       </tr>
     </table>

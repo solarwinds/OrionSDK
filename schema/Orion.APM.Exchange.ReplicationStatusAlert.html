@@ -17,6 +17,11 @@
     <p>
         Base type:
         <a href="System.Entity.html">System.Entity</a></p>
+    <p>
+        Summary:
+        
+			This entity presents the Exchange server replication status information. Used in alerting. 
+		</p>
     <h2>Properties</h2>
     <table>
       <tr>
@@ -27,32 +32,38 @@
       <tr>
         <td>ID</td>
         <td>System.Int32</td>
-        <td />
+        <td>The unique integer representation of replication status.'
+        </td>
       </tr>
       <tr>
         <td>ApplicationID</td>
         <td>System.Int32</td>
-        <td />
+        <td>The unique integer representation of parent SAM application.'
+        </td>
       </tr>
       <tr>
         <td>CheckName</td>
         <td>System.String</td>
-        <td />
+        <td>The string value that contains replication entity name (ClusterService, ReplayService, ActiveManager...)'
+        </td>
       </tr>
       <tr>
         <td>Status</td>
         <td>System.Int32</td>
-        <td />
+        <td>The integer value that contains replication entity status.'
+        </td>
       </tr>
       <tr>
         <td>Error</td>
         <td>System.String</td>
-        <td />
+        <td>The string value that contains error message.'
+        </td>
       </tr>
       <tr>
         <td>NodeID</td>
         <td>System.Int32</td>
-        <td />
+        <td>The unique integer representation of parent node.'
+        </td>
       </tr>
       <tr>
         <td>DisplayName</td>
@@ -75,12 +86,12 @@
         <td />
       </tr>
       <tr>
-        <td>ExchangeApplication</td>
+        <td>ReplicationStatus</td>
         <td>
-          <a href="Orion.APM.Exchange.Application.html">Orion.APM.Exchange.Application</a>
+          <a href="Orion.APM.Exchange.ReplicationStatus.html">Orion.APM.Exchange.ReplicationStatus</a>
         </td>
         <td>
-        Defined by relationship Orion.APM.Exchange.ReplicationStatusAlertReferencesExchangeApplication (System.Reference)
+        Defined by relationship Orion.APM.Exchange.ReplicationStatusAlertReferencesReplicationStatus (System.Reference)
       </td>
       </tr>
     </table>

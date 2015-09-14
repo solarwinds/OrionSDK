@@ -105,6 +105,11 @@
         <td />
       </tr>
       <tr>
+        <td>Mode</td>
+        <td>System.Int32</td>
+        <td />
+      </tr>
+      <tr>
         <td>AgentVersion</td>
         <td>System.String</td>
         <td />
@@ -120,6 +125,56 @@
         <td>
           Default='AgentId'.
         </td>
+      </tr>
+      <tr>
+        <td>PassiveAgentHostname</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>PassiveAgentPort</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>ProxyId</td>
+        <td>System.Int32</td>
+        <td />
+      </tr>
+      <tr>
+        <td>RegisteredOn</td>
+        <td>System.DateTime</td>
+        <td />
+      </tr>
+      <tr>
+        <td>SID</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Is64Windows</td>
+        <td>System.Boolean</td>
+        <td />
+      </tr>
+      <tr>
+        <td>CPUArch</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>OSArch</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>ResponseTime</td>
+        <td>System.Int32</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Type</td>
+        <td>System.Int32</td>
+        <td />
       </tr>
       <tr>
         <td>DisplayName</td>
@@ -142,15 +197,6 @@
         <td />
       </tr>
       <tr>
-        <td>Engine</td>
-        <td>
-          <a href="Orion.Engines.html">Orion.Engines</a>
-        </td>
-        <td>
-        Defined by relationship Orion.AgentManagement.AgentReferencesEngine (System.Reference)
-      </td>
-      </tr>
-      <tr>
         <td>Plugins</td>
         <td>
           <a href="Orion.AgentManagement.AgentPlugin.html">Orion.AgentManagement.AgentPlugin</a>
@@ -160,12 +206,21 @@
       </td>
       </tr>
       <tr>
+        <td>Engine</td>
+        <td>
+          <a href="Orion.Engines.html">Orion.Engines</a>
+        </td>
+        <td>
+        Defined by relationship Orion.AgentManagement.EngineReferencesAgent (System.Reference)
+      </td>
+      </tr>
+      <tr>
         <td>Node</td>
         <td>
           <a href="Orion.Nodes.html">Orion.Nodes</a>
         </td>
         <td>
-        Defined by relationship Orion.AgentManagement.NodeHostsAgent (System.Hosting)
+        Defined by relationship Orion.AgentManagement.NodeReferencesAgent (System.Reference)
       </td>
       </tr>
     </table>
@@ -188,7 +243,15 @@
         <td />
       </tr>
       <tr>
+        <td>RedeployPlugin</td>
+        <td />
+      </tr>
+      <tr>
         <td>UninstallPlugin</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Uninstall</td>
         <td />
       </tr>
       <tr>
@@ -201,6 +264,14 @@
       </tr>
       <tr>
         <td>ApproveUpdate</td>
+        <td />
+      </tr>
+      <tr>
+        <td>TestWithEngine</td>
+        <td />
+      </tr>
+      <tr>
+        <td>AssignToEngine</td>
         <td />
       </tr>
       <tr>

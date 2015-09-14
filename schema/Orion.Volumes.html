@@ -199,6 +199,11 @@
         <td />
       </tr>
       <tr>
+        <td>DisplayName</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
         <td>TotalDiskIOPS</td>
         <td>System.Double</td>
         <td />
@@ -271,6 +276,11 @@
       <tr>
         <td>SCSIControllerId</td>
         <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>SCSIPortOffset</td>
+        <td>System.Int32</td>
         <td />
       </tr>
       <tr>
@@ -423,15 +433,6 @@
       </td>
       </tr>
       <tr>
-        <td>SRMTopologies</td>
-        <td>
-          <a href="Orion.SRM.Topology.html">Orion.SRM.Topology</a>
-        </td>
-        <td>
-        Defined by relationship Orion.VolumesReferencesTopology (System.Reference)
-      </td>
-      </tr>
-      <tr>
         <td>RelyLUN</td>
         <td>
           <a href="Orion.SRM.LUNs.html">Orion.SRM.LUNs</a>
@@ -459,12 +460,66 @@
       </td>
       </tr>
       <tr>
+        <td>RelyPool</td>
+        <td>
+          <a href="Orion.SRM.Pools.html">Orion.SRM.Pools</a>
+        </td>
+        <td>
+        Defined by relationship Orion.Rely.SRM.ServerVolumesRelyOnPools (System.Reliance)
+      </td>
+      </tr>
+      <tr>
+        <td>RelyNasVolume</td>
+        <td>
+          <a href="Orion.SRM.Volumes.html">Orion.SRM.Volumes</a>
+        </td>
+        <td>
+        Defined by relationship Orion.Rely.SRM.ServerVolumesRelyOnNasVolumes (System.Reliance)
+      </td>
+      </tr>
+      <tr>
+        <td>RelyVserver</td>
+        <td>
+          <a href="Orion.SRM.VServers.html">Orion.SRM.VServers</a>
+        </td>
+        <td>
+        Defined by relationship Orion.Rely.SRM.ServerVolumesRelyOnVservers (System.Reliance)
+      </td>
+      </tr>
+      <tr>
+        <td>SRMTopologies</td>
+        <td>
+          <a href="Orion.SRM.Topology.html">Orion.SRM.Topology</a>
+        </td>
+        <td>
+        Defined by relationship Orion.VolumesReferencesTopology (System.Reference)
+      </td>
+      </tr>
+      <tr>
         <td>Node</td>
         <td>
           <a href="Orion.Nodes.html">Orion.Nodes</a>
         </td>
         <td>
         Defined by relationship Orion.NodeHostsVolumes (System.Hosting)
+      </td>
+      </tr>
+      <tr>
+        <td>LUN</td>
+        <td>
+          <a href="Orion.SRM.LUNs.html">Orion.SRM.LUNs</a>
+        </td>
+        <td>
+        Defined by relationship Orion.SRM.LUNsReferencesServerVolumes (System.Reference)
+      </td>
+      </tr>
+      <tr>
+        <td>FileShare</td>
+        <td>
+          <a href="Orion.SRM.FileShares.html">Orion.SRM.FileShares</a>
+        </td>
+        <td>
+        Defined by relationship Orion.SRM.FileSharesReferencesServerVolumes (System.Reference)
       </td>
       </tr>
     </table>

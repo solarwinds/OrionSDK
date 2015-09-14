@@ -16,7 +16,7 @@
     </h1>
     <p>
         Base type:
-        <a href="Orion.VIM.ManagedEntity.html">Orion.VIM.ManagedEntity</a></p>
+        <a href="System.ManagedEntity.html">System.ManagedEntity</a></p>
     <h2>Properties</h2>
     <table>
       <tr>
@@ -250,6 +250,40 @@
         <td />
       </tr>
       <tr>
+        <td>PollingSource</td>
+        <td>System.Int32</td>
+        <td />
+      </tr>
+      <tr>
+        <td>BootTime</td>
+        <td>System.DateTime</td>
+        <td />
+      </tr>
+      <tr>
+        <td>TriggeredAlarmDescription</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>OrionIdPrefix</td>
+        <td>System.String</td>
+        <td>
+          Default='VH:'.
+        </td>
+      </tr>
+      <tr>
+        <td>OrionIdColumn</td>
+        <td>System.String</td>
+        <td>
+          Default='HostID'.
+        </td>
+      </tr>
+      <tr>
+        <td>DetailsUrl</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
         <td>Status</td>
         <td>System.Int32</td>
         <td />
@@ -282,22 +316,27 @@
         <td />
       </tr>
       <tr>
-        <td>StatusIconHint</td>
-        <td>System.String</td>
-        <td />
-      </tr>
-      <tr>
-        <td>TriggeredAlarmDescription</td>
-        <td>System.String</td>
-        <td />
-      </tr>
-      <tr>
         <td>DetailsUrl</td>
         <td>System.String</td>
         <td />
       </tr>
       <tr>
         <td>Image</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>AncestorDisplayNames</td>
+        <td>System.String[]</td>
+        <td />
+      </tr>
+      <tr>
+        <td>AncestorDetailsUrls</td>
+        <td>System.String[]</td>
+        <td />
+      </tr>
+      <tr>
+        <td>StatusIconHint</td>
         <td>System.String</td>
         <td />
       </tr>
@@ -320,6 +359,51 @@
         <td>Uri</td>
         <td>System.String</td>
         <td />
+      </tr>
+      <tr>
+        <td>Thresholds</td>
+        <td>
+          <a href="Orion.VIM.HostThresholds.html">Orion.VIM.HostThresholds</a>
+        </td>
+        <td>
+        Defined by relationship Orion.VIM.HostHostsHostThresholds (System.Hosting)
+      </td>
+      </tr>
+      <tr>
+        <td>CpuLoadThreshold</td>
+        <td>
+          <a href="Orion.VIM.HostCpuLoadThreshold.html">Orion.VIM.HostCpuLoadThreshold</a>
+        </td>
+        <td>
+        Defined by relationship Orion.VIM.HostHostsCpuLoadThreshold (System.Hosting)
+      </td>
+      </tr>
+      <tr>
+        <td>MemUsageThreshold</td>
+        <td>
+          <a href="Orion.VIM.HostMemUsageThreshold.html">Orion.VIM.HostMemUsageThreshold</a>
+        </td>
+        <td>
+        Defined by relationship Orion.VIM.HostHostsMemUsageThreshold (System.Hosting)
+      </td>
+      </tr>
+      <tr>
+        <td>NetworkUtilizationThreshold</td>
+        <td>
+          <a href="Orion.VIM.HostNetworkUtilizationThreshold.html">Orion.VIM.HostNetworkUtilizationThreshold</a>
+        </td>
+        <td>
+        Defined by relationship Orion.VIM.HostHostsNetworkUtilizationThreshold (System.Hosting)
+      </td>
+      </tr>
+      <tr>
+        <td>DataCenter</td>
+        <td>
+          <a href="Orion.VIM.DataCenters.html">Orion.VIM.DataCenters</a>
+        </td>
+        <td>
+        Defined by relationship Orion.VIM.HostReferencesDataCenter (System.Reference)
+      </td>
       </tr>
       <tr>
         <td>VirtualMachines</td>
@@ -349,6 +433,33 @@
       </td>
       </tr>
       <tr>
+        <td>RelyDataCenter</td>
+        <td>
+          <a href="Orion.VIM.DataCenters.html">Orion.VIM.DataCenters</a>
+        </td>
+        <td>
+        Defined by relationship Orion.Rely.VIM.HostsRelyOnDataCenter (System.Reliance)
+      </td>
+      </tr>
+      <tr>
+        <td>RelyCluster</td>
+        <td>
+          <a href="Orion.VIM.Clusters.html">Orion.VIM.Clusters</a>
+        </td>
+        <td>
+        Defined by relationship Orion.Rely.VIM.HostsRelyOnCluster (System.Reliance)
+      </td>
+      </tr>
+      <tr>
+        <td>RelyNode</td>
+        <td>
+          <a href="Orion.Nodes.html">Orion.Nodes</a>
+        </td>
+        <td>
+        Defined by relationship Orion.Rely.VIM.HostRelyOnNode (System.Reliance)
+      </td>
+      </tr>
+      <tr>
         <td>Cluster</td>
         <td>
           <a href="Orion.VIM.Clusters.html">Orion.VIM.Clusters</a>
@@ -364,6 +475,15 @@
         </td>
         <td>
         Defined by relationship Orion.VIM.NodesToHosts (System.Reference)
+      </td>
+      </tr>
+      <tr>
+        <td>RelyVirtualMachines</td>
+        <td>
+          <a href="Orion.VIM.VirtualMachines.html">Orion.VIM.VirtualMachines</a>
+        </td>
+        <td>
+        Defined by relationship Orion.Rely.VIM.VirtualMachinesRelyOnHost (System.Reliance)
       </td>
       </tr>
     </table>

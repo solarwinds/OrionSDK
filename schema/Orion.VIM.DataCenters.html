@@ -16,7 +16,7 @@
     </h1>
     <p>
         Base type:
-        <a href="Orion.VIM.ManagedEntity.html">Orion.VIM.ManagedEntity</a></p>
+        <a href="System.ManagedEntity.html">System.ManagedEntity</a></p>
     <h2>Properties</h2>
     <table>
       <tr>
@@ -60,6 +60,35 @@
         <td />
       </tr>
       <tr>
+        <td>TriggeredAlarmDescription</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>PollingSource</td>
+        <td>System.Int32</td>
+        <td />
+      </tr>
+      <tr>
+        <td>OrionIdPrefix</td>
+        <td>System.String</td>
+        <td>
+          Default='VMD:'.
+        </td>
+      </tr>
+      <tr>
+        <td>OrionIdColumn</td>
+        <td>System.String</td>
+        <td>
+          Default='DataCenterID'.
+        </td>
+      </tr>
+      <tr>
+        <td>DetailsUrl</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
         <td>Status</td>
         <td>System.Int32</td>
         <td />
@@ -92,22 +121,27 @@
         <td />
       </tr>
       <tr>
-        <td>StatusIconHint</td>
-        <td>System.String</td>
-        <td />
-      </tr>
-      <tr>
-        <td>TriggeredAlarmDescription</td>
-        <td>System.String</td>
-        <td />
-      </tr>
-      <tr>
         <td>DetailsUrl</td>
         <td>System.String</td>
         <td />
       </tr>
       <tr>
         <td>Image</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>AncestorDisplayNames</td>
+        <td>System.String[]</td>
+        <td />
+      </tr>
+      <tr>
+        <td>AncestorDetailsUrls</td>
+        <td>System.String[]</td>
+        <td />
+      </tr>
+      <tr>
+        <td>StatusIconHint</td>
         <td>System.String</td>
         <td />
       </tr>
@@ -141,12 +175,48 @@
       </td>
       </tr>
       <tr>
+        <td>RelyVCenter</td>
+        <td>
+          <a href="Orion.VIM.VCenters.html">Orion.VIM.VCenters</a>
+        </td>
+        <td>
+        Defined by relationship Orion.Rely.VIM.DataCentersRelyOnVCenter (System.Reliance)
+      </td>
+      </tr>
+      <tr>
+        <td>Hosts</td>
+        <td>
+          <a href="Orion.VIM.Hosts.html">Orion.VIM.Hosts</a>
+        </td>
+        <td>
+        Defined by relationship Orion.VIM.HostReferencesDataCenter (System.Reference)
+      </td>
+      </tr>
+      <tr>
         <td>VCenter</td>
         <td>
           <a href="Orion.VIM.VCenters.html">Orion.VIM.VCenters</a>
         </td>
         <td>
         Defined by relationship Orion.VIM.VCentersToDataCentersMappingReference (System.Reference)
+      </td>
+      </tr>
+      <tr>
+        <td>RelyClusters</td>
+        <td>
+          <a href="Orion.VIM.Clusters.html">Orion.VIM.Clusters</a>
+        </td>
+        <td>
+        Defined by relationship Orion.Rely.VIM.ClustersRelyOnDataCenter (System.Reliance)
+      </td>
+      </tr>
+      <tr>
+        <td>RelyHosts</td>
+        <td>
+          <a href="Orion.VIM.Hosts.html">Orion.VIM.Hosts</a>
+        </td>
+        <td>
+        Defined by relationship Orion.Rely.VIM.HostsRelyOnDataCenter (System.Reliance)
       </td>
       </tr>
     </table>

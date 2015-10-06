@@ -126,6 +126,7 @@ namespace SwqlStudio
             this.sciTextEditorControl1.Name = "sciTextEditorControl1";
             this.sciTextEditorControl1.Size = new System.Drawing.Size(474, 117);
             this.sciTextEditorControl1.TabIndex = 0;
+            this.sciTextEditorControl1.AutoCIgnoreCase = true;
             // 
             // tabControl1
             // 

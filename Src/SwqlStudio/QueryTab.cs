@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using System.Diagnostics;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
@@ -28,9 +29,12 @@ namespace SwqlStudio
             ErrorMessages = 32
         }
 
+        private Font nullFont;
+
         public QueryTab()
         {
             InitializeComponent();
+            nullFont = new Font(dataGridView1.DefaultCellStyle.Font, dataGridView1.DefaultCellStyle.Font.Style | FontStyle.Italic);
             ShowTabs(Tabs.Results);
             Disposed += QueryTabDisposed;
         }
@@ -41,6 +45,11 @@ namespace SwqlStudio
             {
                 subscription.Dispose();
                 subscription = null;
+            }
+            if (nullFont != null)
+            {
+                nullFont.Dispose();
+                nullFont = null;
             }
         }
 
@@ -109,7 +118,13 @@ namespace SwqlStudio
 
         private void dataGridView1_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
-            if (e.Value != null)
+            if (e.Value == null || DBNull.Value.Equals(e.Value))
+            {
+                e.Value = "NULL";
+                e.CellStyle.ForeColor = SystemColors.GrayText;
+                e.CellStyle.Font = nullFont;
+            }
+            else
             {
                 StringBuilder str = FormatGridValue(e.Value);
                 e.Value = str.ToString();
@@ -122,7 +137,9 @@ namespace SwqlStudio
             if (value == null)
                 return str;
 
-            if (value.GetType().IsArray)
+            var valueType = value.GetType();
+
+            if (valueType.IsArray)
             {
                 var enumerable = (IEnumerable)value;
                 var enumerator = enumerable.GetEnumerator();
@@ -135,15 +152,19 @@ namespace SwqlStudio
                     if (!first)
                         str.Append(", ");
                     if (enumerator.Current != null)
-                        str.Append(enumerator.Current.ToString());
+                        str.Append(enumerator.Current);
 
                     first = false;
                 }
                 str.Append("]");
             }
+            else if (valueType == typeof(DateTime))
+            {
+                str.AppendFormat("{0:yyyy'-'MM'-'dd HH':'mm':'ss'.'FFFFFF}", value);
+            }
             else
             {
-                str.Append(value.ToString());
+                str.Append(value);
             }
 
             return str;
@@ -337,8 +358,8 @@ namespace SwqlStudio
                         grid.Columns.Clear();
                         foreach (DataColumn column in table.Columns)
                         {
-                            grid.Columns.Add(column.ColumnName, column.ColumnName);
-                            grid.Columns[column.ColumnName].DataPropertyName = column.ColumnName;
+                            var columnIndex = grid.Columns.Add(column.ColumnName, column.ColumnName);
+                            grid.Columns[columnIndex].DataPropertyName = column.ColumnName;
                         }
 
                         grid.DataSource = arg.Results;

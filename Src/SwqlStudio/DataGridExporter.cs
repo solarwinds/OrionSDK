@@ -40,13 +40,16 @@ namespace SwqlStudio
                         isFirst = false;
 
                         object item = cell.Value;
-                        if (item is DateTime)
+                        if (item != null && !DBNull.Value.Equals(item))
                         {
-                            csvStream.Write(EscapeCsvString(Convert.ToDateTime(item).ToString("O").Trim()));
-                        }
-                        else
-                        {
-                            csvStream.Write(EscapeCsvString(cell.FormattedValue.ToString().Trim()));
+                            if (item is DateTime)
+                            {
+                                csvStream.Write(EscapeCsvString(Convert.ToDateTime(item).ToString("O").Trim()));
+                            }
+                            else
+                            {
+                                csvStream.Write(EscapeCsvString(cell.FormattedValue.ToString().Trim()));
+                            }
                         }
                     }
                     csvStream.WriteLine();

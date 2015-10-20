@@ -17,6 +17,8 @@ namespace SwqlStudio
             cmbServerType.SelectedIndex = Math.Max(0, ConnectionInfo.AvailableServerTypes.FindIndex(s => s.Type.Equals(ConnectionHistory.PreviousServerType, StringComparison.OrdinalIgnoreCase)));
             cmbUserName.Items.AddRange(ConnectionHistory.PreviousUserNames);
             cmbUserName.SelectedIndex = 0;
+
+            CheckIfUserCredentialsNecessary();
         }
 
         public ConnectionInfo ConnectionInfo
@@ -37,11 +39,26 @@ namespace SwqlStudio
 
         private void cmbServerType_SelectedIndexChanged(object sender, EventArgs e)
         {
+            CheckIfUserCredentialsNecessary();
+        }
+
+        private void CheckIfUserCredentialsNecessary()
+        {
             bool requiresAuthentication = (cmbServerType.SelectedItem as ServerType).IsAuthenticationRequired;
 
             cmbUserName.Enabled = requiresAuthentication;
             tePassword.Enabled = requiresAuthentication;
-           
+
+            if (!requiresAuthentication)
+            {
+                cmbUserName.Text = string.Empty;
+                tePassword.Text = string.Empty;
+            }
+            else
+            {
+                if (ConnectionHistory.PreviousUserNames.Length > 0)
+                    cmbUserName.Text = ConnectionHistory.PreviousUserNames[0];
+            }
         }
     }
 }

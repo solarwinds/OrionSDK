@@ -13,7 +13,7 @@
                     return new OrionInfoService(username, password);
 
                 case "ORION (V2) AD":
-                    return new OrionInfoServiceWindows(username, password);
+                    return new OrionInfoServiceWindows(string.Empty, string.Empty);
 
                 case "ORION (V2) CERTIFICATE":
                     return new OrionInfoServiceCertificate();
@@ -31,7 +31,7 @@
                     return new OrionInfoService(username, password, v3: true);
 
                 case "ORION (V3) AD":
-                    return new OrionInfoServiceWindows(username, password, v3: true);
+                    return new OrionInfoServiceWindows(string.Empty, string.Empty, v3: true);
 
                 case "ORION (V3) CERTIFICATE":
                     return new OrionInfoServiceCertificate(v3: true);

@@ -796,7 +796,7 @@ function Remove-OrionNode
 
 <#
 .Synopsis
-   Gets credentials used by Orion
+   Gets ALL credentials used by Orion
 .DESCRIPTION
    Gets all credentials used by Orion to monitor nodes and applications. These are returned as an object, so standard Cmdlets such as Where-Object & Select-Object can be used to filter the data
 .EXAMPLE

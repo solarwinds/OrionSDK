@@ -483,10 +483,10 @@ function New-OrionPollerType
   If passed the  -custom switch it can return
 
 .EXAMPLE
- PS C:\Scripts\Modules\Orion> Get-OrionNodeProperties -NodeID $nodeid -SwisConnection $swis -OrionServer $OrionServer 
+ PS C:\Scripts\Modules\Orion> Get-OrionNodeProperties -NodeID $nodeid -SwisConnection $swis  
 
 .EXAMPLE
-  PS C:\Scripts\Modules\Orion> Get-OrionNodeProperties -NodeID $nodeid -SwisConnection $swis -OrionServer $OrionServer -custom
+  PS C:\Scripts\Modules\Orion> Get-OrionNodeProperties -NodeID $nodeid -SwisConnection $swis  -custom
 
 Key                                Value
 ---                                -----
@@ -519,11 +519,11 @@ function Get-OrionNode
                    Parametersetname="IP")]
         [String]$IPAddress,
 
-        #Orion Server Name
+       <# #Orion Server Name
         [parameter(mandatory=$true)]
         [validatenotnullorempty()]
         [string]
-        $OrionServer="localhost",
+        $OrionServer="localhost", #>
 
         #SolarWinds Information Service (SWIS) Connection
         [parameter(mandatory=$true)]
@@ -539,6 +539,8 @@ function Get-OrionNode
     Begin
     {
         
+        $OrionServer = $SwisConnection.ChannelFactory.Endpoint.Address.Uri.Host
+
         if($IPAddress){
             write-debug "$(Get-TimeStamp) The value of "IPAddress" is $IPAddress"
             write-verbose "$(Get-TimeStamp) IP passed, calling Get-OrionNodeID for $IPAddress"
@@ -749,12 +751,13 @@ function Remove-OrionNode
         [Alias("IP")]
         [String]$IPAddress,
 
+        <#
         #Orion Server Name
         [parameter(mandatory=$true)]
         [validatenotnullorempty()]
         [string]
         $OrionServer,
-
+        #>
         #SolarWinds Information Service (SWIS) Connection
         [parameter(mandatory=$true)]
         [validatenotnullorempty()]
@@ -764,6 +767,8 @@ function Remove-OrionNode
 
     Begin
     {
+        $OrionServer = $SwisConnection.ChannelFactory.Endpoint.Address.Uri.Host
+
         write-verbose "$(Get-TimeStamp) Calling Remove-OrionNode..."
         #First get the node ID, either implicitly, or explicitly
         if ($NodeName){  
@@ -796,7 +801,7 @@ function Remove-OrionNode
 
 <#
 .Synopsis
-   Gets credentials used by Orion
+   Gets ALL credentials used by Orion
 .DESCRIPTION
    Gets all credentials used by Orion to monitor nodes and applications. These are returned as an object, so standard Cmdlets such as Where-Object & Select-Object can be used to filter the data
 .EXAMPLE

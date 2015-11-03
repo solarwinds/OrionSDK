@@ -498,7 +498,7 @@ IsMissionCritical                  False
 function Get-OrionNode
 {
     [CmdletBinding()]
-    [OutputType([int])]
+    [OutputType([psobject])]
     Param
     (
         
@@ -519,16 +519,11 @@ function Get-OrionNode
                    Parametersetname="IP")]
         [String]$IPAddress,
 
-       <# #Orion Server Name
-        [parameter(mandatory=$true)]
-        [validatenotnullorempty()]
-        [string]
-        $OrionServer="localhost", #>
 
         #SolarWinds Information Service (SWIS) Connection
         [parameter(mandatory=$true)]
         [validatenotnullorempty()]
-        [string]
+        [SolarWinds.InformationService.Contract2.InfoServiceProxy]
         $SwisConnection,
 
         #Returns custom properties if set
@@ -539,10 +534,11 @@ function Get-OrionNode
     Begin
     {
         
-        $OrionServer = $SwisConnection.ChannelFactory.Endpoint.Address.Uri.Host
+        $OrionServer = Get-OrionHostFromSwisConnection -swisconnection $SwisConnection
+        write-debug "$(Get-TimeStamp) The value of OrionServer is $OrionServer"
 
         if($IPAddress){
-            write-debug "$(Get-TimeStamp) The value of "IPAddress" is $IPAddress"
+            write-debug "$(Get-TimeStamp) The value of IPAddress is $IPAddress"
             write-verbose "$(Get-TimeStamp) IP passed, calling Get-OrionNodeID for $IPAddress"
             $ID = Get-OrionNodeID -IPAddress $IPAddress -SwisConnection $SwisConnection
         }else {
@@ -560,12 +556,16 @@ function Get-OrionNode
     }
     Process
     {
+        Write-Verbose "$(Get-TimeStamp) Getting properties at $uri"
         $nodeProps = Get-SwisObject $swis -Uri $uri
+        $properties = New-Object -TypeName psobject -Property $nodeProps
+        write-debug "$(Get-TimeStamp) The value of nodeprops is $nodeProps"
+        write-debug "$(Get-TimeStamp) The value of properties is $($properties.gettype())"
     }
     End
     {        
         write-verbose "$(Get-TimeStamp) Finishing Get-OrionNode..."
-        Write-Output (new-object psobject -property $nodeProps)
+        Write-Output $properties
     }
 }
 
@@ -970,6 +970,54 @@ Function Test-IsValidIP
             Write-Warning ("{0}: {1}" -f $IPAddress,$_.Exception.Message)
             Write-Output $False
         }
+    }
+}
+
+<#
+.Synopsis
+   Extracts the name of the Orion server from a Swis connections
+.DESCRIPTION
+   Long description
+.EXAMPLE
+   Example of how to use this cmdlet
+.EXAMPLE
+   Another example of how to use this cmdlet
+#>
+function Get-OrionHostFromSwisConnection
+{
+    [CmdletBinding()]
+    [Alias()]
+    [OutputType([string])]
+    Param
+    (
+        # Swis Connection that from which to get the Orion Server Name
+        [Parameter(Mandatory=$true,
+                   ValueFromPipelineByPropertyName=$true,
+                   Position=0)]
+        [SolarWinds.InformationService.Contract2.InfoServiceProxy]
+        $swisconnection    
+    )
+
+    Begin
+    {
+        Write-Verbose "Starting $($myinvocation.mycommand)"  
+    }
+    Process
+    {
+        try
+        {
+            $OrionHost = $swisconnection.ChannelFactory.Endpoint.Address.Uri.Host
+        }
+        catch 
+        {
+            Write-Error "Unable to Parse Host"
+        }
+        
+    }
+    End
+    {
+        Write-Verbose "Finishing $($myinvocation.mycommand)"
+        Write-Output $OrionHost
     }
 }
 

@@ -68,7 +68,7 @@ def samplecode(npm_server,username,password):
 	print ("Deleting temporary poller....")
 	swis.delete(pollerUri)
 
-def unmanage_an_interface():
+def unmanage_a_node():
 	swis = SwisClient("localhost", "admin", "")
 	results = swis.query("SELECT TOP 1 NodeID FROM Orion.Nodes")
 	interfaceId = results["results"][0]["NodeID"]
@@ -88,4 +88,4 @@ def main():
 
 if __name__ == "__main__":
 	#main()
-	unmanage_an_interface()
+	unmanage_a_node()

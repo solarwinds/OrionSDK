@@ -26,6 +26,7 @@ function New-OrionNode
         #SolarWinds Information Service (SWIS) Connection
         [parameter(mandatory=$true)]
         [validatenotnullorempty()]
+        [SolarWinds.InformationService.Contract2.InfoServiceProxy]
         $SwisConnection,
         
         [parameter()]
@@ -283,6 +284,7 @@ function Add-OrionDiscoveredInterfaces
         #SolarWinds Information Service (SWIS) Connection
         [parameter(mandatory=$true)]
         [validatenotnullorempty()]
+        [SolarWinds.InformationService.Contract2.InfoServiceProxy]
         $SwisConnection,
         
         #The Node ID of the node that has the interface to be added for monitoring
@@ -337,6 +339,7 @@ function New-OrionInterface
         #SolarWinds Information Service (SWIS) Connection
         [parameter(mandatory=$true)]
         [validatenotnullorempty()]
+        [SolarWinds.InformationService.Contract2.InfoServiceProxy]
         $SwisConnection,
         
         #The Node ID of the node that has the interface to be added for monitoring
@@ -447,9 +450,10 @@ function New-OrionPollerType
                    Position=1)]
         $NodeProperties,
 
-         #SolarWinds Information Service (SWIS) Connection
+        #SolarWinds Information Service (SWIS) Connection
         [parameter(mandatory=$true)]
         [validatenotnullorempty()]
+        [SolarWinds.InformationService.Contract2.InfoServiceProxy]
         $SwisConnection
     )
 
@@ -628,6 +632,8 @@ function Get-OrionNodeID
         
         #SolarWinds Information Service (SWIS) Connection
         [parameter(mandatory=$true)]
+        [validatenotnullorempty()]
+        [SolarWinds.InformationService.Contract2.InfoServiceProxy]
         $SwisConnection
     )
 
@@ -754,7 +760,7 @@ function Remove-OrionNode
         #SolarWinds Information Service (SWIS) Connection
         [parameter(mandatory=$true)]
         [validatenotnullorempty()]
-        [string]
+        [SolarWinds.InformationService.Contract2.InfoServiceProxy]
         $SwisConnection
     )
 
@@ -812,7 +818,8 @@ function Get-OrionWMICredential
         #SolarWinds Information Service (SWIS) Connection
         [parameter(mandatory=$true)]
         [validatenotnullorempty()]
-        $SwisConnection             
+        [SolarWinds.InformationService.Contract2.InfoServiceProxy]
+        $SwisConnection           
     )
 
     Begin
@@ -1041,20 +1048,13 @@ function Get-OrionNextAvailableIPAddress
     }
     Process
     {
-        try
-        {
-            $OrionHost = $swisconnection.ChannelFactory.Endpoint.Address.Uri.Host
-        }
-        catch 
-        {
-            Write-Error "Unable to Parse Host"
-        }
         
+      #Functionality to be implemented  
     }
     End
     {
         Write-Verbose "Finishing $($myinvocation.mycommand)"
-        Write-Output $OrionHost
+      
     }
 }
 

@@ -1082,9 +1082,157 @@ function Get-OrionNextAvailableIPAddress
     }
 }
 
-#Code to unload PSSNappin when Module is unloaded
-$mInfo = $MyInvocation.MyCommand.ScriptBlock.Module
-$mInfo.OnRemove = {
-    write-verbose "Unloading PowerOrion"
-    remove-PSSnapin SwisSnapin
+<#
+.Synopsis
+   Adds new custom properties to different Orion objects
+.DESCRIPTION
+   This function calls CreateCustomProperty or CreateCustomPropertyWithValues, to create different custom properties, of different types for different objects.
+   Optionally it can add a list of specified values
+.EXAMPLE
+    New-OrionCustomProperty -swisconnection $swis -PropertyName "Test1" -BaseType Orion.NodesCustomProperties
+.EXAMPLE
+    [string[]]$values = "QA", "Dev", "Prod"
+    New-OrionCustomProperty -swisconnection $swis -PropertyName "AppType" -BaseType Orion.APM.ApplicationCustomProperties -values $values
+#>
+function New-OrionCustomProperty
+{
+    [CmdletBinding()]
+    [Alias()]
+    [OutputType([int])]
+    Param
+    (
+        [Parameter(Mandatory=$true,
+                   ValueFromPipelineByPropertyName=$true,
+                   ValueFromPipeline=$true,
+                   Position=0)]
+        [SolarWinds.InformationService.Contract2.InfoServiceProxy]
+        $swisconnection,
+
+        #The object type the custom property will be assigned to
+        [Parameter(Mandatory=$true,
+                    ValueFromPipeline=$true,
+                    ValueFromPipelineByPropertyName=$true,
+                    Position=1)]
+        [validateset("Orion.APM.ApplicationCustomProperties",
+                        "Orion.GroupCustomProperties",
+                        "Orion.NPM.InterfacesCustomProperties",
+                        "Orion.ReportsCustomProperties",
+                        "Orion.NodesCustomProperties",
+                        "Orion.AlertConfigurationsCustomProperties",
+                        "Orion.VolumesCustomProperties")]
+
+        [string]
+        $BaseType = "Orion.NodesCustomProperties",
+
+        #the name of the property.        
+        [Parameter(Mandatory=$true,
+                    ValueFromPipeline=$true,
+                    ValueFromPipelineByPropertyName=$true,
+                    Position=2)]
+        [validatenotnullorempty()]
+        [string]    
+        $PropertyName,
+
+
+        # a description of the property to be shown in editing UI.
+        [Parameter(ValueFromPipelineByPropertyName=$true,
+                    ValueFromPipeline=$true,
+                    Position=3)]
+        [string] 
+        $Description,
+
+        #the data type for the custom property. 
+        [validateset('string', 'integer', 'datetime', 'single', 'double', 'boolean')]
+        $ValueType = 'string', 
+
+        # for string types, this is the maximum length of the values, in characters. Ignored for other types.
+        [int]
+        $Size = 4000,
+
+        #Currently unused, pass null.
+        $ValidRange = $null,
+
+        #  Currently unused, pass null.
+        $Parser = $null,
+
+        # Currently unused, pass null.
+        $Header = $null,
+
+        #Currently unused, pass null.
+        $Alignment = $null,
+
+        # Currently unused, pass null.
+        $Format = $null,
+
+        # Currently unused, pass null.
+        $Units = $null,
+
+        # optional, restricts a custom property to a certain set of values
+        [string[]]
+        $values,
+
+        # Optional. You can pass null for this.
+        $Usages = $null, 
+
+        # Optional. Defaults to false. If set to true, the Add Node wizard in the Orion web console will require that a value for this custom property be specified at node creation time.
+        $Mandatory,
+
+        #Optional. You can pass null for this. If you provide a value, this will be the default value for new nodes.
+        $Default = $null
+    )
+
+    Begin
+    {
+        Write-Verbose "Starting $($myinvocation.mycommand)"
+    }
+    Process
+    {
+        #if there are no values create standard verb
+        if ($values){
+            Write-Verbose "$values passed in array"
+            $result = Invoke-SwisVerb $swisconnection $BaseType CreateCustomPropertyWithValues @( $PropertyName,
+                                                                                         $Description, 
+                                                                                         $ValueType, 
+                                                                                         $size, 
+                                                                                         $ValidRange,
+                                                                                         $Parser,
+                                                                                         $Header, 
+                                                                                         $Alignment, 
+                                                                                         $Format, 
+                                                                                         $units,  
+                                                                                         $values,
+                                                                                         $Usages
+                                                                                         $Mandatory,
+                                                                                         $Default)
+        } else
+        {
+            Write-Verbose "No values array passed"
+            $result = Invoke-SwisVerb $swisconnection $BaseType CreateCustomProperty @( $PropertyName,
+                                                                                         $Description, 
+                                                                                         $ValueType, 
+                                                                                         $size, 
+                                                                                         $ValidRange,
+                                                                                         $Parser,
+                                                                                         $Header, 
+                                                                                         $Alignment, 
+                                                                                         $Format, 
+                                                                                         $units,                                                                                       
+                                                                                         $Usages
+                                                                                         $Mandatory,
+                                                                                         $Default)
+        }
+
+    } #end of process
+    End
+    {
+        Write-Verbose "Finishing $($myinvocation.mycommand)"
+        Write-Output $result
+    }
 }
+
+    #Code to unload PSSNappin when Module is unloaded
+    $mInfo = $MyInvocation.MyCommand.ScriptBlock.Module
+    $mInfo.OnRemove = {
+        write-verbose "Unloading PowerOrion"
+        remove-PSSnapin SwisSnapin
+    }

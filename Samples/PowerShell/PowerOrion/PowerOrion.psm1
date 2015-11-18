@@ -1021,11 +1021,25 @@ function Get-OrionHostFromSwisConnection
 .Synopsis
    Returns the next available IP address from Orion
 .DESCRIPTION
-   Long description
+   This returns the IP & subnet, that are next available in SolarWinds IPAM
 .EXAMPLE
-   Example of how to use this cmdlet
+Get-OrionNextAvailableIPAddress -swisconnection $swis
+
+DisplayName                                                                                          Subnet                                                                                              
+-----------                                                                                          ------                                                                                              
+192.168.1.2                                                                                          192.168.1.0 /24 
 .EXAMPLE
-   Another example of how to use this cmdlet
+ Get-OrionNextAvailableIPAddress -swisconnection $swis -Subnet DMZ
+
+DisplayName                                                                                          Subnet                                                                                              
+-----------                                                                                          ------                                                                                              
+192.168.2.2                                                                                          DMZ      
+.EXAMPLE
+ Get-OrionNextAvailableIPAddress -swisconnection $swis -Subnet %160.2%
+
+DisplayName                                                                                          Subnet                                                                                              
+-----------                                                                                          ------                                                                                              
+10.160.2.2                                                                                           10.160.2.0 /24  
 #>
 function Get-OrionNextAvailableIPAddress
 {
@@ -1039,28 +1053,38 @@ function Get-OrionNextAvailableIPAddress
                    ValueFromPipelineByPropertyName=$true,
                    Position=0)]
         [SolarWinds.InformationService.Contract2.InfoServiceProxy]
-        $swisconnection    
+        $swisconnection,
+        
+        #single string containing the text describing the subnet name. Use % as wildcard
+        [validatenotnullorempty()]
+        [String]
+        $Subnet
     )
 
     Begin
     {
-        Write-Verbose "Starting $($myinvocation.mycommand)"  
+        Write-Verbose "Starting $($myinvocation.mycommand)"
+        
     }
     Process
     {
-        
-      #Functionality to be implemented  
+        #if a subnet is specificed get the first IP in that subnet, else just return the first overall
+        if (!$Subnet){
+            $IPAddress = Get-SwisData $SwisConnection "SELECT TOP 1  I.DisplayName , I.Subnet.DisplayName as Subnet FROM IPAM.IPNode I WHERE Status=2" 
+        } else {
+           $IPAddress = Get-SwisData $SwisConnection  "SELECT TOP 1  I.DisplayName , I.Subnet.DisplayName as Subnet FROM IPAM.IPNode I WHERE Status=2 AND I.Subnet.DisplayName like @subnet" @{subnet=$Subnet} 
+        }       
     }
     End
     {
         Write-Verbose "Finishing $($myinvocation.mycommand)"
-      
+        Write-Output $IPAddress 
     }
 }
 
 #Code to unload PSSNappin when Module is unloaded
 $mInfo = $MyInvocation.MyCommand.ScriptBlock.Module
 $mInfo.OnRemove = {
-    write-verbose ": unloading PowerOrion"
+    write-verbose "Unloading PowerOrion"
     remove-PSSnapin SwisSnapin
 }

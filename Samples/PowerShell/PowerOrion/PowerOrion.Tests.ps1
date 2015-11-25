@@ -30,15 +30,33 @@ InModuleScope PowerOrion{
         }#end of context 'When a proper SWIS connection is passed'
     }#end of describe Get-OrionHostFromSwisConnection
 
-    Describe "Get-Get-OrionNextAvailableIPAddress" {
+    Describe "Get-OrionNextAvailableIPAddress" {
         Context 'returning an IP address' {
             It "should be in valid IP format" {
-                $IPAddress = Get-OrionNextAvailableIPAddress -swisconnection $swis -Subnet %160.2% -Verbose
+                $IPAddress = Get-OrionNextAvailableIPAddress -swisconnection $swis -Subnet %160.2% 
                 test-isvalidIP -IPAddress $IPAddress.DisplayName | Should Be $true
 
             } #end of It
         }#end of context 'When a proper SWIS connection is passed'
-    }#end of describe Get-OrionHostFromSwisConnection
+    }#end of describe Get-OrionNextAvailableIPAddress
+
+    Describe "Test-orionSwisConnectionType" {
+        Context 'Should be a V3 connection' {
+            It "should return V3 for a standard connection" {
+                $swis =  connect-swis -UserName admin -Password arm0ur -Hostname se-cor-hmic-01.swdev.local
+                Test-orionSwisConnectionType -swisconnection $swis | Should Be 'V3'
+
+            } #end of It
+        }#end of context 'When a proper SWIS connection is passed'
+
+        Context 'Should be a V2 connection' {
+            It "should return V2 for a standard connection" {
+                $swis =  connect-swis -UserName admin -Password arm0ur -Hostname se-cor-hmic-01.swdev.local -V2
+                Test-orionSwisConnectionType -swisconnection $swis | Should Be 'V2'
+
+            } #end of It
+        }#end of context 'Should be a V2 connection'
+    }#end of describe Test-orionSwisConnectionType
 
 }#end of inmodulescope
 

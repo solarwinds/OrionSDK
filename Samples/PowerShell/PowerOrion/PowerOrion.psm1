@@ -1086,13 +1086,16 @@ function Get-OrionNextAvailableIPAddress
 .Synopsis
    Adds new custom properties to different Orion objects
 .DESCRIPTION
-   This function calls CreateCustomProperty or CreateCustomPropertyWithValues, to create different custom properties, of different types for different objects.
+   This function calls CreateCustomPropertycls
+ or CreateCustomPropertyWithValues, to create different custom properties, of different types for different objects.
    Optionally it can add a list of specified values
 .EXAMPLE
     New-OrionCustomProperty -swisconnection $swis -PropertyName "Test1" -BaseType Orion.NodesCustomProperties
 .EXAMPLE
     [string[]]$values = "QA", "Dev", "Prod"
     New-OrionCustomProperty -swisconnection $swis -PropertyName "AppType" -BaseType Orion.APM.ApplicationCustomProperties -values $values
+.EXAMPLE
+    New-OrionCustomProperty -swisconnection $swis -PropertyName "Town" -BaseType Orion.NodesCustomProperties -Description "Physical Location of the servers" -Default "Limerick"
 #>
 function New-OrionCustomProperty
 {
@@ -1229,6 +1232,56 @@ function New-OrionCustomProperty
         Write-Output $result
     }
 }
+
+<#
+.Synopsis
+   Checks if an Orion SWIS connection is V2 or V3
+.DESCRIPTION
+   This function analyses the SWIS connection to determine if the URI contains the V3 string
+.EXAMPLE
+    Test-orionSwisConnectionType -swisconnection $swis
+    v3
+
+#>
+function Test-orionSwisConnectionType
+{
+    [CmdletBinding()]
+    [Alias()]
+    [OutputType([int])]
+    Param
+    (
+        [Parameter(Mandatory=$true,
+                   ValueFromPipelineByPropertyName=$true,
+                   ValueFromPipeline=$true,
+                   Position=0)]
+        [SolarWinds.InformationService.Contract2.InfoServiceProxy]
+        $swisconnection        
+    )
+
+    Begin
+    {
+        Write-Verbose "Starting $($myinvocation.mycommand)"
+    }
+    Process
+    {
+        #if there are no values create standard verb
+        Write-Verbose "The SWIS Connection URI is $($swis.ChannelFactory.Endpoint.Address.uri)"
+
+        if ($swis.ChannelFactory.Endpoint.Address.uri -like '*InformationService/v3/Orion/ssl*'){
+            $result = 'v3'
+        } else
+        {
+            $result = 'v2'
+        }
+
+    } #end of process
+    End
+    {
+        Write-Verbose "Finishing $($myinvocation.mycommand)"
+        Write-Output $result
+    }
+}
+
 
     #Code to unload PSSNappin when Module is unloaded
     $mInfo = $MyInvocation.MyCommand.ScriptBlock.Module

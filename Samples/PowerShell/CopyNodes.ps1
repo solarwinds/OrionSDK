@@ -8,6 +8,9 @@ $ErrorActionPreference = 'Stop'
 # Change this to $true if you want Volumes to be copied as well
 $CopyVolumes = $false
 
+# Change this to $true if you want interfaces to be copied as well
+$CopyInterfaces = $false
+
 # Set up the hostname, username, and password for the source system
 $hostname1 = "10.199.15.78";
 $password1 = New-Object System.Security.SecureString  #"" | ConvertTo-SecureString -asPlainText -Force
@@ -136,35 +139,35 @@ foreach ($sourceNode in $sourceNodes) {
     }
 
     # If NPM is installed on both the source and target systems...
-    if (0) {
-    if ($sourceHasInterfaces -and $targetHasInterfaces) {
-        # Get the interfaces on the source node
-        $sourceInterfaces = Get-SwisData $source "SELECT Nodes.Interfaces.Uri FROM Orion.Nodes WHERE NodeID=@node" @{node=$sourceNode.NodeID}
-        foreach ($sourceInterface in $sourceInterfaces) {
-            if (IsEmpty($sourceInterface)) { continue }
-            $sourceIfProps = Get-SwisObject $source $sourceInterface
-            Write-Host "  Copying" $sourceNode.Caption "/" $sourceIfProps.Caption
-            $targetIfProps = @{}
-            $interfacePropsToCopy |% { $targetIfProps[$_] = $sourceIfProps[$_] }
-            $targetIfProps["NodeID"] = $newNode.NodeID
-            # Create the copy
-            $newIfUri = New-SwisObject $target -EntityType "Orion.NPM.Interfaces" -Properties $targetIfProps
-            $newIf = Get-SwisObject $target $newIfUri
-            # Copy the pollers for the new interface
-            $ifPollerTypes = Get-SwisData $source "SELECT PollerType FROM Orion.Pollers WHERE NetObject=@netobject" @{netobject='I:'+$sourceIfProps.InterfaceID}
-    
-            foreach ($ifPollerType in $ifPollerTypes) {
-                $ifPoller = @{
-                    PollerType = "$ifPollerType";
-                    NetObject = "I:"+$newIf.InterfaceID;
-                    NetObjectType = "I";
-                    NetObjectID = $newIf.InterfaceID;
+    if ($CopyInterfaces) {
+        if ($sourceHasInterfaces -and $targetHasInterfaces) {
+            # Get the interfaces on the source node
+            $sourceInterfaces = Get-SwisData $source "SELECT Nodes.Interfaces.Uri FROM Orion.Nodes WHERE NodeID=@node" @{node=$sourceNode.NodeID}
+            foreach ($sourceInterface in $sourceInterfaces) {
+                if (IsEmpty($sourceInterface)) { continue }
+                $sourceIfProps = Get-SwisObject $source $sourceInterface
+                Write-Host "  Copying" $sourceNode.Caption "/" $sourceIfProps.Caption
+                $targetIfProps = @{}
+                $interfacePropsToCopy |% { $targetIfProps[$_] = $sourceIfProps[$_] }
+                $targetIfProps["NodeID"] = $newNode.NodeID
+                # Create the copy
+                $newIfUri = New-SwisObject $target -EntityType "Orion.NPM.Interfaces" -Properties $targetIfProps
+                $newIf = Get-SwisObject $target $newIfUri
+                # Copy the pollers for the new interface
+                $ifPollerTypes = Get-SwisData $source "SELECT PollerType FROM Orion.Pollers WHERE NetObject=@netobject" @{netobject='I:'+$sourceIfProps.InterfaceID}
+        
+                foreach ($ifPollerType in $ifPollerTypes) {
+                    $ifPoller = @{
+                        PollerType = "$ifPollerType";
+                        NetObject = "I:"+$newIf.InterfaceID;
+                        NetObjectType = "I";
+                        NetObjectID = $newIf.InterfaceID;
+                    }
+                    Write-Host "      Adding poller $ifPollerType"
+                    New-SwisObject $target -EntityType "Orion.Pollers" -Properties $ifPoller | Out-Null
                 }
-                Write-Host "      Adding poller $ifPollerType"
-                New-SwisObject $target -EntityType "Orion.Pollers" -Properties $ifPoller | Out-Null
             }
         }
-    }
     }
 
     # Get the volumes on the source node

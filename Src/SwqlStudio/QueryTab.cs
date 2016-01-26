@@ -186,20 +186,23 @@ namespace SwqlStudio
             }
             else if (dataGridView1.Focused)
             {
-                CopyActiveGridCellToClipboard();
+                CopyActiveGridCellToClipboard(dataGridView1);
             }
         }
 
         private void toolStripMenuItem2_Click(object sender, System.EventArgs e)
         {
-            CopyActiveGridCellToClipboard();
+            var visibleDataGridView =
+                    tabControl1.SelectedTab == queryStatsTab ? dataGridView2 : dataGridView1;
+
+            CopyActiveGridCellToClipboard(visibleDataGridView);
         }
 
-        private void CopyActiveGridCellToClipboard()
+        private void CopyActiveGridCellToClipboard(DataGridView visibleDataGridView)
         {
-            if (dataGridView1.CurrentCell != null && dataGridView1.CurrentCell.Value != null)
+            if (visibleDataGridView.CurrentCell != null && visibleDataGridView.CurrentCell.Value != null)
             {
-                Clipboard.SetDataObject(FormatGridValue(dataGridView1.CurrentCell.Value).ToString(), true);
+                Clipboard.SetDataObject(FormatGridValue(visibleDataGridView.CurrentCell.Value).ToString(), true);
             }
         }
 
@@ -209,7 +212,11 @@ namespace SwqlStudio
 
             if (dlg.ShowDialog() == DialogResult.OK)
             {
-                new DataGridExporter().ExportAsCsv(dataGridView1, dlg.FileName);
+                var visibleDataGridView =
+                    tabControl1.SelectedTab == queryStatsTab ? dataGridView2 : dataGridView1;
+
+
+                new DataGridExporter().ExportAsCsv(visibleDataGridView, dlg.FileName);
             }
         }
 

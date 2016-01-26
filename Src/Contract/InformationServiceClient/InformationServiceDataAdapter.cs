@@ -19,6 +19,7 @@ namespace SolarWinds.InformationService.InformationServiceClient
         }
 
         public XmlDocument QueryPlan { get; private set; }
+        public XmlDocument QueryStats { get; private set; }
 
         protected override int Fill(DataTable dataTable, IDataReader dataReader)
         {
@@ -47,6 +48,7 @@ namespace SolarWinds.InformationService.InformationServiceClient
             if (informationServiceDataReader != null)
             {
                 QueryPlan = informationServiceDataReader.QueryPlan;
+                QueryStats = informationServiceDataReader.QueryStats;
                 foreach (DataTable dataTable in dataTables)
                 {
                     dataTable.ExtendedProperties.Add("TotalRows", (informationServiceDataReader).TotalRows);

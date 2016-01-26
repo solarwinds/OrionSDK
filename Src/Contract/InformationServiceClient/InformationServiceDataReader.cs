@@ -259,6 +259,7 @@ namespace SolarWinds.InformationService.InformationServiceClient
 
             TotalRows = dataReader.TotalRows;
             QueryPlan = dataReader.QueryPlan;
+            QueryStats = dataReader.QueryStats;
             _errors = dataReader.Errors;
 
             return dataTable.CreateDataReader();
@@ -266,6 +267,7 @@ namespace SolarWinds.InformationService.InformationServiceClient
 
         public long? TotalRows { get; private set; }
         public XmlDocument QueryPlan { get; private set; }
+        public XmlDocument QueryStats { get; private set; }
 
         public List<ErrorMessage> Errors
         {
@@ -568,6 +570,7 @@ namespace SolarWinds.InformationService.InformationServiceClient
             }
 
             public XmlDocument QueryPlan { get; private set; }
+            public XmlDocument QueryStats { get; private set; }
 
             public void ReadMetadata()
             {
@@ -597,6 +600,11 @@ namespace SolarWinds.InformationService.InformationServiceClient
                                     {
                                         this.QueryPlan = new XmlDocument();
                                         QueryPlan.Load(reader.ReadSubtree());
+                                    }
+                                    else if (string.CompareOrdinal(reader.LocalName, "statistics") == 0)
+                                    {
+                                        this.QueryStats = new XmlDocument();
+                                        QueryStats.Load(reader.ReadSubtree());
                                     }
                                     else if (string.CompareOrdinal(reader.LocalName, "template") == 0)
                                     {

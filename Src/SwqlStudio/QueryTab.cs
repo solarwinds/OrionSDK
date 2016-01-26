@@ -26,7 +26,8 @@ namespace SwqlStudio
             RawXml = 4,
             Log = 8,
             Subscription = 16,
-            ErrorMessages = 32
+            ErrorMessages = 32,
+            QueryStats = 64
         }
 
         private Font nullFont;
@@ -80,6 +81,8 @@ namespace SwqlStudio
                 tabControl1.TabPages.Add(notificationTab);
             if ((tabsToShow & Tabs.ErrorMessages) != 0)
                 tabControl1.TabPages.Add(errorMessagesTab);
+            if ((tabsToShow & Tabs.QueryStats) != 0)
+                tabControl1.TabPages.Add(queryStatsTab);
         }
 
         public string QueryText
@@ -315,20 +318,22 @@ namespace SwqlStudio
                 stopWatch.Start();
 
                 XmlDocument queryPlan;
+                XmlDocument queryStats;
                 List<ErrorMessage> errorMessages;
                 if (returnClauses.Any(s => arguments.Query.Trim().EndsWith(s, StringComparison.OrdinalIgnoreCase)))
                 {
-                    arguments.RawXmlResults = arguments.Connection.QueryXml(arguments.Query, out queryPlan, out errorMessages);
+                    arguments.RawXmlResults = arguments.Connection.QueryXml(arguments.Query, out queryPlan, out errorMessages, out queryStats);
                     arguments.Errors = errorMessages;
                 }
                 else
                 {
-                    arguments.Results = arguments.Connection.Query(arguments.Query, out queryPlan);
+                    arguments.Results = arguments.Connection.Query(arguments.Query, out queryPlan, out queryStats);
 
                     if (arguments.Results.ExtendedProperties.Contains("Errors") && arguments.Results.ExtendedProperties["Errors"] != null)
                         arguments.Errors = (List<ErrorMessage>) arguments.Results.ExtendedProperties["Errors"];
                 }
                 arguments.QueryPlan = queryPlan;
+                arguments.QueryStats = queryStats;
                 arguments.Log = LogHeaderMessageInspector.LastReplyLog;
 
                 stopWatch.Stop();
@@ -406,6 +411,7 @@ namespace SwqlStudio
                 }
 
                 ShowQueryPlan(arg.QueryPlan);
+                ShowQueryStats(arg.QueryStats);
                 ShowLog(arg.Log);
             }
             else if (e.Result is QueryErrorResult)
@@ -416,6 +422,7 @@ namespace SwqlStudio
                 RawXmlTabVisible = false;
                 ResultsTabVisible = false;
                 QueryPlanTabVisible = false;
+                QueryStatsTabVisible = false;
                 ShowLog(error.Log);
                 MessageBox.Show(this, error.ErrorMessage, "SWQL Studio", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
@@ -425,6 +432,56 @@ namespace SwqlStudio
         {
             logTextbox.Text = lastReplyLog ?? string.Empty;
             LogTabVisible = !string.IsNullOrEmpty(lastReplyLog);
+        }
+
+        private void ShowQueryStats(XmlDocument queryStats)
+        {
+            if (queryStats != null)
+            {
+                QueryStatsTabVisible = true;
+                dataGridView2.DataSource = ParseQueryStats(queryStats);
+
+            }
+            else
+            {
+                QueryStatsTabVisible = false;
+                dataGridView2.DataSource = null;
+            }
+        }
+
+        private DataTable ParseQueryStats(XmlDocument queryStats)
+        {
+            var rv = new DataTable();
+            rv.Columns.Add("#");
+            rv.Columns.Add("Type");
+            rv.Columns.Add("Query");
+            rv.Columns.Add("Duration");
+            rv.Columns.Add("Rows");
+
+            if (queryStats.DocumentElement == null) return rv;
+            int i = 0;
+
+            foreach (XmlElement childNode in 
+                queryStats.DocumentElement.ChildNodes
+                .OfType<XmlElement>()
+                .Where(x => x.Name == "query"))
+            {
+                var row = rv.NewRow();
+                row[0] = ++i;
+                row[1] = GetAttr(childNode.Attributes, "type");
+                row[2] = childNode.ChildNodes.OfType<XmlElement>().Single().InnerText;
+                row[3] = GetAttr(childNode.Attributes, "elapsedMs");
+                row[4] = GetAttr(childNode.Attributes, "rows");
+
+                rv.Rows.Add(row);
+            }
+
+            return rv;
+        }
+
+        private object GetAttr(XmlAttributeCollection attributes, string attrName)
+        {
+            return (from XmlAttribute obj in attributes where obj.Name == attrName select obj.Value).FirstOrDefault();
         }
 
         private void ShowQueryPlan(XmlDocument queryPlan)
@@ -480,6 +537,19 @@ namespace SwqlStudio
             }
         }
 
+        private bool QueryStatsTabVisible
+        {
+            get { return tabControl1.TabPages.Contains(queryStatsTab); }
+
+            set
+            {
+                if (QueryStatsTabVisible && !value)
+                    tabControl1.TabPages.Remove(queryStatsTab);
+                else if (!QueryStatsTabVisible && value)
+                    tabControl1.TabPages.Add(queryStatsTab);
+            }
+        }
+
         private bool RawXmlTabVisible
         {
             get { return tabControl1.TabPages.Contains(rawXmlTab); }
@@ -512,6 +582,7 @@ namespace SwqlStudio
             public string Query { get; set; }
             public DataTable Results { get; set; }
             public XmlDocument QueryPlan { get; set; }
+            public XmlDocument QueryStats { get; set; }
             public TimeSpan QueryTime { get; set; }
             public XmlDocument RawXmlResults { get; set; }
             public string Log { get; set; }

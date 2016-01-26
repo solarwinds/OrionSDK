@@ -189,14 +189,16 @@ namespace SwqlStudio
         public DataTable Query(string swql)
         {
             XmlDocument dummy;
-            return Query(swql, out dummy);
+            XmlDocument dummy2;
+            return Query(swql, out dummy, out dummy2);
         }
 
-        public DataTable Query(string swql, out XmlDocument queryPlan)
+        public DataTable Query(string swql, out XmlDocument queryPlan, out XmlDocument queryStats)
         {
             EnsureConnection();
 
             XmlDocument tmpQueryPlan = null; // can't reference out parameter from closure
+            XmlDocument tmpQueryStats = null; // can't reference out parameter from closure
 
             DataTable result = DoWithExceptionTranslation(
                 delegate
@@ -211,11 +213,13 @@ namespace SwqlStudio
                             dataAdapter.Fill(resultDataTable);
 
                             tmpQueryPlan = dataAdapter.QueryPlan;
+                            tmpQueryStats = dataAdapter.QueryStats;
                             return resultDataTable;
                         }
                     });
 
             queryPlan = tmpQueryPlan;
+            queryStats = tmpQueryStats;
             return result;
         }
 
@@ -274,7 +278,7 @@ namespace SwqlStudio
             throw new ApplicationException(msg, inner);
         }
 
-        public XmlDocument QueryXml(string query, out XmlDocument queryPlan, out List<ErrorMessage> errorMessages)
+        public XmlDocument QueryXml(string query, out XmlDocument queryPlan, out List<ErrorMessage> errorMessages, out XmlDocument queryStats)
         {
             EnsureConnection();
             Message results;
@@ -331,7 +335,9 @@ namespace SwqlStudio
             {
                 queryPlan = null;
             }
-            
+
+            queryStats = null;
+
             return body;
         }
 

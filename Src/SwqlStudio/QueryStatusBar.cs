@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 
 namespace SwqlStudio
@@ -28,9 +25,6 @@ namespace SwqlStudio
             _userLabel = new ToolStripStatusLabel();
             _queryTimeLabel = new ToolStripStatusLabel();
             _rowCountLabel = new ToolStripStatusLabel();
-
-            //		    statusLabel.BorderSides = ToolStripStatusLabelBorderSides.All;
-            //statusLabel.BorderStyle = Border3DStyle.Sunken;
 
             foreach (var label in AllLabels)
             {

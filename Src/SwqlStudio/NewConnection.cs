@@ -3,7 +3,7 @@ using System.Windows.Forms;
 
 namespace SwqlStudio
 {
-    public partial class NewConnection : Form
+    partial class NewConnection : Form
     {
         public NewConnection()
         {

@@ -28,7 +28,7 @@
                     return new OrionInfoServiceCompressed(username, password);
 
                 case "ORION (V3)":
-                    return new OrionInfoService(username, password, v3: true);
+                    return new OrionInfoService(username, password, isSwisV3: true);
 
                 case "ORION (V3) AD":
                     return new OrionInfoServiceWindows(string.Empty, string.Empty, v3: true);

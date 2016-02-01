@@ -5,7 +5,7 @@ namespace SwqlStudio
 {
     public partial class ActivityMonitorTab : UserControl, IConnectionTab
     {
-        private Subscription subscription;
+        private string subscriptionId;
 
         public ActivityMonitorTab()
         {
@@ -15,30 +15,17 @@ namespace SwqlStudio
 
         void ActivityMonitorTabDisposed(object sender, EventArgs e)
         {
-            if (subscription != null)
+            if (String.IsNullOrEmpty(subscriptionId) && ConnectionInfo.IsConnected)
             {
-                subscription.Dispose();
-                subscription = null;
+                ApplicationService.SubscriptionManager.Unsubscribe(ConnectionInfo, subscriptionId);
             }
         }
 
-        private IApplicationService applicationService;
-        public IApplicationService ApplicationService
-        {
-            get { return applicationService; }
+        public IApplicationService ApplicationService { get; set; }
 
-            set
-            {
-                applicationService = value;
-                applicationService.IndicationReceived += SubscriptionIndicationReceived;
-            }
-        }
-
-        private void SubscriptionIndicationReceived(object sender, IndicationEventArgs e)
+        private void SubscriptionIndicationReceived(IndicationEventArgs e)
         {
-            // hack. it would be better to get the actual subscription id and compare properly
-            if (subscription != null && subscription.SubscriptionUri.Contains(e.SubscriptionID))
-                BeginInvoke(new Action<IndicationEventArgs>(AddIndication), e);
+             BeginInvoke(new Action<IndicationEventArgs>(AddIndication), e);
         }
 
         private void AddIndication(IndicationEventArgs obj)
@@ -65,24 +52,15 @@ namespace SwqlStudio
         {
             backgroundWorker1.ReportProgress(0, "Waiting for subscriber host to be opened...");
 
-            SubscriberInfo subscriberInfo = ApplicationService.GetSubscriberInfo();
-            if (subscriberInfo.OpenedSuccessfully)
+            backgroundWorker1.ReportProgress(0, "Starting subscription...");
+            try
             {
-                backgroundWorker1.ReportProgress(0, "Starting subscription...");
-                try
-                {
-                    subscription = ConnectionInfo.DoWithExceptionTranslation(() => new Subscription(ConnectionInfo.Proxy,
-                                                                                                    subscriberInfo.EndpointAddress, "SUBSCRIBE System.QueryExecuted"));
-                    backgroundWorker1.ReportProgress(0, "Waiting for notifications");
-                }
-                catch (ApplicationException ex)
-                {
-                    e.Result = ex;
-                }
+                subscriptionId = ApplicationService.SubscriptionManager.CreateSubscription(ConnectionInfo, "SUBSCRIBE System.QueryExecuted", SubscriptionIndicationReceived);
+                backgroundWorker1.ReportProgress(0, "Waiting for notifications");
             }
-            else
+            catch (ApplicationException ex)
             {
-                e.Result = new ApplicationException(subscriberInfo.ErrorMessage);
+                e.Result = ex;
             }
         }
 
@@ -97,6 +75,20 @@ namespace SwqlStudio
             {
                 MessageBox.Show(e.Result.ToString());
             }
+        }
+
+        private void CopySelected(object sender, EventArgs e)
+        {
+            if (listView1.SelectedItems.Count == 0)
+                return;
+
+            var text = listView1.SelectedItems[0].SubItems[1].Text;
+            Clipboard.SetDataObject(text, true);
+        }
+
+        private void ClearContent(object sender, EventArgs e)
+        {
+            listView1.Items.Clear();
         }
     }
 }

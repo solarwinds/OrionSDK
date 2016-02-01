@@ -9,15 +9,15 @@ using System.Text;
 using System.Windows.Forms;
 using System.Xml;
 using System.Xml.Linq;
-using ScintillaNET;
 using SolarWinds.InformationService.Contract2;
 using SwqlStudio.Playback;
-using SwqlStudio.Properties;
 
 namespace SwqlStudio
 {
     public partial class QueryTab : UserControl, IConnectionTab
     {
+        private string subscriptionId;
+
         [Flags]
         enum Tabs
         {
@@ -41,29 +41,23 @@ namespace SwqlStudio
 
         void QueryTabDisposed(object sender, EventArgs e)
         {
-            if (subscription != null)
-            {
-                subscription.Dispose();
-                subscription = null;
-            }
             if (nullFont != null)
             {
                 nullFont.Dispose();
                 nullFont = null;
             }
+            Unsubscribe();
         }
 
-        private IApplicationService applicationService;
-        public IApplicationService ApplicationService
+        private void Unsubscribe()
         {
-            get { return applicationService; }
-            
-            set 
-            { 
-                applicationService = value;
-                applicationService.IndicationReceived += SubscriptionIndicationReceived;
+            if (!String.IsNullOrEmpty(subscriptionId))
+            {
+                ApplicationService.SubscriptionManager.Unsubscribe(ConnectionInfo, subscriptionId);
             }
         }
+
+        public IApplicationService ApplicationService { get; set; }
 
         private void ShowTabs(Tabs tabsToShow)
         {
@@ -111,8 +105,6 @@ namespace SwqlStudio
                 queryStatusBar1.Initialize(connectionInfo.Server, connectionInfo.UserName);
             }
         }
-
-        private Subscription subscription;
 
         internal SciTextEditorControl Editor { get { return sciTextEditorControl1; } }
 
@@ -168,11 +160,6 @@ namespace SwqlStudio
             }
 
             return str;
-        }
-
-        private void sciTextEditorControl1_ModifiedChanged(object sender, System.EventArgs e)
-        {
-            IsDirty = sciTextEditorControl1.Modified;
         }
 
         public void CopySelectionToClipboard()
@@ -278,11 +265,7 @@ namespace SwqlStudio
             if (queryWorker.IsBusy)
                 return;
 
-            if (subscription != null)
-            {
-                subscription.Dispose();
-                subscription = null;
-            }
+            Unsubscribe();
 
             if (query.Trim().StartsWith("SUBSCRIBE", StringComparison.OrdinalIgnoreCase))
             {
@@ -296,11 +279,9 @@ namespace SwqlStudio
             }
         }
 
-        void SubscriptionIndicationReceived(object sender, IndicationEventArgs e)
+        void SubscriptionIndicationReceived(IndicationEventArgs e)
         {
-            // hack. it would be better to get the actual subscription id and compare properly
-            if (subscription != null && subscription.SubscriptionUri.Contains(e.SubscriptionID)) 
-                subscriptionTab1.BeginInvoke(new Action<IndicationEventArgs>(subscriptionTab1.AddIndication), e);
+            subscriptionTab1.BeginInvoke(new Action<IndicationEventArgs>(subscriptionTab1.AddIndication), e);
         }
 
         private static readonly string[] returnClauses = new[] {"RETURN XML AUTO", "RETURN XML AUTO STRICT", "RETURN XML RAW"};
@@ -536,51 +517,20 @@ namespace SwqlStudio
 
             subscriptionWorker.ReportProgress(0, "Waiting for subscriber host to be opened...");
 
-            Func<Subscription> action;
-            SubscriberInfo subscriberInfo;
-            if (arg.Connection.ServerType.Equals("Java over HTTP"))
+
+            subscriptionWorker.ReportProgress(0, "Starting subscription...");
+
+            try
             {
-                subscriberInfo = ApplicationService.GetHttpSubscriberInfo();
-                action = () => SubscribeHttp(arg.Connection.Proxy, arg.Query, subscriberInfo);
+                subscriptionId = ApplicationService.SubscriptionManager.CreateSubscription(ConnectionInfo, arg.Query,
+                    SubscriptionIndicationReceived);
+
+                subscriptionWorker.ReportProgress(0, "Waiting for notifications");
             }
-            else
+            catch (Exception ex)
             {
-                if (Settings.Default.UseActiveSubscriber)
-                    subscriberInfo = arg.Connection.GetActiveSubscriberInfo();
-                else
-                    subscriberInfo = ApplicationService.GetSubscriberInfo();
-
-                action = () => SubscribeNetTcp(arg.Connection.Proxy, arg.Query, subscriberInfo);
+                e.Result = new QueryErrorResult {ErrorMessage = ex.Message, Log = ex.ToString()};
             }
-
-            if (subscriberInfo.OpenedSuccessfully)
-            {
-                subscriptionWorker.ReportProgress(0, "Starting subscription...");
-                try
-                {
-                    subscription = ConnectionInfo.DoWithExceptionTranslation(action);
-                    subscriptionWorker.ReportProgress(0, "Waiting for notifications");
-                }
-                catch (ApplicationException ex)
-                {
-                    e.Result = new QueryErrorResult { ErrorMessage = ex.Message, Log = ex.ToString() };
-                }
-            }
-            else
-            {
-                e.Result = new QueryErrorResult {ErrorMessage = subscriberInfo.ErrorMessage};
-            }
-        }
-
-
-        private Subscription SubscribeNetTcp(InfoServiceProxy proxy, string query, SubscriberInfo subscriberInfo)
-        {
-            return new Subscription(proxy, subscriberInfo.EndpointAddress, query, subscriberInfo.Binding, subscriberInfo.DataFormat);
-        }
-
-        private Subscription SubscribeHttp(InfoServiceProxy proxy, string query, SubscriberInfo subscriberInfo)
-        {
-            return new Subscription(proxy, subscriberInfo.EndpointAddress, query, subscriberInfo.Binding, subscriberInfo.DataFormat, CredentialType.Username, "subscriber", "subscriber");
         }
 
         private void subscriptionWorker_ProgressChanged(object sender, System.ComponentModel.ProgressChangedEventArgs e)

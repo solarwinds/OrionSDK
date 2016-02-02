@@ -12,30 +12,16 @@ def main():
     print("Add an SNMP v2c node:")
   
     # fill these in for the node you want to add!
-    node_name = ''
     ip_address = ''
     community = ''
 
     # set up property bag for the new node
     props = {
-        'Caption': node_name,
         'IPAddress': ip_address,
-        'DynamicIP': False,
         'EngineID': 1,
-        'Status': 1,
-        'Allow64BitCounters': 1,
         'ObjectSubType': 'SNMP',
         'SNMPVersion': 2,
-        'SysObjectID': '',
-        'MachineType': '',
-        'Vendor': '',
-        'VendorIcon': '',
-        'RediscoveryInterval': 30,
-        'PollInterval': 120,
-        'ChildStatus': 1,
-        'StatCollection': 10,
-        'Community': community,
-        'NodeDescription': '',
+        'Community': community
     }
 
     print("Adding node {}... ".format(props['IPAddress']), end="")

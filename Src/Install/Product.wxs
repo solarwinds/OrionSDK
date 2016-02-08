@@ -24,9 +24,10 @@
       InstallScope="perMachine" />
 
     <PropertyRef Id="NETFRAMEWORK35"/>
+    <PropertyRef Id="NETFRAMEWORK40FULL"/>
 
-    <Condition Message="This application requires .NET Framework 3.5. Please install the .NET Framework then run this installer again.">
-      <![CDATA[Installed OR NETFRAMEWORK35]]>
+    <Condition Message="This application requires .NET Framework 3.5 or later. Please install the .NET Framework then run this installer again.">
+      <![CDATA[Installed OR NETFRAMEWORK35 OR NETFRAMEWORK40FULL]]>
     </Condition>
 
     <?include AddRemovePrograms.wxi ?>

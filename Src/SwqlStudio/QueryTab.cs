@@ -181,9 +181,9 @@ namespace SwqlStudio
 
         private void CopyActiveGridCellToClipboard()
         {
-            if (dataGridView1.CurrentCell != null && dataGridView1.CurrentCell.Value != null)
+            if (dataGridView1.GetCellCount(DataGridViewElementStates.Selected) > 0)
             {
-                Clipboard.SetDataObject(FormatGridValue(dataGridView1.CurrentCell.Value).ToString(), true);
+                Clipboard.SetDataObject(dataGridView1.GetClipboardContent());
             }
         }
 

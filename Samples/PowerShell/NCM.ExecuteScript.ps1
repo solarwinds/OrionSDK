@@ -15,7 +15,7 @@ $cred = New-Object -typename System.Management.Automation.PSCredential -argument
 $swis = Connect-Swis -v2 -host $hostname -cred $cred
 
 $ip = '10.199.252.6'
-$nodeId = get-swisdata $swis "SELECT NodeID FROM Cirrus.Nodes WHERE AgentIP=@ip" @{ip=$ip}
+$nodeId = Get-SwisData $swis "SELECT NodeID FROM Cirrus.Nodes WHERE AgentIP = @ip" @{ ip = $ip }
 
 $script = "show clock"
 
@@ -28,12 +28,11 @@ $transferID = "{$nodeId}:${username}:ExecuteScript"
 
 do {
     Start-Sleep -Seconds 1
-    $status = Get-SwisData $swis "SELECT T.Status, T.Error FROM Cirrus.TransferQueue T WHERE T.TransferID=@transfer" @{transfer=$transferID}
+    $status = Get-SwisData $swis "SELECT T.Status, T.Error FROM Cirrus.TransferQueue T WHERE T.TransferID=@transfer" @{ transfer = $transferID }
     Write-Host $status.Status
 }
 while (($status.Status -ne 'Complete') -and (-not $status.Error))
 
-$output = Get-SwisData $swis "SELECT T.Log FROM Cirrus.TransferQueue T WHERE T.TransferID=@transfer" @{transfer=$transferID}
+$output = Get-SwisData $swis "SELECT T.Log FROM Cirrus.TransferQueue T WHERE T.TransferID=@transfer" @{ transfer = $transferID }
 
 Write-Host $output
-

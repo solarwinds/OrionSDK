@@ -4,7 +4,7 @@
 # Please update the hostname and credential setup to match your configuration,
 # and reference to an existing node.
 
-if (! (Get-PSSnapin | where {$_.Name -eq "SwisSnapin"})) {
+if (-not (Get-PSSnapin | where {$_.Name -eq "SwisSnapin"})) {
     Add-PSSnapin "SwisSnapin"
 }
 

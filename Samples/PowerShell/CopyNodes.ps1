@@ -22,7 +22,7 @@ $password2 = New-Object System.Security.SecureString  #"" | ConvertTo-SecureStri
 $username2 = "admin"
 
 # Load the SwisSnapin if not already loaded
-if (!(Get-PSSnapin | where {$_.Name -eq "SwisSnapin"})) {
+if (-not (Get-PSSnapin | where {$_.Name -eq "SwisSnapin"})) {
     Add-PSSnapin "SwisSnapin"
 }
 

@@ -23,13 +23,19 @@ $nodeId = 1
 
 # Discover interfaces on the node
 $discovered = Invoke-SwisVerb $swis Orion.NPM.Interfaces DiscoverInterfacesOnNode $nodeId
+
 if ($discovered.Result -ne "Succeed") {
-  Write-Host "Interface discovery failed."
+    Write-Host "Interface discovery failed."
 }
 else {
-  # Filter the resulting list to include only ifType 6 (fast ethernet)
-  $discovered.DiscoveredInterfaces.DiscoveredLiteInterface |? {$_.ifType -ne 6} |% { $discovered.DiscoveredInterfaces.RemoveChild($_) | Out-Null }
+    # Uncomment one of the following to limit the interfaces that get added:
 
-  # Add the remaining interfaces
-  Invoke-SwisVerb $swis Orion.NPM.Interfaces AddInterfacesOnNode @($nodeId, $discovered.DiscoveredInterfaces, "AddDefaultPollers") | Out-Null
+    # No. 1: Remove interfaces that are NOT ifType 6 (FastEthernet)
+    #$discovered.DiscoveredInterfaces.DiscoveredLiteInterface | ?{ $_.ifType -ne 6 } | %{ $discovered.DiscoveredInterfaces.RemoveChild($_) | Out-Null }
+
+    # No. 2: Remove interfaces that have a caption of 'lo' (Loopback)
+    #$discovered.DiscoveredInterfaces.DiscoveredLiteInterface | ?{ $_.Caption.InnerText -eq 'lo' } | %{ $discovered.DiscoveredInterfaces.RemoveChild($_) | Out-Null }
+
+    # Add the remaining interfaces
+    Invoke-SwisVerb $swis Orion.NPM.Interfaces AddInterfacesOnNode @($nodeId, $discovered.DiscoveredInterfaces, "AddDefaultPollers") | Out-Null
 }

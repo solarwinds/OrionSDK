@@ -22,7 +22,7 @@ $password2 = New-Object System.Security.SecureString  #"" | ConvertTo-SecureStri
 $username2 = "admin"
 
 # Load the SwisSnapin if not already loaded
-if (!(Get-PSSnapin | where {$_.Name -eq "SwisSnapin"})) {
+if (-not (Get-PSSnapin | where {$_.Name -eq "SwisSnapin"})) {
     Add-PSSnapin "SwisSnapin"
 }
 
@@ -33,6 +33,7 @@ $source = Connect-Swis -Credential $credential1 -Hostname $hostname1
 # Connect to the target system
 $credential2 = New-Object System.Management.Automation.PSCredential($username2,$password2)
 $target = Connect-Swis -Credential $credential2 -Hostname $hostname2
+
 # SWISv2 connection to target system is needed for calling AddNodeToNCM verb
 $targetV2 = Connect-Swis -v2 -Credential $credential2 -Hostname $hostname2
 
@@ -81,9 +82,9 @@ $targetHasNCM = (Get-SwisData $target "SELECT CanInvoke FROM Metadata.Verb WHERE
 $sourceNodes = Get-SwisData $source "SELECT Uri, IPAddress, Caption, NodeID FROM Orion.Nodes"
 
 foreach ($sourceNode in $sourceNodes) {
-
     # See if there is aleady a node on the target with the same IP address
     $targetNodeUri = Get-SwisData $target "SELECT Uri FROM Orion.Nodes WHERE IPAddress=@ip" @{ip=$sourceNode.IPAddress}
+
     if ($targetNodeUri -ne $null) {
         Write-Host "Skipping" $sourceNode.Caption "(" $sourceNode.IPAddress ") because it is already managed by " $hostname2
         continue
@@ -114,7 +115,7 @@ foreach ($sourceNode in $sourceNodes) {
     # Make an in-memory copy of the node
     Write-Host "Copying" $sourceNode.Caption "(" $sourceNode.IPAddress ")"
     $targetNodeProps = @{}
-    $nodePropsToCopy |% { $targetNodeProps[$_] = $sourceNodeProps.$_ }
+    $nodePropsToCopy | %{ $targetNodeProps[$_] = $sourceNodeProps.$_ }
     $targetNodeProps["EngineID"] = 1  # Assign all copied nodes to engine 1
 
     # Create the node on the target system
@@ -122,17 +123,17 @@ foreach ($sourceNode in $sourceNodes) {
     $newNode = Get-SwisObject $target $newUri
 
     # Associate the custom property "ImportedByAPI" with this node and set its value to "true"
-    Set-SwisObject $target ($newUri+"/CustomProperties") @{"ImportedByAPI"="true"}
+    Set-SwisObject $target ($newUri+"/CustomProperties") @{ "ImportedByAPI"="true" }
  
     # Copy the pollers for the new node
-    $pollerTypes = Get-SwisData $source "SELECT PollerType FROM Orion.Pollers WHERE NetObject=@netobject" @{netobject='N:'+$sourceNode.NodeID}
+    $pollerTypes = Get-SwisData $source "SELECT PollerType FROM Orion.Pollers WHERE NetObject=@netobject" @{ netobject='N:' + $sourceNode.NodeID }
     
     foreach ($pollerType in $pollerTypes) {
         $poller = @{
-           PollerType = "$pollerType";
-           NetObject = "N:"+$newNode.NodeID;
-           NetObjectType = "N";
-           NetObjectID = $newNode.NodeID;
+            PollerType = "$pollerType";
+            NetObject = "N:" + $newNode.NodeID;
+            NetObjectType = "N";
+            NetObjectID = $newNode.NodeID;
         }
         Write-Host "    Adding poller $pollerType"
         New-SwisObject $target -EntityType "Orion.Pollers" -Properties $poller | Out-Null
@@ -142,24 +143,30 @@ foreach ($sourceNode in $sourceNodes) {
     if ($CopyInterfaces) {
         if ($sourceHasInterfaces -and $targetHasInterfaces) {
             # Get the interfaces on the source node
-            $sourceInterfaces = Get-SwisData $source "SELECT Nodes.Interfaces.Uri FROM Orion.Nodes WHERE NodeID=@node" @{node=$sourceNode.NodeID}
+            $sourceInterfaces = Get-SwisData $source "SELECT Nodes.Interfaces.Uri FROM Orion.Nodes WHERE NodeID=@node" @{ node=$sourceNode.NodeID }
+
             foreach ($sourceInterface in $sourceInterfaces) {
-                if (IsEmpty($sourceInterface)) { continue }
+                if (IsEmpty($sourceInterface)) {
+                    continue
+                }
+
                 $sourceIfProps = Get-SwisObject $source $sourceInterface
                 Write-Host "  Copying" $sourceNode.Caption "/" $sourceIfProps.Caption
                 $targetIfProps = @{}
-                $interfacePropsToCopy |% { $targetIfProps[$_] = $sourceIfProps[$_] }
+                $interfacePropsToCopy | %{ $targetIfProps[$_] = $sourceIfProps[$_] }
                 $targetIfProps["NodeID"] = $newNode.NodeID
+
                 # Create the copy
                 $newIfUri = New-SwisObject $target -EntityType "Orion.NPM.Interfaces" -Properties $targetIfProps
                 $newIf = Get-SwisObject $target $newIfUri
+
                 # Copy the pollers for the new interface
-                $ifPollerTypes = Get-SwisData $source "SELECT PollerType FROM Orion.Pollers WHERE NetObject=@netobject" @{netobject='I:'+$sourceIfProps.InterfaceID}
+                $ifPollerTypes = Get-SwisData $source "SELECT PollerType FROM Orion.Pollers WHERE NetObject=@netobject" @{ netobject = 'I:'+$sourceIfProps.InterfaceID }
         
                 foreach ($ifPollerType in $ifPollerTypes) {
                     $ifPoller = @{
                         PollerType = "$ifPollerType";
-                        NetObject = "I:"+$newIf.InterfaceID;
+                        NetObject = "I:" + $newIf.InterfaceID;
                         NetObjectType = "I";
                         NetObjectID = $newIf.InterfaceID;
                     }
@@ -172,33 +179,37 @@ foreach ($sourceNode in $sourceNodes) {
 
     # Get the volumes on the source node
     if ($CopyVolumes) {
-    $sourceVolumes = Get-SwisData $source "SELECT Nodes.Volumes.Uri FROM Orion.Nodes WHERE NodeID=@node" @{node=$sourceNode.NodeID}
-    foreach ($sourceVolume in $sourceVolumes) {
-        if (IsEmpty($sourceVolume)) { continue }
-        $sourceVolProps = Get-SwisObject $source $sourceVolume
-        Write-Host "  Copying" $sourceNode.Caption "/" $sourceVolProps.Caption
-        $targetVolProps = @{}
-        $volumePropsToCopy |% { $targetVolProps[$_] = $sourceVolProps[$_] }
-        $targetVolProps["NodeID"] = $newNode.NodeID
+        $sourceVolumes = Get-SwisData $source "SELECT Nodes.Volumes.Uri FROM Orion.Nodes WHERE NodeID=@node" @{ node = $sourceNode.NodeID }
 
-        # Create the copy
-        $newVolUri = New-SwisObject $target -EntityType "Orion.Volumes" -Properties $targetVolProps
-        $newVol = Get-SwisObject $target $newVolUri
-
-        # Copy the pollers for the new Volume
-        $volPollerTypes = Get-SwisData $source "SELECT PollerType FROM Orion.Pollers WHERE NetObject=@netobject" @{netobject='V:'+$sourceVolProps.VolumeID}
-    
-        foreach ($volPollerType in $volPollerTypes) {
-            $volPoller = @{
-                PollerType = "$volPollerType";
-                NetObject = "V:"+$newVol.VolumeID;
-                NetObjectType = "V";
-                NetObjectID = $newVol.VolumeID;
+        foreach ($sourceVolume in $sourceVolumes) {
+            if (IsEmpty($sourceVolume)) {
+                continue
             }
-            Write-Host "      Adding poller $volPollerType"
-            New-SwisObject $target -EntityType "Orion.Pollers" -Properties $volPoller | Out-Null
+
+            $sourceVolProps = Get-SwisObject $source $sourceVolume
+            Write-Host "  Copying" $sourceNode.Caption "/" $sourceVolProps.Caption
+            $targetVolProps = @{}
+            $volumePropsToCopy | %{ $targetVolProps[$_] = $sourceVolProps[$_] }
+            $targetVolProps["NodeID"] = $newNode.NodeID
+
+            # Create the copy
+            $newVolUri = New-SwisObject $target -EntityType "Orion.Volumes" -Properties $targetVolProps
+            $newVol = Get-SwisObject $target $newVolUri
+
+            # Copy the pollers for the new Volume
+            $volPollerTypes = Get-SwisData $source "SELECT PollerType FROM Orion.Pollers WHERE NetObject=@netobject" @{ netobject='V:' + $sourceVolProps.VolumeID }
+    
+            foreach ($volPollerType in $volPollerTypes) {
+                $volPoller = @{
+                    PollerType = "$volPollerType";
+                    NetObject = "V:"+$newVol.VolumeID;
+                    NetObjectType = "V";
+                    NetObjectID = $newVol.VolumeID;
+                }
+                Write-Host "      Adding poller $volPollerType"
+                New-SwisObject $target -EntityType "Orion.Pollers" -Properties $volPoller | Out-Null
+            }
         }
-    }
     }
 
     # If the target has NCM installed, add the new node to NCM

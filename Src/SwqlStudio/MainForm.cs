@@ -306,11 +306,14 @@ namespace SwqlStudio
         private static void RemoveQueryTab(Control queryTab)
         {
             TabPage tabPage = (TabPage)queryTab.Parent;
-            TabControl tabControl = tabPage.Parent as TabControl;
-            tabControl.TabPages.Remove(tabPage);
+            if (tabPage != null)
+            {
+                TabControl tabControl = tabPage.Parent as TabControl;
+                tabControl.TabPages.Remove(tabPage);
 
-            // Due MDA exception "RaceOnRCWCleanup error when closing a form with WebBrowser control", tab page is destroyed as below
-            tabPage.BeginInvoke((MethodInvoker)delegate { tabPage.Dispose(); });
+                // Due MDA exception "RaceOnRCWCleanup error when closing a form with WebBrowser control", tab page is destroyed as below
+                tabPage.BeginInvoke((MethodInvoker) delegate { tabPage.Dispose(); });
+            }
         }
 
         private void menuFileSave_Click(object sender, EventArgs e)

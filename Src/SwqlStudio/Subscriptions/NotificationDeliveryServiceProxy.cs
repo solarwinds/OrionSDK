@@ -4,7 +4,7 @@ using System.ServiceModel.Channels;
 using System.ServiceModel.Security;
 using SolarWinds.InformationService.Contract2.PubSub;
 
-namespace SwqlStudio
+namespace SwqlStudio.Subscriptions
 {
     class NotificationDeliveryServiceProxy : DuplexClientBase<INotificationDeliveryService>
     {
@@ -62,6 +62,5 @@ namespace SwqlStudio
                 return true;
             }
         }
-
     }
 }

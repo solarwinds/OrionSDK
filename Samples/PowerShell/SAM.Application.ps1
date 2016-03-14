@@ -12,7 +12,7 @@
 #
 # Please update the hostname and credential setup to match your configuration.
 
-if (! (Get-PSSnapin | where {$_.Name -eq "SwisSnapin"})) {
+if (-not (Get-PSSnapin | where {$_.Name -eq "SwisSnapin"})) {
     Add-PSSnapin "SwisSnapin"
 }
 
@@ -32,7 +32,8 @@ $swis = Connect-Swis -host $hostname -cred $cred
 
 # Select the node
 $ip = "10.140.127.221"
-$nodeId = Get-SwisData $swis "SELECT NodeID FROM Orion.Nodes WHERE IP_Address=@ip" @{ip=$ip}
+$nodeId = Get-SwisData $swis "SELECT NodeID FROM Orion.Nodes WHERE IP_Address=@ip" @{ ip = $ip }
+
 if (!$nodeId) {
 	Write-Host "Can't find node with IP '$ip'."
 	exit 1
@@ -40,7 +41,8 @@ if (!$nodeId) {
 
 # Select the template
 $template = "Apache"
-$applicationTemplateId = Get-SwisData $swis "SELECT ApplicationTemplateID FROM Orion.APM.ApplicationTemplate WHERE Name=@template" @{template=$template}
+$applicationTemplateId = Get-SwisData $swis "SELECT ApplicationTemplateID FROM Orion.APM.ApplicationTemplate WHERE Name=@template" @{ template = $template }
+
 if (!$applicationTemplateId) {
 	Write-Host "Can't find template with name '$template'."
 	exit 1
@@ -48,7 +50,8 @@ if (!$applicationTemplateId) {
 
 # Select the credential
 $credential = "MyCredential"
-$credentialSetId = Get-SwisData $swis "SELECT ID FROM Orion.Credential WHERE CredentialOwner='APM' AND Name=@credential" @{credential=$credential}
+$credentialSetId = Get-SwisData $swis "SELECT ID FROM Orion.Credential WHERE CredentialOwner='APM' AND Name=@credential" @{ credential = $credential }
+
 if (!$credentialSetId) {
 	Write-Host "Can't find credential with name '$credential'."
 	exit 1
@@ -56,10 +59,13 @@ if (!$credentialSetId) {
 
 # Credentials from the SAM credential library are expected to have credentialSetId > 0.
 # But the "CreateApplication" method accepts the following special IDs for credentials:
+#
 # <None>
 #    $credentialSetId = 0 
+#
 # <Inherit Windows credential from node> (should be used only for WMI nodes)
 #    $credentialSetId = -3
+#
 # <Inherit credentials from template>
 #    $credentialSetId = -4
 
@@ -78,7 +84,7 @@ $applicationId = (Invoke-SwisVerb $swis "Orion.APM.Application" "CreateApplicati
 	
 	# Skip if duplicate (in lowercase)
     "false"
-  )).InnerText
+)).InnerText
 
 # Check if the application was created
 if ($applicationId -eq -1) {
@@ -121,7 +127,8 @@ Invoke-SwisVerb $swis "Orion.APM.Application" "Unmanage" @(
 	
 	# If the remanage time is relative (in lowercase). If "true" then the time of the day (hours, minutes and second)
 	# is used for the calculation of remanage time.
-	"true") | Out-Null
+	"true"
+) | Out-Null
 
 Write-Host "Application '$applicationId' is unmanaged."
 

@@ -2,7 +2,9 @@
 using System.ServiceModel;
 using System.ServiceModel.Security;
 using SolarWinds.InformationService.Contract2;
+using SolarWinds.InformationService.Contract2.PubSub;
 using SwqlStudio.Properties;
+using SwqlStudio.Subscriptions;
 
 namespace SwqlStudio
 {
@@ -30,9 +32,19 @@ namespace SwqlStudio
             }
         }
 
-        public override string ServiceType
+        public override string ServiceType => "Orion Certificate";
+
+        public override bool SupportsActiveSubscriber => Settings.Default.UseActiveSubscriber;
+
+        public override NotificationDeliveryServiceProxy CreateNotificationDeliveryServiceProxy(string server, INotificationSubscriber notificationSubscriber)
         {
-            get { return "Orion Certificate"; }
+            var endpointAddress = new EndpointAddress(string.Format("net.tcp://{0}:17777/SolarWinds/InformationService/v3/Orion/IndicationDelivery/certificate", server));
+            var context = new InstanceContext(notificationSubscriber);
+
+            var proxy = new NotificationDeliveryServiceProxy(context, (NetTcpBinding)_binding, endpointAddress);
+            _credentials.ApplyTo(proxy.ChannelFactory);
+
+            return proxy;
         }
     }
 }

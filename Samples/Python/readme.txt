@@ -1,0 +1,1 @@
+The python sample code has moved to https://github.com/solarwinds/orionsdk-python

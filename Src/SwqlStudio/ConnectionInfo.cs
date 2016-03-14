@@ -12,6 +12,7 @@ using SolarWinds.InformationService.Contract2;
 using SolarWinds.InformationService.Contract2.PubSub;
 using SolarWinds.InformationService.InformationServiceClient;
 using SwqlStudio.Properties;
+using SwqlStudio.Subscriptions;
 
 namespace SwqlStudio
 {
@@ -21,15 +22,12 @@ namespace SwqlStudio
         private string _server;
         private string _username;
         private string _password;
-        private string _activeSubscriberAddress;
 
         private InfoServiceProxy _proxy;
         private readonly InfoServiceBase _infoServiceType;
 
-        private NotificationDeliveryServiceProxy _notificationDeliveryServiceProxy;
-        private SubscriberInfo _activeSubscriberInfo;
-
         public event EventHandler<EventArgs> ConnectionClosed;
+        public event EventHandler<EventArgs> ConnectionClosing;
 
         public ConnectionInfo(string server, string username, string password, string serverType)
         {
@@ -40,6 +38,11 @@ namespace SwqlStudio
 
             _infoServiceType = InfoServiceFactory.Create(serverType, username, password);
             QueryParameters = new PropertyBag();
+        }
+
+        public Binding Binding
+        {
+            get { return _infoServiceType.Binding; }
         }
 
         public string Server
@@ -61,6 +64,11 @@ namespace SwqlStudio
         }
 
         public bool CanCreateSubscription { get; set; }
+
+        public bool SupportsActiveSubscriptions
+        {
+            get { return _infoServiceType.SupportsActiveSubscriber; }
+        }
 
         public string Title
         {
@@ -127,7 +135,6 @@ namespace SwqlStudio
         }
 
         public PropertyBag QueryParameters { get; set; }
-        public INotificationSubscriber NotificationSubscriber { get; set; }
 
         public void Connect()
         {
@@ -144,30 +151,24 @@ namespace SwqlStudio
 
             Connection = new InformationServiceConnection((IInformationService)_proxy);
             Connection.Open();
-
-            if (Settings.Default.UseActiveSubscriber && _infoServiceType.SupportsActiveSubscriber)
-            {
-                _notificationDeliveryServiceProxy = _infoServiceType.CreateNotificationDeliveryServiceProxy(_server, NotificationSubscriber);
-                _notificationDeliveryServiceProxy.Open();
-                _activeSubscriberAddress = string.Format("active://{0}/SolarWinds/SwqlStudio/{1}", Utility.GetFqdn(), Process.GetCurrentProcess().Id);
-                _notificationDeliveryServiceProxy.ReceiveIndications(_activeSubscriberAddress);
-                _activeSubscriberInfo = new SubscriberInfo()
-                {
-                    EndpointAddress = _activeSubscriberAddress,
-                    OpenedSuccessfully = true,
-                    DataFormat = "Xml"
-                };
-            }
         }
 
-        public virtual SubscriberInfo GetActiveSubscriberInfo()
+        public bool IsConnected
         {
-            return _activeSubscriberInfo;
+            get { return _proxy != null && _proxy.ClientChannel.State == CommunicationState.Opened; }
+        }
+
+        internal NotificationDeliveryServiceProxy CreateActiveListenerProxy(INotificationSubscriber listener)
+        {
+            if (!_infoServiceType.SupportsActiveSubscriber)
+                throw new InvalidOperationException("This connection type doesn't support active subscriptions");
+
+            return _infoServiceType.CreateNotificationDeliveryServiceProxy(_server, listener);
         }
 
         private void EnsureConnection()
         {
-            if ((Connection != null) && (Connection.State != ConnectionState.Open))
+            if(!IsConnected)
                 Connect();
         }
 
@@ -350,14 +351,14 @@ namespace SwqlStudio
         {
             if (_proxy != null)
             {
+                var listeners = ConnectionClosing;
+                listeners?.Invoke(this, EventArgs.Empty);
+
                 _proxy.Dispose();
                 _proxy = null;
 
-                var listeners = ConnectionClosed;
-                if (listeners != null)
-                {
-                    listeners.Invoke(this, EventArgs.Empty);
-                }
+                listeners = ConnectionClosed;
+                listeners?.Invoke(this, EventArgs.Empty);
             }
         }
 

@@ -27,26 +27,32 @@ $swis = Connect-Swis -host $hostname -cred $cred
 #
 
 $members = @(
-  @{ Name = "Cisco Devices"; Definition = "filter:/Orion.Nodes[Vendor='Cisco']" },
-  @{ Name = "Windows Devices"; Definition = "filter:/Orion.Nodes[Vendor='Windows']" }
+    @{ Name = "Cisco Devices"; Definition = "filter:/Orion.Nodes[Vendor='Cisco']" },
+    @{ Name = "Windows Devices"; Definition = "filter:/Orion.Nodes[Vendor='Windows']" }
 )
 
 $groupId = (Invoke-SwisVerb $swis "Orion.Container" "CreateContainer" @(
     # group name
     "Sample PowerShell Group",
+
     # owner, must be 'Core'
     "Core",
+
     # refresh frequency
     60,
+
     # Status rollup mode:
     # 0 = Mixed status shows warning
     # 1 = Show worst status
     # 2 = Show best status
     0,
+
     # group description
     "Group created by the PowerShell sample script.",
+
     # polling enabled/disabled = true/false (in lowercase)
     "true",
+
     # group members
     ([xml]@(
        "<ArrayOfMemberDefinitionInfo xmlns='http://schemas.solarwinds.com/2008/Orion'>",
@@ -67,6 +73,7 @@ $groupId = (Invoke-SwisVerb $swis "Orion.Container" "CreateContainer" @(
 Invoke-SwisVerb $swis "Orion.Container" "AddDefinition" @(
     # group ID
     $groupId,
+
     # group member to add
     ([xml]"
        <MemberDefinitionInfo xmlns='http://schemas.solarwinds.com/2008/Orion'>
@@ -83,26 +90,32 @@ Invoke-SwisVerb $swis "Orion.Container" "AddDefinition" @(
 # Adding up devices in the group.
 #  
 $subgroupmembers = @(
-  @{ Name = "Subgroup Devices-Up"; Definition = "filter:/Orion.Nodes[Status=1]" },
-  @{ Name = "Subgroup Devices-NotReachable"; Definition = "filter:/Orion.Nodes[Status=12]" }
+    @{ Name = "Subgroup Devices-Up"; Definition = "filter:/Orion.Nodes[Status=1]" },
+    @{ Name = "Subgroup Devices-NotReachable"; Definition = "filter:/Orion.Nodes[Status=12]" }
 )
 
 $subgroupId = (Invoke-SwisVerb $swis "Orion.Container" "CreateContainer" @(
     # group name 
     "Sample PowerShell SubGroup",
+
     # owner, must be 'Core'
     "Core",
+
     # refresh frequency
     60,
+
     # Status rollup mode:
     # 0 = Mixed status shows warning
     # 1 = Show worst status
     # 2 = Show best status
     0,
+
     # group description
     "Sub Group created by the PowerShell sample script.",
+
     # polling enabled/disabled = true/false (in lowercase)
     "true",
+
     # group members
     ([xml]@(
        "<ArrayOfMemberDefinitionInfo xmlns='http://schemas.solarwinds.com/2008/Orion'>",
@@ -114,21 +127,22 @@ $subgroupId = (Invoke-SwisVerb $swis "Orion.Container" "CreateContainer" @(
     )).DocumentElement
   )).InnerText 
 
-#Add the SubGroup to a group
+# Add the SubGroup to a group
 
-$subgroupUri = Get-SwisData $swis "SELECT Uri FROM Orion.Container WHERE ContainerID=@id" @{id=$subgroupId}
+$subgroupUri = Get-SwisData $swis "SELECT Uri FROM Orion.Container WHERE ContainerID=@id" @{ id = $subgroupId }
 
 Invoke-SwisVerb $swis "Orion.Container" "AddDefinition" @(
 	# group ID
 	$groupId,
+
 	# group member to add
-		([xml]"
-		   <MemberDefinitionInfo xmlns='http://schemas.solarwinds.com/2008/Orion'>
-			 <Name></Name>
-			 <Definition>$subgroupUri</Definition>
-		   </MemberDefinitionInfo>"
-		).DocumentElement
-	) | Out-Null 
+	([xml]"
+		<MemberDefinitionInfo xmlns='http://schemas.solarwinds.com/2008/Orion'>
+		    <Name></Name>
+		    <Definition>$subgroupUri</Definition>
+	    </MemberDefinitionInfo>"
+	).DocumentElement
+) | Out-Null 
   
 
 #
@@ -138,13 +152,14 @@ Invoke-SwisVerb $swis "Orion.Container" "AddDefinition" @(
 #
 
 $members = @(
-  @{ Name = "Down Devices"; Definition = "filter:/Orion.Nodes[Status=2]" },
-  @{ Name = "Unreachable Devices"; Definition = "filter:/Orion.Nodes[Status=12]" }
+    @{ Name = "Down Devices"; Definition = "filter:/Orion.Nodes[Status=2]" },
+    @{ Name = "Unreachable Devices"; Definition = "filter:/Orion.Nodes[Status=12]" }
 )
 
 Invoke-SwisVerb $swis "Orion.Container" "AddDefinitions" @(
     # group ID
     $groupId,
+
     # group member to add
     ([xml]@(
        "<ArrayOfMemberDefinitionInfo xmlns='http://schemas.solarwinds.com/2008/Orion'>",
@@ -170,6 +185,7 @@ WHERE ContainerID=@containerID AND Name LIKE 'Unreachable%'" @{ containerID=$gro
 Invoke-SwisVerb $swis "Orion.Container" "UpdateDefinition" @(
     # group member definition ID
     $definitionId,
+
     # group member to add
     ([xml]"
        <MemberDefinitionInfo xmlns='http://schemas.solarwinds.com/2008/Orion'>
@@ -208,19 +224,25 @@ WHERE ContainerID=$groupId"
 Invoke-SwisVerb $swis "Orion.Container" "UpdateContainer" @(
     # group ID
     $groupId,
+
     # group name
     "Sample PowerShell Group (renamed)",
+
     # owner, must be 'Core'
     $containerProps.Owner,
+
     # refresh frequency
     120,
+
     # Status rollup mode:
     # 0 = Mixed status shows warning
     # 1 = Show worst status
     # 2 = Show best status
     $containerProps.StatusCalculator,
+
     # group description
     $containerProps.Description,
+
     # polling enabled/disabled = true/false (in lowercase)
     $containerProps.PollingEnabled
   ) | Out-Null
@@ -232,7 +254,7 @@ Invoke-SwisVerb $swis "Orion.Container" "UpdateContainer" @(
 #
 
 $members = @(
-  @{ Name = "Austin Up Devices"; Definition = "filter:/Orion.Nodes[CustomProperties.City='Austin' AND Status=1]" }
+    @{ Name = "Austin Up Devices"; Definition = "filter:/Orion.Nodes[CustomProperties.City='Austin' AND Status=1]" }
 )
 
 Invoke-SwisVerb $swis "Orion.Container" "SetDefinitions" @(
@@ -258,4 +280,4 @@ Invoke-SwisVerb $swis "Orion.Container" "SetDefinitions" @(
 Invoke-SwisVerb $swis "Orion.Container" "DeleteContainer" @(
     # group ID
     $groupId
-  ) | Out-Null
+) | Out-Null

@@ -3,7 +3,7 @@
 # information about the node you would like to add for monitoring.
 
 #Region PSSnapin presence check/add
-if (!(Get-PSSnapin -Name "SwisSnapin" -ErrorAction SilentlyContinue))
+if (-not (Get-PSSnapin -Name "SwisSnapin" -ErrorAction SilentlyContinue))
 {    
     Add-PSSnapin SwisSnapin -ErrorAction SilentlyContinue
 }
@@ -11,9 +11,8 @@ if (!(Get-PSSnapin -Name "SwisSnapin" -ErrorAction SilentlyContinue))
 
 Clear-Host
 
-function AddPoller($PollerType)
-{
-    $poller["PollerType"]=$PollerType;
+function AddPoller($PollerType) {
+    $poller["PollerType"] = $PollerType
     $pollerUri = New-SwisObject $swis -EntityType "Orion.Pollers" -Properties $poller
 }
 
@@ -26,9 +25,9 @@ $credentialName = "ValidCredentialName" # Enter here the name under which the WM
 
 # Node properties
 $newNodeProps = @{
-    IPAddress=$ip;
-    EngineID=1;
-    ObjectSubType="WMI";
+    IPAddress = $ip
+    EngineID = 1
+    ObjectSubType = "WMI"
 }
 
 #Creating the node
@@ -43,9 +42,9 @@ if (!$credentialId) {
 
 #Adding NodeSettings
 $nodeSettings = @{
-    NodeID=$nodeProps["NodeID"];
-    SettingName="WMICredential";
-    SettingValue=($credentialId.ToString());
+    NodeID = $nodeProps["NodeID"]
+    SettingName = "WMICredential"
+    SettingValue = ($credentialId.ToString())
 }
 
 #Creating node settings
@@ -53,20 +52,25 @@ $newNodeSettings = New-SwisObject $swis -EntityType "Orion.NodeSettings" -Proper
 
 # register specific pollers for the node
 $poller = @{
-    NetObject="N:"+$nodeProps["NodeID"];
-    NetObjectType="N";
-    NetObjectID=$nodeProps["NodeID"];
+    NetObject = "N:" + $nodeProps["NodeID"]
+    NetObjectType = "N"
+    NetObjectID = $nodeProps["NodeID"]
 }
 
 #Status
-AddPoller("N.Status.ICMP.Native");
+AddPoller("N.Status.ICMP.Native")
+
 #ResponseTime
-AddPoller("N.ResponseTime.ICMP.Native");
+AddPoller("N.ResponseTime.ICMP.Native")
+
 #Details
-AddPoller("N.Details.WMI.Vista");
+AddPoller("N.Details.WMI.Vista")
+
 #Uptime
-AddPoller("N.Uptime.WMI.XP");
+AddPoller("N.Uptime.WMI.XP")
+
 #CPU
-AddPoller("N.Cpu.WMI.Windows");
+AddPoller("N.Cpu.WMI.Windows")
+
 #Memory
-AddPoller("N.Memory.WMI.Windows");
+AddPoller("N.Memory.WMI.Windows")

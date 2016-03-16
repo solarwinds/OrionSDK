@@ -98,7 +98,7 @@ namespace SwqlStudio
         }
 
         private ConnectionInfo connectionInfo;
-        
+
         public ConnectionInfo ConnectionInfo
         {
             get { return connectionInfo; }
@@ -195,7 +195,7 @@ namespace SwqlStudio
 
         private void saveResultsAsToolStripMenuItem_Click(object sender, System.EventArgs e)
         {
-            var dlg = new SaveFileDialog {Filter = "CSV Files (*.csv)|*.csv|All Files (*.*)|*.*", DefaultExt = "csv"};
+            var dlg = new SaveFileDialog { Filter = "CSV Files (*.csv)|*.csv|All Files (*.*)|*.*", DefaultExt = "csv" };
 
             if (dlg.ShowDialog() == DialogResult.OK)
             {
@@ -213,18 +213,18 @@ namespace SwqlStudio
             {
                 ShowTabs(Tabs.Log);
                 var openFileDialog1 = new OpenFileDialog
-                                          {
-                                              InitialDirectory = "c:\\",
-                                              Filter = "log files (*.log)|*.log|All files (*.*)|*.*",
-                                              DefaultExt = "log",
-                                              FilterIndex = 2,
-                                              RestoreDirectory = true
-                                          };
+                {
+                    InitialDirectory = "c:\\",
+                    Filter = "log files (*.log)|*.log|All files (*.*)|*.*",
+                    DefaultExt = "log",
+                    FilterIndex = 2,
+                    RestoreDirectory = true
+                };
 
 
                 if (openFileDialog1.ShowDialog() == DialogResult.OK)
                 {
-                    var pbi = new PlaybackItem() { FileName = openFileDialog1.FileName, MultiThread = false, QueryTab = this};
+                    var pbi = new PlaybackItem() { FileName = openFileDialog1.FileName, MultiThread = false, QueryTab = this };
                     using (var nc = new NewConnection())
                     {
                         if (nc.ShowDialog(this) != DialogResult.OK)
@@ -257,13 +257,13 @@ namespace SwqlStudio
                 logTextbox.AppendText(line + "\r\n");
             }
         }
-        
+
         public void RunQuery()
         {
             var editor = sciTextEditorControl1;
             if (editor == null)
                 return;
-            
+
             string query = editor.GetSelectedOrAllText();
             if (String.IsNullOrEmpty(query) || query.Trim().Length == 0)
                 return;
@@ -291,10 +291,10 @@ namespace SwqlStudio
 
         void SubscriptionIndicationReceived(IndicationEventArgs e)
         {
-                subscriptionTab1.BeginInvoke(new Action<IndicationEventArgs>(subscriptionTab1.AddIndication), e);
+            subscriptionTab1.BeginInvoke(new Action<IndicationEventArgs>(subscriptionTab1.AddIndication), e);
         }
 
-        private static readonly string[] returnClauses = new[] {"RETURN XML AUTO", "RETURN XML AUTO STRICT", "RETURN XML RAW"};
+        private static readonly string[] returnClauses = new[] { "RETURN XML AUTO", "RETURN XML AUTO STRICT", "RETURN XML RAW" };
 
         private void queryWorker_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
         {
@@ -318,7 +318,7 @@ namespace SwqlStudio
                     arguments.Results = arguments.Connection.Query(arguments.Query, out queryPlan, out queryStats);
 
                     if (arguments.Results.ExtendedProperties.Contains("Errors") && arguments.Results.ExtendedProperties["Errors"] != null)
-                        arguments.Errors = (List<ErrorMessage>) arguments.Results.ExtendedProperties["Errors"];
+                        arguments.Errors = (List<ErrorMessage>)arguments.Results.ExtendedProperties["Errors"];
                 }
                 arguments.QueryPlan = queryPlan;
                 arguments.QueryStats = queryStats;
@@ -331,7 +331,7 @@ namespace SwqlStudio
             }
             catch (Exception ex)
             {
-                e.Result = new QueryErrorResult {ErrorMessage = ex.Message, Log = LogHeaderMessageInspector.LastReplyLog};
+                e.Result = new QueryErrorResult { ErrorMessage = ex.Message, Log = LogHeaderMessageInspector.LastReplyLog };
             }
         }
 
@@ -449,7 +449,7 @@ namespace SwqlStudio
             if (queryStats.DocumentElement == null) return rv;
             int i = 0;
 
-            foreach (XmlElement childNode in 
+            foreach (XmlElement childNode in
                 queryStats.DocumentElement.ChildNodes
                 .OfType<XmlElement>()
                 .Where(x => x.Name == "query"))
@@ -598,18 +598,18 @@ namespace SwqlStudio
 
             subscriptionWorker.ReportProgress(0, "Starting subscription...");
 
-                try
-                {
+            try
+            {
                 subscriptionId = ApplicationService.SubscriptionManager.CreateSubscription(ConnectionInfo, arg.Query,
                     SubscriptionIndicationReceived);
 
-                    subscriptionWorker.ReportProgress(0, "Waiting for notifications");
-                }
-            catch (Exception ex)
-                {
-                e.Result = new QueryErrorResult {ErrorMessage = ex.Message, Log = ex.ToString()};
-                }
+                subscriptionWorker.ReportProgress(0, "Waiting for notifications");
             }
+            catch (Exception ex)
+            {
+                e.Result = new QueryErrorResult { ErrorMessage = ex.Message, Log = ex.ToString() };
+            }
+        }
 
         private void subscriptionWorker_ProgressChanged(object sender, System.ComponentModel.ProgressChangedEventArgs e)
         {

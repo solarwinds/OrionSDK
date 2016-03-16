@@ -71,7 +71,7 @@ namespace SwqlStudio
                     }
 
                     CreateQueryTab(info.Title, info);
-                    
+
                     if (!alreadyExists)
                     {
                         objectExplorer.AddServer(new SwisMetaDataProvider(info), info);
@@ -202,7 +202,7 @@ namespace SwqlStudio
                 tabControl.TabPages.Remove(tabPage);
 
                 // Due MDA exception "RaceOnRCWCleanup error when closing a form with WebBrowser control", tab page is destroyed as below
-                tabPage.BeginInvoke((MethodInvoker) delegate { tabPage.Dispose(); });
+                tabPage.BeginInvoke((MethodInvoker)delegate { tabPage.Dispose(); });
             }
         }
 
@@ -527,7 +527,7 @@ namespace SwqlStudio
             noGroupingToolStripMenuItem.Checked = mode == EntityGroupingMode.Flat;
             byBaseTypeToolStripMenuItem.Checked = mode == EntityGroupingMode.ByBaseType;
             byHierarchyToolStripMenuItem.Checked = mode == EntityGroupingMode.ByHierarchy;
-            
+
             Settings.Default.EntityGroupingMode = mode.ToString();
             Settings.Default.Save();
 

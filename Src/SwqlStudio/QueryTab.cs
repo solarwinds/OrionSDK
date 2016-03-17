@@ -26,7 +26,8 @@ namespace SwqlStudio
             RawXml = 4,
             Log = 8,
             Subscription = 16,
-            ErrorMessages = 32
+            ErrorMessages = 32,
+            QueryStats = 64
         }
 
         private Font nullFont;
@@ -74,6 +75,8 @@ namespace SwqlStudio
                 tabControl1.TabPages.Add(notificationTab);
             if ((tabsToShow & Tabs.ErrorMessages) != 0)
                 tabControl1.TabPages.Add(errorMessagesTab);
+            if ((tabsToShow & Tabs.QueryStats) != 0)
+                tabControl1.TabPages.Add(queryStatsTab);
         }
 
         public string QueryText
@@ -95,7 +98,7 @@ namespace SwqlStudio
         }
 
         private ConnectionInfo connectionInfo;
-        
+
         public ConnectionInfo ConnectionInfo
         {
             get { return connectionInfo; }
@@ -170,30 +173,37 @@ namespace SwqlStudio
             }
             else if (dataGridView1.Focused)
             {
-                CopyActiveGridCellToClipboard();
+                CopyActiveGridCellToClipboard(dataGridView1);
             }
         }
 
         private void toolStripMenuItem2_Click(object sender, System.EventArgs e)
         {
-            CopyActiveGridCellToClipboard();
+            var visibleDataGridView =
+                    tabControl1.SelectedTab == queryStatsTab ? dataGridView2 : dataGridView1;
+
+            CopyActiveGridCellToClipboard(visibleDataGridView);
         }
 
-        private void CopyActiveGridCellToClipboard()
+        private void CopyActiveGridCellToClipboard(DataGridView visibleDataGridView)
         {
-            if (dataGridView1.GetCellCount(DataGridViewElementStates.Selected) > 0)
+            if (visibleDataGridView.GetCellCount(DataGridViewElementStates.Selected) > 0)
             {
-                Clipboard.SetDataObject(dataGridView1.GetClipboardContent());
+                Clipboard.SetDataObject(visibleDataGridView.GetClipboardContent());
             }
         }
 
         private void saveResultsAsToolStripMenuItem_Click(object sender, System.EventArgs e)
         {
-            var dlg = new SaveFileDialog {Filter = "CSV Files (*.csv)|*.csv|All Files (*.*)|*.*", DefaultExt = "csv"};
+            var dlg = new SaveFileDialog { Filter = "CSV Files (*.csv)|*.csv|All Files (*.*)|*.*", DefaultExt = "csv" };
 
             if (dlg.ShowDialog() == DialogResult.OK)
             {
-                new DataGridExporter().ExportAsCsv(dataGridView1, dlg.FileName);
+                var visibleDataGridView =
+                    tabControl1.SelectedTab == queryStatsTab ? dataGridView2 : dataGridView1;
+
+
+                new DataGridExporter().ExportAsCsv(visibleDataGridView, dlg.FileName);
             }
         }
 
@@ -203,18 +213,18 @@ namespace SwqlStudio
             {
                 ShowTabs(Tabs.Log);
                 var openFileDialog1 = new OpenFileDialog
-                                          {
-                                              InitialDirectory = "c:\\",
-                                              Filter = "log files (*.log)|*.log|All files (*.*)|*.*",
-                                              DefaultExt = "log",
-                                              FilterIndex = 2,
-                                              RestoreDirectory = true
-                                          };
+                {
+                    InitialDirectory = "c:\\",
+                    Filter = "log files (*.log)|*.log|All files (*.*)|*.*",
+                    DefaultExt = "log",
+                    FilterIndex = 2,
+                    RestoreDirectory = true
+                };
 
 
                 if (openFileDialog1.ShowDialog() == DialogResult.OK)
                 {
-                    var pbi = new PlaybackItem() { FileName = openFileDialog1.FileName, MultiThread = false, QueryTab = this};
+                    var pbi = new PlaybackItem() { FileName = openFileDialog1.FileName, MultiThread = false, QueryTab = this };
                     using (var nc = new NewConnection())
                     {
                         if (nc.ShowDialog(this) != DialogResult.OK)
@@ -247,13 +257,13 @@ namespace SwqlStudio
                 logTextbox.AppendText(line + "\r\n");
             }
         }
-        
+
         public void RunQuery()
         {
             var editor = sciTextEditorControl1;
             if (editor == null)
                 return;
-            
+
             string query = editor.GetSelectedOrAllText();
             if (String.IsNullOrEmpty(query) || query.Trim().Length == 0)
                 return;
@@ -284,7 +294,7 @@ namespace SwqlStudio
             subscriptionTab1.BeginInvoke(new Action<IndicationEventArgs>(subscriptionTab1.AddIndication), e);
         }
 
-        private static readonly string[] returnClauses = new[] {"RETURN XML AUTO", "RETURN XML AUTO STRICT", "RETURN XML RAW"};
+        private static readonly string[] returnClauses = new[] { "RETURN XML AUTO", "RETURN XML AUTO STRICT", "RETURN XML RAW" };
 
         private void queryWorker_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
         {
@@ -296,20 +306,22 @@ namespace SwqlStudio
                 stopWatch.Start();
 
                 XmlDocument queryPlan;
+                XmlDocument queryStats;
                 List<ErrorMessage> errorMessages;
                 if (returnClauses.Any(s => arguments.Query.Trim().EndsWith(s, StringComparison.OrdinalIgnoreCase)))
                 {
-                    arguments.RawXmlResults = arguments.Connection.QueryXml(arguments.Query, out queryPlan, out errorMessages);
+                    arguments.RawXmlResults = arguments.Connection.QueryXml(arguments.Query, out queryPlan, out errorMessages, out queryStats);
                     arguments.Errors = errorMessages;
                 }
                 else
                 {
-                    arguments.Results = arguments.Connection.Query(arguments.Query, out queryPlan);
+                    arguments.Results = arguments.Connection.Query(arguments.Query, out queryPlan, out queryStats);
 
                     if (arguments.Results.ExtendedProperties.Contains("Errors") && arguments.Results.ExtendedProperties["Errors"] != null)
-                        arguments.Errors = (List<ErrorMessage>) arguments.Results.ExtendedProperties["Errors"];
+                        arguments.Errors = (List<ErrorMessage>)arguments.Results.ExtendedProperties["Errors"];
                 }
                 arguments.QueryPlan = queryPlan;
+                arguments.QueryStats = queryStats;
                 arguments.Log = LogHeaderMessageInspector.LastReplyLog;
 
                 stopWatch.Stop();
@@ -319,7 +331,7 @@ namespace SwqlStudio
             }
             catch (Exception ex)
             {
-                e.Result = new QueryErrorResult {ErrorMessage = ex.Message, Log = LogHeaderMessageInspector.LastReplyLog};
+                e.Result = new QueryErrorResult { ErrorMessage = ex.Message, Log = LogHeaderMessageInspector.LastReplyLog };
             }
         }
 
@@ -387,6 +399,7 @@ namespace SwqlStudio
                 }
 
                 ShowQueryPlan(arg.QueryPlan);
+                ShowQueryStats(arg.QueryStats);
                 ShowLog(arg.Log);
             }
             else if (e.Result is QueryErrorResult)
@@ -397,6 +410,7 @@ namespace SwqlStudio
                 RawXmlTabVisible = false;
                 ResultsTabVisible = false;
                 QueryPlanTabVisible = false;
+                QueryStatsTabVisible = false;
                 ShowLog(error.Log);
                 MessageBox.Show(this, error.ErrorMessage, "SWQL Studio", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
@@ -406,6 +420,56 @@ namespace SwqlStudio
         {
             logTextbox.Text = lastReplyLog ?? string.Empty;
             LogTabVisible = !string.IsNullOrEmpty(lastReplyLog);
+        }
+
+        private void ShowQueryStats(XmlDocument queryStats)
+        {
+            if (queryStats != null)
+            {
+                QueryStatsTabVisible = true;
+                dataGridView2.DataSource = ParseQueryStats(queryStats);
+
+            }
+            else
+            {
+                QueryStatsTabVisible = false;
+                dataGridView2.DataSource = null;
+            }
+        }
+
+        private DataTable ParseQueryStats(XmlDocument queryStats)
+        {
+            var rv = new DataTable();
+            rv.Columns.Add("#");
+            rv.Columns.Add("Type");
+            rv.Columns.Add("Query");
+            rv.Columns.Add("Duration");
+            rv.Columns.Add("Rows");
+
+            if (queryStats.DocumentElement == null) return rv;
+            int i = 0;
+
+            foreach (XmlElement childNode in
+                queryStats.DocumentElement.ChildNodes
+                .OfType<XmlElement>()
+                .Where(x => x.Name == "query"))
+            {
+                var row = rv.NewRow();
+                row[0] = ++i;
+                row[1] = GetAttr(childNode.Attributes, "type");
+                row[2] = childNode.ChildNodes.OfType<XmlElement>().Single().InnerText;
+                row[3] = GetAttr(childNode.Attributes, "elapsedMs");
+                row[4] = GetAttr(childNode.Attributes, "rows");
+
+                rv.Rows.Add(row);
+            }
+
+            return rv;
+        }
+
+        private object GetAttr(XmlAttributeCollection attributes, string attrName)
+        {
+            return (from XmlAttribute obj in attributes where obj.Name == attrName select obj.Value).FirstOrDefault();
         }
 
         private void ShowQueryPlan(XmlDocument queryPlan)
@@ -461,6 +525,19 @@ namespace SwqlStudio
             }
         }
 
+        private bool QueryStatsTabVisible
+        {
+            get { return tabControl1.TabPages.Contains(queryStatsTab); }
+
+            set
+            {
+                if (QueryStatsTabVisible && !value)
+                    tabControl1.TabPages.Remove(queryStatsTab);
+                else if (!QueryStatsTabVisible && value)
+                    tabControl1.TabPages.Add(queryStatsTab);
+            }
+        }
+
         private bool RawXmlTabVisible
         {
             get { return tabControl1.TabPages.Contains(rawXmlTab); }
@@ -493,6 +570,7 @@ namespace SwqlStudio
             public string Query { get; set; }
             public DataTable Results { get; set; }
             public XmlDocument QueryPlan { get; set; }
+            public XmlDocument QueryStats { get; set; }
             public TimeSpan QueryTime { get; set; }
             public XmlDocument RawXmlResults { get; set; }
             public string Log { get; set; }
@@ -529,7 +607,7 @@ namespace SwqlStudio
             }
             catch (Exception ex)
             {
-                e.Result = new QueryErrorResult {ErrorMessage = ex.Message, Log = ex.ToString()};
+                e.Result = new QueryErrorResult { ErrorMessage = ex.Message, Log = ex.ToString() };
             }
         }
 

@@ -42,7 +42,9 @@ namespace SwqlStudio
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.resultTab = new System.Windows.Forms.TabPage();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.dataGridView2 = new System.Windows.Forms.DataGridView();
             this.queryPlanTab = new System.Windows.Forms.TabPage();
+            this.queryStatsTab = new System.Windows.Forms.TabPage();
             this.xmlBrowser1 = new SwqlStudio.XmlRender.XmlBrowser();
             this.rawXmlTab = new System.Windows.Forms.TabPage();
             this.rawXmlBrowser = new SwqlStudio.XmlRender.XmlBrowser();
@@ -62,7 +64,9 @@ namespace SwqlStudio
             this.tabControl1.SuspendLayout();
             this.resultTab.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
             this.queryPlanTab.SuspendLayout();
+            this.queryStatsTab.SuspendLayout();
             this.rawXmlTab.SuspendLayout();
             this.errorMessagesTab.SuspendLayout();
             this.logTab.SuspendLayout();
@@ -142,6 +146,7 @@ namespace SwqlStudio
             this.tabControl1.Alignment = System.Windows.Forms.TabAlignment.Bottom;
             this.tabControl1.Controls.Add(this.resultTab);
             this.tabControl1.Controls.Add(this.queryPlanTab);
+            this.tabControl1.Controls.Add(this.queryStatsTab);
             this.tabControl1.Controls.Add(this.rawXmlTab);
             this.tabControl1.Controls.Add(this.errorMessagesTab);
             this.tabControl1.Controls.Add(this.logTab);
@@ -183,6 +188,25 @@ namespace SwqlStudio
             this.dataGridView1.TabIndex = 0;
             this.dataGridView1.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dataGridView1_CellFormatting);
             // 
+            // dataGridView2
+            // 
+            this.dataGridView2.AutoGenerateColumns = true;
+            this.dataGridView2.AllowUserToAddRows = false;
+            this.dataGridView2.AllowUserToDeleteRows = false;
+            this.dataGridView2.BackgroundColor = System.Drawing.SystemColors.Window;
+            this.dataGridView2.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.dataGridView2.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.EnableWithoutHeaderText;
+            this.dataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView2.ContextMenuStrip = this.gridContextMenuStrip;
+            this.dataGridView2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dataGridView2.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
+            this.dataGridView2.Location = new System.Drawing.Point(0, 0);
+            this.dataGridView2.Margin = new System.Windows.Forms.Padding(0);
+            this.dataGridView2.Name = "dataGridView2";
+            this.dataGridView2.ReadOnly = true;
+            this.dataGridView2.Size = new System.Drawing.Size(466, 206);
+            this.dataGridView2.TabIndex = 0;
+            // 
             // queryPlanTab
             // 
             this.queryPlanTab.Controls.Add(this.xmlBrowser1);
@@ -192,6 +216,16 @@ namespace SwqlStudio
             this.queryPlanTab.TabIndex = 2;
             this.queryPlanTab.Text = "Query Plan";
             this.queryPlanTab.UseVisualStyleBackColor = true;
+            // 
+            // queryStatsTab
+            // 
+            this.queryStatsTab.Controls.Add(this.dataGridView2);
+            this.queryStatsTab.Location = new System.Drawing.Point(4, 4);
+            this.queryStatsTab.Name = "queryStatsTab";
+            this.queryStatsTab.Size = new System.Drawing.Size(466, 206);
+            this.queryStatsTab.TabIndex = 2;
+            this.queryStatsTab.Text = "Query Stats";
+            this.queryStatsTab.UseVisualStyleBackColor = true;
             // 
             // xmlBrowser1
             // 
@@ -326,7 +360,9 @@ namespace SwqlStudio
             this.tabControl1.ResumeLayout(false);
             this.resultTab.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).EndInit();
             this.queryPlanTab.ResumeLayout(false);
+            this.queryStatsTab.ResumeLayout(false);
             this.rawXmlTab.ResumeLayout(false);
             this.errorMessagesTab.ResumeLayout(false);
             this.logTab.ResumeLayout(false);
@@ -344,12 +380,14 @@ namespace SwqlStudio
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage resultTab;
         private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridView dataGridView2;
         private QueryStatusBar queryStatusBar1;
         private System.Windows.Forms.ContextMenuStrip gridContextMenuStrip;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem2;
         private System.Windows.Forms.ToolStripMenuItem saveResultsAsToolStripMenuItem;
         private System.ComponentModel.BackgroundWorker queryWorker;
         private System.Windows.Forms.TabPage queryPlanTab;
+        private System.Windows.Forms.TabPage queryStatsTab;
         private XmlRender.XmlBrowser xmlBrowser1;
         private XmlRender.XmlBrowser errorMessagesBrowser;
         private System.Windows.Forms.TabPage rawXmlTab;

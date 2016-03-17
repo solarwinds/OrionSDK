@@ -124,7 +124,7 @@ namespace SwqlStudio
                                             new ServerType() { Type = "Orion (v2) Compressed", IsAuthenticationRequired = true },
                                             new ServerType() { Type = "Orion (v2) AD Compressed", IsAuthenticationRequired = false },
                                             new ServerType() { Type = "Orion (v3) Compressed", IsAuthenticationRequired = true },
-                                            new ServerType() { Type = "Orion (v3) AD Compressed", IsAuthenticationRequired = false },                        
+                                            new ServerType() { Type = "Orion (v3) AD Compressed", IsAuthenticationRequired = false },
                                         });
 
                 }
@@ -140,7 +140,7 @@ namespace SwqlStudio
         {
             if (_proxy == null || (_proxy != null && (_proxy.Channel.State == CommunicationState.Closed || _proxy.Channel.State == CommunicationState.Faulted)))
             {
-                if(_proxy != null)
+                if (_proxy != null)
                     _proxy.Dispose();
 
                 _proxy = _infoServiceType.CreateProxy(_server);
@@ -168,19 +168,19 @@ namespace SwqlStudio
 
         private void EnsureConnection()
         {
-            if(!IsConnected)
+            if (!IsConnected)
                 Connect();
         }
 
-        public IEnumerable<T> Query<T>(string swql) where T: new()
+        public IEnumerable<T> Query<T>(string swql) where T : new()
         {
             EnsureConnection();
 
-            using(var context = new InformationServiceContext( _proxy))
-            using(var serviceQuery = context.CreateQuery<T>(swql))
+            using (var context = new InformationServiceContext(_proxy))
+            using (var serviceQuery = context.CreateQuery<T>(swql))
             {
                 var enumerator = serviceQuery.GetEnumerator();
-                while(enumerator.MoveNext())
+                while (enumerator.MoveNext())
                 {
                     yield return enumerator.Current;
                 }
@@ -190,19 +190,21 @@ namespace SwqlStudio
         public DataTable Query(string swql)
         {
             XmlDocument dummy;
-            return Query(swql, out dummy);
+            XmlDocument dummy2;
+            return Query(swql, out dummy, out dummy2);
         }
 
-        public DataTable Query(string swql, out XmlDocument queryPlan)
+        public DataTable Query(string swql, out XmlDocument queryPlan, out XmlDocument queryStats)
         {
             EnsureConnection();
 
             XmlDocument tmpQueryPlan = null; // can't reference out parameter from closure
+            XmlDocument tmpQueryStats = null; // can't reference out parameter from closure
 
             DataTable result = DoWithExceptionTranslation(
                 delegate
                     {
-                        using (InformationServiceCommand command = new InformationServiceCommand(swql, Connection) {ApplicationTag = "SWQL Studio"})
+                        using (InformationServiceCommand command = new InformationServiceCommand(swql, Connection) { ApplicationTag = "SWQL Studio" })
                         {
                             foreach (var param in QueryParameters)
                                 command.Parameters.AddWithValue(param.Key, param.Value);
@@ -212,11 +214,13 @@ namespace SwqlStudio
                             dataAdapter.Fill(resultDataTable);
 
                             tmpQueryPlan = dataAdapter.QueryPlan;
+                            tmpQueryStats = dataAdapter.QueryStats;
                             return resultDataTable;
                         }
                     });
 
             queryPlan = tmpQueryPlan;
+            queryStats = tmpQueryStats;
             return result;
         }
 
@@ -275,17 +279,17 @@ namespace SwqlStudio
             throw new ApplicationException(msg, inner);
         }
 
-        public XmlDocument QueryXml(string query, out XmlDocument queryPlan, out List<ErrorMessage> errorMessages)
+        public XmlDocument QueryXml(string query, out XmlDocument queryPlan, out List<ErrorMessage> errorMessages, out XmlDocument queryStats)
         {
             EnsureConnection();
             Message results;
             errorMessages = null;
 
-            using (new SwisSettingsContext { DataProviderTimeout = TimeSpan.FromSeconds(30), ApplicationTag = "SWQL Studio", AppendErrors = true})
+            using (new SwisSettingsContext { DataProviderTimeout = TimeSpan.FromSeconds(30), ApplicationTag = "SWQL Studio", AppendErrors = true })
             {
                 results = _proxy.Query(new QueryXmlRequest(query, QueryParameters));
             }
-            
+
             XmlReader reader = results.GetReaderAtBodyContents();
             var body = new XmlDocument(reader.NameTable);
             body.Load(reader);
@@ -332,7 +336,9 @@ namespace SwqlStudio
             {
                 queryPlan = null;
             }
-            
+
+            queryStats = null;
+
             return body;
         }
 
@@ -359,9 +365,9 @@ namespace SwqlStudio
         internal ConnectionInfo Copy()
         {
             return new ConnectionInfo(_server, _username, _password, _infoServiceType.ServiceType)
-                       {
-                           QueryParameters = QueryParameters
-                       };
+            {
+                QueryParameters = QueryParameters
+            };
         }
 
         protected bool Equals(ConnectionInfo other)

@@ -88,6 +88,7 @@
     <Compile Include="Constants.cs" />
     <Compile Include="ErrorMessage.cs" />
     <Compile Include="InformationServiceClient\InformationServiceXmlReader.cs" />
+    <Compile Include="InfoServiceDefaultBehaviour.cs" />
     <Compile Include="PubSub\INotificationDeliveryService.cs" />
     <Compile Include="IStreamInformationService.cs" />
     <Compile Include="InfoServiceActivityMonitor.cs" />

@@ -176,6 +176,7 @@ namespace SolarWinds.InformationService.Contract2
             // ???: how can I detect that channel binding is securited            
 
             _activityMonitor = new InfoServiceActivityMonitor();
+            _channelFactory.Endpoint.Behaviors.Add(new InfoServiceDefaultBehaviour());
             _channelFactory.Endpoint.Behaviors.Add(_activityMonitor);
         }
 

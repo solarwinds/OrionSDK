@@ -4,7 +4,7 @@ This project contains the samples, SWQL Studio graphical query tool, and PowerSh
 
 ## Installer
 
-You can download a pre-compiled [installer for the Orion SDK tools](http://knowledgebase.solarwinds.com/kb/questions/5811/Downloading+the+SolarWinds+Orion+SDK) from SolarWinds.
+You can download a pre-compiled [installer for the Orion SDK tools](https://github.com/solarwinds/OrionSDK/releases) from GitHub.
 
 ## Wiki
 

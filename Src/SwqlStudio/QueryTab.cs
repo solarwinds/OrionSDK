@@ -443,8 +443,8 @@ namespace SwqlStudio
             rv.Columns.Add("#");
             rv.Columns.Add("Type");
             rv.Columns.Add("Query");
-            rv.Columns.Add("Duration");
-            rv.Columns.Add("Rows");
+            rv.Columns.Add("Duration", typeof(long));
+            rv.Columns.Add("Rows", typeof(long));
 
             if (queryStats.DocumentElement == null) return rv;
             int i = 0;
@@ -458,13 +458,26 @@ namespace SwqlStudio
                 row[0] = ++i;
                 row[1] = GetAttr(childNode.Attributes, "type");
                 row[2] = childNode.ChildNodes.OfType<XmlElement>().Single().InnerText;
-                row[3] = GetAttr(childNode.Attributes, "elapsedMs");
-                row[4] = GetAttr(childNode.Attributes, "rows");
+                row[3] = ConvertToInt64OrDbNull(GetAttr(childNode.Attributes, "elapsedMs"));
+                row[4] = ConvertToInt64OrDbNull(GetAttr(childNode.Attributes, "rows"));
 
                 rv.Rows.Add(row);
             }
 
             return rv;
+        }
+
+        private static object ConvertToInt64OrDbNull(object value)
+        {
+            if (value != null)
+            {
+                long parsed;
+                if (long.TryParse(value.ToString(), out parsed))
+                {
+                    return parsed;
+                }
+            }
+            return DBNull.Value;
         }
 
         private object GetAttr(XmlAttributeCollection attributes, string attrName)

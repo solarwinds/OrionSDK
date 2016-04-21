@@ -79,7 +79,8 @@ namespace SwqlStudio
                                                orderby dirVer.Ver descending
                                                select dir).FirstOrDefault();
 
-                        CopyUserConfigSettings(currentVersion, userConfigFileName, currentVersionConfigFileDir, previousSettingsDir);
+                        if(previousSettingsDir != null)
+                            CopyUserConfigSettings(currentVersion, userConfigFileName, currentVersionConfigFileDir, previousSettingsDir);
                     }
                 }
             }
@@ -91,8 +92,8 @@ namespace SwqlStudio
 
         private static void CopyUserConfigSettings(Version currentVersion, string userConfigFileName, DirectoryInfo currentVersionConfigFileDir, DirectoryInfo previousSettingsDir)
         {
-            string previousVersionConfigFile = string.Concat(previousSettingsDir.FullName, @"\", userConfigFileName);
-            string currentVersionConfigFile = string.Concat(currentVersionConfigFileDir.FullName, @"\", userConfigFileName);
+            string previousVersionConfigFile = Path.Combine(previousSettingsDir.FullName, userConfigFileName);
+            string currentVersionConfigFile = Path.Combine(currentVersionConfigFileDir.FullName, userConfigFileName);
 
             if (!currentVersionConfigFileDir.Exists)
             {

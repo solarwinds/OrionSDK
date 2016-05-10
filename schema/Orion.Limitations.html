@@ -67,24 +67,100 @@
         <td>System.String</td>
         <td />
       </tr>
+      <tr>
+        <td>InstanceSiteId</td>
+        <td>System.Int32</td>
+        <td>
+          Default='0'.
+        </td>
+      </tr>
     </table>
     <h2>Verbs</h2>
     <table>
       <tr>
         <th>Name</th>
         <th>Summary</th>
+        <th>Parameters</th>
+        <th>Returns</th>
       </tr>
       <tr>
         <td>CreateLimitation</td>
-        <td>Creates Limitations and optionally assignes them to Accounts. Only Admin accounts can ivoke this verb.</td>
+        <td>Creates Limitations and optionally assignes them to Accounts.</td>
+        <td>
+          <table>
+            <tr>
+              <th>Name</th>
+              <th>Summary</th>
+            </tr>
+            <tr>
+              <td>limitationTypeID</td>
+              <td>required. LimitationTypeID from Orion.LimitationTypes.</td>
+            </tr>
+            <tr>
+              <td>selection</td>
+              <td>required if Limitation is of type "Selection" as defined in Orion.LimitationTypes. A string that will be used to match one value against the Table &amp; Field defined by corresponding Orion.LimitationType.</td>
+            </tr>
+            <tr>
+              <td>checkboxItems</td>
+              <td>required if Limitation is of type "Checkbox" as defined in Orion.LimitationTypes. An array of strings used to match multiple values against the Table &amp; Field defined by corresponding Orion.LimitationType.</td>
+            </tr>
+            <tr>
+              <td>pattern</td>
+              <td>required if Limitation is of type "Pattern" as defined in Orion.LimitationTypes. A string that will be used to match multiple values as a text search pattern against the Table &amp; Field defined by corresponding Orion.LimitationType.</td>
+            </tr>
+            <tr>
+              <td>accountID</td>
+              <td>optional. Account ID as defined in Orion.Accounts. Recommended to always specify this parameter. Advanced usage: omit this parameter to create an un-assigned Limitation, as such it will only be used if explicitly specified using "WITH LIMITATION ID" SWQL expression.</td>
+            </tr>
+          </table>
+        </td>
+        <td>ID of the newly created Orion.Limitation instance.</td>
       </tr>
       <tr>
         <td>UpdateLimitation</td>
         <td>Updates Limitation to a new definition i.e. new set of items it shoud match.</td>
+        <td>
+          <table>
+            <tr>
+              <th>Name</th>
+              <th>Summary</th>
+            </tr>
+            <tr>
+              <td>limitationID</td>
+              <td>required. Limitation ID from Orion.Limitations.</td>
+            </tr>
+            <tr>
+              <td>selection</td>
+              <td>required if Limitation is of type "Selection" as defined in Orion.LimitationTypes. A string that will be used to match one value against the Table &amp; Field defined by corresponding Orion.LimitationType.</td>
+            </tr>
+            <tr>
+              <td>checkboxItems</td>
+              <td>required if Limitation is of type "Checkbox" as defined in Orion.LimitationTypes. An array of strings used to match multiple values against the Table &amp; Field defined by corresponding Orion.LimitationType.</td>
+            </tr>
+            <tr>
+              <td>pattern</td>
+              <td>required if Limitation is of type "Pattern" as defined in Orion.LimitationTypes. A string that will be used to match multiple values as a text search pattern against the Table &amp; Field defined by corresponding Orion.LimitationType.</td>
+            </tr>
+          </table>
+        </td>
+        <td />
       </tr>
       <tr>
         <td>DeleteLimitation</td>
         <td>Deletes Limitation and removes it from an Account it was assigned to previously.</td>
+        <td>
+          <table>
+            <tr>
+              <th>Name</th>
+              <th>Summary</th>
+            </tr>
+            <tr>
+              <td>limitationID</td>
+              <td>required. Limitation ID from Orion.Limitations.</td>
+            </tr>
+          </table>
+        </td>
+        <td />
       </tr>
     </table>
   </body>

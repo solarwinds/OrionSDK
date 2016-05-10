@@ -36,7 +36,7 @@
       </tr>
       <tr>
         <td>NCMJobType</td>
-        <td>System.String</td>
+        <td>System.Int32</td>
         <td />
       </tr>
       <tr>
@@ -46,6 +46,11 @@
       </tr>
       <tr>
         <td>LastDateRun</td>
+        <td>System.DateTime</td>
+        <td />
+      </tr>
+      <tr>
+        <td>NextDateRunUtc</td>
         <td>System.DateTime</td>
         <td />
       </tr>
@@ -66,12 +71,27 @@
       </tr>
       <tr>
         <td>Status</td>
-        <td>System.String</td>
+        <td>System.Int32</td>
         <td />
       </tr>
       <tr>
         <td>Log</td>
         <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>CompletedSubJobs</td>
+        <td>System.Int32</td>
+        <td />
+      </tr>
+      <tr>
+        <td>AllSubJobs</td>
+        <td>System.Int32</td>
+        <td />
+      </tr>
+      <tr>
+        <td>IsHidden</td>
+        <td>System.Boolean</td>
         <td />
       </tr>
       <tr>
@@ -93,6 +113,13 @@
         <td>Uri</td>
         <td>System.String</td>
         <td />
+      </tr>
+      <tr>
+        <td>InstanceSiteId</td>
+        <td>System.Int32</td>
+        <td>
+          Default='0'.
+        </td>
       </tr>
     </table>
   </body>

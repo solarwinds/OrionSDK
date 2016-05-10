@@ -33,134 +33,117 @@
       <tr>
         <td>ApplicationID</td>
         <td>System.Int32</td>
-        <td>The unique integer representation of application.'
-        </td>
+        <td>The unique integer representation of application.</td>
       </tr>
       <tr>
         <td>Name</td>
         <td>System.String</td>
-        <td>The string value that contains the name of the application.'
-        </td>
+        <td>The string value that contains the name of the application.</td>
       </tr>
       <tr>
         <td>DisplayName</td>
         <td>System.String</td>
-        <td>String value containing a user friendly name of the Application.'
-        </td>
+        <td>String value containing a user friendly name of the Application.</td>
       </tr>
       <tr>
         <td>NodeID</td>
         <td>System.Int32</td>
-        <td>The unique integer representation of parent node.'
-        </td>
+        <td>The unique integer representation of parent node.</td>
       </tr>
       <tr>
         <td>ApplicationTemplateID</td>
         <td>System.Int32</td>
-        <td>The unique integer representation of application template.'
-        </td>
+        <td>The unique integer representation of application template.</td>
       </tr>
       <tr>
         <td>Unmanaged</td>
         <td>System.Boolean</td>
-        <td>The boolean value that specifies if application is unmanaged.'
-        </td>
+        <td>The boolean value that specifies if application is unmanaged.</td>
       </tr>
       <tr>
         <td>UnmanageFrom</td>
         <td>System.DateTime</td>
-        <td>The date and time from which application is unmanaged.'
-        </td>
+        <td>The date and time from which application is unmanaged.</td>
       </tr>
       <tr>
         <td>UnmanageUntil</td>
         <td>System.DateTime</td>
-        <td>The date and time until which application is unmanaged.'
-        </td>
+        <td>The date and time until which application is unmanaged.</td>
       </tr>
       <tr>
         <td>Created</td>
         <td>System.DateTime</td>
-        <td>The date and time when application was created.'
-        </td>
+        <td>The date and time when application was created.</td>
       </tr>
       <tr>
         <td>LastModified</td>
         <td>System.DateTime</td>
-        <td>The date and time of the last application modification.'
-        </td>
+        <td>The date and time of the last application modification.</td>
       </tr>
       <tr>
         <td>ID</td>
         <td>System.Int32</td>
-        <td>The unique integer representation of application.'
-        </td>
+        <td>The unique integer representation of application.</td>
       </tr>
       <tr>
         <td>DetailsUrl</td>
         <td>System.String</td>
-        <td>URL to application details page. Used in alerting.'
-        </td>
+        <td>URL to application details page. Used in alerting.</td>
       </tr>
       <tr>
         <td>FullyQualifiedName</td>
         <td>System.String</td>
-        <td>The string value that contains the fully qualified name of parent node.'
-        </td>
+        <td>The string value that contains the fully qualified name of parent node.</td>
       </tr>
       <tr>
         <td>ComponentOrderSettingLevel</td>
         <td>System.Int32</td>
-        <td>The integer value that contains the component order setting level.'
-        </td>
+        <td>The integer value that contains the component order setting level.</td>
       </tr>
       <tr>
         <td>CustomApplicationType</td>
         <td>System.String</td>
-        <td>The string value that contains the custom application type.'
-        </td>
+        <td>The string value that contains the custom application type.</td>
       </tr>
       <tr>
         <td>HasCredentials</td>
         <td>System.Boolean</td>
-        <td>The boolean value that specifies if application has credentials.'
-        </td>
+        <td>The boolean value that specifies if application has credentials.</td>
       </tr>
       <tr>
         <td>Description</td>
         <td>System.String</td>
-        <td>The string value that contains application entity description.'
-        </td>
+        <td>The string value that contains application entity description.</td>
       </tr>
       <tr>
         <td>Status</td>
         <td>System.Int32</td>
-        <td>The status of a application.'
-        </td>
+        <td>The status of a application.</td>
       </tr>
       <tr>
         <td>StatusDescription</td>
         <td>System.String</td>
-        <td>The string value that contains application status description.'
-        </td>
+        <td>The string value that contains application status description.</td>
       </tr>
       <tr>
         <td>Image</td>
         <td>System.String</td>
-        <td>This property is not used.'
-        </td>
+        <td>This property is not used.</td>
       </tr>
       <tr>
         <td>Uri</td>
         <td>System.String</td>
-        <td>String value containing SWIS Entity URI path.'
-        </td>
+        <td>String value containing SWIS Entity URI path.</td>
+      </tr>
+      <tr>
+        <td>PrimaryGroupID</td>
+        <td>System.Int32</td>
+        <td>The integer value that specifies the Orion group identifier if the application is created by template group assignment functionality.</td>
       </tr>
       <tr>
         <td>InstanceType</td>
         <td>System.String</td>
-        <td>String value containing a concrete type of the Application.'
-        </td>
+        <td>String value containing a concrete type of the Application.</td>
       </tr>
       <tr>
         <td>Status</td>
@@ -238,6 +221,13 @@
         <td>Uri</td>
         <td>System.String</td>
         <td />
+      </tr>
+      <tr>
+        <td>InstanceSiteId</td>
+        <td>System.Int32</td>
+        <td>
+          Default='0'.
+        </td>
       </tr>
       <tr>
         <td>CustomProperties</td>
@@ -335,26 +325,38 @@
       <tr>
         <th>Name</th>
         <th>Summary</th>
+        <th>Parameters</th>
+        <th>Returns</th>
       </tr>
       <tr>
         <td>Unmanage</td>
         <td>Unmanage existed application.</td>
+        <td />
+        <td />
       </tr>
       <tr>
         <td>Remanage</td>
         <td>Remanage existed application.</td>
+        <td />
+        <td />
       </tr>
       <tr>
         <td>CreateApplication</td>
         <td>Create new application.</td>
+        <td />
+        <td />
       </tr>
       <tr>
         <td>DeleteApplication</td>
         <td>Delete existed application.</td>
+        <td />
+        <td />
       </tr>
       <tr>
         <td>PollNow</td>
         <td>Poll existed application.</td>
+        <td />
+        <td />
       </tr>
     </table>
   </body>

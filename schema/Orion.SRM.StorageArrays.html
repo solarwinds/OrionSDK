@@ -138,6 +138,16 @@
         <td />
       </tr>
       <tr>
+        <td>DataReduction</td>
+        <td>System.Single</td>
+        <td />
+      </tr>
+      <tr>
+        <td>TotalReduction</td>
+        <td>System.Single</td>
+        <td />
+      </tr>
+      <tr>
         <td>IOPSTotal</td>
         <td>System.Single</td>
         <td />
@@ -228,6 +238,11 @@
         <td />
       </tr>
       <tr>
+        <td>TopologyInterval</td>
+        <td>System.Int32</td>
+        <td />
+      </tr>
+      <tr>
         <td>LastSync</td>
         <td>System.DateTime</td>
         <td />
@@ -279,6 +294,21 @@
       </tr>
       <tr>
         <td>Created</td>
+        <td>System.DateTime</td>
+        <td />
+      </tr>
+      <tr>
+        <td>LastCapacityPollTime</td>
+        <td>System.DateTime</td>
+        <td />
+      </tr>
+      <tr>
+        <td>LastPerformancePollTime</td>
+        <td>System.DateTime</td>
+        <td />
+      </tr>
+      <tr>
+        <td>LastTopologyPollTime</td>
         <td>System.DateTime</td>
         <td />
       </tr>
@@ -380,6 +410,13 @@
         <td>Uri</td>
         <td>System.String</td>
         <td />
+      </tr>
+      <tr>
+        <td>InstanceSiteId</td>
+        <td>System.Int32</td>
+        <td>
+          Default='0'.
+        </td>
       </tr>
       <tr>
         <td>IOPSTotalThreshold</td>
@@ -632,6 +669,21 @@
         <td>
         Defined by relationship Orion.SRM.TemplatesReferencesStorageArrays (System.Reference)
       </td>
+      </tr>
+    </table>
+    <h2>Verbs</h2>
+    <table>
+      <tr>
+        <th>Name</th>
+        <th>Summary</th>
+        <th>Parameters</th>
+        <th>Returns</th>
+      </tr>
+      <tr>
+        <td>GetLicensedArrays</td>
+        <td>Will return list of Storage Array IDs which are licensed.</td>
+        <td />
+        <td />
       </tr>
     </table>
   </body>

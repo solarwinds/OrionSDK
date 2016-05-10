@@ -133,6 +133,13 @@
         <td />
       </tr>
       <tr>
+        <td>InstanceSiteId</td>
+        <td>System.Int32</td>
+        <td>
+          Default='0'.
+        </td>
+      </tr>
+      <tr>
         <td>AlertConfigurations</td>
         <td>
           <a href="Orion.AlertConfigurations.html">Orion.AlertConfigurations</a>
@@ -142,12 +149,12 @@
       </td>
       </tr>
       <tr>
-        <td>Node</td>
+        <td>AlertHistory</td>
         <td>
-          <a href="Orion.Nodes.html">Orion.Nodes</a>
+          <a href="Orion.AlertHistory.html">Orion.AlertHistory</a>
         </td>
         <td>
-        Defined by relationship Orion.NodesReferencesAlertObjects (System.Reference)
+        Defined by relationship Orion.AlertHistoryToAlertObjects (System.Reference)
       </td>
       </tr>
       <tr>
@@ -160,12 +167,12 @@
       </td>
       </tr>
       <tr>
-        <td>AlertHistory</td>
+        <td>Node</td>
         <td>
-          <a href="Orion.AlertHistory.html">Orion.AlertHistory</a>
+          <a href="Orion.Nodes.html">Orion.Nodes</a>
         </td>
         <td>
-        Defined by relationship Orion.AlertHistoryToAlertObjects (System.Reference)
+        Defined by relationship Orion.NodesReferencesAlertObjects (System.Reference)
       </td>
       </tr>
     </table>

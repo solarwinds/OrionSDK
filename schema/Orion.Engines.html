@@ -288,12 +288,28 @@
         <td />
       </tr>
       <tr>
+        <td>InstanceSiteId</td>
+        <td>System.Int32</td>
+        <td>
+          Default='0'.
+        </td>
+      </tr>
+      <tr>
         <td>Agents</td>
         <td>
           <a href="Orion.AgentManagement.Agent.html">Orion.AgentManagement.Agent</a>
         </td>
         <td>
         Defined by relationship Orion.AgentManagement.EngineReferencesAgent (System.Reference)
+      </td>
+      </tr>
+      <tr>
+        <td>Probe</td>
+        <td>
+          <a href="Orion.NetPath.Probes.html">Orion.NetPath.Probes</a>
+        </td>
+        <td>
+        Defined by relationship Orion.NetPath.EnginesReferencesProbes (System.Reference)
       </td>
       </tr>
       <tr>
@@ -312,6 +328,15 @@
         </td>
         <td>
         Defined by relationship Orion.EnginesHostsEngineProperties (System.Hosting)
+      </td>
+      </tr>
+      <tr>
+        <td>PollingUsage</td>
+        <td>
+          <a href="Orion.PollingUsage.html">Orion.PollingUsage</a>
+        </td>
+        <td>
+        Defined by relationship Orion.EnginesHostsPollingUsage (System.Hosting)
       </td>
       </tr>
       <tr>

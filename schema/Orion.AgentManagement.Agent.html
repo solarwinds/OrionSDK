@@ -167,6 +167,16 @@
         <td />
       </tr>
       <tr>
+        <td>OSType</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>OSDistro</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
         <td>ResponseTime</td>
         <td>System.Int32</td>
         <td />
@@ -197,12 +207,28 @@
         <td />
       </tr>
       <tr>
+        <td>InstanceSiteId</td>
+        <td>System.Int32</td>
+        <td>
+          Default='0'.
+        </td>
+      </tr>
+      <tr>
         <td>Plugins</td>
         <td>
           <a href="Orion.AgentManagement.AgentPlugin.html">Orion.AgentManagement.AgentPlugin</a>
         </td>
         <td>
         Defined by relationship Orion.AgentManagement.AgentHostsPlugin (System.Hosting)
+      </td>
+      </tr>
+      <tr>
+        <td>Probe</td>
+        <td>
+          <a href="Orion.NetPath.Probes.html">Orion.NetPath.Probes</a>
+        </td>
+        <td>
+        Defined by relationship Orion.NetPath.AgentReferencesProbes (System.Reference)
       </td>
       </tr>
       <tr>
@@ -229,53 +255,79 @@
       <tr>
         <th>Name</th>
         <th>Summary</th>
+        <th>Parameters</th>
+        <th>Returns</th>
       </tr>
       <tr>
         <td>Deploy</td>
+        <td />
+        <td />
         <td />
       </tr>
       <tr>
         <td>DeployToNode</td>
         <td />
+        <td />
+        <td />
       </tr>
       <tr>
         <td>DeployPlugin</td>
+        <td />
+        <td />
         <td />
       </tr>
       <tr>
         <td>RedeployPlugin</td>
         <td />
+        <td />
+        <td />
       </tr>
       <tr>
         <td>UninstallPlugin</td>
+        <td />
+        <td />
         <td />
       </tr>
       <tr>
         <td>Uninstall</td>
         <td />
+        <td />
+        <td />
       </tr>
       <tr>
         <td>Delete</td>
+        <td />
+        <td />
         <td />
       </tr>
       <tr>
         <td>ApproveReboot</td>
         <td />
+        <td />
+        <td />
       </tr>
       <tr>
         <td>ApproveUpdate</td>
+        <td />
+        <td />
         <td />
       </tr>
       <tr>
         <td>TestWithEngine</td>
         <td />
+        <td />
+        <td />
       </tr>
       <tr>
         <td>AssignToEngine</td>
         <td />
+        <td />
+        <td />
       </tr>
       <tr>
         <td>ValidateDeploymentCredentials</td>
+        <td />
+        <td />
         <td />
       </tr>
     </table>

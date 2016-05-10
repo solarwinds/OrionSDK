@@ -73,7 +73,7 @@
         <td />
       </tr>
       <tr>
-        <td>propertyID</td>
+        <td>PropertyID</td>
         <td>System.Int32</td>
         <td />
       </tr>
@@ -192,20 +192,44 @@
         <td>System.String</td>
         <td />
       </tr>
+      <tr>
+        <td>InstanceSiteId</td>
+        <td>System.Int32</td>
+        <td>
+          Default='0'.
+        </td>
+      </tr>
     </table>
     <h2>Verbs</h2>
     <table>
       <tr>
         <th>Name</th>
         <th>Summary</th>
+        <th>Parameters</th>
+        <th>Returns</th>
       </tr>
       <tr>
         <td>MigrateAllBasicAlerts</td>
         <td>This verb migrates all alerts created in Basic Alerts Manager to new data entities used in Alert Manager on Orion website.</td>
+        <td />
+        <td>It returns list of Alert Migration Results which contains information about migrated Alerts.</td>
       </tr>
       <tr>
         <td>MigrateBasicAlert</td>
         <td>This verb migrates alert created in Basic Alerts Manager to new data entities used in Alert Manager on Orion website.</td>
+        <td>
+          <table>
+            <tr>
+              <th>Name</th>
+              <th>Summary</th>
+            </tr>
+            <tr>
+              <td>alertId</td>
+              <td>Id of Alert created in Basic Alerts Manager i.e. AlertID property of Orion.Alerts entity.</td>
+            </tr>
+          </table>
+        </td>
+        <td>It returns Alert Migration Result which contains information about migrated Alert.</td>
       </tr>
     </table>
   </body>

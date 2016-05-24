@@ -401,45 +401,122 @@
       </tr>
       <tr>
         <td>AddNode</td>
-        <td />
-        <td />
-        <td />
+        <td>Adds a node to NCM given a complete model. Not recommended - use AddNodeToNCM instead.</td>
+        <td>
+          <table>
+            <tr>
+              <th>Name</th>
+              <th>Summary</th>
+            </tr>
+            <tr>
+              <td>node</td>
+              <td>An NCMNode object to add to NCM.</td>
+            </tr>
+          </table>
+        </td>
+        <td>The NCM NodeID (Guid) for the new node.</td>
       </tr>
       <tr>
         <td>AddNodes</td>
-        <td />
-        <td />
-        <td />
+        <td>A batch version of the Cirrus.Nodes.AddNodeToNCM verb. Enables NCM to monitor and manage the configuration of Orion nodes, assuming appropriate credentials are available.</td>
+        <td>
+          <table>
+            <tr>
+              <th>Name</th>
+              <th>Summary</th>
+            </tr>
+            <tr>
+              <td>coreNodeIds</td>
+              <td>A collection (List&lt;int&gt;) of Orion NodeIDs to add to NCM.</td>
+            </tr>
+          </table>
+        </td>
+        <td>true, unless an exception is thrown.</td>
       </tr>
       <tr>
         <td>AddNodeToNCM</td>
-        <td />
-        <td />
-        <td />
+        <td>Enables NCM to monitor and manage the configuration of an Orion node, assuming appropriate credentials are available.</td>
+        <td>
+          <table>
+            <tr>
+              <th>Name</th>
+              <th>Summary</th>
+            </tr>
+            <tr>
+              <td>coreNodeId</td>
+              <td>The Orion NodeID (int) for the node to add.</td>
+            </tr>
+          </table>
+        </td>
+        <td>The NCM NodeID (Guid) for the node.</td>
       </tr>
       <tr>
         <td>RemoveNode</td>
-        <td />
-        <td />
-        <td />
+        <td>Removes a node from NCM. Does not remove it from Orion, just NCM.</td>
+        <td>
+          <table>
+            <tr>
+              <th>Name</th>
+              <th>Summary</th>
+            </tr>
+            <tr>
+              <td>nodeId</td>
+              <td>The NCM NodeID (Guid) for the node to remove.</td>
+            </tr>
+          </table>
+        </td>
+        <td>true, unless an exception is thrown.</td>
       </tr>
       <tr>
         <td>RemoveNodes</td>
-        <td />
-        <td />
-        <td />
+        <td>Removes a set of nodes from NCM. Does not remove them from Orion, just NCM. Batch version of the RemoveNode verb.</td>
+        <td>
+          <table>
+            <tr>
+              <th>Name</th>
+              <th>Summary</th>
+            </tr>
+            <tr>
+              <td>ncmNodeIds</td>
+              <td>A collection (List&lt;Guid&gt;) of NCM NodeIDs to remove.</td>
+            </tr>
+          </table>
+        </td>
+        <td>true, unless an exception is thrown.</td>
       </tr>
       <tr>
         <td>UpdateNode</td>
-        <td />
-        <td />
-        <td />
+        <td>Updates the NCM properties of a node. All properties of the node are overwritten. It does not merge. To use this verb, first call GetNode to fetch the current properties of the node, modify the properties that you want to change on that model object, then call UpdateNode to commit the changes.</td>
+        <td>
+          <table>
+            <tr>
+              <th>Name</th>
+              <th>Summary</th>
+            </tr>
+            <tr>
+              <td>node</td>
+              <td>The NCMNode model object to update.</td>
+            </tr>
+          </table>
+        </td>
+        <td>true, unless an exception is thrown.</td>
       </tr>
       <tr>
         <td>GetNode</td>
-        <td />
-        <td />
-        <td />
+        <td>Fetches an NCMNode model object for the given node.</td>
+        <td>
+          <table>
+            <tr>
+              <th>Name</th>
+              <th>Summary</th>
+            </tr>
+            <tr>
+              <td>NodeID</td>
+              <td>The NCM NodeID (Guid) for the node to read.</td>
+            </tr>
+          </table>
+        </td>
+        <td>The NCMNode model object.</td>
       </tr>
       <tr>
         <td>GetAvailableDeviceTemplates</td>

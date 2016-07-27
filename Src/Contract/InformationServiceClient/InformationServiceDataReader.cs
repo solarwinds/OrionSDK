@@ -259,6 +259,7 @@ namespace SolarWinds.InformationService.InformationServiceClient
 
             TotalRows = dataReader.TotalRows;
             QueryPlan = dataReader.QueryPlan;
+            QueryStats = dataReader.QueryStats;
             _errors = dataReader.Errors;
 
             return dataTable.CreateDataReader();
@@ -266,6 +267,7 @@ namespace SolarWinds.InformationService.InformationServiceClient
 
         public long? TotalRows { get; private set; }
         public XmlDocument QueryPlan { get; private set; }
+        public XmlDocument QueryStats { get; private set; }
 
         public List<ErrorMessage> Errors
         {
@@ -308,6 +310,8 @@ namespace SolarWinds.InformationService.InformationServiceClient
             private List<ColumnInfo> columns;
             private int currentColumnOrdinal;
             private bool currentColumnDBNull;
+            private bool currentColumnEncoded;
+            private string currentColumnEncodingType;
             private object[] values;
             private List<object> arrayColumnValues = new List<object>();
             private bool closed = false;
@@ -319,6 +323,10 @@ namespace SolarWinds.InformationService.InformationServiceClient
             internal const string DBNullPrefix = "xsi";
             internal const string DBNullAttribute = "nil";
             internal const string DBNullValue = "true";
+            internal const string DBBase64 = "Base64";
+
+            internal const string IsEncodedAttribute = "isEncoded";
+            internal const string EncodingTypeAttribute = "encodingType";
 
             public List<ErrorMessage> Errors { get; private set; }
 
@@ -544,9 +552,6 @@ namespace SolarWinds.InformationService.InformationServiceClient
                 if (this.closed)
                     throw new InvalidOperationException("DataReader is closed");
 
-                if (!this.hasRows)
-                    return false;
-
                 return ReadNextEntity();
             }
 
@@ -568,6 +573,7 @@ namespace SolarWinds.InformationService.InformationServiceClient
             }
 
             public XmlDocument QueryPlan { get; private set; }
+            public XmlDocument QueryStats { get; private set; }
 
             public void ReadMetadata()
             {
@@ -597,6 +603,11 @@ namespace SolarWinds.InformationService.InformationServiceClient
                                     {
                                         this.QueryPlan = new XmlDocument();
                                         QueryPlan.Load(reader.ReadSubtree());
+                                    }
+                                    else if (string.CompareOrdinal(reader.LocalName, "statistics") == 0)
+                                    {
+                                        this.QueryStats = new XmlDocument();
+                                        QueryStats.Load(reader.ReadSubtree());
                                     }
                                     else if (string.CompareOrdinal(reader.LocalName, "template") == 0)
                                     {
@@ -760,7 +771,10 @@ namespace SolarWinds.InformationService.InformationServiceClient
                                 return false;
 
                             case ParserState.Root:
-                                ValidateEndElement(reader.LocalName, "queryResult", ParserState.Errors);
+                                if (hasRows)
+                                    ValidateEndElement(reader.LocalName, "queryResult", ParserState.Errors);
+                                else
+                                    return false;
                                 break;
 
                             case ParserState.Data:
@@ -855,6 +869,9 @@ namespace SolarWinds.InformationService.InformationServiceClient
                 string dbNullAtt = reader.GetAttribute(DBNullAttribute, DBNullNamespace);
                 this.currentColumnDBNull = (!string.IsNullOrEmpty(dbNullAtt) && dbNullAtt.CompareTo(DBNullValue) == 0);
 
+                bool.TryParse(reader.GetAttribute(IsEncodedAttribute), out this.currentColumnEncoded);
+                this.currentColumnEncodingType = this.currentColumnEncoded ? reader.GetAttribute(EncodingTypeAttribute) : string.Empty;
+
                 ColumnInfo columnInfo = this.columns[this.currentColumnOrdinal];
                 if (columnInfo.IsArray)
                     this.state = ParserState.ArrayColumn;
@@ -911,6 +928,13 @@ namespace SolarWinds.InformationService.InformationServiceClient
             {
                 switch (columnType)
                 {
+                    case EntityPropertyType.String:
+                        if (this.currentColumnEncoded)
+                        {
+                            if (DBBase64.Equals(this.currentColumnEncodingType, StringComparison.OrdinalIgnoreCase))
+                                value = System.Text.Encoding.UTF8.GetString(Convert.FromBase64String(value));
+                        }
+                        return Convert.ChangeType(value, targetType, CultureInfo.InvariantCulture);
                     case EntityPropertyType.Boolean:
                     case EntityPropertyType.Byte:
                     case EntityPropertyType.Char:
@@ -920,7 +944,6 @@ namespace SolarWinds.InformationService.InformationServiceClient
                     case EntityPropertyType.Int32:
                     case EntityPropertyType.Int64:
                     case EntityPropertyType.Single:
-                    case EntityPropertyType.String:
                     case EntityPropertyType.Type:
                     case EntityPropertyType.Uri:
                         return Convert.ChangeType(value, targetType, CultureInfo.InvariantCulture);

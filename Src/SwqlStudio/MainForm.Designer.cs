@@ -63,12 +63,13 @@
             this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
             this.fontDialog = new System.Windows.Forms.FontDialog();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.objectExplorer = new SwqlStudio.ObjectExplorer();
             this.ObjectExplorerImageList = new System.Windows.Forms.ImageList(this.components);
             this.startTimer = new System.Windows.Forms.Timer(this.components);
-            this.objectExplorer = new SwqlStudio.ObjectExplorer();
             toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
             toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.menu.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
@@ -113,6 +114,7 @@
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
             this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
             this.fileToolStripMenuItem.Text = "&File";
+            this.fileToolStripMenuItem.DropDownOpening += new System.EventHandler(this.fileToolStripMenuItem_DropDownOpening);
             // 
             // menuFileNew
             // 
@@ -342,6 +344,17 @@
             this.splitContainer1.SplitterDistance = 191;
             this.splitContainer1.TabIndex = 2;
             // 
+            // objectExplorer
+            // 
+            this.objectExplorer.ApplicationService = null;
+            this.objectExplorer.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.objectExplorer.EntityGroupingMode = SwqlStudio.EntityGroupingMode.Flat;
+            this.objectExplorer.ImageList = this.ObjectExplorerImageList;
+            this.objectExplorer.Location = new System.Drawing.Point(0, 0);
+            this.objectExplorer.Name = "objectExplorer";
+            this.objectExplorer.Size = new System.Drawing.Size(191, 571);
+            this.objectExplorer.TabIndex = 0;
+            // 
             // ObjectExplorerImageList
             // 
             this.ObjectExplorerImageList.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("ObjectExplorerImageList.ImageStream")));
@@ -364,17 +377,6 @@
             // 
             this.startTimer.Tick += new System.EventHandler(this.startTimer_Tick);
             // 
-            // objectExplorer
-            // 
-            this.objectExplorer.ApplicationService = null;
-            this.objectExplorer.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.objectExplorer.EntityGroupingMode = SwqlStudio.EntityGroupingMode.Flat;
-            this.objectExplorer.ImageList = this.ObjectExplorerImageList;
-            this.objectExplorer.Location = new System.Drawing.Point(0, 0);
-            this.objectExplorer.Name = "objectExplorer";
-            this.objectExplorer.Size = new System.Drawing.Size(191, 571);
-            this.objectExplorer.TabIndex = 0;
-            // 
             // MainForm
             // 
             this.AllowDrop = true;
@@ -394,6 +396,7 @@
             this.menu.PerformLayout();
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();

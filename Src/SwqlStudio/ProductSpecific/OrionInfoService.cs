@@ -2,17 +2,18 @@
 using SolarWinds.InformationService.Contract2;
 using SolarWinds.InformationService.Contract2.PubSub;
 using SwqlStudio.Properties;
+using SwqlStudio.Subscriptions;
 
 namespace SwqlStudio
 {
     class OrionInfoService : InfoServiceBase
     {
-        private readonly bool _v3;
+        private readonly bool _isSwisV3;
 
-        public OrionInfoService(string username, string password, bool v3 = false)
+        public OrionInfoService(string username, string password, bool isSwisV3 = false)
         {
-            _v3 = v3;
-            _endpoint = v3 ? Settings.Default.OrionV3EndpointPath : Settings.Default.OrionEndpointPath;
+            _isSwisV3 = isSwisV3;
+            _endpoint = isSwisV3 ? Settings.Default.OrionV3EndpointPath : Settings.Default.OrionEndpointPath;
             _endpointConfigName = "OrionTcpBinding_InformationServicev2";
             _binding = new NetTcpBinding("TransportMessage");
             _credentials = new UsernameCredentials(username, password);
@@ -25,7 +26,7 @@ namespace SwqlStudio
 
         public override bool SupportsActiveSubscriber
         {
-            get { return _v3; }
+            get { return Settings.Default.UseActiveSubscriber && _isSwisV3; }
         }
 
         public override NotificationDeliveryServiceProxy CreateNotificationDeliveryServiceProxy(string server, INotificationSubscriber notificationSubscriber)

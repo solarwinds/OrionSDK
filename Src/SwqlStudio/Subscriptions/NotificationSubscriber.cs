@@ -3,7 +3,7 @@ using System.ServiceModel;
 using SolarWinds.InformationService.Contract2;
 using SolarWinds.InformationService.Contract2.PubSub;
 
-namespace SwqlStudio
+namespace SwqlStudio.Subscriptions
 {
     [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single,
         ConcurrencyMode = ConcurrencyMode.Multiple,

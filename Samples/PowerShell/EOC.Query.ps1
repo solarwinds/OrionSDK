@@ -6,7 +6,7 @@
 # This .dll will be created after building OrionSDK.sln
 Add-Type -Path "..\..\Src\Contract\bin\Debug\SolarWinds.SDK.Swis.Contract.dll"
 
-if (! (Get-PSSnapin | where {$_.Name -eq "SwisSnapin"})) {
+if (-not (Get-PSSnapin | where {$_.Name -eq "SwisSnapin"})) {
     Add-PSSnapin "SwisSnapin"
 }
 
@@ -15,14 +15,15 @@ $hostname = "localhost"
 $username = "Administrator"
 $password = "Password1" | ConvertTo-SecureString -asPlainText -Force
 
-$cred = new-Object SolarWinds.InformationService.Contract2.WindowsCredential("",$username,$password)
+$cred = New-Object SolarWinds.InformationService.Contract2.WindowsCredential("",$username,$password)
 
-$addr = New-Object Uri("net.tcp://" + $hostname + ":17777/SolarWinds/InformationService/EOC")
+$addr = New-Object Uri("net.tcp://$($hostname):17777/SolarWinds/InformationService/EOC")
+
 $tcpBinding = New-Object System.ServiceModel.NetTcpBinding
 $tcpBinding.Security.Mode = [System.ServiceModel.SecurityMode]::Transport
 $tcpBinding.Security.Transport.ClientCredentialType = [System.ServiceModel.TcpClientCredentialType]::Windows
 
-$swis = New-Object SolarWinds.InformationService.Contract2.InfoServiceProxy( $addr, $tcpBinding, $cred )
+$swis = New-Object SolarWinds.InformationService.Contract2.InfoServiceProxy($addr, $tcpBinding, $cred)
 
 # Returns list of Orions in EOC. EOC Swis limits available Orions based on Manage Orions access rights to see Orions.
 # If user does not have rights to see Orion, query will not return its row

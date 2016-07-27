@@ -12,6 +12,7 @@ using SolarWinds.InformationService.Contract2;
 using SolarWinds.InformationService.Contract2.PubSub;
 using SolarWinds.InformationService.InformationServiceClient;
 using SwqlStudio.Properties;
+using SwqlStudio.Subscriptions;
 
 namespace SwqlStudio
 {
@@ -21,15 +22,12 @@ namespace SwqlStudio
         private string _server;
         private string _username;
         private string _password;
-        private string _activeSubscriberAddress;
 
         private InfoServiceProxy _proxy;
         private readonly InfoServiceBase _infoServiceType;
 
-        private NotificationDeliveryServiceProxy _notificationDeliveryServiceProxy;
-        private SubscriberInfo _activeSubscriberInfo;
-
         public event EventHandler<EventArgs> ConnectionClosed;
+        public event EventHandler<EventArgs> ConnectionClosing;
 
         public ConnectionInfo(string server, string username, string password, string serverType)
         {
@@ -40,6 +38,11 @@ namespace SwqlStudio
 
             _infoServiceType = InfoServiceFactory.Create(serverType, username, password);
             QueryParameters = new PropertyBag();
+        }
+
+        public Binding Binding
+        {
+            get { return _infoServiceType.Binding; }
         }
 
         public string Server
@@ -61,6 +64,11 @@ namespace SwqlStudio
         }
 
         public bool CanCreateSubscription { get; set; }
+
+        public bool SupportsActiveSubscriptions
+        {
+            get { return _infoServiceType.SupportsActiveSubscriber; }
+        }
 
         public string Title
         {
@@ -116,7 +124,7 @@ namespace SwqlStudio
                                             new ServerType() { Type = "Orion (v2) Compressed", IsAuthenticationRequired = true },
                                             new ServerType() { Type = "Orion (v2) AD Compressed", IsAuthenticationRequired = false },
                                             new ServerType() { Type = "Orion (v3) Compressed", IsAuthenticationRequired = true },
-                                            new ServerType() { Type = "Orion (v3) AD Compressed", IsAuthenticationRequired = false },                        
+                                            new ServerType() { Type = "Orion (v3) AD Compressed", IsAuthenticationRequired = false },
                                         });
 
                 }
@@ -127,13 +135,12 @@ namespace SwqlStudio
         }
 
         public PropertyBag QueryParameters { get; set; }
-        public INotificationSubscriber NotificationSubscriber { get; set; }
 
         public void Connect()
         {
             if (_proxy == null || (_proxy != null && (_proxy.Channel.State == CommunicationState.Closed || _proxy.Channel.State == CommunicationState.Faulted)))
             {
-                if(_proxy != null)
+                if (_proxy != null)
                     _proxy.Dispose();
 
                 _proxy = _infoServiceType.CreateProxy(_server);
@@ -144,42 +151,36 @@ namespace SwqlStudio
 
             Connection = new InformationServiceConnection((IInformationService)_proxy);
             Connection.Open();
-
-            if (Settings.Default.UseActiveSubscriber && _infoServiceType.SupportsActiveSubscriber)
-            {
-                _notificationDeliveryServiceProxy = _infoServiceType.CreateNotificationDeliveryServiceProxy(_server, NotificationSubscriber);
-                _notificationDeliveryServiceProxy.Open();
-                _activeSubscriberAddress = string.Format("active://{0}/SolarWinds/SwqlStudio/{1}", Utility.GetFqdn(), Process.GetCurrentProcess().Id);
-                _notificationDeliveryServiceProxy.ReceiveIndications(_activeSubscriberAddress);
-                _activeSubscriberInfo = new SubscriberInfo()
-                {
-                    EndpointAddress = _activeSubscriberAddress,
-                    OpenedSuccessfully = true,
-                    DataFormat = "Xml"
-                };
-            }
         }
 
-        public virtual SubscriberInfo GetActiveSubscriberInfo()
+        public bool IsConnected
         {
-            return _activeSubscriberInfo;
+            get { return _proxy != null && _proxy.ClientChannel.State == CommunicationState.Opened; }
+        }
+
+        internal NotificationDeliveryServiceProxy CreateActiveListenerProxy(INotificationSubscriber listener)
+        {
+            if (!_infoServiceType.SupportsActiveSubscriber)
+                throw new InvalidOperationException("This connection type doesn't support active subscriptions");
+
+            return _infoServiceType.CreateNotificationDeliveryServiceProxy(_server, listener);
         }
 
         private void EnsureConnection()
         {
-            if ((Connection != null) && (Connection.State != ConnectionState.Open))
+            if (!IsConnected)
                 Connect();
         }
 
-        public IEnumerable<T> Query<T>(string swql) where T: new()
+        public IEnumerable<T> Query<T>(string swql) where T : new()
         {
             EnsureConnection();
 
-            using(var context = new InformationServiceContext( _proxy))
-            using(var serviceQuery = context.CreateQuery<T>(swql))
+            using (var context = new InformationServiceContext(_proxy))
+            using (var serviceQuery = context.CreateQuery<T>(swql))
             {
                 var enumerator = serviceQuery.GetEnumerator();
-                while(enumerator.MoveNext())
+                while (enumerator.MoveNext())
                 {
                     yield return enumerator.Current;
                 }
@@ -189,19 +190,21 @@ namespace SwqlStudio
         public DataTable Query(string swql)
         {
             XmlDocument dummy;
-            return Query(swql, out dummy);
+            XmlDocument dummy2;
+            return Query(swql, out dummy, out dummy2);
         }
 
-        public DataTable Query(string swql, out XmlDocument queryPlan)
+        public DataTable Query(string swql, out XmlDocument queryPlan, out XmlDocument queryStats)
         {
             EnsureConnection();
 
             XmlDocument tmpQueryPlan = null; // can't reference out parameter from closure
+            XmlDocument tmpQueryStats = null; // can't reference out parameter from closure
 
             DataTable result = DoWithExceptionTranslation(
                 delegate
                     {
-                        using (InformationServiceCommand command = new InformationServiceCommand(swql, Connection) {ApplicationTag = "SWQL Studio"})
+                        using (InformationServiceCommand command = new InformationServiceCommand(swql, Connection) { ApplicationTag = "SWQL Studio" })
                         {
                             foreach (var param in QueryParameters)
                                 command.Parameters.AddWithValue(param.Key, param.Value);
@@ -211,11 +214,13 @@ namespace SwqlStudio
                             dataAdapter.Fill(resultDataTable);
 
                             tmpQueryPlan = dataAdapter.QueryPlan;
+                            tmpQueryStats = dataAdapter.QueryStats;
                             return resultDataTable;
                         }
                     });
 
             queryPlan = tmpQueryPlan;
+            queryStats = tmpQueryStats;
             return result;
         }
 
@@ -274,17 +279,17 @@ namespace SwqlStudio
             throw new ApplicationException(msg, inner);
         }
 
-        public XmlDocument QueryXml(string query, out XmlDocument queryPlan, out List<ErrorMessage> errorMessages)
+        public XmlDocument QueryXml(string query, out XmlDocument queryPlan, out List<ErrorMessage> errorMessages, out XmlDocument queryStats)
         {
             EnsureConnection();
             Message results;
             errorMessages = null;
 
-            using (new SwisSettingsContext { DataProviderTimeout = TimeSpan.FromSeconds(30), ApplicationTag = "SWQL Studio", AppendErrors = true})
+            using (new SwisSettingsContext { DataProviderTimeout = TimeSpan.FromSeconds(30), ApplicationTag = "SWQL Studio", AppendErrors = true })
             {
                 results = _proxy.Query(new QueryXmlRequest(query, QueryParameters));
             }
-            
+
             XmlReader reader = results.GetReaderAtBodyContents();
             var body = new XmlDocument(reader.NameTable);
             body.Load(reader);
@@ -331,7 +336,9 @@ namespace SwqlStudio
             {
                 queryPlan = null;
             }
-            
+
+            queryStats = null;
+
             return body;
         }
 
@@ -344,23 +351,23 @@ namespace SwqlStudio
         {
             if (_proxy != null)
             {
+                var listeners = ConnectionClosing;
+                listeners?.Invoke(this, EventArgs.Empty);
+
                 _proxy.Dispose();
                 _proxy = null;
 
-                var listeners = ConnectionClosed;
-                if (listeners != null)
-                {
-                    listeners.Invoke(this, EventArgs.Empty);
-                }
+                listeners = ConnectionClosed;
+                listeners?.Invoke(this, EventArgs.Empty);
             }
         }
 
         internal ConnectionInfo Copy()
         {
             return new ConnectionInfo(_server, _username, _password, _infoServiceType.ServiceType)
-                       {
-                           QueryParameters = QueryParameters
-                       };
+            {
+                QueryParameters = QueryParameters
+            };
         }
 
         protected bool Equals(ConnectionInfo other)

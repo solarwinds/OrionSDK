@@ -1,42 +1,26 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Net;
-using System.Net.Sockets;
-using System.Security.Cryptography;
-using System.Security.Cryptography.X509Certificates;
 using System.ServiceModel;
-using System.ServiceModel.Dispatcher;
 using System.ServiceModel.Security;
-using System.Threading;
 using System.Windows.Forms;
-using Security.Cryptography;
-using Security.Cryptography.X509Certificates;
 using SolarWinds.InformationService.Contract2;
-using SolarWinds.InformationService.Contract2.PubSub;
 using SolarWinds.InformationService.InformationServiceClient;
 using SwqlStudio.Metadata;
 using SwqlStudio.Properties;
+using SwqlStudio.Subscriptions;
 
 namespace SwqlStudio
 {
     [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single,
         ConcurrencyMode = ConcurrencyMode.Multiple,
         UseSynchronizationContext = false)]
-    public partial class MainForm : Form, IApplicationService, INotificationSubscriber
+    public partial class MainForm : Form, IApplicationService
     {
         private static readonly SolarWinds.Logging.Log log = new SolarWinds.Logging.Log();
 
-        private SubscriberInfo subscriberInfo;
-        private SubscriberInfo httpSubscriberInfo;
-        private readonly List<ServiceHost> subscriberHosts = new List<ServiceHost>();
-        private readonly ManualResetEvent subscriberHostOpened = new ManualResetEvent(false);
-
-        public event EventHandler<IndicationEventArgs> IndicationReceived;
-
-        private ServerList serverList = new ServerList();
+        private readonly ServerList serverList = new ServerList();
 
         public MainForm()
         {
@@ -44,102 +28,9 @@ namespace SwqlStudio
             objectExplorer.ApplicationService = this;
             SetEntityGroupingMode((EntityGroupingMode)Enum.Parse(typeof(EntityGroupingMode), Settings.Default.EntityGroupingMode));
 
-            //CreateNewTextEditorControl("New Query");
             startTimer.Enabled = true;
 
-            if (!Settings.Default.UseActiveSubscriber)
-                ThreadPool.QueueUserWorkItem((s) => OpenSubscriber());
-        }
-
-        private void OpenSubscriber()
-        {
-            string ipAddress;
-
-            try
-            {
-                // Instance should run on a different machine (i.e. where the additional poller is), so in that case must be subscription done via IP instead of relative localhost
-                ipAddress = ResolveLocalIPAddress();
-            }
-            catch (Exception ex)
-            {
-                log.ErrorFormat("Unable to retrieve ip address", ex);
-                return;
-            }
-
-            string address = string.Format("net.tcp://{0}:17777/SolarWinds/SwqlStudio/{1}/Subscriber", ipAddress, Process.GetCurrentProcess().Id);
-            try
-            {
-                log.InfoFormat("Opening subscriber endpoint at {0}", address);
-
-                ServiceHost host = new ServiceHost(this);
-                host.AddServiceEndpoint(typeof(INotificationSubscriber), new NetTcpBinding("NotificationSubscriber"), address);
-                host.Open();
-                subscriberHosts.Add(host);
-
-                log.Info("Subscriber endpoint opened");
-
-                subscriberInfo = new SubscriberInfo { EndpointAddress = address, OpenedSuccessfully = true, Binding = "NetTcp", DataFormat = "Xml", CredentialType = "Certificate" };
-            }
-            catch (Exception ex)
-            {
-                log.ErrorFormat("Exception opening subscriber host with address {0}.\n{1}", address, ex);
-                subscriberInfo = new SubscriberInfo { OpenedSuccessfully = false, ErrorMessage = ex.Message };
-            }
-
-            string httpAddress = string.Format("https://{0}:17778/SolarWinds/SwqlStudio/{1}", Utility.GetFqdn(), Process.GetCurrentProcess().Id);
-            try
-            {
-                log.InfoFormat("Opening http subscriber endpoint at {0}", httpAddress);
-
-                NotificationSubscriber notificationSubscriber = new NotificationSubscriber();
-                notificationSubscriber.IndicationReceived += OnIndication;
-
-                CngKeyCreationParameters keyCreationParameters = new CngKeyCreationParameters();
-                keyCreationParameters.ExportPolicy = CngExportPolicies.AllowExport | CngExportPolicies.AllowPlaintextExport | CngExportPolicies.AllowPlaintextArchiving | CngExportPolicies.AllowArchiving;
-                keyCreationParameters.KeyUsage = CngKeyUsages.AllUsages;
-
-                X509CertificateCreationParameters configCreate = new X509CertificateCreationParameters(new X500DistinguishedName("CN=SolarWinds-SwqlStudio"));
-                configCreate.EndTime = DateTime.Now.AddYears(1);
-                configCreate.StartTime = DateTime.Now;
-
-                using (CngKey cngKey = CngKey.Create(CngAlgorithm2.Rsa))
-                {
-                    X509Certificate2 certificate = cngKey.CreateSelfSignedCertificate(configCreate);
-                    ServiceHost host = new ServiceHost(notificationSubscriber, new Uri(httpAddress));
-                    host.Credentials.ServiceCertificate.Certificate = certificate;
-                    // SetCertificate(StoreLocation.LocalMachine, StoreName.My, X509FindType.FindBySubjectDistinguishedName, "CN=SolarWinds-Orion");
-                    host.Open();
-                    subscriberHosts.Add(host);
-                }
-
-                log.Info("Http Subscriber endpoint opened");
-
-                httpSubscriberInfo = new SubscriberInfo { EndpointAddress = httpAddress + "/Subscriber", OpenedSuccessfully = true, DataFormat = "Xml", Binding = "Soap1_1", CredentialType = "Username" };
-            }
-            catch (Exception ex)
-            {
-                log.ErrorFormat("Exception opening subscriber host with address {0}.\n{1}", address, ex);
-                httpSubscriberInfo = new SubscriberInfo { OpenedSuccessfully = false, ErrorMessage = ex.Message };
-            }
-
-            foreach (ServiceHost serviceHost in subscriberHosts)
-            {
-                foreach (ChannelDispatcherBase channelDispatcher in serviceHost.ChannelDispatchers)
-                {
-                    log.InfoFormat("Listening on {0}", channelDispatcher.Listener.Uri.AbsoluteUri);
-                }
-            }
-
-            subscriberHostOpened.Set();
-        }
-
-        private void CloseSubscriber()
-        {
-            using (log.Block())
-            {
-                subscriberHosts.ForEach(host => host.Close());
-                subscriberHosts.Clear();                
-            }
+            SubscriptionManager = new SubscriptionManager();
         }
 
         private void startTimer_Tick(object sender, EventArgs e)
@@ -173,7 +64,6 @@ namespace SwqlStudio
                     if (!alreadyExists)
                     {
                         info = nc.ConnectionInfo;
-                        info.NotificationSubscriber = this;
                         info.Connect();
                         serverList.Add(info);
 
@@ -181,7 +71,7 @@ namespace SwqlStudio
                     }
 
                     CreateQueryTab(info.Title, info);
-                    
+
                     if (!alreadyExists)
                     {
                         objectExplorer.AddServer(new SwisMetaDataProvider(info), info);
@@ -306,11 +196,14 @@ namespace SwqlStudio
         private static void RemoveQueryTab(Control queryTab)
         {
             TabPage tabPage = (TabPage)queryTab.Parent;
-            TabControl tabControl = tabPage.Parent as TabControl;
-            tabControl.TabPages.Remove(tabPage);
+            if (tabPage != null)
+            {
+                TabControl tabControl = tabPage.Parent as TabControl;
+                tabControl.TabPages.Remove(tabPage);
 
-            // Due MDA exception "RaceOnRCWCleanup error when closing a form with WebBrowser control", tab page is destroyed as below
-            tabPage.BeginInvoke((MethodInvoker)delegate { tabPage.Dispose(); });
+                // Due MDA exception "RaceOnRCWCleanup error when closing a form with WebBrowser control", tab page is destroyed as below
+                tabPage.BeginInvoke((MethodInvoker)delegate { tabPage.Dispose(); });
+            }
         }
 
         private void menuFileSave_Click(object sender, EventArgs e)
@@ -377,15 +270,15 @@ namespace SwqlStudio
             try
             {
                 Cursor.Current = Cursors.WaitCursor;
-                if (subscriberHosts.Any())
+                if (SubscriptionManager.IsListening())
                 {
-                    CloseSubscriber();
+                    SubscriptionManager.CloseListeningService();
                     menuNotificationListenerActive.Checked = false;
                 }
                 else
                 {
-                    OpenSubscriber();
-                    menuNotificationListenerActive.Checked = true;
+                    Action x = () => menuNotificationListenerActive.Checked = true;
+                    SubscriptionManager.StartListening(() => this.BeginInvoke(x));
                 }
             }
             finally
@@ -512,7 +405,7 @@ namespace SwqlStudio
         {
             get
             {
-                var tab = ActiveQueryTab;
+                var tab = ActiveConnectionTab;
                 if (tab == null) return null;
                 return tab.ConnectionInfo;
             }
@@ -565,53 +458,6 @@ namespace SwqlStudio
             ActiveQueryTab.RunQuery();
         }
 
-        public void AddTextToEditor(string text, ConnectionInfo info)
-        {
-            if (info == null)
-                info = ActiveConnectionInfo;
-
-            CreateQueryTab(info.Title, info);
-            ActiveQueryTab.QueryText = text;
-        }
-
-        public void OpenActivityMonitor(string title, ConnectionInfo info)
-        {
-            var tab = new TabPage(title) { BorderStyle = BorderStyle.None, Padding = new Padding(0) };
-            var activityMonitorTab = new ActivityMonitorTab { ConnectionInfo = info, Dock = DockStyle.Fill, ApplicationService = this };
-            tab.Controls.Add(activityMonitorTab);
-            fileTabs.Controls.Add(tab);
-            fileTabs.SelectedTab = tab;
-            activityMonitorTab.Start();
-        }
-
-        public void OpenInvokeTab(string title, ConnectionInfo info, Verb verb)
-        {
-            var tab = new TabPage(title) { BorderStyle = BorderStyle.None, Padding = new Padding(0) };
-            var invokeVerbTab = new InvokeVerbTab { ConnectionInfo = info, Dock = DockStyle.Fill, ApplicationService = this, Verb = verb };
-            tab.Controls.Add(invokeVerbTab);
-            fileTabs.Controls.Add(tab);
-            fileTabs.SelectedTab = tab;
-        }
-
-        public SubscriberInfo GetSubscriberInfo()
-        {
-            if (Settings.Default.UseActiveSubscriber)
-            {
-                return ActiveConnectionInfo.GetActiveSubscriberInfo();
-            }
-            else
-            {
-                subscriberHostOpened.WaitOne();
-                return subscriberInfo;
-            }
-        }
-
-        public SubscriberInfo GetHttpSubscriberInfo()
-        {
-            subscriberHostOpened.WaitOne();
-            return httpSubscriberInfo;
-        }
-
         private void parametersToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (ActiveConnectionInfo == null)
@@ -655,41 +501,9 @@ namespace SwqlStudio
             }
         }
 
-        public void OnIndication(string subscriptionId, string indicationType, PropertyBag indicationProperties, PropertyBag sourceInstanceProperties)
-        {
-            EventHandler<IndicationEventArgs> handler = IndicationReceived;
-            if (handler != null)
-                handler(this, new IndicationEventArgs
-                {
-                    SubscriptionID = subscriptionId,
-                    IndicationType = indicationType,
-                    IndicationProperties = indicationProperties,
-                    SourceInstanceProperties = sourceInstanceProperties
-                });
-        }
-
         private void playbackToolStripMenuItem_Click_1(object sender, EventArgs e)
         {
             ActiveQueryTab.RunPlayback();
-        }
-
-        /// <summary>
-        /// Resolves local system IPv4 Address.
-        /// </summary>
-        /// <returns>String containing local system's IPv4 Address.</returns>
-        private string ResolveLocalIPAddress()
-        {
-            IPHostEntry hostEntry = Dns.GetHostEntry(Dns.GetHostName());
-            IPAddress ipAddress = hostEntry.AddressList.FirstOrDefault(x => (x.AddressFamily == AddressFamily.InterNetwork))
-                // In case of unavailable IPv4 try to resolve IPv6
-                                        ?? hostEntry.AddressList.FirstOrDefault(x => (x.AddressFamily == AddressFamily.InterNetworkV6));
-
-            if (ipAddress == null)
-            {
-                throw new InvalidOperationException("Could not resolve local IP Address");
-            }
-
-            return ipAddress.ToString();
         }
 
         private void aboutSWQLStudioToolStripMenuItem_Click(object sender, EventArgs e)
@@ -713,7 +527,7 @@ namespace SwqlStudio
             noGroupingToolStripMenuItem.Checked = mode == EntityGroupingMode.Flat;
             byBaseTypeToolStripMenuItem.Checked = mode == EntityGroupingMode.ByBaseType;
             byHierarchyToolStripMenuItem.Checked = mode == EntityGroupingMode.ByHierarchy;
-            
+
             Settings.Default.EntityGroupingMode = mode.ToString();
             Settings.Default.Save();
 
@@ -729,6 +543,13 @@ namespace SwqlStudio
         private void byHierarchyToolStripMenuItem_Click(object sender, EventArgs e)
         {
             SetEntityGroupingMode(EntityGroupingMode.ByHierarchy);
+        }
+
+        private void fileToolStripMenuItem_DropDownOpening(object sender, EventArgs e)
+        {
+            menuNotificationListenerActive.CheckState = SubscriptionManager.IsListening()
+                ? CheckState.Checked
+                : CheckState.Unchecked;
         }
     }
 }

@@ -35,33 +35,38 @@ namespace SwqlStudio
             this.gridContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.saveResultsAsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.deleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.queryWorker = new System.ComponentModel.BackgroundWorker();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.sciTextEditorControl1 = new SwqlStudio.SciTextEditorControl();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.resultTab = new System.Windows.Forms.TabPage();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.dataGridView2 = new System.Windows.Forms.DataGridView();
             this.queryPlanTab = new System.Windows.Forms.TabPage();
+            this.queryStatsTab = new System.Windows.Forms.TabPage();
             this.xmlBrowser1 = new SwqlStudio.XmlRender.XmlBrowser();
-            this.errorMessagesBrowser = new SwqlStudio.XmlRender.XmlBrowser();
             this.rawXmlTab = new System.Windows.Forms.TabPage();
-            this.errorMessagesTab = new System.Windows.Forms.TabPage();
             this.rawXmlBrowser = new SwqlStudio.XmlRender.XmlBrowser();
+            this.errorMessagesTab = new System.Windows.Forms.TabPage();
+            this.errorMessagesBrowser = new SwqlStudio.XmlRender.XmlBrowser();
             this.logTab = new System.Windows.Forms.TabPage();
             this.logTextbox = new System.Windows.Forms.TextBox();
             this.notificationTab = new System.Windows.Forms.TabPage();
             this.subscriptionTab1 = new SwqlStudio.SubscriptionTab();
             this.queryStatusBar1 = new SwqlStudio.QueryStatusBar();
             this.subscriptionWorker = new System.ComponentModel.BackgroundWorker();
-            this.deleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.gridContextMenuStrip.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.resultTab.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
             this.queryPlanTab.SuspendLayout();
+            this.queryStatsTab.SuspendLayout();
             this.rawXmlTab.SuspendLayout();
             this.errorMessagesTab.SuspendLayout();
             this.logTab.SuspendLayout();
@@ -75,7 +80,7 @@ namespace SwqlStudio
             this.saveResultsAsToolStripMenuItem,
             this.deleteToolStripMenuItem});
             this.gridContextMenuStrip.Name = "gridContextMenuStrip";
-            this.gridContextMenuStrip.Size = new System.Drawing.Size(162, 92);
+            this.gridContextMenuStrip.Size = new System.Drawing.Size(162, 70);
             this.gridContextMenuStrip.Opening += new System.ComponentModel.CancelEventHandler(this.gridContextMenuStrip_Opening);
             // 
             // toolStripMenuItem2
@@ -91,6 +96,13 @@ namespace SwqlStudio
             this.saveResultsAsToolStripMenuItem.Size = new System.Drawing.Size(161, 22);
             this.saveResultsAsToolStripMenuItem.Text = "&Save Results as...";
             this.saveResultsAsToolStripMenuItem.Click += new System.EventHandler(this.saveResultsAsToolStripMenuItem_Click);
+            // 
+            // deleteToolStripMenuItem
+            // 
+            this.deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
+            this.deleteToolStripMenuItem.Size = new System.Drawing.Size(161, 22);
+            this.deleteToolStripMenuItem.Text = "Delete";
+            this.deleteToolStripMenuItem.Click += new System.EventHandler(this.deleteToolStripMenuItem_Click);
             // 
             // queryWorker
             // 
@@ -118,21 +130,23 @@ namespace SwqlStudio
             // 
             // sciTextEditorControl1
             // 
+            this.sciTextEditorControl1.AutoCIgnoreCase = true;
             this.sciTextEditorControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.sciTextEditorControl1.FileName = null;
-            this.sciTextEditorControl1.WrapMode = WrapMode.Word;
+            this.sciTextEditorControl1.Lexer = ScintillaNET.Lexer.Sql;
             this.sciTextEditorControl1.Location = new System.Drawing.Point(0, 0);
             this.sciTextEditorControl1.Margin = new System.Windows.Forms.Padding(0);
             this.sciTextEditorControl1.Name = "sciTextEditorControl1";
             this.sciTextEditorControl1.Size = new System.Drawing.Size(474, 117);
             this.sciTextEditorControl1.TabIndex = 0;
-            this.sciTextEditorControl1.AutoCIgnoreCase = true;
+            this.sciTextEditorControl1.WrapMode = ScintillaNET.WrapMode.Word;
             // 
             // tabControl1
             // 
             this.tabControl1.Alignment = System.Windows.Forms.TabAlignment.Bottom;
             this.tabControl1.Controls.Add(this.resultTab);
             this.tabControl1.Controls.Add(this.queryPlanTab);
+            this.tabControl1.Controls.Add(this.queryStatsTab);
             this.tabControl1.Controls.Add(this.rawXmlTab);
             this.tabControl1.Controls.Add(this.errorMessagesTab);
             this.tabControl1.Controls.Add(this.logTab);
@@ -162,7 +176,6 @@ namespace SwqlStudio
             this.dataGridView1.AllowUserToDeleteRows = false;
             this.dataGridView1.BackgroundColor = System.Drawing.SystemColors.Window;
             this.dataGridView1.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.dataGridView1.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.EnableWithoutHeaderText;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.ContextMenuStrip = this.gridContextMenuStrip;
             this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -175,6 +188,25 @@ namespace SwqlStudio
             this.dataGridView1.TabIndex = 0;
             this.dataGridView1.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dataGridView1_CellFormatting);
             // 
+            // dataGridView2
+            // 
+            this.dataGridView2.AutoGenerateColumns = true;
+            this.dataGridView2.AllowUserToAddRows = false;
+            this.dataGridView2.AllowUserToDeleteRows = false;
+            this.dataGridView2.BackgroundColor = System.Drawing.SystemColors.Window;
+            this.dataGridView2.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.dataGridView2.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.EnableWithoutHeaderText;
+            this.dataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView2.ContextMenuStrip = this.gridContextMenuStrip;
+            this.dataGridView2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dataGridView2.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
+            this.dataGridView2.Location = new System.Drawing.Point(0, 0);
+            this.dataGridView2.Margin = new System.Windows.Forms.Padding(0);
+            this.dataGridView2.Name = "dataGridView2";
+            this.dataGridView2.ReadOnly = true;
+            this.dataGridView2.Size = new System.Drawing.Size(466, 206);
+            this.dataGridView2.TabIndex = 0;
+            // 
             // queryPlanTab
             // 
             this.queryPlanTab.Controls.Add(this.xmlBrowser1);
@@ -184,6 +216,16 @@ namespace SwqlStudio
             this.queryPlanTab.TabIndex = 2;
             this.queryPlanTab.Text = "Query Plan";
             this.queryPlanTab.UseVisualStyleBackColor = true;
+            // 
+            // queryStatsTab
+            // 
+            this.queryStatsTab.Controls.Add(this.dataGridView2);
+            this.queryStatsTab.Location = new System.Drawing.Point(4, 4);
+            this.queryStatsTab.Name = "queryStatsTab";
+            this.queryStatsTab.Size = new System.Drawing.Size(466, 206);
+            this.queryStatsTab.TabIndex = 2;
+            this.queryStatsTab.Text = "Query Stats";
+            this.queryStatsTab.UseVisualStyleBackColor = true;
             // 
             // xmlBrowser1
             // 
@@ -228,13 +270,13 @@ namespace SwqlStudio
             this.errorMessagesTab.TabIndex = 4;
             this.errorMessagesTab.Text = "Errors";
             this.errorMessagesTab.UseVisualStyleBackColor = true;
-            ///
-            /// errorMessagesBrowser
-            /// 
+            // 
+            // errorMessagesBrowser
+            // 
             this.errorMessagesBrowser.Dock = System.Windows.Forms.DockStyle.Fill;
             this.errorMessagesBrowser.Location = new System.Drawing.Point(0, 0);
             this.errorMessagesBrowser.MinimumSize = new System.Drawing.Size(20, 20);
-            this.errorMessagesBrowser.Name = "errorMessageBrowser";
+            this.errorMessagesBrowser.Name = "errorMessagesBrowser";
             this.errorMessagesBrowser.Size = new System.Drawing.Size(466, 206);
             this.errorMessagesBrowser.TabIndex = 0;
             this.errorMessagesBrowser.XmlDocument = null;
@@ -301,13 +343,6 @@ namespace SwqlStudio
             this.subscriptionWorker.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.subscriptionWorker_ProgressChanged);
             this.subscriptionWorker.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.subscriptionWorker_RunWorkerCompleted);
             // 
-            // deleteToolStripMenuItem
-            // 
-            this.deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
-            this.deleteToolStripMenuItem.Size = new System.Drawing.Size(161, 22);
-            this.deleteToolStripMenuItem.Text = "Delete";
-            this.deleteToolStripMenuItem.Click += new System.EventHandler(this.deleteToolStripMenuItem_Click);
-            // 
             // QueryTab
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -320,11 +355,14 @@ namespace SwqlStudio
             this.gridContextMenuStrip.ResumeLayout(false);
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
             this.tabControl1.ResumeLayout(false);
             this.resultTab.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).EndInit();
             this.queryPlanTab.ResumeLayout(false);
+            this.queryStatsTab.ResumeLayout(false);
             this.rawXmlTab.ResumeLayout(false);
             this.errorMessagesTab.ResumeLayout(false);
             this.logTab.ResumeLayout(false);
@@ -342,12 +380,14 @@ namespace SwqlStudio
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage resultTab;
         private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridView dataGridView2;
         private QueryStatusBar queryStatusBar1;
         private System.Windows.Forms.ContextMenuStrip gridContextMenuStrip;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem2;
         private System.Windows.Forms.ToolStripMenuItem saveResultsAsToolStripMenuItem;
         private System.ComponentModel.BackgroundWorker queryWorker;
         private System.Windows.Forms.TabPage queryPlanTab;
+        private System.Windows.Forms.TabPage queryStatsTab;
         private XmlRender.XmlBrowser xmlBrowser1;
         private XmlRender.XmlBrowser errorMessagesBrowser;
         private System.Windows.Forms.TabPage rawXmlTab;

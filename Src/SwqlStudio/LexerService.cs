@@ -40,7 +40,7 @@ namespace SwqlStudio
             get
             {
                 yield return new Tuple<int, IEnumerable<string>>(0,
-                    @"all any and as asc between class desc distinct exists false full group having in inner into is isa from join left like not null or outer right select set some true union where end when then else case on top return xml raw auto with limitation rows to order by desc totalrows noplancache queryplan"
+                    @"all any and as asc between class desc distinct exists false full group having in inner into is isa from join left like not null or outer right select set some true union where end when then else case on top return xml raw auto with limitation rows to order by desc totalrows noplancache queryplan querystats"
                         .Split(new char[] { ' ', ',' }, StringSplitOptions.RemoveEmptyEntries));
                 // User Keywords 1 - scalar functions
                 yield return new Tuple<int, IEnumerable<string>>(4,

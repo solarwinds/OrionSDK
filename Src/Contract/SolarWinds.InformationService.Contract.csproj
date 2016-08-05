@@ -150,8 +150,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SwisProxyBase.cs" />
     <Compile Include="SwisSettings.cs" />
+    <Compile Include="SwisProtocolVersionAttribute.cs" />
     <Compile Include="SwisSettingsAttribute.cs" />
     <Compile Include="SwisSettingsContext.cs" />
+    <Compile Include="SwisProtocolVersionMessageInspector.cs" />
     <Compile Include="SwisSettingsMessageInspector.cs" />
     <Compile Include="UsernameCredentials.cs" />
     <Compile Include="WindowsCredential.cs" />

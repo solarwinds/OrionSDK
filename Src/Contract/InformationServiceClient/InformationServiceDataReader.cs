@@ -955,8 +955,7 @@ namespace SolarWinds.InformationService.InformationServiceClient
                         return new Guid(value);
 
                     case EntityPropertyType.DateTime:
-                        return DateTime.ParseExact(value, "o", CultureInfo.InvariantCulture,
-                            DateTimeStyles.AdjustToUniversal);
+                        return DateTime.ParseExact(value, "o", CultureInfo.InvariantCulture);
 
                     case EntityPropertyType.Null:
                         return value;

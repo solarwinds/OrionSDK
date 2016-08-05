@@ -10,6 +10,7 @@ namespace SolarWinds.InformationService.Contract2
     [Impersonation]
     [I18nHeader]
     [SwisSettings]
+    [SwisProtocolVersion]
     public interface IInformationService
     {
         [OperationContract(

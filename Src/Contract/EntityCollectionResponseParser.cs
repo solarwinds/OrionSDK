@@ -579,7 +579,7 @@ namespace SolarWinds.InformationService.Contract2
                     return new Guid(value);
 
                 case EntityPropertyType.DateTime:
-                    return DateTime.Parse(value, CultureInfo.InvariantCulture, DateTimeStyles.AdjustToUniversal);
+                    return DateTime.Parse(value, CultureInfo.InvariantCulture);
 
                 case EntityPropertyType.Null:
                     return null;

@@ -15,9 +15,8 @@ if (-not (Get-PSSnapin | where {$_.Name -eq "SwisSnapin"})) {
 # Connect to SWIS
 $hostname = "localhost"
 $username = "admin"
-$password = New-Object System.Security.SecureString
-$cred = New-Object -typename System.Management.Automation.PSCredential -argumentlist $username, $password
-$swis = Connect-Swis -host $hostname -cred $cred
+$password = ""
+$swis = Connect-Swis -host $hostname -UserName $username -Password $password
 
 # Select Pool by name
 $mainPoolName = "Main Pool"
@@ -25,13 +24,20 @@ $poolId = Get-SwisData $swis "SELECT PoolId FROM Orion.HA.Pools WHERE DisplayNam
 
 if (!$poolId) {
 	Write-Warning "Can't find pool with name '$mainPoolName'."
-	exit 1
+	exit 1    
 }
 
-# Get active server name
-$activeServerName = Get-SwisData $swis "SELECT HostName FROM Orion.HA.PoolMembers WHERE PoolMembers.Engine.EngineId IS NOT NULL AND PoolId=@poolId" @{ poolId = $poolId }
-Write-Host "Server '$activeServerName' is an active member in pool '$mainPoolName'."
+# Get active server name and its status
+$activeServerQuery = @"
+SELECT pm.HostName, s.StatusName 
+FROM Orion.HA.PoolMembers pm
+JOIN Orion.StatusInfo s ON s.StatusId = pm.status
+WHERE pm.Engine.EngineId IS NOT NULL AND PoolId=@poolId
+"@
+$activeServer = Get-SwisData $swis $activeServerQuery @{ poolId = $poolId }
+Write-Host "Server '$($activeServer.HostName)' (Status = '$($activeServer.statusName)') is an active member in pool '$mainPoolName'."
 
+# Dialog to confirm manual failover
 $confirmation = Read-Host "Do you want to manually failover pool '$mainPoolName' (y = yes, otherwise no)"
 if ($confirmation -ne 'y') {
   exit 1

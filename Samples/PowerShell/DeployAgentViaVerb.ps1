@@ -25,7 +25,7 @@ Invoke-SwisVerb $swis Orion.AgentManagement.Agent Deploy @(
     # [required]
     $machineUsername,`
     # Password to connect to target machine or a private key in PEM format 
-    # in case of SSN certificate authentication. $passwordIsPrivateKey argument must be $true
+    # in case of SSH certificate authentication. $passwordIsPrivateKey argument must be $true
     # when passing certificate.
     # [required]
     $machinePassword,`
@@ -101,8 +101,8 @@ Invoke-SwisVerb $swis Orion.AgentManagement.Agent Deploy @(
 # =============================================================================
 
 # SUDO credentials
-$additionalUsername = "root"
-$additionalPassword = "labt3st!1"
+$additionalUsername = "sudouser"
+$additionalPassword = "sudopassword"
 
 Invoke-SwisVerb $swis Orion.AgentManagement.Agent Deploy @(
     $engineId,`
@@ -152,7 +152,7 @@ DEK-Info: AES-128-CBC,5A9CEF9457BB240FBF6B3630D13611AF
 1rGhcwwx ... FULL CERTIFICATE DATA HERE ...0hqG
 -----END RSA PRIVATE KEY----- ";
 $passwordIsPrivateKey = $true
-$privateKeyPassword = "labt3st!1"
+$privateKeyPassword = "privatekyepassword"
 # If you don't need SUDO credentials use $null, 
 # otherwise use valid credentials for SUDO
 $additionalUsername = $null

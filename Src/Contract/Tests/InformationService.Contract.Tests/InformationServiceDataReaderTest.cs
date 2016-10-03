@@ -275,6 +275,72 @@ xmlns:" + InformationServiceDataReader.DBNullPrefix + "='" + InformationServiceD
 
         }
 
+
+        [Test]
+        public void InformationServiceDataReader_WithQueryStatistics()
+        {
+            //Assert.AreEqual("", sb.ToString());
+            string response = string.Format(
+                @"<QueryXmlResponse xmlns='http://schemas.solarwinds.com/2007/08/informationservice' xmlns:{0}='{1}'>
+  <QueryXmlResult>
+    <queryResult>
+      <template>
+        <resultset>
+          <column name='nodeIdAlias' type='Int32' ordinal='0' />
+        </resultset>
+      </template>
+      <data>
+        <row>
+          <c0>0</c0>
+        </row>
+      </data>
+      <statistics>
+        <query type='SWQL' rows='1' elapsedMs='1'>
+          <commandText>test</commandText>
+        </query>
+      </statistics>
+    </queryResult>
+  </QueryXmlResult>
+</QueryXmlResponse>
+",
+                InformationServiceDataReader.DBNullPrefix, InformationServiceDataReader.DBNullNamespace);
+
+            InformationServiceDataReader reader = GetInformationServiceDataReader(response);
+            Assert.IsTrue(reader.Read());
+
+            Assert.IsNotNull(reader.QueryStats);
+        }
+
+        [Test]
+        public void InformationServiceDataReader_WithoutQueryStatistics()
+        {
+            //Assert.AreEqual("", sb.ToString());
+            string response = string.Format(
+                @"<QueryXmlResponse xmlns='http://schemas.solarwinds.com/2007/08/informationservice' xmlns:{0}='{1}'>
+  <QueryXmlResult>
+    <queryResult>
+      <template>
+        <resultset>
+          <column name='nodeIdAlias' type='Int32' ordinal='0' />
+        </resultset>
+      </template>
+      <data>
+        <row>
+          <c0>0</c0>
+        </row>
+      </data>
+    </queryResult>
+  </QueryXmlResult>
+</QueryXmlResponse>
+",
+                InformationServiceDataReader.DBNullPrefix, InformationServiceDataReader.DBNullNamespace);
+
+            InformationServiceDataReader reader = GetInformationServiceDataReader(response);
+            Assert.IsTrue(reader.Read()); // no rows
+
+            Assert.IsNull(reader.QueryStats);
+        }
+
         private string DbNullAttribute
         {
             get

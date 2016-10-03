@@ -604,6 +604,7 @@ namespace SolarWinds.InformationService.InformationServiceClient
                                         this.QueryPlan = new XmlDocument();
                                         QueryPlan.Load(reader.ReadSubtree());
                                     }
+                                    // obsolete since 2016.2 - the statistics was put after data
                                     else if (string.CompareOrdinal(reader.LocalName, "statistics") == 0)
                                     {
                                         this.QueryStats = new XmlDocument();
@@ -746,6 +747,11 @@ namespace SolarWinds.InformationService.InformationServiceClient
                                     {
                                         this.state = ParserState.Error;
                                     }
+                                    else if (reader.LocalName == "statistics")
+                                    {
+                                        this.QueryStats = new XmlDocument();
+                                        QueryStats.Load(reader.ReadSubtree());
+                                    }
                                     else
                                         throw new InvalidOperationException("Unexpected state " + this.state);
 
@@ -771,6 +777,9 @@ namespace SolarWinds.InformationService.InformationServiceClient
                                 return false;
 
                             case ParserState.Root:
+                                if (reader.LocalName == "statistics")
+                                    break;
+
                                 if (hasRows)
                                     ValidateEndElement(reader.LocalName, "queryResult", ParserState.Errors);
                                 else

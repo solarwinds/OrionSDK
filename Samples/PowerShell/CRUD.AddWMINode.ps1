@@ -57,20 +57,28 @@ $poller = @{
     NetObjectID = $nodeProps["NodeID"]
 }
 
-#Status
-AddPoller("N.Status.ICMP.Native")
+#region Add Pollers for Status (Up/Down), Response Time, Details, Uptime, CPU, & Memory
+# Status
+$poller["PollerType"]="N.Status.ICMP.Native";
+$pollerUri = New-SwisObject $swis -EntityType "Orion.Pollers" -Properties $poller
 
-#ResponseTime
-AddPoller("N.ResponseTime.ICMP.Native")
+# Response time
+$poller["PollerType"]="N.ResponseTime.ICMP.Native";
+$pollerUri = New-SwisObject $swis -EntityType "Orion.Pollers" -Properties $poller
 
-#Details
-AddPoller("N.Details.WMI.Vista")
+# Details
+$poller["PollerType"]="N.Details.WMI.Vista";
+$pollerUri = New-SwisObject $swis -EntityType "Orion.Pollers" -Properties $poller
 
-#Uptime
-AddPoller("N.Uptime.WMI.XP")
+# Uptime
+$poller["PollerType"]="N.Uptime.WMI.XP";
+$pollerUri = New-SwisObject $swis -EntityType "Orion.Pollers" -Properties $poller
 
-#CPU
-AddPoller("N.Cpu.WMI.Windows")
+# CPU
+$poller["PollerType"]="N.Cpu.WMI.Windows";
+$pollerUri = New-SwisObject $swis -EntityType "Orion.Pollers" -Properties $poller
 
-#Memory
-AddPoller("N.Memory.WMI.Windows")
+# Memory
+$poller["PollerType"]="N.Memory.WMI.Windows";
+$pollerUri = New-SwisObject $swis -EntityType "Orion.Pollers" -Properties $poller 
+#endregion Add Pollers for Status (Up/Down), Response Time, Details, Uptime, CPU, & Memory

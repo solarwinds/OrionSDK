@@ -86,7 +86,7 @@ namespace SwisPowerShell
             return (PropertyBag)PropertyBagFromDictionary(properties);
         }
 
-        protected static object PropertyBagFromDictionary(object obj)
+        protected internal static object PropertyBagFromDictionary(object obj)
         {
             var psObject = obj as PSObject;
             if (psObject != null)

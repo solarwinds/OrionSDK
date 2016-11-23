@@ -12,7 +12,7 @@ namespace SwisPowerShell
     [Cmdlet("Invoke", "SwisVerb")]
     public class InvokeSwisVerb : BaseSwisCmdlet
     {
-        private readonly XmlSerializer propertyBagSerializer = new XmlSerializer(typeof(PropertyBag));
+        private static readonly XmlSerializer propertyBagSerializer = new XmlSerializer(typeof(PropertyBag));
         
         [Parameter(Mandatory = true, Position = 1)]
         public string EntityName { get; set; }
@@ -36,7 +36,7 @@ namespace SwisPowerShell
                 WriteObject(result);
         }
 
-        private XmlElement SerializeArgument(object arg)
+        internal static XmlElement SerializeArgument(object arg)
         {
             var doc = new XmlDocument();
             
@@ -49,7 +49,7 @@ namespace SwisPowerShell
                 }
                 else 
                 {
-                    var dcs = new DataContractSerializer(arg == null ? typeof(object) : arg.GetType());
+                    var dcs = new DataContractSerializer(arg?.GetType() ?? typeof(object));
 // ReSharper disable AssignNullToNotNullAttribute
                     dcs.WriteObject(writer, arg);
 // ReSharper restore AssignNullToNotNullAttribute

@@ -40,5 +40,25 @@ namespace SwisPowerShell.Tests
             var subtable = (PropertyBag)subtableObj;
             Assert.That(subtable["subkey"], Is.EqualTo("subvalue"));
         }
+
+        [Test]
+        public void PropertyBagFromDictionary_ListOfHashtable_Converted()
+        {
+            var x = new object[]
+            {
+                new Hashtable
+                {
+                    ["key"] = "value",
+                }
+            };
+
+            var converted = BaseSwisCmdlet.PropertyBagFromDictionary(x);
+
+            Assert.That(converted, Is.TypeOf<PropertyBag[]>());
+            var list = (PropertyBag[])converted;
+            Assert.That(list, Has.Length.EqualTo(1));
+            var bag = list[0];
+            Assert.That(bag["key"], Is.EqualTo("value"));
+        }
     }
 }

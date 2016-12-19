@@ -1,50 +1,27 @@
 ﻿using System;
 using System.Diagnostics;
-using System.IO;
-using System.Net;
-using System.Net.Http;
-using System.Net.Security;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
 using System.Threading.Tasks;
-using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
 namespace CSRestClient
 {
-    class Program
+    internal class Program
     {
-        private const string hostname = "localhost";
-        private const string username = "admin";
-        private const string password = "";
+        private const string Hostname = "localhost";
+        private const string Username = "admin";
+        private const string Password = "";
 
-        static void Main(string[] args)
+        private static void Main()
         {
             try
             {
-                const string query = @"SELECT TOP 1 AlertDefID, ActiveObject, ObjectType 
-FROM Orion.AlertStatus
-WHERE Acknowledged=0
-ORDER BY TriggerTimeStamp DESC";
-
-                JToken queryResult = Query(query).Result;
-                Console.WriteLine(queryResult);
-
-                var alert = queryResult["results"][0];
-
-                JToken invokeResult = Invoke("Orion.AlertStatus", "Acknowledge", new object[]
-                {
-                    new[]
-                    {
-                        new
-                        {
-                            DefinitionId = alert["AlertDefID"],
-                            ObjectType = alert["ObjectType"],
-                            ObjectId = alert["ActiveObject"]
-                        }
-                    }
-                }).Result;
+                var swisClient = new SwisClient(Hostname, Username, Password);
+                
+                var alert = GetOneAlert(swisClient);
+                var invokeResult = AcknowledgeAlert(swisClient, alert);
                 Console.WriteLine(invokeResult);
+
+                Console.WriteLine(AddNode(swisClient).Result);
             }
             catch (Exception ex)
             {
@@ -58,51 +35,73 @@ ORDER BY TriggerTimeStamp DESC";
             }
         }
 
-        private static Task<JToken> Query(string query, object parameters = null)
+        private static JToken GetOneAlert(ISwisClient swisClient)
         {
-            return SwisCallAsync(client =>
-            {
-                var request = new JObject();
-                request["query"] = query;
-                if (parameters != null)
-                    request["parameters"] = JObject.FromObject(parameters);
+            const string query = @"SELECT TOP 1 AlertDefID, ActiveObject, ObjectType 
+FROM Orion.AlertStatus
+WHERE Acknowledged=0
+ORDER BY TriggerTimeStamp DESC";
 
-                HttpContent content = new StringContent(request.ToString(), Encoding.UTF8, "application/json");
-                return client.PostAsync("Query", content);
-            });
+            JToken queryResult = swisClient.QueryAsync(query).Result;
+            Console.WriteLine(queryResult);
+
+            var alert = queryResult["results"][0];
+            return alert;
         }
 
-        private static Task<JToken> Invoke(string entity, string verb, params object[] args)
+        private static JToken AcknowledgeAlert(ISwisClient swisClient, JToken alert)
         {
-            return SwisCallAsync(client =>
+            JToken invokeResult = swisClient.InvokeAsync("Orion.AlertStatus", "Acknowledge", new object[]
             {
-                var request = JToken.FromObject(args);
-                HttpContent content = new StringContent(request.ToString(), Encoding.UTF8, "application/json");
-                return client.PostAsync(string.Format("Invoke/{0}/{1}", entity, verb), content);
-            });
+                new[]
+                {
+                    new
+                    {
+                        DefinitionId = alert["AlertDefID"],
+                        ObjectType = alert["ObjectType"],
+                        ObjectId = alert["ActiveObject"]
+                    }
+                }
+            }).Result;
+            return invokeResult;
         }
 
-        private static async Task<JToken> SwisCallAsync(Func<HttpClient, Task<HttpResponseMessage>> doRequest)
+        private static async Task<string> AddNode(ISwisClient swisClient)
         {
-            var handler = new WebRequestHandler
-            {
-                Credentials = new NetworkCredential(username, password),
-                PreAuthenticate = true,
-                ServerCertificateValidationCallback = ValidateServerCertificate
+            string nodeUri = await swisClient.CreateAsync("Orion.Nodes",
+                new
+                {
+                    IPAddress = "10.199.4.3",
+                    EngineID = 1,
+                    ObjectSubType = "SNMP",
+                    SNMPVersion = 2,
+                    Community = "public"
+                });
+
+            JObject node = await swisClient.ReadAsync(nodeUri);
+            int nodeId = (int)node["NodeID"];
+
+            string[] pollerTypes = {
+                "N.Status.ICMP.Native",
+                "N.ResponseTime.ICMP.Native",
+                "N.Details.SNMP.Generic",
+                "N.Uptime.SNMP.Generic",
+                "N.Cpu.SNMP.CiscoGen3",
+                "N.Memory.SNMP.CiscoGen3"
             };
 
-            using (var client = new HttpClient(handler))
+            foreach (string pollerType in pollerTypes)
             {
-                client.BaseAddress = new Uri(string.Format("https://{0}:17778/SolarWinds/InformationService/v3/Json/", hostname));
-                HttpResponseMessage response = await doRequest(client);
-                response.EnsureSuccessStatusCode();
-                return JToken.Load(new JsonTextReader(new StreamReader(await response.Content.ReadAsStreamAsync())));
+                await swisClient.CreateAsync("Orion.Pollers", new
+                {
+                    NetObject = "N:" + nodeId,
+                    NetObjectType = "N",
+                    NetObjectID = nodeId,
+                    PollerType = pollerType
+                });
             }
-        }
 
-        private static bool ValidateServerCertificate(object sender, X509Certificate certificate, X509Chain chain, SslPolicyErrors sslPolicyErrors)
-        {
-            return true;
+            return nodeUri;
         }
     }
 }

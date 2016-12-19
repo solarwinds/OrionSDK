@@ -87,7 +87,8 @@ ORDER BY TriggerTimeStamp DESC";
                 "N.Details.SNMP.Generic",
                 "N.Uptime.SNMP.Generic",
                 "N.Cpu.SNMP.CiscoGen3",
-                "N.Memory.SNMP.CiscoGen3"
+                "N.Memory.SNMP.CiscoGen3",
+                "N.HardwareHealthMonitoring.SNMP.NPM.Cisco"
             };
 
             foreach (string pollerType in pollerTypes)
@@ -100,6 +101,13 @@ ORDER BY TriggerTimeStamp DESC";
                     PollerType = pollerType
                 });
             }
+
+            await swisClient.CreateAsync("Orion.NodeSettings", new
+            {
+                NodeID = nodeId,
+                SettingName = "NeedsInventory",
+                SettingValue = "HWH"
+            });
 
             return nodeUri;
         }

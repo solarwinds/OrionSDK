@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using System.IO;
 using System.ServiceModel;
-using System.ServiceModel.Channels;
 using System.Xml;
 using SolarWinds.InformationService.Contract2.Impersonation;
 using SolarWinds.InformationService.Contract2.Internationalization;
@@ -12,6 +11,7 @@ namespace SolarWinds.InformationService.Contract2
     [Impersonation]
     [I18nHeader]
     [SwisSettings]
+    [SwisProtocolVersion]
     public interface IStreamInformationService : IInformationService
     {
         [OperationContract(Name = "StreamedInvoke",

@@ -58,7 +58,7 @@
             this.noGroupingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutSWQLStudioToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.fileTabs = new System.Windows.Forms.TabControl();
+            this.fileTabs = new SwqlStudio.Controls.TabControlEx();
             this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
             this.fontDialog = new System.Windows.Forms.FontDialog();
@@ -410,7 +410,7 @@
         private System.Windows.Forms.ToolStripMenuItem menuFileNew;
         private System.Windows.Forms.ToolStripMenuItem menuFileSave;
         private System.Windows.Forms.ToolStripMenuItem menuFileExit;
-        private System.Windows.Forms.TabControl fileTabs;
+        private SwqlStudio.Controls.TabControlEx fileTabs;
         private System.Windows.Forms.ToolStripMenuItem menuFileOpen;
         private System.Windows.Forms.ToolStripMenuItem menuFileSaveAs;
         private System.Windows.Forms.ToolStripMenuItem menuFileClose;

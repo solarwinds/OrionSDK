@@ -32,6 +32,9 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SubscriptionTab));
             this.NotificationsImageList = new System.Windows.Forms.ImageList(this.components);
             this.NotificationsTreeView = new System.Windows.Forms.TreeView();
+            this.treeViewMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.copyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.treeViewMenuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
             // NotificationsImageList
@@ -47,6 +50,7 @@
             // NotificationsTreeView
             // 
             this.NotificationsTreeView.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.NotificationsTreeView.ContextMenuStrip = this.treeViewMenuStrip;
             this.NotificationsTreeView.Dock = System.Windows.Forms.DockStyle.Fill;
             this.NotificationsTreeView.ImageIndex = 0;
             this.NotificationsTreeView.ImageList = this.NotificationsImageList;
@@ -56,6 +60,22 @@
             this.NotificationsTreeView.SelectedImageIndex = 0;
             this.NotificationsTreeView.Size = new System.Drawing.Size(150, 150);
             this.NotificationsTreeView.TabIndex = 5;
+            this.NotificationsTreeView.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.NotificationsTreeView_NodeMouseClick);
+            // 
+            // treeViewMenuStrip
+            // 
+            this.treeViewMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.copyToolStripMenuItem});
+            this.treeViewMenuStrip.Name = "treeViewMenuStrip";
+            this.treeViewMenuStrip.Size = new System.Drawing.Size(103, 26);
+            this.treeViewMenuStrip.Opening += new System.ComponentModel.CancelEventHandler(this.treeViewMenuStrip_Opening);
+            // 
+            // copyToolStripMenuItem
+            // 
+            this.copyToolStripMenuItem.Name = "copyToolStripMenuItem";
+            this.copyToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.copyToolStripMenuItem.Text = "&Copy";
+            this.copyToolStripMenuItem.Click += new System.EventHandler(this.copyToolStripMenuItem_Click);
             // 
             // SubscriptionTab
             // 
@@ -64,6 +84,7 @@
             this.Controls.Add(this.NotificationsTreeView);
             this.Margin = new System.Windows.Forms.Padding(0);
             this.Name = "SubscriptionTab";
+            this.treeViewMenuStrip.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -72,6 +93,7 @@
 
         private System.Windows.Forms.ImageList NotificationsImageList;
         private System.Windows.Forms.TreeView NotificationsTreeView;
-
+        private System.Windows.Forms.ContextMenuStrip treeViewMenuStrip;
+        private System.Windows.Forms.ToolStripMenuItem copyToolStripMenuItem;
     }
 }

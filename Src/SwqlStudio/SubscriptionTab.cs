@@ -91,5 +91,31 @@ namespace SwqlStudio
                 }
             }
         }
+
+        private void copyToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var selectedNode = NotificationsTreeView.SelectedNode;
+            if (selectedNode != null)
+            {
+                CopyNodeToClipboard(selectedNode);
+            }
+        }
+
+        private void CopyNodeToClipboard(TreeNode selectedNode)
+        {
+            Clipboard.SetData(DataFormats.StringFormat, selectedNode.Text);
+        }
+
+        private void treeViewMenuStrip_Opening(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            var selectedNode = NotificationsTreeView.SelectedNode;
+            copyToolStripMenuItem.Enabled = (selectedNode != null); // disable copy, when there's no node selected
+        }
+
+        private void NotificationsTreeView_NodeMouseClick(object sender, TreeNodeMouseClickEventArgs e)
+        {
+            // right click (by default) does not change the selection!
+            NotificationsTreeView.SelectedNode = e.Node;
+        }
     }
 }

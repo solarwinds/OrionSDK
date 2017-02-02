@@ -356,6 +356,7 @@ namespace SwqlStudio
                         }
 
                         grid.DataSource = arg.Results;
+                        AutoResizeColumns(grid);
                     }
 
                     queryStatusBar1.UpdateValues(arg.Results.Rows.Count, arg.QueryTime, (long?)arg.Results.ExtendedProperties["TotalRows"]);
@@ -413,6 +414,48 @@ namespace SwqlStudio
                 QueryStatsTabVisible = false;
                 ShowLog(error.Log);
                 MessageBox.Show(this, error.ErrorMessage, "SWQL Studio", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
+        }
+
+        private static void AutoResizeColumns(DataGridView grid)
+        {
+            const int maxSize = 200;
+            const int widthFudgeFactor = 25;
+
+            int[] preferredSizes = new int[grid.ColumnCount];
+            int excessPreferredSize = 0;
+            int totalCurrentColumnSize = 0;
+            grid.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
+            for (int i = 0; i < grid.ColumnCount; i++)
+            {
+                DataGridViewColumn column = grid.Columns[i];
+                preferredSizes[i] = column.Width;
+                if (column.Width > maxSize)
+                {
+                    excessPreferredSize += column.Width - maxSize;
+                    column.Width = maxSize;
+                }
+                totalCurrentColumnSize += column.Width;
+            }
+
+            if (excessPreferredSize > 0)
+            {
+                // Some columns would like to be larger. Can we do this without incurring horizontal scroll?
+                // Easiest to just always leave room for a vertical scroll bar
+                int availableWidth = grid.DisplayRectangle.Width - totalCurrentColumnSize
+                                     - SystemInformation.VerticalScrollBarWidth - widthFudgeFactor;
+                if (availableWidth > 0)
+                {
+                    double grantRatio = Math.Min(1.0, (double)availableWidth / excessPreferredSize);
+                    for (int i = 0; i < grid.ColumnCount; i++)
+                    {
+                        DataGridViewColumn column = grid.Columns[i];
+                        if (column.Width != preferredSizes[i])
+                        {
+                            column.Width += (int)((preferredSizes[i] - column.Width) * grantRatio);
+                        }
+                    }
+                }
             }
         }
 

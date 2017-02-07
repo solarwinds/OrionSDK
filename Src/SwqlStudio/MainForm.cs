@@ -551,5 +551,20 @@ namespace SwqlStudio
                 ? CheckState.Checked
                 : CheckState.Unchecked;
         }
+
+        private void menuFileTabPage_Click(object sender, EventArgs e)
+        {
+            var tab = ActiveConnectionTab;
+            if (tab != null)
+            {
+                var connection = tab.ConnectionInfo;
+                var swql = ActiveQueryTab.QueryText;
+                AddTextToEditor(swql, connection);
+            }
+            else
+            {
+                AddNewQueryTab();
+            }
+        }
     }
 }

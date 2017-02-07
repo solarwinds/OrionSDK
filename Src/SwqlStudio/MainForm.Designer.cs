@@ -66,6 +66,8 @@
             this.objectExplorer = new SwqlStudio.ObjectExplorer();
             this.ObjectExplorerImageList = new System.Windows.Forms.ImageList(this.components);
             this.startTimer = new System.Windows.Forms.Timer(this.components);
+            this.menuFileClose2 = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuFileTabPage = new System.Windows.Forms.ToolStripMenuItem();
             toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
             toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.menu.SuspendLayout();
@@ -103,10 +105,12 @@
             // 
             this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.menuFileNew,
+            this.menuFileTabPage,
             this.menuFileOpen,
             this.menuFileSave,
             this.menuFileSaveAs,
             this.menuFileClose,
+            this.menuFileClose2,
             toolStripMenuItem1,
             this.menuNotificationListenerActive,
             toolStripSeparator1,
@@ -150,6 +154,7 @@
             // menuFileClose
             // 
             this.menuFileClose.Name = "menuFileClose";
+            this.menuFileClose.ShortcutKeyDisplayString = "Ctrl+W, Ctrl-F4";
             this.menuFileClose.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.W)));
             this.menuFileClose.Size = new System.Drawing.Size(217, 22);
             this.menuFileClose.Text = "&Close";
@@ -313,11 +318,13 @@
             // 
             this.fileTabs.AllowDrop = true;
             this.fileTabs.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.fileTabs.DrawMode = System.Windows.Forms.TabDrawMode.OwnerDrawFixed;
             this.fileTabs.Location = new System.Drawing.Point(0, 0);
             this.fileTabs.Margin = new System.Windows.Forms.Padding(0);
             this.fileTabs.Name = "fileTabs";
             this.fileTabs.SelectedIndex = 0;
             this.fileTabs.Size = new System.Drawing.Size(632, 571);
+            this.fileTabs.SizeMode = System.Windows.Forms.TabSizeMode.Normal;
             this.fileTabs.TabIndex = 1;
             this.fileTabs.TabStop = false;
             this.fileTabs.DragDrop += new System.Windows.Forms.DragEventHandler(this.TextEditorDragDrop);
@@ -376,6 +383,23 @@
             // startTimer
             // 
             this.startTimer.Tick += new System.EventHandler(this.startTimer_Tick);
+            // 
+            // menuFileClose2
+            // 
+            this.menuFileClose2.Name = "menuFileClose2";
+            this.menuFileClose2.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.F4)));
+            this.menuFileClose2.Size = new System.Drawing.Size(217, 22);
+            this.menuFileClose2.Text = "Close";
+            this.menuFileClose2.Visible = false;
+            this.menuFileClose2.Click += new System.EventHandler(this.menuFileClose_Click);
+            // 
+            // menuFileTabPage
+            // 
+            this.menuFileTabPage.Name = "menuFileTabPage";
+            this.menuFileTabPage.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.T)));
+            this.menuFileTabPage.Size = new System.Drawing.Size(217, 22);
+            this.menuFileTabPage.Text = "Tab Page";
+            this.menuFileTabPage.Click += new System.EventHandler(this.menuFileTabPage_Click);
             // 
             // MainForm
             // 
@@ -439,6 +463,8 @@
         private System.Windows.Forms.ToolStripMenuItem noGroupingToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem byBaseTypeToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem byHierarchyToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem menuFileClose2;
+        private System.Windows.Forms.ToolStripMenuItem menuFileTabPage;
     }
 }
 

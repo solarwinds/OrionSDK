@@ -147,8 +147,12 @@ namespace SwqlStudio
             if (lenEntered <= 0 && e.Char != '.')
                 return;
 
+            var currentWord = this.GetWordFromPosition(wordStartPos) ?? "";
+            
+
             // Display the autocompletion list
-            var keywords = string.Join(" ", LexerService.GetAutoCompletionKeywords(currentPos).OrderBy(x => x));
+            var keywords = string.Join(" ", LexerService.GetAutoCompletionKeywords(currentPos).
+                Where(x => x.StartsWith(currentWord, StringComparison.OrdinalIgnoreCase)).OrderBy(x => x));
             this.AutoCShow(lenEntered, keywords);
         }
 

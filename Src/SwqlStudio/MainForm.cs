@@ -572,5 +572,10 @@ namespace SwqlStudio
                 AddNewQueryTab();
             }
         }
+
+        private void enableIntellisenseToolStripMenuItem_CheckedChanged(object sender, EventArgs e)
+        {
+            LexerService.Enabled = enableIntellisenseToolStripMenuItem.Checked;
+        }
     }
 }

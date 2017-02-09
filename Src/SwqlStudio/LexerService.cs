@@ -101,6 +101,11 @@ namespace SwqlStudio
             }
         }
 
+        /// <summary>
+        /// lexer can be disabled in case of troubles
+        /// </summary>
+        public static bool Enabled { get; set; }
+
         public IEnumerable<string> GetAutoCompletionKeywords(int textPos)
         {
             var state = DetectAutoCompletion(_lexerDataSource.Text, textPos);
@@ -126,7 +131,10 @@ namespace SwqlStudio
 
         private ExpectedCaretPosition DetectAutoCompletion(string text, int textPos)
         {
-            return new IntellisenseProvider(text).ParseFor(textPos);
+            if (Enabled)
+                return new IntellisenseProvider(text).ParseFor(textPos);
+            else
+                return new ExpectedCaretPosition(ExpectedCaretPositionType.Keyword, null);
         }
 
     }

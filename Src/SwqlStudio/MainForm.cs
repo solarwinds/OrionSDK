@@ -575,7 +575,13 @@ namespace SwqlStudio
 
         private void enableIntellisenseToolStripMenuItem_CheckedChanged(object sender, EventArgs e)
         {
-            LexerService.Enabled = enableIntellisenseToolStripMenuItem.Checked;
+            Settings.Default.IntellisenseEnabled = enableIntellisenseToolStripMenuItem.Checked;
+            Settings.Default.Save();
+        }
+
+        private void preferencesToolStripMenuItem_DropDownOpening(object sender, EventArgs e)
+        {
+            enableIntellisenseToolStripMenuItem.Checked = Settings.Default.IntellisenseEnabled;
         }
     }
 }

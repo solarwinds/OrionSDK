@@ -35,10 +35,12 @@
             this.menu = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuFileNew = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuFileTabPage = new System.Windows.Forms.ToolStripMenuItem();
             this.menuFileOpen = new System.Windows.Forms.ToolStripMenuItem();
             this.menuFileSave = new System.Windows.Forms.ToolStripMenuItem();
             this.menuFileSaveAs = new System.Windows.Forms.ToolStripMenuItem();
             this.menuFileClose = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuFileClose2 = new System.Windows.Forms.ToolStripMenuItem();
             this.menuNotificationListenerActive = new System.Windows.Forms.ToolStripMenuItem();
             this.menuFileExit = new System.Windows.Forms.ToolStripMenuItem();
             this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -52,11 +54,11 @@
             this.playbackToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.preferencesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.groupEntityTreeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.enableIntellisenseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.byNamespaceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.byBaseTypeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.byHierarchyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.noGroupingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.enableIntellisenseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutSWQLStudioToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.fileTabs = new SwqlStudio.Controls.TabControlEx();
@@ -67,8 +69,6 @@
             this.objectExplorer = new SwqlStudio.ObjectExplorer();
             this.ObjectExplorerImageList = new System.Windows.Forms.ImageList(this.components);
             this.startTimer = new System.Windows.Forms.Timer(this.components);
-            this.menuFileClose2 = new System.Windows.Forms.ToolStripMenuItem();
-            this.menuFileTabPage = new System.Windows.Forms.ToolStripMenuItem();
             toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
             toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.menu.SuspendLayout();
@@ -129,6 +129,14 @@
             this.menuFileNew.Text = "&New";
             this.menuFileNew.Click += new System.EventHandler(this.menuFileNew_Click);
             // 
+            // menuFileTabPage
+            // 
+            this.menuFileTabPage.Name = "menuFileTabPage";
+            this.menuFileTabPage.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.T)));
+            this.menuFileTabPage.Size = new System.Drawing.Size(217, 22);
+            this.menuFileTabPage.Text = "Tab Page";
+            this.menuFileTabPage.Click += new System.EventHandler(this.menuFileTabPage_Click);
+            // 
             // menuFileOpen
             // 
             this.menuFileOpen.Name = "menuFileOpen";
@@ -160,6 +168,15 @@
             this.menuFileClose.Size = new System.Drawing.Size(217, 22);
             this.menuFileClose.Text = "&Close";
             this.menuFileClose.Click += new System.EventHandler(this.menuFileClose_Click);
+            // 
+            // menuFileClose2
+            // 
+            this.menuFileClose2.Name = "menuFileClose2";
+            this.menuFileClose2.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.F4)));
+            this.menuFileClose2.Size = new System.Drawing.Size(217, 22);
+            this.menuFileClose2.Text = "Close";
+            this.menuFileClose2.Visible = false;
+            this.menuFileClose2.Click += new System.EventHandler(this.menuFileClose_Click);
             // 
             // menuNotificationListenerActive
             // 
@@ -256,20 +273,12 @@
             // preferencesToolStripMenuItem
             // 
             this.preferencesToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.groupEntityTreeToolStripMenuItem, this.enableIntellisenseToolStripMenuItem});
+            this.groupEntityTreeToolStripMenuItem,
+            this.enableIntellisenseToolStripMenuItem});
             this.preferencesToolStripMenuItem.Name = "preferencesToolStripMenuItem";
             this.preferencesToolStripMenuItem.Size = new System.Drawing.Size(80, 20);
             this.preferencesToolStripMenuItem.Text = "&Preferences";
-            //
-            // enableIntellisenseToolStripMenuItem
-            //
-            this.enableIntellisenseToolStripMenuItem.Checked = true;
-            this.enableIntellisenseToolStripMenuItem.CheckOnClick = true;
-            this.enableIntellisenseToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.enableIntellisenseToolStripMenuItem.Name = "enableIntellisenseToolStripMenuItem";
-            this.enableIntellisenseToolStripMenuItem.Size = new System.Drawing.Size(170, 22);
-            this.enableIntellisenseToolStripMenuItem.Text = "Enable Intellisense";
-            this.enableIntellisenseToolStripMenuItem.CheckedChanged += new System.EventHandler(this.enableIntellisenseToolStripMenuItem_CheckedChanged);
+            this.preferencesToolStripMenuItem.DropDownOpening += new System.EventHandler(this.preferencesToolStripMenuItem_DropDownOpening);
             // 
             // groupEntityTreeToolStripMenuItem
             // 
@@ -279,7 +288,7 @@
             this.byHierarchyToolStripMenuItem,
             this.noGroupingToolStripMenuItem});
             this.groupEntityTreeToolStripMenuItem.Name = "groupEntityTreeToolStripMenuItem";
-            this.groupEntityTreeToolStripMenuItem.Size = new System.Drawing.Size(166, 22);
+            this.groupEntityTreeToolStripMenuItem.Size = new System.Drawing.Size(170, 22);
             this.groupEntityTreeToolStripMenuItem.Text = "&Group Entity Tree";
             // 
             // byNamespaceToolStripMenuItem
@@ -309,6 +318,16 @@
             this.noGroupingToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.noGroupingToolStripMenuItem.Text = "No &Grouping";
             this.noGroupingToolStripMenuItem.Click += new System.EventHandler(this.noGroupingToolStripMenuItem_Click);
+            // 
+            // enableIntellisenseToolStripMenuItem
+            // 
+            this.enableIntellisenseToolStripMenuItem.Checked = true;
+            this.enableIntellisenseToolStripMenuItem.CheckOnClick = true;
+            this.enableIntellisenseToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.enableIntellisenseToolStripMenuItem.Name = "enableIntellisenseToolStripMenuItem";
+            this.enableIntellisenseToolStripMenuItem.Size = new System.Drawing.Size(170, 22);
+            this.enableIntellisenseToolStripMenuItem.Text = "Enable Intellisense";
+            this.enableIntellisenseToolStripMenuItem.CheckedChanged += new System.EventHandler(this.enableIntellisenseToolStripMenuItem_CheckedChanged);
             // 
             // helpToolStripMenuItem
             // 
@@ -394,23 +413,6 @@
             // startTimer
             // 
             this.startTimer.Tick += new System.EventHandler(this.startTimer_Tick);
-            // 
-            // menuFileClose2
-            // 
-            this.menuFileClose2.Name = "menuFileClose2";
-            this.menuFileClose2.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.F4)));
-            this.menuFileClose2.Size = new System.Drawing.Size(217, 22);
-            this.menuFileClose2.Text = "Close";
-            this.menuFileClose2.Visible = false;
-            this.menuFileClose2.Click += new System.EventHandler(this.menuFileClose_Click);
-            // 
-            // menuFileTabPage
-            // 
-            this.menuFileTabPage.Name = "menuFileTabPage";
-            this.menuFileTabPage.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.T)));
-            this.menuFileTabPage.Size = new System.Drawing.Size(217, 22);
-            this.menuFileTabPage.Text = "Tab Page";
-            this.menuFileTabPage.Click += new System.EventHandler(this.menuFileTabPage_Click);
             // 
             // MainForm
             // 

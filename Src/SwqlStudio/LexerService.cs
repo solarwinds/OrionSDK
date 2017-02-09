@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using SwqlStudio.Intellisense;
+using SwqlStudio.Properties;
 
 namespace SwqlStudio
 {
@@ -101,11 +102,6 @@ namespace SwqlStudio
             }
         }
 
-        /// <summary>
-        /// lexer can be disabled in case of troubles
-        /// </summary>
-        public static bool Enabled { get; set; }
-
         public IEnumerable<string> GetAutoCompletionKeywords(int textPos)
         {
             var state = DetectAutoCompletion(_lexerDataSource.Text, textPos);
@@ -131,7 +127,7 @@ namespace SwqlStudio
 
         private ExpectedCaretPosition DetectAutoCompletion(string text, int textPos)
         {
-            if (Enabled)
+            if (Settings.Default.IntellisenseEnabled)
                 return new IntellisenseProvider(text).ParseFor(textPos);
             else
                 return new ExpectedCaretPosition(ExpectedCaretPositionType.Keyword, null);

@@ -21,6 +21,7 @@ namespace SwqlStudio
         private static readonly SolarWinds.Logging.Log log = new SolarWinds.Logging.Log();
 
         private readonly ServerList serverList = new ServerList();
+        private readonly Dictionary<ConnectionInfo, IMetadataProvider> _metadataProviders = new Dictionary<ConnectionInfo, IMetadataProvider>();
 
         public MainForm()
         {
@@ -70,12 +71,14 @@ namespace SwqlStudio
                         info.ConnectionClosed += (sender, args) => serverList.Remove(info);
                     }
 
-                    CreateQueryTab(info.Title, info);
-
                     if (!alreadyExists)
                     {
-                        objectExplorer.AddServer(new SwisMetaDataProvider(info), info);
+                        var provider = new SwisMetaDataProvider(info);
+                        objectExplorer.AddServer(provider, info);
+                        _metadataProviders[info] = provider;
                     }
+
+                    CreateQueryTab(info.Title, info, _metadataProviders[info]);
                 }
                 catch (FaultException<InfoServiceFaultContract> ex)
                 {
@@ -118,10 +121,13 @@ namespace SwqlStudio
             }
         }
 
-        private QueryTab CreateQueryTab(string title, ConnectionInfo info)
+        private QueryTab CreateQueryTab(string title, ConnectionInfo info, IMetadataProvider provider = null)
         {
             var tab = new TabPage(title) { BorderStyle = BorderStyle.None, Padding = new Padding(0) };
             var queryTab = new QueryTab { ConnectionInfo = info, Dock = DockStyle.Fill, ApplicationService = this };
+
+            queryTab.SetMetadataProvider(provider);
+
             tab.Controls.Add(queryTab);
             fileTabs.Controls.Add(tab);
             fileTabs.SelectedTab = tab;

@@ -1,41 +1,89 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
+using System.Windows.Forms;
+using SwqlStudio.Intellisense;
 
 namespace SwqlStudio
 {
-    public class LexerService
+    public interface ILexerDataSource
     {
-        private static LexerService instance;
+        string Text { get; }
+    }
+    internal class LexerService
+    {
+        private readonly ILexerDataSource _lexerDataSource;
+        private static List<string> BasicAutoCompletionKeywords { get; }
 
-        protected List<string> BasicAutoCompletionKeywords { get; private set; }
-        protected List<string> CustomAutoCompletionKeywords { get; private set; }
-        public List<string> AutoCompletionKeywords { get; private set; }
+        private readonly Dictionary<string, HashSet<string>> _columnNames = new Dictionary<string, HashSet<string>>(StringComparer.OrdinalIgnoreCase);
 
-        private LexerService()
+        // splits the string by '.', and adds all of the values
+        // so a.b.c ->
+        // columnnames[a].add(b)
+        // columnnames[a.b].add(c)
+        private void ApplyToColumnNames(string s)
         {
-            BasicAutoCompletionKeywords = new List<string>();
-            CustomAutoCompletionKeywords = new List<string>();
-
-            foreach (var words in this.LexerKeywords)
-                BasicAutoCompletionKeywords.AddRange(words.Item2.Select(w => w.ToUpper()));
-            BasicAutoCompletionKeywords.Sort();
-
-            ProcessACKeywords();
-        }
-
-        public static LexerService Instance
-        {
-            get
+            int i = -1;
+            while (i < s.Length)
             {
-                if (instance == null)
-                    instance = new LexerService();
-                return instance;
+                var j = s.IndexOf('.', i + 1);
+                if (j == -1)
+                    j = s.Length;
+
+                var l = s.Substring(0, Math.Max(i, 0));
+                var r = s.Substring(i + 1, j - i - 1);
+
+                if (!_columnNames.ContainsKey(l))
+                    _columnNames.Add(l, new HashSet<string>());
+
+                _columnNames[l].Add(r);
+                
+                i = j;
             }
         }
 
-        public IEnumerable<Tuple<int, IEnumerable<string>>> LexerKeywords
+        private void RefreshMetadata(IMetadataProvider provider)
+        {
+            lock (((ICollection)_columnNames).SyncRoot)
+            {
+                _columnNames.Clear();
+
+                foreach (var entity in provider.Tables)
+                {
+                    ApplyToColumnNames(entity.FullName);
+
+                    foreach (var column in entity.Properties)
+                    {
+                        ApplyToColumnNames(entity.FullName + "." + column.Name);
+                    }
+                }
+            }
+        }
+
+        public void SetMetadata(IMetadataProvider provider)
+        {
+            provider.EntitiesRefreshed += (sender, args) =>
+            {
+                RefreshMetadata(provider);
+            };
+            RefreshMetadata(provider);
+        }
+
+        static LexerService()
+        {
+            BasicAutoCompletionKeywords =
+                LexerKeywords.SelectMany(x => x.Item2).Select(x => x.ToUpper()).OrderBy(x => x).ToList();
+        }
+
+        public LexerService(ILexerDataSource lexerDataSource)
+        {
+            _lexerDataSource = lexerDataSource;
+        }
+
+        public static IEnumerable<Tuple<int, IEnumerable<string>>> LexerKeywords
         {
             get
             {
@@ -53,25 +101,33 @@ namespace SwqlStudio
             }
         }
 
-        public void AddCustomACKeywords(IEnumerable<string> keywords)
+        public IEnumerable<string> GetAutoCompletionKeywords(int textPos)
         {
-            this.CustomAutoCompletionKeywords.AddRange(keywords);
-            ProcessACKeywords();
+            var state = DetectAutoCompletion(_lexerDataSource.Text, textPos);
+
+            if (state.Type.HasFlag(ExpectedCaretPositionType.Column) ||
+                state.Type.HasFlag(ExpectedCaretPositionType.Entity))
+            {
+                lock (((ICollection) _columnNames).SyncRoot)
+                {
+                    HashSet<string> variants;
+                    if (_columnNames.TryGetValue(state.ProposedEntity ?? "", out variants))
+                    {
+                        foreach (var v in variants)
+                            yield return v;
+                    }
+                }
+            }
+
+            if (state.Type.HasFlag(ExpectedCaretPositionType.Keyword))
+                foreach (var k in BasicAutoCompletionKeywords)
+                    yield return k;
         }
 
-        public void ClearCustomACKeywords()
+        private ExpectedCaretPosition DetectAutoCompletion(string text, int textPos)
         {
-            this.CustomAutoCompletionKeywords.Clear();
-            ProcessACKeywords();
+            return new IntellisenseProvider(text).ParseFor(textPos);
         }
 
-        public void ProcessACKeywords()
-        {
-            this.AutoCompletionKeywords = BasicAutoCompletionKeywords
-                .Concat(CustomAutoCompletionKeywords)
-                .Distinct(StringComparer.CurrentCultureIgnoreCase)
-                .OrderBy(w => w)
-                .ToList();
-        }
     }
 }

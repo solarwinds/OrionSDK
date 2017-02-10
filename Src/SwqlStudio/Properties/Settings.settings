@@ -92,5 +92,8 @@
     <Setting Name="EntityGroupingMode" Type="System.String" Scope="User">
       <Value Profile="(Default)">ByNamespace</Value>
     </Setting>
+    <Setting Name="IntellisenseEnabled" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

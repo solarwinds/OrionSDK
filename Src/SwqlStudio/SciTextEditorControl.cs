@@ -4,14 +4,16 @@ using System.IO;
 using System.Windows.Forms;
 using ScintillaNET;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace SwqlStudio
 {
-    class SciTextEditorControl : Scintilla
+    internal class SciTextEditorControl : Scintilla, ILexerDataSource
     {
         public SciTextEditorControl()
         {
             Lexer = Lexer.Sql;
+            LexerService = new LexerService(this);
 
             StyleResetDefault();
             Styles[Style.Default].Font = "Consolas";
@@ -21,7 +23,7 @@ namespace SwqlStudio
 
             // TODO: wait for newest nuget package, it will ocntains this method!!!
             //this.AutoCSetFillUps(" {}[]().,:;+-*/%&|^!~=<>?@#'\"\\");
-            foreach (var words in LexerService.Instance.LexerKeywords)
+            foreach (var words in LexerService.LexerKeywords)
                 SetKeywords(words.Item1, string.Join(" ", words.Item2));
 
             //// Default (whitespace) style index.
@@ -94,6 +96,12 @@ namespace SwqlStudio
             //Styles[Style.Sql.QOperator].ForeColor = Color.DarkGray;
         }
 
+        public void SetMetadata(IMetadataProvider provider)
+        {
+            if (provider != null)
+                LexerService.SetMetadata(provider);
+        }
+
         public string GetSelectedOrAllText()
         {
             var text = SelectedText;
@@ -116,12 +124,16 @@ namespace SwqlStudio
 
         public string FileName { get; set; }
 
+        public LexerService LexerService { get; }
+
         public void SaveFile(string path)
         {
             File.WriteAllText(path, Text);
         }
 
         public event Action Execute;
+
+        
 
         protected override void OnCharAdded(CharAddedEventArgs e)
         {
@@ -132,12 +144,18 @@ namespace SwqlStudio
             var wordStartPos = this.WordStartPosition(currentPos, true);
 
             var lenEntered = currentPos - wordStartPos;
-            if (lenEntered <= 0)
+            if (lenEntered <= 0 && e.Char != '.')
                 return;
 
+            var currentWord = this.GetWordFromPosition(wordStartPos) ?? "";
+            
+
             // Display the autocompletion list
-            var keywords = string.Join(" ", LexerService.Instance.AutoCompletionKeywords);
+            var keywords = string.Join(" ", LexerService.GetAutoCompletionKeywords(currentPos).
+                Where(x => x.StartsWith(currentWord, StringComparison.OrdinalIgnoreCase)).OrderBy(x => x));
             this.AutoCShow(lenEntered, keywords);
         }
+
+        string ILexerDataSource.Text => this.Text;
     }
 }

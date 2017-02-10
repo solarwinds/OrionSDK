@@ -714,5 +714,10 @@ namespace SwqlStudio
         {
             deleteToolStripMenuItem.Enabled = dataGridView1.Columns.Contains("Uri") && dataGridView1.SelectedRows.Count > 0;
         }
+
+        internal void SetMetadataProvider(IMetadataProvider provider)
+        {
+            sciTextEditorControl1.SetMetadata(provider);
+        }
     }
 }

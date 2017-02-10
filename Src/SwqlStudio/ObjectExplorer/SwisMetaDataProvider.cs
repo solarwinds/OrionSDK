@@ -11,7 +11,7 @@ namespace SwqlStudio
         private readonly ConnectionInfo info;
 
         private Dictionary<string, Entity> entities = new Dictionary<string, Entity>();
-
+        
         public SwisMetaDataProvider(ConnectionInfo info)
         {
             this.info = info;
@@ -20,12 +20,14 @@ namespace SwqlStudio
 
         public void Refresh()
         {
-            const string queryTemplate = 
-            @"SELECT Entity.FullName, Entity.Namespace, Entity.BaseType, (Entity.Type ISA 'System.Indication') AS IsIndication,
+
+            const string queryTemplate =
+                @"SELECT Entity.FullName, Entity.Namespace, Entity.BaseType, (Entity.Type ISA 'System.Indication') AS IsIndication,
 	Entity.Properties.Name, Entity.Properties.Type, Entity.Properties.IsNavigable, Entity.Properties.IsInherited, Entity.Properties.IsKey,
 	Entity.Verbs.EntityName, Entity.Verbs.Name, Entity.IsAbstract{0}
 FROM Metadata.Entity";
-            const string crudFragment = ", Entity.CanCreate, Entity.CanDelete, Entity.CanInvoke, Entity.CanRead, Entity.CanUpdate";
+            const string crudFragment =
+                ", Entity.CanCreate, Entity.CanDelete, Entity.CanInvoke, Entity.CanRead, Entity.CanUpdate";
 
             string query = string.Format(queryTemplate, SupportsAccessControl() ? crudFragment : string.Empty);
 
@@ -37,6 +39,8 @@ FROM Metadata.Entity";
                 if (entity.BaseType != null && entities.TryGetValue(entity.BaseType, out baseEntity))
                     entity.BaseEntity = baseEntity;
             }
+
+            EntitiesRefreshed?.Invoke(this, new EventArgs());
         }
 
         public bool SupportsAccessControl()
@@ -78,9 +82,12 @@ WHERE EntityName='Metadata.Entity' AND Name='CanCreate'";
             {
                 if (entities == null)
                     Refresh();
-                
-                return entities.Values.OrderBy( t => t.FullName );
+
+                return entities.Values.OrderBy(t => t.FullName);
             }
         }
+
+        /// <inheritdoc />
+        public event EventHandler EntitiesRefreshed;
     }
 }

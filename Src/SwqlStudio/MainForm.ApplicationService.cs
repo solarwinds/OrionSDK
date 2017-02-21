@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Windows.Forms;
+﻿using System.Windows.Forms;
 using SwqlStudio.Metadata;
 using SwqlStudio.Subscriptions;
 
@@ -10,9 +6,6 @@ namespace SwqlStudio
 {
     partial class MainForm : IApplicationService
     {
-        public event EventHandler<IndicationEventArgs> IndicationReceived;
-
-
         public SubscriptionManager SubscriptionManager { get; } = new SubscriptionManager();
 
         public void AddTextToEditor(string text, ConnectionInfo info)

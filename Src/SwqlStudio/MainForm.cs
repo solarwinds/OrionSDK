@@ -16,7 +16,7 @@ namespace SwqlStudio
     [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single,
         ConcurrencyMode = ConcurrencyMode.Multiple,
         UseSynchronizationContext = false)]
-    public partial class MainForm : Form, IApplicationService
+    public partial class MainForm : Form
     {
         private static readonly SolarWinds.Logging.Log log = new SolarWinds.Logging.Log();
 

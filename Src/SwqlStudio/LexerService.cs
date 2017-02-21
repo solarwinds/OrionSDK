@@ -1,10 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
-using System.Text;
-using System.Windows.Forms;
 using SwqlStudio.Intellisense;
 using SwqlStudio.Properties;
 
@@ -16,17 +13,34 @@ namespace SwqlStudio
     }
     internal class LexerService
     {
+        /// <summary>
+        /// Namespace is, for our usage, SwisEntity with ColumnNames of the internal namespaces and classes
+        /// NavigationProperty is the link to next entity with given name
+        /// 
+        /// ColumnNames nor NavigationProperties can contain dots
+        /// </summary>
+        private class SwisEntity
+        {
+            public HashSet<string> ColumnNames { get; } = new HashSet<string>();
+            // contains references - 
+            public Dictionary<string, string> NavigationProperties { get; } = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
+        }
+
         private readonly ILexerDataSource _lexerDataSource;
         private static List<string> BasicAutoCompletionKeywords { get; }
 
-        private readonly Dictionary<string, HashSet<string>> _columnNames = new Dictionary<string, HashSet<string>>(StringComparer.OrdinalIgnoreCase);
+        private readonly Dictionary<string, SwisEntity> _swisEntities = new Dictionary<string, SwisEntity>(StringComparer.OrdinalIgnoreCase);
 
-        // splits the string by '.', and adds all of the values
+        // splits the string by '.', and yield returns all of the values as path
         // so a.b.c ->
-        // columnnames[a].add(b)
-        // columnnames[a.b].add(c)
-        private void ApplyToColumnNames(string s)
+        // returns ("", a),
+        //         ("a", "b"),
+        //         ("a.b", "c")
+        private static IEnumerable<Tuple<string, string>> ParsePaths(string s)
         {
+            if (s.Length == 0)
+                yield break;
+
             int i = -1;
             while (i < s.Length)
             {
@@ -37,31 +51,75 @@ namespace SwqlStudio
                 var l = s.Substring(0, Math.Max(i, 0));
                 var r = s.Substring(i + 1, j - i - 1);
 
-                if (!_columnNames.ContainsKey(l))
-                    _columnNames.Add(l, new HashSet<string>());
+                yield return Tuple.Create(l, r);
 
-                _columnNames[l].Add(r);
-                
                 i = j;
             }
         }
 
+
         private void RefreshMetadata(IMetadataProvider provider)
         {
-            lock (((ICollection)_columnNames).SyncRoot)
+            lock (((ICollection)_swisEntities).SyncRoot)
             {
-                _columnNames.Clear();
+                _swisEntities.Clear();
+
+                _swisEntities[""] = new SwisEntity(); // always required
+
+                // create set of swisentities for namespaces (for intellisense, there is no difference between namespace and entity).
+                // orion.npm creates namespace orion, with column / navigationproperty 'npm', pointing to orion.npm namespace
+                // and orion.npm namespace
+                // we can have overlap between namespace and entity, and that is something we can live with right now.
+                foreach (var ns in provider.Tables.Select(x => x.Namespace).Distinct())
+                {
+                    if (!_swisEntities.ContainsKey(ns))
+                        _swisEntities.Add(ns, new SwisEntity());
+
+                    foreach (var partPortion in ParsePaths(ns))
+                    {
+                        SwisEntity swisEntity;
+
+                        if (!_swisEntities.TryGetValue(partPortion.Item1, out swisEntity))
+                            _swisEntities[partPortion.Item1] = swisEntity = new SwisEntity();
+
+                        swisEntity.ColumnNames.Add(partPortion.Item2);
+                        swisEntity.NavigationProperties[partPortion.Item2] = string.IsNullOrEmpty(partPortion.Item1) ? partPortion.Item2 : partPortion.Item1 + "." + partPortion.Item2;
+                    }
+                }
 
                 foreach (var entity in provider.Tables)
                 {
-                    ApplyToColumnNames(entity.FullName);
+                    var namespaceSwisEntity = _swisEntities[entity.Namespace];
 
+                    var entityName = GetNamespaceAndNameForEntity(entity.FullName).Item2;
+                    namespaceSwisEntity.ColumnNames.Add(entityName);
+                    namespaceSwisEntity.NavigationProperties[entityName] = entity.FullName;
+
+
+                    SwisEntity swisEntity;
+                    if (!_swisEntities.TryGetValue(entity.FullName, out swisEntity))
+                        _swisEntities[entity.FullName] = swisEntity = new SwisEntity();
+                    
                     foreach (var column in entity.Properties)
                     {
-                        ApplyToColumnNames(entity.FullName + "." + column.Name);
+                        swisEntity.ColumnNames.Add(column.Name);
+                        if (column.IsNavigable)
+                        {
+                            swisEntity.NavigationProperties[column.Name] = column.Type;
+                        }
                     }
                 }
             }
+        }
+
+        // returns namespace + name for given entity
+        // from a.b.c.d creates (a.b.c, d)
+        private static Tuple<string, string> GetNamespaceAndNameForEntity(string entityFullName)
+        {
+            var lastDot = entityFullName.LastIndexOf('.');
+            if (lastDot == -1)
+                return Tuple.Create("", entityFullName);
+            return Tuple.Create(entityFullName.Substring(0, lastDot), entityFullName.Substring(lastDot + 1));
         }
 
         public void SetMetadata(IMetadataProvider provider)
@@ -109,20 +167,47 @@ namespace SwqlStudio
             if (state.Type.HasFlag(ExpectedCaretPositionType.Column) ||
                 state.Type.HasFlag(ExpectedCaretPositionType.Entity))
             {
-                lock (((ICollection) _columnNames).SyncRoot)
+                lock (((ICollection)_swisEntities).SyncRoot)
                 {
-                    HashSet<string> variants;
-                    if (_columnNames.TryGetValue(state.ProposedEntity ?? "", out variants))
-                    {
-                        foreach (var v in variants)
-                            yield return v;
-                    }
+                    foreach (var v in FollowNavigationProperties(state.ProposedEntity ?? ""))
+                        yield return v;
                 }
             }
 
             if (state.Type.HasFlag(ExpectedCaretPositionType.Keyword))
                 foreach (var k in BasicAutoCompletionKeywords)
                     yield return k;
+        }
+
+        /// <summary>
+        /// follows the entity, and suggests navigation properties values.
+        /// example: Orion.Node.Volumes.Statistics.
+        ///     looks up if Orion is navigatoin property on "" namespace. it is, follows
+        ///     looks up if Orion.Node is navigation property on Orion namespace. it is, follows
+        ///     looks up if Orion.Node.Volumes is navigation property (it is), so it follows up in Orion.Volumes
+        ///     looks up if Orion.Volumes is navigation property (it is), so follows up in Orion.VolumesStatistics
+        ///     ..
+        ///     and iterates given entity
+        /// </summary>
+        /// <param name="proposedEntity"></param>
+        /// <returns></returns>
+        private IEnumerable<string> FollowNavigationProperties(string proposedEntity)
+        {
+            var ns = _swisEntities[""];
+
+            foreach (var dot in ParsePaths(proposedEntity))
+            {
+                if (ns.NavigationProperties.ContainsKey(dot.Item2))
+                {
+                    ns = _swisEntities[ns.NavigationProperties[dot.Item2]];
+                }
+                else
+                {
+                    return Enumerable.Empty<string>();
+                }
+            }
+
+            return ns.ColumnNames;
         }
 
         private ExpectedCaretPosition DetectAutoCompletion(string text, int textPos)

@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Web;
 
 namespace SwqlStudio.Intellisense
 {
@@ -22,7 +20,7 @@ namespace SwqlStudio.Intellisense
             _keyWords = new HashSet<string>("all any and as asc between class desc distinct exists false full group having in inner into is isa from join left like not null or outer right select set some true union where end when then else case on top return xml raw auto with limitation rows to order by desc totalrows noplancache queryplan querystats".Split(' '), StringComparer.OrdinalIgnoreCase);
         }
 
-        enum LastInterestingElement
+        private enum LastInterestingElement
         {
             Nothing, // nothing interesting
             Dot, // last thing was dot, so when we find identifier, we append
@@ -42,7 +40,27 @@ namespace SwqlStudio.Intellisense
                     return new ExpectedCaretPosition(ExpectedCaretPositionType.Entity | ExpectedCaretPositionType.Keyword, null);
                 case LastInterestingElement.Dot:
                     if (!aliasList.TryGetValue(rv.Item1, out possibleAlias))
-                        possibleAlias = rv.Item1;
+                    {
+                        // expand alias for navigation property
+                        // n.blahblah becomes node.blahblah (if we have alias node n)
+                        if (rv.Item1.Contains('.'))
+                        {
+                            var firstPortion = rv.Item1.Substring(0, rv.Item1.IndexOf('.'));
+                            if (aliasList.TryGetValue(firstPortion, out possibleAlias))
+                            {
+                                possibleAlias = possibleAlias + rv.Item1.Substring(rv.Item1.IndexOf('.'));
+                            }
+                            else
+                            {
+                                possibleAlias = rv.Item1;
+                            }
+                        }
+                        else
+                        {
+                            possibleAlias = rv.Item1;
+                        }
+                    }
+
 
                     return new ExpectedCaretPosition(ExpectedCaretPositionType.Column, possibleAlias);
                 case LastInterestingElement.As:
@@ -57,7 +75,7 @@ namespace SwqlStudio.Intellisense
         }
 
         private Tuple<string, LastInterestingElement> DoTheParsing(int caretPosition,
-            Dictionary<string, string> aliasList)
+            IDictionary<string, string> aliasList)
         {
             string lastIdentifier = "";
             var lastInterestingElement = LastInterestingElement.Nothing;

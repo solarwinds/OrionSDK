@@ -13,7 +13,10 @@ namespace SwqlStudio
             if (info == null)
                 info = ActiveConnectionInfo;
 
-            CreateQueryTab(info.Title, info);
+            IMetadataProvider metadataProvider;
+            _metadataProviders.TryGetValue(info, out metadataProvider);
+
+            CreateQueryTab(info.Title, info, metadataProvider);
             ActiveQueryTab.QueryText = text;
         }
 

@@ -193,11 +193,15 @@ namespace SwqlStudio
         /// <returns></returns>
         private IEnumerable<string> FollowNavigationProperties(string proposedEntity)
         {
+            // we haven't got properly filled entities. 
+            if (!_swisEntities.ContainsKey(""))
+                return Enumerable.Empty<string>();
+
             var ns = _swisEntities[""];
 
             foreach (var dot in ParsePaths(proposedEntity))
             {
-                if (ns.NavigationProperties.ContainsKey(dot.Item2))
+                if (ns.NavigationProperties.ContainsKey(dot.Item2) && _swisEntities.ContainsKey(ns.NavigationProperties[dot.Item2]))
                 {
                     ns = _swisEntities[ns.NavigationProperties[dot.Item2]];
                 }
@@ -210,7 +214,7 @@ namespace SwqlStudio
             return ns.ColumnNames;
         }
 
-        private ExpectedCaretPosition DetectAutoCompletion(string text, int textPos)
+        private static ExpectedCaretPosition DetectAutoCompletion(string text, int textPos)
         {
             if (Settings.Default.IntellisenseEnabled)
                 return new IntellisenseProvider(text).ParseFor(textPos);

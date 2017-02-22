@@ -121,7 +121,7 @@ namespace SwqlStudio
             }
         }
 
-        private QueryTab CreateQueryTab(string title, ConnectionInfo info, IMetadataProvider provider = null)
+        private QueryTab CreateQueryTab(string title, ConnectionInfo info, IMetadataProvider provider)
         {
             var tab = new TabPage(title) { BorderStyle = BorderStyle.None, Padding = new Padding(0) };
             var queryTab = new QueryTab { ConnectionInfo = info, Dock = DockStyle.Fill, ApplicationService = this };
@@ -139,12 +139,6 @@ namespace SwqlStudio
             };
 
             return queryTab;
-        }
-
-        private void CloneActiveTabWithNewQuery(string query)
-        {
-            QueryTab tab = CreateQueryTab(ActiveConnectionTab.ConnectionInfo.Title, ActiveConnectionTab.ConnectionInfo);
-            tab.QueryText = query;
         }
 
         private void menuFileOpen_Click(object sender, EventArgs e)
@@ -170,7 +164,10 @@ namespace SwqlStudio
                     var connectionInfo = ActiveConnectionInfo.Copy();
                     connectionInfo.Connect();
 
-                    queryTab = CreateQueryTab(Path.GetFileName(fn), connectionInfo);
+                    IMetadataProvider metadataProvider;
+                    _metadataProviders.TryGetValue(connectionInfo, out metadataProvider);
+
+                    queryTab = CreateQueryTab(Path.GetFileName(fn), connectionInfo, metadataProvider);
                     queryTab.QueryText = File.ReadAllText(fn);
                     // Modified flag is set during loading because the document 
                     // "changes" (from nothing to something). So, clear it again.

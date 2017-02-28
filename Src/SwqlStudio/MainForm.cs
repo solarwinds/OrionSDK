@@ -150,6 +150,8 @@ namespace SwqlStudio
 
         private void OpenFiles(string[] fns)
         {
+            var originalConnection = ActiveConnectionInfo;
+
             // Close default untitled document if it is still empty
             if (fileTabs.TabPages.Count == 1
                 && ActiveQueryTab.QueryText.Trim() == String.Empty)
@@ -161,7 +163,7 @@ namespace SwqlStudio
                 QueryTab queryTab = null;
                 try
                 {
-                    var connectionInfo = ActiveConnectionInfo.Copy();
+                    var connectionInfo = originalConnection.Copy();
                     connectionInfo.Connect();
 
                     IMetadataProvider metadataProvider;

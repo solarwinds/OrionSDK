@@ -19,10 +19,7 @@ namespace SwqlStudio
             _credentials = new UsernameCredentials(username, password);
         }
 
-        public override string ServiceType
-        {
-            get { return "Orion"; }
-        }
+        public override string ServiceType => string.Format("Orion (v{0})", _isSwisV3 ? 3 : 2);
 
         public override bool SupportsActiveSubscriber
         {

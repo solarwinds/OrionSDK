@@ -5,15 +5,15 @@ if (Get-PSSnapin -Name SwisSnapin -ErrorAction SilentlyContinue){
 Add-PSSnapin SwisSnapin
 
 <#
-.Synopsis
-   Add a new node to Orion
-.DESCRIPTION
-   This cmdlet adds a new node to Orion. The default is an ICMP node, future versions will include SNMP and WMI options
-.EXAMPLE
-   New-OrionNode -SwisConnection $swis -IPAddress "10.160.5.83" 
-.EXAMPLE
- $cred = get-OrionWMICredential -SwisConnection $swis | where-Object {$_.Name  -like "Local Admin 2"}
- New-OrionNode -SwisConnection $swis -ObjectSubType WMI -IPAddress 10.160.5.85 -CredentialID $cred.id -Verbose 
+    .Synopsis
+    Add a new node to Orion
+    .DESCRIPTION
+    This cmdlet adds a new node to Orion. The default is an ICMP node, future versions will include SNMP and WMI options
+    .EXAMPLE
+    New-OrionNode -SwisConnection $swis -IPAddress "10.160.5.83" 
+    .EXAMPLE
+    $cred = get-OrionWMICredential -SwisConnection $swis | where-Object {$_.Name  -like "Local Admin 2"}
+    New-OrionNode -SwisConnection $swis -ObjectSubType WMI -IPAddress 10.160.5.85 -CredentialID $cred.id -Verbose 
 #>
 function New-OrionNode
 {
@@ -262,15 +262,15 @@ function New-OrionNode
 }
 
 <#
-.Synopsis
-   Discovers interfaces on an Orion Node, and adds them for monitoring
-.DESCRIPTION
-  Discovers interfaces on an Orion Node, and adds them for monitoring. Possible to exclude certain interfaces, by passing the Interface types as a parameter
-.EXAMPLE
+    .Synopsis
+    Discovers interfaces on an Orion Node, and adds them for monitoring
+    .DESCRIPTION
+    Discovers interfaces on an Orion Node, and adds them for monitoring. Possible to exclude certain interfaces, by passing the Interface types as a parameter
+    .EXAMPLE
     Add-OrionDiscoveredInterfaces -SwisConnection $swis -NodeId 13 
 
     This example adds in all interfaces that have been discovered on a node
-.EXAMPLE
+    .EXAMPLE
     Add-OrionDiscoveredInterfaces -SwisConnection $swis -NodeId 13 -ExcludedInterfaceType 22,101
 
     This example adds in all interfaces that have been discovered on a node, excluding Serial, and Voice Foreign Exchange Office type interfaces
@@ -424,11 +424,11 @@ function New-OrionInterface
 }
 
 <#
-.Synopsis
-   Adds a new poller to a node in Orion
-.DESCRIPTION
-  This cmdlet addes new pollers (CPU, memory, uptime etc) to nodes in Orion
-.EXAMPLE
+    .Synopsis
+    Adds a new poller to a node in Orion
+    .DESCRIPTION
+    This cmdlet addes new pollers (CPU, memory, uptime etc) to nodes in Orion
+    .EXAMPLE
     New-OrionPollerType -PollerType "N.ResponseTime.ICMP.Native" -NodeProperties $nodeProps -SwisConnection $SwisConnection
 
 #>
@@ -482,23 +482,23 @@ function New-OrionPollerType
 }
 
 <#
-.Synopsis
-   Returns the properties, or the custom properties, of a node monitored by Orion
-.DESCRIPTION
-   This Cmdlet returns the properties of a node monitored by Orion. It can look up a node based on it's node id. If this is not explicitly available, it can call Get-OrionNodeID
-  If passed the  -custom switch it can return
+    .Synopsis
+    Returns the properties, or the custom properties, of a node monitored by Orion
+    .DESCRIPTION
+    This Cmdlet returns the properties of a node monitored by Orion. It can look up a node based on it's node id. If this is not explicitly available, it can call Get-OrionNodeID
+    If passed the  -custom switch it can return
 
-.EXAMPLE
- PS C:\Scripts\Modules\Orion> Get-OrionNodeProperties -NodeID $nodeid -SwisConnection $swis  
+    .EXAMPLE
+    PS C:\Scripts\Modules\Orion> Get-OrionNodeProperties -NodeID $nodeid -SwisConnection $swis  
 
-.EXAMPLE
-  PS C:\Scripts\Modules\Orion> Get-OrionNodeProperties -NodeID $nodeid -SwisConnection $swis  -custom
+    .EXAMPLE
+    PS C:\Scripts\Modules\Orion> Get-OrionNodeProperties -NodeID $nodeid -SwisConnection $swis  -custom
 
-Key                                Value
----                                -----
-NodeID                             3
-City                               Austin
-IsMissionCritical                  False
+    Key                                Value
+    ---                                -----
+    NodeID                             3
+    City                               Austin
+    IsMissionCritical                  False
 
 #>
 function Get-OrionNode
@@ -574,25 +574,25 @@ function Get-OrionNode
 }
 
 <#
-.Synopsis
-   Returns the Node ID for a given node managed in Orion
-.DESCRIPTION
-  This CmdLet returns the Node ID for a given node managed in Orion, by looking up either the node name or IP Address. 
-  if Passed the -all switch it returns all node IDs, and the associated node caption
-.EXAMPLE
-  Get-OrionNodeID -node "lab-hpinsight" -swisconnection $swis
-.EXAMPLE
-  Get-OrionNodeID -IPAddress 10.199.1.100 -SwisConnection $swis
-.EXAMPLE 
+    .Synopsis
+    Returns the Node ID for a given node managed in Orion
+    .DESCRIPTION
+    This CmdLet returns the Node ID for a given node managed in Orion, by looking up either the node name or IP Address. 
+    if Passed the -all switch it returns all node IDs, and the associated node caption
+    .EXAMPLE
+    Get-OrionNodeID -node "lab-hpinsight" -swisconnection $swis
+    .EXAMPLE
+    Get-OrionNodeID -IPAddress 10.199.1.100 -SwisConnection $swis
+    .EXAMPLE 
     $swis = Connect-Swis -UserName admin -Password "" -Hostname 10.160.5.75
     Get-OrionNodeID -Node $TestNode -SwisConnection $swis
     
     3
-.EXAMPLE
+    .EXAMPLE
     PS C:\Scripts\Modules\Orion> Get-OrionNodeID -all -SwisConnection $swis
 
-NodeID caption                                                                                                                         
------- -------                                                                                                                         
+    NodeID caption                                                                                                                         
+    ------ -------                                                                                                                         
     2 se-cor-whd                                                                                                                      
     3 lab-apc5000                                                                                                                     
     5 ew-2951.ew.lab                                                                                                                  
@@ -667,12 +667,12 @@ function Get-OrionNodeID
 }
 
 <#
-.Synopsis
-  Converts an IP address to a Guid
-.DESCRIPTION
-   Converts an IP address to a Guid. Used as a helper function by other modules
-.EXAMPLE
-Convert-ip2OrionGuid -ipaddress 127.0.0.1
+    .Synopsis
+    Converts an IP address to a Guid
+    .DESCRIPTION
+    Converts an IP address to a Guid. Used as a helper function by other modules
+    .EXAMPLE
+    Convert-ip2OrionGuid -ipaddress 127.0.0.1
 
 #>
 function Convert-IP2OrionGuid
@@ -717,13 +717,13 @@ function Convert-IP2OrionGuid
 }
 
 <#
-.Synopsis
-   Remove a node from the Orion database
-.DESCRIPTION
+    .Synopsis
+    Remove a node from the Orion database
+    .DESCRIPTION
      This Cmdlet returns the properties of a node monitored by Orion. It can look up a node based on it's node id. If this is not explicitly available, it can call Get-OrionNodeID
-.EXAMPLE
-   $swis = Connect-Swis -UserName admin -Password "" -Hostname 10.160.5.75
-   Remove-OrionNode 71 -OrionServer "OrionServer" -SwisConnection $swis
+    .EXAMPLE
+    $swis = Connect-Swis -UserName admin -Password "" -Hostname 10.160.5.75
+    Remove-OrionNode 71 -OrionServer "OrionServer" -SwisConnection $swis
 
 #>
 function Remove-OrionNode
@@ -800,14 +800,14 @@ function Remove-OrionNode
 }
 
 <#
-.Synopsis
-   Gets ALL credentials used by Orion
-.DESCRIPTION
-   Gets all credentials used by Orion to monitor nodes and applications. These are returned as an object, so standard Cmdlets such as Where-Object & Select-Object can be used to filter the data
-.EXAMPLE
-   Get-OrionWMICredential -SwisConnection $swis 
-.EXAMPLE
-  Get-OrionWMICredential -SwisConnection $swis | where-Object {$_.Name  -like "Local Admin 1"} | select id
+    .Synopsis
+    Gets ALL credentials used by Orion
+    .DESCRIPTION
+    Gets all credentials used by Orion to monitor nodes and applications. These are returned as an object, so standard Cmdlets such as Where-Object & Select-Object can be used to filter the data
+    .EXAMPLE
+    Get-OrionWMICredential -SwisConnection $swis 
+    .EXAMPLE
+    Get-OrionWMICredential -SwisConnection $swis | where-Object {$_.Name  -like "Local Admin 1"} | select id
 #>
 function Get-OrionWMICredential
 {
@@ -840,14 +840,14 @@ function Get-OrionWMICredential
 
 
 <#
-.Synopsis
-  Returns an IP appddress based on a DNS resolution
-.DESCRIPTION
-  This function does a forward DNS lookup to resolve a host back to an IP Address
-.EXAMPLE
-  Get-IPAddressFromHostName -NodeName server.domain.com
-.EXAMPLE
-  Get-IPAddressFromHostName -NodeName google.com -Verbose
+    .Synopsis
+    Returns an IP appddress based on a DNS resolution
+    .DESCRIPTION
+    This function does a forward DNS lookup to resolve a host back to an IP Address
+    .EXAMPLE
+    Get-IPAddressFromHostName -NodeName server.domain.com
+    .EXAMPLE
+    Get-IPAddressFromHostName -NodeName google.com -Verbose
 #>
 function Get-IPAddressFromHostName
 {
@@ -884,14 +884,14 @@ function Get-IPAddressFromHostName
 }
 
 <#
-.Synopsis
-  Returns an IP appddress based on a DNS resolution
-.DESCRIPTION
-  This function does a reverse DNS lookup to resolve  an IP Address back to a hostname 
-.EXAMPLE
-  Get-HostNamefromIPAddress 10.110.60.213
-.EXAMPLE
-  Get-HostNamefromIPAddress 10.110.60.213 -Verbose
+    .Synopsis
+    Returns an IP appddress based on a DNS resolution
+    .DESCRIPTION
+    This function does a reverse DNS lookup to resolve  an IP Address back to a hostname 
+    .EXAMPLE
+    Get-HostNamefromIPAddress 10.110.60.213
+    .EXAMPLE
+    Get-HostNamefromIPAddress 10.110.60.213 -Verbose
   
 #>
 function Get-HostNamefromIPAddress
@@ -929,20 +929,20 @@ function Get-HostNamefromIPAddress
 }
 
 <#
-.Synopsis
-  Checks whether an IP address is valid or not
-.DESCRIPTION
-  This function uses the the [ipaddress] type accelerator to test for IPv4 or IPv6 address validity. Returns true or false
-.EXAMPLE
-  Test-IsValidIP 10.110.60.213
-  True
-.EXAMPLE
-  Test-IsValidIP 10.110.60.278
-  WARNING: 10.110.60.278: Cannot convert value "10.110.60.278" to type "System.Net.IPAddress". Error: "An invalid IP address was specified."
-  False
-.EXAMPLE
-  Test-IsValidIP -IPAddress fe80::18be:22e5:f591:4a5%25
-  True
+    .Synopsis
+    Checks whether an IP address is valid or not
+    .DESCRIPTION
+    This function uses the the [ipaddress] type accelerator to test for IPv4 or IPv6 address validity. Returns true or false
+    .EXAMPLE
+    Test-IsValidIP 10.110.60.213
+    True
+    .EXAMPLE
+    Test-IsValidIP 10.110.60.278
+    WARNING: 10.110.60.278: Cannot convert value "10.110.60.278" to type "System.Net.IPAddress". Error: "An invalid IP address was specified."
+    False
+    .EXAMPLE
+    Test-IsValidIP -IPAddress fe80::18be:22e5:f591:4a5%25
+    True
 #>
 Function Test-IsValidIP 
 {
@@ -970,14 +970,14 @@ Function Test-IsValidIP
 }
 
 <#
-.Synopsis
-   Extracts the name of the Orion server from a Swis connections
-.DESCRIPTION
-   Long description
-.EXAMPLE
-   Example of how to use this cmdlet
-.EXAMPLE
-   Another example of how to use this cmdlet
+    .Synopsis
+    Extracts the name of the Orion server from a Swis connections
+    .DESCRIPTION
+    Long description
+    .EXAMPLE
+    Example of how to use this cmdlet
+    .EXAMPLE
+    Another example of how to use this cmdlet
 #>
 function Get-OrionHostFromSwisConnection
 {
@@ -1018,28 +1018,28 @@ function Get-OrionHostFromSwisConnection
 }
 
 <#
-.Synopsis
-   Returns the next available IP address from Orion
-.DESCRIPTION
-   This returns the IP & subnet, that are next available in SolarWinds IPAM
-.EXAMPLE
-Get-OrionNextAvailableIPAddress -swisconnection $swis
+    .Synopsis
+    Returns the next available IP address from Orion
+    .DESCRIPTION
+    This returns the IP & subnet, that are next available in SolarWinds IPAM
+    .EXAMPLE
+    Get-OrionNextAvailableIPAddress -swisconnection $swis
 
-DisplayName                                                                                          Subnet                                                                                              
------------                                                                                          ------                                                                                              
-192.168.1.2                                                                                          192.168.1.0 /24 
-.EXAMPLE
- Get-OrionNextAvailableIPAddress -swisconnection $swis -Subnet DMZ
+    DisplayName                                                                                          Subnet                                                                                              
+    -----------                                                                                          ------                                                                                              
+    192.168.1.2                                                                                          192.168.1.0 /24 
+    .EXAMPLE
+    Get-OrionNextAvailableIPAddress -swisconnection $swis -Subnet DMZ
 
-DisplayName                                                                                          Subnet                                                                                              
------------                                                                                          ------                                                                                              
-192.168.2.2                                                                                          DMZ      
-.EXAMPLE
- Get-OrionNextAvailableIPAddress -swisconnection $swis -Subnet %160.2%
+    DisplayName                                                                                          Subnet                                                                                              
+    -----------                                                                                          ------                                                                                              
+    192.168.2.2                                                                                          DMZ      
+    .EXAMPLE
+    Get-OrionNextAvailableIPAddress -swisconnection $swis -Subnet %160.2%
 
-DisplayName                                                                                          Subnet                                                                                              
------------                                                                                          ------                                                                                              
-10.160.2.2                                                                                           10.160.2.0 /24  
+    DisplayName                                                                                          Subnet                                                                                              
+    -----------                                                                                          ------                                                                                              
+    10.160.2.2                                                                                           10.160.2.0 /24  
 #>
 function Get-OrionNextAvailableIPAddress
 {
@@ -1083,14 +1083,14 @@ function Get-OrionNextAvailableIPAddress
 }
 
 <#
-.Synopsis
-   Adds new custom properties to different Orion objects
-.DESCRIPTION
-   This function calls CreateCustomProperty or CreateCustomPropertyWithValues, to create different custom properties, of different types for different objects.
-   Optionally it can add a list of specified values
-.EXAMPLE
+    .Synopsis
+    Adds new custom properties to different Orion objects
+    .DESCRIPTION
+    This function calls CreateCustomProperty or CreateCustomPropertyWithValues, to create different custom properties, of different types for different objects.
+    Optionally it can add a list of specified values
+    .EXAMPLE
     New-OrionCustomProperty -swisconnection $swis -PropertyName "Test1" -BaseType Orion.NodesCustomProperties
-.EXAMPLE
+    .EXAMPLE
     [string[]]$values = "QA", "Dev", "Prod"
     New-OrionCustomProperty -swisconnection $swis -PropertyName "AppType" -BaseType Orion.APM.ApplicationCustomProperties -values $values
 #>
@@ -1229,6 +1229,57 @@ function New-OrionCustomProperty
         Write-Output $result
     }
 }
+
+<#
+.Synopsis
+   Returns the Application ID for an assigned template, given it's name
+.DESCRIPTION
+   Returns the Application ID for an assigned template, given it's name
+.EXAMPLE
+   Get-OrionapplicationTemplateId -ApplicationName 'apache' -SwisConnection $swis
+   
+   6
+#>
+function Get-OrionapplicationTemplateId
+{
+    [CmdletBinding()]
+    [Alias()]
+    [OutputType([int])]
+    Param
+    (
+        # Param1 help description
+        [Parameter(mandatory=$true)]
+        [validatenotnullorempty()]
+        [string]
+        $ApplicationName,
+
+        #SolarWinds Information Service (SWIS) Connection
+        [parameter(mandatory=$true)]
+        [validatenotnullorempty()]
+        [SolarWinds.InformationService.Contract2.InfoServiceProxy]
+        $SwisConnection
+    )
+
+    Begin
+    {
+      Write-Verbose "Starting $($myinvocation.mycommand)" 
+    }
+    Process
+    {
+      $ApplicationTemplateId = Get-SwisData $SwisConnection "SELECT ApplicationTemplateID FROM Orion.APM.ApplicationTemplate WHERE Name=@ApplicationName" @{ ApplicationName = $ApplicationName }
+      if (!$applicationTemplateId) {
+        Write-Error "Can't find template with name '$ApplicationName'."
+        
+      }
+    }
+    End
+    {
+      Write-Verbose "Finishing $($myinvocation.mycommand)" 
+      Write-Output $ApplicationTemplateId
+    }
+} #end of Get-OrionapplicationTemplateId
+
+
 
     #Code to unload PSSNappin when Module is unloaded
     $mInfo = $MyInvocation.MyCommand.ScriptBlock.Module

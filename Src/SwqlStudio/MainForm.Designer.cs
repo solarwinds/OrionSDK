@@ -29,9 +29,9 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.ToolStripSeparator toolStripMenuItem1;
             System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
+            this.separatorAboveNotificationListenerActive = new System.Windows.Forms.ToolStripSeparator();
             this.menu = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuFileNew = new System.Windows.Forms.ToolStripMenuItem();
@@ -69,7 +69,6 @@
             this.objectExplorer = new SwqlStudio.ObjectExplorer();
             this.ObjectExplorerImageList = new System.Windows.Forms.ImageList(this.components);
             this.startTimer = new System.Windows.Forms.Timer(this.components);
-            toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
             toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.menu.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -78,10 +77,10 @@
             this.splitContainer1.SuspendLayout();
             this.SuspendLayout();
             // 
-            // toolStripMenuItem1
+            // separatorAboveNotificationListenerActive
             // 
-            toolStripMenuItem1.Name = "toolStripMenuItem1";
-            toolStripMenuItem1.Size = new System.Drawing.Size(214, 6);
+            this.separatorAboveNotificationListenerActive.Name = "separatorAboveNotificationListenerActive";
+            this.separatorAboveNotificationListenerActive.Size = new System.Drawing.Size(214, 6);
             // 
             // toolStripSeparator1
             // 
@@ -112,7 +111,7 @@
             this.menuFileSaveAs,
             this.menuFileClose,
             this.menuFileClose2,
-            toolStripMenuItem1,
+            this.separatorAboveNotificationListenerActive,
             this.menuNotificationListenerActive,
             toolStripSeparator1,
             this.menuFileExit});
@@ -354,7 +353,6 @@
             this.fileTabs.Name = "fileTabs";
             this.fileTabs.SelectedIndex = 0;
             this.fileTabs.Size = new System.Drawing.Size(632, 571);
-            this.fileTabs.SizeMode = System.Windows.Forms.TabSizeMode.Normal;
             this.fileTabs.TabIndex = 1;
             this.fileTabs.TabStop = false;
             this.fileTabs.DragDrop += new System.Windows.Forms.DragEventHandler(this.TextEditorDragDrop);
@@ -479,6 +477,7 @@
         private System.Windows.Forms.ToolStripMenuItem byHierarchyToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem menuFileClose2;
         private System.Windows.Forms.ToolStripMenuItem menuFileTabPage;
+        private System.Windows.Forms.ToolStripSeparator separatorAboveNotificationListenerActive;
     }
 }
 

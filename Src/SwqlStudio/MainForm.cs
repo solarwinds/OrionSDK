@@ -552,6 +552,10 @@ namespace SwqlStudio
 
         private void fileToolStripMenuItem_DropDownOpening(object sender, EventArgs e)
         {
+            menuNotificationListenerActive.Visible =
+                separatorAboveNotificationListenerActive.Visible =
+                    !Settings.Default.UseActiveSubscriber;
+
             menuNotificationListenerActive.CheckState = SubscriptionManager.IsListening()
                 ? CheckState.Checked
                 : CheckState.Unchecked;

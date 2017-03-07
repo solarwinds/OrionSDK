@@ -138,7 +138,7 @@ namespace SwqlStudio
         {
             base.OnCharAdded(e);
 
-            if (!Settings.Default.IntellisenseEnabled)
+            if (!Settings.Default.AutocompleteEnabled)
                 return;
 
             // Find the word start

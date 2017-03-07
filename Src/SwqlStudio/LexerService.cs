@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using SwqlStudio.Intellisense;
+using SwqlStudio.Autocomplete;
 using SwqlStudio.Properties;
 
 namespace SwqlStudio
@@ -66,7 +66,7 @@ namespace SwqlStudio
 
                 _swisEntities[""] = new SwisEntity(); // always required
 
-                // create set of swisentities for namespaces (for intellisense, there is no difference between namespace and entity).
+                // create set of swisentities for namespaces (for autocomplete, there is no difference between namespace and entity).
                 // orion.npm creates namespace orion, with column / navigationproperty 'npm', pointing to orion.npm namespace
                 // and orion.npm namespace
                 // we can have overlap between namespace and entity, and that is something we can live with right now.
@@ -216,8 +216,8 @@ namespace SwqlStudio
 
         private static ExpectedCaretPosition DetectAutoCompletion(string text, int textPos)
         {
-            if (Settings.Default.IntellisenseEnabled)
-                return new IntellisenseProvider(text).ParseFor(textPos);
+            if (Settings.Default.AutocompleteEnabled)
+                return new AutocompleteProvider(text).ParseFor(textPos);
             else
                 return new ExpectedCaretPosition(ExpectedCaretPositionType.Keyword, null);
         }

@@ -58,7 +58,7 @@
             this.byBaseTypeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.byHierarchyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.noGroupingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.enableIntellisenseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.enableAutocompleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutSWQLStudioToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.fileTabs = new SwqlStudio.Controls.TabControlEx();
@@ -274,7 +274,7 @@
             // 
             this.preferencesToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.groupEntityTreeToolStripMenuItem,
-            this.enableIntellisenseToolStripMenuItem});
+            this.enableAutocompleteToolStripMenuItem});
             this.preferencesToolStripMenuItem.Name = "preferencesToolStripMenuItem";
             this.preferencesToolStripMenuItem.Size = new System.Drawing.Size(80, 20);
             this.preferencesToolStripMenuItem.Text = "&Preferences";
@@ -319,15 +319,15 @@
             this.noGroupingToolStripMenuItem.Text = "No &Grouping";
             this.noGroupingToolStripMenuItem.Click += new System.EventHandler(this.noGroupingToolStripMenuItem_Click);
             // 
-            // enableIntellisenseToolStripMenuItem
+            // enableAutocompleteToolStripMenuItem
             // 
-            this.enableIntellisenseToolStripMenuItem.Checked = true;
-            this.enableIntellisenseToolStripMenuItem.CheckOnClick = true;
-            this.enableIntellisenseToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.enableIntellisenseToolStripMenuItem.Name = "enableIntellisenseToolStripMenuItem";
-            this.enableIntellisenseToolStripMenuItem.Size = new System.Drawing.Size(170, 22);
-            this.enableIntellisenseToolStripMenuItem.Text = "Enable Intellisense";
-            this.enableIntellisenseToolStripMenuItem.CheckedChanged += new System.EventHandler(this.enableIntellisenseToolStripMenuItem_CheckedChanged);
+            this.enableAutocompleteToolStripMenuItem.Checked = true;
+            this.enableAutocompleteToolStripMenuItem.CheckOnClick = true;
+            this.enableAutocompleteToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.enableAutocompleteToolStripMenuItem.Name = "enableAutocompleteToolStripMenuItem";
+            this.enableAutocompleteToolStripMenuItem.Size = new System.Drawing.Size(170, 22);
+            this.enableAutocompleteToolStripMenuItem.Text = "Enable Autocomplete";
+            this.enableAutocompleteToolStripMenuItem.CheckedChanged += new System.EventHandler(this.enableAutocompleteToolStripMenuItem_CheckedChanged);
             // 
             // helpToolStripMenuItem
             // 
@@ -471,7 +471,7 @@
         private System.Windows.Forms.ToolStripMenuItem aboutSWQLStudioToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem menuNotificationListenerActive;
         private System.Windows.Forms.ToolStripMenuItem preferencesToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem enableIntellisenseToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem enableAutocompleteToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem groupEntityTreeToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem byNamespaceToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem noGroupingToolStripMenuItem;

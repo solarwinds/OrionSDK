@@ -2,20 +2,20 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace SwqlStudio.Intellisense
+namespace SwqlStudio.Autocomplete
 {
     // we are not reusing full swis grammar, we can do more 'educated guess' here.
-    internal class IntellisenseProvider
+    internal class AutocompleteProvider
     {
         private static readonly HashSet<string> _keyWords;
         private readonly string _text;
 
-        public IntellisenseProvider(string text)
+        public AutocompleteProvider(string text)
         {
             _text = text;
         }
 
-        static IntellisenseProvider()
+        static AutocompleteProvider()
         {
             _keyWords = new HashSet<string>("all any and as asc between class desc distinct exists false full group having in inner into is isa from join left like not null or outer right select set some true union where end when then else case on top return xml raw auto with limitation rows to order by desc totalrows noplancache queryplan querystats".Split(' '), StringComparer.OrdinalIgnoreCase);
         }
@@ -85,9 +85,9 @@ namespace SwqlStudio.Intellisense
 
             bool detected = false;
 
-            foreach (var tok in new IntellisenseTokenizer(_text))
+            foreach (var tok in new AutocompleteTokenizer(_text))
             {
-                if (tok.Item3 == IntellisenseTokenizer.Token.Special)
+                if (tok.Item3 == AutocompleteTokenizer.Token.Special)
                 {
                     if (_text[tok.Item1] == '.')
                     {
@@ -109,7 +109,7 @@ namespace SwqlStudio.Intellisense
 
                 switch (tok.Item3)
                 {
-                    case IntellisenseTokenizer.Token.Identifier:
+                    case AutocompleteTokenizer.Token.Identifier:
                         var value = _text.Substring(tok.Item1, tok.Item2);
                         if (value == "as")
                         // alias. only interesting keyword for us. however, ignore, since Table X and Table as X are equivalent.
@@ -145,8 +145,8 @@ namespace SwqlStudio.Intellisense
                             }
                         }
                         break;
-                    case IntellisenseTokenizer.Token.Number:
-                    case IntellisenseTokenizer.Token.String:
+                    case AutocompleteTokenizer.Token.Number:
+                    case AutocompleteTokenizer.Token.String:
                         // we do not care here
                         lastInterestingElement = LastInterestingElement.Nothing;
                         break;

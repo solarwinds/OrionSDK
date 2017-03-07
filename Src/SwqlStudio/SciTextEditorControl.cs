@@ -5,6 +5,7 @@ using System.Windows.Forms;
 using ScintillaNET;
 using System.Collections.Generic;
 using System.Linq;
+using SwqlStudio.Properties;
 
 namespace SwqlStudio
 {
@@ -133,11 +134,12 @@ namespace SwqlStudio
 
         public event Action Execute;
 
-        
-
         protected override void OnCharAdded(CharAddedEventArgs e)
         {
             base.OnCharAdded(e);
+
+            if (!Settings.Default.IntellisenseEnabled)
+                return;
 
             // Find the word start
             var currentPos = this.CurrentPosition;

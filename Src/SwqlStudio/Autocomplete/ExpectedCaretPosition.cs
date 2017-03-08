@@ -1,4 +1,4 @@
-namespace SwqlStudio.Intellisense
+namespace SwqlStudio.Autocomplete
 {
     // what do we detect user is/can be typing?
     internal struct ExpectedCaretPosition

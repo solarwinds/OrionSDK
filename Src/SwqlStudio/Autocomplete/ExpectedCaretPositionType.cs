@@ -1,6 +1,6 @@
 using System;
 
-namespace SwqlStudio.Intellisense
+namespace SwqlStudio.Autocomplete
 {
     [Flags]
     internal enum ExpectedCaretPositionType

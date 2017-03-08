@@ -370,8 +370,9 @@
     </parameter>
   </member>
   <member name="M:SolarWinds.Logging.Log.FatalFormat(System.String,System.Object)">
-    <attribute ctor="M:JetBrains.Annotations.StringFormatMethodAttribute.#ctor(System.String)" />
-    <argument>"format"</argument>
+    <attribute ctor="M:JetBrains.Annotations.StringFormatMethodAttribute.#ctor(System.String)">
+      <argument>format</argument>
+    </attribute>
     <parameter name="format">
       <attribute ctor="M:JetBrains.Annotations.NotNullAttribute.#ctor" />
     </parameter>

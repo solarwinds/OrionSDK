@@ -2,9 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 
-namespace SwqlStudio.Intellisense
+namespace SwqlStudio.Autocomplete
 {
-    internal class IntellisenseTokenizer
+    internal class AutocompleteTokenizer
     {
         public enum Token
         {
@@ -18,7 +18,7 @@ namespace SwqlStudio.Intellisense
         private readonly string _input;
         private static readonly IEnumerable<Regex> _ignoredRegexes;
         private static readonly IEnumerable<Tuple<Regex, Token>> _regexes;
-        static IntellisenseTokenizer()
+        static AutocompleteTokenizer()
         {
             _ignoredRegexes = new[]
             {
@@ -36,7 +36,7 @@ namespace SwqlStudio.Intellisense
             };
         }
 
-        public IntellisenseTokenizer(string input)
+        public AutocompleteTokenizer(string input)
         {
             _input = input;
         }

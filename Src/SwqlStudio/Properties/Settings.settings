@@ -86,13 +86,13 @@
     <Setting Name="DefaultJavaInfoServicePort" Type="System.Int32" Scope="Application">
       <Value Profile="(Default)">8443</Value>
     </Setting>
-    <Setting Name="UseActiveSubscriber" Type="System.Boolean" Scope="Application">
-      <Value Profile="(Default)">False</Value>
-    </Setting>
     <Setting Name="EntityGroupingMode" Type="System.String" Scope="User">
       <Value Profile="(Default)">ByNamespace</Value>
     </Setting>
-    <Setting Name="IntellisenseEnabled" Type="System.Boolean" Scope="User">
+    <Setting Name="AutocompleteEnabled" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="UseActiveSubscriber" Type="System.Boolean" Scope="Application">
       <Value Profile="(Default)">True</Value>
     </Setting>
   </Settings>

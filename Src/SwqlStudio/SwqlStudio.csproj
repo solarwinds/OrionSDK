@@ -133,10 +133,10 @@
     <Compile Include="IConnectionTab.cs" />
     <Compile Include="IndicationEventArgs.cs" />
     <Compile Include="IndicationListerUsernameValidator.cs" />
-    <Compile Include="Intellisense\ExpectedCaretPosition.cs" />
-    <Compile Include="Intellisense\ExpectedCaretPositionType.cs" />
-    <Compile Include="Intellisense\IntellisenseProvider.cs" />
-    <Compile Include="Intellisense\IntellisenseTokenizer.cs" />
+    <Compile Include="Autocomplete\ExpectedCaretPosition.cs" />
+    <Compile Include="Autocomplete\ExpectedCaretPositionType.cs" />
+    <Compile Include="Autocomplete\AutocompleteProvider.cs" />
+    <Compile Include="Autocomplete\AutocompleteTokenizer.cs" />
     <Compile Include="InvokeVerbTab.cs">
       <SubType>UserControl</SubType>
     </Compile>

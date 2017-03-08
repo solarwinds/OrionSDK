@@ -552,6 +552,10 @@ namespace SwqlStudio
 
         private void fileToolStripMenuItem_DropDownOpening(object sender, EventArgs e)
         {
+            menuNotificationListenerActive.Visible =
+                separatorAboveNotificationListenerActive.Visible =
+                    !Settings.Default.UseActiveSubscriber;
+
             menuNotificationListenerActive.CheckState = SubscriptionManager.IsListening()
                 ? CheckState.Checked
                 : CheckState.Unchecked;
@@ -572,15 +576,15 @@ namespace SwqlStudio
             }
         }
 
-        private void enableIntellisenseToolStripMenuItem_CheckedChanged(object sender, EventArgs e)
+        private void enableAutocompleteToolStripMenuItem_CheckedChanged(object sender, EventArgs e)
         {
-            Settings.Default.IntellisenseEnabled = enableIntellisenseToolStripMenuItem.Checked;
+            Settings.Default.AutocompleteEnabled = enableAutocompleteToolStripMenuItem.Checked;
             Settings.Default.Save();
         }
 
         private void preferencesToolStripMenuItem_DropDownOpening(object sender, EventArgs e)
         {
-            enableIntellisenseToolStripMenuItem.Checked = Settings.Default.IntellisenseEnabled;
+            enableAutocompleteToolStripMenuItem.Checked = Settings.Default.AutocompleteEnabled;
         }
     }
 }

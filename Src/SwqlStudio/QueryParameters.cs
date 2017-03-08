@@ -26,7 +26,7 @@ namespace SwqlStudio
 
             private set
             {
-                var pairs = value.Select(pair => new Pair(pair.Key, pair.Value.ToString()));
+                var pairs = value.Select(pair => new Pair(pair.Key, pair.Value?.ToString()));
                 dataGridView1.DataSource = new BindingList<Pair>(pairs.ToList()) {AllowNew = true};
             }
         }

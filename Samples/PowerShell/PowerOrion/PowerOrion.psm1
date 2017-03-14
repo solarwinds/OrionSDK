@@ -223,7 +223,7 @@ function New-OrionNode
     write-verbose "Adding $IPAddress to Orion Database"
     If ($PSCmdlet.ShouldProcess("$IPAddress","Add Node")) {
       $newNode = New-SwisObject $SwisConnection -EntityType "Orion.Nodes" -Properties $newNodeProps 
-      $nodeProps = Get-SwisObject $swis -Uri $newNode
+      $nodeProps = Get-SwisObject $SwisConnection -Uri $newNode
                 
       #Add credentials for WMI nodes
       if($ObjectSubType = "WMI"){
@@ -238,7 +238,7 @@ function New-OrionNode
         Write-Verbose "Adding WMI Credentials"
 
         #Creating node settings
-        $newNodeSettings = New-SwisObject $swis -EntityType "Orion.NodeSettings" -Properties $nodeSettings
+        $newNodeSettings = New-SwisObject $SwisConnection -EntityType "Orion.NodeSettings" -Properties $nodeSettings
         Write-Debug "New Node Settings : $newNodeSettings"
       } #end of WMI nodes
 
@@ -247,7 +247,7 @@ function New-OrionNode
     write-verbose "Node added with URI = $newNode"
 
     write-verbose "Now Adding pollers for the node..." 
-    $nodeProps = Get-SwisObject $swis -Uri $newNode
+    $nodeProps = Get-SwisObject $SwisConnection -Uri $newNode
     #Loop through all the pollers 
     foreach ($PollerType in $PollerTypes){
       If ($PSCmdlet.ShouldProcess("$PollerTypes","Add Poller")) {
@@ -304,7 +304,7 @@ function Add-OrionDiscoveredInterfaces
   Process
   {        
     # Discover interfaces on the node
-    $Interfaces = Invoke-SwisVerb $swis Orion.NPM.Interfaces DiscoverInterfacesOnNode $nodeId
+    $Interfaces = Invoke-SwisVerb $SwisConnection Orion.NPM.Interfaces DiscoverInterfacesOnNode $nodeId
     if ($Interfaces.Result -notlike "Succeed") {
       Write-Warning " Interface discovery failed on Node ID : $NodeId."
     }
@@ -316,7 +316,7 @@ function Add-OrionDiscoveredInterfaces
         }
       }
       # Add the remaining interfaces
-      $result = Invoke-SwisVerb $swis Orion.NPM.Interfaces AddInterfacesOnNode @($nodeId, $Interfaces.DiscoveredInterfaces, "AddDefaultPollers") 
+      $result = Invoke-SwisVerb $SwisConnection Orion.NPM.Interfaces AddInterfacesOnNode @($nodeId, $Interfaces.DiscoveredInterfaces, "AddDefaultPollers") 
       if ($result.Result -notlike "Succeed") {
         Write-Warning " Adding discovered interfaces failed on Node ID : $NodeId."
       }
@@ -400,8 +400,8 @@ function New-OrionInterface
   }
   Process
   {        
-    $newIfaceUri = New-SwisObject $swis -EntityType "Orion.NPM.Interfaces" -Properties $newIfaceProps
-    $ifaceProps = Get-SwisObject $swis -Uri $newIfaceUri
+    $newIfaceUri = New-SwisObject $SwisConnection -EntityType "Orion.NPM.Interfaces" -Properties $newIfaceProps
+    $ifaceProps = Get-SwisObject $SwisConnection -Uri $newIfaceUri
 
     # register specific pollers for the node
     $poller = @{
@@ -411,7 +411,7 @@ function New-OrionInterface
     }
         
     write-verbose "Now Adding pollers for the interface..." 
-    $nodeProps = Get-SwisObject $swis -Uri $newNode
+    $nodeProps = Get-SwisObject $SwisConnection -Uri $newNode
     #Loop through all the pollers 
     foreach ($PollerType in $PollerTypes){
       New-OrionPollerType -PollerType $PollerType -NodeProperties $nodeProps -SwisConnection $SwisConnection
@@ -561,7 +561,7 @@ function Get-OrionNode
   Process
   {
     Write-Verbose " Getting properties at $uri"
-    $nodeProps = Get-SwisObject $swis -Uri $uri
+    $nodeProps = Get-SwisObject $SwisConnection -Uri $uri
     $properties = New-Object -TypeName psobject -Property $nodeProps
     write-debug " The value of nodeprops is $nodeProps"
     write-debug " The value of properties is $($properties.gettype())"
@@ -1315,7 +1315,7 @@ function Get-OrionApplicationCredential
   }
   Process
   {                  
-    $credentialSetId = Get-SwisData $swis "SELECT ID FROM Orion.Credential WHERE CredentialOwner='APM' AND Name=@credential" @{ credential = $credential }
+    $credentialSetId = Get-SwisData $SwisConnection "SELECT ID FROM Orion.Credential WHERE CredentialOwner='APM' AND Name=@credential" @{ credential = $credential }
     if (!$credentialSetId) {
       Write-error "Can't find credential with name '$credential'."
 

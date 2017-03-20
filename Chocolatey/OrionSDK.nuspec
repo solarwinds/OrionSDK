@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Do not remove this test for UTF-8: if “Ω” doesn’t appear as greek uppercase omega letter enclosed in quotation marks, you should use an editor that supports UTF-8, not this one. -->
+<package xmlns="http://schemas.microsoft.com/packaging/2015/06/nuspec.xsd">
+  <metadata>
+    <!-- Read this before publishing packages to chocolatey.org: https://github.com/chocolatey/chocolatey/wiki/CreatePackages -->
+    <id>orionsdk</id>
+    <title>SolarWinds Orion SDK</title>
+    <version>2.2.54</version>
+    <authors>SolarWinds</authors>
+    <owners>Tim Danner</owners>
+    <summary>Software development kit for the SolarWinds Orion platform.</summary>
+    <description>Installs tools for the SolarWinds Orion platform API.</description>
+    <projectUrl>https://github.com/solarwinds/OrionSDK</projectUrl>
+    <!-- <packageSourceUrl></packageSourceUrl> -->
+    <!--<projectSourceUrl></projectSourceUrl>-->
+    <docsUrl>https://github.com/solarwinds/OrionSDK/wiki</docsUrl>
+    <mailingListUrl>https://thwack.solarwinds.com/community/labs_tht/orion-sdk</mailingListUrl>
+    <bugTrackerUrl>https://github.com/solarwinds/OrionSDK/issues</bugTrackerUrl>
+    <tags>orionsdk admin solarwinds</tags>
+    <copyright>Copyright © SolarWinds Worldwide, LLC.  All rights reserved.</copyright>
+    <licenseUrl>https://raw.githubusercontent.com/solarwinds/OrionSDK/master/LICENSE</licenseUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <iconUrl>https://cdn.rawgit.com/tdanner/orionsdk-chocolatey/e45a868a4a0486e3d39241c6fdceead277fd31f4/orionsdk.png</iconUrl>
+    <!--<dependencies>
+      <dependency id="" version="__VERSION__" />
+      <dependency id="" />
+    </dependencies>-->
+    <releaseNotes><![CDATA[Adds smart autocomplete to SWQL Studio, along with miscellaneous bugfixes and minor enhancements.]]></releaseNotes>
+    <!--<provides></provides>-->
+  </metadata>
+  <files>
+    <file src="tools\**" target="tools" />
+  </files>
+</package>

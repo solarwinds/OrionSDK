@@ -146,6 +146,13 @@
         <td>String value containing a concrete type of the Application.</td>
       </tr>
       <tr>
+        <td>InstanceSiteId</td>
+        <td>System.Int32</td>
+        <td>
+          Default='0'.
+        Inherited property that we need to override and mark it as final.</td>
+      </tr>
+      <tr>
         <td>Status</td>
         <td>System.Int32</td>
         <td />
@@ -302,6 +309,24 @@
       </td>
       </tr>
       <tr>
+        <td>RelyDatabaseInstances</td>
+        <td>
+          <a href="Orion.DPA.DatabaseInstance.html">Orion.DPA.DatabaseInstance</a>
+        </td>
+        <td>
+        Defined by relationship Orion.Rely.DPA.ApplicationsRelyOnDatabaseInstances (System.Reliance)
+      </td>
+      </tr>
+      <tr>
+        <td>DatabaseInstance</td>
+        <td>
+          <a href="Orion.DPA.DatabaseInstance.html">Orion.DPA.DatabaseInstance</a>
+        </td>
+        <td>
+        Defined by relationship Orion.DatabaseInstanceServerApplication (System.Reference)
+      </td>
+      </tr>
+      <tr>
         <td>Node</td>
         <td>
           <a href="Orion.Nodes.html">Orion.Nodes</a>
@@ -317,6 +342,24 @@
         </td>
         <td>
         Defined by relationship Orion.APM.ApplicationTemplateReferencesApplication (System.Reference)
+      </td>
+      </tr>
+      <tr>
+        <td>DatabaseInstanceReference</td>
+        <td>
+          <a href="Orion.DPA.DatabaseInstanceApplication.html">Orion.DPA.DatabaseInstanceApplication</a>
+        </td>
+        <td>
+        Defined by relationship Orion.DatabaseInstanceApplicationApplication (System.Reference)
+      </td>
+      </tr>
+      <tr>
+        <td>UsingDatabaseInstanceReference</td>
+        <td>
+          <a href="Orion.DPA.DatabaseInstanceClientApplication.html">Orion.DPA.DatabaseInstanceClientApplication</a>
+        </td>
+        <td>
+        Defined by relationship Orion.DatabaseInstanceClientApplicationApplication (System.Reference)
       </td>
       </tr>
     </table>

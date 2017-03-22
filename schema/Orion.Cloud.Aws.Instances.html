@@ -1,0 +1,402 @@
+﻿
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <title>SolarWinds Information Service v3.0 Schema Documentation</title>
+    <link href="SchemaDoc.css" type="text/css" rel="stylesheet" />
+  </head>
+  <body>
+    <h1>SolarWinds Information Service v3.0 Schema Documentation</h1>
+    <p>
+      <a href="index.html">Index</a>
+    </p>
+    <h1>
+      <a name="Orion.Cloud.Aws.Instances">Orion.Cloud.Aws.Instances</a>
+    </h1>
+    <p>
+        Base type:
+        <a href="Orion.Virtualization.Instance.html">Orion.Virtualization.Instance</a></p>
+    <h2>Properties</h2>
+    <table>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Notes</th>
+      </tr>
+      <tr>
+        <td>CloudAccountId</td>
+        <td>System.Int32</td>
+        <td />
+      </tr>
+      <tr>
+        <td>CloudRegionId</td>
+        <td>System.Int32</td>
+        <td />
+      </tr>
+      <tr>
+        <td>AvailabilityZone</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>InstanceId</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Type</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>State</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Platform</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>OrionIdPrefix</td>
+        <td>System.String</td>
+        <td>
+          Default='CVM:'.
+        </td>
+      </tr>
+      <tr>
+        <td>OrionIdColumn</td>
+        <td>System.String</td>
+        <td>
+          Default='VirtualMachineID'.
+        </td>
+      </tr>
+      <tr>
+        <td>DetailsUrl</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>LastPoll</td>
+        <td>System.DateTime</td>
+        <td />
+      </tr>
+      <tr>
+        <td>LastSuccessfulPoll</td>
+        <td>System.DateTime</td>
+        <td />
+      </tr>
+      <tr>
+        <td>IamRole</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Owner</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>VpcId</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>KeyPairName</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>RamdiskId</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>KernelId</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>RootDeviceType</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>RootDeviceName</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>EbsOptimized</td>
+        <td>System.Boolean</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Tenancy</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Architecture</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>SubnetId</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>InstanceLaunchTime</td>
+        <td>System.DateTime</td>
+        <td />
+      </tr>
+      <tr>
+        <td>ImageId</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>PlacementGroup</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Virtualization</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>AmiLaunchIndex</td>
+        <td>System.Int32</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Reservation</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>PublicDNSName</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>PrivateDNSName</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>SourceDestinationCheck</td>
+        <td>System.Boolean</td>
+        <td />
+      </tr>
+      <tr>
+        <td>CloudWatchMonitored</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>StateTransitionReason</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>IOPSTotal</td>
+        <td>System.Single</td>
+        <td />
+      </tr>
+      <tr>
+        <td>IOPSRead</td>
+        <td>System.Single</td>
+        <td />
+      </tr>
+      <tr>
+        <td>IOPSWrite</td>
+        <td>System.Single</td>
+        <td />
+      </tr>
+      <tr>
+        <td>DiskReadInBytesPerSecond</td>
+        <td>System.Single</td>
+        <td />
+      </tr>
+      <tr>
+        <td>DiskWriteInBytesPerSecond</td>
+        <td>System.Single</td>
+        <td />
+      </tr>
+      <tr>
+        <td>VirtualMachineID</td>
+        <td>System.Int32</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Name</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>CpuLoad</td>
+        <td>System.Single</td>
+        <td />
+      </tr>
+      <tr>
+        <td>PlatformID</td>
+        <td>System.Int32</td>
+        <td />
+      </tr>
+      <tr>
+        <td>NetworkUsageRate</td>
+        <td>System.Single</td>
+        <td />
+      </tr>
+      <tr>
+        <td>NetworkTransmitRate</td>
+        <td>System.Single</td>
+        <td />
+      </tr>
+      <tr>
+        <td>NetworkReceiveRate</td>
+        <td>System.Single</td>
+        <td />
+      </tr>
+      <tr>
+        <td>NodeID</td>
+        <td>System.Int32</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Status</td>
+        <td>System.Int32</td>
+        <td />
+      </tr>
+      <tr>
+        <td>StatusDescription</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>StatusLED</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>UnManaged</td>
+        <td>System.Boolean</td>
+        <td>
+          Default='false'.
+        </td>
+      </tr>
+      <tr>
+        <td>UnManageFrom</td>
+        <td>System.DateTime</td>
+        <td />
+      </tr>
+      <tr>
+        <td>UnManageUntil</td>
+        <td>System.DateTime</td>
+        <td />
+      </tr>
+      <tr>
+        <td>DetailsUrl</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Image</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>AncestorDisplayNames</td>
+        <td>System.String[]</td>
+        <td />
+      </tr>
+      <tr>
+        <td>AncestorDetailsUrls</td>
+        <td>System.String[]</td>
+        <td />
+      </tr>
+      <tr>
+        <td>StatusIconHint</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>DisplayName</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Description</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>InstanceType</td>
+        <td>System.Type</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Uri</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>InstanceSiteId</td>
+        <td>System.Int32</td>
+        <td>
+          Default='0'.
+        </td>
+      </tr>
+      <tr>
+        <td>CloudRegion</td>
+        <td>
+          <a href="Orion.Cloud.Aws.Regions.html">Orion.Cloud.Aws.Regions</a>
+        </td>
+        <td>
+        Defined by relationship Orion.Cloud.InstanceReferencesAwsRegion (System.Reference)
+      </td>
+      </tr>
+      <tr>
+        <td>CloudAccount</td>
+        <td>
+          <a href="Orion.Cloud.Aws.Accounts.html">Orion.Cloud.Aws.Accounts</a>
+        </td>
+        <td>
+        Defined by relationship Orion.Cloud.InstanceReferencesCloudAccount (System.Reference)
+      </td>
+      </tr>
+      <tr>
+        <td>Statistics</td>
+        <td>
+          <a href="Orion.Cloud.InstanceStatistics.html">Orion.Cloud.InstanceStatistics</a>
+        </td>
+        <td>
+        Defined by relationship Orion.Cloud.InstanceInstanceStatistics (System.Hosting)
+      </td>
+      </tr>
+      <tr>
+        <td>Thresholds</td>
+        <td>
+          <a href="Orion.Cloud.Aws.InstanceThresholds.html">Orion.Cloud.Aws.InstanceThresholds</a>
+        </td>
+        <td>
+        Defined by relationship Orion.VIM.CloudInstancesThresholds (System.Hosting)
+      </td>
+      </tr>
+      <tr>
+        <td>Volumes</td>
+        <td>
+          <a href="Orion.Cloud.Aws.Volumes.html">Orion.Cloud.Aws.Volumes</a>
+        </td>
+        <td>
+        Defined by relationship Orion.Cloud.Aws.VolumesReferencesInstance (System.Reference)
+      </td>
+      </tr>
+    </table>
+  </body>
+</html>

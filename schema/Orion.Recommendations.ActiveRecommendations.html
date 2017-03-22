@@ -1,0 +1,119 @@
+﻿
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <title>SolarWinds Information Service v3.0 Schema Documentation</title>
+    <link href="SchemaDoc.css" type="text/css" rel="stylesheet" />
+  </head>
+  <body>
+    <h1>SolarWinds Information Service v3.0 Schema Documentation</h1>
+    <p>
+      <a href="index.html">Index</a>
+    </p>
+    <h1>
+      <a name="Orion.Recommendations.ActiveRecommendations">Orion.Recommendations.ActiveRecommendations</a>
+    </h1>
+    <p>
+        Base type:
+        <a href="Orion.Recommendations.RecommendationsBase.html">Orion.Recommendations.RecommendationsBase</a></p>
+    <h2>Properties</h2>
+    <table>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Notes</th>
+      </tr>
+      <tr>
+        <td>RecommendationID</td>
+        <td>System.Guid</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Name</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Description</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>GroupID</td>
+        <td>System.Guid</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Priority</td>
+        <td>System.Int32</td>
+        <td />
+      </tr>
+      <tr>
+        <td>ComputedTime</td>
+        <td>System.DateTime</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Status</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>BatchID</td>
+        <td>System.Guid</td>
+        <td />
+      </tr>
+      <tr>
+        <td>RecommendationKind</td>
+        <td>System.Int32</td>
+        <td />
+      </tr>
+      <tr>
+        <td>DisplayName</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Description</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>InstanceType</td>
+        <td>System.Type</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Uri</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>InstanceSiteId</td>
+        <td>System.Int32</td>
+        <td>
+          Default='0'.
+        </td>
+      </tr>
+      <tr>
+        <td>Actions</td>
+        <td>
+          <a href="Orion.Recommendations.Actions.html">Orion.Recommendations.Actions</a>
+        </td>
+        <td>
+        Defined by relationship Orion.Recommendations.ActiveRecommendationHostsActions (System.Hosting)
+      </td>
+      </tr>
+      <tr>
+        <td>Dependencies</td>
+        <td>
+          <a href="Orion.Recommendations.Dependencies.html">Orion.Recommendations.Dependencies</a>
+        </td>
+        <td>
+        Defined by relationship Orion.Recommendations.RecommendationReferencesDependencies (System.Reference)
+      </td>
+      </tr>
+    </table>
+  </body>
+</html>

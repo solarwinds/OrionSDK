@@ -16,38 +16,13 @@
     </h1>
     <p>
         Base type:
-        <a href="System.StatisticsEntity.html">System.StatisticsEntity</a></p>
+        <a href="Orion.Virtualization.Statistics.html">Orion.Virtualization.Statistics</a></p>
     <h2>Properties</h2>
     <table>
       <tr>
         <th>Name</th>
         <th>Type</th>
         <th>Notes</th>
-      </tr>
-      <tr>
-        <td>VirtualMachineID</td>
-        <td>System.Int32</td>
-        <td />
-      </tr>
-      <tr>
-        <td>DateTime</td>
-        <td>System.DateTime</td>
-        <td />
-      </tr>
-      <tr>
-        <td>MinCPULoad</td>
-        <td>System.Single</td>
-        <td />
-      </tr>
-      <tr>
-        <td>MaxCPULoad</td>
-        <td>System.Single</td>
-        <td />
-      </tr>
-      <tr>
-        <td>AvgCPULoad</td>
-        <td>System.Single</td>
-        <td />
       </tr>
       <tr>
         <td>MinCPUUsageMHz</td>
@@ -76,6 +51,351 @@
       </tr>
       <tr>
         <td>AvgMemoryUsage</td>
+        <td>System.Single</td>
+        <td />
+      </tr>
+      <tr>
+        <td>MinCPULoadOfHost</td>
+        <td>System.Single</td>
+        <td />
+      </tr>
+      <tr>
+        <td>MaxCPULoadOfHost</td>
+        <td>System.Single</td>
+        <td />
+      </tr>
+      <tr>
+        <td>AvgCPULoadOfHost</td>
+        <td>System.Single</td>
+        <td />
+      </tr>
+      <tr>
+        <td>MinMemoryUsageOfHost</td>
+        <td>System.Single</td>
+        <td />
+      </tr>
+      <tr>
+        <td>MaxMemoryUsageOfHost</td>
+        <td>System.Single</td>
+        <td />
+      </tr>
+      <tr>
+        <td>AvgMemoryUsageOfHost</td>
+        <td>System.Single</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Unavailability</td>
+        <td>System.Single</td>
+        <td />
+      </tr>
+      <tr>
+        <td>MinCpuReady</td>
+        <td>System.Single</td>
+        <td />
+      </tr>
+      <tr>
+        <td>MaxCpuReady</td>
+        <td>System.Single</td>
+        <td />
+      </tr>
+      <tr>
+        <td>AvgCpuReady</td>
+        <td>System.Single</td>
+        <td />
+      </tr>
+      <tr>
+        <td>MinIOPSTotal</td>
+        <td>System.Single</td>
+        <td />
+      </tr>
+      <tr>
+        <td>MaxIOPSTotal</td>
+        <td>System.Single</td>
+        <td />
+      </tr>
+      <tr>
+        <td>AvgIOPSTotal</td>
+        <td>System.Single</td>
+        <td />
+      </tr>
+      <tr>
+        <td>MinIOPSRead</td>
+        <td>System.Single</td>
+        <td />
+      </tr>
+      <tr>
+        <td>MaxIOPSRead</td>
+        <td>System.Single</td>
+        <td />
+      </tr>
+      <tr>
+        <td>AvgIOPSRead</td>
+        <td>System.Single</td>
+        <td />
+      </tr>
+      <tr>
+        <td>MinIOPSWrite</td>
+        <td>System.Single</td>
+        <td />
+      </tr>
+      <tr>
+        <td>MaxIOPSWrite</td>
+        <td>System.Single</td>
+        <td />
+      </tr>
+      <tr>
+        <td>AvgIOPSWrite</td>
+        <td>System.Single</td>
+        <td />
+      </tr>
+      <tr>
+        <td>MinLatencyTotal</td>
+        <td>System.Single</td>
+        <td />
+      </tr>
+      <tr>
+        <td>MaxLatencyTotal</td>
+        <td>System.Single</td>
+        <td />
+      </tr>
+      <tr>
+        <td>AvgLatencyTotal</td>
+        <td>System.Single</td>
+        <td />
+      </tr>
+      <tr>
+        <td>MinLatencyRead</td>
+        <td>System.Single</td>
+        <td />
+      </tr>
+      <tr>
+        <td>MaxLatencyRead</td>
+        <td>System.Single</td>
+        <td />
+      </tr>
+      <tr>
+        <td>AvgLatencyRead</td>
+        <td>System.Single</td>
+        <td />
+      </tr>
+      <tr>
+        <td>MinLatencyWrite</td>
+        <td>System.Single</td>
+        <td />
+      </tr>
+      <tr>
+        <td>MaxLatencyWrite</td>
+        <td>System.Single</td>
+        <td />
+      </tr>
+      <tr>
+        <td>AvgLatencyWrite</td>
+        <td>System.Single</td>
+        <td />
+      </tr>
+      <tr>
+        <td>MinConsumedMemoryLoad</td>
+        <td>System.Single</td>
+        <td />
+      </tr>
+      <tr>
+        <td>MaxConsumedMemoryLoad</td>
+        <td>System.Single</td>
+        <td />
+      </tr>
+      <tr>
+        <td>AvgConsumedMemoryLoad</td>
+        <td>System.Single</td>
+        <td />
+      </tr>
+      <tr>
+        <td>MinConsumedPercentMemoryLoad</td>
+        <td>System.Single</td>
+        <td />
+      </tr>
+      <tr>
+        <td>MaxConsumedPercentMemoryLoad</td>
+        <td>System.Single</td>
+        <td />
+      </tr>
+      <tr>
+        <td>AvgConsumedPercentMemoryLoad</td>
+        <td>System.Single</td>
+        <td />
+      </tr>
+      <tr>
+        <td>MinCpuLoadSumPeak</td>
+        <td>System.Single</td>
+        <td />
+      </tr>
+      <tr>
+        <td>MaxCpuLoadSumPeak</td>
+        <td>System.Single</td>
+        <td />
+      </tr>
+      <tr>
+        <td>AvgCpuLoadSumPeak</td>
+        <td>System.Single</td>
+        <td />
+      </tr>
+      <tr>
+        <td>AvgTotalStorageSize</td>
+        <td>System.Int64</td>
+        <td />
+      </tr>
+      <tr>
+        <td>AvgTotalStorageSizeUsed</td>
+        <td>System.Int64</td>
+        <td />
+      </tr>
+      <tr>
+        <td>MinBalloonMemload</td>
+        <td>System.Single</td>
+        <td />
+      </tr>
+      <tr>
+        <td>MaxBalloonMemload</td>
+        <td>System.Single</td>
+        <td />
+      </tr>
+      <tr>
+        <td>AvgBalloonMemload</td>
+        <td>System.Single</td>
+        <td />
+      </tr>
+      <tr>
+        <td>MinCpuLatency</td>
+        <td>System.Single</td>
+        <td />
+      </tr>
+      <tr>
+        <td>MaxCpuLatency</td>
+        <td>System.Single</td>
+        <td />
+      </tr>
+      <tr>
+        <td>AvgCpuLatency</td>
+        <td>System.Single</td>
+        <td />
+      </tr>
+      <tr>
+        <td>MinCpuDemandMHz</td>
+        <td>System.Single</td>
+        <td />
+      </tr>
+      <tr>
+        <td>MaxCpuDemandMHz</td>
+        <td>System.Single</td>
+        <td />
+      </tr>
+      <tr>
+        <td>AvgCpuDemandMHz</td>
+        <td>System.Single</td>
+        <td />
+      </tr>
+      <tr>
+        <td>MinCpuMaxLimited</td>
+        <td>System.Single</td>
+        <td />
+      </tr>
+      <tr>
+        <td>MaxCpuMaxLimited</td>
+        <td>System.Single</td>
+        <td />
+      </tr>
+      <tr>
+        <td>AvgCpuMaxLimited</td>
+        <td>System.Single</td>
+        <td />
+      </tr>
+      <tr>
+        <td>MinCpuSwapWait</td>
+        <td>System.Single</td>
+        <td />
+      </tr>
+      <tr>
+        <td>MaxCpuSwapWait</td>
+        <td>System.Single</td>
+        <td />
+      </tr>
+      <tr>
+        <td>AvgCpuSwapWait</td>
+        <td>System.Single</td>
+        <td />
+      </tr>
+      <tr>
+        <td>MinCpuUsed</td>
+        <td>System.Single</td>
+        <td />
+      </tr>
+      <tr>
+        <td>MaxCpuUsed</td>
+        <td>System.Single</td>
+        <td />
+      </tr>
+      <tr>
+        <td>AvgCpuUsed</td>
+        <td>System.Single</td>
+        <td />
+      </tr>
+      <tr>
+        <td>MinMemoryGranted</td>
+        <td>System.Single</td>
+        <td />
+      </tr>
+      <tr>
+        <td>MaxMemoryGranted</td>
+        <td>System.Single</td>
+        <td />
+      </tr>
+      <tr>
+        <td>AvgMemoryGranted</td>
+        <td>System.Single</td>
+        <td />
+      </tr>
+      <tr>
+        <td>MinMemoryDemand</td>
+        <td>System.Single</td>
+        <td />
+      </tr>
+      <tr>
+        <td>MaxMemoryDemand</td>
+        <td>System.Single</td>
+        <td />
+      </tr>
+      <tr>
+        <td>AvgMemoryDemand</td>
+        <td>System.Single</td>
+        <td />
+      </tr>
+      <tr>
+        <td>VirtualMachineID</td>
+        <td>System.Int32</td>
+        <td />
+      </tr>
+      <tr>
+        <td>DateTime</td>
+        <td>System.DateTime</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Availability</td>
+        <td>System.Single</td>
+        <td />
+      </tr>
+      <tr>
+        <td>MinCPULoad</td>
+        <td>System.Single</td>
+        <td />
+      </tr>
+      <tr>
+        <td>MaxCPULoad</td>
+        <td>System.Single</td>
+        <td />
+      </tr>
+      <tr>
+        <td>AvgCPULoad</td>
         <td>System.Single</td>
         <td />
       </tr>
@@ -121,46 +441,6 @@
       </tr>
       <tr>
         <td>AvgNetworkReceiveRate</td>
-        <td>System.Single</td>
-        <td />
-      </tr>
-      <tr>
-        <td>MinCPULoadOfHost</td>
-        <td>System.Single</td>
-        <td />
-      </tr>
-      <tr>
-        <td>MaxCPULoadOfHost</td>
-        <td>System.Single</td>
-        <td />
-      </tr>
-      <tr>
-        <td>AvgCPULoadOfHost</td>
-        <td>System.Single</td>
-        <td />
-      </tr>
-      <tr>
-        <td>MinMemoryUsageOfHost</td>
-        <td>System.Single</td>
-        <td />
-      </tr>
-      <tr>
-        <td>MaxMemoryUsageOfHost</td>
-        <td>System.Single</td>
-        <td />
-      </tr>
-      <tr>
-        <td>AvgMemoryUsageOfHost</td>
-        <td>System.Single</td>
-        <td />
-      </tr>
-      <tr>
-        <td>Availability</td>
-        <td>System.Single</td>
-        <td />
-      </tr>
-      <tr>
-        <td>Unavailability</td>
         <td>System.Single</td>
         <td />
       </tr>

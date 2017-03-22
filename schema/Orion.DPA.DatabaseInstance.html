@@ -1,0 +1,374 @@
+﻿
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <title>SolarWinds Information Service v3.0 Schema Documentation</title>
+    <link href="SchemaDoc.css" type="text/css" rel="stylesheet" />
+  </head>
+  <body>
+    <h1>SolarWinds Information Service v3.0 Schema Documentation</h1>
+    <p>
+      <a href="index.html">Index</a>
+    </p>
+    <h1>
+      <a name="Orion.DPA.DatabaseInstance">Orion.DPA.DatabaseInstance</a>
+    </h1>
+    <p>Abstract</p>
+    <p>
+        Base type:
+        <a href="System.ManagedEntity.html">System.ManagedEntity</a></p>
+    <h2>Properties</h2>
+    <table>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Notes</th>
+      </tr>
+      <tr>
+        <td>DatabaseInstanceID</td>
+        <td>System.Int32</td>
+        <td />
+      </tr>
+      <tr>
+        <td>GlobalDatabaseInstanceID</td>
+        <td>System.Int32</td>
+        <td />
+      </tr>
+      <tr>
+        <td>GroupId</td>
+        <td>System.Int32</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Name</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Host</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>IP</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Port</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Type</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Version</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>VersionSuffix</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>MonitorStatus</td>
+        <td>System.Int32</td>
+        <td />
+      </tr>
+      <tr>
+        <td>MonitorStatusText</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>IsLicensed</td>
+        <td>System.Boolean</td>
+        <td />
+      </tr>
+      <tr>
+        <td>OverallAlarmLevel</td>
+        <td>System.Int32</td>
+        <td />
+      </tr>
+      <tr>
+        <td>DefaultDatabase</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>OracleSID</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>ServiceName</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Status</td>
+        <td>System.Int32</td>
+        <td />
+      </tr>
+      <tr>
+        <td>StatusDescription</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>DetailsUrl</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>UnManaged</td>
+        <td>System.Boolean</td>
+        <td />
+      </tr>
+      <tr>
+        <td>UnManageFrom</td>
+        <td>System.DateTime</td>
+        <td />
+      </tr>
+      <tr>
+        <td>UnManageUntil</td>
+        <td>System.DateTime</td>
+        <td />
+      </tr>
+      <tr>
+        <td>DisplayName</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Description</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Status</td>
+        <td>System.Int32</td>
+        <td />
+      </tr>
+      <tr>
+        <td>StatusDescription</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>StatusLED</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>UnManaged</td>
+        <td>System.Boolean</td>
+        <td>
+          Default='false'.
+        </td>
+      </tr>
+      <tr>
+        <td>UnManageFrom</td>
+        <td>System.DateTime</td>
+        <td />
+      </tr>
+      <tr>
+        <td>UnManageUntil</td>
+        <td>System.DateTime</td>
+        <td />
+      </tr>
+      <tr>
+        <td>DetailsUrl</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Image</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>AncestorDisplayNames</td>
+        <td>System.String[]</td>
+        <td />
+      </tr>
+      <tr>
+        <td>AncestorDetailsUrls</td>
+        <td>System.String[]</td>
+        <td />
+      </tr>
+      <tr>
+        <td>StatusIconHint</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>DisplayName</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Description</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>InstanceType</td>
+        <td>System.Type</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Uri</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>InstanceSiteId</td>
+        <td>System.Int32</td>
+        <td>
+          Default='0'.
+        </td>
+      </tr>
+      <tr>
+        <td>RelyNode</td>
+        <td>
+          <a href="Orion.Nodes.html">Orion.Nodes</a>
+        </td>
+        <td>
+        Defined by relationship Orion.Rely.DPA.DatabaseInstanceRelyOnNodes (System.Reliance)
+      </td>
+      </tr>
+      <tr>
+        <td>PerformanceOverview</td>
+        <td>
+          <a href="DPA.PerformanceOverview.html">DPA.PerformanceOverview</a>
+        </td>
+        <td>
+        Defined by relationship Orion.DatabaseInstancePerformanceOverview (System.Reference)
+      </td>
+      </tr>
+      <tr>
+        <td>DpaServer</td>
+        <td>
+          <a href="Orion.DPA.DpaServer.html">Orion.DPA.DpaServer</a>
+        </td>
+        <td>
+        Defined by relationship Orion.DpaServerDatabaseInstance (System.Reference)
+      </td>
+      </tr>
+      <tr>
+        <td>ProblemSummary</td>
+        <td>
+          <a href="DPA.ProblemSummary.html">DPA.ProblemSummary</a>
+        </td>
+        <td>
+        Defined by relationship Orion.DatabaseInstanceProblemSummary (System.Reference)
+      </td>
+      </tr>
+      <tr>
+        <td>TrendDataDimension</td>
+        <td>
+          <a href="DPA.TrendDataDimension.html">DPA.TrendDataDimension</a>
+        </td>
+        <td>
+        Defined by relationship Orion.DatabaseInstanceTrendDataDimension (System.Reference)
+      </td>
+      </tr>
+      <tr>
+        <td>DetailDataDimension</td>
+        <td>
+          <a href="DPA.DetailDataDimension.html">DPA.DetailDataDimension</a>
+        </td>
+        <td>
+        Defined by relationship Orion.DatabaseInstanceDetailDataDimension (System.Reference)
+      </td>
+      </tr>
+      <tr>
+        <td>ResourceDefinition</td>
+        <td>
+          <a href="DPA.ResourceDefinition.html">DPA.ResourceDefinition</a>
+        </td>
+        <td>
+        Defined by relationship Orion.ResourceDefinitionDatabaseInstance (System.Reference)
+      </td>
+      </tr>
+      <tr>
+        <td>RelyApplications</td>
+        <td>
+          <a href="Orion.APM.Application.html">Orion.APM.Application</a>
+        </td>
+        <td>
+        Defined by relationship Orion.Rely.DPA.ApplicationsRelyOnDatabaseInstances (System.Reliance)
+      </td>
+      </tr>
+      <tr>
+        <td>Data</td>
+        <td>
+          <a href="Orion.DPA.DatabaseInstanceData.html">Orion.DPA.DatabaseInstanceData</a>
+        </td>
+        <td>
+        Defined by relationship Orion.DatabaseInstanceDataDatabaseInstance (System.Reference)
+      </td>
+      </tr>
+      <tr>
+        <td>StatusInfo</td>
+        <td>
+          <a href="Orion.StatusInfo.html">Orion.StatusInfo</a>
+        </td>
+        <td>
+        Defined by relationship Orion.StatusInfoDatabaseInstance (System.Reference)
+      </td>
+      </tr>
+      <tr>
+        <td>ApplicationReference</td>
+        <td>
+          <a href="Orion.DPA.DatabaseInstanceApplication.html">Orion.DPA.DatabaseInstanceApplication</a>
+        </td>
+        <td>
+        Defined by relationship Orion.DatabaseInstanceApplicationDatabaseInstance (System.Reference)
+      </td>
+      </tr>
+      <tr>
+        <td>UsedByApplicationReference</td>
+        <td>
+          <a href="Orion.DPA.DatabaseInstanceClientApplication.html">Orion.DPA.DatabaseInstanceClientApplication</a>
+        </td>
+        <td>
+        Defined by relationship Orion.DatabaseInstanceClientApplicationDatabaseInstance (System.Reference)
+      </td>
+      </tr>
+      <tr>
+        <td>ServerApplication</td>
+        <td>
+          <a href="Orion.APM.Application.html">Orion.APM.Application</a>
+        </td>
+        <td>
+        Defined by relationship Orion.DatabaseInstanceServerApplication (System.Reference)
+      </td>
+      </tr>
+      <tr>
+        <td>LunReference</td>
+        <td>
+          <a href="Orion.DPA.DatabaseInstanceLun.html">Orion.DPA.DatabaseInstanceLun</a>
+        </td>
+        <td>
+        Defined by relationship Orion.DatabaseInstanceLunDatabaseInstance (System.Reference)
+      </td>
+      </tr>
+      <tr>
+        <td>Lun</td>
+        <td>
+          <a href="Orion.SRM.LUNs.html">Orion.SRM.LUNs</a>
+        </td>
+        <td>
+        Defined by relationship Orion.DatabaseInstanceLun (System.Reference)
+      </td>
+      </tr>
+    </table>
+  </body>
+</html>

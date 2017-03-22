@@ -25,6 +25,16 @@
         <th>Notes</th>
       </tr>
       <tr>
+        <td>NetflowSourceID</td>
+        <td>System.Int32</td>
+        <td />
+      </tr>
+      <tr>
+        <td>NodeID</td>
+        <td>System.Int32</td>
+        <td />
+      </tr>
+      <tr>
         <td>InterfaceID</td>
         <td>System.Int32</td>
         <td />
@@ -40,12 +50,12 @@
         <td />
       </tr>
       <tr>
-        <td>cbQoSEnabled</td>
+        <td>CBQoSEnabled</td>
         <td>System.Boolean</td>
         <td />
       </tr>
       <tr>
-        <td>cbQoSLastTime</td>
+        <td>CBQoSLastTime</td>
         <td>System.DateTime</td>
         <td />
       </tr>
@@ -57,6 +67,16 @@
       <tr>
         <td>ManualSamplingRate</td>
         <td>System.Int64</td>
+        <td />
+      </tr>
+      <tr>
+        <td>LastTimeAAR</td>
+        <td>System.DateTime</td>
+        <td />
+      </tr>
+      <tr>
+        <td>LastTimeWLC</td>
+        <td>System.DateTime</td>
         <td />
       </tr>
       <tr>
@@ -93,6 +113,15 @@
         </td>
         <td>
         Defined by relationship Orion.Netflow.InterfaceReferencesSource (System.Reference)
+      </td>
+      </tr>
+      <tr>
+        <td>Node</td>
+        <td>
+          <a href="Orion.Nodes.html">Orion.Nodes</a>
+        </td>
+        <td>
+        Defined by relationship Orion.Netflow.NodeReferencesSource (System.Reference)
       </td>
       </tr>
     </table>

@@ -1,0 +1,276 @@
+﻿
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <title>SolarWinds Information Service v3.0 Schema Documentation</title>
+    <link href="SchemaDoc.css" type="text/css" rel="stylesheet" />
+  </head>
+  <body>
+    <h1>SolarWinds Information Service v3.0 Schema Documentation</h1>
+    <p>
+      <a href="index.html">Index</a>
+    </p>
+    <h1>
+      <a name="Orion.HA.Pools">Orion.HA.Pools</a>
+    </h1>
+    <p>
+        Base type:
+        <a href="System.Entity.html">System.Entity</a></p>
+    <p>
+        Summary:
+        High Availability pools. Pool unites pool members of the same type to provide high availability of Orion servers.</p>
+    <h2>Properties</h2>
+    <table>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Notes</th>
+      </tr>
+      <tr>
+        <td>PoolId</td>
+        <td>System.Int32</td>
+        <td>ID of pool</td>
+      </tr>
+      <tr>
+        <td>PoolMasterMemberId</td>
+        <td>System.Int32</td>
+        <td>ID of pool member which acts as a pool master</td>
+      </tr>
+      <tr>
+        <td>PoolType</td>
+        <td>System.String</td>
+        <td>Type of pool (0 - main poller, 1 - additional poller)</td>
+      </tr>
+      <tr>
+        <td>DisplayName</td>
+        <td>System.String</td>
+        <td>Name of a pool</td>
+      </tr>
+      <tr>
+        <td>Enabled</td>
+        <td>System.Boolean</td>
+        <td>Pool is enabled or disabled</td>
+      </tr>
+      <tr>
+        <td>CurrentStatus</td>
+        <td>System.Int32</td>
+        <td>Current status of a pool</td>
+      </tr>
+      <tr>
+        <td>CurrentStatusTimestamp</td>
+        <td>System.DateTime</td>
+        <td>Timestamp of current status</td>
+      </tr>
+      <tr>
+        <td>PoolMasterChangeTimestamp</td>
+        <td>System.DateTime</td>
+        <td>Timestamp of pool master role change</td>
+      </tr>
+      <tr>
+        <td>IntervalMemberDown</td>
+        <td>System.Int32</td>
+        <td>Interval after which is member considered as down</td>
+      </tr>
+      <tr>
+        <td>IntervalPoolTask</td>
+        <td>System.Int32</td>
+        <td>Pool task interval in seconds. In this interval HA service performs regular tasks e.g. services status monitoring</td>
+      </tr>
+      <tr>
+        <td>IntervalSuicideRule</td>
+        <td>System.Int32</td>
+        <td>Interval after which member releases its resource if it cannot reach other member of a pool do database</td>
+      </tr>
+      <tr>
+        <td>DisplayName</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Description</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>InstanceType</td>
+        <td>System.Type</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Uri</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>InstanceSiteId</td>
+        <td>System.Int32</td>
+        <td>
+          Default='0'.
+        </td>
+      </tr>
+      <tr>
+        <td>Members</td>
+        <td>
+          <a href="Orion.HA.PoolMembers.html">Orion.HA.PoolMembers</a>
+        </td>
+        <td>
+        Defined by relationship Orion.HA.PoolHostsPoolMembers (System.Hosting)
+      </td>
+      </tr>
+      <tr>
+        <td>ResourcesInstances</td>
+        <td>
+          <a href="Orion.HA.ResourcesInstances.html">Orion.HA.ResourcesInstances</a>
+        </td>
+        <td>
+        Defined by relationship Orion.HA.PoolsResourcesInstances (System.Reference)
+      </td>
+      </tr>
+    </table>
+    <h2>Verbs</h2>
+    <table>
+      <tr>
+        <th>Name</th>
+        <th>Summary</th>
+        <th>Parameters</th>
+        <th>Returns</th>
+      </tr>
+      <tr>
+        <td>Create</td>
+        <td>Creates a new Pool with given configuration, members and resources. CanCreateTest verb is called internally.</td>
+        <td>
+          <table>
+            <tr>
+              <th>Name</th>
+              <th>Summary</th>
+            </tr>
+            <tr>
+              <td>poolConfig</td>
+              <td>Object with pool configuration. Object is custom and requires special reference</td>
+            </tr>
+            <tr>
+              <td>poolMembersIds</td>
+              <td>Integer array of pool member IDs</td>
+            </tr>
+            <tr>
+              <td>resourcesConfigs</td>
+              <td>Resources configurations. Array of custom objects which requires special reference</td>
+            </tr>
+          </table>
+        </td>
+        <td>Object which describes, whether pool was created. Property ErrorCode = 0 means that operation was successful. Property Result contains ID of created pool. Property ErrorMessage contains error message in case of error.</td>
+      </tr>
+      <tr>
+        <td>CanCreateTest</td>
+        <td>Check whether new pool can be created e.g. Virtual IP matches the servers subnet, members have static IPv4 configuration in given subnet.</td>
+        <td>
+          <table>
+            <tr>
+              <th>Name</th>
+              <th>Summary</th>
+            </tr>
+            <tr>
+              <td>poolConfig</td>
+              <td>Object with pool configuration. Object is custom and requires special reference</td>
+            </tr>
+            <tr>
+              <td>poolMembersIds</td>
+              <td>Integer array of pool member IDs</td>
+            </tr>
+            <tr>
+              <td>resourcesConfigs</td>
+              <td>Resources configurations. Array of custom objects which requires special reference</td>
+            </tr>
+          </table>
+        </td>
+        <td>Object which describes, whether pool can be created. Property ErrorCode = 0 means that pool can be created. Property ErrorMessage contains error message in case of error.</td>
+      </tr>
+      <tr>
+        <td>EnablePool</td>
+        <td>Enables pool with a given poolId</td>
+        <td>
+          <table>
+            <tr>
+              <th>Name</th>
+              <th>Summary</th>
+            </tr>
+            <tr>
+              <td>poolId</td>
+              <td>ID of pool</td>
+            </tr>
+          </table>
+        </td>
+        <td>Object which describes, whether pool was enabled. Property ErrorCode = 0 means that operation was successful. Property ErrorMessage contains error message in case of error.</td>
+      </tr>
+      <tr>
+        <td>DisablePool</td>
+        <td>Disables pool with a given poolId</td>
+        <td>
+          <table>
+            <tr>
+              <th>Name</th>
+              <th>Summary</th>
+            </tr>
+            <tr>
+              <td>poolId</td>
+              <td>ID of pool</td>
+            </tr>
+          </table>
+        </td>
+        <td>Object which describes, whether pool was disabled. Property ErrorCode = 0 means that operation was successful. Property ErrorMessage contains error message in case of error.</td>
+      </tr>
+      <tr>
+        <td>DeletePool</td>
+        <td>Delete pool with given poolId. Check for main engine having license store is performed.</td>
+        <td>
+          <table>
+            <tr>
+              <th>Name</th>
+              <th>Summary</th>
+            </tr>
+            <tr>
+              <td>poolId</td>
+              <td>ID of pool</td>
+            </tr>
+          </table>
+        </td>
+        <td>Object which describes, whether pool was deleted. Property ErrorCode = 0 means that operation was successful. Property ErrorMessage contains error message in case of error.</td>
+      </tr>
+      <tr>
+        <td>ForceDeletePool</td>
+        <td>Delete pool with given poolId. Check for main engine having license store is NOT performed.</td>
+        <td>
+          <table>
+            <tr>
+              <th>Name</th>
+              <th>Summary</th>
+            </tr>
+            <tr>
+              <td>poolId</td>
+              <td>ID of pool</td>
+            </tr>
+          </table>
+        </td>
+        <td>Object which describes, whether pool was deleted. Property ErrorCode = 0 means that operation was successful. Property ErrorMessage contains error message in case of error.</td>
+      </tr>
+      <tr>
+        <td>Switchover</td>
+        <td>Manual failover on a given pool.</td>
+        <td>
+          <table>
+            <tr>
+              <th>Name</th>
+              <th>Summary</th>
+            </tr>
+            <tr>
+              <td>poolId</td>
+              <td>ID of pool</td>
+            </tr>
+          </table>
+        </td>
+        <td>Object which describes, whether manual failover was initiated. Property ErrorCode = 0 means that operation was successful. Property ErrorMessage contains error message in case of error.</td>
+      </tr>
+    </table>
+  </body>
+</html>

@@ -16,7 +16,7 @@
     </h1>
     <p>
         Base type:
-        <a href="System.ManagedEntity.html">System.ManagedEntity</a></p>
+        <a href="Orion.HardwareHealth.HardwareItemBase.html">Orion.HardwareHealth.HardwareItemBase</a></p>
     <h2>Properties</h2>
     <table>
       <tr>
@@ -31,6 +31,21 @@
       </tr>
       <tr>
         <td>NodeID</td>
+        <td>System.Int32</td>
+        <td />
+      </tr>
+      <tr>
+        <td>HardwareCategoryStatusID</td>
+        <td>System.Int32</td>
+        <td />
+      </tr>
+      <tr>
+        <td>ID</td>
+        <td>System.Int32</td>
+        <td />
+      </tr>
+      <tr>
+        <td>HardwareInfoID</td>
         <td>System.Int32</td>
         <td />
       </tr>
@@ -90,11 +105,6 @@
         <td />
       </tr>
       <tr>
-        <td>Description</td>
-        <td>System.String</td>
-        <td />
-      </tr>
-      <tr>
         <td>UnManaged</td>
         <td>System.Boolean</td>
         <td />
@@ -126,6 +136,21 @@
       </tr>
       <tr>
         <td>DetailsUrl</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Description</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>StatusLED</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Image</td>
         <td>System.String</td>
         <td />
       </tr>
@@ -228,69 +253,6 @@
       </td>
       </tr>
       <tr>
-        <td>HardwareItemStatistics</td>
-        <td>
-          <a href="Orion.HardwareHealth.HardwareItemStatistics.html">Orion.HardwareHealth.HardwareItemStatistics</a>
-        </td>
-        <td>
-        Defined by relationship Orion.HardwareHealth.HardwareItemHostsHardwareItemStatistics (System.Hosting)
-      </td>
-      </tr>
-      <tr>
-        <td>HardwareItemValueStatistics</td>
-        <td>
-          <a href="Orion.HardwareHealth.HardwareItemValueStatistics.html">Orion.HardwareHealth.HardwareItemValueStatistics</a>
-        </td>
-        <td>
-        Defined by relationship Orion.HardwareHealth.HardwareItemHostsHardwareItemValueStatistics (System.Hosting)
-      </td>
-      </tr>
-      <tr>
-        <td>HardwareItemStatusStatistics</td>
-        <td>
-          <a href="Orion.HardwareHealth.HardwareItemStatusStatistics.html">Orion.HardwareHealth.HardwareItemStatusStatistics</a>
-        </td>
-        <td>
-        Defined by relationship Orion.HardwareHealth.HardwareItemHostsHardwareItemStatusStatistics (System.Hosting)
-      </td>
-      </tr>
-      <tr>
-        <td>HardwareItemThreshold</td>
-        <td>
-          <a href="Orion.HardwareHealth.HardwareItemThreshold.html">Orion.HardwareHealth.HardwareItemThreshold</a>
-        </td>
-        <td>
-        Defined by relationship Orion.HardwareHealth.HardwareItemHostsHardwareItemThreshold (System.Hosting)
-      </td>
-      </tr>
-      <tr>
-        <td>Parent</td>
-        <td>
-          <a href="Orion.HardwareHealth.HardwareHierarchy.html">Orion.HardwareHealth.HardwareHierarchy</a>
-        </td>
-        <td>
-        Defined by relationship Orion.HardwareHealth.HardwareItemReferenceHardwareHierarchy (System.Hosting)
-      </td>
-      </tr>
-      <tr>
-        <td>HardwareUnit</td>
-        <td>
-          <a href="Orion.HardwareHealth.HardwareUnit.html">Orion.HardwareHealth.HardwareUnit</a>
-        </td>
-        <td>
-        Defined by relationship Orion.HardwareHealth.HardwareItemReferenceHardwareUnit (System.Reference)
-      </td>
-      </tr>
-      <tr>
-        <td>HardwareInfo</td>
-        <td>
-          <a href="Orion.HardwareHealth.HardwareInfo.html">Orion.HardwareHealth.HardwareInfo</a>
-        </td>
-        <td>
-        Defined by relationship Orion.HardwareHealth.HardwareItemReferenceHardwareInfo (System.Reference)
-      </td>
-      </tr>
-      <tr>
         <td>HardwareCategoryStatus</td>
         <td>
           <a href="Orion.HardwareHealth.HardwareCategoryStatus.html">Orion.HardwareHealth.HardwareCategoryStatus</a>
@@ -300,34 +262,22 @@
       </td>
       </tr>
       <tr>
+        <td>HardwareInfo</td>
+        <td>
+          <a href="Orion.HardwareHealth.HardwareInfo.html">Orion.HardwareHealth.HardwareInfo</a>
+        </td>
+        <td>
+        Defined by relationship Orion.HardwareHealth.HardwareItemReferencesHardwareInfo (System.Reference)
+      </td>
+      </tr>
+      <tr>
         <td>Node</td>
         <td>
           <a href="Orion.Nodes.html">Orion.Nodes</a>
         </td>
         <td>
-        Defined by relationship Orion.HardwareHealth.NodeHostsHardwareItem (System.Reference)
+        Defined by relationship Orion.HardwareHealth.NodeReferencesHardwareItem (System.Reference)
       </td>
-      </tr>
-    </table>
-    <h2>Verbs</h2>
-    <table>
-      <tr>
-        <th>Name</th>
-        <th>Summary</th>
-        <th>Parameters</th>
-        <th>Returns</th>
-      </tr>
-      <tr>
-        <td>EnableSensors</td>
-        <td />
-        <td />
-        <td />
-      </tr>
-      <tr>
-        <td>DisableSensors</td>
-        <td />
-        <td />
-        <td />
       </tr>
     </table>
   </body>

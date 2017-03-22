@@ -16,18 +16,13 @@
     </h1>
     <p>
         Base type:
-        <a href="System.ManagedEntity.html">System.ManagedEntity</a></p>
+        <a href="Orion.Virtualization.Instance.html">Orion.Virtualization.Instance</a></p>
     <h2>Properties</h2>
     <table>
       <tr>
         <th>Name</th>
         <th>Type</th>
         <th>Notes</th>
-      </tr>
-      <tr>
-        <td>VirtualMachineID</td>
-        <td>System.Int32</td>
-        <td />
       </tr>
       <tr>
         <td>ManagedObjectID</td>
@@ -41,11 +36,6 @@
       </tr>
       <tr>
         <td>HostID</td>
-        <td>System.Int32</td>
-        <td />
-      </tr>
-      <tr>
-        <td>NodeID</td>
         <td>System.Int32</td>
         <td />
       </tr>
@@ -96,11 +86,6 @@
       </tr>
       <tr>
         <td>GuestVmWareToolsStatus</td>
-        <td>System.String</td>
-        <td />
-      </tr>
-      <tr>
-        <td>Name</td>
         <td>System.String</td>
         <td />
       </tr>
@@ -160,26 +145,6 @@
         <td />
       </tr>
       <tr>
-        <td>NetworkUsageRate</td>
-        <td>System.Single</td>
-        <td />
-      </tr>
-      <tr>
-        <td>NetworkTransmitRate</td>
-        <td>System.Single</td>
-        <td />
-      </tr>
-      <tr>
-        <td>NetworkReceiveRate</td>
-        <td>System.Single</td>
-        <td />
-      </tr>
-      <tr>
-        <td>CpuLoad</td>
-        <td>System.Single</td>
-        <td />
-      </tr>
-      <tr>
         <td>CpuUsageMHz</td>
         <td>System.Int64</td>
         <td />
@@ -200,11 +165,6 @@
         <td />
       </tr>
       <tr>
-        <td>PlatformID</td>
-        <td>System.Int32</td>
-        <td />
-      </tr>
-      <tr>
         <td>PollingSource</td>
         <td>System.Int32</td>
         <td />
@@ -217,6 +177,111 @@
       <tr>
         <td>DatastoreIdentifier</td>
         <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>CpuReady</td>
+        <td>System.Single</td>
+        <td />
+      </tr>
+      <tr>
+        <td>SwappedMemoryUtilization</td>
+        <td>System.Single</td>
+        <td />
+      </tr>
+      <tr>
+        <td>SwappedMemoryUtilizationPercent</td>
+        <td>System.Single</td>
+        <td />
+      </tr>
+      <tr>
+        <td>BalloonMemload</td>
+        <td>System.Single</td>
+        <td />
+      </tr>
+      <tr>
+        <td>BalloonMemloadPercent</td>
+        <td>System.Single</td>
+        <td />
+      </tr>
+      <tr>
+        <td>IOPSTotal</td>
+        <td>System.Single</td>
+        <td />
+      </tr>
+      <tr>
+        <td>IOPSRead</td>
+        <td>System.Single</td>
+        <td />
+      </tr>
+      <tr>
+        <td>IOPSWrite</td>
+        <td>System.Single</td>
+        <td />
+      </tr>
+      <tr>
+        <td>LatencyTotal</td>
+        <td>System.Single</td>
+        <td />
+      </tr>
+      <tr>
+        <td>LatencyRead</td>
+        <td>System.Single</td>
+        <td />
+      </tr>
+      <tr>
+        <td>LatencyWrite</td>
+        <td>System.Single</td>
+        <td />
+      </tr>
+      <tr>
+        <td>SnapshotStorageSize</td>
+        <td>System.Int64</td>
+        <td />
+      </tr>
+      <tr>
+        <td>ConsumedMemLoad</td>
+        <td>System.Single</td>
+        <td />
+      </tr>
+      <tr>
+        <td>ConsumedPercentMemLoad</td>
+        <td>System.Single</td>
+        <td />
+      </tr>
+      <tr>
+        <td>LastActivityDate</td>
+        <td>System.DateTime</td>
+        <td />
+      </tr>
+      <tr>
+        <td>TotalStorageSize</td>
+        <td>System.Int64</td>
+        <td />
+      </tr>
+      <tr>
+        <td>TotalStorageSizeUsed</td>
+        <td>System.Int64</td>
+        <td />
+      </tr>
+      <tr>
+        <td>VolumeSummaryCapacity</td>
+        <td>System.Int64</td>
+        <td />
+      </tr>
+      <tr>
+        <td>VolumeSummaryFreeSpace</td>
+        <td>System.Int64</td>
+        <td />
+      </tr>
+      <tr>
+        <td>VolumeSummaryFreeSpacePercent</td>
+        <td>System.Single</td>
+        <td />
+      </tr>
+      <tr>
+        <td>VolumeSummaryCapacityDepletionDate</td>
+        <td>System.DateTime</td>
         <td />
       </tr>
       <tr>
@@ -239,13 +304,113 @@
         </td>
       </tr>
       <tr>
+        <td>RunTime</td>
+        <td>System.Int32</td>
+        <td />
+      </tr>
+      <tr>
+        <td>CpuCostop</td>
+        <td>System.Single</td>
+        <td />
+      </tr>
+      <tr>
         <td>DynamicMemoryEnabled</td>
         <td>System.Boolean</td>
         <td />
       </tr>
       <tr>
+        <td>SnapshotSummaryCount</td>
+        <td>System.Int32</td>
+        <td />
+      </tr>
+      <tr>
+        <td>DateCreated</td>
+        <td>System.DateTime</td>
+        <td />
+      </tr>
+      <tr>
+        <td>OldestSnapshotDate</td>
+        <td>System.DateTime</td>
+        <td />
+      </tr>
+      <tr>
+        <td>HeartBeat</td>
+        <td>System.Single</td>
+        <td />
+      </tr>
+      <tr>
+        <td>SnapshotDateModified</td>
+        <td>System.DateTime</td>
+        <td />
+      </tr>
+      <tr>
+        <td>MemoryAllocationLimit</td>
+        <td>System.Int64</td>
+        <td />
+      </tr>
+      <tr>
+        <td>VirtualDiskDateModified</td>
+        <td>System.DateTime</td>
+        <td />
+      </tr>
+      <tr>
         <td>DetailsUrl</td>
         <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>MinimumMemory</td>
+        <td>System.Int64</td>
+        <td />
+      </tr>
+      <tr>
+        <td>StartupMemory</td>
+        <td>System.Int64</td>
+        <td />
+      </tr>
+      <tr>
+        <td>MemoryBuffer</td>
+        <td>System.Int64</td>
+        <td />
+      </tr>
+      <tr>
+        <td>VirtualMachineID</td>
+        <td>System.Int32</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Name</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>CpuLoad</td>
+        <td>System.Single</td>
+        <td />
+      </tr>
+      <tr>
+        <td>PlatformID</td>
+        <td>System.Int32</td>
+        <td />
+      </tr>
+      <tr>
+        <td>NetworkUsageRate</td>
+        <td>System.Single</td>
+        <td />
+      </tr>
+      <tr>
+        <td>NetworkTransmitRate</td>
+        <td>System.Single</td>
+        <td />
+      </tr>
+      <tr>
+        <td>NetworkReceiveRate</td>
+        <td>System.Single</td>
+        <td />
+      </tr>
+      <tr>
+        <td>NodeID</td>
+        <td>System.Int32</td>
         <td />
       </tr>
       <tr>
@@ -387,12 +552,120 @@
       </td>
       </tr>
       <tr>
+        <td>CpuReadyThreshold</td>
+        <td>
+          <a href="Orion.VIM.VirtualMachineCpuReadyThreshold.html">Orion.VIM.VirtualMachineCpuReadyThreshold</a>
+        </td>
+        <td>
+        Defined by relationship Orion.VIM.VirtualMachineHostsCpuReadyThreshold (System.Hosting)
+      </td>
+      </tr>
+      <tr>
+        <td>LatencyTotalThreshold</td>
+        <td>
+          <a href="Orion.VIM.VirtualMachineLatencyTotalThreshold.html">Orion.VIM.VirtualMachineLatencyTotalThreshold</a>
+        </td>
+        <td>
+        Defined by relationship Orion.VIM.VirtualMachineHostsLatencyTotalThreshold (System.Hosting)
+      </td>
+      </tr>
+      <tr>
+        <td>LatencyReadThreshold</td>
+        <td>
+          <a href="Orion.VIM.VirtualMachineLatencyReadThreshold.html">Orion.VIM.VirtualMachineLatencyReadThreshold</a>
+        </td>
+        <td>
+        Defined by relationship Orion.VIM.VirtualMachineHostsLatencyReadThreshold (System.Hosting)
+      </td>
+      </tr>
+      <tr>
+        <td>LatencyWriteThreshold</td>
+        <td>
+          <a href="Orion.VIM.VirtualMachineLatencyWriteThreshold.html">Orion.VIM.VirtualMachineLatencyWriteThreshold</a>
+        </td>
+        <td>
+        Defined by relationship Orion.VIM.VirtualMachineHostsLatencyWriteThreshold (System.Hosting)
+      </td>
+      </tr>
+      <tr>
+        <td>IOPSTotalThreshold</td>
+        <td>
+          <a href="Orion.VIM.VirtualMachineIOPSTotalThreshold.html">Orion.VIM.VirtualMachineIOPSTotalThreshold</a>
+        </td>
+        <td>
+        Defined by relationship Orion.VIM.VirtualMachineHostsIOPSTotalThreshold (System.Hosting)
+      </td>
+      </tr>
+      <tr>
+        <td>IOPSReadThreshold</td>
+        <td>
+          <a href="Orion.VIM.VirtualMachineIOPSReadThreshold.html">Orion.VIM.VirtualMachineIOPSReadThreshold</a>
+        </td>
+        <td>
+        Defined by relationship Orion.VIM.VirtualMachineHostsIOPSReadThreshold (System.Hosting)
+      </td>
+      </tr>
+      <tr>
+        <td>IOPSWriteThreshold</td>
+        <td>
+          <a href="Orion.VIM.VirtualMachineIOPSWriteThreshold.html">Orion.VIM.VirtualMachineIOPSWriteThreshold</a>
+        </td>
+        <td>
+        Defined by relationship Orion.VIM.VirtualMachineHostsIOPSWriteThreshold (System.Hosting)
+      </td>
+      </tr>
+      <tr>
+        <td>DataStores</td>
+        <td>
+          <a href="Orion.VIM.Datastores.html">Orion.VIM.Datastores</a>
+        </td>
+        <td>
+        Defined by relationship Orion.VIM.VirtualMachineReferencesDatastore (System.Reference)
+      </td>
+      </tr>
+      <tr>
+        <td>VirtualDisks</td>
+        <td>
+          <a href="Orion.VIM.VirtualDisks.html">Orion.VIM.VirtualDisks</a>
+        </td>
+        <td>
+        Defined by relationship Orion.VIM.VirtualMachineToVirtualDisksMappingReference (System.Reference)
+      </td>
+      </tr>
+      <tr>
+        <td>VirtualVolumes</td>
+        <td>
+          <a href="Orion.VIM.VirtualMachineVolumes.html">Orion.VIM.VirtualMachineVolumes</a>
+        </td>
+        <td>
+        Defined by relationship Orion.VIM.VirtualMachineToVirtualVolumesMappingReference (System.Reference)
+      </td>
+      </tr>
+      <tr>
+        <td>VirtualMediaDevices</td>
+        <td>
+          <a href="Orion.VIM.VirtualMachineMediaDevices.html">Orion.VIM.VirtualMachineMediaDevices</a>
+        </td>
+        <td>
+        Defined by relationship Orion.VIM.VirtualMachineToVirtualMediaDeviceMappingReference (System.Hosting)
+      </td>
+      </tr>
+      <tr>
         <td>ResourcePool</td>
         <td>
           <a href="Orion.VIM.ResourcePools.html">Orion.VIM.ResourcePools</a>
         </td>
         <td>
         Defined by relationship Orion.VIM.VirtualMachineReferencesResourcePool (System.Reference)
+      </td>
+      </tr>
+      <tr>
+        <td>IPAddresses</td>
+        <td>
+          <a href="Orion.VIM.VirtualMachineIPAddresses.html">Orion.VIM.VirtualMachineIPAddresses</a>
+        </td>
+        <td>
+        Defined by relationship Orion.VIM.VirtualMachinesToIPAddressesMappingReference (System.Reference)
       </td>
       </tr>
       <tr>
@@ -423,6 +696,15 @@
       </td>
       </tr>
       <tr>
+        <td>RelyDatastores</td>
+        <td>
+          <a href="Orion.VIM.Datastores.html">Orion.VIM.Datastores</a>
+        </td>
+        <td>
+        Defined by relationship Orion.Rely.VIM.VirtualMachinesRelyOnDatastores (System.Reliance)
+      </td>
+      </tr>
+      <tr>
         <td>SRMLUNs</td>
         <td>
           <a href="Orion.SRM.LUNs.html">Orion.SRM.LUNs</a>
@@ -447,6 +729,24 @@
         </td>
         <td>
         Defined by relationship Orion.VIM.NodesToVirtualMachines (System.Reference)
+      </td>
+      </tr>
+      <tr>
+        <td>Luns</td>
+        <td>
+          <a href="Orion.VIM.Luns.html">Orion.VIM.Luns</a>
+        </td>
+        <td>
+        Defined by relationship Orion.VIM.LunReferencesVirtualMachine (System.Reference)
+      </td>
+      </tr>
+      <tr>
+        <td>NasShares</td>
+        <td>
+          <a href="Orion.VIM.Nas.html">Orion.VIM.Nas</a>
+        </td>
+        <td>
+        Defined by relationship Orion.VIM.NasReferencesVirtualMachine (System.Reference)
       </td>
       </tr>
     </table>

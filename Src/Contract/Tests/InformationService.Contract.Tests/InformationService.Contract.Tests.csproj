@@ -83,6 +83,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="EntityCollectionResponseParserTest.cs" />
+    <Compile Include="InformationServiceDataAdapterTest.cs" />
     <Compile Include="MetaData\EntityMetadataTest.cs" />
     <Compile Include="InformationServiceDataReaderTest.cs" />
     <Compile Include="OldContract\PropertyBag.cs" />

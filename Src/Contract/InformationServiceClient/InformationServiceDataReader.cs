@@ -4,7 +4,7 @@ using System.Data;
 using System.Data.Common;
 using System.Data.SqlTypes;
 using System.Globalization;
-using System.IO;
+using System.Linq;
 using System.Xml;
 using System.Xml.Serialization;
 using SolarWinds.InformationService.Contract2;
@@ -23,16 +23,51 @@ namespace SolarWinds.InformationService.InformationServiceClient
 
         private readonly DbDataReader _resultsReader;
         private List<ErrorMessage> _errors;
-
+        private Lazy<DataTable> _lazySchemaTable;
         private bool _closed;
+        private readonly DataSetDateTime _dateTimeMode;
 
-        internal InformationServiceDataReader(InformationServiceCommand command, XmlDictionaryReader reader)
+        // This is a *very* basic implementation of Lazy<T> for .NET 3.5.
+        private class Lazy<T>
+        {
+            private readonly Func<T> _initializer;
+            private readonly object _locker = new object();
+            private T _value;
+            private bool _isValueCreated;
+
+            public Lazy(Func<T> initializer)
+            {
+                if (initializer == null) throw new ArgumentNullException(nameof(initializer));
+                _initializer = initializer;
+            }
+
+            public T Value
+            {
+                get
+                {
+                    lock (_locker)
+                    {
+                        if (_isValueCreated)
+                        {
+                            return _value;
+                        }
+
+                        _value = _initializer();
+                        _isValueCreated = true;
+                        return _value;
+                    }
+                }
+            }
+        }
+
+        internal InformationServiceDataReader(InformationServiceCommand command, XmlDictionaryReader reader, DataSetDateTime dateTimeMode)
         {
             if (command == null)
-                throw new ArgumentNullException("command");
+                throw new ArgumentNullException(nameof(command));
             if (reader == null)
-                throw new ArgumentNullException("reader");
+                throw new ArgumentNullException(nameof(reader));
 
+            _dateTimeMode = dateTimeMode;
             _resultsReader = LoadData(reader);
         }
 
@@ -178,7 +213,7 @@ namespace SolarWinds.InformationService.InformationServiceClient
 
         public override DataTable GetSchemaTable()
         {
-            return _resultsReader.GetSchemaTable();
+            return _lazySchemaTable != null ? _lazySchemaTable.Value : _resultsReader.GetSchemaTable();
         }
 
         public override string GetString(int ordinal)
@@ -252,15 +287,17 @@ namespace SolarWinds.InformationService.InformationServiceClient
         private DbDataReader LoadData(XmlDictionaryReader reader)
         {
             DataTable dataTable = new DataTable();
-            var dataReader = new InformationServiceResultsReader(reader);
+            var dataReader = new InformationServiceResultsReader(reader, _dateTimeMode);
 
-            ResultsDataAdapter adapter = new ResultsDataAdapter();
+            var adapter = new InformationServiceDataAdapter();
             adapter.FillData(dataTable, dataReader);
 
             TotalRows = dataReader.TotalRows;
             QueryPlan = dataReader.QueryPlan;
             QueryStats = dataReader.QueryStats;
             _errors = dataReader.Errors;
+            _lazySchemaTable = new Lazy<DataTable>(() => dataReader.GetSchemaTable());
+
 
             return dataTable.CreateDataReader();
         }
@@ -305,6 +342,7 @@ namespace SolarWinds.InformationService.InformationServiceClient
                 Error
             }
 
+
             private XmlDictionaryReader reader;
             private ParserState state;
             private List<ColumnInfo> columns;
@@ -330,11 +368,14 @@ namespace SolarWinds.InformationService.InformationServiceClient
 
             public List<ErrorMessage> Errors { get; private set; }
 
-            internal InformationServiceResultsReader(XmlDictionaryReader reader)
+            public DataSetDateTime DateTimeMode { get; set; }
+
+            internal InformationServiceResultsReader(XmlDictionaryReader reader, DataSetDateTime dateTimeMode)
             {
                 if (reader == null)
-                    throw new ArgumentNullException("reader");
+                    throw new ArgumentNullException(nameof(reader));
 
+                this.DateTimeMode = dateTimeMode;
                 this.reader = reader;
 
                 ReadMetadata();
@@ -620,7 +661,7 @@ namespace SolarWinds.InformationService.InformationServiceClient
                                         this.hasRows = true;
                                         string totalRowsAttr = reader.GetAttribute("totalRows");
                                         if (!string.IsNullOrEmpty(totalRowsAttr))
-                                            TotalRows = Convert.ToInt64(totalRowsAttr);
+                                            TotalRows = Convert.ToInt64(totalRowsAttr, CultureInfo.InvariantCulture);
 
                                         return;
                                     }
@@ -651,7 +692,18 @@ namespace SolarWinds.InformationService.InformationServiceClient
                                     }
 
                                     ColumnInfo columnInfo = new ColumnInfo(reader["name"], reader["type"],
-                                        Int32.Parse(reader["ordinal"]));
+                                        Int32.Parse(reader["ordinal"], CultureInfo.InvariantCulture));
+
+                                    // TODO: this should be define in column definition
+                                    columnInfo.DateTimeMode = this.DateTimeMode;
+
+                                    while (reader.MoveToNextAttribute())
+                                    {
+                                        var name = reader.Name;
+                                        if (!name.Equals("name", StringComparison.OrdinalIgnoreCase) && !name.Equals("type", StringComparison.OrdinalIgnoreCase) && !name.Equals("ordinal", StringComparison.OrdinalIgnoreCase))
+                                            columnInfo.AddMetadata(name, reader.Value);
+                                    }
+                                    reader.MoveToElement();
 
                                     this.columns.Add(columnInfo);
 
@@ -742,21 +794,21 @@ namespace SolarWinds.InformationService.InformationServiceClient
                                 break;
 
                             case ParserState.Root:
+                            {
+                                if (reader.LocalName == "errors")
                                 {
-                                    if (reader.LocalName == "errors")
-                                    {
-                                        this.state = ParserState.Error;
-                                    }
-                                    else if (reader.LocalName == "statistics")
-                                    {
-                                        this.QueryStats = new XmlDocument();
-                                        QueryStats.Load(reader.ReadSubtree());
-                                    }
-                                    else
-                                        throw new InvalidOperationException("Unexpected state " + this.state);
-
-                                    break;
+                                    this.state = ParserState.Error;
                                 }
+                                else if (reader.LocalName == "statistics")
+                                {
+                                    this.QueryStats = new XmlDocument();
+                                    QueryStats.Load(reader.ReadSubtree());
+                                }
+                                else
+                                    throw new InvalidOperationException("Unexpected state " + this.state);
+
+                                break;
+                            }
 
                             default:
                                 throw new InvalidOperationException("Unexpected state " + this.state);
@@ -917,14 +969,14 @@ namespace SolarWinds.InformationService.InformationServiceClient
             {
                 ColumnInfo columnInfo = this.columns[this.currentColumnOrdinal];
                 this.arrayColumnValues.Add(
-                    DeserializeScalarValue(reader.Value, columnInfo.EntityPropertyType, columnInfo.Type.GetElementType()));
+                    DeserializeScalarValue(reader.Value, columnInfo.EntityPropertyType, columnInfo.Type.GetElementType(), columnInfo));
             }
 
             private void ProcessColumnValue(XmlDictionaryReader reader)
             {
                 ColumnInfo columnInfo = this.columns[this.currentColumnOrdinal];
 
-                object value = DeserializeScalarValue(reader.Value, columnInfo.EntityPropertyType, columnInfo.Type);
+                object value = DeserializeScalarValue(reader.Value, columnInfo.EntityPropertyType, columnInfo.Type, columnInfo);
                 if (columnInfo.EntityPropertyType == EntityPropertyType.String)
                 {
                     value = this.values[this.currentColumnOrdinal] + value.ToString();
@@ -933,7 +985,7 @@ namespace SolarWinds.InformationService.InformationServiceClient
                 this.values[this.currentColumnOrdinal] = value;
             }
 
-            private object DeserializeScalarValue(string value, EntityPropertyType columnType, Type targetType)
+            private object DeserializeScalarValue(string value, EntityPropertyType columnType, Type targetType, ColumnInfo currentColumn)
             {
                 switch (columnType)
                 {
@@ -964,8 +1016,15 @@ namespace SolarWinds.InformationService.InformationServiceClient
                         return new Guid(value);
 
                     case EntityPropertyType.DateTime:
-                        return DateTime.ParseExact(value, "o", CultureInfo.InvariantCulture);
+                        if (currentColumn.DateTimeMode.HasValue)
+                        {
+                            if (currentColumn.DateTimeMode.Value == DataSetDateTime.Local)
+                                return DateTime.ParseExact(value, "o", CultureInfo.InvariantCulture);
+                            else if (currentColumn.DateTimeMode.Value == DataSetDateTime.Utc)
+                                return DateTime.ParseExact(value, "o", CultureInfo.InvariantCulture, DateTimeStyles.AdjustToUniversal);
+                        }
 
+                        return DateTime.ParseExact(value, "o", CultureInfo.InvariantCulture, DateTimeStyles.RoundtripKind);
                     case EntityPropertyType.Null:
                         return value;
 
@@ -1017,12 +1076,26 @@ namespace SolarWinds.InformationService.InformationServiceClient
                 DataColumn typeColumn = new DataColumn("ColumnType", typeof(Type));
                 this.schemaTable.Columns.Add(typeColumn);
 
+                DataColumn dateTimeMode = new DataColumn("ColumnDateTimeMode", typeof(DataSetDateTime));
+                this.schemaTable.Columns.Add(dateTimeMode);
+
+                foreach (var metadataName in columns.SelectMany(c => c.MetadataNames).Distinct())
+                {
+                    schemaTable.Columns.Add(metadataName, typeof(string));
+                }
+
                 foreach (ColumnInfo columnInfo in this.columns)
                 {
                     DataRow row = this.schemaTable.NewRow();
                     row["ColumnName"] = columnInfo.Name;
                     row["ColumnOrdinal"] = columnInfo.Ordinal;
                     row["ColumnType"] = columnInfo.Type;
+                    row["ColumnDateTimeMode"] = this.DateTimeMode;
+
+                    foreach (var metadataName in columnInfo.MetadataNames)
+                    {
+                        row[metadataName] = columnInfo[metadataName];
+                    }
 
                     this.schemaTable.Rows.Add(row);
                 }
@@ -1032,6 +1105,7 @@ namespace SolarWinds.InformationService.InformationServiceClient
             {
                 private readonly int ordinal;
                 private readonly string elementName;
+                private readonly Dictionary<string, string> metadata = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
 
                 public ColumnInfo(string name, string typeName, int ordinal)
                     : base(name, typeName)
@@ -1049,14 +1123,15 @@ namespace SolarWinds.InformationService.InformationServiceClient
                 {
                     get { return this.elementName; }
                 }
-            }
-        }
 
-        private class ResultsDataAdapter : DbDataAdapter
-        {
-            public int FillData(DataTable dataTable, IDataReader dataReader)
-            {
-                return base.Fill(dataTable, dataReader);
+                public void AddMetadata(string key, string value)
+                {
+                    metadata.Add(key, value);
+                }
+                public IEnumerable<string> MetadataNames { get { return metadata.Keys; } }
+                public string this[string key] { get { return metadata[key]; } }
+
+                public DataSetDateTime? DateTimeMode { get; set; }
             }
         }
     }

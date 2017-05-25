@@ -172,6 +172,12 @@ namespace SolarWinds.InformationService.InformationServiceClient
 
         public string ApplicationTag { get; set; }
 
+        /// <summary>
+        /// Specify expected DateTime.Kind for DateTime values. Default behavior is DataSetDateTime.Unspecified 
+        /// and we return raw pure DateTime based on query you used.
+        /// </summary>
+        public DataSetDateTime DateTimeMode { get; set; } = DataSetDateTime.Unspecified;
+
         public new InformationServiceDataReader ExecuteReader()
         {
             return ExecuteReader(CommandBehavior.Default);
@@ -200,7 +206,7 @@ namespace SolarWinds.InformationService.InformationServiceClient
                 if (message.IsFault)
                     CreateFaultException(message);
 
-                return new InformationServiceDataReader(this, message.GetReaderAtBodyContents());
+                return new InformationServiceDataReader(this, message.GetReaderAtBodyContents(), this.DateTimeMode);
             }
             return null;
         }

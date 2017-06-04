@@ -17,7 +17,7 @@ func main() {
 	// create a new gosolar client
 	c := gosolar.NewClient(hostname, username, password, true)
 
-	// query for the caption and
+	// query for the caption and get IP address for each node
 	res, err := c.Query("SELECT Caption, IPAddress FROM Orion.Nodes", nil)
 	if err != nil {
 		log.Fatal(err)

@@ -291,10 +291,11 @@ namespace SwqlStudio
 
         void SubscriptionIndicationReceived(IndicationEventArgs e)
         {
-            subscriptionTab1.BeginInvoke(new Action<IndicationEventArgs>(subscriptionTab1.AddIndication), e);
+            if (!subscriptionTab1.IsDisposed)
+                subscriptionTab1.BeginInvoke(new Action<IndicationEventArgs>(subscriptionTab1.AddIndication), e);
         }
 
-        private static readonly string[] returnClauses = new[] { "RETURN XML AUTO", "RETURN XML AUTO STRICT", "RETURN XML RAW" };
+        private static readonly string[] returnClauses = { "RETURN XML AUTO", "RETURN XML AUTO STRICT", "RETURN XML RAW" };
 
         private void queryWorker_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
         {
@@ -307,9 +308,9 @@ namespace SwqlStudio
 
                 XmlDocument queryPlan;
                 XmlDocument queryStats;
-                List<ErrorMessage> errorMessages;
                 if (returnClauses.Any(s => arguments.Query.Trim().EndsWith(s, StringComparison.OrdinalIgnoreCase)))
                 {
+                    List<ErrorMessage> errorMessages;
                     arguments.RawXmlResults = arguments.Connection.QueryXml(arguments.Query, out queryPlan, out errorMessages, out queryStats);
                     arguments.Errors = errorMessages;
                 }

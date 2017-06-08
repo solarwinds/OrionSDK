@@ -15,8 +15,13 @@ namespace SwqlStudio
 
         internal void AddIndication(IndicationEventArgs e)
         {
+            var lastNodeVisible = NotificationsTreeView.Nodes.Count > 0 && NotificationsTreeView.Nodes[NotificationsTreeView.Nodes.Count - 1].IsVisible;
+            var oldTopNode = NotificationsTreeView.TopNode;
+
+            NotificationsTreeView.BeginUpdate();
+
             //Create the root notification node.
-            string rootDisplayName = GetNotificationDisplayName(e.IndicationType);
+            string rootDisplayName = GetNotificationDisplayName(e.IndicationType, e.IndicationProperties, e.SourceInstanceProperties);
 
             int imageIndex = DetermineImageIndex(e.IndicationType);
             var notificationRootNode = new TreeNode(rootDisplayName, imageIndex, imageIndex);
@@ -48,12 +53,68 @@ namespace SwqlStudio
 
             //Finally, add all these nodes to the tree.
             NotificationsTreeView.Nodes.Add(notificationRootNode);
+
+            NotificationsTreeView.EndUpdate();
+
+            // If the last node was visible when we started, make the *new* last node visible
+            if (lastNodeVisible)
+            {
+                notificationRootNode.EnsureVisible();
+            }
+            else // Otherwise, keep the scroll position where it was
+            {
+                NotificationsTreeView.TopNode = oldTopNode;
+            }
         }
 
-        private static string GetNotificationDisplayName(string indicationType)
+        private static string GetNotificationDisplayName(string indicationType, PropertyBag props, PropertyBag sourceInstanceProperties)
         {
-            return string.Format("{0} - {1} {2}", indicationType, DateTime.Now.ToShortDateString(),
-                                 DateTime.Now.ToShortTimeString());
+            var builder = new StringBuilder();
+            const string timeFormat = "HH:mm:ss.fff";
+
+            if (props.TryGetValue("IndicationTime", out object indicationTimeObj) && indicationTimeObj is DateTime indicationTime)
+            {
+                builder.Append(indicationTime.ToLocalTime().ToString(timeFormat));
+            }
+            else
+            {
+                builder.Append(DateTime.Now.ToString(timeFormat));
+            }
+
+            if (props.TryGetValue("IndicationSequence", out object indicationSequence))
+            {
+                builder.Append(" #");
+                builder.Append(indicationSequence);
+            }
+
+            builder.Append(" - ");
+            builder.Append(indicationType);
+
+            if (props.TryGetValue("QueryText", out object queryText))
+            {
+                builder.Append(" #");
+                var text = queryText.ToString();
+                builder.Append(text.Substring(0, Math.Min(text.Length, 50)));
+            }
+
+            if (props.TryGetValue("SourceInstanceType", out object sourceInstanceType))
+            {
+                builder.Append(" - ");
+                builder.Append(sourceInstanceType);
+            }
+            else if (sourceInstanceProperties != null && sourceInstanceProperties.TryGetValue("InstanceType", out object sourceInstanceType2))
+            {
+                builder.Append(" - ");
+                builder.Append(sourceInstanceType2);
+            }
+
+            if (sourceInstanceProperties != null && sourceInstanceProperties.TryGetValue("Uri", out object uri))
+            {
+                builder.Append(" - ");
+                builder.Append(uri);
+            }
+
+            return builder.ToString();
         }
 
         private int DetermineImageIndex(string indicationType)

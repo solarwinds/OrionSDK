@@ -56,7 +56,9 @@ namespace SwqlStudio.Controls
 
                 if (tabCloseButton.Contains(e.Location))
                 {
+                    var page = TabPages[i];
                     TabPages.RemoveAt(i);
+                    page.Dispose();
                     break;
                 }
             }

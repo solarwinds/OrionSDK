@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text;
 using System.Windows.Forms;
 using SolarWinds.InformationService.Contract2;
 
@@ -14,8 +15,13 @@ namespace SwqlStudio
 
         internal void AddIndication(IndicationEventArgs e)
         {
+            var lastNodeVisible = NotificationsTreeView.Nodes.Count > 0 && NotificationsTreeView.Nodes[NotificationsTreeView.Nodes.Count - 1].IsVisible;
+            var oldTopNode = NotificationsTreeView.TopNode;
+
+            NotificationsTreeView.BeginUpdate();
+
             //Create the root notification node.
-            string rootDisplayName = GetNotificationDisplayName(e.IndicationType);
+            string rootDisplayName = GetNotificationDisplayName(e.IndicationType, e.IndicationProperties, e.SourceInstanceProperties);
 
             int imageIndex = DetermineImageIndex(e.IndicationType);
             var notificationRootNode = new TreeNode(rootDisplayName, imageIndex, imageIndex);
@@ -47,12 +53,73 @@ namespace SwqlStudio
 
             //Finally, add all these nodes to the tree.
             NotificationsTreeView.Nodes.Add(notificationRootNode);
+
+            NotificationsTreeView.EndUpdate();
+
+            // If the last node was visible when we started, make the *new* last node visible
+            if (lastNodeVisible)
+            {
+                notificationRootNode.EnsureVisible();
+            }
+            else // Otherwise, keep the scroll position where it was
+            {
+                NotificationsTreeView.TopNode = oldTopNode;
+            }
         }
 
-        private static string GetNotificationDisplayName(string indicationType)
+        private static string GetNotificationDisplayName(string indicationType, PropertyBag props, PropertyBag sourceInstanceProperties)
         {
-            return string.Format("{0} - {1} {2}", indicationType, DateTime.Now.ToShortDateString(),
-                                 DateTime.Now.ToShortTimeString());
+            var builder = new StringBuilder();
+            const string timeFormat = "HH:mm:ss.fff";
+
+            object indicationTimeObj;
+            if (props.TryGetValue("IndicationTime", out indicationTimeObj) && indicationTimeObj is DateTime)
+            {
+                builder.Append(((DateTime)indicationTimeObj).ToLocalTime().ToString(timeFormat));
+            }
+            else
+            {
+                builder.Append(DateTime.Now.ToString(timeFormat));
+            }
+
+            object indicationSequence;
+            if (props.TryGetValue("IndicationSequence", out indicationSequence))
+            {
+                builder.Append(" #");
+                builder.Append(indicationSequence);
+            }
+
+            builder.Append(" - ");
+            builder.Append(indicationType);
+
+            object queryText;
+            if (props.TryGetValue("QueryText", out queryText))
+            {
+                builder.Append(" #");
+                var text = queryText.ToString();
+                builder.Append(text.Substring(0, Math.Min(text.Length, 50)));
+            }
+
+            object sourceInstanceType;
+            if (props.TryGetValue("SourceInstanceType", out sourceInstanceType))
+            {
+                builder.Append(" - ");
+                builder.Append(sourceInstanceType);
+            }
+            else if (sourceInstanceProperties != null && sourceInstanceProperties.TryGetValue("InstanceType", out sourceInstanceType))
+            {
+                builder.Append(" - ");
+                builder.Append(sourceInstanceType);
+            }
+
+            object uri;
+            if (sourceInstanceProperties != null && sourceInstanceProperties.TryGetValue("Uri", out uri))
+            {
+                builder.Append(" - ");
+                builder.Append(uri);
+            }
+
+            return builder.ToString();
         }
 
         private int DetermineImageIndex(string indicationType)
@@ -101,9 +168,19 @@ namespace SwqlStudio
             }
         }
 
-        private void CopyNodeToClipboard(TreeNode selectedNode)
+        private static void CopyNodeToClipboard(TreeNode selectedNode)
         {
-            Clipboard.SetData(DataFormats.StringFormat, selectedNode.Text);
+            var builder = new StringBuilder();
+            GetNodeText(selectedNode, builder);
+            Clipboard.SetData(DataFormats.StringFormat, builder.ToString());
+        }
+
+        private static void GetNodeText(TreeNode node, StringBuilder builder, string prefix = "")
+        {
+            builder.AppendLine(prefix + node.Text);
+            prefix = prefix + "\t";
+            foreach (TreeNode child in node.Nodes)
+                GetNodeText(child, builder, prefix);
         }
 
         private void treeViewMenuStrip_Opening(object sender, System.ComponentModel.CancelEventArgs e)

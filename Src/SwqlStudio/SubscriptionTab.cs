@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text;
 using System.Windows.Forms;
 using SolarWinds.InformationService.Contract2;
 
@@ -101,9 +102,19 @@ namespace SwqlStudio
             }
         }
 
-        private void CopyNodeToClipboard(TreeNode selectedNode)
+        private static void CopyNodeToClipboard(TreeNode selectedNode)
         {
-            Clipboard.SetData(DataFormats.StringFormat, selectedNode.Text);
+            var builder = new StringBuilder();
+            GetNodeText(selectedNode, builder);
+            Clipboard.SetData(DataFormats.StringFormat, builder.ToString());
+        }
+
+        private static void GetNodeText(TreeNode node, StringBuilder builder, string prefix = "")
+        {
+            builder.AppendLine(prefix + node.Text);
+            prefix = prefix + "\t";
+            foreach (TreeNode child in node.Nodes)
+                GetNodeText(child, builder, prefix);
         }
 
         private void treeViewMenuStrip_Opening(object sender, System.ComponentModel.CancelEventArgs e)

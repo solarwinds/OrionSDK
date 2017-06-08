@@ -72,16 +72,18 @@ namespace SwqlStudio
             var builder = new StringBuilder();
             const string timeFormat = "HH:mm:ss.fff";
 
-            if (props.TryGetValue("IndicationTime", out object indicationTimeObj) && indicationTimeObj is DateTime indicationTime)
+            object indicationTimeObj;
+            if (props.TryGetValue("IndicationTime", out indicationTimeObj) && indicationTimeObj is DateTime)
             {
-                builder.Append(indicationTime.ToLocalTime().ToString(timeFormat));
+                builder.Append(((DateTime)indicationTimeObj).ToLocalTime().ToString(timeFormat));
             }
             else
             {
                 builder.Append(DateTime.Now.ToString(timeFormat));
             }
 
-            if (props.TryGetValue("IndicationSequence", out object indicationSequence))
+            object indicationSequence;
+            if (props.TryGetValue("IndicationSequence", out indicationSequence))
             {
                 builder.Append(" #");
                 builder.Append(indicationSequence);
@@ -90,25 +92,28 @@ namespace SwqlStudio
             builder.Append(" - ");
             builder.Append(indicationType);
 
-            if (props.TryGetValue("QueryText", out object queryText))
+            object queryText;
+            if (props.TryGetValue("QueryText", out queryText))
             {
                 builder.Append(" #");
                 var text = queryText.ToString();
                 builder.Append(text.Substring(0, Math.Min(text.Length, 50)));
             }
 
-            if (props.TryGetValue("SourceInstanceType", out object sourceInstanceType))
+            object sourceInstanceType;
+            if (props.TryGetValue("SourceInstanceType", out sourceInstanceType))
             {
                 builder.Append(" - ");
                 builder.Append(sourceInstanceType);
             }
-            else if (sourceInstanceProperties != null && sourceInstanceProperties.TryGetValue("InstanceType", out object sourceInstanceType2))
+            else if (sourceInstanceProperties != null && sourceInstanceProperties.TryGetValue("InstanceType", out sourceInstanceType))
             {
                 builder.Append(" - ");
-                builder.Append(sourceInstanceType2);
+                builder.Append(sourceInstanceType);
             }
 
-            if (sourceInstanceProperties != null && sourceInstanceProperties.TryGetValue("Uri", out object uri))
+            object uri;
+            if (sourceInstanceProperties != null && sourceInstanceProperties.TryGetValue("Uri", out uri))
             {
                 builder.Append(" - ");
                 builder.Append(uri);

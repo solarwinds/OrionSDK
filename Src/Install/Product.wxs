@@ -13,9 +13,9 @@
 
   <Product
     Id="*"
-    Name="SolarWinds Orion SDK v$(var.Version)"
+    Name="SolarWinds Orion SDK v$(var.ProductVersion)"
     Language="1033"
-    Version="$(var.Version)"
+    Version="$(var.ProductVersion)"
     Manufacturer="SolarWinds"
     UpgradeCode="584A809C-D4F9-4312-96A9-BAFFDCB9393A">
 
@@ -34,13 +34,13 @@
     <?include AddRemovePrograms.wxi ?>
 
     <Upgrade Id="584A809C-D4F9-4312-96A9-BAFFDCB9393A">
-      <UpgradeVersion Minimum="1.0.0"
+      <UpgradeVersion Minimum="0.0.0"
                       IncludeMinimum="yes"
-                      Maximum="$(var.Version)"
+                      Maximum="$(var.ProductVersion)"
                       IncludeMaximum="no"
                       Property="PATCHFOUND" />
 
-      <UpgradeVersion Minimum="$(var.Version)"
+      <UpgradeVersion Minimum="$(var.ProductVersion)"
                       IncludeMinimum="no"
                       OnlyDetect="yes"
                       Property="NEWERVERSIONDETECTED" />

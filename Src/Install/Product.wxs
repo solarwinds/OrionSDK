@@ -9,6 +9,7 @@
   <?define InstallUtilExe32 = "[WindowsFolder]\Microsoft.NET\Framework\v2.0.50727\InstallUtil.exe" ?>
   <?define InstallUtilExe64 = "[WindowsFolder]\Microsoft.NET\Framework64\v2.0.50727\InstallUtil.exe" ?>
   <?define TempDir = "[TempFolder]" ?>
+  <?define OutputDir = "..\..\bin\Release" ?>
 
   <Product
     Id="*"
@@ -114,17 +115,17 @@
             
             <Directory Id="SwqlStudioDir" Name="SWQL Studio">
               <Component Id="SwqlStudioComponent" Guid="BC0A98E5-219C-4d5a-9A14-A10A13546DB8">
-                <File Id="SwqlStudioExe" Source="$(var.SwqlStudio.TargetDir)\SwqlStudio.exe" />
-                <File Source="$(var.SwqlStudio.TargetDir)\SwqlStudio.exe.config" />
-                <File Source="$(var.SwqlStudio.TargetDir)\log4net.dll" />
-                <File Source="$(var.SwqlStudio.TargetDir)\ScintillaNet.dll" />
-                <File Source="$(var.SwqlStudio.TargetDir)\SolarWinds.SDK.Swis.Contract.dll" />
-                <File Source="$(var.SwqlStudio.TargetDir)\SolarWinds.Logging.dll" />
-                <File Source="$(var.SwqlStudio.TargetDir)\Security.Cryptography.dll" />
+                <File Id="SwqlStudioExe" Source="$(var.OutputDir)\SwqlStudio.exe" />
+                <File Source="$(var.OutputDir)\SwqlStudio.exe.config" />
+                <File Source="$(var.OutputDir)\log4net.dll" />
+                <File Source="$(var.OutputDir)\ScintillaNet.dll" />
+                <File Source="$(var.OutputDir)\SolarWinds.SDK.Swis.Contract.dll" />
+                <File Source="$(var.OutputDir)\SolarWinds.Logging.dll" />
+                <File Source="$(var.OutputDir)\Security.Cryptography.dll" />
               </Component>
               
               <Component Id="SwisSnapInComponent" Guid="D229051F-C183-4D52-99CD-8C171031086D">
-                <File Id="SwisPowerShell" Source="$(var.SwisPowerShell.TargetDir)\SwisPowerShell.dll" KeyPath="yes" Assembly=".net" AssemblyApplication="SwisPowerShell">
+                <File Id="SwisPowerShell" Source="$(var.OutputDir)\SwisPowerShell.dll" KeyPath="yes" Assembly=".net" AssemblyApplication="SwisPowerShell">
                   <ps:SnapIn Id="SwisSnapIn" />                  
                 </File>
               </Component>

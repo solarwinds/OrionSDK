@@ -56,20 +56,6 @@
     <Content Include="GlobalVariables.wxi" />
     <Content Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\SwisPowerShell\SwisPowerShell.csproj">
-      <Name>SwisPowerShell</Name>
-      <Project>{cebb636f-b1bc-4c1d-847c-b059532b4699}</Project>
-      <Private>True</Private>
-      <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
-      <RefTargetDir>INSTALLLOCATION</RefTargetDir>
-    </ProjectReference>
-    <ProjectReference Include="..\SwqlStudio\SwqlStudio.csproj">
-      <Name>SwqlStudio</Name>
-      <Project>{b4f89558-ae9f-4704-b210-6949ef8dd65b}</Project>
-      <Private>True</Private>
-    </ProjectReference>
-  </ItemGroup>
   <PropertyGroup>
     <WixToolPath>$(SolutionDir)packages\WiX.Toolset.3.9.1006.0\tools\wix\</WixToolPath>
     <WixTargetsPath>$(WixToolPath)wix.targets</WixTargetsPath>
@@ -81,7 +67,7 @@
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('$(SolutionDir)\.nuget\NuGet.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)\.nuget\NuGet.targets'))" />
+    <Error Condition="!Exists('$(SolutionDir)\..\.nuget\NuGet.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)\..\.nuget\NuGet.targets'))" />
   </Target>
   <!--
 	To modify your build process, add your task inside one of the targets below and uncomment it.

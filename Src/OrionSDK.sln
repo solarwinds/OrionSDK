@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.26430.13
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SolarWinds.InformationService.Contract", "Contract\SolarWinds.InformationService.Contract.csproj", "{7AB6A2C2-AD8F-40AF-9527-B12EB4B78B0A}"
 EndProject
@@ -19,8 +19,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{B5A3FB
 		.nuget\NuGet.exe = .nuget\NuGet.exe
 		.nuget\NuGet.targets = .nuget\NuGet.targets
 	EndProjectSection
-EndProject
-Project("{930C7802-8A8C-48F9-8165-68863BCCD9DD}") = "Install", "Install\Install.wixproj", "{A4F45F6E-7155-46E9-B099-A87D05310021}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SwisPowerShell.Tests", "..\Test\SwisPowerShell.Tests\SwisPowerShell.Tests.csproj", "{164BEA87-FC26-4588-99AA-2F47174AE368}"
 EndProject
@@ -84,16 +82,6 @@ Global
 		{C4202EEB-7DD5-4FF3-A1F7-047F163C3D23}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{C4202EEB-7DD5-4FF3-A1F7-047F163C3D23}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{C4202EEB-7DD5-4FF3-A1F7-047F163C3D23}.Release|x86.ActiveCfg = Release|Any CPU
-		{A4F45F6E-7155-46E9-B099-A87D05310021}.Debug|Any CPU.ActiveCfg = Debug|x86
-		{A4F45F6E-7155-46E9-B099-A87D05310021}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
-		{A4F45F6E-7155-46E9-B099-A87D05310021}.Debug|Mixed Platforms.Build.0 = Debug|x86
-		{A4F45F6E-7155-46E9-B099-A87D05310021}.Debug|x86.ActiveCfg = Debug|x86
-		{A4F45F6E-7155-46E9-B099-A87D05310021}.Debug|x86.Build.0 = Debug|x86
-		{A4F45F6E-7155-46E9-B099-A87D05310021}.Release|Any CPU.ActiveCfg = Release|x86
-		{A4F45F6E-7155-46E9-B099-A87D05310021}.Release|Mixed Platforms.ActiveCfg = Release|x86
-		{A4F45F6E-7155-46E9-B099-A87D05310021}.Release|Mixed Platforms.Build.0 = Release|x86
-		{A4F45F6E-7155-46E9-B099-A87D05310021}.Release|x86.ActiveCfg = Release|x86
-		{A4F45F6E-7155-46E9-B099-A87D05310021}.Release|x86.Build.0 = Release|x86
 		{164BEA87-FC26-4588-99AA-2F47174AE368}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{164BEA87-FC26-4588-99AA-2F47174AE368}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{164BEA87-FC26-4588-99AA-2F47174AE368}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU

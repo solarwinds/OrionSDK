@@ -1,0 +1,3 @@
+[submodule "Build"]
+	path = Build
+	url = ssh://git@bitbucket.solarwinds.com:7999/platform/orionsdk-build.git

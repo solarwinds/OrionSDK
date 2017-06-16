@@ -9,12 +9,13 @@
   <?define InstallUtilExe32 = "[WindowsFolder]\Microsoft.NET\Framework\v2.0.50727\InstallUtil.exe" ?>
   <?define InstallUtilExe64 = "[WindowsFolder]\Microsoft.NET\Framework64\v2.0.50727\InstallUtil.exe" ?>
   <?define TempDir = "[TempFolder]" ?>
+  <?define OutputDir = "..\..\bin\Release" ?>
 
   <Product
     Id="*"
-    Name="SolarWinds Orion SDK v$(var.Version)"
+    Name="SolarWinds Orion SDK v$(var.ProductVersion)"
     Language="1033"
-    Version="$(var.Version)"
+    Version="$(var.ProductVersion)"
     Manufacturer="SolarWinds"
     UpgradeCode="584A809C-D4F9-4312-96A9-BAFFDCB9393A">
 
@@ -33,13 +34,13 @@
     <?include AddRemovePrograms.wxi ?>
 
     <Upgrade Id="584A809C-D4F9-4312-96A9-BAFFDCB9393A">
-      <UpgradeVersion Minimum="1.0.0"
+      <UpgradeVersion Minimum="0.0.0"
                       IncludeMinimum="yes"
-                      Maximum="$(var.Version)"
+                      Maximum="$(var.ProductVersion)"
                       IncludeMaximum="no"
                       Property="PATCHFOUND" />
 
-      <UpgradeVersion Minimum="$(var.Version)"
+      <UpgradeVersion Minimum="$(var.ProductVersion)"
                       IncludeMinimum="no"
                       OnlyDetect="yes"
                       Property="NEWERVERSIONDETECTED" />
@@ -114,17 +115,17 @@
             
             <Directory Id="SwqlStudioDir" Name="SWQL Studio">
               <Component Id="SwqlStudioComponent" Guid="BC0A98E5-219C-4d5a-9A14-A10A13546DB8">
-                <File Id="SwqlStudioExe" Source="$(var.SwqlStudio.TargetDir)\SwqlStudio.exe" />
-                <File Source="$(var.SwqlStudio.TargetDir)\SwqlStudio.exe.config" />
-                <File Source="$(var.SwqlStudio.TargetDir)\log4net.dll" />
-                <File Source="$(var.SwqlStudio.TargetDir)\ScintillaNet.dll" />
-                <File Source="$(var.SwqlStudio.TargetDir)\SolarWinds.SDK.Swis.Contract.dll" />
-                <File Source="$(var.SwqlStudio.TargetDir)\SolarWinds.Logging.dll" />
-                <File Source="$(var.SwqlStudio.TargetDir)\Security.Cryptography.dll" />
+                <File Id="SwqlStudioExe" Source="$(var.OutputDir)\SwqlStudio.exe" />
+                <File Source="$(var.OutputDir)\SwqlStudio.exe.config" />
+                <File Source="$(var.OutputDir)\log4net.dll" />
+                <File Source="$(var.OutputDir)\ScintillaNet.dll" />
+                <File Source="$(var.OutputDir)\SolarWinds.SDK.Swis.Contract.dll" />
+                <File Source="$(var.OutputDir)\SolarWinds.Logging.dll" />
+                <File Source="$(var.OutputDir)\Security.Cryptography.dll" />
               </Component>
               
               <Component Id="SwisSnapInComponent" Guid="D229051F-C183-4D52-99CD-8C171031086D">
-                <File Id="SwisPowerShell" Source="$(var.SwisPowerShell.TargetDir)\SwisPowerShell.dll" KeyPath="yes" Assembly=".net" AssemblyApplication="SwisPowerShell">
+                <File Id="SwisPowerShell" Source="$(var.OutputDir)\SwisPowerShell.dll" KeyPath="yes" Assembly=".net" AssemblyApplication="SwisPowerShell">
                   <ps:SnapIn Id="SwisSnapIn" />                  
                 </File>
               </Component>

@@ -1,9 +1,8 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Include>
 
   <!-- Version and FullVersion are being changed automatically by a build script.
        Editing this manually has no effect.-->  
-  <?define Version="3.4.5" ?>  
-  <?define FullProduct="3.4.5.0" ?>
+  <?define ProductVersion="1.0.0.0" ?>  
 
 </Include>

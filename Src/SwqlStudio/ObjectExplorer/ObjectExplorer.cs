@@ -210,7 +210,7 @@ namespace SwqlStudio
         private void OpenActivityMonitor(TreeNode node)
         {
             var provider = node.Tag as IMetadataProvider;
-            if (provider != null)
+            if (provider != null && provider.ConnectionInfo.CanCreateSubscription)
                 ApplicationService.OpenActivityMonitor(provider.ConnectionInfo.Title + " Activity", provider.ConnectionInfo);
         }
 

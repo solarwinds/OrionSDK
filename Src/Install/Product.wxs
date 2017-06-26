@@ -6,8 +6,8 @@
 
   <?include GlobalVariables.wxi ?>
 
-  <?define InstallUtilExe32 = "[WindowsFolder]\Microsoft.NET\Framework\v2.0.50727\InstallUtil.exe" ?>
-  <?define InstallUtilExe64 = "[WindowsFolder]\Microsoft.NET\Framework64\v2.0.50727\InstallUtil.exe" ?>
+  <?define InstallUtilExe32 = "[WindowsFolder]\Microsoft.NET\Framework\v4.0.30319\InstallUtil.exe" ?>
+  <?define InstallUtilExe64 = "[WindowsFolder]\Microsoft.NET\Framework64\v4.0.30319\InstallUtil.exe" ?>
   <?define TempDir = "[TempFolder]" ?>
   <?define OutputDir = "..\..\bin\Release" ?>
 
@@ -24,11 +24,10 @@
       Compressed="yes"
       InstallScope="perMachine" />
 
-    <PropertyRef Id="NETFRAMEWORK35"/>
     <PropertyRef Id="NETFRAMEWORK40FULL"/>
 
-    <Condition Message="This application requires .NET Framework 3.5 or later. Please install the .NET Framework then run this installer again.">
-      <![CDATA[Installed OR NETFRAMEWORK35 OR NETFRAMEWORK40FULL]]>
+    <Condition Message="This application requires .NET Framework 4.0 or later. Please install the .NET Framework then run this installer again.">
+      <![CDATA[Installed OR NETFRAMEWORK40FULL]]>
     </Condition>
 
     <?include AddRemovePrograms.wxi ?>

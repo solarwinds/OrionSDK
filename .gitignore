@@ -5,3 +5,5 @@ packages
 *.pyc
 *~
 .vscode
+paket.dependencies
+paket.dependencies.locked

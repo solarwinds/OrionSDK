@@ -392,9 +392,22 @@ namespace SolarWinds.InformationService.Contract2
             }
 
             if (entityPropertyInfo.IsArray)
+            {
                 this.state = ParserState.ArrayProperty;
+                if (reader.IsEmptyElement)
+                {
+                    EndArrayProperty(reader);
+                }
+            }
             else
+            {
                 this.state = ParserState.Property;
+                if (reader.IsEmptyElement)
+                {
+                    ProcessPropertyValue(reader);
+                    EndProperty(reader);
+                }
+            }
         }
 
         private void ProcessPropertyValue(XmlReader reader)

@@ -124,7 +124,7 @@
               </Component>
               
               <Component Id="SwisSnapInComponent" Guid="D229051F-C183-4D52-99CD-8C171031086D">
-                <File Id="SwisPowerShell" Source="$(var.OutputDir)\SwisPowerShell.dll" KeyPath="yes" Assembly=".net" AssemblyApplication="SwisPowerShell">
+                <File Id="SwisPowerShell" Source="..\SwisPowerShell\bin\Release\SwisPowerShell.dll" KeyPath="yes" Assembly=".net" AssemblyApplication="SwisPowerShell">
                   <ps:SnapIn Id="SwisSnapIn" />                  
                 </File>
               </Component>

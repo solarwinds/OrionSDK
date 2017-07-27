@@ -12,7 +12,7 @@
 RootModule = 'SwisPowerShell.dll'
 
 # Version number of this module.
-ModuleVersion = '3.4.5'
+ModuleVersion = '0.0.0.1'
 
 # ID used to uniquely identify this module
 GUID = '337323ce-c5a9-4fed-b23c-452af922434d'
@@ -21,7 +21,7 @@ GUID = '337323ce-c5a9-4fed-b23c-452af922434d'
 Author = 'SolarWinds, Inc.'
 
 # Company or vendor of this module
-CompanyName = 'Unknown'
+CompanyName = 'SolarWinds, Inc.'
 
 # Copyright statement for this module
 Copyright = '(c) 2016 SolarWinds, Inc.. All rights reserved.'

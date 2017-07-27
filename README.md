@@ -2,13 +2,15 @@
 
 This project contains the samples, SWQL Studio graphical query tool, and PowerShell snapin for the SolarWinds Orion platform API.
 
+The Python client and sample code is in another repo: https://github.com/solarwinds/orionsdk-python.
+
 ## Installer
 
 You can download a pre-compiled [installer for the Orion SDK tools](https://github.com/solarwinds/OrionSDK/releases) from GitHub.
 
 ## Wiki
 
-Documentation for the API and SDK tools can be found in the the GitHub [OrionSDK wiki](https://github.com/solarwinds/OrionSDK/wiki/Alerts).
+Documentation for the API and SDK tools can be found in the the GitHub [OrionSDK wiki](https://github.com/solarwinds/OrionSDK/wiki).
 
 There is also generated reference documentation for the [Orion schema](http://solarwinds.github.io/OrionSDK/schema/).
 

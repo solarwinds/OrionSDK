@@ -1,9 +1,9 @@
 ﻿# initialize SWIS connection 
-if (Get-PSSnapin -Name SwisSnapin -ErrorAction SilentlyContinue){
-  remove-PSSnapin SwisSnapin
-}
-Add-PSSnapin SwisSnapin
-
+<#if (Get-PSSnapin -Name SwisSnapin -ErrorAction SilentlyContinue){
+    remove-PSSnapin SwisSnapin
+    }
+    Add-PSSnapin SwisSnapin
+#>
 <#
     .Synopsis
     Add a new node to Orion
@@ -330,6 +330,17 @@ function Add-OrionDiscoveredInterfaces
   }
 }
 
+<#
+    .Synopsis
+    Adds an interface to an Orion node
+    .DESCRIPTION
+    Discovers interfaces on an Orion Node. For information on values for InterfaceType, InterfaceTypeName, and InterfaceDescription
+    .EXAMPLE
+    New-OrionInterface -NodeId 3 -SwisConnection $swis -InterfaceName "GigabitEthernet0/0 · Test" -status 1 -IfName "Gi0/0" -InterfaceIndex 1 -PollInterval 120 -RediscoveryInterval 5 -StatCollection "1"
+
+    
+    
+#>
 function New-OrionInterface
 {
   [CmdletBinding()]
@@ -352,6 +363,11 @@ function New-OrionInterface
     [parameter()]
     [validatenotnullorempty()]
     [string]$InterfaceName="FastEthernet0/0",
+    
+    [parameter()]
+    [validatenotnullorempty()]
+    [ValidateSet("ICMP","SNMPv2","WMI")]
+    $ObjectSubType="SNMPv2",
 
     #The Status of the device (default = 1)
     [parameter()]
@@ -374,26 +390,70 @@ function New-OrionInterface
 
     [parameter()]
     [validatenotnullorempty()]
-    [int32]$RediscoveryInterval=5,
+    [int32]$RediscoveryInterval=30,
 
     [parameter()]
     [validatenotnullorempty()]
-    [int32]$StatCollection=10
+    [int32]$StatCollection=9,
+    
+    [parameter()]
+    [validatenotnullorempty()]
+    [int32]$InterfaceType=6,
+    
+    [parameter()]
+    [validatenotnullorempty()]
+    [string]$InterfaceTypeName='ethernetCsmacd',
+    
+    [parameter()]
+    [validatenotnullorempty()]
+    [string]$InterfaceTypeDescription='Ethernet',
+    
+    [parameter()]
+    [string]$Caption,
+    
+    [parameter()]
+    [validatenotnullorempty()]
+    [int32]$AdminStatus=0,
+    
+    [parameter()]
+    [validatenotnullorempty()]
+    [int32]$OperStatus=0,
+    
+   
+    [parameter()]
+    [validatenotnullorempty()]
+    [string]$statusLED='Up.gif',
+    
+    [parameter()]
+    [validatenotnullorempty()]
+    $Unmanaged=$false
   )
 
   Begin{
     Write-Verbose "Starting $($myinvocation.mycommand)"  
+    
+    if (-not $Caption){
+      $Caption = $InterfaceName
+    }
         
     $newIfaceProps = @{
       NodeID=$NodeID; # NodeID on which the interface is working on
       InterfaceName=$InterfaceName; # description name of the interface to add
       IfName=$IfName;
       InterfaceIndex=$InterfaceIndex;
-      ObjectSubType="SNMP";
+      ObjectSubType=$ObjectSubType;
       Status=$Status;
       RediscoveryInterval=$RediscoveryInterval;
       PollInterval=$PollInterval;
       StatCollection=$StatCollection;
+      InterfaceType=$InterfaceType;
+      InterfaceTypeName = $InterfaceTypeName;
+      Caption =$Caption;
+      AdminStatus = $AdminStatus;
+      OperStatus = $OperStatus;
+      StatusLED = $statusLED;
+      Unmanaged = $Unmanaged;
+      TypeDescription = $InterfaceTypeDescription;
     }
 
     $PollerTypes = @("I.Status.SNMP.IfTable","I.StatisticsTraffic.SNMP.Universal","I.StatisticsErrors32.SNMP.IfTable","I.Rediscovery.SNMP.IfTable")
@@ -409,12 +469,17 @@ function New-OrionInterface
       NetObjectType="I";
       NetObjectID=$ifaceProps["InterfaceID"];
     }
-        
-    write-verbose "Now Adding pollers for the interface..." 
-    $nodeProps = Get-SwisObject $SwisConnection -Uri $newNode
+      
+    <#$node = Get-OrionNode -id $NodeId -swisconnection $SwisConnection 
+        Write-Debug "Node is : $node"
+      
+        $NodeURI = $node.uri
+        Write-Debug "Node URI is : $NodeURI"
+    #>    write-verbose "Now Adding pollers for the interface..." 
+    #$nodeProps = Get-SwisObject $SwisConnection -Uri $NodeURI
     #Loop through all the pollers 
     foreach ($PollerType in $PollerTypes){
-      New-OrionPollerType -PollerType $PollerType -NodeProperties $nodeProps -SwisConnection $SwisConnection
+      New-OrionPollerType -PollerType $PollerType -InterfaceProperties $ifaceProps -SwisConnection $SwisConnection -PollerObjectType 'Interface'
     }    
   }
   End
@@ -447,8 +512,19 @@ function New-OrionPollerType
     # Node Properties used to build the pollers
     [Parameter(Mandatory=$true,
         ValueFromPipelineByPropertyName=$true,
+        ParameterSetName='node',
     Position=1)]
     $NodeProperties,
+    
+    # Node Properties used to build the pollers
+    [Parameter(Mandatory=$true,
+        ValueFromPipelineByPropertyName=$true,
+        ParameterSetName='interface',
+    Position=1)]
+    $InterfaceProperties,
+    
+    [validateset('Node','Interface')]
+    $PollerObjectType = 'Node',
 
     #SolarWinds Information Service (SWIS) Connection
     [parameter(mandatory=$true)]
@@ -460,12 +536,23 @@ function New-OrionPollerType
   Begin
   {
     Write-Verbose "Starting $($myinvocation.mycommand)"  
-    $poller = @{
-      NetObject="N:"+$NodeProperties["NodeID"];
-      NetObjectType="N";
-      NetObjectID=$NodeProperties["NodeID"];
+    
+    if($PollerType -eq 'node'){
+      $poller = @{
+        NetObject="N:"+$NodeProperties["NodeID"];
+        NetObjectType="N";
+        NetObjectID=$NodeProperties["NodeID"];
+      }
+      $id = $NodeProperties["NodeID"];
     }
-    $id = $NodeProperties["NodeID"];
+    else{
+      $poller = @{
+        NetObject = "I:" + $InterfaceProperties["InterfaceID"];
+        NetObjectType = "I";
+        NetObjectID = $InterfaceProperties["InterfaceID"];
+      }
+      $id = $InterfaceProperties["InterfaceID"];
+    }
   }
   Process
   {
@@ -475,7 +562,7 @@ function New-OrionPollerType
   }
   End
   {
-    write-verbose " A $PollerType was added for node ID  $id"
+    write-verbose " A $PollerType was added for  $id"
     Write-Verbose "Finishing $($myinvocation.mycommand)"
     return $pollerUri
   }
@@ -492,7 +579,7 @@ function New-OrionPollerType
     Get-OrionNodeProperties -NodeID $nodeid -SwisConnection $swis  
 
     .EXAMPLE
-     Get-OrionNodeProperties -NodeID $nodeid -SwisConnection $swis  -custom
+    Get-OrionNodeProperties -NodeID $nodeid -SwisConnection $swis  -custom
 
     Key                                Value
     ---                                -----

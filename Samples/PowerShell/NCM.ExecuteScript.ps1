@@ -4,9 +4,8 @@
 # Please update the hostname and credential setup to match your configuration,
 # and reference to an existing node.
 
-if (-not (Get-PSSnapin | where {$_.Name -eq "SwisSnapin"})) {
-    Add-PSSnapin "SwisSnapin"
-}
+# Load SwisPowerShell
+Import-Module SwisPowerShell
 
 $hostname = "tdanner-vm-08r2"
 $username = "admin"

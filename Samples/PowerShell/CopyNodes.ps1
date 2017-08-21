@@ -21,10 +21,8 @@ $hostname2 = "10.199.15.79";
 $password2 = New-Object System.Security.SecureString  #"" | ConvertTo-SecureString -asPlainText -Force
 $username2 = "admin"
 
-# Load the SwisSnapin if not already loaded
-if (-not (Get-PSSnapin | where {$_.Name -eq "SwisSnapin"})) {
-    Add-PSSnapin "SwisSnapin"
-}
+# Load SwisPowerShell
+Import-Module SwisPowerShell
 
 # Connect to the source system
 $credential1 = New-Object System.Management.Automation.PSCredential($username1,$password1)

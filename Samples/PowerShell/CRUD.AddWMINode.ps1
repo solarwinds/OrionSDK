@@ -2,12 +2,8 @@
 # Please update the hostname and credential setup to match your configuration, and
 # information about the node you would like to add for monitoring.
 
-#Region PSSnapin presence check/add
-if (-not (Get-PSSnapin -Name "SwisSnapin" -ErrorAction SilentlyContinue))
-{    
-    Add-PSSnapin SwisSnapin -ErrorAction SilentlyContinue
-}
-#EndRegion
+# Load SwisPowerShell
+Import-Module SwisPowerShell
 
 Clear-Host
 

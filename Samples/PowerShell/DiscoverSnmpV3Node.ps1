@@ -1,9 +1,7 @@
 ﻿# This sample script shows how to use the Orion Discovery API to discover and import one node using SNMPv3 credentials.
 
-# Load the SwisSnapin if not already loaded
-if (-not (Get-PSSnapin | where {$_.Name -eq "SwisSnapin"})) {
-    Add-PSSnapin "SwisSnapin"
-}
+# Load SwisPowerShell
+Import-Module SwisPowerShell
 
 # Swis connection info
 $OrionServer = "localhost"

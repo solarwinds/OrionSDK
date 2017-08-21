@@ -8,9 +8,8 @@
 # Please update the hostname and credential setup to match your configuration.
 # Please note that this scripts can affect your pools!!!
 
-if (-not (Get-PSSnapin | where {$_.Name -eq "SwisSnapin"})) {
-    Add-PSSnapin "SwisSnapin"
-}
+# Load SwisPowerShell
+Import-Module SwisPowerShell
 
 # Connect to SWIS
 $hostname = "localhost"

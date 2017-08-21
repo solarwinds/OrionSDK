@@ -12,9 +12,8 @@
 #
 # Please update the hostname and credential setup to match your configuration.
 
-if (-not (Get-PSSnapin | where {$_.Name -eq "SwisSnapin"})) {
-    Add-PSSnapin "SwisSnapin"
-}
+# Load SwisPowerShell
+Import-Module SwisPowerShell
 
 # Connect to SWIS
 $hostname = "localhost"

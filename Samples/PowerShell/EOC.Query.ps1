@@ -6,9 +6,8 @@
 # This .dll will be created after building OrionSDK.sln
 Add-Type -Path "..\..\Src\Contract\bin\Debug\SolarWinds.SDK.Swis.Contract.dll"
 
-if (-not (Get-PSSnapin | where {$_.Name -eq "SwisSnapin"})) {
-    Add-PSSnapin "SwisSnapin"
-}
+# Load SwisPowerShell
+Import-Module SwisPowerShell
 
 # Connect to SWIS. EOC Swis uses Windows Account Authentication only
 $hostname = "localhost"

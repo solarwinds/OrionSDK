@@ -58,9 +58,8 @@ Invoke-SwisVerb $swis Orion.AgentManagement.Agent Deploy @(
 # Real examples of verb usage
 # =============================================================================
 
-if (-not (Get-PSSnapin | where {$_.Name -eq "SwisSnapin"})) {
-    Add-PSSnapin "SwisSnapin"
-}
+# Load SwisPowerShell
+Import-Module SwisPowerShell
 
 # connect to SWIS - use your connection details and credentials
 $hostname = "localhost"

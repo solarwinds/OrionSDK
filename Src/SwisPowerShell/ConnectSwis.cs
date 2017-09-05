@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using System.IdentityModel.Selectors;
-using System.Linq;
 using System.Management.Automation;
-using System.Net;
 using System.Net.Security;
 using System.Runtime.InteropServices;
 using System.Security;
@@ -41,8 +39,10 @@ namespace SwisPowerShell
         [Parameter(Position = 2, HelpMessage = "Hostname or IP address of the Orion server.")]
         public string Hostname { get; set; }
 
+#if !NETCOREAPP2_0
         [Parameter(ParameterSetName = "UserName", Mandatory = false, HelpMessage = "Url for a SOAP 1.2 SWIS endpoint.")]
         public Uri Soap12 { get; set; }
+#endif
 
         [Parameter(ParameterSetName = "UserName", Mandatory = false, HelpMessage = "Ignore SSL/TLS errors with certificate validation when connecting to a SOAP endpoint.")]
         public SwitchParameter IgnoreSslErrors { get; set; }
@@ -90,8 +90,10 @@ namespace SwisPowerShell
         {
             base.ProcessRecord();
 
+            // ReSharper disable once JoinDeclarationAndInitializer
             InfoServiceProxy infoServiceProxy;
 
+#if !NETCOREAPP2_0
             if (Soap12 != null)
             {
                 infoServiceProxy = ConnectSoap12(Soap12, UserName, Password);                
@@ -122,6 +124,7 @@ namespace SwisPowerShell
 
             }
             else
+#endif
                 infoServiceProxy = ConnectNetTcp();
 
             WriteObject(infoServiceProxy);
@@ -134,6 +137,10 @@ namespace SwisPowerShell
             return true;
         }
 
+
+#if !NETCOREAPP2_0
+        // WSHttpBinding is not supported in .NET Core. It may be possible to work around this using a custom 
+        // binding, but I am not tackling this now. See https://github.com/dotnet/wcf/issues/31
         private static InfoServiceProxy ConnectSoap12(Uri address, string username, string password)
         {
             var binding = new WSHttpBinding(SecurityMode.Transport);
@@ -152,6 +159,7 @@ namespace SwisPowerShell
 
             return new InfoServiceProxy(address, binding, credentials);
         }
+#endif
 
         private InfoServiceProxy ConnectNetTcp()
         {
@@ -179,7 +187,9 @@ namespace SwisPowerShell
                 if (Streamed.IsPresent)
                 {
                     binding.TransferMode = TransferMode.Streamed;
+#if !NETCOREAPP2_0
                     binding.PortSharingEnabled = true;
+#endif
                     binding.ReceiveTimeout = new TimeSpan(15,0,0);
                     binding.SendTimeout = new TimeSpan(15, 0, 0);
                 }

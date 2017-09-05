@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿#if !NETCOREAPP2_0
+using System.ComponentModel;
 using System.Management.Automation;
 
 namespace SwisPowerShell
@@ -22,3 +23,4 @@ namespace SwisPowerShell
         }
     }
 }
+#endif

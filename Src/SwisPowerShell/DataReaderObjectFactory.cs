@@ -9,6 +9,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Data;
+using System.Management.Automation;
 
 namespace SwisPowerShell
 {
@@ -50,12 +51,15 @@ namespace SwisPowerShell
                     properties.Add(new Pair<string, Type>(name, _dataReader.GetFieldType(i)));
                     columns.Add(name);
                 }
-                var t = ReturnType ?? new DataTypeBuilder("Pscx").CreateType(properties);
+
                 while (_dataReader.Read())
                 {
-                    var target = Activator.CreateInstance(t);
-                    new PropertySetter(t).SetValues(target, new DataReaderIndexer(_dataReader, columns), IgnoreCase);
-                    yield return target;
+                    var o = new PSObject();
+                    foreach (var column in columns)
+                    {
+                        o.Members.Add(new PSNoteProperty(column, _dataReader[column]));
+                    }
+                    yield return o;
                 }
             }
         }

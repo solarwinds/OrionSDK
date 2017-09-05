@@ -52,7 +52,7 @@ namespace SolarWinds.InformationService.Contract2
 
             Message response = this.context.Service.Query(request);
 
-            log.Debug(response);
+            log.DebugFormat("{0}", response);
 
             if (response.IsFault)
             {

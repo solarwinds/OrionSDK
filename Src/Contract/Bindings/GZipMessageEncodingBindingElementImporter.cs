@@ -1,4 +1,4 @@
-
+#if !NETSTANDARD2_0
 using System;
 using System.Xml;
 using System.ServiceModel.Description;
@@ -39,4 +39,4 @@ namespace SolarWinds.InformationService.Contract2.Bindings
         }
     }
 }
-
+#endif

@@ -17,7 +17,9 @@ namespace SolarWinds.InformationService.Contract2
         private IStreamInformationServiceChannel _infoService;
         private TimeSpan _operationTimeout = TimeSpan.FromMinutes(60);
 
+#if !NETSTANDARD2_0
         private InfoServiceActivityMonitor _activityMonitor = null;
+#endif
 
         public TimeSpan OperationTimeout
         {
@@ -44,7 +46,7 @@ namespace SolarWinds.InformationService.Contract2
             get { return _channelFactory; }
         }
 
-        #region Constructors
+#region Constructors
 
         public InfoServiceProxy(string endpointConfiguration)
         {
@@ -112,7 +114,7 @@ namespace SolarWinds.InformationService.Contract2
             Initialize(address, binding, credentials);
         }
 
-        #endregion
+#endregion
 
         private void FixBinding()
         {
@@ -120,7 +122,7 @@ namespace SolarWinds.InformationService.Contract2
             SslStreamSecurityBindingElement element = elements.Find<SslStreamSecurityBindingElement>();
             if (element != null)
             {
-                element.IdentityVerifier = new SWIdentityVerifier();
+                //element.IdentityVerifier = new SWIdentityVerifier();
 
                 CustomBinding newbinding = new CustomBinding(elements);
 
@@ -153,7 +155,7 @@ namespace SolarWinds.InformationService.Contract2
             SslStreamSecurityBindingElement element = elements.Find<SslStreamSecurityBindingElement>();
             if (element != null)
             {
-                element.IdentityVerifier = new SWIdentityVerifier();
+                //element.IdentityVerifier = new SWIdentityVerifier();
 
                 CustomBinding newbinding = new CustomBinding(elements);
 
@@ -175,12 +177,12 @@ namespace SolarWinds.InformationService.Contract2
         {
             // ???: how can I detect that channel binding is securited            
 
-            _activityMonitor = new InfoServiceActivityMonitor();
-            _channelFactory.Endpoint.Behaviors.Add(new InfoServiceDefaultBehaviour());
-            _channelFactory.Endpoint.Behaviors.Add(_activityMonitor);
+            //_activityMonitor = new InfoServiceActivityMonitor();
+            //_channelFactory.Endpoint.Behaviors.Add(new InfoServiceDefaultBehaviour());
+            //_channelFactory.Endpoint.Behaviors.Add(_activityMonitor);
         }
 
-        #region IInfoService Members
+#region IInfoService Members
 
         public virtual XmlElement Invoke(string entity, string verb, params XmlElement[] parameters)
         {
@@ -412,9 +414,9 @@ namespace SolarWinds.InformationService.Contract2
             }
         }
 
-        #endregion
+#endregion
 
-        #region IStreamedInfoService Members
+#region IStreamedInfoService Members
 
         public VerbInvokeResponse StreamedInvoke(VerbInvokeArguments parameter)
         {
@@ -443,7 +445,7 @@ namespace SolarWinds.InformationService.Contract2
             }
         }
 
-        #endregion
+#endregion
 
         public void Open()
         {
@@ -451,8 +453,8 @@ namespace SolarWinds.InformationService.Contract2
             {
                 if (_infoService == null)
                 {
-                    if (_activityMonitor != null)
-                        _activityMonitor.Reset();
+                    //if (_activityMonitor != null)
+                    //    _activityMonitor.Reset();
 
                     _infoService = _channelFactory.CreateChannel();
 
@@ -503,7 +505,7 @@ namespace SolarWinds.InformationService.Contract2
             _infoService = null;
         }
 
-        #region Create Channel Factory
+#region Create Channel Factory
 
         private static ChannelFactory<IStreamInformationServiceChannel> CreateChannelFactory(Binding binding, EndpointAddress address)
         {
@@ -529,15 +531,15 @@ namespace SolarWinds.InformationService.Contract2
             return new ChannelFactory<IStreamInformationServiceChannel>(endpointConfiguration, remoteAddress);
         }
 
-        #endregion
+#endregion
 
         private void ValidateUsedConnection()
         {
             if (_infoService == null)
                 return;
 
-            if (_activityMonitor == null || _activityMonitor.RequestSent)
-                return;
+            //if (_activityMonitor == null || _activityMonitor.RequestSent)
+            //    return;
 
             _log.Info("Non-used connection was opened. Information for developers. No impact on product functionality. See verbose log for more details.");
             _log.VerboseFormat("StackTrace: {0}", Environment.StackTrace);
@@ -556,7 +558,7 @@ namespace SolarWinds.InformationService.Contract2
             catch { }
         }
 
-        #region IDisposable Members
+#region IDisposable Members
 
         protected virtual void Dispose(bool disposing)
         {
@@ -590,6 +592,6 @@ namespace SolarWinds.InformationService.Contract2
             Dispose(false);
         }
 
-        #endregion
+#endregion
     }
 }

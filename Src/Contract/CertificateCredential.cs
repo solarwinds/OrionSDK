@@ -50,7 +50,7 @@ namespace SolarWinds.InformationService.Contract2
             channelFactory.Credentials.ServiceCertificate.Authentication.CertificateValidationMode = X509CertificateValidationMode.PeerOrChainTrust;
             channelFactory.Credentials.ServiceCertificate.Authentication.RevocationMode = X509RevocationMode.Offline;
 
-            channelFactory.Endpoint.Address = new EndpointAddress(channelFactory.Endpoint.Address.Uri, EndpointIdentity.CreateDnsIdentity(_subject));
+            //channelFactory.Endpoint.Address = new EndpointAddress(channelFactory.Endpoint.Address.Uri, EndpointIdentity.CreateDnsIdentity(_subject));
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿#if !NETSTANDARD2_0
+using System;
 using System.Configuration;
 using System.ServiceModel.Channels;
 using System.ServiceModel.Configuration;
@@ -61,3 +62,4 @@ namespace SolarWinds.InformationService.Contract2.Bindings
         }
     }
 }
+#endif

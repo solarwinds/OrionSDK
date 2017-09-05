@@ -1,4 +1,6 @@
-﻿using System;
+﻿#if !NETSTANDARD2_0
+
+using System;
 using System.ServiceModel.Description;
 using System.ServiceModel.Dispatcher;
 
@@ -17,7 +19,7 @@ namespace SolarWinds.InformationService.Contract2
             RequestSent = false;
         }
 
-        #region IEndpointBehavior Members
+#region IEndpointBehavior Members
 
         void IEndpointBehavior.AddBindingParameters(ServiceEndpoint endpoint, System.ServiceModel.Channels.BindingParameterCollection bindingParameters)
         {
@@ -37,9 +39,9 @@ namespace SolarWinds.InformationService.Contract2
         {
         }
 
-        #endregion
+#endregion
 
-        #region IClientMessageInspector Members
+#region IClientMessageInspector Members
 
         public void AfterReceiveReply(ref System.ServiceModel.Channels.Message reply, object correlationState)
         {
@@ -52,6 +54,7 @@ namespace SolarWinds.InformationService.Contract2
             return null;
         }
 
-        #endregion
+#endregion
     }
 }
+#endif

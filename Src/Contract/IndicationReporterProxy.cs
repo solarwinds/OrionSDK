@@ -1,4 +1,5 @@
-﻿using System;
+﻿#if !NETSTANDARD2_0
+using System;
 using System.Security.Cryptography.X509Certificates;
 using System.ServiceModel;
 using System.ServiceModel.Channels;
@@ -91,7 +92,7 @@ namespace SolarWinds.InformationService.Contract2
             log.DebugFormat("ChannelFactory created - {0}", address.ToString());
         }
 
-        #region IIndicationReporter Members
+#region IIndicationReporter Members
 
         public void ReportIndication(string indicationType, PropertyBag indicationProperties, PropertyBag sourceInstanceProperties)
         {
@@ -112,9 +113,9 @@ namespace SolarWinds.InformationService.Contract2
             }
         }
 
-        #endregion
+#endregion
 
-        #region IDisposable Members
+#region IDisposable Members
 
         public void Dispose()
         {
@@ -132,6 +133,7 @@ namespace SolarWinds.InformationService.Contract2
             }
         }
 
-        #endregion
+#endregion
     }
 }
+#endif

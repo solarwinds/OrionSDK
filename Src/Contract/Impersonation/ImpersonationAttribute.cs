@@ -1,4 +1,5 @@
-﻿using System;
+﻿#if !NETSTANDARD2_0
+using System;
 using System.ServiceModel.Channels;
 using System.ServiceModel.Description;
 using System.ServiceModel.Dispatcher;
@@ -26,3 +27,4 @@ namespace SolarWinds.InformationService.Contract2.Impersonation
         }
     }
 }
+#endif

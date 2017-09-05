@@ -35,10 +35,9 @@ namespace SolarWinds.InformationService.Contract2
             channelFactory.Credentials.UserName.Password = _password;
             channelFactory.Credentials.ServiceCertificate.Authentication.CertificateValidationMode = X509CertificateValidationMode.Custom;
 
-            X509ChainPolicy chainPolicy = new X509ChainPolicy();
-            chainPolicy.VerificationFlags = X509VerificationFlags.AllowUnknownCertificateAuthority | X509VerificationFlags.IgnoreNotTimeValid;
-            channelFactory.Credentials.ServiceCertificate.Authentication.CustomCertificateValidator = X509CertificateValidator.CreateChainTrustValidator(true, chainPolicy);
-
+            //X509ChainPolicy chainPolicy = new X509ChainPolicy();
+            //chainPolicy.VerificationFlags = X509VerificationFlags.AllowUnknownCertificateAuthority | X509VerificationFlags.IgnoreNotTimeValid;
+            //channelFactory.Credentials.ServiceCertificate.Authentication.CustomCertificateValidator = X509CertificateValidator.CreateChainTrustValidator(true, chainPolicy);
         }
     }
 }

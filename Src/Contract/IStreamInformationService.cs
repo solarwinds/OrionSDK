@@ -8,8 +8,10 @@ using SolarWinds.InformationService.Contract2.Internationalization;
 namespace SolarWinds.InformationService.Contract2
 {
     [ServiceContract(Name = "InformationService", Namespace = "http://schemas.solarwinds.com/2007/08/informationservice")]
+#if !NETSTANDARD2_0
     [Impersonation]
     [I18nHeader]
+#endif
     [SwisSettings]
     [SwisProtocolVersion]
     public interface IStreamInformationService : IInformationService

@@ -3,13 +3,18 @@ using System.Collections.Generic;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.ServiceModel;
 using System.ServiceModel.Security;
 using System.Text;
 using System.Threading;
+using System.Web.UI.WebControls;
 using System.Windows.Forms;
 using SolarWinds.Logging;
 using SwqlStudio.Metadata;
+using TextBox = System.Windows.Forms.TextBox;
+using TreeNode = System.Windows.Forms.TreeNode;
+using TreeView = System.Windows.Forms.TreeView;
 
 namespace SwqlStudio
 {
@@ -37,6 +42,10 @@ namespace SwqlStudio
         private bool _treeIsUnderUpdate; 
         private Point _lastLocation;
         private TreeNode _dragNode;
+
+        [DllImport("user32.dll", CharSet = CharSet.Unicode)]
+        public static extern int SetScrollPos(IntPtr hWnd, int nBar, int nPos, bool bRedraw);
+        private const int SB_HORZ = 0x0;
 
         public IApplicationService ApplicationService { get; set; }
 
@@ -122,11 +131,31 @@ namespace SwqlStudio
                 // quick path
                 if (_filter == null)
                 {
-                    _treeBindings = TreeNodeUtils.CopyTree(_treeData, _tree);
+                    _treeBindings = TreeNodeUtils.CopyTree(_treeData, _tree, null, null);
                 }
                 else
                 {
+                    var visibility = new TreeNodeUtils.NodeVisibility();
+                    TreeNodeUtils.IterateNodes(_treeData, node =>
+                    {
+                        if (PassesFilter(node))
+                            visibility.SetVisible(node);
+                    });
 
+                    _treeBindings = TreeNodeUtils.CopyTree(_treeData, _tree,
+                        node => visibility.GetVisibility(node) !=
+                                TreeNodeUtils.NodeVisibility.VisibilityStatus.NotVisible, (data, display) =>
+                        {
+                            var nodeVisibility = visibility.GetVisibility(data);
+                            if (nodeVisibility == TreeNodeUtils.NodeVisibility.VisibilityStatus.ChildVisible)
+                                // this one is not directly visible, gray it out
+                                display.ForeColor = Color.LightBlue;
+
+                            if (nodeVisibility == TreeNodeUtils.NodeVisibility.VisibilityStatus.Visible)
+                                display.EnsureVisible();
+                        });
+
+                    SetScrollPos(_tree.Handle, SB_HORZ, 0, false);
                 }
 
                 UpdateDrawnNodesSelection();
@@ -138,6 +167,36 @@ namespace SwqlStudio
             }
         }
 
+        private bool PassesFilter(TreeNode node)
+        {
+            var nodeText = node.Text.Split('(')[0]; // trim everything after first (, we do not want to use it in search
+
+            if (!_filter.Contains('.'))
+                return nodeText.IndexOf(_filter, StringComparison.OrdinalIgnoreCase) >= 0; // is filter found?
+            else // behave in 'special' way for dots. 
+                 // let's Met.Ent match also METadata...ENTity
+            {
+                var filter = _filter.Split(new[] {'.'}, StringSplitOptions.RemoveEmptyEntries);
+                var text = nodeText.Split(new[] { '.' }, StringSplitOptions.RemoveEmptyEntries);
+
+                int textPivot = 0;
+
+                for (int filterPivot = 0; filterPivot < filter.Length; filterPivot++)
+                {
+                    for (; textPivot <= text.Length; textPivot++)
+                    {
+                        if (textPivot == text.Length)
+                            return false;
+
+                        if (text[textPivot].StartsWith(filter[filterPivot], StringComparison.OrdinalIgnoreCase))
+                            break;
+                    }
+                    textPivot++;
+                }
+
+                return true;
+            }
+        }
 
 
         private void UpdateDrawnNodesSelection()

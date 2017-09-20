@@ -586,5 +586,10 @@ namespace SwqlStudio
         {
             enableAutocompleteToolStripMenuItem.Checked = Settings.Default.AutocompleteEnabled;
         }
+
+        private void searchInTreeHotKeyToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            objectExplorer.FocusSearch();
+        }
     }
 }

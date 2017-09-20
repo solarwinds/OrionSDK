@@ -69,6 +69,7 @@
             this.objectExplorer = new SwqlStudio.ObjectExplorer();
             this.ObjectExplorerImageList = new System.Windows.Forms.ImageList(this.components);
             this.startTimer = new System.Windows.Forms.Timer(this.components);
+            this.searchInTreeHotKeyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.menu.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -77,15 +78,15 @@
             this.splitContainer1.SuspendLayout();
             this.SuspendLayout();
             // 
-            // separatorAboveNotificationListenerActive
-            // 
-            this.separatorAboveNotificationListenerActive.Name = "separatorAboveNotificationListenerActive";
-            this.separatorAboveNotificationListenerActive.Size = new System.Drawing.Size(214, 6);
-            // 
             // toolStripSeparator1
             // 
             toolStripSeparator1.Name = "toolStripSeparator1";
-            toolStripSeparator1.Size = new System.Drawing.Size(214, 6);
+            toolStripSeparator1.Size = new System.Drawing.Size(216, 6);
+            // 
+            // separatorAboveNotificationListenerActive
+            // 
+            this.separatorAboveNotificationListenerActive.Name = "separatorAboveNotificationListenerActive";
+            this.separatorAboveNotificationListenerActive.Size = new System.Drawing.Size(216, 6);
             // 
             // menu
             // 
@@ -114,7 +115,8 @@
             this.separatorAboveNotificationListenerActive,
             this.menuNotificationListenerActive,
             toolStripSeparator1,
-            this.menuFileExit});
+            this.menuFileExit,
+            this.searchInTreeHotKeyToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
             this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
             this.fileToolStripMenuItem.Text = "&File";
@@ -124,7 +126,7 @@
             // 
             this.menuFileNew.Name = "menuFileNew";
             this.menuFileNew.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.N)));
-            this.menuFileNew.Size = new System.Drawing.Size(217, 22);
+            this.menuFileNew.Size = new System.Drawing.Size(219, 22);
             this.menuFileNew.Text = "&New";
             this.menuFileNew.Click += new System.EventHandler(this.menuFileNew_Click);
             // 
@@ -132,7 +134,7 @@
             // 
             this.menuFileTabPage.Name = "menuFileTabPage";
             this.menuFileTabPage.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.T)));
-            this.menuFileTabPage.Size = new System.Drawing.Size(217, 22);
+            this.menuFileTabPage.Size = new System.Drawing.Size(219, 22);
             this.menuFileTabPage.Text = "Tab Page";
             this.menuFileTabPage.Click += new System.EventHandler(this.menuFileTabPage_Click);
             // 
@@ -140,7 +142,7 @@
             // 
             this.menuFileOpen.Name = "menuFileOpen";
             this.menuFileOpen.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
-            this.menuFileOpen.Size = new System.Drawing.Size(217, 22);
+            this.menuFileOpen.Size = new System.Drawing.Size(219, 22);
             this.menuFileOpen.Text = "&Open";
             this.menuFileOpen.Click += new System.EventHandler(this.menuFileOpen_Click);
             // 
@@ -148,14 +150,14 @@
             // 
             this.menuFileSave.Name = "menuFileSave";
             this.menuFileSave.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
-            this.menuFileSave.Size = new System.Drawing.Size(217, 22);
+            this.menuFileSave.Size = new System.Drawing.Size(219, 22);
             this.menuFileSave.Text = "&Save";
             this.menuFileSave.Click += new System.EventHandler(this.menuFileSave_Click);
             // 
             // menuFileSaveAs
             // 
             this.menuFileSaveAs.Name = "menuFileSaveAs";
-            this.menuFileSaveAs.Size = new System.Drawing.Size(217, 22);
+            this.menuFileSaveAs.Size = new System.Drawing.Size(219, 22);
             this.menuFileSaveAs.Text = "&Save As";
             this.menuFileSaveAs.Click += new System.EventHandler(this.menuFileSaveAs_Click);
             // 
@@ -164,7 +166,7 @@
             this.menuFileClose.Name = "menuFileClose";
             this.menuFileClose.ShortcutKeyDisplayString = "Ctrl+W, Ctrl-F4";
             this.menuFileClose.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.W)));
-            this.menuFileClose.Size = new System.Drawing.Size(217, 22);
+            this.menuFileClose.Size = new System.Drawing.Size(219, 22);
             this.menuFileClose.Text = "&Close";
             this.menuFileClose.Click += new System.EventHandler(this.menuFileClose_Click);
             // 
@@ -172,7 +174,7 @@
             // 
             this.menuFileClose2.Name = "menuFileClose2";
             this.menuFileClose2.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.F4)));
-            this.menuFileClose2.Size = new System.Drawing.Size(217, 22);
+            this.menuFileClose2.Size = new System.Drawing.Size(219, 22);
             this.menuFileClose2.Text = "Close";
             this.menuFileClose2.Visible = false;
             this.menuFileClose2.Click += new System.EventHandler(this.menuFileClose_Click);
@@ -182,14 +184,14 @@
             this.menuNotificationListenerActive.Checked = true;
             this.menuNotificationListenerActive.CheckState = System.Windows.Forms.CheckState.Checked;
             this.menuNotificationListenerActive.Name = "menuNotificationListenerActive";
-            this.menuNotificationListenerActive.Size = new System.Drawing.Size(217, 22);
+            this.menuNotificationListenerActive.Size = new System.Drawing.Size(219, 22);
             this.menuNotificationListenerActive.Text = "Notification Listener Active";
             this.menuNotificationListenerActive.Click += new System.EventHandler(this.menuNotificationListenerActive_Click);
             // 
             // menuFileExit
             // 
             this.menuFileExit.Name = "menuFileExit";
-            this.menuFileExit.Size = new System.Drawing.Size(217, 22);
+            this.menuFileExit.Size = new System.Drawing.Size(219, 22);
             this.menuFileExit.Text = "&Exit";
             this.menuFileExit.Click += new System.EventHandler(this.menuFileExit_Click);
             // 
@@ -287,7 +289,7 @@
             this.byHierarchyToolStripMenuItem,
             this.noGroupingToolStripMenuItem});
             this.groupEntityTreeToolStripMenuItem.Name = "groupEntityTreeToolStripMenuItem";
-            this.groupEntityTreeToolStripMenuItem.Size = new System.Drawing.Size(170, 22);
+            this.groupEntityTreeToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
             this.groupEntityTreeToolStripMenuItem.Text = "&Group Entity Tree";
             // 
             // byNamespaceToolStripMenuItem
@@ -324,7 +326,7 @@
             this.enableAutocompleteToolStripMenuItem.CheckOnClick = true;
             this.enableAutocompleteToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
             this.enableAutocompleteToolStripMenuItem.Name = "enableAutocompleteToolStripMenuItem";
-            this.enableAutocompleteToolStripMenuItem.Size = new System.Drawing.Size(170, 22);
+            this.enableAutocompleteToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
             this.enableAutocompleteToolStripMenuItem.Text = "Enable Autocomplete";
             this.enableAutocompleteToolStripMenuItem.CheckedChanged += new System.EventHandler(this.enableAutocompleteToolStripMenuItem_CheckedChanged);
             // 
@@ -353,6 +355,7 @@
             this.fileTabs.Name = "fileTabs";
             this.fileTabs.SelectedIndex = 0;
             this.fileTabs.Size = new System.Drawing.Size(632, 571);
+            this.fileTabs.SizeMode = System.Windows.Forms.TabSizeMode.Fixed;
             this.fileTabs.TabIndex = 1;
             this.fileTabs.TabStop = false;
             this.fileTabs.DragDrop += new System.Windows.Forms.DragEventHandler(this.TextEditorDragDrop);
@@ -411,6 +414,16 @@
             // startTimer
             // 
             this.startTimer.Tick += new System.EventHandler(this.startTimer_Tick);
+            // 
+            // searchInTreeHotKeyToolStripMenuItem
+            // 
+            this.searchInTreeHotKeyToolStripMenuItem.Name = "searchInTreeHotKeyToolStripMenuItem";
+            this.searchInTreeHotKeyToolStripMenuItem.ShortcutKeyDisplayString = "Ctrl+\\";
+            this.searchInTreeHotKeyToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Oem5)));
+            this.searchInTreeHotKeyToolStripMenuItem.Size = new System.Drawing.Size(219, 22);
+            this.searchInTreeHotKeyToolStripMenuItem.Text = "SearchInTreeHotKey";
+            this.searchInTreeHotKeyToolStripMenuItem.Visible = false;
+            this.searchInTreeHotKeyToolStripMenuItem.Click += new System.EventHandler(this.searchInTreeHotKeyToolStripMenuItem_Click);
             // 
             // MainForm
             // 
@@ -478,6 +491,7 @@
         private System.Windows.Forms.ToolStripMenuItem menuFileClose2;
         private System.Windows.Forms.ToolStripMenuItem menuFileTabPage;
         private System.Windows.Forms.ToolStripSeparator separatorAboveNotificationListenerActive;
+        private System.Windows.Forms.ToolStripMenuItem searchInTreeHotKeyToolStripMenuItem;
     }
 }
 

@@ -31,6 +31,7 @@ namespace SwqlStudio
     {
         private static readonly Log log = new Log();
 
+        private readonly TextBox _treeSearch;
         private readonly TreeView _tree;
         private readonly TreeView _treeData;
         private TreeNodeUtils.TreeNodeBindings _treeBindings = new TreeNodeUtils.TreeNodeBindings(); // default value, so this field is never null
@@ -51,10 +52,11 @@ namespace SwqlStudio
 
         public ObjectExplorer()
         {
-            var treeSearch = new SearchTextBox
+            _treeSearch = new SearchTextBox
             {
                 Dock = DockStyle.Top
             };
+
 
             _tree = new TreeView
             {
@@ -90,9 +92,9 @@ namespace SwqlStudio
             };
 
             _tree.NodeMouseDoubleClick += _tree_NodeMouseDoubleClick;
+            _treeSearch.TextChanged += (sender, e) => { SetFilter(((TextBox) sender).Text); };
+            _treeSearch.SetCueText("Search (Ctrl + \\)");
 
-            treeSearch.TextChanged += (sender, e) => { SetFilter(((TextBox) sender).Text); };
-            treeSearch.SetCueText("Search (Ctrl + \\)");
             _tableContextMenuItems = new Dictionary<string, ContextMenu>();
             _serverContextMenuItems = new Dictionary<string, ContextMenu>();
 
@@ -100,7 +102,12 @@ namespace SwqlStudio
             _verbContextMenu.MenuItems.Add("Invoke...", (s, e) => OpenInvokeTab());
 
             Controls.Add(_tree);
-            Controls.Add(treeSearch);
+            Controls.Add(_treeSearch);
+        }
+
+        public void FocusSearch()
+        {
+            _treeSearch.Focus();
         }
 
         private void SetFilter(string filter)

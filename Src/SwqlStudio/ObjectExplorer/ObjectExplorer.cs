@@ -25,6 +25,7 @@ namespace SwqlStudio
     {
         private static readonly Log log = new Log();
 
+        private readonly TextBox _treeSearch;
         private readonly TreeView _tree;
         private TreeNode _contextMenuNode;
         private readonly Dictionary<string, ContextMenu> _tableContextMenuItems;
@@ -40,6 +41,11 @@ namespace SwqlStudio
 
         public ObjectExplorer()
         {
+            _treeSearch = new SearchTextBox
+            {
+                Dock = DockStyle.Top
+            };
+
             _tree = new TreeView
             {
                 Dock = DockStyle.Fill,
@@ -60,6 +66,7 @@ namespace SwqlStudio
             _verbContextMenu.MenuItems.Add("Invoke...", (s, e) => OpenInvokeTab());
 
             Controls.Add(_tree);
+            Controls.Add(_treeSearch);
         }
 
         private bool AllowExpandCollapse

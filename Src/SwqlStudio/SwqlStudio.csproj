@@ -154,6 +154,14 @@
     <Compile Include="Metadata\Verb.cs" />
     <Compile Include="Metadata\VerbArgument.cs" />
     <Compile Include="CodeGenerator.cs" />
+    <Compile Include="ObjectExplorer\SearchTextBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="Subscriptions\NotificationDeliveryServiceProxy.cs" />
     <Compile Include="Subscriptions\NotificationSubscriber.cs" />
     <Compile Include="ObjectExplorer\TreeNodeWithConnectionInfo.cs" />
@@ -234,14 +242,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Resources.resx</DependentUpon>
-      <DesignTime>True</DesignTime>
-    </Compile>
     <EmbeddedResource Include="QueryParameters.resx">
       <DependentUpon>QueryParameters.cs</DependentUpon>
     </EmbeddedResource>

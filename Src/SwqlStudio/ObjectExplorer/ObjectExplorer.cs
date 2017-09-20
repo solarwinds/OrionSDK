@@ -25,13 +25,16 @@ namespace SwqlStudio
     {
         private static readonly Log log = new Log();
 
-        private readonly TextBox _treeSearch;
         private readonly TreeView _tree;
+        private readonly TreeView _treeData;
+        private TreeNodeUtils.TreeNodeBindings _treeBindings = new TreeNodeUtils.TreeNodeBindings(); // default value, so this field is never null
         private TreeNode _contextMenuNode;
         private readonly Dictionary<string, ContextMenu> _tableContextMenuItems;
         private readonly Dictionary<string, ContextMenu> _serverContextMenuItems;
         private readonly ContextMenu _verbContextMenu;
         private bool _isDragging;
+        private string _filter;
+        private bool _treeIsUnderUpdate; 
         private Point _lastLocation;
         private TreeNode _dragNode;
 
@@ -41,7 +44,7 @@ namespace SwqlStudio
 
         public ObjectExplorer()
         {
-            _treeSearch = new SearchTextBox
+            var treeSearch = new SearchTextBox
             {
                 Dock = DockStyle.Top
             };
@@ -52,12 +55,36 @@ namespace SwqlStudio
                 ShowNodeToolTips = true
             };
 
+            _treeData = new TreeView();
+
             _tree.MouseDown += TreeMouseDown;
             _tree.MouseMove += TreeMouseMove;
             _tree.MouseUp += _tree_MouseUp;
             _tree.BeforeExpand += (sender, e) => { e.Cancel = !AllowExpandCollapse; if (!e.Cancel) _tree_BeforeExpand(sender, e); };
             _tree.BeforeCollapse += (sender, e) => { e.Cancel = !AllowExpandCollapse; };
+            // copy expanded / not expanded state to data, so it is persisted
+            _tree.AfterExpand += (sender, e) =>
+            {
+                if (_treeIsUnderUpdate) // we are calling expand on the display tree when cloning from data. 
+                                        // we do not want to update data with such information, as we dont have proper _treeBindings at the moment
+                    return;
+
+                var dataNode = _treeBindings.FindDataNode(e.Node);
+                dataNode.Expand();
+            };
+
+            _tree.AfterCollapse += (sender, e) =>
+            {
+                if (_treeIsUnderUpdate)
+                    return;
+
+                var dataNode = _treeBindings.FindDataNode(e.Node);
+                dataNode.Collapse();
+            };
+
             _tree.NodeMouseDoubleClick += _tree_NodeMouseDoubleClick;
+
+            treeSearch.TextChanged += (sender, e) => { SetFilter(((TextBox) sender).Text); };
 
             _tableContextMenuItems = new Dictionary<string, ContextMenu>();
             _serverContextMenuItems = new Dictionary<string, ContextMenu>();
@@ -66,7 +93,56 @@ namespace SwqlStudio
             _verbContextMenu.MenuItems.Add("Invoke...", (s, e) => OpenInvokeTab());
 
             Controls.Add(_tree);
-            Controls.Add(_treeSearch);
+            Controls.Add(treeSearch);
+        }
+
+        private void SetFilter(string filter)
+        {
+            if (string.IsNullOrWhiteSpace(filter))
+                filter = null;
+
+            if (_filter != filter)
+            {
+                _filter = filter;
+                UpdateDrawnNodes();
+            }
+        }
+        
+        // since we have data in _treeData, but are displaying _tree,
+        // we need to copy data from treedata to trees (according to applied filter)
+        private void UpdateDrawnNodes()
+        {
+            _treeData.SelectedNode = _treeBindings.FindDataNode(_tree.SelectedNode);
+
+            _treeIsUnderUpdate = true;
+            _tree.BeginUpdate();
+            _tree.Nodes.Clear();
+            try
+            {
+                // quick path
+                if (_filter == null)
+                {
+                    _treeBindings = TreeNodeUtils.CopyTree(_treeData, _tree);
+                }
+                else
+                {
+
+                }
+
+                UpdateDrawnNodesSelection();
+            }
+            finally
+            {
+                _tree.EndUpdate();
+                _treeIsUnderUpdate = false;
+            }
+        }
+
+
+
+        private void UpdateDrawnNodesSelection()
+        {
+            _tree.SelectedNode = _treeBindings.FindDisplayNode(_treeData.SelectedNode);
         }
 
         private bool AllowExpandCollapse
@@ -162,10 +238,12 @@ namespace SwqlStudio
 
         public void RefreshAllServers()
         {
-            foreach (TreeNode node in _tree.Nodes)
+            foreach (TreeNode node in _treeData.Nodes)
             {
                 RefreshServer(node);
             }
+
+            UpdateDrawnNodes();
         }
 
         private void RefreshServer(TreeNode node)
@@ -191,6 +269,8 @@ namespace SwqlStudio
                                                                          AddTablesToNode(node, provider, treeNodeWithConnectionInfo.Connection);
                                                                      else
                                                                          AddTablesToNode(node, provider, null);
+
+                                                                     UpdateDrawnNodes();
                                                                  }));
                                                          }
                                                          catch (FaultException faultEx)
@@ -338,18 +418,19 @@ namespace SwqlStudio
 
             TreeNode node = CreateDatabaseNode(provider, connection);
 
-            TreeNode[] existingNodes = _tree.Nodes.Find(node.Name, false);
+            TreeNode[] existingNodes = _treeData.Nodes.Find(node.Name, false);
             if (existingNodes.Length == 0)
             {
                 // Node doesn't already exist.  Add it
-                _tree.Nodes.Add(node);
-                _tree.SelectedNode = node;
+                _treeData.Nodes.Add(node);
+                _treeData.SelectedNode = node;
                 RefreshServer(node);
             }
             else
             {
                 // Node exists.  Just focus on it.
-                _tree.SelectedNode = existingNodes[0];
+                _treeData.SelectedNode = existingNodes[0];
+                UpdateDrawnNodesSelection();
             }
 
             connection.ConnectionClosed += (o, e) =>
@@ -370,7 +451,7 @@ namespace SwqlStudio
             if (node != null)
             {
                 node.Connection.Close();
-                _tree.Nodes.Remove(node);
+                _treeData.Nodes.Remove(_treeBindings.FindDataNode(node));
             }
         }
 

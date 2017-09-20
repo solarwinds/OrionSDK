@@ -171,21 +171,23 @@ namespace SwqlStudio
         {
             var nodeText = node.Text.Split('(')[0]; // trim everything after first (, we do not want to use it in search
 
-            if (!_filter.Contains('.'))
-                return nodeText.IndexOf(_filter, StringComparison.OrdinalIgnoreCase) >= 0; // is filter found?
-            else // behave in 'special' way for dots. 
+            if (nodeText.IndexOf(_filter, StringComparison.OrdinalIgnoreCase) >= 0)
+                return true;
+
+            else // behave in 'special' way for dots, and capitals, the same way as resharper does
                  // let's Met.Ent match also METadata...ENTity
+                 // also Met.EntNa should match Metadata.EntityName
             {
-                var filter = _filter.Split(new[] {'.'}, StringSplitOptions.RemoveEmptyEntries);
-                var text = nodeText.Split(new[] { '.' }, StringSplitOptions.RemoveEmptyEntries);
+                var filter = SplitTextByCapsAndDot(_filter);
+                var text = SplitTextByCapsAndDot(nodeText);
 
                 int textPivot = 0;
 
-                for (int filterPivot = 0; filterPivot < filter.Length; filterPivot++)
+                for (int filterPivot = 0; filterPivot < filter.Count; filterPivot++)
                 {
-                    for (; textPivot <= text.Length; textPivot++)
+                    for (; textPivot <= text.Count; textPivot++)
                     {
-                        if (textPivot == text.Length)
+                        if (textPivot == text.Count)
                             return false;
 
                         if (text[textPivot].StartsWith(filter[filterPivot], StringComparison.OrdinalIgnoreCase))
@@ -196,6 +198,39 @@ namespace SwqlStudio
 
                 return true;
             }
+        }
+
+        private static List<string> SplitTextByCapsAndDot(string text)
+        {
+            var rv = new List<string>();
+
+            var buf = new StringBuilder();
+
+            void FlushBuffer()
+            {
+                if (buf.Length > 0)
+                    rv.Add(buf.ToString());
+
+                buf.Clear();
+            }
+
+            foreach (var t in text)
+            {
+                if (t == '.')
+                {
+                    FlushBuffer();
+                }
+                else
+                {
+                    if (char.IsUpper(t))
+                        FlushBuffer();
+
+                    buf.Append(t);
+                }
+            }
+
+            FlushBuffer();
+            return rv;
         }
 
 

@@ -214,6 +214,7 @@
       <DependentUpon>SubscriptionTab.cs</DependentUpon>
     </Compile>
     <Compile Include="Utility.cs" />
+    <Compile Include="Utils\Win32.cs" />
     <Compile Include="XmlRender\RenderXmlToHtml.cs" />
     <Compile Include="XmlRender\XmlBrowser.cs">
       <SubType>Component</SubType>

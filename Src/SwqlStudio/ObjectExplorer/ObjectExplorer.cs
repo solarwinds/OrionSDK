@@ -12,6 +12,7 @@ using System.Web.UI.WebControls;
 using System.Windows.Forms;
 using SolarWinds.Logging;
 using SwqlStudio.Metadata;
+using SwqlStudio.Utils;
 using TextBox = System.Windows.Forms.TextBox;
 using TreeNode = System.Windows.Forms.TreeNode;
 using TreeView = System.Windows.Forms.TreeView;
@@ -43,9 +44,6 @@ namespace SwqlStudio
         private Point _lastLocation;
         private TreeNode _dragNode;
 
-        [DllImport("user32.dll", CharSet = CharSet.Unicode)]
-        public static extern int SetScrollPos(IntPtr hWnd, int nBar, int nPos, bool bRedraw);
-        private const int SB_HORZ = 0x0;
 
         public IApplicationService ApplicationService { get; set; }
 
@@ -94,7 +92,7 @@ namespace SwqlStudio
             _tree.NodeMouseDoubleClick += _tree_NodeMouseDoubleClick;
 
             treeSearch.TextChanged += (sender, e) => { SetFilter(((TextBox) sender).Text); };
-
+            treeSearch.SetCueText("Search (Ctrl + \\)");
             _tableContextMenuItems = new Dictionary<string, ContextMenu>();
             _serverContextMenuItems = new Dictionary<string, ContextMenu>();
 
@@ -161,7 +159,8 @@ namespace SwqlStudio
                                 display.EnsureVisible();
                         });
 
-                    SetScrollPos(_tree.Handle, SB_HORZ, 0, false);
+
+                    _tree.SetHorizontalScroll(0);
                 }
 
                 UpdateDrawnNodesSelection();

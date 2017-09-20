@@ -3,17 +3,12 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
 using SwqlStudio.Properties;
+using SwqlStudio.Utils;
 
 namespace SwqlStudio
 {
     internal class SearchTextBox : TextBox
     {
-        private const int EM_SETMARGINS = 0xd3;
-
-        [System.Runtime.InteropServices.DllImport("user32.dll")]
-        private static extern IntPtr SendMessage(IntPtr hWnd, int msg, IntPtr wp, IntPtr lp);
-
-
         private readonly PictureBox _searchPictureBox;
 
         public SearchTextBox()
@@ -28,7 +23,7 @@ namespace SwqlStudio
             Controls.Add(_searchPictureBox);
 
             // Send EM_SETMARGINS to prevent text from disappearing underneath the button
-            SendMessage(Handle, EM_SETMARGINS, (IntPtr)2, (IntPtr)(16 << 16));
+            Win32.SendMessage(Handle, Win32.EM_SETMARGINS, (IntPtr)2, (IntPtr)(16 << 16));
 
             SearchImage = Resources.Search;
         }

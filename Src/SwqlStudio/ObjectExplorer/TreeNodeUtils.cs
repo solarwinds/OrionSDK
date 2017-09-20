@@ -103,7 +103,20 @@ namespace SwqlStudio
             public VisibilityStatus GetVisibility(TreeNode node)
             {
                 if (!_visibility.TryGetValue(node, out var rv))
+                {
                     rv = VisibilityStatus.NotVisible;
+                    // check if some of the parents is not directly visible (visible, not childvisible)
+                    for (var parent = node.Parent; parent != null; parent = parent.Parent)
+                    {
+                        if (_visibility.TryGetValue(parent, out var parentVisibility))
+                        {
+                            if (parentVisibility == VisibilityStatus.Visible)
+                                rv = VisibilityStatus.ParentVisible;
+                            else
+                                break;
+                        }
+                    }
+                }
 
                 return rv;
             }
@@ -121,7 +134,11 @@ namespace SwqlStudio
                 /// <summary>
                 /// This node passed filter
                 /// </summary>
-                Visible
+                Visible,
+                /// <summary>
+                /// This node's parent passed filter
+                /// </summary>
+                ParentVisible
             }
         }
 

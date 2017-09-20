@@ -151,6 +151,12 @@ namespace SwqlStudio
                                 // this one is not directly visible, gray it out
                                 display.ForeColor = Color.LightBlue;
 
+                            if (nodeVisibility == TreeNodeUtils.NodeVisibility.VisibilityStatus.ParentVisible)
+                                // this one is not directly visible, gray it out
+                                display.ForeColor = Color.DarkGray;
+
+                            // this one is visible directly, ensure it is visible (parents are expanded).
+                            // it's children are visible as well, but may be not expanded
                             if (nodeVisibility == TreeNodeUtils.NodeVisibility.VisibilityStatus.Visible)
                                 display.EnsureVisible();
                         });

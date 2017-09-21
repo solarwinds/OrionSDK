@@ -9,7 +9,7 @@ namespace SwqlStudio
 {
     internal class SearchTextBox : TextBox
     {
-        private readonly PictureBox _searchPictureBox;
+        private readonly Label _searchPicture;
         private string _cueText = string.Empty;
         private TimeSpan _debounceLimit = TimeSpan.Zero;
         private readonly Timer _timer;
@@ -21,25 +21,35 @@ namespace SwqlStudio
 
         public SearchTextBox()
         {
-            _searchPictureBox = new PictureBox();
-            _searchPictureBox.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            _searchPictureBox.Size = new Size(16, 16);
-            _searchPictureBox.TabIndex = 0;
-            _searchPictureBox.TabStop = false;
-            _searchPictureBox.Visible = true;
-            _searchPictureBox.SizeMode = PictureBoxSizeMode.StretchImage;
+            _searchPicture = new Label();
+            _searchPicture.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            _searchPicture.Size = new Size(16, 16);
+            _searchPicture.TabIndex = 0;
+            _searchPicture.TabStop = false;
+            _searchPicture.Visible = true;
+            SearchImageText = "🔍";
 
             _timer = new Timer();
             _timer.Enabled = false;
             _timer.Tick += OnTimerTicked;
 
-            Controls.Add(_searchPictureBox);
+            Controls.Add(_searchPicture);
 
             // Send EM_SETMARGINS to prevent text from disappearing underneath the button
             Win32.SendMessage(Handle, Win32.EM_SETMARGINS, (IntPtr)2, (IntPtr)(16 << 16));
-
-            SearchImage = Resources.Search;
         }
+
+        private string SearchImageText
+        {
+            set
+            {
+                _searchPicture.Text = value;
+                var textSize = TextRenderer.MeasureText(value, _searchPicture.Font);
+                _searchPicture.Left = Width - textSize.Width - 4;
+                _searchPicture.Top = Height - textSize.Height - 6;
+            }
+        }
+
 
         private void OnTimerTicked(object sender, EventArgs e)
         {
@@ -87,19 +97,6 @@ namespace SwqlStudio
                 _timer.Interval = (int)_debounceLimit.TotalMilliseconds;
             }
             get => _debounceLimit;
-        }
-
-        [Browsable(true)]
-        public Image SearchImage
-        {
-            set
-            {
-                _searchPictureBox.Image = value;
-                _searchPictureBox.Left = Width - _searchPictureBox.Size.Width - 4;
-                _searchPictureBox.Top = Height - _searchPictureBox.Size.Height - 4;
-            }
-
-            get => _searchPictureBox.Image;
         }
 
         protected virtual void OnTextChangedWithDebounce(EventArgs e)

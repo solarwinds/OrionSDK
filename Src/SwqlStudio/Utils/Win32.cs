@@ -14,12 +14,12 @@ namespace SwqlStudio.Utils
         public const int EM_SETCUEBANNER = 0x1501;
 
         [DllImport("user32.dll", CharSet = CharSet.Unicode)]
-        public static extern int SetScrollPos(IntPtr hWnd, int nBar, int nPos, bool bRedraw);
+        private static extern int SetScrollPos(IntPtr hWnd, int nBar, int nPos, bool bRedraw);
         
         [DllImport("user32.dll")]
         public static extern IntPtr SendMessage(IntPtr hWnd, int msg, IntPtr wp, IntPtr lp);
         [DllImport("user32.dll")]
-        public static extern IntPtr SendMessage(IntPtr hWnd, int msg, int wp, [MarshalAs(UnmanagedType.LPWStr)] string lp);
+        private static extern IntPtr SendMessage(IntPtr hWnd, int msg, int wp, [MarshalAs(UnmanagedType.LPWStr)] string lp);
 
 
 

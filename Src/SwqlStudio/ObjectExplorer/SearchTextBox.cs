@@ -27,7 +27,6 @@ namespace SwqlStudio
             _searchPicture.TabIndex = 0;
             _searchPicture.TabStop = false;
             _searchPicture.Visible = true;
-            SearchImageText = "🔍";
 
             _timer = new Timer();
             _timer.Enabled = false;
@@ -37,6 +36,21 @@ namespace SwqlStudio
 
             // Send EM_SETMARGINS to prevent text from disappearing underneath the button
             Win32.SendMessage(Handle, Win32.EM_SETMARGINS, (IntPtr)2, (IntPtr)(16 << 16));
+            UserTypingTimerStop();
+        }
+
+        private void UserTypingTimerRestart()
+        {
+            SearchImageText = "…";
+
+            _timer.Stop(); // restart the timer
+            _timer.Start();
+        }
+
+        private void UserTypingTimerStop()
+        {
+            _timer.Stop();
+            SearchImageText = "🔍";
         }
 
         private string SearchImageText
@@ -53,8 +67,7 @@ namespace SwqlStudio
 
         private void OnTimerTicked(object sender, EventArgs e)
         {
-            var timer = (Timer) sender;
-            timer.Stop();
+            UserTypingTimerStop();
 
             OnTextChangedWithDebounce(e);
         }
@@ -67,8 +80,7 @@ namespace SwqlStudio
             }
             else
             {
-                _timer.Stop(); // restart the timer
-                _timer.Start();
+                UserTypingTimerRestart();
             }
 
             base.OnTextChanged(e);

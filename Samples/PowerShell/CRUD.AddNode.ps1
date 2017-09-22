@@ -22,6 +22,9 @@ $newNodeProps = @{
 
     SNMPVersion = 2;
 
+    DNS = "";
+    SysName = "";
+    
     # === default values ===
 
     # EntityType = 'Orion.Nodes'

@@ -24,6 +24,9 @@ $newNodeProps = @{
     IPAddress = $ip
     EngineID = 1
     ObjectSubType = "WMI"
+
+    DNS = ""
+    SysName = ""
 }
 
 #Creating the node

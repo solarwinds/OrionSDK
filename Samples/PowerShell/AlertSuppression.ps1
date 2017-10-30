@@ -1,7 +1,4 @@
-﻿if ( (Get-PSSnapin -Name SwisSnapin -ErrorAction SilentlyContinue) -eq $null )
-{
-    Add-PsSnapin SwisSnapin
-}
+﻿Import-Module SwisPowerShell
 
 $OrionServer = 'localhost'
 $Username = 'admin'

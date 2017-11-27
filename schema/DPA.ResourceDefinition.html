@@ -18,6 +18,9 @@
     <p>
         Base type:
         <a href="System.ExtensionEntity.html">System.ExtensionEntity</a></p>
+    <p>
+        Summary:
+        Provides definition of DB resources (metrics grouped in categories). It provides no dynamic values (in terms values don't change in time unless user takes actions which will cause definition change) and as such it requires no time-frame.</p>
     <h2>Properties</h2>
     <table>
       <tr>
@@ -28,42 +31,42 @@
       <tr>
         <td>Name</td>
         <td>System.String</td>
-        <td />
+        <td>Specifies a name of a resource (e.g. Active Sessions, Memory Utilization, Signal Waits Percent)</td>
       </tr>
       <tr>
         <td>DisplayName</td>
         <td>System.String</td>
-        <td />
+        <td>Resource name used in DPA UI</td>
       </tr>
       <tr>
         <td>CategoryName</td>
         <td>System.String</td>
-        <td />
+        <td>Specifies a name of a category a resource belongs (e.g. CPU, Memory, Sessions)</td>
       </tr>
       <tr>
         <td>Description</td>
         <td>System.String</td>
-        <td />
+        <td>Specifies a short description of a resource (e.g. Number of batches being executed by SQL Server every second for resource having name Batch Requests Per Sec and belonging to category Sessions)</td>
       </tr>
       <tr>
         <td>ValueUnit</td>
         <td>System.String</td>
-        <td />
+        <td>Specifies a unit of this metric (e.g. requests/second, %, pages/second). Unit is represented on Y axis of resource graph.</td>
       </tr>
       <tr>
         <td>Thresholds</td>
         <td>System.String</td>
-        <td />
+        <td>Specifies a comma separated list of threshold values. It contains both WARN and CRITICAL limits where first two values are WARN limits and second two CRITICAL limits (e.g. 80,90,90,null)</td>
       </tr>
       <tr>
         <td>DatabaseId</td>
         <td>System.Int32</td>
-        <td />
+        <td>Specifies for which DB instance is this resource applicable. Reference to Orion.DPA.DatabaseInstance.Id</td>
       </tr>
       <tr>
         <td>GlobalDatabaseId</td>
         <td>System.Int32</td>
-        <td />
+        <td>Unique ID of database instance in Orion</td>
       </tr>
       <tr>
         <td>DisplayName</td>

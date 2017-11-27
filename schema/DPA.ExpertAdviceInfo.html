@@ -18,6 +18,9 @@
     <p>
         Base type:
         <a href="System.ExtensionEntity.html">System.ExtensionEntity</a></p>
+    <p>
+        Summary:
+        The entity represents advises given on the "Waits" tab in the UI</p>
     <h2>Properties</h2>
     <table>
       <tr>
@@ -28,22 +31,22 @@
       <tr>
         <td>DatabaseId</td>
         <td>System.Int32</td>
-        <td />
+        <td>Reference to Orion.DPA.DatabaseInstance.Id.</td>
       </tr>
       <tr>
         <td>GlobalDatabaseId</td>
         <td>System.Int32</td>
-        <td />
+        <td>Unique ID of database instance in Orion</td>
       </tr>
       <tr>
         <td>WaitId</td>
         <td>System.String</td>
-        <td />
+        <td>Name of the wait type as is displayed in the UI (eg. 'CPU/Memory')</td>
       </tr>
       <tr>
         <td>AdviceInfo</td>
         <td>System.String</td>
-        <td />
+        <td>HTML-formatted text describing the wait time, causes, possible fixes etc.</td>
       </tr>
       <tr>
         <td>DisplayName</td>

@@ -18,6 +18,9 @@
     <p>
         Base type:
         <a href="System.ExtensionEntity.html">System.ExtensionEntity</a></p>
+    <p>
+        Summary:
+        Single problem related to SQL Statement execution</p>
     <h2>Properties</h2>
     <table>
       <tr>
@@ -28,42 +31,42 @@
       <tr>
         <td>ProblemId</td>
         <td>System.String</td>
-        <td />
+        <td>Unique identifier of the problem.</td>
       </tr>
       <tr>
         <td>DatabaseId</td>
         <td>System.Int32</td>
-        <td />
+        <td>Reference to Orion.DPA.DatabaseInstance.Id.</td>
       </tr>
       <tr>
         <td>GlobalDatabaseId</td>
         <td>System.Int32</td>
-        <td />
+        <td>Unique ID of database instance in Orion</td>
       </tr>
       <tr>
         <td>Category</td>
         <td>System.String</td>
-        <td />
+        <td>Currently SQL only.</td>
       </tr>
       <tr>
         <td>SqlHash</td>
         <td>System.String</td>
-        <td />
+        <td>SQL hash.</td>
       </tr>
       <tr>
         <td>SqlText</td>
         <td>System.String</td>
-        <td />
+        <td>SQL text</td>
       </tr>
       <tr>
         <td>TotalSqlWaitTime</td>
         <td>System.Double</td>
-        <td />
+        <td>Total SQL wait time (across all executions)</td>
       </tr>
       <tr>
         <td>PercentOfTotalDatabaseWaitTime</td>
         <td>System.Double</td>
-        <td />
+        <td>% of total instance execution time.</td>
       </tr>
       <tr>
         <td>DisplayName</td>

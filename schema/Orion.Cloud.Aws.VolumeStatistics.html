@@ -1,0 +1,147 @@
+﻿
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <title>SolarWinds Information Service v3.0 Schema Documentation</title>
+    <link href="SchemaDoc.css" type="text/css" rel="stylesheet" />
+  </head>
+  <body>
+    <h1>SolarWinds Information Service v3.0 Schema Documentation</h1>
+    <p>
+      <a href="index.html">Index</a>
+    </p>
+    <h1>
+      <a name="Orion.Cloud.Aws.VolumeStatistics">Orion.Cloud.Aws.VolumeStatistics</a>
+    </h1>
+    <p>
+        Base type:
+        <a href="System.StatisticsEntity.html">System.StatisticsEntity</a></p>
+    <h2>Properties</h2>
+    <table>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Notes</th>
+      </tr>
+      <tr>
+        <td>VolumeID</td>
+        <td>System.Int32</td>
+        <td />
+      </tr>
+      <tr>
+        <td>ReadLatencyInMilliseconds</td>
+        <td>System.Double</td>
+        <td />
+      </tr>
+      <tr>
+        <td>WriteLatencyInMilliseconds</td>
+        <td>System.Double</td>
+        <td />
+      </tr>
+      <tr>
+        <td>ReadOperationsPerSecond</td>
+        <td>System.Double</td>
+        <td />
+      </tr>
+      <tr>
+        <td>WriteOperationsPerSecond</td>
+        <td>System.Double</td>
+        <td />
+      </tr>
+      <tr>
+        <td>QueuedOperations</td>
+        <td>System.Double</td>
+        <td />
+      </tr>
+      <tr>
+        <td>IdleTimePercentage</td>
+        <td>System.Single</td>
+        <td />
+      </tr>
+      <tr>
+        <td>ThroughputPercentage</td>
+        <td>System.Single</td>
+        <td />
+      </tr>
+      <tr>
+        <td>ReadBandwidthInKibibytesPerSecond</td>
+        <td>System.Single</td>
+        <td />
+      </tr>
+      <tr>
+        <td>WriteBandwidthInKibibytesPerSecond</td>
+        <td>System.Single</td>
+        <td />
+      </tr>
+      <tr>
+        <td>AverageReadOperationSizeInKibibytes</td>
+        <td>System.Double</td>
+        <td />
+      </tr>
+      <tr>
+        <td>AverageWriteOperationSizeInKibibytes</td>
+        <td>System.Double</td>
+        <td />
+      </tr>
+      <tr>
+        <td>ConsumedReadWriteOperationsPerSecond</td>
+        <td>System.Double</td>
+        <td />
+      </tr>
+      <tr>
+        <td>ObservationTimestamp</td>
+        <td>System.DateTime</td>
+        <td />
+      </tr>
+      <tr>
+        <td>ObservationFrequency</td>
+        <td>System.DateTime</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Weight</td>
+        <td>System.Double</td>
+        <td>
+          Default='1.0'.
+        </td>
+      </tr>
+      <tr>
+        <td>DisplayName</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Description</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>InstanceType</td>
+        <td>System.Type</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Uri</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>InstanceSiteId</td>
+        <td>System.Int32</td>
+        <td>
+          Default='0'.
+        </td>
+      </tr>
+      <tr>
+        <td>Volume</td>
+        <td>
+          <a href="Orion.Cloud.Aws.Volumes.html">Orion.Cloud.Aws.Volumes</a>
+        </td>
+        <td>
+        Defined by relationship Orion.Cloud.Aws.VolumesHostsVolumeStatistics (System.Hosting)
+      </td>
+      </tr>
+    </table>
+  </body>
+</html>

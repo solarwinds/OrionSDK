@@ -18,6 +18,9 @@
     <p>
         Base type:
         <a href="System.ManagedEntity.html">System.ManagedEntity</a></p>
+    <p>
+        Summary:
+        Represents single monitored database instance</p>
     <h2>Properties</h2>
     <table>
       <tr>
@@ -28,102 +31,102 @@
       <tr>
         <td>DatabaseInstanceID</td>
         <td>System.Int32</td>
-        <td />
+        <td>Unique identifier of the monitored database.</td>
       </tr>
       <tr>
         <td>GlobalDatabaseInstanceID</td>
         <td>System.Int32</td>
-        <td />
+        <td>Unique ID of database instance in Orion</td>
       </tr>
       <tr>
         <td>GroupId</td>
         <td>System.Int32</td>
-        <td />
+        <td>Reference to DatabaseGroup.Id.</td>
       </tr>
       <tr>
         <td>Name</td>
         <td>System.String</td>
-        <td />
+        <td>Monitored database name/label.</td>
       </tr>
       <tr>
         <td>Host</td>
         <td>System.String</td>
-        <td />
+        <td>Host/machine name on which the database is running.</td>
       </tr>
       <tr>
         <td>IP</td>
         <td>System.String</td>
-        <td />
+        <td>IP address on which the database is running.</td>
       </tr>
       <tr>
         <td>Port</td>
         <td>System.String</td>
-        <td />
+        <td>Port on which the database is running.</td>
       </tr>
       <tr>
         <td>Type</td>
         <td>System.String</td>
-        <td />
+        <td>The type of database. Possible values: Unknown, Oracle, SQL Server, DB2, Sybase.</td>
       </tr>
       <tr>
         <td>Version</td>
         <td>System.String</td>
-        <td />
+        <td>The vendor version of this database or "" if version information has not been collected for database.</td>
       </tr>
       <tr>
         <td>VersionSuffix</td>
         <td>System.String</td>
-        <td />
+        <td>Version suffix</td>
       </tr>
       <tr>
         <td>MonitorStatus</td>
         <td>System.Int32</td>
-        <td />
+        <td>Possible values 0..7. Reference to DPA.MonitorStatus.Id</td>
       </tr>
       <tr>
         <td>MonitorStatusText</td>
         <td>System.String</td>
-        <td />
+        <td>Text representation of MonitorStatus</td>
       </tr>
       <tr>
         <td>IsLicensed</td>
         <td>System.Boolean</td>
-        <td />
+        <td>Flag if DB instance is licensed</td>
       </tr>
       <tr>
         <td>OverallAlarmLevel</td>
         <td>System.Int32</td>
-        <td />
+        <td>Overall alarm level. Max from performance overview.</td>
       </tr>
       <tr>
         <td>DefaultDatabase</td>
         <td>System.String</td>
-        <td />
+        <td>Default database</td>
       </tr>
       <tr>
         <td>OracleSID</td>
         <td>System.String</td>
-        <td />
+        <td>SID for Oracle</td>
       </tr>
       <tr>
         <td>ServiceName</td>
         <td>System.String</td>
-        <td />
+        <td>Service name for Oracle database</td>
       </tr>
       <tr>
         <td>Status</td>
         <td>System.Int32</td>
-        <td />
+        <td>Numerical value of status</td>
       </tr>
       <tr>
         <td>StatusDescription</td>
         <td>System.String</td>
-        <td />
+        <td>Description of status</td>
       </tr>
       <tr>
         <td>DetailsUrl</td>
         <td>System.String</td>
-        <td />
+        <td>DB Instance detail url</td>
       </tr>
       <tr>
         <td>UnManaged</td>
@@ -143,12 +146,12 @@
       <tr>
         <td>DisplayName</td>
         <td>System.String</td>
-        <td />
+        <td>Name of DB instance with name of DPA server monitoring this DB instance</td>
       </tr>
       <tr>
         <td>Description</td>
         <td>System.String</td>
-        <td />
+        <td>Type of DB Instance including version</td>
       </tr>
       <tr>
         <td>Status</td>

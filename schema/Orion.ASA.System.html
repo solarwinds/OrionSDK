@@ -1,0 +1,144 @@
+﻿
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <title>SolarWinds Information Service v3.0 Schema Documentation</title>
+    <link href="SchemaDoc.css" type="text/css" rel="stylesheet" />
+  </head>
+  <body>
+    <h1>SolarWinds Information Service v3.0 Schema Documentation</h1>
+    <p>
+      <a href="index.html">Index</a>
+    </p>
+    <h1>
+      <a name="Orion.ASA.System">Orion.ASA.System</a>
+    </h1>
+    <p>
+        Base type:
+        <a href="System.Entity.html">System.Entity</a></p>
+    <h2>Properties</h2>
+    <table>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Notes</th>
+      </tr>
+      <tr>
+        <td>SystemID</td>
+        <td>System.Int32</td>
+        <td />
+      </tr>
+      <tr>
+        <td>SerialNumber</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>HAType</td>
+        <td>System.Byte</td>
+        <td />
+      </tr>
+      <tr>
+        <td>HARole</td>
+        <td>System.Byte</td>
+        <td />
+      </tr>
+      <tr>
+        <td>ConfigSyncState</td>
+        <td>System.Byte</td>
+        <td />
+      </tr>
+      <tr>
+        <td>ConnectionSyncState</td>
+        <td>System.Byte</td>
+        <td />
+      </tr>
+      <tr>
+        <td>StandbyState</td>
+        <td>System.Byte</td>
+        <td />
+      </tr>
+      <tr>
+        <td>LastFailover</td>
+        <td>System.DateTime</td>
+        <td />
+      </tr>
+      <tr>
+        <td>LastSync</td>
+        <td>System.DateTime</td>
+        <td />
+      </tr>
+      <tr>
+        <td>HATypeDescription</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>HaRoleDescription</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>ConfigSyncStateDescription</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>ConnectionSyncStateDescription</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>StandbyStateDescription</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>DisplayName</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Description</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>InstanceType</td>
+        <td>System.Type</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Uri</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>InstanceSiteId</td>
+        <td>System.Int32</td>
+        <td>
+          Default='0'.
+        </td>
+      </tr>
+      <tr>
+        <td>Node</td>
+        <td>
+          <a href="Orion.ASA.Node.html">Orion.ASA.Node</a>
+        </td>
+        <td>
+        Defined by relationship Orion.ASA.SystemReferencesASANode (System.Reference)
+      </td>
+      </tr>
+      <tr>
+        <td>Context</td>
+        <td>
+          <a href="Orion.ASA.Context.html">Orion.ASA.Context</a>
+        </td>
+        <td>
+        Defined by relationship Orion.ASA.SystemReferencesASAContext (System.Reference)
+      </td>
+      </tr>
+    </table>
+  </body>
+</html>

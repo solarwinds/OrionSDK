@@ -18,6 +18,9 @@
     <p>
         Base type:
         <a href="System.ExtensionEntity.html">System.ExtensionEntity</a></p>
+    <p>
+        Summary:
+        Represents single problem summary in relation to analysis (Advisors)</p>
     <h2>Properties</h2>
     <table>
       <tr>
@@ -28,67 +31,67 @@
       <tr>
         <td>ProblemId</td>
         <td>System.String</td>
-        <td />
+        <td>Unique identifier of the problem.</td>
       </tr>
       <tr>
         <td>AnalysisId</td>
         <td>System.Int32</td>
-        <td />
+        <td>Reference to Analysis (entity not available yet).</td>
       </tr>
       <tr>
         <td>DatabaseId</td>
         <td>System.Int32</td>
-        <td />
+        <td>Reference to Orion.DPA.DatabaseInstance.Id.</td>
       </tr>
       <tr>
         <td>GlobalDatabaseId</td>
         <td>System.Int32</td>
-        <td />
+        <td>Unique ID of database instance in Orion</td>
       </tr>
       <tr>
         <td>Category</td>
         <td>System.String</td>
-        <td />
+        <td>Currently SQL only.</td>
       </tr>
       <tr>
         <td>AlarmLevel</td>
         <td>System.Int32</td>
-        <td />
+        <td>Problem alarm level string (Unknown, Normal, Warning, Critical, None or Freeware)</td>
       </tr>
       <tr>
         <td>Score</td>
         <td>System.Double</td>
-        <td />
+        <td>Score of the problem.</td>
       </tr>
       <tr>
         <td>Item</td>
         <td>System.String</td>
-        <td />
+        <td>Item identifier (e.g. 4845492118).</td>
       </tr>
       <tr>
         <td>ItemDescription</td>
         <td>System.String</td>
-        <td />
+        <td>Item descriprion (e.g. Query 4845492118).</td>
       </tr>
       <tr>
         <td>Summary</td>
         <td>System.String</td>
-        <td />
+        <td>Summary of the problem.</td>
       </tr>
       <tr>
         <td>RunTime</td>
         <td>System.DateTime</td>
-        <td />
+        <td>Run Time of analysis.</td>
       </tr>
       <tr>
         <td>StartTime</td>
         <td>System.DateTime</td>
-        <td />
+        <td>Start Time of analysis. Default is 30 days ago from current time (Now - 30 days).</td>
       </tr>
       <tr>
         <td>EndTime</td>
         <td>System.DateTime</td>
-        <td />
+        <td>End Time of analysis. Default is the current time.</td>
       </tr>
       <tr>
         <td>DisplayName</td>

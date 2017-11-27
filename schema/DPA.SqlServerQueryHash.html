@@ -18,6 +18,9 @@
     <p>
         Base type:
         <a href="System.ExtensionEntity.html">System.ExtensionEntity</a></p>
+    <p>
+        Summary:
+        Provides mapping between SQL Handle and its Hash in scope of the given database instance. Both DatabaseId and Handle are mandatory in where condition.</p>
     <h2>Properties</h2>
     <table>
       <tr>
@@ -28,22 +31,22 @@
       <tr>
         <td>DatabaseId</td>
         <td>System.Int32</td>
-        <td />
+        <td>ID of a monitored instance. References to Orion.DPA.DatabaseInstance.Id</td>
       </tr>
       <tr>
         <td>GlobalDatabaseId</td>
         <td>System.Int32</td>
-        <td />
+        <td>Unique ID of database instance in Orion</td>
       </tr>
       <tr>
         <td>Handle</td>
         <td>System.String</td>
-        <td />
+        <td>SQL Handle</td>
       </tr>
       <tr>
         <td>Hash</td>
         <td>System.Int64</td>
-        <td />
+        <td>SQL Hash</td>
       </tr>
       <tr>
         <td>DisplayName</td>

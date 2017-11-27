@@ -16,18 +16,13 @@
     </h1>
     <p>
         Base type:
-        <a href="Orion.Virtualization.Instance.html">Orion.Virtualization.Instance</a></p>
+        <a href="Orion.Cloud.Instances.html">Orion.Cloud.Instances</a></p>
     <h2>Properties</h2>
     <table>
       <tr>
         <th>Name</th>
         <th>Type</th>
         <th>Notes</th>
-      </tr>
-      <tr>
-        <td>CloudAccountId</td>
-        <td>System.Int32</td>
-        <td />
       </tr>
       <tr>
         <td>CloudRegionId</td>
@@ -40,26 +35,6 @@
         <td />
       </tr>
       <tr>
-        <td>InstanceId</td>
-        <td>System.String</td>
-        <td />
-      </tr>
-      <tr>
-        <td>Type</td>
-        <td>System.String</td>
-        <td />
-      </tr>
-      <tr>
-        <td>State</td>
-        <td>System.String</td>
-        <td />
-      </tr>
-      <tr>
-        <td>Platform</td>
-        <td>System.String</td>
-        <td />
-      </tr>
-      <tr>
         <td>OrionIdPrefix</td>
         <td>System.String</td>
         <td>
@@ -67,25 +42,8 @@
         </td>
       </tr>
       <tr>
-        <td>OrionIdColumn</td>
-        <td>System.String</td>
-        <td>
-          Default='VirtualMachineID'.
-        </td>
-      </tr>
-      <tr>
         <td>DetailsUrl</td>
         <td>System.String</td>
-        <td />
-      </tr>
-      <tr>
-        <td>LastPoll</td>
-        <td>System.DateTime</td>
-        <td />
-      </tr>
-      <tr>
-        <td>LastSuccessfulPoll</td>
-        <td>System.DateTime</td>
         <td />
       </tr>
       <tr>
@@ -95,16 +53,6 @@
       </tr>
       <tr>
         <td>Owner</td>
-        <td>System.String</td>
-        <td />
-      </tr>
-      <tr>
-        <td>VpcId</td>
-        <td>System.String</td>
-        <td />
-      </tr>
-      <tr>
-        <td>KeyPairName</td>
         <td>System.String</td>
         <td />
       </tr>
@@ -144,18 +92,8 @@
         <td />
       </tr>
       <tr>
-        <td>SubnetId</td>
-        <td>System.String</td>
-        <td />
-      </tr>
-      <tr>
         <td>InstanceLaunchTime</td>
         <td>System.DateTime</td>
-        <td />
-      </tr>
-      <tr>
-        <td>ImageId</td>
-        <td>System.String</td>
         <td />
       </tr>
       <tr>
@@ -179,16 +117,6 @@
         <td />
       </tr>
       <tr>
-        <td>PublicDNSName</td>
-        <td>System.String</td>
-        <td />
-      </tr>
-      <tr>
-        <td>PrivateDNSName</td>
-        <td>System.String</td>
-        <td />
-      </tr>
-      <tr>
         <td>SourceDestinationCheck</td>
         <td>System.Boolean</td>
         <td />
@@ -200,6 +128,40 @@
       </tr>
       <tr>
         <td>StateTransitionReason</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>StatusDescription</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Provider</td>
+        <td>System.String</td>
+        <td>
+          Default='Amazon AWS'.
+        </td>
+      </tr>
+      <tr>
+        <td>Region</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>OrionIdColumn</td>
+        <td>System.String</td>
+        <td>
+          Default='VirtualMachineID'.
+        </td>
+      </tr>
+      <tr>
+        <td>CloudAccountId</td>
+        <td>System.Int32</td>
+        <td />
+      </tr>
+      <tr>
+        <td>InstanceId</td>
         <td>System.String</td>
         <td />
       </tr>
@@ -226,6 +188,86 @@
       <tr>
         <td>DiskWriteInBytesPerSecond</td>
         <td>System.Single</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Type</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>StatusLED</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Image</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>State</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>LastPoll</td>
+        <td>System.DateTime</td>
+        <td />
+      </tr>
+      <tr>
+        <td>LastSuccessfulPoll</td>
+        <td>System.DateTime</td>
+        <td />
+      </tr>
+      <tr>
+        <td>SubnetId</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Platform</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>VpcId</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>KeyPairName</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>AutoScalingGroupName</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>ImageId</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>PublicDNSName</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>PrivateDNSName</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Provider</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Region</td>
+        <td>System.String</td>
         <td />
       </tr>
       <tr>
@@ -353,49 +395,49 @@
         </td>
       </tr>
       <tr>
-        <td>CloudRegion</td>
-        <td>
-          <a href="Orion.Cloud.Aws.Regions.html">Orion.Cloud.Aws.Regions</a>
-        </td>
-        <td>
-        Defined by relationship Orion.Cloud.InstanceReferencesAwsRegion (System.Reference)
-      </td>
-      </tr>
-      <tr>
-        <td>CloudAccount</td>
-        <td>
-          <a href="Orion.Cloud.Aws.Accounts.html">Orion.Cloud.Aws.Accounts</a>
-        </td>
-        <td>
-        Defined by relationship Orion.Cloud.InstanceReferencesCloudAccount (System.Reference)
-      </td>
-      </tr>
-      <tr>
-        <td>Statistics</td>
-        <td>
-          <a href="Orion.Cloud.InstanceStatistics.html">Orion.Cloud.InstanceStatistics</a>
-        </td>
-        <td>
-        Defined by relationship Orion.Cloud.InstanceInstanceStatistics (System.Hosting)
-      </td>
-      </tr>
-      <tr>
-        <td>Thresholds</td>
-        <td>
-          <a href="Orion.Cloud.Aws.InstanceThresholds.html">Orion.Cloud.Aws.InstanceThresholds</a>
-        </td>
-        <td>
-        Defined by relationship Orion.VIM.CloudInstancesThresholds (System.Hosting)
-      </td>
-      </tr>
-      <tr>
         <td>Volumes</td>
         <td>
           <a href="Orion.Cloud.Aws.Volumes.html">Orion.Cloud.Aws.Volumes</a>
         </td>
         <td>
-        Defined by relationship Orion.Cloud.Aws.VolumesReferencesInstance (System.Reference)
+        Defined by relationship Orion.Cloud.Aws.InstanceHostsVolumes (System.Hosting)
       </td>
+      </tr>
+      <tr>
+        <td>CloudRegion</td>
+        <td>
+          <a href="Orion.Cloud.Aws.Regions.html">Orion.Cloud.Aws.Regions</a>
+        </td>
+        <td>
+        Defined by relationship Orion.Cloud.AwsRegionReferencesInstances (System.Reference)
+      </td>
+      </tr>
+    </table>
+    <h2>Verbs</h2>
+    <table>
+      <tr>
+        <th>Name</th>
+        <th>Summary</th>
+        <th>Parameters</th>
+        <th>Returns</th>
+      </tr>
+      <tr>
+        <td>ForceStopInstance</td>
+        <td />
+        <td />
+        <td />
+      </tr>
+      <tr>
+        <td>TerminateInstance</td>
+        <td />
+        <td />
+        <td />
+      </tr>
+      <tr>
+        <td>TerminateInstanceAndRemoveNode</td>
+        <td />
+        <td />
+        <td />
       </tr>
     </table>
   </body>

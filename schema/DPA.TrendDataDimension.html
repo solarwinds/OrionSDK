@@ -18,6 +18,9 @@
     <p>
         Base type:
         <a href="System.ExtensionEntity.html">System.ExtensionEntity</a></p>
+    <p>
+        Summary:
+        Trend data for DB instance per dimension</p>
     <h2>Properties</h2>
     <table>
       <tr>
@@ -28,64 +31,65 @@
       <tr>
         <td>DatabaseId</td>
         <td>System.Int32</td>
-        <td />
+        <td>Reference to Orion.DPA.DatabaseInstance.Id. This parameter is not required for data-dimensions 18, 19 and 20 (see bellow – virtual dimensions). On the other hand this parameter can be specified with WHERE Id IN (x, y, z) for these three dimensions</td>
       </tr>
       <tr>
         <td>GlobalDatabaseId</td>
         <td>System.Int32</td>
-        <td />
+        <td>Unique ID of database instance in Orion</td>
       </tr>
       <tr>
         <td>Id</td>
         <td>System.Int32</td>
-        <td />
+        <td>Trend data-dimension; possible values are: SQL (1), WAIT (2), PROGRAM (3), DATABASE_INSTANCE (4), MACHINE (5), DB_USER (6), OS_USER (7), FILE (8), DRIVE (9), PLAN (10), ACTION (11), MODULE (12), PARTITION (13), OBJECT (14), PROCEDURE (15) and virtual dimensions TOP_WAIT (18), TRENDING_UP_WAIT (19), TRENDING_DOWN_WAIT (20)</td>
       </tr>
       <tr>
         <td>Name</td>
         <td>System.String</td>
-        <td />
+        <td>Data-dimension names–readable data-dimension representations: 'SQL Statement', 'Wait-time', 'Program', 'Database', 'Machine', 'Database User', 'O/S User', 'File', 'Drive', 'Plan', 'Action', 'Module', 'Partition', 'Object', 'Procedure', 'Top Wait-time', 'Trending-up Wait-time', 'Trending-down Wait-time'</td>
       </tr>
       <tr>
         <td>Wait</td>
         <td>System.Double</td>
-        <td />
+        <td>Total wait-time in seconds for each returned record. For Trending-up (down) wait-time this value represents percent change (not time)</td>
       </tr>
       <tr>
         <td>AverageWait</td>
         <td>System.Double</td>
         <td>
           Default='0'.
-        </td>
+        Average wait-time in seconds for DB instance</td>
       </tr>
       <tr>
         <td>Time</td>
         <td>System.DateTime</td>
-        <td />
+        <td>Time-stamp of entity record (operators &lt;, &lt;=, &gt; and &gt;= can be used in WHERE clauses on this field)</td>
       </tr>
       <tr>
         <td>TimeUnit</td>
         <td>System.Int32</td>
-        <td />
+        <td>Used for filtration of records by setting desired granularity (millis (0), seconds (1), minutes (2), hours (3), days (4), weeks (5), months (6))
+Since this is only a prototype the only values allowed are 3 (hours) and 4 (days) and both are mutually exclusive (you cannot get records for both hours and days by a single query)</td>
       </tr>
       <tr>
         <td>InstanceId</td>
         <td>System.Int64</td>
-        <td />
+        <td>IDs of an instances in DPA; for programs, machines, users, etc. these are typically generically-generated IDs in local repository table; for SQL texts these are SQL hashes</td>
       </tr>
       <tr>
         <td>InstanceName</td>
         <td>System.String</td>
-        <td />
+        <td>Name of an instance; e.g. 'IGNITE' (for program), 'administrator-XYZ' (for user), 348A3F21 (for SQL text)</td>
       </tr>
       <tr>
         <td>InstanceValue</td>
         <td>System.String</td>
-        <td />
+        <td>Typically set only for SQLs–this field contains full SQL text</td>
       </tr>
       <tr>
         <td>MaxInstances</td>
         <td>System.Int32</td>
-        <td />
+        <td>Serves only to limit the maximal number of monitored database instances to be retrieved (top 5, 10, etc.)</td>
       </tr>
       <tr>
         <td>DisplayName</td>

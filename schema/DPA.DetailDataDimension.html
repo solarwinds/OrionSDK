@@ -18,6 +18,9 @@
     <p>
         Base type:
         <a href="System.ExtensionEntity.html">System.ExtensionEntity</a></p>
+    <p>
+        Summary:
+        Detail Wait Time statistics for DB instance</p>
     <h2>Properties</h2>
     <table>
       <tr>
@@ -28,72 +31,75 @@
       <tr>
         <td>DatabaseId</td>
         <td>System.Int32</td>
-        <td />
+        <td>Reference to Orion.DPA.DatabaseInstance.Id</td>
       </tr>
       <tr>
         <td>GlobalDatabaseId</td>
         <td>System.Int32</td>
-        <td />
+        <td>Unique ID of database instance in Orion</td>
       </tr>
       <tr>
         <td>DimensionId</td>
         <td>System.Int32</td>
-        <td />
+        <td>Detail data-dimension; possible values are: SQL (1), WAIT (2), PROGRAM (3), DATABASE_INSTANCE (4), MACHINE (5), DB_USER (6), OS_USER (7), FILE (8), DRIVE (9), PLAN (10), ACTION (11), MODULE (12), PARTITION (13), OBJECT (14), PROCEDURE (15), SESSION (16)</td>
       </tr>
       <tr>
         <td>InstanceId</td>
         <td>System.String</td>
-        <td />
+        <td>IDs of an instances in DPA; for programs, machines, users, etc. these are typically generically-generated IDs in local repository table; for SQL texts these are SQL hashes</td>
       </tr>
       <tr>
         <td>InstanceName</td>
         <td>System.String</td>
-        <td />
+        <td>Name of an instance; e.g. 'IGNITE' (for program), 'administrator-XYZ' (for user), 348A3F21 (for SQL text)</td>
       </tr>
       <tr>
         <td>TopN</td>
         <td>System.Int32</td>
-        <td />
+        <td>Limits the maximal number of categories (SQLs, programs etc.) to be retrieved for the specified time interval. Ignored for WAIT dimension if the TimesliceUnit is not provided.
+If TopN is not specified, default value is the NUMBER_OF_ITEMS_IN_TIMESERIES_CHART attribute in DPA config for the given monitored database instance.</td>
       </tr>
       <tr>
         <td>InstanceValue</td>
         <td>System.String</td>
-        <td />
+        <td>For SQL time-slice – this field contains full SQL text; For other time-slice dimensions it is empty; For all non time-slice dimensions it contains WAIT cause</td>
       </tr>
       <tr>
         <td>IntervalUnit</td>
         <td>System.Int32</td>
-        <td />
+        <td>Allowed values are 
+HOUR (3), TWO_HOURS (30), THREE_HOURS (31), FOUR_HOURS (32), SIX_HOURS (33), EIGHT_HOURS (34), TWELVE_HOURS (35</td>
       </tr>
       <tr>
         <td>Time</td>
         <td>System.DateTime</td>
-        <td />
+        <td>Time-stamp of entity record (operators &lt;, &lt;=, &gt; and &gt;= can be used in WHERE clauses on this field)</td>
       </tr>
       <tr>
         <td>TimesliceUnit</td>
         <td>System.Int32</td>
-        <td />
+        <td>Specifies how time-frame should be split. Allowed values are (other than ones in IntervalUnit) 
+FIVE_SECONDS (10), TEN_SECONDS (11), FIFTEEN_SECONDS (12), TWENTY_SECONDS (13), THIRTY_SECONDS (14), MINUTE (2), TWO_MINUTES (20), FIVE_MINUTES (21), TEN_MINUTES (22), TWENTY_MINUTES (23), THIRTY_MINUTES (24), TWO_DAYS (40), THREE_DAYS (41)</td>
       </tr>
       <tr>
         <td>Wait</td>
         <td>System.Double</td>
-        <td />
+        <td>Total wait-time in seconds for each returned record</td>
       </tr>
       <tr>
         <td>Executions</td>
         <td>System.Int32</td>
-        <td />
+        <td>Number of Executions for each returned value. Returns 'null' if value is not specified (e.g. Timeslice &lt; 10 min or Dimension &lt;&gt; 1 ), -1 if 'Not Available' (e.g. in Truncate queries), otherwise not negative number</td>
       </tr>
       <tr>
         <td>Average</td>
         <td>System.Double</td>
-        <td />
+        <td>Average in seconds for each returned value. Returns 'null' if value is not specified (e.g. Timeslice &lt; 10 min or Dimension &lt;&gt; 1 ), -1 if 'Not Available' (e.g. in Truncate queries), otherwise not negative number</td>
       </tr>
       <tr>
         <td>MachineIdentifier</td>
         <td>System.String</td>
-        <td />
+        <td>Machine identifier</td>
       </tr>
       <tr>
         <td>DisplayName</td>

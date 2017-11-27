@@ -83,6 +83,31 @@
         <td>Interval after which member releases its resource if it cannot reach other member of a pool do database</td>
       </tr>
       <tr>
+        <td>VirtualHostName</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>VirtualIpAddress</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>DnsIpAddress</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>DnsZone</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>DnsType</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
         <td>DisplayName</td>
         <td>System.String</td>
         <td />
@@ -115,7 +140,7 @@
           <a href="Orion.HA.PoolMembers.html">Orion.HA.PoolMembers</a>
         </td>
         <td>
-        Defined by relationship Orion.HA.PoolHostsPoolMembers (System.Hosting)
+        Defined by relationship Orion.HA.PoolReferencesPoolMembers (System.Reference)
       </td>
       </tr>
       <tr>
@@ -137,8 +162,8 @@
         <th>Returns</th>
       </tr>
       <tr>
-        <td>Create</td>
-        <td>Creates a new Pool with given configuration, members and resources. CanCreateTest verb is called internally.</td>
+        <td>CreatePool</td>
+        <td>Name of a poolInteger array of pool member IDsAdditional properties containing resources configurations.Object which describes, whether pool was created. Property ErrorCode = 0 means that operation was successful. Property Result contains ID of created pool. Property ErrorMessage contains error message in case of error.</td>
         <td>
           <table>
             <tr>
@@ -146,24 +171,24 @@
               <th>Summary</th>
             </tr>
             <tr>
-              <td>poolConfig</td>
-              <td>Object with pool configuration. Object is custom and requires special reference</td>
+              <td>displayName</td>
+              <td>Name of a pool</td>
             </tr>
             <tr>
               <td>poolMembersIds</td>
               <td>Integer array of pool member IDs</td>
             </tr>
             <tr>
-              <td>resourcesConfigs</td>
-              <td>Resources configurations. Array of custom objects which requires special reference</td>
+              <td>properties</td>
+              <td>Additional properties containing resources configurations.</td>
             </tr>
           </table>
         </td>
         <td>Object which describes, whether pool was created. Property ErrorCode = 0 means that operation was successful. Property Result contains ID of created pool. Property ErrorMessage contains error message in case of error.</td>
       </tr>
       <tr>
-        <td>CanCreateTest</td>
-        <td>Check whether new pool can be created e.g. Virtual IP matches the servers subnet, members have static IPv4 configuration in given subnet.</td>
+        <td>EditPool</td>
+        <td>Pool IDName of a poolAdditional properties containing resources configurations.Object which describes, whether pool was edited. Property ErrorCode = 0 means that operation was successful. Property ErrorMessage contains error message in case of error.</td>
         <td>
           <table>
             <tr>
@@ -171,20 +196,70 @@
               <th>Summary</th>
             </tr>
             <tr>
-              <td>poolConfig</td>
-              <td>Object with pool configuration. Object is custom and requires special reference</td>
+              <td>poolId</td>
+              <td>Pool ID</td>
+            </tr>
+            <tr>
+              <td>displayName</td>
+              <td>Name of a pool</td>
+            </tr>
+            <tr>
+              <td>properties</td>
+              <td>Additional properties containing resources configurations.</td>
+            </tr>
+          </table>
+        </td>
+        <td>Object which describes, whether pool was edited. Property ErrorCode = 0 means that operation was successful. Property ErrorMessage contains error message in case of error.</td>
+      </tr>
+      <tr>
+        <td>ValidateCreatePool</td>
+        <td>Name of a poolInteger array of pool member IDsAdditional properties containing resources configurations.Object which contains validation result. Property ErrorCode = 0 means that validation was successful. Property Result contains validation result data. Property ErrorMessage contains error message in case of error.</td>
+        <td>
+          <table>
+            <tr>
+              <th>Name</th>
+              <th>Summary</th>
+            </tr>
+            <tr>
+              <td>displayName</td>
+              <td>Name of a pool</td>
             </tr>
             <tr>
               <td>poolMembersIds</td>
               <td>Integer array of pool member IDs</td>
             </tr>
             <tr>
-              <td>resourcesConfigs</td>
-              <td>Resources configurations. Array of custom objects which requires special reference</td>
+              <td>properties</td>
+              <td>Additional properties containing resources configurations.</td>
             </tr>
           </table>
         </td>
-        <td>Object which describes, whether pool can be created. Property ErrorCode = 0 means that pool can be created. Property ErrorMessage contains error message in case of error.</td>
+        <td>Object which contains validation result. Property ErrorCode = 0 means that validation was successful. Property Result contains validation result data. Property ErrorMessage contains error message in case of error.</td>
+      </tr>
+      <tr>
+        <td>ValidateEditPool</td>
+        <td>Pool IDName of a poolAdditional properties containing resources configurations.Object which contains validation result. Property ErrorCode = 0 means that validation was successful. Property Result contains validation result data. Property ErrorMessage contains error message in case of error.</td>
+        <td>
+          <table>
+            <tr>
+              <th>Name</th>
+              <th>Summary</th>
+            </tr>
+            <tr>
+              <td>poolId</td>
+              <td>Pool ID</td>
+            </tr>
+            <tr>
+              <td>displayName</td>
+              <td>Name of a pool</td>
+            </tr>
+            <tr>
+              <td>properties</td>
+              <td>Additional properties containing resources configurations.</td>
+            </tr>
+          </table>
+        </td>
+        <td>Object which contains validation result. Property ErrorCode = 0 means that validation was successful. Property Result contains validation result data. Property ErrorMessage contains error message in case of error.</td>
       </tr>
       <tr>
         <td>EnablePool</td>
@@ -222,24 +297,7 @@
       </tr>
       <tr>
         <td>DeletePool</td>
-        <td>Delete pool with given poolId. Check for main engine having license store is performed.</td>
-        <td>
-          <table>
-            <tr>
-              <th>Name</th>
-              <th>Summary</th>
-            </tr>
-            <tr>
-              <td>poolId</td>
-              <td>ID of pool</td>
-            </tr>
-          </table>
-        </td>
-        <td>Object which describes, whether pool was deleted. Property ErrorCode = 0 means that operation was successful. Property ErrorMessage contains error message in case of error.</td>
-      </tr>
-      <tr>
-        <td>ForceDeletePool</td>
-        <td>Delete pool with given poolId. Check for main engine having license store is NOT performed.</td>
+        <td>Delete pool with given poolId.</td>
         <td>
           <table>
             <tr>
@@ -270,6 +328,23 @@
           </table>
         </td>
         <td>Object which describes, whether manual failover was initiated. Property ErrorCode = 0 means that operation was successful. Property ErrorMessage contains error message in case of error.</td>
+      </tr>
+      <tr>
+        <td>DeleteStaleEngine</td>
+        <td>Sets interval after which pool member is considered as DOWN.</td>
+        <td>
+          <table>
+            <tr>
+              <th>Name</th>
+              <th>Summary</th>
+            </tr>
+            <tr>
+              <td>hostName</td>
+              <td>hostName</td>
+            </tr>
+          </table>
+        </td>
+        <td>Object which describes, whether stale engine was deleted. Property ErrorCode = 0 means that operation was successful. Property ErrorMessage contains error message in case of error.</td>
       </tr>
     </table>
   </body>

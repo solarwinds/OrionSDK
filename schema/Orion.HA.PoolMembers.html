@@ -35,7 +35,7 @@
       <tr>
         <td>PoolMemberType</td>
         <td>System.String</td>
-        <td>Type of pool member (MainPoller, MainPollerStandby, AdditionalPoller, AdditionalPollerStandby</td>
+        <td>Type of pool member (MainPoller, MainPollerStandby, AdditionalPoller, AdditionalPollerStandby)</td>
       </tr>
       <tr>
         <td>PoolId</td>
@@ -53,6 +53,11 @@
         <td>Pool master election priority</td>
       </tr>
       <tr>
+        <td>Priority</td>
+        <td>System.Int32</td>
+        <td>Pool member preference</td>
+      </tr>
+      <tr>
         <td>PreferredStatus</td>
         <td>System.Int32</td>
         <td>Preferred status of member - the status HA service or user want member to be</td>
@@ -66,6 +71,26 @@
         <td>LastHeartBeatTimestamp</td>
         <td>System.DateTime</td>
         <td>Timestamp of last heart beat</td>
+      </tr>
+      <tr>
+        <td>PrimaryIpAddress</td>
+        <td>System.String</td>
+        <td>Pool member primary IP address</td>
+      </tr>
+      <tr>
+        <td>ReasonOfFail</td>
+        <td>System.Int32</td>
+        <td>Reason of last failure (0 - ResourceFail, 1 - FacilityFail, 2 - NotResponding, 3- SuicideRule, 4 - Switchover, 5 - Failback)</td>
+      </tr>
+      <tr>
+        <td>StatusMessage</td>
+        <td>System.String</td>
+        <td>Description of last failure</td>
+      </tr>
+      <tr>
+        <td>DetailsUrl</td>
+        <td>System.String</td>
+        <td />
       </tr>
       <tr>
         <td>DisplayName</td>
@@ -145,7 +170,7 @@
           <a href="Orion.HA.Pools.html">Orion.HA.Pools</a>
         </td>
         <td>
-        Defined by relationship Orion.HA.PoolHostsPoolMembers (System.Hosting)
+        Defined by relationship Orion.HA.PoolReferencesPoolMembers (System.Reference)
       </td>
       </tr>
     </table>

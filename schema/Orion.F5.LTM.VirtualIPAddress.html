@@ -1,0 +1,153 @@
+﻿
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <title>SolarWinds Information Service v3.0 Schema Documentation</title>
+    <link href="SchemaDoc.css" type="text/css" rel="stylesheet" />
+  </head>
+  <body>
+    <h1>SolarWinds Information Service v3.0 Schema Documentation</h1>
+    <p>
+      <a href="index.html">Index</a>
+    </p>
+    <h1>
+      <a name="Orion.F5.LTM.VirtualIPAddress">Orion.F5.LTM.VirtualIPAddress</a>
+    </h1>
+    <p>
+        Base type:
+        <a href="System.Entity.html">System.Entity</a></p>
+    <h2>Properties</h2>
+    <table>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Notes</th>
+      </tr>
+      <tr>
+        <td>IPAddressID</td>
+        <td>System.Int32</td>
+        <td />
+      </tr>
+      <tr>
+        <td>IPAddressIndex</td>
+        <td>System.Int32</td>
+        <td />
+      </tr>
+      <tr>
+        <td>NodeID</td>
+        <td>System.Int32</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Name</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>IPAddress</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Enabled</td>
+        <td>System.Byte</td>
+        <td />
+      </tr>
+      <tr>
+        <td>F5Status</td>
+        <td>System.Byte</td>
+        <td />
+      </tr>
+      <tr>
+        <td>F5StatusReason</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>OrionStatus</td>
+        <td>System.Byte</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Description</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>ShortName</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>F5StatusDescription</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>OrionStatusDescription</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>EnabledDescription</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>DisplayName</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Description</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>InstanceType</td>
+        <td>System.Type</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Uri</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>InstanceSiteId</td>
+        <td>System.Int32</td>
+        <td>
+          Default='0'.
+        </td>
+      </tr>
+      <tr>
+        <td>VirtualServer</td>
+        <td>
+          <a href="Orion.F5.LTM.VirtualServer.html">Orion.F5.LTM.VirtualServer</a>
+        </td>
+        <td>
+        Defined by relationship Orion.F5VirtualIPAddressReferenceVirtualServer (System.Reference)
+      </td>
+      </tr>
+      <tr>
+        <td>Device</td>
+        <td>
+          <a href="Orion.F5.System.Device.html">Orion.F5.System.Device</a>
+        </td>
+        <td>
+        Defined by relationship Orion.F5DeviceReferencesVirtualIPAddresses (System.Reference)
+      </td>
+      </tr>
+      <tr>
+        <td>LTM</td>
+        <td>
+          <a href="Orion.F5.System.ModuleLTM.html">Orion.F5.System.ModuleLTM</a>
+        </td>
+        <td>
+        Defined by relationship Orion.F5LTMReferencesVirtualIPAddresses (System.Reference)
+      </td>
+      </tr>
+    </table>
+  </body>
+</html>

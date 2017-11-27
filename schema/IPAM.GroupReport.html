@@ -70,6 +70,11 @@
         <td />
       </tr>
       <tr>
+        <td>IPsAllocated</td>
+        <td>System.Double</td>
+        <td />
+      </tr>
+      <tr>
         <td>FriendlyName</td>
         <td>System.String</td>
         <td />
@@ -122,6 +127,11 @@
       <tr>
         <td>PercentUsed</td>
         <td>System.Decimal</td>
+        <td />
+      </tr>
+      <tr>
+        <td>PercentageUsed</td>
+        <td>System.Double</td>
         <td />
       </tr>
       <tr>
@@ -215,6 +225,46 @@
         <td />
       </tr>
       <tr>
+        <td>NodeId</td>
+        <td>System.Int32</td>
+        <td />
+      </tr>
+      <tr>
+        <td>GroupTypeN</td>
+        <td>System.Int32</td>
+        <td />
+      </tr>
+      <tr>
+        <td>DetailsUrl</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>SubnetID</td>
+        <td>System.Int32</td>
+        <td />
+      </tr>
+      <tr>
+        <td>GroupStatus</td>
+        <td>System.Int32</td>
+        <td />
+      </tr>
+      <tr>
+        <td>AccountID</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Role</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Distance</td>
+        <td>System.Int32</td>
+        <td />
+      </tr>
+      <tr>
         <td>DisplayName</td>
         <td>System.String</td>
         <td />
@@ -240,6 +290,69 @@
         <td>
           Default='0'.
         </td>
+      </tr>
+      <tr>
+        <td>Node</td>
+        <td>
+          <a href="Orion.Nodes.html">Orion.Nodes</a>
+        </td>
+        <td>
+        Defined by relationship IPAM.GroupReportNodes (System.Reference)
+      </td>
+      </tr>
+      <tr>
+        <td>DhcpServer</td>
+        <td>
+          <a href="IPAM.DhcpServer.html">IPAM.DhcpServer</a>
+        </td>
+        <td>
+        Defined by relationship IPAM.GroupReportDhcpServer (System.Reference)
+      </td>
+      </tr>
+      <tr>
+        <td>NodeScope</td>
+        <td>
+          <a href="IPAM.DhcpScope.html">IPAM.DhcpScope</a>
+        </td>
+        <td>
+        Defined by relationship IPAM.GroupReportScope (System.Reference)
+      </td>
+      </tr>
+      <tr>
+        <td>NodeDns</td>
+        <td>
+          <a href="IPAM.DnsServer.html">IPAM.DnsServer</a>
+        </td>
+        <td>
+        Defined by relationship IPAM.GroupReportDns (System.Reference)
+      </td>
+      </tr>
+      <tr>
+        <td>ZoneDetail</td>
+        <td>
+          <a href="IPAM.DnsZone.html">IPAM.DnsZone</a>
+        </td>
+        <td>
+        Defined by relationship IPAM.GroupReportDnsZoneDetails (System.Reference)
+      </td>
+      </tr>
+      <tr>
+        <td>Custom</td>
+        <td>
+          <a href="IPAM.GroupNodeAttr.html">IPAM.GroupNodeAttr</a>
+        </td>
+        <td>
+        Defined by relationship IPAM.GroupNodeAttrGroupReport (System.Reference)
+      </td>
+      </tr>
+      <tr>
+        <td>IPNodeReportGroupReport</td>
+        <td>
+          <a href="IPAM.IPNodeReport.html">IPAM.IPNodeReport</a>
+        </td>
+        <td>
+        Defined by relationship IPAM.IPNodeGroupReport (System.Reference)
+      </td>
       </tr>
     </table>
   </body>

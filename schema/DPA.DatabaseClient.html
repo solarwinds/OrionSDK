@@ -18,6 +18,9 @@
     <p>
         Base type:
         <a href="System.ExtensionEntity.html">System.ExtensionEntity</a></p>
+    <p>
+        Summary:
+        Provides mapping between machine (client) (identified by its address) and monitored DB instance (identified by its ID).</p>
     <h2>Properties</h2>
     <table>
       <tr>
@@ -28,22 +31,22 @@
       <tr>
         <td>Address</td>
         <td>System.String</td>
-        <td />
+        <td>Address of a machine that accessed monitored instance during the provided time period</td>
       </tr>
       <tr>
         <td>DatabaseId</td>
         <td>System.Int32</td>
-        <td />
+        <td>ID of a monitored instance. References to Orion.DPA.DatabaseInstance.Id</td>
       </tr>
       <tr>
         <td>GlobalDatabaseId</td>
         <td>System.Int32</td>
-        <td />
+        <td>Unique ID of database instance in Orion</td>
       </tr>
       <tr>
         <td>Time</td>
         <td>System.DateTime</td>
-        <td />
+        <td>Definition of Time interval for which we want to find mappings (operators &lt;, &lt;=, &gt; and &gt;= can be used in WHERE clauses on this field) Turns into last seen date in result set.</td>
       </tr>
       <tr>
         <td>DisplayName</td>

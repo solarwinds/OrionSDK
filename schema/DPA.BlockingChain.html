@@ -18,6 +18,9 @@
     <p>
         Base type:
         <a href="System.ExtensionEntity.html">System.ExtensionEntity</a></p>
+    <p>
+        Summary:
+        The entity represents trees of blocker-blockee relationship as in the "Blockers" tab in the UI</p>
     <h2>Properties</h2>
     <table>
       <tr>
@@ -28,37 +31,37 @@
       <tr>
         <td>DatabaseId</td>
         <td>System.Int32</td>
-        <td />
+        <td>Reference to Orion.DPA.DatabaseInstance.Id.</td>
       </tr>
       <tr>
         <td>GlobalDatabaseId</td>
         <td>System.Int32</td>
-        <td />
+        <td>Unique ID of database instance in Orion</td>
       </tr>
       <tr>
         <td>ChainNumber</td>
         <td>System.Int32</td>
-        <td />
+        <td>Identifies rows belonging to the same blocker-blockee tree. This value is generated with each request, so it is not guaranteed that the same blocker/blockee tree will have the same ChainNumber in two SWQL results.</td>
       </tr>
       <tr>
         <td>SessionId</td>
         <td>System.String</td>
-        <td />
+        <td>Session Id.</td>
       </tr>
       <tr>
         <td>BlockedBySession</td>
         <td>System.String</td>
-        <td />
+        <td>SessionId of the session that blocked this session. Is NULL if this session is the root blocker of the blocker-blockee tree identified by RootSessionId.</td>
       </tr>
       <tr>
         <td>WaitTimeSecs</td>
         <td>System.Double</td>
-        <td />
+        <td>Number of seconds the session spent waiting in the particular blocking chain because it was (transitively) blocked by the root session. This value is 0 for the root session (it is not blocked by itself).</td>
       </tr>
       <tr>
         <td>Time</td>
         <td>System.DateTime</td>
-        <td />
+        <td>Beginning and end of the interval for which we want to know the blockers and blockees (operators &lt;, &lt;=, &gt; and &gt;= can be used in WHERE clauses on this field). End defaults to now.</td>
       </tr>
       <tr>
         <td>DisplayName</td>

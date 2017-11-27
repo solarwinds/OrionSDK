@@ -18,6 +18,9 @@
     <p>
         Base type:
         <a href="System.ExtensionEntity.html">System.ExtensionEntity</a></p>
+    <p>
+        Summary:
+        Provides data-points of DB resources. It has single parameter that is required (DatabaseId) and two more that specifies what data will be returned for a given query. If one specifies both ResourceName and CategoryName in a WHERE clause than result set will contain single-resource data-points for specified time-frame (or default time-frame if Time property was not limited in WHERE clause). If at least one of these two parameters is missing than the result set will contain multiple-metric data-points limited by one data-point per metric (i.e. result set will contain a set of last data-point collected for each metric, if such data-point exists in last 60 minutes)</p>
     <h2>Properties</h2>
     <table>
       <tr>
@@ -28,42 +31,42 @@
       <tr>
         <td>DatabaseId</td>
         <td>System.Int32</td>
-        <td />
+        <td>Specifies for which DB instance should resource data-points be fetched. Reference to Orion.DPA.DatabaseInstance.Id</td>
       </tr>
       <tr>
         <td>GlobalDatabaseId</td>
         <td>System.Int32</td>
-        <td />
+        <td>Unique ID of database instance in Orion</td>
       </tr>
       <tr>
         <td>ResourceName</td>
         <td>System.String</td>
-        <td />
+        <td>Specifies a name of a resource (e.g. Active Sessions, Memory Utilization, Signal Waits Percent) that must be equal to one of the records from DPA.ResourceDefinition.Name</td>
       </tr>
       <tr>
         <td>CategoryName</td>
         <td>System.String</td>
-        <td />
+        <td>Specifies a name of a category a resource belongs (e.g. CPU, Memory, Sessions) that must be equal to one of the records from DPA.ResourceDefinition.CategoryName</td>
       </tr>
       <tr>
         <td>Time</td>
         <td>System.DateTime</td>
-        <td />
+        <td>Specifies a time of a data-point</td>
       </tr>
       <tr>
         <td>Value</td>
         <td>System.Double</td>
-        <td />
+        <td>Specifies a double-precision value of this data-point in given time</td>
       </tr>
       <tr>
         <td>TimeUnit</td>
         <td>System.Int32</td>
-        <td />
+        <td>Specifies a time-frame for which data-points should be fetched. If both Time &gt; ABC and Time &lt; XYZ are specified in WHERE clause this property will be ignored. It can take one of the following values: hour (3), day (4), week (5), month (6), six moths (61) or year (7). If Time is limited only by one side (&lt; or &gt;) than a time-frame will be specified as Time-TimeUnit to Time respectively Time to Time+TimeUnit</td>
       </tr>
       <tr>
         <td>TimesliceUnit</td>
         <td>System.Int32</td>
-        <td />
+        <td>Force granularity of records within Time interval (by default there is auto detection based on the Time interval), supported values: as collected ('-1'), ten minutes (22), hour (3), day (4)</td>
       </tr>
       <tr>
         <td>DisplayName</td>

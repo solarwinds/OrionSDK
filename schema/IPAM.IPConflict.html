@@ -1,0 +1,120 @@
+﻿
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <title>SolarWinds Information Service v3.0 Schema Documentation</title>
+    <link href="SchemaDoc.css" type="text/css" rel="stylesheet" />
+  </head>
+  <body>
+    <h1>SolarWinds Information Service v3.0 Schema Documentation</h1>
+    <p>
+      <a href="index.html">Index</a>
+    </p>
+    <h1>
+      <a name="IPAM.IPConflict">IPAM.IPConflict</a>
+    </h1>
+    <p>
+        Base type:
+        <a href="System.Entity.html">System.Entity</a></p>
+    <h2>Properties</h2>
+    <table>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Notes</th>
+      </tr>
+      <tr>
+        <td>IPNodeId</td>
+        <td>System.Int32</td>
+        <td />
+      </tr>
+      <tr>
+        <td>IPAddress</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>ActiveConflicts</td>
+        <td>System.Int32</td>
+        <td />
+      </tr>
+      <tr>
+        <td>IPConflictMsg</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>FirstSeenUTC</td>
+        <td>System.DateTime</td>
+        <td />
+      </tr>
+      <tr>
+        <td>LastSeenUTC</td>
+        <td>System.DateTime</td>
+        <td />
+      </tr>
+      <tr>
+        <td>DetailsUrl</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>AccountID</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Role</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>GroupType</td>
+        <td>System.Int32</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Status</td>
+        <td>System.Int32</td>
+        <td />
+      </tr>
+      <tr>
+        <td>DisplayName</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Description</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>InstanceType</td>
+        <td>System.Type</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Uri</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>InstanceSiteId</td>
+        <td>System.Int32</td>
+        <td>
+          Default='0'.
+        </td>
+      </tr>
+      <tr>
+        <td>IPConflictNode</td>
+        <td>
+          <a href="IPAM.IPNodeReport.html">IPAM.IPNodeReport</a>
+        </td>
+        <td>
+        Defined by relationship IPAM.IPConflictNode (System.Reference)
+      </td>
+      </tr>
+    </table>
+  </body>
+</html>

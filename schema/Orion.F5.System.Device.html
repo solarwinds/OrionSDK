@@ -1,0 +1,313 @@
+﻿
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <title>SolarWinds Information Service v3.0 Schema Documentation</title>
+    <link href="SchemaDoc.css" type="text/css" rel="stylesheet" />
+  </head>
+  <body>
+    <h1>SolarWinds Information Service v3.0 Schema Documentation</h1>
+    <p>
+      <a href="index.html">Index</a>
+    </p>
+    <h1>
+      <a name="Orion.F5.System.Device">Orion.F5.System.Device</a>
+    </h1>
+    <p>
+        Base type:
+        <a href="System.Entity.html">System.Entity</a></p>
+    <h2>Properties</h2>
+    <table>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Notes</th>
+      </tr>
+      <tr>
+        <td>NodeID</td>
+        <td>System.Int32</td>
+        <td />
+      </tr>
+      <tr>
+        <td>LastSync</td>
+        <td>System.DateTime</td>
+        <td />
+      </tr>
+      <tr>
+        <td>ProductName</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>ProductVersion</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>ProductBuild</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>ProductEdition</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>SerialNumber</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>CPUActive</td>
+        <td>System.Int32</td>
+        <td />
+      </tr>
+      <tr>
+        <td>CPUTotal</td>
+        <td>System.Int32</td>
+        <td />
+      </tr>
+      <tr>
+        <td>IsInMaintenanceMode</td>
+        <td>System.Boolean</td>
+        <td />
+      </tr>
+      <tr>
+        <td>IsRedundant</td>
+        <td>System.Boolean</td>
+        <td />
+      </tr>
+      <tr>
+        <td>FailoverStatus</td>
+        <td>System.Byte</td>
+        <td />
+      </tr>
+      <tr>
+        <td>FailoverStatusDescription</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>FailoverStatusColor</td>
+        <td>System.Byte</td>
+        <td />
+      </tr>
+      <tr>
+        <td>SyncStatus</td>
+        <td>System.Byte</td>
+        <td />
+      </tr>
+      <tr>
+        <td>SyncStatusDescription</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>SyncStatusColor</td>
+        <td>System.Byte</td>
+        <td />
+      </tr>
+      <tr>
+        <td>In_Throughput</td>
+        <td>System.Single</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Out_Throughput</td>
+        <td>System.Single</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Connections</td>
+        <td>System.Single</td>
+        <td />
+      </tr>
+      <tr>
+        <td>ConnectionsNew</td>
+        <td>System.Single</td>
+        <td />
+      </tr>
+      <tr>
+        <td>ConnectionsSSL</td>
+        <td>System.Single</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Description</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>DetailsUrl</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>LastApiPollingError</td>
+        <td>System.Int32</td>
+        <td />
+      </tr>
+      <tr>
+        <td>IsPollerEnabled</td>
+        <td>System.Boolean</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Caption</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>DisplayName</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>DisplayName</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Description</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>InstanceType</td>
+        <td>System.Type</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Uri</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>InstanceSiteId</td>
+        <td>System.Int32</td>
+        <td>
+          Default='0'.
+        </td>
+      </tr>
+      <tr>
+        <td>Stats</td>
+        <td>
+          <a href="Orion.F5.System.DeviceStats.html">Orion.F5.System.DeviceStats</a>
+        </td>
+        <td>
+        Defined by relationship Orion.F5.DeviceHostsDeviceStats (System.Hosting)
+      </td>
+      </tr>
+      <tr>
+        <td>Modules</td>
+        <td>
+          <a href="Orion.F5.System.Module.html">Orion.F5.System.Module</a>
+        </td>
+        <td>
+        Defined by relationship Orion.F5DeviceHostsModules (System.Hosting)
+      </td>
+      </tr>
+      <tr>
+        <td>VLANs</td>
+        <td>
+          <a href="Orion.F5.System.VLAN.html">Orion.F5.System.VLAN</a>
+        </td>
+        <td>
+        Defined by relationship Orion.F5DeviceHostsVLANs (System.Hosting)
+      </td>
+      </tr>
+      <tr>
+        <td>Failovers</td>
+        <td>
+          <a href="Orion.F5.System.Failover.html">Orion.F5.System.Failover</a>
+        </td>
+        <td>
+        Defined by relationship Orion.F5DeviceHostsFailover (System.Hosting)
+      </td>
+      </tr>
+      <tr>
+        <td>VirtualServers</td>
+        <td>
+          <a href="Orion.F5.LTM.VirtualServer.html">Orion.F5.LTM.VirtualServer</a>
+        </td>
+        <td>
+        Defined by relationship Orion.F5DeviceHostsVirtualServers (System.Hosting)
+      </td>
+      </tr>
+      <tr>
+        <td>Pools</td>
+        <td>
+          <a href="Orion.F5.LTM.Pool.html">Orion.F5.LTM.Pool</a>
+        </td>
+        <td>
+        Defined by relationship Orion.F5DeviceHostsLTMPools (System.Hosting)
+      </td>
+      </tr>
+      <tr>
+        <td>F5Servers</td>
+        <td>
+          <a href="Orion.F5.LTM.Server.html">Orion.F5.LTM.Server</a>
+        </td>
+        <td>
+        Defined by relationship Orion.F5DeviceReferencesF5Servers (System.Hosting)
+      </td>
+      </tr>
+      <tr>
+        <td>VirtualIPAddresses</td>
+        <td>
+          <a href="Orion.F5.LTM.VirtualIPAddress.html">Orion.F5.LTM.VirtualIPAddress</a>
+        </td>
+        <td>
+        Defined by relationship Orion.F5DeviceReferencesVirtualIPAddresses (System.Reference)
+      </td>
+      </tr>
+      <tr>
+        <td>WideIPs</td>
+        <td>
+          <a href="Orion.F5.GTM.WideIP.html">Orion.F5.GTM.WideIP</a>
+        </td>
+        <td>
+        Defined by relationship Orion.F5DeviceHostsWideIP (System.Hosting)
+      </td>
+      </tr>
+      <tr>
+        <td>Node</td>
+        <td>
+          <a href="Orion.Nodes.html">Orion.Nodes</a>
+        </td>
+        <td>
+        Defined by relationship Orion.NodeHostsF5Device (System.Hosting)
+      </td>
+      </tr>
+    </table>
+    <h2>Verbs</h2>
+    <table>
+      <tr>
+        <th>Name</th>
+        <th>Summary</th>
+        <th>Parameters</th>
+        <th>Returns</th>
+      </tr>
+      <tr>
+        <td>TestApiPolling</td>
+        <td />
+        <td />
+        <td />
+      </tr>
+      <tr>
+        <td>EnableApiPolling</td>
+        <td />
+        <td />
+        <td />
+      </tr>
+      <tr>
+        <td>DisableApiPolling</td>
+        <td />
+        <td />
+        <td />
+      </tr>
+    </table>
+  </body>
+</html>

@@ -18,6 +18,9 @@
     <p>
         Base type:
         <a href="System.Entity.html">System.Entity</a></p>
+    <p>
+        Summary:
+        Base entity holding recommendations information.</p>
     <h2>Properties</h2>
     <table>
       <tr>
@@ -56,6 +59,11 @@
         <td />
       </tr>
       <tr>
+        <td>JobID</td>
+        <td>System.Guid</td>
+        <td />
+      </tr>
+      <tr>
         <td>Status</td>
         <td>System.String</td>
         <td />
@@ -68,6 +76,16 @@
       <tr>
         <td>RecommendationKind</td>
         <td>System.Int32</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Tags</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>StrategyID</td>
+        <td>System.Guid</td>
         <td />
       </tr>
       <tr>
@@ -122,6 +140,15 @@
         </td>
         <td>
         Defined by relationship Orion.Recommendations.RecommendationsBaseReferencesBatch (System.Reference)
+      </td>
+      </tr>
+      <tr>
+        <td>Strategy</td>
+        <td>
+          <a href="Orion.Recommendations.Strategies.html">Orion.Recommendations.Strategies</a>
+        </td>
+        <td>
+        Defined by relationship Orion.Recommendations.RecommendationsToStrategies (System.Reference)
       </td>
       </tr>
     </table>

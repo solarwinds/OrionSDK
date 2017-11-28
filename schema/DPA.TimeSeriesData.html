@@ -12,14 +12,14 @@
       <a href="index.html">Index</a>
     </p>
     <h1>
-      <a name="DPA.ProblemSummary">DPA.ProblemSummary</a>
+      <a name="DPA.TimeSeriesData">DPA.TimeSeriesData</a>
     </h1>
     <p>
         Base type:
-        <a href="System.ExtensionEntity.html">System.ExtensionEntity</a></p>
+        <a href="System.StatisticsEntity.html">System.StatisticsEntity</a></p>
     <p>
         Summary:
-        Represents single problem summary in relation to analysis (Advisors)</p>
+        PerfStack compatible metric data</p>
     <h2>Properties</h2>
     <table>
       <tr>
@@ -28,69 +28,66 @@
         <th>Notes</th>
       </tr>
       <tr>
-        <td>ProblemId</td>
+        <td>DatabaseInstanceID</td>
+        <td>System.Int32</td>
+        <td>ID of Database Instance</td>
+      </tr>
+      <tr>
+        <td>GlobalDatabaseInstanceID</td>
+        <td>System.Int32</td>
+        <td>Unique ID of Database Instance</td>
+      </tr>
+      <tr>
+        <td>CategoryName</td>
         <td>System.String</td>
-        <td>Unique identifier of the problem.</td>
+        <td>Name of a category a resource belongs (e.g. CPU, Memory, Sessions) that must be equal to one of the records from DPA.TimeSeriesDefinition.CategoryName</td>
       </tr>
       <tr>
-        <td>AnalysisId</td>
-        <td>System.Int32</td>
-        <td>Reference to Analysis (entity not available yet).</td>
-      </tr>
-      <tr>
-        <td>DatabaseId</td>
-        <td>System.Int32</td>
-        <td>Reference to Orion.DPA.DatabaseInstance.Id.</td>
-      </tr>
-      <tr>
-        <td>GlobalDatabaseId</td>
-        <td>System.Int32</td>
-        <td>Unique ID of database instance in Orion</td>
-      </tr>
-      <tr>
-        <td>Category</td>
+        <td>MetricName</td>
         <td>System.String</td>
-        <td>Currently SQL only.</td>
+        <td>Name of a metric (e.g. ActiveSessions, MemoryUtilization, SignalWaitsPercent) that must be equal to one of the records from DPA.TimeSeriesDefinition.MetricName</td>
       </tr>
       <tr>
-        <td>AlarmLevel</td>
-        <td>System.Int32</td>
-        <td>Problem alarm level string (Unknown, Normal, Warning, Critical, None or Freeware)</td>
-      </tr>
-      <tr>
-        <td>Score</td>
+        <td>Value</td>
         <td>System.Double</td>
-        <td>Score of the problem.</td>
+        <td>Double-precision value of this data-point in given time</td>
       </tr>
       <tr>
-        <td>Item</td>
-        <td>System.String</td>
-        <td>Item identifier (e.g. 4845492118).</td>
+        <td>Weight</td>
+        <td>System.Double</td>
+        <td>Specifies for which time frime this data point is applicable in seconds</td>
       </tr>
       <tr>
-        <td>ItemDescription</td>
-        <td>System.String</td>
-        <td>Item descriprion (e.g. Query 4845492118).</td>
-      </tr>
-      <tr>
-        <td>Summary</td>
-        <td>System.String</td>
-        <td>Summary of the problem.</td>
-      </tr>
-      <tr>
-        <td>RunTime</td>
+        <td>ObservationTimestamp</td>
         <td>System.DateTime</td>
-        <td>Run Time of analysis.</td>
+        <td>Timestamp of data-point</td>
       </tr>
       <tr>
-        <td>StartTime</td>
-        <td>System.DateTime</td>
-        <td>Start Time of analysis. Default is 30 days ago from current time (Now - 30 days).</td>
+        <td>Label</td>
+        <td>System.String</td>
+        <td>Label of given data point for Wait-Time based metrics</td>
       </tr>
       <tr>
-        <td>EndTime</td>
+        <td>Rank</td>
+        <td>System.Int32</td>
+        <td>Order of label in legend and chart</td>
+      </tr>
+      <tr>
+        <td>ObservationTimestamp</td>
         <td>System.DateTime</td>
-        <td>End Time of analysis. Default is the current time.</td>
+        <td />
+      </tr>
+      <tr>
+        <td>ObservationFrequency</td>
+        <td>System.DateTime</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Weight</td>
+        <td>System.Double</td>
+        <td>
+          Default='1.0'.
+        </td>
       </tr>
       <tr>
         <td>DisplayName</td>
@@ -125,7 +122,7 @@
           <a href="Orion.DPA.DatabaseInstance.html">Orion.DPA.DatabaseInstance</a>
         </td>
         <td>
-        Defined by relationship Orion.DatabaseInstanceProblemSummary (System.Reference)
+        Defined by relationship Orion.DatabaseInstanceTimeSeriesData (System.Reference)
       </td>
       </tr>
     </table>

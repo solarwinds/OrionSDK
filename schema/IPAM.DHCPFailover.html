@@ -12,14 +12,11 @@
       <a href="index.html">Index</a>
     </p>
     <h1>
-      <a name="DPA.BlockingOverview">DPA.BlockingOverview</a>
+      <a name="IPAM.DHCPFailover">IPAM.DHCPFailover</a>
     </h1>
     <p>
         Base type:
-        <a href="System.ExtensionEntity.html">System.ExtensionEntity</a></p>
-    <p>
-        Summary:
-        Blocking/Blocked time data</p>
+        <a href="System.Entity.html">System.Entity</a></p>
     <h2>Properties</h2>
     <table>
       <tr>
@@ -28,44 +25,84 @@
         <th>Notes</th>
       </tr>
       <tr>
-        <td>DatabaseId</td>
+        <td>FailoverId</td>
         <td>System.Int32</td>
-        <td>Reference to Orion.DPA.DatabaseInstance.Id.</td>
+        <td />
       </tr>
       <tr>
-        <td>GlobalDatabaseId</td>
+        <td>PrimaryServer</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>SecondaryServer</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Mode</td>
         <td>System.Int32</td>
-        <td>Unique ID of database instance in Orion</td>
+        <td />
       </tr>
       <tr>
-        <td>BlockingSessions</td>
+        <td>FailoverServerType</td>
         <td>System.Int32</td>
-        <td>Number of blocking sessions within the time slice</td>
+        <td />
       </tr>
       <tr>
-        <td>BlockedSessions</td>
+        <td>State</td>
         <td>System.Int32</td>
-        <td>Number of blocked sessions within the time slice.</td>
+        <td />
       </tr>
       <tr>
-        <td>TotalTimeBlocking</td>
-        <td>System.Double</td>
-        <td>Total blocking time - real time blocking within the time slice.</td>
-      </tr>
-      <tr>
-        <td>TotalTimeBlocked</td>
-        <td>System.Double</td>
-        <td>Total time blocked within the time slice.</td>
-      </tr>
-      <tr>
-        <td>TimesliceUnit</td>
+        <td>PrevState</td>
         <td>System.Int32</td>
-        <td>Specifies how time-frame should be split to time slices.</td>
+        <td />
       </tr>
       <tr>
-        <td>Time</td>
-        <td>System.DateTime</td>
-        <td>Beginning and end of the interval for which we want to know the proeprty values (operators &lt;, &lt;=, &gt; and &gt;= can be used in WHERE clauses on this field). End defaults to now.</td>
+        <td>MaxClientLeadTimeInSeconds</td>
+        <td>System.Int32</td>
+        <td />
+      </tr>
+      <tr>
+        <td>SafePeriodInSeconds</td>
+        <td>System.Int32</td>
+        <td />
+      </tr>
+      <tr>
+        <td>RelationshipName</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>PrimaryServerName</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>SecondaryServerName</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Percentage</td>
+        <td>System.Int32</td>
+        <td />
+      </tr>
+      <tr>
+        <td>SharedSecret</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>ParentId</td>
+        <td>System.Int32</td>
+        <td />
+      </tr>
+      <tr>
+        <td>GroupId</td>
+        <td>System.Int32</td>
+        <td />
       </tr>
       <tr>
         <td>DisplayName</td>

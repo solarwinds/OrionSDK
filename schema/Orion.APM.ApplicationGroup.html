@@ -12,14 +12,16 @@
       <a href="index.html">Index</a>
     </p>
     <h1>
-      <a name="DPA.ExpertAdviceInfo">DPA.ExpertAdviceInfo</a>
+      <a name="Orion.APM.ApplicationGroup">Orion.APM.ApplicationGroup</a>
     </h1>
     <p>
         Base type:
-        <a href="System.ExtensionEntity.html">System.ExtensionEntity</a></p>
+        <a href="System.Entity.html">System.Entity</a></p>
     <p>
         Summary:
-        The entity represents advises given on the "Waits" tab in the UI</p>
+        
+			This entity groups applications.
+		</p>
     <h2>Properties</h2>
     <table>
       <tr>
@@ -28,24 +30,14 @@
         <th>Notes</th>
       </tr>
       <tr>
-        <td>DatabaseId</td>
+        <td>ApplicationID</td>
         <td>System.Int32</td>
-        <td>Reference to Orion.DPA.DatabaseInstance.Id.</td>
+        <td>The unique integer representation of application.</td>
       </tr>
       <tr>
-        <td>GlobalDatabaseId</td>
+        <td>GroupID</td>
         <td>System.Int32</td>
-        <td>Unique ID of database instance in Orion</td>
-      </tr>
-      <tr>
-        <td>WaitId</td>
-        <td>System.String</td>
-        <td>Name of the wait type as is displayed in the UI (eg. 'CPU/Memory')</td>
-      </tr>
-      <tr>
-        <td>AdviceInfo</td>
-        <td>System.String</td>
-        <td>HTML-formatted text describing the wait time, causes, possible fixes etc.</td>
+        <td>The unique integer representation of the template group assignment.</td>
       </tr>
       <tr>
         <td>DisplayName</td>

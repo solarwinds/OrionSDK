@@ -12,14 +12,14 @@
       <a href="index.html">Index</a>
     </p>
     <h1>
-      <a name="DPA.BlockingOverview">DPA.BlockingOverview</a>
+      <a name="DPA.SQLQueryInfo">DPA.SQLQueryInfo</a>
     </h1>
     <p>
         Base type:
-        <a href="System.ExtensionEntity.html">System.ExtensionEntity</a></p>
+        <a href="System.Entity.html">System.Entity</a></p>
     <p>
         Summary:
-        Blocking/Blocked time data</p>
+        The entity provides the full formatted sql text and custom name for given sqlhash. DatabaseId and Hash are mandatory in where condition.</p>
     <h2>Properties</h2>
     <table>
       <tr>
@@ -30,7 +30,7 @@
       <tr>
         <td>DatabaseId</td>
         <td>System.Int32</td>
-        <td>Reference to Orion.DPA.DatabaseInstance.Id.</td>
+        <td>ID of a monitored instance. References to Orion.DPA.DatabaseInstance.Id</td>
       </tr>
       <tr>
         <td>GlobalDatabaseId</td>
@@ -38,34 +38,19 @@
         <td>Unique ID of database instance in Orion</td>
       </tr>
       <tr>
-        <td>BlockingSessions</td>
-        <td>System.Int32</td>
-        <td>Number of blocking sessions within the time slice</td>
+        <td>SqlHash</td>
+        <td>System.String</td>
+        <td>SQL Hash</td>
       </tr>
       <tr>
-        <td>BlockedSessions</td>
-        <td>System.Int32</td>
-        <td>Number of blocked sessions within the time slice.</td>
+        <td>FullSqlText</td>
+        <td>System.String</td>
+        <td>Full formatted SQL text. If text not polled returns 'SQL statement not available'.</td>
       </tr>
       <tr>
-        <td>TotalTimeBlocking</td>
-        <td>System.Double</td>
-        <td>Total blocking time - real time blocking within the time slice.</td>
-      </tr>
-      <tr>
-        <td>TotalTimeBlocked</td>
-        <td>System.Double</td>
-        <td>Total time blocked within the time slice.</td>
-      </tr>
-      <tr>
-        <td>TimesliceUnit</td>
-        <td>System.Int32</td>
-        <td>Specifies how time-frame should be split to time slices.</td>
-      </tr>
-      <tr>
-        <td>Time</td>
-        <td>System.DateTime</td>
-        <td>Beginning and end of the interval for which we want to know the proeprty values (operators &lt;, &lt;=, &gt; and &gt;= can be used in WHERE clauses on this field). End defaults to now.</td>
+        <td>SQLName</td>
+        <td>System.String</td>
+        <td>Custom name of SQL. If SQL not named, returns SQL Hash or Oracle SQL Id if supported and collected.</td>
       </tr>
       <tr>
         <td>DisplayName</td>

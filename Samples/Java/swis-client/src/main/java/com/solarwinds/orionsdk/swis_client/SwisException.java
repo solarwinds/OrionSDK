@@ -15,7 +15,7 @@ public class SwisException extends RuntimeException {
 		super(message, cause);
 	}
 
-	public static Exception fromUniformInterfaceException(UniformInterfaceException e) {
+	public static RuntimeException fromUniformInterfaceException(UniformInterfaceException e) {
 		try {
 			String responseText = e.getResponse().getEntity(String.class);
 			try {

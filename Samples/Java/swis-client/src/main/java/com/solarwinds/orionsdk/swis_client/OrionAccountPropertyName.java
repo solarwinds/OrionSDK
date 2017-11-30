@@ -1,0 +1,41 @@
+package com.solarwinds.orionsdk.swis_client;
+
+public interface OrionAccountPropertyName {
+	public static final String AccountEnabled = "AccountEnabled";
+	public static final String AlertCategory = "AlertCategory";
+	public static final String AlertSound = "AlertSound";
+	public static final String AllowAdmin = "AllowAdmin";
+	public static final String AllowAlertManagement = "AllowAlertManagement";
+	public static final String AllowCustomize = "AllowCustomize";
+	public static final String AllowDisableAction = "AllowDisableAction";
+	public static final String AllowDisableAlert = "AllowDisableAlert";
+	public static final String AllowDisableAllActions = "AllowDisableAllActions";
+	public static final String AllowEventClear = "AllowEventClear";
+	public static final String AllowMapManagement = "AllowMapManagement";
+	public static final String AllowNodeManagement = "AllowNodeManagement";
+	public static final String AllowReportManagement = "AllowReportManagement";
+	public static final String AllowUnmanage = "AllowUnmanage";
+	public static final String AllowViewCopCheck = "AllowViewCopCheck";
+	public static final String ApplicationViewID = "ApplicationViewID";
+	public static final String BBSummaryViewID = "BBSummaryViewID";
+	public static final String DefaultNetObject = "DefaultNetObject";
+	public static final String DefaultNetObjectID = "DefaultNetObjectID";
+	public static final String DisableSessionTimeout = "DisableSessionTimeout";
+	public static final String Expires = "Expires";
+	public static final String GroupPriority = "GroupPriority";
+	public static final String HomePageViewID = "HomePageViewID";
+	public static final String LastLogin = "LastLogin";
+	public static final String MenuName = "MenuName";
+	public static final String ModemDetailsViewID = "ModemDetailsViewID";
+	public static final String NetPerfMon_ActiveAlertDetailsViewID = "NetPerfMon.ActiveAlertDetailsViewID";
+	public static final String NetPerfMon_ContainerDetailsViewID = "NetPerfMon.ContainerDetailsViewID";
+	public static final String NetPerfMon_NodeDetailsViewID = "NetPerfMon.NodeDetailsViewID";
+	public static final String NetPerfMon_VolumeDetailsViewID = "NetPerfMon.VolumeDetailsViewID";
+	public static final String NetworkServiceViewID = "NetworkServiceViewID";
+	public static final String NPM_InterfaceDetailsViewID = "NPM.InterfaceDetailsViewID";
+	public static final String ReportFolder = "ReportFolder";
+	public static final String SummaryViewID = "SummaryViewID";
+	public static final String ToolsetIntegration = "ToolsetIntegration";
+	public static final String WirelessClientViewID = "WirelessClientViewID";
+	public static final String WirelessSessionViewID = "WirelessSessionViewID";
+}

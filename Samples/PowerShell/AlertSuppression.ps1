@@ -19,7 +19,7 @@ $result.EntityAlertSuppressionState
 
 # Suppress alerts for one or more entities
 $entityUris = Get-SwisData $swis "SELECT TOP 2 Uri FROM Orion.Nodes"
-$entityUris = $entityUris |% {[string]$_}
+$entityUris = @( $entityUris |% {[string]$_} )
 
 Invoke-SwisVerb $swis Orion.AlertSuppression SuppressAlerts @($entityUris, [DateTime]::UtcNow) | Out-Null
 

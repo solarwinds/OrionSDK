@@ -127,7 +127,30 @@ namespace SwqlStudio
 
         private void Invoke_Click(object sender, HtmlElementEventArgs e)
         {
-            XmlElement[] parameters = verb.Arguments.Select(GetValue).ToArray();
+            bool argumentParsingFailed = false;
+
+            XmlElement[] parameters = verb.Arguments.Select(argument =>
+            {
+                try
+                {
+                    return GetValue(argument);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(
+                        $"Error while parsing argument {argument.Name}, invocation won't happen:\n\n{ex.Message}",
+                        ex.GetType().Name,
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Error);
+
+                    argumentParsingFailed = true;
+                    return null;
+                }
+            }).ToArray();
+
+            if (argumentParsingFailed)
+                return;
+
             var doc = new XmlDocument();
             try
             {

@@ -469,7 +469,7 @@ namespace SwqlStudio
             if (includeInheritedProperties == false)
                 queryProperties = queryProperties.Where(c => c.IsInherited == false);
 
-            sb.Append("SELECT ");
+            sb.Append("SELECT TOP 1000 ");
             sb.AppendLine(String.Join(", ", queryProperties.Select(c => c.Name).Distinct().ToArray()));
             sb.AppendFormat("FROM {0}", table.FullName);
             sb.AppendLine();

@@ -196,14 +196,14 @@ namespace SwqlStudio
 
         public DataTable Query(string swql, out XmlDocument queryPlan, out XmlDocument queryStats)
         {
-            EnsureConnection();
-
             XmlDocument tmpQueryPlan = null; // can't reference out parameter from closure
             XmlDocument tmpQueryStats = null; // can't reference out parameter from closure
 
             DataTable result = DoWithExceptionTranslation(
                 delegate
                     {
+                        EnsureConnection();
+
                         using (InformationServiceCommand command = new InformationServiceCommand(swql, Connection) { ApplicationTag = "SWQL Studio" })
                         {
                             foreach (var param in QueryParameters)
@@ -233,10 +233,11 @@ namespace SwqlStudio
                                            });
         }
 
-        public static T DoWithExceptionTranslation<T>(Func<T> action)
+        public static T DoWithExceptionTranslation<T>(Func<T> action, bool retryOnConnectionError = true)
         {
             string msg;
             Exception inner;
+            bool couldRetry = false;
 
             try
             {
@@ -254,15 +255,16 @@ namespace SwqlStudio
             }
             catch (FaultException ex)
             {
-                msg = (ex.InnerException != null) ? ex.InnerException.Message : ex.Message;
+                msg = ex.InnerException?.Message ?? ex.Message;
                 inner = ex.InnerException ?? ex;
             }
             catch (MessageSecurityException ex)
             {
-                if (ex.InnerException != null && ex.InnerException is FaultException)
+                if (ex.InnerException is FaultException fault)
                 {
-                    msg = (ex.InnerException as FaultException).Message;
-                    inner = ex.InnerException;
+                    msg = fault.Message;
+                    inner = fault;
+                    couldRetry = fault.Code.SubCode.Name == "BadContextToken";
                 }
                 else
                 {
@@ -270,10 +272,21 @@ namespace SwqlStudio
                     inner = ex;
                 }
             }
+            catch (CommunicationObjectFaultedException ex)
+            {
+                msg = ex.Message;
+                inner = ex;
+                couldRetry = true;
+            }
             catch (Exception ex)
             {
                 msg = ex.Message;
                 inner = ex;
+            }
+
+            if (couldRetry && retryOnConnectionError)
+            {
+                return DoWithExceptionTranslation(action, false);
             }
 
             throw new ApplicationException(msg, inner);

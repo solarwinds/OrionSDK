@@ -264,7 +264,7 @@ namespace SwqlStudio
                 {
                     msg = fault.Message;
                     inner = fault;
-                    couldRetry = fault.Code.SubCode.Name == "BadContextToken";
+                    couldRetry = fault.Code?.SubCode?.Name == "BadContextToken";
                 }
                 else
                 {

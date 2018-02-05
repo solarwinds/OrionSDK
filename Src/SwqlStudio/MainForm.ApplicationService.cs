@@ -38,5 +38,15 @@ namespace SwqlStudio
             fileTabs.Controls.Add(tab);
             fileTabs.SelectedTab = tab;
         }
+
+        /// <inheritdoc />
+        public void OpenCrudTab(CrudOperation operation, ConnectionInfo info, Entity entity)
+        {
+            var tab = new TabPage(entity.FullName + " - " + operation) { BorderStyle = BorderStyle.None, Padding = new Padding(0) };
+            var crudTab = new CrudTab { ConnectionInfo = info, Dock = DockStyle.Fill, ApplicationService = this, Entity = entity };
+            tab.Controls.Add(crudTab);
+            fileTabs.Controls.Add(tab);
+            fileTabs.SelectedTab = tab;
+        }
     }
 }

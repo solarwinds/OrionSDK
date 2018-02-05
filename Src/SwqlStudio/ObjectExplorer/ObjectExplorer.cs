@@ -537,9 +537,9 @@ namespace SwqlStudio
 
             tableContextMenuWithCrud.MenuItems.Add("-");
             // note: the names are crucial for disabling/enabling the menu based on operations allowed
-            tableContextMenuWithCrud.MenuItems.Add("Create", CrudCreate).Name = "create";
-            tableContextMenuWithCrud.MenuItems.Add("Update", CrudUpdate).Name = "update";
-            tableContextMenuWithCrud.MenuItems.Add("Delete", CrudDelete).Name = "delete";
+            tableContextMenuWithCrud.MenuItems.Add("Create", (s, e) => Crud(_contextMenuNode.Tag as Entity, CrudOperation.Create)).Name = "create";
+            tableContextMenuWithCrud.MenuItems.Add("Update", (s, e) => Crud(_contextMenuNode.Tag as Entity, CrudOperation.Update)).Name = "update";
+            tableContextMenuWithCrud.MenuItems.Add("Delete", (s, e) => Crud(_contextMenuNode.Tag as Entity, CrudOperation.Delete)).Name = "delete";
 
 
             _tableContextMenuItems.Add(connection.Title, tableContextMenuWithoutCrud);
@@ -812,9 +812,11 @@ CanDelete: {4}",
             return "Column";
         }
 
-        private void CrudCreate(object sender, EventArgs e) {}
-        private void CrudUpdate(object sender, EventArgs e) { }
-        private void CrudDelete(object sender, EventArgs e) { }
+        private void Crud(Entity entity, CrudOperation operation)
+        {
+            var provider = FindProvider(_contextMenuNode);
+            ApplicationService.OpenCrudTab(operation, provider.ConnectionInfo, entity);
+        }
 
         private void StartSubscription(object sender, EventArgs e)
         {

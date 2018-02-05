@@ -122,6 +122,12 @@
     <Compile Include="Controls\TabControlEx.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="CrudTab.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="CrudTab.Designer.cs">
+      <DependentUpon>CrudTab.cs</DependentUpon>
+    </Compile>
     <Compile Include="CustomCertificateValidator.cs" />
     <Compile Include="DataGridExporter.cs" />
     <Compile Include="EntityClassGraphForm.cs">

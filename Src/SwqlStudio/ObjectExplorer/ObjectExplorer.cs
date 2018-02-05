@@ -671,13 +671,28 @@ namespace SwqlStudio
             node.ImageKey = GetImageKey(table);
             node.SelectedImageKey = node.ImageKey;
             node.Tag = table;
-            node.ToolTipText = string.Format(
-                @"{0}
+            if (table.IsIndication)
+            {
+                node.ToolTipText += string.Format(@"{0}
+Base type: {1}
+CanSubscribe: {2}",
+                    table.FullName, table.BaseType, connection.CanCreateSubscription);
+            }
+            else
+            {
+
+                node.ToolTipText = string.Format(
+                    @"{0}
 Base type: {1}
 CanCreate: {2}
 CanUpdate: {3}
 CanDelete: {4}",
-                table.FullName, table.BaseType, table.CanCreate, table.CanUpdate, table.CanDelete);
+                    table.FullName,
+                    table.BaseType,
+                    table.CanCreate,
+                    table.CanUpdate,
+                    table.CanDelete);
+            }
 
             // Add keys
             AddPropertiesToNode(node, table.Properties.Where(c => c.IsKey));

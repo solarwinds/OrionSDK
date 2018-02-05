@@ -410,6 +410,7 @@
             this.ObjectExplorerImageList.Images.SetKeyName(10, "BaseType");
             this.ObjectExplorerImageList.Images.SetKeyName(11, "BaseTypeAbstract");
             this.ObjectExplorerImageList.Images.SetKeyName(12, "TableAbstract");
+            this.ObjectExplorerImageList.Images.SetKeyName(13, "TableCrud");
             // 
             // startTimer
             // 

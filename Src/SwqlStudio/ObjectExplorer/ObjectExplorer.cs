@@ -668,7 +668,7 @@ namespace SwqlStudio
         private static TreeNodeWithConnectionInfo MakeEntityTreeNode(IMetadataProvider provider, ConnectionInfo connection, Entity table)
         {
             var node = new TreeNodeWithConnectionInfo(table.FullName, connection);
-            node.ImageKey = table.IsIndication ? "Indication" : (!table.IsAbstract ? "Table" : "TableAbstract");
+            node.ImageKey = GetImageKey(table);
             node.SelectedImageKey = node.ImageKey;
             node.Tag = table;
             node.ToolTipText = string.Format(
@@ -693,6 +693,18 @@ CanDelete: {4}",
 
             AddVerbsToNode(node, table, provider);
             return node;
+        }
+
+        private static string GetImageKey(Entity table)
+        {
+            if (table.IsIndication)
+                return "Indication";
+            else if (table.IsAbstract)
+                return "TableAbstract";
+            else if (table.CanCreate || table.CanDelete || table.CanUpdate)
+                return "TableCrud";
+
+            return "Table";
         }
 
         private static void AddVerbsToNode(TreeNode parent, Entity table, IMetadataProvider provider)

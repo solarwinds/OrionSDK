@@ -16,9 +16,4 @@ namespace SwqlStudio
 
         void OpenCrudTab(CrudOperation operation, ConnectionInfo connectionInfo, Entity entity);
     }
-
-    public enum CrudOperation
-    {
-        Create, Update, Delete
-    }
 }

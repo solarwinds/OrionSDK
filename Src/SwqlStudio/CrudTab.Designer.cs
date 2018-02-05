@@ -28,10 +28,30 @@
         /// </summary>
         private void InitializeComponent()
         {
-            components = new System.ComponentModel.Container();
+            this.container = new System.Windows.Forms.Panel();
+            this.SuspendLayout();
+            // 
+            // container
+            // 
+            this.container.AutoScroll = true;
+            this.container.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.container.Location = new System.Drawing.Point(0, 0);
+            this.container.Name = "container";
+            this.container.Size = new System.Drawing.Size(150, 150);
+            this.container.TabIndex = 0;
+            // 
+            // CrudTab
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.container);
+            this.Name = "CrudTab";
+            this.ResumeLayout(false);
+
         }
 
         #endregion
+
+        private System.Windows.Forms.Panel container;
     }
 }

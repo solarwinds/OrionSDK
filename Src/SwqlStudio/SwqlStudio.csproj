@@ -122,6 +122,7 @@
     <Compile Include="Controls\TabControlEx.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="CrudOperation.cs" />
     <Compile Include="CrudTab.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -238,6 +239,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ActivityMonitorTab.resx">
       <DependentUpon>ActivityMonitorTab.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CrudTab.resx">
+      <DependentUpon>CrudTab.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="EntityClassGraphForm.resx">
       <DependentUpon>EntityClassGraphForm.cs</DependentUpon>

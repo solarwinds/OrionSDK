@@ -8,7 +8,6 @@ using System.ServiceModel;
 using System.ServiceModel.Security;
 using System.Text;
 using System.Threading;
-using System.Web.UI.WebControls;
 using System.Windows.Forms;
 using SolarWinds.Logging;
 using SwqlStudio.Metadata;
@@ -37,6 +36,7 @@ namespace SwqlStudio
         private TreeNodeUtils.TreeNodeBindings _treeBindings = new TreeNodeUtils.TreeNodeBindings(); // default value, so this field is never null
         private TreeNode _contextMenuNode;
         private readonly Dictionary<string, ContextMenu> _tableContextMenuItems;
+        private readonly Dictionary<string, ContextMenu> _tableCrudContextMenuItems;
         private readonly Dictionary<string, ContextMenu> _serverContextMenuItems;
         private readonly ContextMenu _verbContextMenu;
         private bool _isDragging;
@@ -98,6 +98,7 @@ namespace SwqlStudio
 
             _tableContextMenuItems = new Dictionary<string, ContextMenu>();
             _serverContextMenuItems = new Dictionary<string, ContextMenu>();
+            _tableCrudContextMenuItems = new Dictionary<string, ContextMenu>();
 
             _verbContextMenu = new ContextMenu();
             _verbContextMenu.MenuItems.Add("Invoke...", (s, e) => OpenInvokeTab());
@@ -443,8 +444,27 @@ namespace SwqlStudio
                     if (_contextMenuNode.Tag is Entity)
                     {
                         var treeNodeWithConnectionInfo = _contextMenuNode as TreeNodeWithConnectionInfo;
-                        if (treeNodeWithConnectionInfo != null)
-                            _tableContextMenuItems[treeNodeWithConnectionInfo.Connection.Title].Show(_tree, e.Location);
+                        if (treeNodeWithConnectionInfo != null && treeNodeWithConnectionInfo.Tag is Entity entity)
+                        {
+                            // crud does not make sense on indications
+                            if (!entity.IsIndication && (entity.CanCreate || entity.CanDelete || entity.CanUpdate))
+                            {
+                                var menuItem = _tableCrudContextMenuItems[treeNodeWithConnectionInfo.Connection.Title];
+
+                                foreach (MenuItem subMenuItem in menuItem.MenuItems)
+                                {
+                                    if (subMenuItem.Name == "create") subMenuItem.Enabled = entity.CanCreate;
+                                    if (subMenuItem.Name == "update") subMenuItem.Enabled = entity.CanUpdate;
+                                    if (subMenuItem.Name == "delete") subMenuItem.Enabled = entity.CanDelete;
+                                }
+
+                                menuItem.Show(_tree, e.Location);
+                            }
+                            else
+                            {
+                                _tableContextMenuItems[treeNodeWithConnectionInfo.Connection.Title].Show(_tree, e.Location);
+                            }
+                        }
                     }
 
                     if (_contextMenuNode.Tag is IMetadataProvider)
@@ -502,14 +522,28 @@ namespace SwqlStudio
                 connection.CanCreateSubscription = Convert.ToBoolean(dt.Rows[0][0]);
             }
 
-            var tableContextMenu = new ContextMenu();
-            tableContextMenu.MenuItems.Add("Generate Select Statement", (s, e) => GenerateSelectStatement(_contextMenuNode.Tag as Entity, false));
-            tableContextMenu.MenuItems.Add("Generate Select Statement (with Inherited Properties)", (s, e) => GenerateSelectStatement(_contextMenuNode.Tag as Entity, true));
+            var tableContextMenuWithoutCrud = new ContextMenu();
+            var tableContextMenuWithCrud = new ContextMenu();
 
-            if (connection.CanCreateSubscription)
-                tableContextMenu.MenuItems.Add("Subscribe", StartSubscription);
+            var commonTableContextMenus = new[] { tableContextMenuWithCrud, tableContextMenuWithoutCrud };
+            foreach(var tableContextMenu in commonTableContextMenus)
+            { 
+                tableContextMenu.MenuItems.Add("Generate Select Statement", (s, e) => GenerateSelectStatement(_contextMenuNode.Tag as Entity, false));
+                tableContextMenu.MenuItems.Add("Generate Select Statement (with Inherited Properties)", (s, e) => GenerateSelectStatement(_contextMenuNode.Tag as Entity, true));
 
-            _tableContextMenuItems.Add(connection.Title, tableContextMenu);
+                if (connection.CanCreateSubscription)
+                    tableContextMenu.MenuItems.Add("Subscribe", StartSubscription);
+            }
+
+            tableContextMenuWithCrud.MenuItems.Add("-");
+            // note: the names are crucial for disabling/enabling the menu based on operations allowed
+            tableContextMenuWithCrud.MenuItems.Add("Create", CrudCreate).Name = "create";
+            tableContextMenuWithCrud.MenuItems.Add("Update", CrudUpdate).Name = "update";
+            tableContextMenuWithCrud.MenuItems.Add("Delete", CrudDelete).Name = "delete";
+
+
+            _tableContextMenuItems.Add(connection.Title, tableContextMenuWithoutCrud);
+            _tableCrudContextMenuItems.Add(connection.Title, tableContextMenuWithCrud);
 
             var serverContextMenu = new ContextMenu();
             serverContextMenu.MenuItems.Add("Refresh", (s, e) => RefreshServer(_contextMenuNode));
@@ -543,8 +577,11 @@ namespace SwqlStudio
             connection.ConnectionClosed += (o, e) =>
             {
                 _tableContextMenuItems.Remove(connection.Title);
-                tableContextMenu.Dispose();
-                tableContextMenu = null;
+                tableContextMenuWithCrud.Dispose();
+                tableContextMenuWithCrud = null;
+
+                tableContextMenuWithoutCrud.Dispose();
+                tableContextMenuWithoutCrud = null;
 
                 _serverContextMenuItems.Remove(connection.Title);
                 serverContextMenu.Dispose();
@@ -774,6 +811,10 @@ CanDelete: {4}",
 
             return "Column";
         }
+
+        private void CrudCreate(object sender, EventArgs e) {}
+        private void CrudUpdate(object sender, EventArgs e) { }
+        private void CrudDelete(object sender, EventArgs e) { }
 
         private void StartSubscription(object sender, EventArgs e)
         {

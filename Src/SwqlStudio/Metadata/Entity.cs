@@ -2,7 +2,7 @@
 
 namespace SwqlStudio.Metadata
 {
-    class Entity
+    public class Entity
     {
         private readonly List<Property> properties = new List<Property>();
         private readonly List<Verb> verbs = new List<Verb>();

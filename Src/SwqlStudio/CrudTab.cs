@@ -48,15 +48,24 @@ namespace SwqlStudio
             {
                 var y = 0;
 
-                // for update/delete, accept uri
-                if (_operation == CrudOperation.Update || _operation == CrudOperation.Delete)
+                bool createProperties = true;
+                switch (_operation)
                 {
-                    _uri = CreateLabelAndTextbox("SwisUri", ref y);
-                    y += ControlsMargin * 3;
+                    case CrudOperation.Create:
+                        break;
+                    case CrudOperation.Delete:
+                        createProperties = false;
+                        goto case CrudOperation.Update;
+                    case CrudOperation.Update:
+                        _uri = CreateLabelAndTextbox("SwisUri", ref y);
+                        y += ControlsMargin * 3;
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException();
                 }
 
                 // for delete, uri is enough
-                if (_operation != CrudOperation.Delete)
+                if (createProperties)
                 {
                     foreach (var property in _entity.Properties)
                     {

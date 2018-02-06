@@ -13,5 +13,7 @@ namespace SwqlStudio
         void OpenActivityMonitor(string title, ConnectionInfo connectionInfo);
 
         void OpenInvokeTab(string title, ConnectionInfo connectionInfo, Verb verb);
+
+        void OpenCrudTab(CrudOperation operation, ConnectionInfo connectionInfo, Entity entity);
     }
 }

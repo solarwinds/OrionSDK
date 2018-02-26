@@ -129,8 +129,7 @@ namespace SwqlStudio
             queryTab.SetMetadataProvider(provider);
 
             tab.Controls.Add(queryTab);
-            fileTabs.Controls.Add(tab);
-            fileTabs.SelectedTab = tab;
+            AddNewTab(tab);
 
             info.ConnectionClosed += (sender, args) =>
             {
@@ -194,8 +193,8 @@ namespace SwqlStudio
 
         private void menuFileClose_Click(object sender, EventArgs e)
         {
-            if (fileTabs.TabPages.Count > 0)
-                RemoveQueryTab(fileTabs.SelectedTab.Controls[0]);
+            if (FileTabHasPages())
+                RemoveQueryTab(SelectedTabFirstControl());
         }
 
         private static void RemoveQueryTab(Control queryTab)
@@ -381,8 +380,8 @@ namespace SwqlStudio
         {
             get
             {
-                if (fileTabs.TabPages.Count == 0) return null;
-                return fileTabs.SelectedTab.Controls[0] as QueryTab;
+                if (!FileTabHasPages()) return null;
+                return SelectedTabFirstControl() as QueryTab;
             }
         }
 
@@ -390,9 +389,19 @@ namespace SwqlStudio
         {
             get
             {
-                if (fileTabs.TabPages.Count == 0) return null;
-                return fileTabs.SelectedTab.Controls[0] as IConnectionTab;
+                if (!FileTabHasPages()) return null;
+                return SelectedTabFirstControl() as IConnectionTab;
             }
+        }
+
+        private Control SelectedTabFirstControl()
+        {
+            return fileTabs.SelectedTab.Controls[0];
+        }
+
+        private bool FileTabHasPages()
+        {
+            return fileTabs.TabPages.Count > 0;
         }
 
         /// <summary>Returns the currently displayed editor, or null if none are open</summary>

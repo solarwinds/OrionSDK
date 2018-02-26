@@ -25,8 +25,7 @@ namespace SwqlStudio
             var tab = new TabPage(title) { BorderStyle = BorderStyle.None, Padding = new Padding(0) };
             var activityMonitorTab = new ActivityMonitorTab { ConnectionInfo = info, Dock = DockStyle.Fill, ApplicationService = this };
             tab.Controls.Add(activityMonitorTab);
-            fileTabs.Controls.Add(tab);
-            fileTabs.SelectedTab = tab;
+            AddNewTab(tab);
             activityMonitorTab.Start();
         }
 
@@ -35,8 +34,7 @@ namespace SwqlStudio
             var tab = new TabPage(title) { BorderStyle = BorderStyle.None, Padding = new Padding(0) };
             var invokeVerbTab = new InvokeVerbTab { ConnectionInfo = info, Dock = DockStyle.Fill, ApplicationService = this, Verb = verb };
             tab.Controls.Add(invokeVerbTab);
-            fileTabs.Controls.Add(tab);
-            fileTabs.SelectedTab = tab;
+            AddNewTab(tab);
         }
 
         /// <inheritdoc />
@@ -58,6 +56,11 @@ namespace SwqlStudio
             };
 
             tab.Controls.Add(crudTab);
+            AddNewTab(tab);
+        }
+
+        private void AddNewTab(TabPage tab)
+        {
             fileTabs.Controls.Add(tab);
             fileTabs.SelectedTab = tab;
         }

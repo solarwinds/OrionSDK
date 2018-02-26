@@ -51,8 +51,7 @@ namespace SwqlStudio
 
             crudTab.CloseItself += (s, e) =>
             {
-                fileTabs.TabPages.Remove(tab);
-                tab.Dispose();
+                RemoveTab(tab);
             };
 
             tab.Controls.Add(crudTab);

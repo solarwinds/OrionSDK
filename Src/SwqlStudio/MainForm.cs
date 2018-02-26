@@ -133,8 +133,7 @@ namespace SwqlStudio
 
             info.ConnectionClosed += (sender, args) =>
             {
-                RemoveQueryTab(queryTab);
-                Application.DoEvents();
+                RemoveTab(queryTab.Parent as TabPage);
             };
 
             return queryTab;
@@ -154,7 +153,7 @@ namespace SwqlStudio
             // Close default untitled document if it is still empty
             if (fileTabs.TabPages.Count == 1
                 && ActiveQueryTab.QueryText.Trim() == String.Empty)
-                RemoveQueryTab(ActiveQueryTab);
+                RemoveTab(fileTabs.SelectedTab);
 
             // Open file(s)
             foreach (string fn in fns)
@@ -178,7 +177,7 @@ namespace SwqlStudio
                 {
                     MessageBox.Show(this, ex.Message, ex.GetType().Name);
                     if (queryTab != null)
-                        RemoveQueryTab(queryTab);
+                        RemoveTab(queryTab.Parent as TabPage);
                     return;
                 }
 
@@ -194,16 +193,14 @@ namespace SwqlStudio
         private void menuFileClose_Click(object sender, EventArgs e)
         {
             if (FileTabHasPages())
-                RemoveQueryTab(SelectedTabFirstControl());
+                RemoveTab(fileTabs.SelectedTab);
         }
 
-        private static void RemoveQueryTab(Control queryTab)
+        private void RemoveTab(TabPage tabPage)
         {
-            TabPage tabPage = (TabPage)queryTab.Parent;
             if (tabPage != null)
             {
-                TabControl tabControl = tabPage.Parent as TabControl;
-                tabControl.TabPages.Remove(tabPage);
+                fileTabs.TabPages.Remove(tabPage);
 
                 // Due MDA exception "RaceOnRCWCleanup error when closing a form with WebBrowser control", tab page is destroyed as below
                 tabPage.BeginInvoke((MethodInvoker)delegate { tabPage.Dispose(); });

@@ -171,11 +171,13 @@ namespace SwqlStudio
         private void OpenFiles(string[] fns)
         {
             var originalConnection = ActiveConnectionInfo;
+            if (originalConnection == null)
+                return;
 
             // Close default untitled document if it is still empty
-            if (filesDock.Contents.Count == 1
-                && ActiveQueryTab.QueryText.Trim() == String.Empty)
-                RemoveTab(filesDock.Contents[0] as DockContent);
+            if (filesDock.Contents.Count == 2 &&
+                ActiveQueryTab != null && ActiveQueryTab.QueryText.Trim() == String.Empty)
+                RemoveTab(filesDock.ActiveContent as DockContent);
 
             // Open file(s)
             foreach (string fn in fns)

@@ -123,13 +123,11 @@ namespace SwqlStudio
 
         private QueryTab CreateQueryTab(string title, ConnectionInfo info, IMetadataProvider provider)
         {
-            var tab = new TabPage(title) { BorderStyle = BorderStyle.None, Padding = new Padding(0) };
             var queryTab = new QueryTab { ConnectionInfo = info, Dock = DockStyle.Fill, ApplicationService = this };
 
             queryTab.SetMetadataProvider(provider);
 
-            tab.Controls.Add(queryTab);
-            AddNewTab(tab);
+            AddNewTab(queryTab, title);
 
             info.ConnectionClosed += (sender, args) =>
             {

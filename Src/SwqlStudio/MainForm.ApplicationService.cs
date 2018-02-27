@@ -22,25 +22,21 @@ namespace SwqlStudio
 
         public void OpenActivityMonitor(string title, ConnectionInfo info)
         {
-            var tab = new TabPage(title) { BorderStyle = BorderStyle.None, Padding = new Padding(0) };
             var activityMonitorTab = new ActivityMonitorTab { ConnectionInfo = info, Dock = DockStyle.Fill, ApplicationService = this };
-            tab.Controls.Add(activityMonitorTab);
-            AddNewTab(tab);
+            AddNewTab(activityMonitorTab, title);
             activityMonitorTab.Start();
         }
 
         public void OpenInvokeTab(string title, ConnectionInfo info, Verb verb)
         {
-            var tab = new TabPage(title) { BorderStyle = BorderStyle.None, Padding = new Padding(0) };
             var invokeVerbTab = new InvokeVerbTab { ConnectionInfo = info, Dock = DockStyle.Fill, ApplicationService = this, Verb = verb };
-            tab.Controls.Add(invokeVerbTab);
-            AddNewTab(tab);
+            AddNewTab(invokeVerbTab, title);
         }
 
         /// <inheritdoc />
         public void OpenCrudTab(CrudOperation operation, ConnectionInfo info, Entity entity)
         {
-            var tab = new TabPage(entity.FullName + " - " + operation) { BorderStyle = BorderStyle.None, Padding = new Padding(0) };
+            string title = entity.FullName + " - " + operation;
             var crudTab = new CrudTab(operation)
             {
                 ConnectionInfo = info,
@@ -51,15 +47,17 @@ namespace SwqlStudio
 
             crudTab.CloseItself += (s, e) =>
             {
-                RemoveTab(tab);
+                RemoveTab(crudTab.Parent as TabPage);
             };
 
-            tab.Controls.Add(crudTab);
-            AddNewTab(tab);
+
+            AddNewTab(crudTab, title);
         }
 
-        private void AddNewTab(TabPage tab)
+        private void AddNewTab(Control childControl, string title)
         {
+            var tab = new TabPage(title) { BorderStyle = BorderStyle.None, Padding = new Padding(0) };
+            tab.Controls.Add(childControl);
             fileTabs.Controls.Add(tab);
             fileTabs.SelectedTab = tab;
         }

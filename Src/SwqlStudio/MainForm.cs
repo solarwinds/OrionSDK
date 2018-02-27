@@ -5,6 +5,7 @@ using System.Linq;
 using System.ServiceModel;
 using System.ServiceModel.Security;
 using System.Windows.Forms;
+using ScintillaNET;
 using SolarWinds.InformationService.Contract2;
 using SolarWinds.InformationService.InformationServiceClient;
 using SwqlStudio.Metadata;
@@ -29,6 +30,9 @@ namespace SwqlStudio
         {
             InitializeComponent();
 
+            // Workaround for crash, when form is MDI
+            // https://github.com/jacobslusser/ScintillaNET/issues/85
+            Scintilla.SetDestroyHandleBehavior(true);
             this.filesDock.Theme = new VS2015LightTheme();
             InitializeObjectExplorer();
             SetEntityGroupingMode((EntityGroupingMode)Enum.Parse(typeof(EntityGroupingMode), Settings.Default.EntityGroupingMode));

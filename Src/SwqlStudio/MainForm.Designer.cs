@@ -43,6 +43,7 @@
             this.menuFileClose2 = new System.Windows.Forms.ToolStripMenuItem();
             this.menuNotificationListenerActive = new System.Windows.Forms.ToolStripMenuItem();
             this.menuFileExit = new System.Windows.Forms.ToolStripMenuItem();
+            this.searchInTreeHotKeyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuEditCut = new System.Windows.Forms.ToolStripMenuItem();
             this.menuEditCopy = new System.Windows.Forms.ToolStripMenuItem();
@@ -61,21 +62,14 @@
             this.enableAutocompleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutSWQLStudioToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.fileTabs = new SwqlStudio.Controls.TabControlEx();
             this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
             this.fontDialog = new System.Windows.Forms.FontDialog();
-            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.objectExplorer = new SwqlStudio.ObjectExplorer();
+            this.filesDock = new WeifenLuo.WinFormsUI.Docking.DockPanel();
             this.ObjectExplorerImageList = new System.Windows.Forms.ImageList(this.components);
             this.startTimer = new System.Windows.Forms.Timer(this.components);
-            this.searchInTreeHotKeyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.menu.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
-            this.splitContainer1.Panel1.SuspendLayout();
-            this.splitContainer1.Panel2.SuspendLayout();
-            this.splitContainer1.SuspendLayout();
             this.SuspendLayout();
             // 
             // toolStripSeparator1
@@ -194,6 +188,16 @@
             this.menuFileExit.Size = new System.Drawing.Size(219, 22);
             this.menuFileExit.Text = "&Exit";
             this.menuFileExit.Click += new System.EventHandler(this.menuFileExit_Click);
+            // 
+            // searchInTreeHotKeyToolStripMenuItem
+            // 
+            this.searchInTreeHotKeyToolStripMenuItem.Name = "searchInTreeHotKeyToolStripMenuItem";
+            this.searchInTreeHotKeyToolStripMenuItem.ShortcutKeyDisplayString = "Ctrl+\\";
+            this.searchInTreeHotKeyToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Oem5)));
+            this.searchInTreeHotKeyToolStripMenuItem.Size = new System.Drawing.Size(219, 22);
+            this.searchInTreeHotKeyToolStripMenuItem.Text = "SearchInTreeHotKey";
+            this.searchInTreeHotKeyToolStripMenuItem.Visible = false;
+            this.searchInTreeHotKeyToolStripMenuItem.Click += new System.EventHandler(this.searchInTreeHotKeyToolStripMenuItem_Click);
             // 
             // editToolStripMenuItem
             // 
@@ -345,53 +349,17 @@
             this.aboutSWQLStudioToolStripMenuItem.Text = "About SWQL Studio";
             this.aboutSWQLStudioToolStripMenuItem.Click += new System.EventHandler(this.aboutSWQLStudioToolStripMenuItem_Click);
             // 
-            // fileTabs
-            // 
-            this.fileTabs.AllowDrop = true;
-            this.fileTabs.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.fileTabs.DrawMode = System.Windows.Forms.TabDrawMode.OwnerDrawFixed;
-            this.fileTabs.Location = new System.Drawing.Point(0, 0);
-            this.fileTabs.Margin = new System.Windows.Forms.Padding(0);
-            this.fileTabs.Name = "fileTabs";
-            this.fileTabs.SelectedIndex = 0;
-            this.fileTabs.Size = new System.Drawing.Size(632, 571);
-            this.fileTabs.SizeMode = System.Windows.Forms.TabSizeMode.Fixed;
-            this.fileTabs.TabIndex = 1;
-            this.fileTabs.TabStop = false;
-            this.fileTabs.DragDrop += new System.Windows.Forms.DragEventHandler(this.TextEditorDragDrop);
-            this.fileTabs.DragEnter += new System.Windows.Forms.DragEventHandler(this.TextEditorDragEnter);
-            // 
             // openFileDialog
             // 
             this.openFileDialog.FileName = "openFileDialog1";
             // 
-            // splitContainer1
+            // filesDock
             // 
-            this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainer1.Location = new System.Drawing.Point(0, 24);
-            this.splitContainer1.Name = "splitContainer1";
-            // 
-            // splitContainer1.Panel1
-            // 
-            this.splitContainer1.Panel1.Controls.Add(this.objectExplorer);
-            // 
-            // splitContainer1.Panel2
-            // 
-            this.splitContainer1.Panel2.Controls.Add(this.fileTabs);
-            this.splitContainer1.Size = new System.Drawing.Size(827, 571);
-            this.splitContainer1.SplitterDistance = 191;
-            this.splitContainer1.TabIndex = 2;
-            // 
-            // objectExplorer
-            // 
-            this.objectExplorer.ApplicationService = null;
-            this.objectExplorer.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.objectExplorer.EntityGroupingMode = SwqlStudio.EntityGroupingMode.Flat;
-            this.objectExplorer.ImageList = this.ObjectExplorerImageList;
-            this.objectExplorer.Location = new System.Drawing.Point(0, 0);
-            this.objectExplorer.Name = "objectExplorer";
-            this.objectExplorer.Size = new System.Drawing.Size(191, 571);
-            this.objectExplorer.TabIndex = 0;
+            this.filesDock.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.filesDock.Location = new System.Drawing.Point(0, 24);
+            this.filesDock.Name = "filesDock";
+            this.filesDock.Size = new System.Drawing.Size(827, 571);
+            this.filesDock.TabIndex = 2;
             // 
             // ObjectExplorerImageList
             // 
@@ -416,25 +384,16 @@
             // 
             this.startTimer.Tick += new System.EventHandler(this.startTimer_Tick);
             // 
-            // searchInTreeHotKeyToolStripMenuItem
-            // 
-            this.searchInTreeHotKeyToolStripMenuItem.Name = "searchInTreeHotKeyToolStripMenuItem";
-            this.searchInTreeHotKeyToolStripMenuItem.ShortcutKeyDisplayString = "Ctrl+\\";
-            this.searchInTreeHotKeyToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Oem5)));
-            this.searchInTreeHotKeyToolStripMenuItem.Size = new System.Drawing.Size(219, 22);
-            this.searchInTreeHotKeyToolStripMenuItem.Text = "SearchInTreeHotKey";
-            this.searchInTreeHotKeyToolStripMenuItem.Visible = false;
-            this.searchInTreeHotKeyToolStripMenuItem.Click += new System.EventHandler(this.searchInTreeHotKeyToolStripMenuItem_Click);
-            // 
             // MainForm
             // 
             this.AllowDrop = true;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(827, 595);
-            this.Controls.Add(this.splitContainer1);
+            this.Controls.Add(this.filesDock);
             this.Controls.Add(this.menu);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.IsMdiContainer = true;
             this.MainMenuStrip = this.menu;
             this.Name = "MainForm";
             this.Text = "SWQL Studio";
@@ -443,10 +402,6 @@
             this.DragEnter += new System.Windows.Forms.DragEventHandler(this.TextEditorForm_DragEnter);
             this.menu.ResumeLayout(false);
             this.menu.PerformLayout();
-            this.splitContainer1.Panel1.ResumeLayout(false);
-            this.splitContainer1.Panel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
-            this.splitContainer1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -459,7 +414,6 @@
         private System.Windows.Forms.ToolStripMenuItem menuFileNew;
         private System.Windows.Forms.ToolStripMenuItem menuFileSave;
         private System.Windows.Forms.ToolStripMenuItem menuFileExit;
-        private SwqlStudio.Controls.TabControlEx fileTabs;
         private System.Windows.Forms.ToolStripMenuItem menuFileOpen;
         private System.Windows.Forms.ToolStripMenuItem menuFileSaveAs;
         private System.Windows.Forms.ToolStripMenuItem menuFileClose;
@@ -472,8 +426,6 @@
         private System.Windows.Forms.ToolStripMenuItem menuEditPaste;
         private System.Windows.Forms.ToolStripMenuItem queryToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem menuQueryExecute;
-        private System.Windows.Forms.SplitContainer splitContainer1;
-        private ObjectExplorer objectExplorer;
         private System.Windows.Forms.ImageList ObjectExplorerImageList;
         private System.Windows.Forms.Timer startTimer;
         private System.Windows.Forms.ToolStripMenuItem parametersToolStripMenuItem;
@@ -493,6 +445,7 @@
         private System.Windows.Forms.ToolStripMenuItem menuFileTabPage;
         private System.Windows.Forms.ToolStripSeparator separatorAboveNotificationListenerActive;
         private System.Windows.Forms.ToolStripMenuItem searchInTreeHotKeyToolStripMenuItem;
+        private WeifenLuo.WinFormsUI.Docking.DockPanel filesDock;
     }
 }
 

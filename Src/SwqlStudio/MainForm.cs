@@ -10,6 +10,7 @@ using SolarWinds.InformationService.InformationServiceClient;
 using SwqlStudio.Metadata;
 using SwqlStudio.Properties;
 using SwqlStudio.Subscriptions;
+using WeifenLuo.WinFormsUI.Docking;
 
 namespace SwqlStudio
 {
@@ -20,18 +21,41 @@ namespace SwqlStudio
     {
         private static readonly SolarWinds.Logging.Log log = new SolarWinds.Logging.Log();
 
+        private ObjectExplorer objectExplorer;
         private readonly ServerList serverList = new ServerList();
         private readonly Dictionary<ConnectionInfo, IMetadataProvider> _metadataProviders = new Dictionary<ConnectionInfo, IMetadataProvider>();
 
         public MainForm()
         {
             InitializeComponent();
-            objectExplorer.ApplicationService = this;
+
+            this.filesDock.Theme = new VS2015LightTheme();
+            InitializeObjectExplorer();
             SetEntityGroupingMode((EntityGroupingMode)Enum.Parse(typeof(EntityGroupingMode), Settings.Default.EntityGroupingMode));
 
             startTimer.Enabled = true;
 
             SubscriptionManager = new SubscriptionManager();
+        }
+
+        private void InitializeObjectExplorer()
+        {
+            this.filesDock.ShowDocumentIcon = false;
+            this.objectExplorer = new ObjectExplorer();
+            this.objectExplorer.ApplicationService = this;
+            this.objectExplorer.Dock = DockStyle.Fill;
+            this.objectExplorer.EntityGroupingMode = EntityGroupingMode.Flat;
+            this.objectExplorer.ImageList = this.ObjectExplorerImageList;
+            this.objectExplorer.Location = new System.Drawing.Point(0, 0);
+            this.objectExplorer.Name = "objectExplorer";
+            this.objectExplorer.Size = new System.Drawing.Size(191, 571);
+            this.objectExplorer.TabIndex = 0;
+            var objectToolbar = new DockContent();
+            objectToolbar.CloseButton = false;
+            objectToolbar.CloseButtonVisible = false;
+            objectToolbar.Text = "Object explorer";
+            objectToolbar.Controls.Add(this.objectExplorer);
+            objectToolbar.Show(this.filesDock, DockState.DockLeft);
         }
 
         private void startTimer_Tick(object sender, EventArgs e)
@@ -131,7 +155,7 @@ namespace SwqlStudio
 
             info.ConnectionClosed += (sender, args) =>
             {
-                RemoveTab(queryTab.Parent as TabPage);
+                RemoveTab(queryTab.Parent as DockContent);
             };
 
             return queryTab;
@@ -149,9 +173,9 @@ namespace SwqlStudio
             var originalConnection = ActiveConnectionInfo;
 
             // Close default untitled document if it is still empty
-            if (fileTabs.TabPages.Count == 1
+            if (filesDock.Contents.Count == 1
                 && ActiveQueryTab.QueryText.Trim() == String.Empty)
-                RemoveTab(fileTabs.SelectedTab);
+                RemoveTab(filesDock.Contents[0] as DockContent);
 
             // Open file(s)
             foreach (string fn in fns)
@@ -175,7 +199,7 @@ namespace SwqlStudio
                 {
                     MessageBox.Show(this, ex.Message, ex.GetType().Name);
                     if (queryTab != null)
-                        RemoveTab(queryTab.Parent as TabPage);
+                        RemoveTab(queryTab.Parent as DockContent);
                     return;
                 }
 
@@ -191,17 +215,14 @@ namespace SwqlStudio
         private void menuFileClose_Click(object sender, EventArgs e)
         {
             if (FileTabHasPages())
-                RemoveTab(fileTabs.SelectedTab);
+                RemoveTab(filesDock.ActiveContent as DockContent);
         }
 
-        private void RemoveTab(TabPage tabPage)
+        private void RemoveTab(DockContent tabPage)
         {
             if (tabPage != null)
             {
-                fileTabs.TabPages.Remove(tabPage);
-
-                // Due MDA exception "RaceOnRCWCleanup error when closing a form with WebBrowser control", tab page is destroyed as below
-                tabPage.BeginInvoke((MethodInvoker)delegate { tabPage.Dispose(); });
+                tabPage.Close();
             }
         }
 
@@ -365,7 +386,7 @@ namespace SwqlStudio
         {
             get
             {
-                return from t in fileTabs.Controls.Cast<TabPage>()
+                return from t in filesDock.Contents.OfType<DockContent>()
                        from c in t.Controls.OfType<SciTextEditorControl>()
                        select c;
             }
@@ -391,12 +412,12 @@ namespace SwqlStudio
 
         private Control SelectedTabFirstControl()
         {
-            return fileTabs.SelectedTab.Controls[0];
+            return ((DockContent)filesDock.ActiveContent).Controls[0];
         }
 
         private bool FileTabHasPages()
         {
-            return fileTabs.TabPages.Count > 0;
+            return filesDock.Contents.Count > 1;
         }
 
         /// <summary>Returns the currently displayed editor, or null if none are open</summary>

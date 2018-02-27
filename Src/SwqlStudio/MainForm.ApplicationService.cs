@@ -1,6 +1,7 @@
 ﻿using System.Windows.Forms;
 using SwqlStudio.Metadata;
 using SwqlStudio.Subscriptions;
+using WeifenLuo.WinFormsUI.Docking;
 
 namespace SwqlStudio
 {
@@ -47,7 +48,7 @@ namespace SwqlStudio
 
             crudTab.CloseItself += (s, e) =>
             {
-                RemoveTab(crudTab.Parent as TabPage);
+                RemoveTab(crudTab.Parent as DockContent);
             };
 
 
@@ -56,10 +57,11 @@ namespace SwqlStudio
 
         private void AddNewTab(Control childControl, string title)
         {
-            var tab = new TabPage(title) { BorderStyle = BorderStyle.None, Padding = new Padding(0) };
-            tab.Controls.Add(childControl);
-            fileTabs.Controls.Add(tab);
-            fileTabs.SelectedTab = tab;
+            var dockContent = new DockContent();
+            dockContent.ShowIcon = false;
+            dockContent.Controls.Add(childControl);
+            dockContent.TabText = title;
+            dockContent.Show(this.filesDock, DockState.Document);
         }
     }
 }

@@ -68,6 +68,8 @@
             this.filesDock = new WeifenLuo.WinFormsUI.Docking.DockPanel();
             this.ObjectExplorerImageList = new System.Windows.Forms.ImageList(this.components);
             this.startTimer = new System.Windows.Forms.Timer(this.components);
+            this.undoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.redoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.menu.SuspendLayout();
             this.SuspendLayout();
@@ -205,6 +207,8 @@
             // editToolStripMenuItem
             // 
             this.editToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.undoToolStripMenuItem,
+            this.redoToolStripMenuItem,
             this.menuEditCut,
             this.menuEditCopy,
             this.menuEditPaste});
@@ -391,6 +395,24 @@
             // 
             this.startTimer.Tick += new System.EventHandler(this.startTimer_Tick);
             // 
+            // undoToolStripMenuItem
+            // 
+            this.undoToolStripMenuItem.Image = global::SwqlStudio.Properties.Resources.Undo_16x;
+            this.undoToolStripMenuItem.Name = "undoToolStripMenuItem";
+            this.undoToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Z)));
+            this.undoToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.undoToolStripMenuItem.Text = "Undo";
+            this.undoToolStripMenuItem.Click += new System.EventHandler(this.undoToolStripMenuItem_Click);
+            // 
+            // redoToolStripMenuItem
+            // 
+            this.redoToolStripMenuItem.Image = global::SwqlStudio.Properties.Resources.Redo_16x;
+            this.redoToolStripMenuItem.Name = "redoToolStripMenuItem";
+            this.redoToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Y)));
+            this.redoToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.redoToolStripMenuItem.Text = "Redo";
+            this.redoToolStripMenuItem.Click += new System.EventHandler(this.redoToolStripMenuItem_Click);
+            // 
             // MainForm
             // 
             this.AllowDrop = true;
@@ -453,6 +475,8 @@
         private System.Windows.Forms.ToolStripSeparator separatorAboveNotificationListenerActive;
         private System.Windows.Forms.ToolStripMenuItem searchInTreeHotKeyToolStripMenuItem;
         private WeifenLuo.WinFormsUI.Docking.DockPanel filesDock;
+        private System.Windows.Forms.ToolStripMenuItem undoToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem redoToolStripMenuItem;
     }
 }
 

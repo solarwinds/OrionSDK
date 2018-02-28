@@ -322,6 +322,22 @@ namespace SwqlStudio
 
         #region Code related to Edit menu
 
+        private void undoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (ActiveEditor == null)
+                return;
+
+            ActiveEditor.Undo();
+        }
+
+        private void redoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (ActiveEditor == null)
+                return;
+
+            ActiveEditor.Redo();
+        }
+
         private void menuEditCut_Click(object sender, EventArgs e)
         {
             if (ActiveEditor == null)
@@ -418,6 +434,7 @@ namespace SwqlStudio
 
         private Control SelectedTabFirstControl()
         {
+            //filesDock.ac
             return ((DockContent)filesDock.ActiveContent).Controls[0];
         }
 

@@ -11,6 +11,8 @@ namespace SwqlStudio
 {
     internal class SciTextEditorControl : Scintilla, ILexerDataSource
     {
+        private ContextMenuStrip editorContextMenu;
+
         public SciTextEditorControl()
         {
             Lexer = Lexer.Sql;
@@ -95,6 +97,80 @@ namespace SwqlStudio
 
             //// Q operator style index.
             //Styles[Style.Sql.QOperator].ForeColor = Color.DarkGray;
+
+            InitializeCustomContextMenu();
+        }
+
+        private void InitializeCustomContextMenu()
+        {
+            this.editorContextMenu = new ContextMenuStrip();
+            this.editorContextMenu.SuspendLayout();
+            
+            ToolStripMenuItem undoMenuItem = new ToolStripMenuItem();
+            undoMenuItem.Text = "Undo";
+            undoMenuItem.Image = Resources.Undo_16x;
+            undoMenuItem.ShortcutKeys = Keys.Control | Keys.Z;
+            undoMenuItem.Click += new EventHandler(this.UndoMenuClick);
+            
+            ToolStripMenuItem redoMenuItem = new ToolStripMenuItem();
+            redoMenuItem.Text = "Redo";
+            redoMenuItem.Image = Resources.Redo_16x;
+            redoMenuItem.ShortcutKeys = Keys.Control | Keys.Y;
+            redoMenuItem.Click += new EventHandler(this.RedodoMenuClick);
+            
+            ToolStripMenuItem cutMenuItem = new ToolStripMenuItem();
+            cutMenuItem.Text = "Cut";
+            cutMenuItem.Image = Resources.Cut_16x;
+            cutMenuItem.ShortcutKeys = Keys.Control | Keys.X;
+            cutMenuItem.Click += new EventHandler(this.CutMenuClick);
+            
+            ToolStripMenuItem copyMenuItem = new ToolStripMenuItem();
+            copyMenuItem.Text = "Copy";
+            copyMenuItem.Image = Resources.ASX_Copy_blue_16x;
+            copyMenuItem.ShortcutKeys = Keys.Control | Keys.C;
+            copyMenuItem.Click += new EventHandler(this.CopyMenuClick);
+            
+            ToolStripMenuItem pasteMenuItem = new ToolStripMenuItem();
+            pasteMenuItem.Text = "Paste";
+            pasteMenuItem.Image = Resources.ASX_Paste_blue_16x;
+            pasteMenuItem.ShortcutKeys = Keys.Control | Keys.V;
+            pasteMenuItem.Click += new EventHandler(this.PasteMenuClick);
+
+            this.editorContextMenu.Items.AddRange(new ToolStripItem[]
+            {
+                undoMenuItem,
+                redoMenuItem,
+                cutMenuItem,
+                copyMenuItem,
+                pasteMenuItem
+            });
+            this.ContextMenuStrip = this.editorContextMenu;
+            this.editorContextMenu.ResumeLayout(false);
+        }
+
+        private void PasteMenuClick(object sender, EventArgs e)
+        {
+            this.Paste();
+        }
+
+        private void CopyMenuClick(object sender, EventArgs e)
+        {
+            this.Copy();
+        }
+
+        private void CutMenuClick(object sender, EventArgs e)
+        {
+            this.Cut();
+        }
+
+        private void RedodoMenuClick(object sender, EventArgs e)
+        {
+            this.Redo();
+        }
+
+        private void UndoMenuClick(object sender, EventArgs e)
+        {
+            this.Undo();
         }
 
         public void SetMetadata(IMetadataProvider provider)

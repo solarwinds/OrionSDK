@@ -11,6 +11,7 @@ using System.Xml;
 using System.Xml.Linq;
 using SolarWinds.InformationService.Contract2;
 using SwqlStudio.Playback;
+using SwqlStudio.Properties;
 
 namespace SwqlStudio
 {
@@ -38,6 +39,22 @@ namespace SwqlStudio
             nullFont = new Font(dataGridView1.DefaultCellStyle.Font, dataGridView1.DefaultCellStyle.Font.Style | FontStyle.Italic);
             ShowTabs(Tabs.Results);
             Disposed += QueryTabDisposed;
+            AddRunContextMenu();
+        }
+
+        private void AddRunContextMenu()
+        {
+            ToolStripMenuItem runMenuItem = new ToolStripMenuItem();
+            runMenuItem.Text = "Execute";
+            runMenuItem.Image = Resources.Run_16x;
+            runMenuItem.ShortcutKeys = Keys.F5;
+            runMenuItem.Click += new EventHandler(this.RunQueryClick);
+            this.Editor.ContextMenuStrip.Items.Insert(0, runMenuItem);
+        }
+
+        private void RunQueryClick(object sender, EventArgs e)
+        {
+            this.RunQuery();
         }
 
         void QueryTabDisposed(object sender, EventArgs e)

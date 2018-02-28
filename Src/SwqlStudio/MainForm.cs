@@ -5,11 +5,13 @@ using System.Linq;
 using System.ServiceModel;
 using System.ServiceModel.Security;
 using System.Windows.Forms;
+using ScintillaNET;
 using SolarWinds.InformationService.Contract2;
 using SolarWinds.InformationService.InformationServiceClient;
 using SwqlStudio.Metadata;
 using SwqlStudio.Properties;
 using SwqlStudio.Subscriptions;
+using WeifenLuo.WinFormsUI.Docking;
 
 namespace SwqlStudio
 {
@@ -20,18 +22,44 @@ namespace SwqlStudio
     {
         private static readonly SolarWinds.Logging.Log log = new SolarWinds.Logging.Log();
 
+        private ObjectExplorer objectExplorer;
         private readonly ServerList serverList = new ServerList();
         private readonly Dictionary<ConnectionInfo, IMetadataProvider> _metadataProviders = new Dictionary<ConnectionInfo, IMetadataProvider>();
 
         public MainForm()
         {
             InitializeComponent();
-            objectExplorer.ApplicationService = this;
+
+            // Workaround for crash, when form is MDI
+            // https://github.com/jacobslusser/ScintillaNET/issues/85
+            Scintilla.SetDestroyHandleBehavior(true);
+            this.filesDock.Theme = new VS2015LightTheme();
+            InitializeObjectExplorer();
             SetEntityGroupingMode((EntityGroupingMode)Enum.Parse(typeof(EntityGroupingMode), Settings.Default.EntityGroupingMode));
 
             startTimer.Enabled = true;
 
             SubscriptionManager = new SubscriptionManager();
+        }
+
+        private void InitializeObjectExplorer()
+        {
+            this.filesDock.ShowDocumentIcon = false;
+            this.objectExplorer = new ObjectExplorer();
+            this.objectExplorer.ApplicationService = this;
+            this.objectExplorer.Dock = DockStyle.Fill;
+            this.objectExplorer.EntityGroupingMode = EntityGroupingMode.Flat;
+            this.objectExplorer.ImageList = this.ObjectExplorerImageList;
+            this.objectExplorer.Location = new System.Drawing.Point(0, 0);
+            this.objectExplorer.Name = "objectExplorer";
+            this.objectExplorer.Size = new System.Drawing.Size(191, 571);
+            this.objectExplorer.TabIndex = 0;
+            var objectToolbar = new DockContent();
+            objectToolbar.CloseButton = false;
+            objectToolbar.CloseButtonVisible = false;
+            objectToolbar.Text = "Object explorer";
+            objectToolbar.Controls.Add(this.objectExplorer);
+            objectToolbar.Show(this.filesDock, DockState.DockLeft);
         }
 
         private void startTimer_Tick(object sender, EventArgs e)
@@ -123,19 +151,15 @@ namespace SwqlStudio
 
         private QueryTab CreateQueryTab(string title, ConnectionInfo info, IMetadataProvider provider)
         {
-            var tab = new TabPage(title) { BorderStyle = BorderStyle.None, Padding = new Padding(0) };
             var queryTab = new QueryTab { ConnectionInfo = info, Dock = DockStyle.Fill, ApplicationService = this };
 
             queryTab.SetMetadataProvider(provider);
 
-            tab.Controls.Add(queryTab);
-            fileTabs.Controls.Add(tab);
-            fileTabs.SelectedTab = tab;
+            AddNewTab(queryTab, title);
 
             info.ConnectionClosed += (sender, args) =>
             {
-                RemoveQueryTab(queryTab);
-                Application.DoEvents();
+                RemoveTab(queryTab.Parent as DockContent);
             };
 
             return queryTab;
@@ -151,11 +175,13 @@ namespace SwqlStudio
         private void OpenFiles(string[] fns)
         {
             var originalConnection = ActiveConnectionInfo;
+            if (originalConnection == null)
+                return;
 
             // Close default untitled document if it is still empty
-            if (fileTabs.TabPages.Count == 1
-                && ActiveQueryTab.QueryText.Trim() == String.Empty)
-                RemoveQueryTab(ActiveQueryTab);
+            if (filesDock.Contents.Count == 2 &&
+                ActiveQueryTab != null && ActiveQueryTab.QueryText.Trim() == String.Empty)
+                RemoveTab(filesDock.ActiveContent as DockContent);
 
             // Open file(s)
             foreach (string fn in fns)
@@ -179,7 +205,7 @@ namespace SwqlStudio
                 {
                     MessageBox.Show(this, ex.Message, ex.GetType().Name);
                     if (queryTab != null)
-                        RemoveQueryTab(queryTab);
+                        RemoveTab(queryTab.Parent as DockContent);
                     return;
                 }
 
@@ -194,20 +220,15 @@ namespace SwqlStudio
 
         private void menuFileClose_Click(object sender, EventArgs e)
         {
-            if (fileTabs.TabPages.Count > 0)
-                RemoveQueryTab(fileTabs.SelectedTab.Controls[0]);
+            if (FileTabHasPages())
+                RemoveTab(filesDock.ActiveContent as DockContent);
         }
 
-        private static void RemoveQueryTab(Control queryTab)
+        private void RemoveTab(DockContent tabPage)
         {
-            TabPage tabPage = (TabPage)queryTab.Parent;
             if (tabPage != null)
             {
-                TabControl tabControl = tabPage.Parent as TabControl;
-                tabControl.TabPages.Remove(tabPage);
-
-                // Due MDA exception "RaceOnRCWCleanup error when closing a form with WebBrowser control", tab page is destroyed as below
-                tabPage.BeginInvoke((MethodInvoker)delegate { tabPage.Dispose(); });
+                tabPage.Close();
             }
         }
 
@@ -371,7 +392,7 @@ namespace SwqlStudio
         {
             get
             {
-                return from t in fileTabs.Controls.Cast<TabPage>()
+                return from t in filesDock.Contents.OfType<DockContent>()
                        from c in t.Controls.OfType<SciTextEditorControl>()
                        select c;
             }
@@ -381,8 +402,8 @@ namespace SwqlStudio
         {
             get
             {
-                if (fileTabs.TabPages.Count == 0) return null;
-                return fileTabs.SelectedTab.Controls[0] as QueryTab;
+                if (!FileTabHasPages()) return null;
+                return SelectedTabFirstControl() as QueryTab;
             }
         }
 
@@ -390,9 +411,19 @@ namespace SwqlStudio
         {
             get
             {
-                if (fileTabs.TabPages.Count == 0) return null;
-                return fileTabs.SelectedTab.Controls[0] as IConnectionTab;
+                if (!FileTabHasPages()) return null;
+                return SelectedTabFirstControl() as IConnectionTab;
             }
+        }
+
+        private Control SelectedTabFirstControl()
+        {
+            return ((DockContent)filesDock.ActiveContent).Controls[0];
+        }
+
+        private bool FileTabHasPages()
+        {
+            return filesDock.Contents.Count > 1;
         }
 
         /// <summary>Returns the currently displayed editor, or null if none are open</summary>

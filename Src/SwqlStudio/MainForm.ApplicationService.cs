@@ -1,6 +1,7 @@
 ﻿using System.Windows.Forms;
 using SwqlStudio.Metadata;
 using SwqlStudio.Subscriptions;
+using WeifenLuo.WinFormsUI.Docking;
 
 namespace SwqlStudio
 {
@@ -22,27 +23,21 @@ namespace SwqlStudio
 
         public void OpenActivityMonitor(string title, ConnectionInfo info)
         {
-            var tab = new TabPage(title) { BorderStyle = BorderStyle.None, Padding = new Padding(0) };
             var activityMonitorTab = new ActivityMonitorTab { ConnectionInfo = info, Dock = DockStyle.Fill, ApplicationService = this };
-            tab.Controls.Add(activityMonitorTab);
-            fileTabs.Controls.Add(tab);
-            fileTabs.SelectedTab = tab;
+            AddNewTab(activityMonitorTab, title);
             activityMonitorTab.Start();
         }
 
         public void OpenInvokeTab(string title, ConnectionInfo info, Verb verb)
         {
-            var tab = new TabPage(title) { BorderStyle = BorderStyle.None, Padding = new Padding(0) };
             var invokeVerbTab = new InvokeVerbTab { ConnectionInfo = info, Dock = DockStyle.Fill, ApplicationService = this, Verb = verb };
-            tab.Controls.Add(invokeVerbTab);
-            fileTabs.Controls.Add(tab);
-            fileTabs.SelectedTab = tab;
+            AddNewTab(invokeVerbTab, title);
         }
 
         /// <inheritdoc />
         public void OpenCrudTab(CrudOperation operation, ConnectionInfo info, Entity entity)
         {
-            var tab = new TabPage(entity.FullName + " - " + operation) { BorderStyle = BorderStyle.None, Padding = new Padding(0) };
+            string title = entity.FullName + " - " + operation;
             var crudTab = new CrudTab(operation)
             {
                 ConnectionInfo = info,
@@ -53,13 +48,20 @@ namespace SwqlStudio
 
             crudTab.CloseItself += (s, e) =>
             {
-                fileTabs.TabPages.Remove(tab);
-                tab.Dispose();
+                RemoveTab(crudTab.Parent as DockContent);
             };
 
-            tab.Controls.Add(crudTab);
-            fileTabs.Controls.Add(tab);
-            fileTabs.SelectedTab = tab;
+
+            AddNewTab(crudTab, title);
+        }
+
+        private void AddNewTab(Control childControl, string title)
+        {
+            var dockContent = new DockContent();
+            dockContent.ShowIcon = false;
+            dockContent.Controls.Add(childControl);
+            dockContent.TabText = title;
+            dockContent.Show(this.filesDock, DockState.Document);
         }
     }
 }

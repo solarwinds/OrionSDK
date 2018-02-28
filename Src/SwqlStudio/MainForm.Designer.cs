@@ -118,6 +118,7 @@
             // 
             // menuFileNew
             // 
+            this.menuFileNew.Image = global::SwqlStudio.Properties.Resources.NewFile_16x;
             this.menuFileNew.Name = "menuFileNew";
             this.menuFileNew.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.N)));
             this.menuFileNew.Size = new System.Drawing.Size(219, 22);
@@ -134,6 +135,7 @@
             // 
             // menuFileOpen
             // 
+            this.menuFileOpen.Image = global::SwqlStudio.Properties.Resources.OpenFolder_16x;
             this.menuFileOpen.Name = "menuFileOpen";
             this.menuFileOpen.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
             this.menuFileOpen.Size = new System.Drawing.Size(219, 22);
@@ -142,6 +144,7 @@
             // 
             // menuFileSave
             // 
+            this.menuFileSave.Image = global::SwqlStudio.Properties.Resources.Save_16x;
             this.menuFileSave.Name = "menuFileSave";
             this.menuFileSave.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
             this.menuFileSave.Size = new System.Drawing.Size(219, 22);
@@ -211,25 +214,28 @@
             // 
             // menuEditCut
             // 
+            this.menuEditCut.Image = ((System.Drawing.Image)(resources.GetObject("menuEditCut.Image")));
             this.menuEditCut.Name = "menuEditCut";
             this.menuEditCut.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.X)));
-            this.menuEditCut.Size = new System.Drawing.Size(144, 22);
+            this.menuEditCut.Size = new System.Drawing.Size(152, 22);
             this.menuEditCut.Text = "Cu&t";
             this.menuEditCut.Click += new System.EventHandler(this.menuEditCut_Click);
             // 
             // menuEditCopy
             // 
+            this.menuEditCopy.Image = global::SwqlStudio.Properties.Resources.ASX_Copy_blue_16x;
             this.menuEditCopy.Name = "menuEditCopy";
             this.menuEditCopy.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.C)));
-            this.menuEditCopy.Size = new System.Drawing.Size(144, 22);
+            this.menuEditCopy.Size = new System.Drawing.Size(152, 22);
             this.menuEditCopy.Text = "&Copy";
             this.menuEditCopy.Click += new System.EventHandler(this.menuEditCopy_Click);
             // 
             // menuEditPaste
             // 
+            this.menuEditPaste.Image = global::SwqlStudio.Properties.Resources.ASX_Paste_blue_16x;
             this.menuEditPaste.Name = "menuEditPaste";
             this.menuEditPaste.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.V)));
-            this.menuEditPaste.Size = new System.Drawing.Size(144, 22);
+            this.menuEditPaste.Size = new System.Drawing.Size(152, 22);
             this.menuEditPaste.Text = "&Paste";
             this.menuEditPaste.Click += new System.EventHandler(this.menuEditPaste_Click);
             // 
@@ -246,6 +252,7 @@
             // 
             // menuQueryExecute
             // 
+            this.menuQueryExecute.Image = global::SwqlStudio.Properties.Resources.Run_16x;
             this.menuQueryExecute.Name = "menuQueryExecute";
             this.menuQueryExecute.ShortcutKeyDisplayString = "F5, Ctrl-E";
             this.menuQueryExecute.ShortcutKeys = System.Windows.Forms.Keys.F5;

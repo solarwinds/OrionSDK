@@ -60,7 +60,7 @@ namespace SwqlStudio
             var dockContent = new DockContent();
             dockContent.ShowIcon = false;
             dockContent.Controls.Add(childControl);
-            dockContent.TabText = title;
+            dockContent.Text = title;
             dockContent.Show(this.filesDock, DockState.Document);
         }
     }

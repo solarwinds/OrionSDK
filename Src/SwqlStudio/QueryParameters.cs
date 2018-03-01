@@ -1,16 +1,16 @@
 ﻿using System.ComponentModel;
 using System.Linq;
-using System.Windows.Forms;
 using SolarWinds.InformationService.Contract2;
+using WeifenLuo.WinFormsUI.Docking;
 
 namespace SwqlStudio
 {
-    public partial class QueryParameters : Form
+    public partial class QueryParameters : DockContent
     {
-        public QueryParameters(PropertyBag queryParameters)
+        public QueryParameters()
         {
             InitializeComponent();
-            Parameters = queryParameters;
+            Parameters = new PropertyBag();
         }
 
         public PropertyBag Parameters
@@ -18,7 +18,7 @@ namespace SwqlStudio
             get
             {
                 var bag = new PropertyBag();
-                foreach (Pair pair in (BindingList<Pair>)dataGridView1.DataSource)
+                foreach (QueryVariable pair in (BindingList<QueryVariable>)parametersGrid.DataSource)
                     bag[pair.Key] = pair.Value;
 
                 return bag;
@@ -26,25 +26,9 @@ namespace SwqlStudio
 
             private set
             {
-                var pairs = value.Select(pair => new Pair(pair.Key, pair.Value?.ToString()));
-                dataGridView1.DataSource = new BindingList<Pair>(pairs.ToList()) {AllowNew = true};
+                var pairs = value.Select(pair => new QueryVariable(pair.Key, pair.Value?.ToString()));
+                parametersGrid.DataSource = new BindingList<QueryVariable>(pairs.ToList()) {AllowNew = true};
             }
         }
-    }
-
-    public class Pair
-    {
-        public Pair()
-        {
-        }
-
-        public Pair(string key, string value)
-        {
-            Key = key;
-            Value = value;
-        }
-
-        public string Key { get; set; }
-        public string Value { get; set; }
     }
 }

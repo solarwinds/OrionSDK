@@ -28,78 +28,37 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
-            System.Windows.Forms.Button cancel;
-            System.Windows.Forms.Button ok;
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
-            cancel = new System.Windows.Forms.Button();
-            ok = new System.Windows.Forms.Button();
-            flowLayoutPanel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            this.parametersGrid = new System.Windows.Forms.DataGridView();
+            ((System.ComponentModel.ISupportInitialize)(this.parametersGrid)).BeginInit();
             this.SuspendLayout();
             // 
-            // flowLayoutPanel1
+            // parametersGrid
             // 
-            flowLayoutPanel1.Controls.Add(cancel);
-            flowLayoutPanel1.Controls.Add(ok);
-            flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            flowLayoutPanel1.FlowDirection = System.Windows.Forms.FlowDirection.RightToLeft;
-            flowLayoutPanel1.Location = new System.Drawing.Point(0, 231);
-            flowLayoutPanel1.Name = "flowLayoutPanel1";
-            flowLayoutPanel1.Size = new System.Drawing.Size(284, 31);
-            flowLayoutPanel1.TabIndex = 1;
-            // 
-            // cancel
-            // 
-            cancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            cancel.Location = new System.Drawing.Point(206, 3);
-            cancel.Name = "cancel";
-            cancel.Size = new System.Drawing.Size(75, 23);
-            cancel.TabIndex = 1;
-            cancel.Text = "Cancel";
-            cancel.UseVisualStyleBackColor = true;
-            // 
-            // ok
-            // 
-            ok.DialogResult = System.Windows.Forms.DialogResult.OK;
-            ok.Location = new System.Drawing.Point(125, 3);
-            ok.Name = "ok";
-            ok.Size = new System.Drawing.Size(75, 23);
-            ok.TabIndex = 0;
-            ok.Text = "OK";
-            ok.UseVisualStyleBackColor = true;
-            // 
-            // dataGridView1
-            // 
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridView1.Location = new System.Drawing.Point(0, 0);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(284, 231);
-            this.dataGridView1.TabIndex = 0;
+            this.parametersGrid.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.parametersGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.parametersGrid.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.parametersGrid.Location = new System.Drawing.Point(0, 0);
+            this.parametersGrid.Name = "parametersGrid";
+            this.parametersGrid.Size = new System.Drawing.Size(284, 262);
+            this.parametersGrid.TabIndex = 0;
             // 
             // QueryParameters
             // 
-            this.AcceptButton = ok;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.CancelButton = cancel;
             this.ClientSize = new System.Drawing.Size(284, 262);
-            this.Controls.Add(this.dataGridView1);
-            this.Controls.Add(flowLayoutPanel1);
+            this.Controls.Add(this.parametersGrid);
             this.MinimizeBox = false;
             this.Name = "QueryParameters";
             this.ShowIcon = false;
             this.Text = "QueryParameters";
-            flowLayoutPanel1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.parametersGrid)).EndInit();
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridView parametersGrid;
     }
 }

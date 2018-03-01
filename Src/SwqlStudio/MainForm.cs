@@ -24,19 +24,24 @@ namespace SwqlStudio
         
         private DockContent lastActiveContent = null;
         private ObjectExplorer objectExplorer;
+        private QueryParameters queryParametersContent;
         private DockContent objectExplorerContent;
         private readonly ServerList serverList = new ServerList();
         private readonly Dictionary<ConnectionInfo, IMetadataProvider> _metadataProviders = new Dictionary<ConnectionInfo, IMetadataProvider>();
+
+        public PropertyBag QueryParameters
+        {
+            get { return this.queryParametersContent.Parameters; }
+        }
 
         public MainForm()
         {
             InitializeComponent();
 
-            // Workaround for crash, when form is MDI
-            // https://github.com/jacobslusser/ScintillaNET/issues/85
-            Scintilla.SetDestroyHandleBehavior(true);
-            this.filesDock.Theme = new VS2015LightTheme();
+            InitializeDockPanel();
             InitializeObjectExplorer();
+            InitializeQueryParameters();
+
             SetEntityGroupingMode((EntityGroupingMode)Enum.Parse(typeof(EntityGroupingMode), Settings.Default.EntityGroupingMode));
 
             startTimer.Enabled = true;
@@ -44,11 +49,16 @@ namespace SwqlStudio
             SubscriptionManager = new SubscriptionManager();
         }
 
+        private void InitializeQueryParameters()
+        {
+            this.queryParametersContent = new QueryParameters();
+            this.queryParametersContent.Text = "Query parameters";
+            ConfigureBuildInToolbox(this.queryParametersContent);
+            this.queryParametersContent.Show(this.filesDock, DockState.DockRight);
+        }
+
         private void InitializeObjectExplorer()
         {
-            this.filesDock.ShowDocumentIcon = false;
-            this.filesDock.ActiveContentChanged += FilesDock_ActiveContentChanged;
-            this.filesDock.ContentRemoved += FilesDock_ContentRemoved;
             this.objectExplorer = new ObjectExplorer();
             this.objectExplorer.ApplicationService = this;
             this.objectExplorer.Dock = DockStyle.Fill;
@@ -59,11 +69,27 @@ namespace SwqlStudio
             this.objectExplorer.Size = new System.Drawing.Size(191, 571);
             this.objectExplorer.TabIndex = 0;
             this.objectExplorerContent = new DockContent();
-            this.objectExplorerContent.CloseButton = false;
-            this.objectExplorerContent.CloseButtonVisible = false;
+            ConfigureBuildInToolbox(this.objectExplorerContent);
             this.objectExplorerContent.Text = "Object explorer";
             this.objectExplorerContent.Controls.Add(this.objectExplorer);
             this.objectExplorerContent.Show(this.filesDock, DockState.DockLeft);
+        }
+
+        private void ConfigureBuildInToolbox(DockContent content)
+        {
+            content.CloseButton = false;
+            content.CloseButtonVisible = false;
+        }
+
+        private void InitializeDockPanel()
+        {
+            // Workaround for crash, when form is MDI
+            // https://github.com/jacobslusser/ScintillaNET/issues/85
+            Scintilla.SetDestroyHandleBehavior(true);
+            this.filesDock.Theme = new VS2015LightTheme();
+            this.filesDock.ShowDocumentIcon = false;
+            this.filesDock.ActiveContentChanged += FilesDock_ActiveContentChanged;
+            this.filesDock.ContentRemoved += FilesDock_ContentRemoved;
         }
 
         private void FilesDock_ContentRemoved(object sender, DockContentEventArgs e)
@@ -532,12 +558,13 @@ namespace SwqlStudio
 
         private void parametersToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (ActiveConnectionInfo == null)
-                return;
+            // TODO remove
+            //if (ActiveConnectionInfo == null)
+            //    return;
 
-            var dialog = new QueryParameters(ActiveConnectionInfo.QueryParameters ?? new PropertyBag());
-            if (DialogResult.OK == dialog.ShowDialog(this))
-                ActiveConnectionInfo.QueryParameters = dialog.Parameters;
+            //var dialog = new QueryParameters(ActiveConnectionInfo.QueryParameters ?? new PropertyBag());
+            //if (DialogResult.OK == dialog.ShowDialog(this))
+            //    ActiveConnectionInfo.QueryParameters = dialog.Parameters;
         }
 
         private void enumEntitiesToolStripMenuItem_Click(object sender, EventArgs e)

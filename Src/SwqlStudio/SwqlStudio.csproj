@@ -176,6 +176,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="QueryVariable.cs" />
     <Compile Include="Subscriptions\NotificationDeliveryServiceProxy.cs" />
     <Compile Include="Subscriptions\NotificationSubscriber.cs" />
     <Compile Include="ObjectExplorer\TreeNodeWithConnectionInfo.cs" />

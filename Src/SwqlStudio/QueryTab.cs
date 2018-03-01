@@ -289,6 +289,8 @@ namespace SwqlStudio
             if (connection == null)
                 return; // should we try to connect?
 
+            connection.QueryParameters = this.ApplicationService.QueryParameters;
+
             if (queryWorker.IsBusy)
                 return;
 

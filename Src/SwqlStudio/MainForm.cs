@@ -558,13 +558,8 @@ namespace SwqlStudio
 
         private void parametersToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            // TODO remove
-            //if (ActiveConnectionInfo == null)
-            //    return;
-
-            //var dialog = new QueryParameters(ActiveConnectionInfo.QueryParameters ?? new PropertyBag());
-            //if (DialogResult.OK == dialog.ShowDialog(this))
-            //    ActiveConnectionInfo.QueryParameters = dialog.Parameters;
+            this.queryParametersContent.DockState = DockState.DockRight;
+            this.queryParametersContent.Activate();
         }
 
         private void enumEntitiesToolStripMenuItem_Click(object sender, EventArgs e)

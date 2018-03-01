@@ -1,5 +1,4 @@
-﻿using System.Drawing;
-using System.Windows.Forms;
+﻿using System.Windows.Forms;
 using SwqlStudio.Metadata;
 using SwqlStudio.Properties;
 using SwqlStudio.Subscriptions;
@@ -14,13 +13,13 @@ namespace SwqlStudio
         public void AddTextToEditor(string text, ConnectionInfo info)
         {
             if (info == null)
-                info = ActiveConnectionInfo;
+                info = this.filesDock.ActiveConnectionInfo;
 
             IMetadataProvider metadataProvider;
             _metadataProviders.TryGetValue(info, out metadataProvider);
 
             CreateQueryTab(info.Title, info, metadataProvider);
-            ActiveQueryTab.QueryText = text;
+            this.filesDock.ActiveQueryTab.QueryText = text;
         }
 
         public void OpenActivityMonitor(string title, ConnectionInfo info)
@@ -50,9 +49,8 @@ namespace SwqlStudio
 
             crudTab.CloseItself += (s, e) =>
             {
-                RemoveTab(crudTab.Parent as DockContent);
+                this.filesDock.RemoveTab(crudTab.Parent as DockContent);
             };
-
 
             AddNewTab(crudTab, title);
         }

@@ -176,6 +176,12 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="QueriesDockPanel.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="QueriesDockPanel.Designer.cs">
+      <DependentUpon>QueriesDockPanel.cs</DependentUpon>
+    </Compile>
     <Compile Include="QueryVariable.cs" />
     <Compile Include="Subscriptions\NotificationDeliveryServiceProxy.cs" />
     <Compile Include="Subscriptions\NotificationSubscriber.cs" />

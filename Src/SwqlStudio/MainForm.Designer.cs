@@ -65,7 +65,7 @@
             this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
             this.fontDialog = new System.Windows.Forms.FontDialog();
-            this.filesDock = new WeifenLuo.WinFormsUI.Docking.DockPanel();
+            this.filesDock = new SwqlStudio.QueriesDockPanel();
             this.ObjectExplorerImageList = new System.Windows.Forms.ImageList(this.components);
             this.startTimer = new System.Windows.Forms.Timer(this.components);
             this.undoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -474,7 +474,7 @@
         private System.Windows.Forms.ToolStripMenuItem menuFileTabPage;
         private System.Windows.Forms.ToolStripSeparator separatorAboveNotificationListenerActive;
         private System.Windows.Forms.ToolStripMenuItem searchInTreeHotKeyToolStripMenuItem;
-        private WeifenLuo.WinFormsUI.Docking.DockPanel filesDock;
+        private SwqlStudio.QueriesDockPanel filesDock;
         private System.Windows.Forms.ToolStripMenuItem undoToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem redoToolStripMenuItem;
     }

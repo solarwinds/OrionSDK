@@ -315,6 +315,7 @@
   <ItemGroup>
     <Content Include="ResizableTextAreaStyle.css" />
     <Content Include="Main.ico" />
+    <None Include="Resources\TextFile_16x.ico" />
     <None Include="Resources\Run_16x.png" />
     <None Include="Resources\OpenFolder_16x.png" />
     <None Include="Resources\Save_16x.png" />

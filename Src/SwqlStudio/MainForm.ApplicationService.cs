@@ -1,5 +1,7 @@
-﻿using System.Windows.Forms;
+﻿using System.Drawing;
+using System.Windows.Forms;
 using SwqlStudio.Metadata;
+using SwqlStudio.Properties;
 using SwqlStudio.Subscriptions;
 using WeifenLuo.WinFormsUI.Docking;
 
@@ -58,7 +60,7 @@ namespace SwqlStudio
         private void AddNewTab(Control childControl, string title)
         {
             var dockContent = new DockContent();
-            dockContent.ShowIcon = false;
+            dockContent.Icon = Resources.TextFile_16x;
             dockContent.Controls.Add(childControl);
             dockContent.Text = title;
             dockContent.Show(this.filesDock, DockState.Document);

@@ -29,24 +29,15 @@
         private void InitializeComponent()
         {
             System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
-            System.Windows.Forms.Button ok;
             System.Windows.Forms.Button cancel;
+            System.Windows.Forms.Button ok;
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
-            ok = new System.Windows.Forms.Button();
             cancel = new System.Windows.Forms.Button();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ok = new System.Windows.Forms.Button();
             flowLayoutPanel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
-            // 
-            // dataGridView1
-            // 
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridView1.Location = new System.Drawing.Point(0, 0);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(284, 231);
-            this.dataGridView1.TabIndex = 0;
             // 
             // flowLayoutPanel1
             // 
@@ -59,6 +50,16 @@
             flowLayoutPanel1.Size = new System.Drawing.Size(284, 31);
             flowLayoutPanel1.TabIndex = 1;
             // 
+            // cancel
+            // 
+            cancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            cancel.Location = new System.Drawing.Point(206, 3);
+            cancel.Name = "cancel";
+            cancel.Size = new System.Drawing.Size(75, 23);
+            cancel.TabIndex = 1;
+            cancel.Text = "Cancel";
+            cancel.UseVisualStyleBackColor = true;
+            // 
             // ok
             // 
             ok.DialogResult = System.Windows.Forms.DialogResult.OK;
@@ -69,15 +70,14 @@
             ok.Text = "OK";
             ok.UseVisualStyleBackColor = true;
             // 
-            // cancel
+            // dataGridView1
             // 
-            cancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            cancel.Location = new System.Drawing.Point(206, 3);
-            cancel.Name = "cancel";
-            cancel.Size = new System.Drawing.Size(75, 23);
-            cancel.TabIndex = 1;
-            cancel.Text = "Cancel";
-            cancel.UseVisualStyleBackColor = true;
+            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dataGridView1.Location = new System.Drawing.Point(0, 0);
+            this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.Size = new System.Drawing.Size(284, 231);
+            this.dataGridView1.TabIndex = 0;
             // 
             // QueryParameters
             // 
@@ -90,9 +90,10 @@
             this.Controls.Add(flowLayoutPanel1);
             this.MinimizeBox = false;
             this.Name = "QueryParameters";
+            this.ShowIcon = false;
             this.Text = "QueryParameters";
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             flowLayoutPanel1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
 
         }

@@ -65,6 +65,7 @@
             this.ClientSize = new System.Drawing.Size(377, 615);
             this.Controls.Add(this.entityClassGraphTreeView);
             this.Name = "EntityClassGraphForm";
+            this.ShowIcon = false;
             this.Text = "Entity Inheritance Graph";
             this.ResumeLayout(false);
 

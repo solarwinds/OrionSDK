@@ -21,8 +21,10 @@ namespace SwqlStudio
     public partial class MainForm : Form
     {
         private static readonly SolarWinds.Logging.Log log = new SolarWinds.Logging.Log();
-
+        
+        private DockContent lastActiveContent = null;
         private ObjectExplorer objectExplorer;
+        private DockContent objectExplorerContent;
         private readonly ServerList serverList = new ServerList();
         private readonly Dictionary<ConnectionInfo, IMetadataProvider> _metadataProviders = new Dictionary<ConnectionInfo, IMetadataProvider>();
 
@@ -45,6 +47,8 @@ namespace SwqlStudio
         private void InitializeObjectExplorer()
         {
             this.filesDock.ShowDocumentIcon = false;
+            this.filesDock.ActiveContentChanged += FilesDock_ActiveContentChanged;
+            this.filesDock.ContentRemoved += FilesDock_ContentRemoved;
             this.objectExplorer = new ObjectExplorer();
             this.objectExplorer.ApplicationService = this;
             this.objectExplorer.Dock = DockStyle.Fill;
@@ -54,12 +58,27 @@ namespace SwqlStudio
             this.objectExplorer.Name = "objectExplorer";
             this.objectExplorer.Size = new System.Drawing.Size(191, 571);
             this.objectExplorer.TabIndex = 0;
-            var objectToolbar = new DockContent();
-            objectToolbar.CloseButton = false;
-            objectToolbar.CloseButtonVisible = false;
-            objectToolbar.Text = "Object explorer";
-            objectToolbar.Controls.Add(this.objectExplorer);
-            objectToolbar.Show(this.filesDock, DockState.DockLeft);
+            this.objectExplorerContent = new DockContent();
+            this.objectExplorerContent.CloseButton = false;
+            this.objectExplorerContent.CloseButtonVisible = false;
+            this.objectExplorerContent.Text = "Object explorer";
+            this.objectExplorerContent.Controls.Add(this.objectExplorer);
+            this.objectExplorerContent.Show(this.filesDock, DockState.DockLeft);
+        }
+
+        private void FilesDock_ContentRemoved(object sender, DockContentEventArgs e)
+        {
+            if (e.Content == this.lastActiveContent)
+                this.lastActiveContent = null;
+        }
+
+        private void FilesDock_ActiveContentChanged(object sender, EventArgs e)
+        {
+            var content = filesDock.ActiveContent as DockContent;
+            if (content != null && this.objectExplorerContent != content)
+            {
+                this.lastActiveContent = content;
+            }
         }
 
         private void startTimer_Tick(object sender, EventArgs e)
@@ -181,7 +200,7 @@ namespace SwqlStudio
             // Close default untitled document if it is still empty
             if (filesDock.Contents.Count == 2 &&
                 ActiveQueryTab != null && ActiveQueryTab.QueryText.Trim() == String.Empty)
-                RemoveTab(filesDock.ActiveContent as DockContent);
+                RemoveTab(this.lastActiveContent);
 
             // Open file(s)
             foreach (string fn in fns)
@@ -220,8 +239,8 @@ namespace SwqlStudio
 
         private void menuFileClose_Click(object sender, EventArgs e)
         {
-            if (FileTabHasPages())
-                RemoveTab(filesDock.ActiveContent as DockContent);
+            if (HasActiveContent())
+                RemoveTab(this.lastActiveContent);
         }
 
         private void RemoveTab(DockContent tabPage)
@@ -322,6 +341,22 @@ namespace SwqlStudio
 
         #region Code related to Edit menu
 
+        private void undoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (ActiveEditor == null)
+                return;
+
+            ActiveEditor.Undo();
+        }
+
+        private void redoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (ActiveEditor == null)
+                return;
+
+            ActiveEditor.Redo();
+        }
+
         private void menuEditCut_Click(object sender, EventArgs e)
         {
             if (ActiveEditor == null)
@@ -402,7 +437,6 @@ namespace SwqlStudio
         {
             get
             {
-                if (!FileTabHasPages()) return null;
                 return SelectedTabFirstControl() as QueryTab;
             }
         }
@@ -411,19 +445,21 @@ namespace SwqlStudio
         {
             get
             {
-                if (!FileTabHasPages()) return null;
                 return SelectedTabFirstControl() as IConnectionTab;
             }
         }
 
         private Control SelectedTabFirstControl()
         {
-            return ((DockContent)filesDock.ActiveContent).Controls[0];
+            if (!HasActiveContent())
+                return null;
+
+            return this.lastActiveContent.Controls[0];
         }
 
-        private bool FileTabHasPages()
+        private bool HasActiveContent()
         {
-            return filesDock.Contents.Count > 1;
+            return this.lastActiveContent != null;
         }
 
         /// <summary>Returns the currently displayed editor, or null if none are open</summary>

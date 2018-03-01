@@ -315,6 +315,19 @@
   <ItemGroup>
     <Content Include="ResizableTextAreaStyle.css" />
     <Content Include="Main.ico" />
+    <None Include="Resources\TextFile_16x.ico" />
+    <None Include="Resources\Run_16x.png" />
+    <None Include="Resources\OpenFolder_16x.png" />
+    <None Include="Resources\Save_16x.png" />
+    <None Include="Resources\CloseDocument_16x.png" />
+    <None Include="Resources\NewFile_16x.png" />
+    <None Include="Resources\Redo_16x.png" />
+    <None Include="Resources\Undo_16x.png" />
+    <None Include="Resources\ConnectFilled_16x.png" />
+    <None Include="Resources\Disconnect_16x.png" />
+    <None Include="Resources\Cut_16x.png" />
+    <None Include="Resources\ASX_Copy_blue_16x.png" />
+    <None Include="Resources\ASX_Paste_blue_16x.png" />
     <EmbeddedResource Include="XmlRender\XmlRender.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>XmlRender.Designer.cs</LastGenOutput>

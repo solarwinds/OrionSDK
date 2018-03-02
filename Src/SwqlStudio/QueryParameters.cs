@@ -10,11 +10,13 @@ namespace SwqlStudio
     {
         private readonly Dictionary<string, string> lastKnownValues = new Dictionary<string, string>();
 
+        public bool AllowSetParameters { get; set; }
+
         public QueryParameters()
         {
             InitializeComponent();
             parametersGrid.DataSource = new BindingList<QueryVariable>();
-            Parameters = new PropertyBag();
+            AllowSetParameters = true;
         }
 
         public PropertyBag Parameters
@@ -30,6 +32,9 @@ namespace SwqlStudio
 
             set
             {
+                if (!this.AllowSetParameters)
+                    return;
+
                 UpdateFromLastKnown(value);
                 var currentVariables = (BindingList<QueryVariable>)parametersGrid.DataSource;
                 UpdateWithCurrentValues(value, currentVariables);

@@ -388,5 +388,10 @@ namespace SwqlStudio
         {
             this.filesDock.FocusSearch();
         }
+
+        private void discoverQueryParametersToolStripMenuItem_CheckedChanged(object sender, EventArgs e)
+        {
+            this.filesDock.AllowSetParameters(this.discoverQueryParametersMenuItem.Checked);
+        }
     }
 }

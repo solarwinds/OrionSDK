@@ -223,5 +223,10 @@ namespace SwqlStudio
             this.tabsFactory = new TabsFactory(this, applicationService);
             this.objectExplorer.TabsFactory = this.tabsFactory;
         }
+                
+        internal void AllowSetParameters(bool allow)
+        {
+            this.queryParametersContent.AllowSetParameters = allow;
+        }
     }
 }

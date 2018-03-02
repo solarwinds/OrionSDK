@@ -20,6 +20,7 @@ namespace SwqlStudio
         public PropertyBag QueryParameters
         {
             get { return this.filesDock.QueryParameters; }
+            set { this.filesDock.QueryParameters = value; }
         }
         
         public SubscriptionManager SubscriptionManager { get; } = new SubscriptionManager();

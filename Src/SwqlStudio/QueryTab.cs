@@ -6,6 +6,7 @@ using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using System.Xml;
 using System.Xml.Linq;
@@ -738,6 +739,27 @@ namespace SwqlStudio
         internal void SetMetadataProvider(IMetadataProvider provider)
         {
             sciTextEditorControl1.SetMetadata(provider);
+        }
+
+        private void sciTextEditorControl1_TextChanged(object sender, EventArgs e)
+        {
+            this.delayTimer.Start();
+        }
+
+        private void delayTimer_Tick(object sender, EventArgs e)
+        {
+            this.delayTimer.Stop();
+            string queryText = this.QueryText;
+            var rxPattern = @"\@([\w.$]+|""[^""]+""|'[^']+')";
+            var propertyBag = new PropertyBag();
+
+            foreach (Match item in Regex.Matches(queryText, rxPattern))
+            {
+                string paramName = item.Value.Substring(1);
+                propertyBag[paramName] = string.Empty;
+            }
+
+            this.ApplicationService.QueryParameters = propertyBag;
         }
     }
 }

@@ -5,7 +5,7 @@ namespace SwqlStudio
 {
     public interface IApplicationService
     {
-        PropertyBag QueryParameters { get; }
+        PropertyBag QueryParameters { get; set; }
 
         SubscriptionManager SubscriptionManager { get; }
     }

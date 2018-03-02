@@ -10,6 +10,7 @@ namespace SwqlStudio
         public QueryParameters()
         {
             InitializeComponent();
+            parametersGrid.DataSource = new BindingList<QueryVariable>(); 
             Parameters = new PropertyBag();
         }
 
@@ -24,10 +25,21 @@ namespace SwqlStudio
                 return bag;
             }
 
-            private set
+            set
             {
+                var currentVariables = (BindingList<QueryVariable>) parametersGrid.DataSource;
+                UpdateWithCurrentValues(value, currentVariables);
                 var pairs = value.Select(pair => new QueryVariable(pair.Key, pair.Value?.ToString()));
                 parametersGrid.DataSource = new BindingList<QueryVariable>(pairs.ToList()) {AllowNew = true};
+            }
+        }
+
+        private void UpdateWithCurrentValues(PropertyBag propertyBag, BindingList<QueryVariable> currentVariables)
+        {
+            foreach (QueryVariable variable in currentVariables)
+            {
+                if (variable.Key != null && propertyBag.ContainsKey(variable.Key))
+                    propertyBag[variable.Key] = variable.Value;
             }
         }
     }

@@ -20,6 +20,7 @@ namespace SwqlStudio
         public PropertyBag QueryParameters
         {
             get { return this.queryParametersContent.Parameters; }
+            set { this.queryParametersContent.Parameters = value; }
         }
 
         /// <summary>Returns the currently displayed editor, or null if none are open</summary>

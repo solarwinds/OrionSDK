@@ -46,7 +46,7 @@ namespace SwqlStudio
         private TreeNode _dragNode;
 
 
-        public IApplicationService ApplicationService { get; set; }
+        public ITabsFactory TabsFactory { get; set; }
 
         public EntityGroupingMode EntityGroupingMode { get; set; }
 
@@ -406,7 +406,7 @@ namespace SwqlStudio
         {
             var provider = node.Tag as IMetadataProvider;
             if (provider != null && provider.ConnectionInfo.CanCreateSubscription)
-                ApplicationService.OpenActivityMonitor(provider.ConnectionInfo.Title + " Activity", provider.ConnectionInfo);
+                TabsFactory.OpenActivityMonitor(provider.ConnectionInfo.Title + " Activity", provider.ConnectionInfo);
         }
 
         private void OpenInvokeTab()
@@ -415,7 +415,7 @@ namespace SwqlStudio
             var verb = (Verb)_contextMenuNode.Tag;
             if (verb.Arguments.Count == 0)
                 verb.Arguments.AddRange(provider.GetVerbArguments(verb));
-            ApplicationService.OpenInvokeTab(string.Format("{0} - Invoke {1}.{2}", provider.ConnectionInfo.Title, verb.EntityName, verb.Name),
+            TabsFactory.OpenInvokeTab(string.Format("{0} - Invoke {1}.{2}", provider.ConnectionInfo.Title, verb.EntityName, verb.Name),
                                              provider.ConnectionInfo, verb);
         }
 
@@ -429,7 +429,7 @@ namespace SwqlStudio
                 if ((_contextMenuNode as TreeNodeWithConnectionInfo) != null)
                     connection = (_contextMenuNode as TreeNodeWithConnectionInfo).Connection;
 
-                ApplicationService.AddTextToEditor(swql, connection);
+                TabsFactory.AddTextToEditor(swql, connection);
             }
         }
 
@@ -815,7 +815,7 @@ CanDelete: {4}",
         private void Crud(Entity entity, CrudOperation operation)
         {
             var provider = FindProvider(_contextMenuNode);
-            ApplicationService.OpenCrudTab(operation, provider.ConnectionInfo, entity);
+            TabsFactory.OpenCrudTab(operation, provider.ConnectionInfo, entity);
         }
 
         private void StartSubscription(object sender, EventArgs e)
@@ -829,7 +829,7 @@ CanDelete: {4}",
                 if ((_contextMenuNode as TreeNodeWithConnectionInfo) != null)
                     connection = (_contextMenuNode as TreeNodeWithConnectionInfo).Connection;
 
-                ApplicationService.AddTextToEditor(query, connection);
+                TabsFactory.AddTextToEditor(query, connection);
             }
         }
     }

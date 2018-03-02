@@ -12,33 +12,10 @@ namespace SwqlStudio
     public partial class QueriesDockPanel : DockPanel
     {
         private DockContent lastActiveContent = null;
+        private TabsFactory tabsFactory;
         private ObjectExplorer objectExplorer;
         private DockContent objectExplorerContent;
         private QueryParameters queryParametersContent;
-
-        internal ImageList ObjectExplorerImageList
-        {
-            get
-            {
-                return this.objectExplorer.ImageList;
-            }
-            set
-            {
-                this.objectExplorer.ImageList = value;
-            }
-        }
-        
-        internal IApplicationService ApplicationService
-        {
-            get
-            {
-                return this.objectExplorer.ApplicationService;
-            }
-            set
-            {
-                this.objectExplorer.ApplicationService = value;
-            }
-        }
 
         public PropertyBag QueryParameters
         {
@@ -93,6 +70,20 @@ namespace SwqlStudio
             }
         }
 
+        public QueriesDockPanel()
+        {
+            InitializeComponent();
+
+            InitializeDockPanel();
+            InitializeObjectExplorer();
+            InitializeQueryParameters();
+        }
+
+        public void CreateTabFromPrevious()
+        {
+            this.tabsFactory.CreateTabFromPrevious();
+        }
+
         private Control SelectedTabFirstControl()
         {
             if (!HasActiveContent())
@@ -106,13 +97,9 @@ namespace SwqlStudio
             return this.lastActiveContent != null;
         }
 
-        public QueriesDockPanel()
+        internal void SetObjectExplorerImageList(ImageList imageList)
         {
-            InitializeComponent();
-
-            InitializeDockPanel();
-            InitializeObjectExplorer();
-            InitializeQueryParameters();
+            this.objectExplorer.ImageList = imageList;
         }
 
         private void InitializeDockPanel()
@@ -204,6 +191,9 @@ namespace SwqlStudio
             objectExplorer.FocusSearch();
         }
 
+        /// <summary>
+        /// Close default untitled document if it is still empty
+        /// </summary>
         internal void ColoseInitialDocument()
         {
             if (this.Contents.Count == 3 &&
@@ -215,6 +205,22 @@ namespace SwqlStudio
         {
             if (tabPage != null)
                 tabPage.Close();
+        }
+
+        internal void OpenFiles(string[] files)
+        {
+            this.tabsFactory.OpenFiles(files);
+        }
+
+        internal void AddNewQueryTab()
+        {
+            this.tabsFactory.AddNewQueryTab();
+        }
+
+        public void SetAplicationService(IApplicationService applicationService)
+        {
+            this.tabsFactory = new TabsFactory(this, applicationService);
+            this.objectExplorer.TabsFactory = this.tabsFactory;
         }
     }
 }

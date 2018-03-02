@@ -156,12 +156,10 @@
     <Compile Include="InvokeVerbTab.Designer.cs">
       <DependentUpon>InvokeVerbTab.cs</DependentUpon>
     </Compile>
+    <Compile Include="ITabsFactory.cs" />
     <Compile Include="LexerService.cs" />
     <Compile Include="LogHeaderMessageInspector.cs" />
     <Compile Include="LogHeaderReaderBehavior.cs" />
-    <Compile Include="MainForm.ApplicationService.cs">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="Metadata\Entity.cs" />
     <Compile Include="Metadata\Property.cs" />
     <Compile Include="Metadata\Verb.cs" />
@@ -233,6 +231,7 @@
     <Compile Include="SubscriptionTab.Designer.cs">
       <DependentUpon>SubscriptionTab.cs</DependentUpon>
     </Compile>
+    <Compile Include="TabsFactory.cs" />
     <Compile Include="Utility.cs" />
     <Compile Include="Utils\Win32.cs" />
     <Compile Include="XmlRender\RenderXmlToHtml.cs" />

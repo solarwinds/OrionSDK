@@ -245,16 +245,13 @@ namespace SwqlStudio
                 if (openFileDialog1.ShowDialog() == DialogResult.OK)
                 {
                     var pbi = new PlaybackItem() { FileName = openFileDialog1.FileName, MultiThread = false, QueryTab = this };
-                    using (var nc = new NewConnection())
-                    {
-                        if (nc.ShowDialog(this) != DialogResult.OK)
-                            return;
-
-                        var info = nc.ConnectionInfo;
-                        info.Connect();
-                        pbi.ConnectionInfo = info;
-                        PlaybackManager.StartPlayback(pbi);
-                    }
+                    ConnectionInfo info = CreateConnection();
+                    if (info == null)
+                        return;
+                    
+                    info.Connect();
+                    pbi.ConnectionInfo = info;
+                    PlaybackManager.StartPlayback(pbi);
                     logTextbox.Text = "Started Playback...\r\n";
                 }
             }
@@ -263,6 +260,19 @@ namespace SwqlStudio
                 AppendLogTabLine("Error starting playback.\r\n");
                 AppendLogTabLine(ex.ToString());
             }
+        }
+
+        public static ConnectionInfo CreateConnection()
+        {
+            using (var nc = new NewConnection())
+            {
+                if (nc.ShowDialog() == DialogResult.OK)
+                {
+                    return nc.ConnectionInfo;
+                }
+            }
+
+            return null;
         }
 
         private delegate void AppendLogDelegate(string s);

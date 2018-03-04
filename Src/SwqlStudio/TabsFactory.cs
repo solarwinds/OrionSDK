@@ -17,7 +17,7 @@ namespace SwqlStudio
 
         private readonly Dictionary<ConnectionInfo, IMetadataProvider> metadataProviders =
             new Dictionary<ConnectionInfo, IMetadataProvider>();
-                
+
         private readonly ServerList serverList = new ServerList();
 
         private readonly QueriesDockPanel dockPanel;
@@ -45,7 +45,7 @@ namespace SwqlStudio
         {
             var activityMonitorTab = new ActivityMonitorTab
             {
-                ConnectionInfo = info, 
+                ConnectionInfo = info,
                 Dock = DockStyle.Fill,
                 ApplicationService = this.applicationService
             };
@@ -58,9 +58,9 @@ namespace SwqlStudio
         {
             var invokeVerbTab = new InvokeVerbTab
             {
-                ConnectionInfo = info, 
+                ConnectionInfo = info,
                 Dock = DockStyle.Fill,
-                ApplicationService = this.applicationService, 
+                ApplicationService = this.applicationService,
                 Verb = verb
             };
             AddNewTab(invokeVerbTab, title);
@@ -88,74 +88,69 @@ namespace SwqlStudio
 
         internal void AddNewQueryTab()
         {
-            using (NewConnection nc = new NewConnection())
+            string msg = null;
+
+            try
             {
-                if (nc.ShowDialog() != DialogResult.OK)
+                ConnectionInfo info = QueryTab.CreateConnection();
+                if (info == null)
                     return;
 
-                string msg = null;
-
-                try
+                bool alreadyExists = false;
+                ConnectionInfo found;
+                alreadyExists = serverList.TryGet(info.ServerType, info.Server, info.UserName, out found);
+                if (!alreadyExists)
                 {
-                    ConnectionInfo info;
-                    bool alreadyExists = false;
-                    alreadyExists = serverList.TryGet(nc.ConnectionInfo.ServerType, nc.ConnectionInfo.Server, nc.ConnectionInfo.UserName, out info);
-                    if (!alreadyExists)
-                    {
-                        info = nc.ConnectionInfo;
-                        info.Connect();
-                        serverList.Add(info);
+                    info.Connect();
+                    serverList.Add(info);
 
-                        info.ConnectionClosed += (sender, args) => serverList.Remove(info);
-                    }
+                    info.ConnectionClosed += (sender, args) => serverList.Remove(info);
 
-                    if (!alreadyExists)
-                    {
-                        var provider = new SwisMetaDataProvider(info);
-                        this.dockPanel.AddServer(provider, info);
-                        metadataProviders[info] = provider;
-                    }
-
-                    this.CreateQueryTab(info.Title, info, metadataProviders[info]);
+                    var provider = new SwisMetaDataProvider(info);
+                    this.dockPanel.AddServer(provider, info);
+                    metadataProviders[info] = provider;
+                    found = info;
                 }
-                catch (FaultException<InfoServiceFaultContract> ex)
+
+                this.CreateQueryTab(found.Title, found, metadataProviders[found]);
+            }
+            catch (FaultException<InfoServiceFaultContract> ex)
+            {
+                log.Error("Failed to connect", ex);
+                msg = ex.Detail.Message;
+            }
+            catch (SecurityNegotiationException ex)
+            {
+                log.Error("Failed to connect", ex);
+                msg = ex.Message;
+            }
+            catch (FaultException ex)
+            {
+                log.Error("Failed to connect", ex);
+                msg = (ex.InnerException != null) ? ex.InnerException.Message : ex.Message;
+            }
+            catch (MessageSecurityException ex)
+            {
+                log.Error("Failed to connect", ex);
+                if (ex.InnerException != null && ex.InnerException is FaultException)
                 {
-                    log.Error("Failed to connect", ex);
-                    msg = ex.Detail.Message;
+                    msg = (ex.InnerException as FaultException).Message;
                 }
-                catch (SecurityNegotiationException ex)
+                else
                 {
-                    log.Error("Failed to connect", ex);
                     msg = ex.Message;
                 }
-                catch (FaultException ex)
-                {
-                    log.Error("Failed to connect", ex);
-                    msg = (ex.InnerException != null) ? ex.InnerException.Message : ex.Message;
-                }
-                catch (MessageSecurityException ex)
-                {
-                    log.Error("Failed to connect", ex);
-                    if (ex.InnerException != null && ex.InnerException is FaultException)
-                    {
-                        msg = (ex.InnerException as FaultException).Message;
-                    }
-                    else
-                    {
-                        msg = ex.Message;
-                    }
-                }
-                catch (Exception ex)
-                {
-                    log.Error("Failed to connect", ex);
-                    msg = ex.Message;
-                }
+            }
+            catch (Exception ex)
+            {
+                log.Error("Failed to connect", ex);
+                msg = ex.Message;
+            }
 
-                if (msg != null)
-                {
-                    msg = string.Format("Unable to connect to Information Service. {0}", msg);
-                    MessageBox.Show(msg, "Connection Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
+            if (msg != null)
+            {
+                msg = string.Format("Unable to connect to Information Service. {0}", msg);
+                MessageBox.Show(msg, "Connection Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 

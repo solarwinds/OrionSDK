@@ -15,9 +15,6 @@ namespace SwqlStudio
     {
         private static readonly SolarWinds.Logging.Log log = new SolarWinds.Logging.Log();
 
-        private readonly Dictionary<ConnectionInfo, IMetadataProvider> metadataProviders =
-            new Dictionary<ConnectionInfo, IMetadataProvider>();
-
         private readonly ServerList serverList = new ServerList();
 
         private readonly QueriesDockPanel dockPanel;
@@ -35,7 +32,7 @@ namespace SwqlStudio
                 info = this.dockPanel.ActiveConnectionInfo;
 
             IMetadataProvider metadataProvider;
-            this.metadataProviders.TryGetValue(info, out metadataProvider);
+            this.serverList.TryGetProvider(info, out metadataProvider);
 
             CreateQueryTab(info.Title, info, metadataProvider);
             this.dockPanel.ActiveQueryTab.QueryText = text;
@@ -102,17 +99,16 @@ namespace SwqlStudio
                 if (!alreadyExists)
                 {
                     info.Connect();
-                    serverList.Add(info);
+                    var provider = serverList.Add(info);
 
                     info.ConnectionClosed += (sender, args) => serverList.Remove(info);
-
-                    var provider = new SwisMetaDataProvider(info);
                     this.dockPanel.AddServer(provider, info);
-                    metadataProviders[info] = provider;
                     found = info;
                 }
 
-                this.CreateQueryTab(found.Title, found, metadataProviders[found]);
+                IMetadataProvider foundProvider;
+                serverList.TryGetProvider(found,  out foundProvider);
+                this.CreateQueryTab(found.Title, found, foundProvider);
             }
             catch (FaultException<InfoServiceFaultContract> ex)
             {
@@ -156,8 +152,8 @@ namespace SwqlStudio
 
         internal void OpenFiles(string[] files)
         {
-            var originalConnection = this.dockPanel.ActiveConnectionInfo;
-            if (originalConnection == null)
+            var connectionInfo = this.dockPanel.ActiveConnectionInfo;
+            if (connectionInfo == null)
                 return;
 
             this.dockPanel.ColoseInitialDocument();
@@ -168,11 +164,10 @@ namespace SwqlStudio
                 QueryTab queryTab = null;
                 try
                 {
-                    var connectionInfo = originalConnection.Copy();
                     connectionInfo.Connect();
 
                     IMetadataProvider metadataProvider;
-                    metadataProviders.TryGetValue(connectionInfo, out metadataProvider);
+                    this.serverList.TryGetProvider(connectionInfo, out metadataProvider);
 
                     queryTab = this.CreateQueryTab(Path.GetFileName(fn), connectionInfo, metadataProvider);
                     queryTab.QueryText = File.ReadAllText(fn);

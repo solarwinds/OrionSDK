@@ -20,7 +20,7 @@ namespace SwqlStudio
 
         void ActivityMonitorTabDisposed(object sender, EventArgs e)
         {
-            if (String.IsNullOrEmpty(subscriptionId) && ConnectionInfo.IsConnected)
+            if (!String.IsNullOrEmpty(subscriptionId) && ConnectionInfo.IsConnected)
             {
                 this.SubscriptionManager.Unsubscribe(ConnectionInfo, subscriptionId);
             }
@@ -28,7 +28,10 @@ namespace SwqlStudio
 
         private void SubscriptionIndicationReceived(IndicationEventArgs e)
         {
-             BeginInvoke(new Action<IndicationEventArgs>(AddIndication), e);
+            if (this.IsDisposed)
+                return;
+
+            BeginInvoke(new Action<IndicationEventArgs>(AddIndication), e);
         }
 
         private void AddIndication(IndicationEventArgs obj)

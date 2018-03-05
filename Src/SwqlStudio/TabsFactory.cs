@@ -40,7 +40,7 @@ namespace SwqlStudio
             {
                 ConnectionInfo = info,
                 Dock = DockStyle.Fill,
-                ApplicationService = this.applicationService
+                SubscriptionManager = this.applicationService.SubscriptionManager
             };
             AddNewTab(activityMonitorTab, title);
             activityMonitorTab.Start();
@@ -52,7 +52,6 @@ namespace SwqlStudio
             {
                 ConnectionInfo = info,
                 Dock = DockStyle.Fill,
-                ApplicationService = this.applicationService,
                 Verb = verb
             };
             AddNewTab(invokeVerbTab, title);
@@ -66,7 +65,6 @@ namespace SwqlStudio
             {
                 ConnectionInfo = info,
                 Dock = DockStyle.Fill,
-                ApplicationService = this.applicationService,
                 Entity = entity
             };
 
@@ -202,7 +200,8 @@ namespace SwqlStudio
             {
                 ConnectionInfo = info,
                 Dock = DockStyle.Fill,
-                ApplicationService = this.applicationService
+                ApplicationService = this.applicationService,
+                SubscriptionManager = this.applicationService.SubscriptionManager
             };
             
             IMetadataProvider provider;

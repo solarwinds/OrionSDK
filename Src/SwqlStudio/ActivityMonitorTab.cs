@@ -1,11 +1,16 @@
 ﻿using System;
 using System.Windows.Forms;
+using SwqlStudio.Subscriptions;
 
 namespace SwqlStudio
 {
     public partial class ActivityMonitorTab : UserControl, IConnectionTab
     {
         private string subscriptionId;
+
+        public ConnectionInfo ConnectionInfo { get; set; }
+
+        public SubscriptionManager SubscriptionManager { get; set; }
 
         public ActivityMonitorTab()
         {
@@ -17,11 +22,9 @@ namespace SwqlStudio
         {
             if (String.IsNullOrEmpty(subscriptionId) && ConnectionInfo.IsConnected)
             {
-                ApplicationService.SubscriptionManager.Unsubscribe(ConnectionInfo, subscriptionId);
+                this.SubscriptionManager.Unsubscribe(ConnectionInfo, subscriptionId);
             }
         }
-
-        public IApplicationService ApplicationService { get; set; }
 
         private void SubscriptionIndicationReceived(IndicationEventArgs e)
         {
@@ -41,8 +44,6 @@ namespace SwqlStudio
             item.EnsureVisible();
         }
 
-        public ConnectionInfo ConnectionInfo { get; set; }
-
         public void Start()
         {
             backgroundWorker1.RunWorkerAsync();
@@ -55,7 +56,7 @@ namespace SwqlStudio
             backgroundWorker1.ReportProgress(0, "Starting subscription...");
             try
             {
-                subscriptionId = ApplicationService.SubscriptionManager.CreateSubscription(ConnectionInfo, "SUBSCRIBE System.QueryExecuted", SubscriptionIndicationReceived);
+                subscriptionId = this.SubscriptionManager.CreateSubscription(ConnectionInfo, "SUBSCRIBE System.QueryExecuted", SubscriptionIndicationReceived);
                 backgroundWorker1.ReportProgress(0, "Waiting for notifications");
             }
             catch (ApplicationException ex)

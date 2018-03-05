@@ -13,6 +13,7 @@ using System.Xml.Linq;
 using SolarWinds.InformationService.Contract2;
 using SwqlStudio.Playback;
 using SwqlStudio.Properties;
+using SwqlStudio.Subscriptions;
 
 namespace SwqlStudio
 {
@@ -35,6 +36,8 @@ namespace SwqlStudio
         }
 
         private Font nullFont;
+        public IApplicationService ApplicationService { get; set; }
+        public SubscriptionManager SubscriptionManager { get; set; }
 
         public QueryTab()
         {
@@ -74,11 +77,9 @@ namespace SwqlStudio
         {
             if (!String.IsNullOrEmpty(subscriptionId))
             {
-                ApplicationService.SubscriptionManager.Unsubscribe(ConnectionInfo, subscriptionId);
+                this.SubscriptionManager.Unsubscribe(ConnectionInfo, subscriptionId);
             }
         }
-
-        public IApplicationService ApplicationService { get; set; }
 
         private void ShowTabs(Tabs tabsToShow)
         {
@@ -689,7 +690,7 @@ namespace SwqlStudio
 
             try
             {
-                subscriptionId = ApplicationService.SubscriptionManager.CreateSubscription(ConnectionInfo, arg.Query,
+                subscriptionId = this.SubscriptionManager.CreateSubscription(ConnectionInfo, arg.Query,
                     SubscriptionIndicationReceived);
 
                 subscriptionWorker.ReportProgress(0, "Waiting for notifications");

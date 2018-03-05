@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace SwqlStudio
 {
@@ -10,12 +11,20 @@ namespace SwqlStudio
         private readonly Dictionary<ConnectionInfo, IMetadataProvider> metadataProviders =
             new Dictionary<ConnectionInfo, IMetadataProvider>();
 
+        internal List<ConnectionInfo> Connections
+        {
+            get { return this.connections.Values.ToList(); }
+        }
+
+        public event EventHandler ConnectionsChanged;
+
         public IMetadataProvider Add(ConnectionInfo connection)
         {
             string key = GetKey(connection);
             connections.Add(key, connection);
             var provider = new SwisMetaDataProvider(connection);
             metadataProviders[connection] = provider;
+            ConnectionsChanged(this, EventArgs.Empty);
             return provider;
         }
 
@@ -24,6 +33,7 @@ namespace SwqlStudio
             string key = GetKey(connection);
             connections.Remove(key);
             metadataProviders.Remove(connection);
+            ConnectionsChanged(this, EventArgs.Empty);
         }
 
         public bool Exists(ConnectionInfo connection)

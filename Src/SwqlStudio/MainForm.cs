@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.IO;
 using System.ServiceModel;
 using System.Windows.Forms;
@@ -16,6 +17,7 @@ namespace SwqlStudio
     internal partial class MainForm : Form, IApplicationService
     {
         private static readonly SolarWinds.Logging.Log log = new SolarWinds.Logging.Log();
+        private ServerList serverList;
 
         public PropertyBag QueryParameters
         {
@@ -40,8 +42,21 @@ namespace SwqlStudio
 
         private void InitializeDockPanel()
         {
+            var connectionsDropDown = this.connectionsCombobox.ComboBox;
+            connectionsDropDown.DisplayMember = "Title";
             this.filesDock.SetObjectExplorerImageList(this.ObjectExplorerImageList);
-            this.filesDock.SetAplicationService(this);
+            this.serverList = new ServerList();
+            this.serverList.ConnectionsChanged += ServerListOnConnectionsChanged;
+            var tabsFactory = new TabsFactory(this.filesDock, this, this.serverList);
+            this.filesDock.SetAplicationService(tabsFactory);
+        }
+
+        private void ServerListOnConnectionsChanged(object sender, EventArgs eventArgs)
+        {
+            var connectionsDropDown = this.connectionsCombobox.ComboBox;
+            var lastSelected = this.connectionsCombobox.SelectedItem;
+            connectionsDropDown.DataSource = new BindingList<ConnectionInfo>(this.serverList.Connections);
+            this.connectionsCombobox.SelectedItem = lastSelected;
         }
 
         private void startTimer_Tick(object sender, EventArgs e)

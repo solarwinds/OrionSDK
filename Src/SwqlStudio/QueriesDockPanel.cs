@@ -219,10 +219,10 @@ namespace SwqlStudio
             this.tabsFactory.AddNewQueryTab();
         }
 
-        public void SetAplicationService(IApplicationService applicationService)
+        internal void SetAplicationService(TabsFactory tabsFactory)
         {
-            this.tabsFactory = new TabsFactory(this, applicationService);
-            this.objectExplorer.TabsFactory = this.tabsFactory;
+            this.tabsFactory = tabsFactory;
+            this.objectExplorer.TabsFactory = tabsFactory;
         }
                 
         internal void AllowSetParameters(bool allow)

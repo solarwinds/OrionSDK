@@ -72,12 +72,13 @@
             this.ObjectExplorerImageList = new System.Windows.Forms.ImageList(this.components);
             this.startTimer = new System.Windows.Forms.Timer(this.components);
             this.mainToolbar = new System.Windows.Forms.ToolStrip();
+            this.connectionsCombobox = new System.Windows.Forms.ToolStripComboBox();
+            this.executeToolButton = new System.Windows.Forms.ToolStripButton();
             this.undoToolButton = new System.Windows.Forms.ToolStripButton();
             this.redoToolButton = new System.Windows.Forms.ToolStripButton();
             this.newFileToolButton = new System.Windows.Forms.ToolStripButton();
-            this.saveToolButton = new System.Windows.Forms.ToolStripButton();
-            this.executeToolButton = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
+            this.saveToolButton = new System.Windows.Forms.ToolStripButton();
             toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.menu.SuspendLayout();
             this.mainToolbar.SuspendLayout();
@@ -440,6 +441,7 @@
             // mainToolbar
             // 
             this.mainToolbar.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.connectionsCombobox,
             this.executeToolButton,
             this.undoToolButton,
             this.redoToolButton,
@@ -451,6 +453,23 @@
             this.mainToolbar.Size = new System.Drawing.Size(827, 25);
             this.mainToolbar.TabIndex = 5;
             this.mainToolbar.Text = "toolStrip1";
+            // 
+            // connectionsCombobox
+            // 
+            this.connectionsCombobox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.connectionsCombobox.DropDownWidth = 300;
+            this.connectionsCombobox.Name = "connectionsCombobox";
+            this.connectionsCombobox.Size = new System.Drawing.Size(250, 25);
+            // 
+            // executeToolButton
+            // 
+            this.executeToolButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.executeToolButton.Image = global::SwqlStudio.Properties.Resources.Run_16x;
+            this.executeToolButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.executeToolButton.Name = "executeToolButton";
+            this.executeToolButton.Size = new System.Drawing.Size(23, 22);
+            this.executeToolButton.Text = "toolStripButton1";
+            this.executeToolButton.Click += new System.EventHandler(this.menuQueryExecute_Click);
             // 
             // undoToolButton
             // 
@@ -482,26 +501,6 @@
             this.newFileToolButton.Text = "toolStripButton1";
             this.newFileToolButton.Click += new System.EventHandler(this.menuFileNew_Click);
             // 
-            // saveToolButton
-            // 
-            this.saveToolButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.saveToolButton.Image = global::SwqlStudio.Properties.Resources.Save_16x;
-            this.saveToolButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.saveToolButton.Name = "saveToolButton";
-            this.saveToolButton.Size = new System.Drawing.Size(23, 22);
-            this.saveToolButton.Text = "toolStripButton1";
-            this.saveToolButton.Click += new System.EventHandler(this.menuFileSave_Click);
-            // 
-            // executeToolButton
-            // 
-            this.executeToolButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.executeToolButton.Image = global::SwqlStudio.Properties.Resources.Run_16x;
-            this.executeToolButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.executeToolButton.Name = "executeToolButton";
-            this.executeToolButton.Size = new System.Drawing.Size(23, 22);
-            this.executeToolButton.Text = "toolStripButton1";
-            this.executeToolButton.Click += new System.EventHandler(this.menuQueryExecute_Click);
-            // 
             // toolStripButton1
             // 
             this.toolStripButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
@@ -511,6 +510,16 @@
             this.toolStripButton1.Size = new System.Drawing.Size(23, 22);
             this.toolStripButton1.Text = "toolStripButton1";
             this.toolStripButton1.Click += new System.EventHandler(this.menuFileOpen_Click);
+            // 
+            // saveToolButton
+            // 
+            this.saveToolButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.saveToolButton.Image = global::SwqlStudio.Properties.Resources.Save_16x;
+            this.saveToolButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.saveToolButton.Name = "saveToolButton";
+            this.saveToolButton.Size = new System.Drawing.Size(23, 22);
+            this.saveToolButton.Text = "toolStripButton1";
+            this.saveToolButton.Click += new System.EventHandler(this.menuFileSave_Click);
             // 
             // MainForm
             // 
@@ -587,6 +596,7 @@
         private System.Windows.Forms.ToolStripButton saveToolButton;
         private System.Windows.Forms.ToolStripButton executeToolButton;
         private System.Windows.Forms.ToolStripButton toolStripButton1;
+        private System.Windows.Forms.ToolStripComboBox connectionsCombobox;
     }
 }
 

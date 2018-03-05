@@ -14,15 +14,15 @@ namespace SwqlStudio
     {
         private static readonly SolarWinds.Logging.Log log = new SolarWinds.Logging.Log();
 
-        private readonly ServerList serverList = new ServerList();
-
+        private readonly ServerList serverList;
         private readonly QueriesDockPanel dockPanel;
         private readonly IApplicationService applicationService;
 
-        internal TabsFactory(QueriesDockPanel dockPanel, IApplicationService applicationService)
+        internal TabsFactory(QueriesDockPanel dockPanel, IApplicationService applicationService, ServerList serverList)
         {
             this.dockPanel = dockPanel;
             this.applicationService = applicationService;
+            this.serverList = serverList;
         }
 
         public void AddTextToEditor(string text, ConnectionInfo info)

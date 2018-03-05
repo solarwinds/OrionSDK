@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using System.ServiceModel;
 using System.ServiceModel.Security;
@@ -31,10 +30,7 @@ namespace SwqlStudio
             if (info == null)
                 info = this.dockPanel.ActiveConnectionInfo;
 
-            IMetadataProvider metadataProvider;
-            this.serverList.TryGetProvider(info, out metadataProvider);
-
-            CreateQueryTab(info.Title, info, metadataProvider);
+            CreateQueryTab(info.Title, info);
             this.dockPanel.ActiveQueryTab.QueryText = text;
         }
 
@@ -49,7 +45,6 @@ namespace SwqlStudio
             AddNewTab(activityMonitorTab, title);
             activityMonitorTab.Start();
         }
-
 
         public void OpenInvokeTab(string title, ConnectionInfo info, Verb verb)
         {
@@ -106,9 +101,7 @@ namespace SwqlStudio
                     found = info;
                 }
 
-                IMetadataProvider foundProvider;
-                serverList.TryGetProvider(found,  out foundProvider);
-                this.CreateQueryTab(found.Title, found, foundProvider);
+                this.CreateQueryTab(found.Title, found);
             }
             catch (FaultException<InfoServiceFaultContract> ex)
             {
@@ -157,19 +150,15 @@ namespace SwqlStudio
                 return;
 
             this.dockPanel.ColoseInitialDocument();
-
+            connectionInfo.Connect();
+            
             // Open file(s)
             foreach (string fn in files)
             {
                 QueryTab queryTab = null;
                 try
                 {
-                    connectionInfo.Connect();
-
-                    IMetadataProvider metadataProvider;
-                    this.serverList.TryGetProvider(connectionInfo, out metadataProvider);
-
-                    queryTab = this.CreateQueryTab(Path.GetFileName(fn), connectionInfo, metadataProvider);
+                    queryTab = this.CreateQueryTab(Path.GetFileName(fn), connectionInfo);
                     queryTab.QueryText = File.ReadAllText(fn);
                     // Modified flag is set during loading because the document 
                     // "changes" (from nothing to something). So, clear it again.
@@ -207,7 +196,7 @@ namespace SwqlStudio
             }
         }
 
-        private QueryTab CreateQueryTab(string title, ConnectionInfo info, IMetadataProvider provider)
+        private QueryTab CreateQueryTab(string title, ConnectionInfo info)
         {
             var queryTab = new QueryTab
             {
@@ -215,7 +204,9 @@ namespace SwqlStudio
                 Dock = DockStyle.Fill,
                 ApplicationService = this.applicationService
             };
-
+            
+            IMetadataProvider provider;
+            this.serverList.TryGetProvider(info, out provider);
             queryTab.SetMetadataProvider(provider);
 
             AddNewTab(queryTab, title);

@@ -20,6 +20,7 @@ namespace SwqlStudio
     {
         private static readonly SolarWinds.Logging.Log log = new SolarWinds.Logging.Log();
         private ServerList serverList;
+        private ConnectionsManager connectionsManager;
 
         public PropertyBag QueryParameters
         {
@@ -53,8 +54,8 @@ namespace SwqlStudio
             this.filesDock.SetObjectExplorerImageList(this.ObjectExplorerImageList);
             this.serverList = new ServerList();
             this.serverList.ConnectionsChanged += ServerListOnConnectionsChanged;
-            var connectionsManager = new ConnectionsManager(this, this.serverList, this.filesDock);
-            var tabsFactory = new TabsFactory(this.filesDock, this, this.serverList, connectionsManager);
+            this.connectionsManager = new ConnectionsManager(this, this.serverList, this.filesDock);
+            var tabsFactory = new TabsFactory(this.filesDock, this, this.serverList, this.connectionsManager);
             this.filesDock.SetAplicationService(tabsFactory);
             this.filesDock.ActiveContentChanged += FilesDock_ActiveContentChanged;
         }
@@ -446,6 +447,11 @@ namespace SwqlStudio
             {
                 activeConnectionTab.ConnectionInfo = this.SelectedConnection;
             }
+        }
+
+        private void newConnectionButton_Click(object sender, EventArgs e)
+        {
+            this.connectionsManager.CreateConnection();
         }
     }
 }

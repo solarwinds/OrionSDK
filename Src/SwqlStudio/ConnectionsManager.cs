@@ -15,6 +15,13 @@ namespace SwqlStudio
             this.dockPanel = dockPanel;
         }
 
+        public void CreateConnection()
+        {
+            ConnectionInfo connection = AskForNewConnection();
+            if (connection != null)
+                ResolveExistingConnection(connection);
+        }
+
         internal ConnectionInfo ResolveConnection()
         {
             ConnectionInfo info = EnsureExistingConnection();
@@ -30,7 +37,7 @@ namespace SwqlStudio
             if (selectedConnection != null)
                 return selectedConnection;
 
-            return CreateConnection();
+            return AskForNewConnection();
         }
 
         private ConnectionInfo ResolveExistingConnection(ConnectionInfo info)
@@ -53,7 +60,7 @@ namespace SwqlStudio
             return info;
         }
 
-        public static ConnectionInfo CreateConnection()
+        internal static ConnectionInfo AskForNewConnection()
         {
             using (var nc = new NewConnection())
             {

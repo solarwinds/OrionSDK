@@ -254,7 +254,7 @@ namespace SwqlStudio
                 if (openFileDialog1.ShowDialog() == DialogResult.OK)
                 {
                     var pbi = new PlaybackItem() { FileName = openFileDialog1.FileName, MultiThread = false, QueryTab = this };
-                    ConnectionInfo info = ConnectionsManager.CreateConnection();
+                    ConnectionInfo info = ConnectionsManager.AskForNewConnection();
                     if (info == null)
                         return;
                     

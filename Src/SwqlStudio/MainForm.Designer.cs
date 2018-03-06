@@ -74,10 +74,11 @@
             this.mainToolbar = new System.Windows.Forms.ToolStrip();
             this.connectionsCombobox = new System.Windows.Forms.ToolStripComboBox();
             this.executeToolButton = new System.Windows.Forms.ToolStripButton();
+            this.newConnectionButton = new System.Windows.Forms.ToolStripButton();
             this.undoToolButton = new System.Windows.Forms.ToolStripButton();
             this.redoToolButton = new System.Windows.Forms.ToolStripButton();
             this.newFileToolButton = new System.Windows.Forms.ToolStripButton();
-            this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
+            this.openFileButton = new System.Windows.Forms.ToolStripButton();
             this.saveToolButton = new System.Windows.Forms.ToolStripButton();
             toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.menu.SuspendLayout();
@@ -443,10 +444,11 @@
             this.mainToolbar.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.connectionsCombobox,
             this.executeToolButton,
+            this.newConnectionButton,
             this.undoToolButton,
             this.redoToolButton,
             this.newFileToolButton,
-            this.toolStripButton1,
+            this.openFileButton,
             this.saveToolButton});
             this.mainToolbar.Location = new System.Drawing.Point(0, 24);
             this.mainToolbar.Name = "mainToolbar";
@@ -469,8 +471,18 @@
             this.executeToolButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.executeToolButton.Name = "executeToolButton";
             this.executeToolButton.Size = new System.Drawing.Size(23, 22);
-            this.executeToolButton.Text = "toolStripButton1";
+            this.executeToolButton.ToolTipText = "Execute query (F5)";
             this.executeToolButton.Click += new System.EventHandler(this.menuQueryExecute_Click);
+            // 
+            // newConnectionButton
+            // 
+            this.newConnectionButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.newConnectionButton.Image = global::SwqlStudio.Properties.Resources.ConnectFilled_16x;
+            this.newConnectionButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.newConnectionButton.Name = "newConnectionButton";
+            this.newConnectionButton.Size = new System.Drawing.Size(23, 22);
+            this.newConnectionButton.ToolTipText = "New connection";
+            this.newConnectionButton.Click += new System.EventHandler(this.newConnectionButton_Click);
             // 
             // undoToolButton
             // 
@@ -479,7 +491,7 @@
             this.undoToolButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.undoToolButton.Name = "undoToolButton";
             this.undoToolButton.Size = new System.Drawing.Size(23, 22);
-            this.undoToolButton.Text = "toolStripButton1";
+            this.undoToolButton.ToolTipText = "Undo (Ctrl+Z)";
             this.undoToolButton.Click += new System.EventHandler(this.undoToolStripMenuItem_Click);
             // 
             // redoToolButton
@@ -489,7 +501,7 @@
             this.redoToolButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.redoToolButton.Name = "redoToolButton";
             this.redoToolButton.Size = new System.Drawing.Size(23, 22);
-            this.redoToolButton.Text = "toolStripButton1";
+            this.redoToolButton.ToolTipText = "Redo (Ctrl+Y)";
             this.redoToolButton.Click += new System.EventHandler(this.redoToolStripMenuItem_Click);
             // 
             // newFileToolButton
@@ -499,18 +511,18 @@
             this.newFileToolButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.newFileToolButton.Name = "newFileToolButton";
             this.newFileToolButton.Size = new System.Drawing.Size(23, 22);
-            this.newFileToolButton.Text = "toolStripButton1";
+            this.newFileToolButton.ToolTipText = "New file (Ctrl+N)";
             this.newFileToolButton.Click += new System.EventHandler(this.menuFileNew_Click);
             // 
-            // toolStripButton1
+            // openFileButton
             // 
-            this.toolStripButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButton1.Image = global::SwqlStudio.Properties.Resources.OpenFolder_16x;
-            this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton1.Name = "toolStripButton1";
-            this.toolStripButton1.Size = new System.Drawing.Size(23, 22);
-            this.toolStripButton1.Text = "toolStripButton1";
-            this.toolStripButton1.Click += new System.EventHandler(this.menuFileOpen_Click);
+            this.openFileButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.openFileButton.Image = global::SwqlStudio.Properties.Resources.OpenFolder_16x;
+            this.openFileButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.openFileButton.Name = "openFileButton";
+            this.openFileButton.Size = new System.Drawing.Size(23, 22);
+            this.openFileButton.ToolTipText = "Open file (Ctrl+O)";
+            this.openFileButton.Click += new System.EventHandler(this.menuFileOpen_Click);
             // 
             // saveToolButton
             // 
@@ -519,7 +531,7 @@
             this.saveToolButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.saveToolButton.Name = "saveToolButton";
             this.saveToolButton.Size = new System.Drawing.Size(23, 22);
-            this.saveToolButton.Text = "toolStripButton1";
+            this.saveToolButton.ToolTipText = "Save (Ctrl+S)";
             this.saveToolButton.Click += new System.EventHandler(this.menuFileSave_Click);
             // 
             // MainForm
@@ -596,8 +608,9 @@
         private System.Windows.Forms.ToolStripButton newFileToolButton;
         private System.Windows.Forms.ToolStripButton saveToolButton;
         private System.Windows.Forms.ToolStripButton executeToolButton;
-        private System.Windows.Forms.ToolStripButton toolStripButton1;
+        private System.Windows.Forms.ToolStripButton openFileButton;
         private System.Windows.Forms.ToolStripComboBox connectionsCombobox;
+        private System.Windows.Forms.ToolStripButton newConnectionButton;
     }
 }
 

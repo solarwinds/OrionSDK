@@ -49,6 +49,18 @@ namespace SwqlStudio
             this.serverList.ConnectionsChanged += ServerListOnConnectionsChanged;
             var tabsFactory = new TabsFactory(this.filesDock, this, this.serverList);
             this.filesDock.SetAplicationService(tabsFactory);
+            this.filesDock.ActiveContentChanged += FilesDock_ActiveContentChanged;
+        }
+
+        private void FilesDock_ActiveContentChanged(object sender, EventArgs e)
+        {
+            this.RefreshDynamiConnections();
+        }
+
+        public void RefreshDynamiConnections()
+        {
+            var dynamicConnectionTab = this.filesDock.ActiveConnectionTab as IDynamicConnection;
+            this.connectionsCombobox.Enabled = dynamicConnectionTab == null || dynamicConnectionTab.AllowsChangeConnection;
         }
 
         private void ServerListOnConnectionsChanged(object sender, EventArgs eventArgs)

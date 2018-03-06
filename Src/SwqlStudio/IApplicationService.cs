@@ -8,5 +8,7 @@ namespace SwqlStudio
         PropertyBag QueryParameters { get; set; }
 
         SubscriptionManager SubscriptionManager { get; }
+
+        void RefreshDynamiConnections();
     }
 }

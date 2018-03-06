@@ -17,11 +17,18 @@ using SwqlStudio.Subscriptions;
 
 namespace SwqlStudio
 {
-    public partial class QueryTab : UserControl, IConnectionTab
+    public partial class QueryTab : UserControl, IConnectionTab, IDynamicConnection
     {
         private static readonly Regex queryParamRegEx = new Regex(@"\@([\w.$]+|""[^""]+""|'[^']+')", RegexOptions.Compiled);
 
         private string subscriptionId;
+
+        private bool HasSubscription
+        {
+            get { return !String.IsNullOrEmpty(subscriptionId); }
+        }
+        
+        public bool AllowsChangeConnection => !this.HasSubscription;
 
         [Flags]
         enum Tabs
@@ -75,9 +82,10 @@ namespace SwqlStudio
 
         private void Unsubscribe()
         {
-            if (!String.IsNullOrEmpty(subscriptionId))
+            if (HasSubscription)
             {
                 this.SubscriptionManager.Unsubscribe(ConnectionInfo, subscriptionId);
+                this.subscriptionId = string.Empty;
             }
         }
 
@@ -317,9 +325,12 @@ namespace SwqlStudio
             }
             else
             {
+                ShowTabs(Tabs.Results);
                 queryStatusBar1.UpdateStatusLabel("Running query...");
                 queryWorker.RunWorkerAsync(new QueryArguments(connection, query));
             }
+
+            this.ApplicationService.RefreshDynamiConnections();
         }
 
         void SubscriptionIndicationReceived(IndicationEventArgs e)

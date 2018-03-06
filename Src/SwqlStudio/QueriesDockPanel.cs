@@ -34,16 +34,6 @@ namespace SwqlStudio
             }
         }
 
-        internal ConnectionInfo ActiveConnectionInfo
-        {
-            get
-            {
-                var tab = ActiveConnectionTab;
-                if (tab == null) return null;
-                return tab.ConnectionInfo;
-            }
-        }
-
         internal QueryTab ActiveQueryTab
         {
             get

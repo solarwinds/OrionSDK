@@ -28,7 +28,7 @@ namespace SwqlStudio
         public void AddTextToEditor(string text, ConnectionInfo info)
         {
             if (info == null)
-                info = this.dockPanel.ActiveConnectionInfo;
+                info = this.applicationService.SelectedConnection;
 
             CreateQueryTab(info.Title, info);
             this.dockPanel.ActiveQueryTab.QueryText = text;
@@ -143,7 +143,7 @@ namespace SwqlStudio
 
         internal void OpenFiles(string[] files)
         {
-            var connectionInfo = this.dockPanel.ActiveConnectionInfo;
+            var connectionInfo = this.applicationService.SelectedConnection;
             if (connectionInfo == null)
                 return;
 

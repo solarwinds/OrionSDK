@@ -9,6 +9,8 @@ namespace SwqlStudio
 
         SubscriptionManager SubscriptionManager { get; }
 
+        ConnectionInfo SelectedConnection { get; }
+        
         void RefreshDynamiConnections();
     }
 }

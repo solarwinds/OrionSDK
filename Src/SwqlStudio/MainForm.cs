@@ -29,6 +29,10 @@ namespace SwqlStudio
         
         public SubscriptionManager SubscriptionManager { get; } = new SubscriptionManager();
 
+        public ConnectionInfo SelectedConnection
+        {
+            get { return this.connectionsCombobox.SelectedItem as ConnectionInfo; }
+        }
 
         public MainForm()
         {
@@ -316,7 +320,7 @@ namespace SwqlStudio
 
         private void enumEntitiesToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            ConnectionInfo connection = this.filesDock.ActiveConnectionInfo;
+            ConnectionInfo connection = this.SelectedConnection;
             if (connection == null)
                 return; // should we try to connect?
 

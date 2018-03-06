@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
+using System.Linq;
 using System.ServiceModel;
 using System.Windows.Forms;
 using SolarWinds.InformationService.Contract2;
@@ -67,7 +69,12 @@ namespace SwqlStudio
         {
             var connectionsDropDown = this.connectionsCombobox.ComboBox;
             var lastSelected = this.connectionsCombobox.SelectedItem;
-            connectionsDropDown.DataSource = new BindingList<ConnectionInfo>(this.serverList.Connections);
+            List<ConnectionInfo> serverListConnections = this.serverList.Connections;
+            connectionsDropDown.DataSource = new BindingList<ConnectionInfo>(serverListConnections);
+            
+            if(lastSelected == null && serverListConnections.Any())
+                lastSelected = serverListConnections.First();
+            
             this.connectionsCombobox.SelectedItem = lastSelected;
         }
 

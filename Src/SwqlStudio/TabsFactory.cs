@@ -29,6 +29,9 @@ namespace SwqlStudio
         {
             if (info == null)
                 info = this.applicationService.SelectedConnection;
+            
+            if (info == null)
+                return;
 
             CreateQueryTab(info.Title, info);
             this.dockPanel.ActiveQueryTab.QueryText = text;

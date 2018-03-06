@@ -423,13 +423,8 @@ namespace SwqlStudio
         {
             if (table != null)
             {
-                string swql = GenerateSwql(table, includeInheritedProperties);
-
-                ConnectionInfo connection = null;
-                if ((_contextMenuNode as TreeNodeWithConnectionInfo) != null)
-                    connection = (_contextMenuNode as TreeNodeWithConnectionInfo).Connection;
-
-                TabsFactory.AddTextToEditor(swql, connection);
+                string query = GenerateSwql(table, includeInheritedProperties);
+                AddTextEditor(query);
             }
         }
 
@@ -824,12 +819,16 @@ CanDelete: {4}",
             if (table != null)
             {
                 string query = string.Format(table.IsIndication ? "SUBSCRIBE {0}" : "SUBSCRIBE CHANGES TO {0}", table.FullName);
+                AddTextEditor(query);
+            }
+        }
 
-                ConnectionInfo connection = null;
-                if ((_contextMenuNode as TreeNodeWithConnectionInfo) != null)
-                    connection = (_contextMenuNode as TreeNodeWithConnectionInfo).Connection;
-
-                TabsFactory.AddTextToEditor(query, connection);
+        private void AddTextEditor(string query)
+        {
+            var node = _contextMenuNode as TreeNodeWithConnectionInfo;
+            if (node != null)
+            {
+                TabsFactory.AddTextToEditor(query, node.Connection);
             }
         }
     }

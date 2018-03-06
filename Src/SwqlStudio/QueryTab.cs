@@ -330,7 +330,7 @@ namespace SwqlStudio
                 queryWorker.RunWorkerAsync(new QueryArguments(connection, query));
             }
 
-            this.ApplicationService.RefreshDynamiConnections();
+            this.ApplicationService.RefreshSelectedConnections();
         }
 
         void SubscriptionIndicationReceived(IndicationEventArgs e)
@@ -701,9 +701,8 @@ namespace SwqlStudio
 
             try
             {
-                subscriptionId = this.SubscriptionManager.CreateSubscription(ConnectionInfo, arg.Query,
-                    SubscriptionIndicationReceived);
-
+                subscriptionId = this.SubscriptionManager.CreateSubscription(ConnectionInfo, arg.Query, SubscriptionIndicationReceived);
+                this.Invoke(new Action(() => this.ApplicationService.RefreshSelectedConnections()));
                 subscriptionWorker.ReportProgress(0, "Waiting for notifications");
             }
             catch (Exception ex)

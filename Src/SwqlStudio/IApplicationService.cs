@@ -11,6 +11,6 @@ namespace SwqlStudio
 
         ConnectionInfo SelectedConnection { get; }
         
-        void RefreshDynamiConnections();
+        void RefreshSelectedConnections();
     }
 }

@@ -60,10 +60,16 @@ namespace SwqlStudio
 
         private void FilesDock_ActiveContentChanged(object sender, EventArgs e)
         {
-            this.RefreshDynamiConnections();
+            this.RefreshSelectedConnections();
+
+            IConnectionTab activeConnectionTab = this.filesDock.ActiveConnectionTab;
+            if (activeConnectionTab != null)
+            {
+                this.connectionsCombobox.SelectedItem = activeConnectionTab.ConnectionInfo;
+            }
         }
 
-        public void RefreshDynamiConnections()
+        public void RefreshSelectedConnections()
         {
             IConnectionTab activeConnectionTab = this.filesDock.ActiveConnectionTab;
             this.connectionsCombobox.Enabled = activeConnectionTab == null || activeConnectionTab.AllowsChangeConnection;
@@ -430,6 +436,15 @@ namespace SwqlStudio
         private void discoverQueryParametersToolStripMenuItem_CheckedChanged(object sender, EventArgs e)
         {
             this.filesDock.AllowSetParameters(this.discoverQueryParametersMenuItem.Checked);
+        }
+
+        private void connectionsCombobox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            IConnectionTab activeConnectionTab = this.filesDock.ActiveConnectionTab;
+            if (activeConnectionTab != null && this.SelectedConnection != null)
+            {
+                activeConnectionTab.ConnectionInfo = this.SelectedConnection;
+            }
         }
     }
 }

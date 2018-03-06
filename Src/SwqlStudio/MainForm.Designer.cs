@@ -460,6 +460,7 @@
             this.connectionsCombobox.DropDownWidth = 300;
             this.connectionsCombobox.Name = "connectionsCombobox";
             this.connectionsCombobox.Size = new System.Drawing.Size(250, 25);
+            this.connectionsCombobox.SelectedIndexChanged += new System.EventHandler(this.connectionsCombobox_SelectedIndexChanged);
             // 
             // executeToolButton
             // 

@@ -17,12 +17,15 @@ namespace SwqlStudio
         private readonly ServerList serverList;
         private readonly QueriesDockPanel dockPanel;
         private readonly IApplicationService applicationService;
+        private readonly ConnectionsManager connectionsManager;
 
-        internal TabsFactory(QueriesDockPanel dockPanel, IApplicationService applicationService, ServerList serverList)
+        internal TabsFactory(QueriesDockPanel dockPanel, IApplicationService applicationService,
+            ServerList serverList, ConnectionsManager connectionsManager)
         {
             this.dockPanel = dockPanel;
             this.applicationService = applicationService;
             this.serverList = serverList;
+            this.connectionsManager = connectionsManager;
         }
 
         public void AddTextToEditor(string text, ConnectionInfo info)
@@ -85,24 +88,11 @@ namespace SwqlStudio
 
             try
             {
-                ConnectionInfo info = QueryTab.CreateConnection();
-                if (info == null)
+                ConnectionInfo info = this.connectionsManager.ResolveConnection();
+                if (info== null)
                     return;
 
-                bool alreadyExists = false;
-                ConnectionInfo found;
-                alreadyExists = serverList.TryGet(info.ServerType, info.Server, info.UserName, out found);
-                if (!alreadyExists)
-                {
-                    info.Connect();
-                    var provider = serverList.Add(info);
-
-                    info.ConnectionClosed += (sender, args) => serverList.Remove(info);
-                    this.dockPanel.AddServer(provider, info);
-                    found = info;
-                }
-
-                this.CreateQueryTab(found.Title, found);
+                this.CreateQueryTab(info.Title, info);
             }
             catch (FaultException<InfoServiceFaultContract> ex)
             {
@@ -146,7 +136,7 @@ namespace SwqlStudio
 
         internal void OpenFiles(string[] files)
         {
-            var connectionInfo = this.applicationService.SelectedConnection;
+            var connectionInfo = this.connectionsManager.ResolveConnection();
             if (connectionInfo == null)
                 return;
 
@@ -187,7 +177,10 @@ namespace SwqlStudio
             var tab = this.dockPanel.ActiveConnectionTab;
             if (tab != null)
             {
-                var connection = tab.ConnectionInfo;
+                var connection = this.connectionsManager.ResolveConnection();
+                if (connection == null)
+                    return;
+
                 var swql = this.dockPanel.ActiveQueryTab.QueryText;
                 this.AddTextToEditor(swql, connection);
             }
@@ -210,14 +203,7 @@ namespace SwqlStudio
             IMetadataProvider provider;
             this.serverList.TryGetProvider(info, out provider);
             queryTab.SetMetadataProvider(provider);
-
             AddNewTab(queryTab, title);
-
-            info.ConnectionClosed += (sender, args) =>
-            {
-                this.dockPanel.RemoveTab(queryTab.Parent as DockContent);
-            };
-
             return queryTab;
         }
 

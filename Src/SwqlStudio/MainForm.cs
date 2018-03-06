@@ -53,7 +53,8 @@ namespace SwqlStudio
             this.filesDock.SetObjectExplorerImageList(this.ObjectExplorerImageList);
             this.serverList = new ServerList();
             this.serverList.ConnectionsChanged += ServerListOnConnectionsChanged;
-            var tabsFactory = new TabsFactory(this.filesDock, this, this.serverList);
+            var connectionsManager = new ConnectionsManager(this, this.serverList, this.filesDock);
+            var tabsFactory = new TabsFactory(this.filesDock, this, this.serverList, connectionsManager);
             this.filesDock.SetAplicationService(tabsFactory);
             this.filesDock.ActiveContentChanged += FilesDock_ActiveContentChanged;
         }

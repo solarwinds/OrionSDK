@@ -17,7 +17,7 @@ using SwqlStudio.Subscriptions;
 
 namespace SwqlStudio
 {
-    public partial class QueryTab : UserControl, IConnectionTab, IDynamicConnection
+    public partial class QueryTab : UserControl, IConnectionTab
     {
         private static readonly Regex queryParamRegEx = new Regex(@"\@([\w.$]+|""[^""]+""|'[^']+')", RegexOptions.Compiled);
 

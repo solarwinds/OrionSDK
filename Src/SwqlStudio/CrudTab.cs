@@ -34,6 +34,8 @@ namespace SwqlStudio
         /// <inheritdoc />
         public ConnectionInfo ConnectionInfo { get; set; }
 
+        public bool AllowsChangeConnection => true;
+
         public event EventHandler CloseItself;
 
         private void CreateSubComponents()

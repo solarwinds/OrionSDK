@@ -144,7 +144,6 @@
       <DependentUpon>EntityClassGraphForm.cs</DependentUpon>
     </Compile>
     <Compile Include="IConnectionTab.cs" />
-    <Compile Include="IDynamicConnection.cs" />
     <Compile Include="IndicationEventArgs.cs" />
     <Compile Include="IndicationListerUsernameValidator.cs" />
     <Compile Include="Autocomplete\ExpectedCaretPosition.cs" />

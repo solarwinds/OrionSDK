@@ -65,8 +65,8 @@ namespace SwqlStudio
 
         public void RefreshDynamiConnections()
         {
-            var dynamicConnectionTab = this.filesDock.ActiveConnectionTab as IDynamicConnection;
-            this.connectionsCombobox.Enabled = dynamicConnectionTab == null || dynamicConnectionTab.AllowsChangeConnection;
+            IConnectionTab activeConnectionTab = this.filesDock.ActiveConnectionTab;
+            this.connectionsCombobox.Enabled = activeConnectionTab == null || activeConnectionTab.AllowsChangeConnection;
         }
 
         private void ServerListOnConnectionsChanged(object sender, EventArgs eventArgs)

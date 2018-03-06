@@ -4,7 +4,7 @@ using SwqlStudio.Subscriptions;
 
 namespace SwqlStudio
 {
-    public partial class ActivityMonitorTab : UserControl, IConnectionTab, IDynamicConnection
+    public partial class ActivityMonitorTab : UserControl, IConnectionTab
     {
         private string subscriptionId;
 

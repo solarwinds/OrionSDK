@@ -24,7 +24,7 @@ namespace SwqlStudio
             get
             {
                 var bag = new PropertyBag();
-                foreach (QueryVariable pair in (BindingList<QueryVariable>)parametersGrid.DataSource)
+                foreach (QueryVariable pair in ((BindingList<QueryVariable>)parametersGrid.DataSource).Where(v => v.Key != null))
                     bag[pair.Key] = pair.Value;
 
                 return bag;
@@ -39,8 +39,21 @@ namespace SwqlStudio
                 var currentVariables = (BindingList<QueryVariable>)parametersGrid.DataSource;
                 UpdateWithCurrentValues(value, currentVariables);
                 var pairs = value.Select(pair => new QueryVariable(pair.Key, pair.Value?.ToString()));
+                QuessRenamedParameter(value);
                 var ordered = pairs.OrderBy(p => p.Key).ToList();
                 parametersGrid.DataSource = new BindingList<QueryVariable>(ordered) { AllowNew = true };
+            }
+        }
+
+        private void QuessRenamedParameter(PropertyBag propertyBag)
+        {
+            // we are able to identify only one renamed parameter using this simple concept
+            var currentVariables = Parameters;
+            var added = propertyBag.Keys.Except(currentVariables.Keys).ToList();
+            var removed = currentVariables.Keys.Except(propertyBag.Keys).ToList();
+            if (added.Count == 1 && removed.Count == 1)
+            {
+                propertyBag[added.First()] = currentVariables[removed.First()];
             }
         }
 

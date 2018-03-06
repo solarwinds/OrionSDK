@@ -45,6 +45,8 @@
             this.menuFileExit = new System.Windows.Forms.ToolStripMenuItem();
             this.searchInTreeHotKeyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.undoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.redoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuEditCut = new System.Windows.Forms.ToolStripMenuItem();
             this.menuEditCopy = new System.Windows.Forms.ToolStripMenuItem();
             this.menuEditPaste = new System.Windows.Forms.ToolStripMenuItem();
@@ -65,11 +67,10 @@
             this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
             this.fontDialog = new System.Windows.Forms.FontDialog();
-            this.filesDock = new WeifenLuo.WinFormsUI.Docking.DockPanel();
+            this.filesDock = new SwqlStudio.QueriesDockPanel();
             this.ObjectExplorerImageList = new System.Windows.Forms.ImageList(this.components);
             this.startTimer = new System.Windows.Forms.Timer(this.components);
-            this.undoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.redoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.discoverQueryParametersMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.menu.SuspendLayout();
             this.SuspendLayout();
@@ -216,12 +217,30 @@
             this.editToolStripMenuItem.Size = new System.Drawing.Size(39, 20);
             this.editToolStripMenuItem.Text = "&Edit";
             // 
+            // undoToolStripMenuItem
+            // 
+            this.undoToolStripMenuItem.Image = global::SwqlStudio.Properties.Resources.Undo_16x;
+            this.undoToolStripMenuItem.Name = "undoToolStripMenuItem";
+            this.undoToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Z)));
+            this.undoToolStripMenuItem.Size = new System.Drawing.Size(144, 22);
+            this.undoToolStripMenuItem.Text = "Undo";
+            this.undoToolStripMenuItem.Click += new System.EventHandler(this.undoToolStripMenuItem_Click);
+            // 
+            // redoToolStripMenuItem
+            // 
+            this.redoToolStripMenuItem.Image = global::SwqlStudio.Properties.Resources.Redo_16x;
+            this.redoToolStripMenuItem.Name = "redoToolStripMenuItem";
+            this.redoToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Y)));
+            this.redoToolStripMenuItem.Size = new System.Drawing.Size(144, 22);
+            this.redoToolStripMenuItem.Text = "Redo";
+            this.redoToolStripMenuItem.Click += new System.EventHandler(this.redoToolStripMenuItem_Click);
+            // 
             // menuEditCut
             // 
             this.menuEditCut.Image = ((System.Drawing.Image)(resources.GetObject("menuEditCut.Image")));
             this.menuEditCut.Name = "menuEditCut";
             this.menuEditCut.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.X)));
-            this.menuEditCut.Size = new System.Drawing.Size(152, 22);
+            this.menuEditCut.Size = new System.Drawing.Size(144, 22);
             this.menuEditCut.Text = "Cu&t";
             this.menuEditCut.Click += new System.EventHandler(this.menuEditCut_Click);
             // 
@@ -230,7 +249,7 @@
             this.menuEditCopy.Image = global::SwqlStudio.Properties.Resources.ASX_Copy_blue_16x;
             this.menuEditCopy.Name = "menuEditCopy";
             this.menuEditCopy.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.C)));
-            this.menuEditCopy.Size = new System.Drawing.Size(152, 22);
+            this.menuEditCopy.Size = new System.Drawing.Size(144, 22);
             this.menuEditCopy.Text = "&Copy";
             this.menuEditCopy.Click += new System.EventHandler(this.menuEditCopy_Click);
             // 
@@ -239,7 +258,7 @@
             this.menuEditPaste.Image = global::SwqlStudio.Properties.Resources.ASX_Paste_blue_16x;
             this.menuEditPaste.Name = "menuEditPaste";
             this.menuEditPaste.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.V)));
-            this.menuEditPaste.Size = new System.Drawing.Size(152, 22);
+            this.menuEditPaste.Size = new System.Drawing.Size(144, 22);
             this.menuEditPaste.Text = "&Paste";
             this.menuEditPaste.Click += new System.EventHandler(this.menuEditPaste_Click);
             // 
@@ -290,7 +309,8 @@
             // 
             this.preferencesToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.groupEntityTreeToolStripMenuItem,
-            this.enableAutocompleteToolStripMenuItem});
+            this.enableAutocompleteToolStripMenuItem,
+            this.discoverQueryParametersMenuItem});
             this.preferencesToolStripMenuItem.Name = "preferencesToolStripMenuItem";
             this.preferencesToolStripMenuItem.Size = new System.Drawing.Size(80, 20);
             this.preferencesToolStripMenuItem.Text = "&Preferences";
@@ -304,7 +324,7 @@
             this.byHierarchyToolStripMenuItem,
             this.noGroupingToolStripMenuItem});
             this.groupEntityTreeToolStripMenuItem.Name = "groupEntityTreeToolStripMenuItem";
-            this.groupEntityTreeToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
+            this.groupEntityTreeToolStripMenuItem.Size = new System.Drawing.Size(214, 22);
             this.groupEntityTreeToolStripMenuItem.Text = "&Group Entity Tree";
             // 
             // byNamespaceToolStripMenuItem
@@ -341,7 +361,7 @@
             this.enableAutocompleteToolStripMenuItem.CheckOnClick = true;
             this.enableAutocompleteToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
             this.enableAutocompleteToolStripMenuItem.Name = "enableAutocompleteToolStripMenuItem";
-            this.enableAutocompleteToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
+            this.enableAutocompleteToolStripMenuItem.Size = new System.Drawing.Size(214, 22);
             this.enableAutocompleteToolStripMenuItem.Text = "Enable Autocomplete";
             this.enableAutocompleteToolStripMenuItem.CheckedChanged += new System.EventHandler(this.enableAutocompleteToolStripMenuItem_CheckedChanged);
             // 
@@ -367,8 +387,12 @@
             // filesDock
             // 
             this.filesDock.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.filesDock.DockBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(238)))), ((int)(((byte)(238)))), ((int)(((byte)(242)))));
             this.filesDock.Location = new System.Drawing.Point(0, 24);
             this.filesDock.Name = "filesDock";
+            this.filesDock.Padding = new System.Windows.Forms.Padding(6);
+            this.filesDock.QueryParameters = ((SolarWinds.InformationService.Contract2.PropertyBag)(resources.GetObject("filesDock.QueryParameters")));
+            this.filesDock.ShowAutoHideContentOnHover = false;
             this.filesDock.Size = new System.Drawing.Size(827, 571);
             this.filesDock.TabIndex = 2;
             // 
@@ -395,23 +419,15 @@
             // 
             this.startTimer.Tick += new System.EventHandler(this.startTimer_Tick);
             // 
-            // undoToolStripMenuItem
+            // discoverQueryParametersMenuItem
             // 
-            this.undoToolStripMenuItem.Image = global::SwqlStudio.Properties.Resources.Undo_16x;
-            this.undoToolStripMenuItem.Name = "undoToolStripMenuItem";
-            this.undoToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Z)));
-            this.undoToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.undoToolStripMenuItem.Text = "Undo";
-            this.undoToolStripMenuItem.Click += new System.EventHandler(this.undoToolStripMenuItem_Click);
-            // 
-            // redoToolStripMenuItem
-            // 
-            this.redoToolStripMenuItem.Image = global::SwqlStudio.Properties.Resources.Redo_16x;
-            this.redoToolStripMenuItem.Name = "redoToolStripMenuItem";
-            this.redoToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Y)));
-            this.redoToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.redoToolStripMenuItem.Text = "Redo";
-            this.redoToolStripMenuItem.Click += new System.EventHandler(this.redoToolStripMenuItem_Click);
+            this.discoverQueryParametersMenuItem.Checked = true;
+            this.discoverQueryParametersMenuItem.CheckOnClick = true;
+            this.discoverQueryParametersMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.discoverQueryParametersMenuItem.Name = "discoverQueryParametersMenuItem";
+            this.discoverQueryParametersMenuItem.Size = new System.Drawing.Size(214, 22);
+            this.discoverQueryParametersMenuItem.Text = "Discover query parameters";
+            this.discoverQueryParametersMenuItem.CheckedChanged += new System.EventHandler(this.discoverQueryParametersToolStripMenuItem_CheckedChanged);
             // 
             // MainForm
             // 
@@ -474,9 +490,10 @@
         private System.Windows.Forms.ToolStripMenuItem menuFileTabPage;
         private System.Windows.Forms.ToolStripSeparator separatorAboveNotificationListenerActive;
         private System.Windows.Forms.ToolStripMenuItem searchInTreeHotKeyToolStripMenuItem;
-        private WeifenLuo.WinFormsUI.Docking.DockPanel filesDock;
+        private SwqlStudio.QueriesDockPanel filesDock;
         private System.Windows.Forms.ToolStripMenuItem undoToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem redoToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem discoverQueryParametersMenuItem;
     }
 }
 

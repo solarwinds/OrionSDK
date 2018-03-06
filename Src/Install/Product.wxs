@@ -121,8 +121,8 @@
                 <File Source="$(var.OutputDir)\SolarWinds.SDK.Swis.Contract.dll" />
                 <File Source="$(var.OutputDir)\SolarWinds.Logging.dll" />
                 <File Source="$(var.OutputDir)\Security.Cryptography.dll" />
-				<File Source="$(var.OutputDir)\WeifenLuo.WinFormsUI.Docking.dll" />
-				<File Source="$(var.OutputDir)\WeifenLuo.WinFormsUI.Docking.ThemeVS2015.dll" />
+                <File Source="$(var.OutputDir)\WeifenLuo.WinFormsUI.Docking.dll" />
+                <File Source="$(var.OutputDir)\WeifenLuo.WinFormsUI.Docking.ThemeVS2015.dll" />
               </Component>
               
               <Component Id="SwisSnapInComponent" Guid="D229051F-C183-4D52-99CD-8C171031086D">

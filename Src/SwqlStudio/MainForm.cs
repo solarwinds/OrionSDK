@@ -1,42 +1,36 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.ServiceModel;
-using System.ServiceModel.Security;
 using System.Windows.Forms;
-using ScintillaNET;
 using SolarWinds.InformationService.Contract2;
 using SolarWinds.InformationService.InformationServiceClient;
 using SwqlStudio.Metadata;
 using SwqlStudio.Properties;
 using SwqlStudio.Subscriptions;
-using WeifenLuo.WinFormsUI.Docking;
 
 namespace SwqlStudio
 {
     [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single,
         ConcurrencyMode = ConcurrencyMode.Multiple,
         UseSynchronizationContext = false)]
-    public partial class MainForm : Form
+    internal partial class MainForm : Form, IApplicationService
     {
         private static readonly SolarWinds.Logging.Log log = new SolarWinds.Logging.Log();
+
+        public PropertyBag QueryParameters
+        {
+            get { return this.filesDock.QueryParameters; }
+            set { this.filesDock.QueryParameters = value; }
+        }
         
-        private DockContent lastActiveContent = null;
-        private ObjectExplorer objectExplorer;
-        private DockContent objectExplorerContent;
-        private readonly ServerList serverList = new ServerList();
-        private readonly Dictionary<ConnectionInfo, IMetadataProvider> _metadataProviders = new Dictionary<ConnectionInfo, IMetadataProvider>();
+        public SubscriptionManager SubscriptionManager { get; } = new SubscriptionManager();
+
 
         public MainForm()
         {
             InitializeComponent();
 
-            // Workaround for crash, when form is MDI
-            // https://github.com/jacobslusser/ScintillaNET/issues/85
-            Scintilla.SetDestroyHandleBehavior(true);
-            this.filesDock.Theme = new VS2015LightTheme();
-            InitializeObjectExplorer();
+            InitializeDockPanel();
             SetEntityGroupingMode((EntityGroupingMode)Enum.Parse(typeof(EntityGroupingMode), Settings.Default.EntityGroupingMode));
 
             startTimer.Enabled = true;
@@ -44,216 +38,40 @@ namespace SwqlStudio
             SubscriptionManager = new SubscriptionManager();
         }
 
-        private void InitializeObjectExplorer()
+        private void InitializeDockPanel()
         {
-            this.filesDock.ShowDocumentIcon = false;
-            this.filesDock.ActiveContentChanged += FilesDock_ActiveContentChanged;
-            this.filesDock.ContentRemoved += FilesDock_ContentRemoved;
-            this.objectExplorer = new ObjectExplorer();
-            this.objectExplorer.ApplicationService = this;
-            this.objectExplorer.Dock = DockStyle.Fill;
-            this.objectExplorer.EntityGroupingMode = EntityGroupingMode.Flat;
-            this.objectExplorer.ImageList = this.ObjectExplorerImageList;
-            this.objectExplorer.Location = new System.Drawing.Point(0, 0);
-            this.objectExplorer.Name = "objectExplorer";
-            this.objectExplorer.Size = new System.Drawing.Size(191, 571);
-            this.objectExplorer.TabIndex = 0;
-            this.objectExplorerContent = new DockContent();
-            this.objectExplorerContent.CloseButton = false;
-            this.objectExplorerContent.CloseButtonVisible = false;
-            this.objectExplorerContent.Text = "Object explorer";
-            this.objectExplorerContent.Controls.Add(this.objectExplorer);
-            this.objectExplorerContent.Show(this.filesDock, DockState.DockLeft);
-        }
-
-        private void FilesDock_ContentRemoved(object sender, DockContentEventArgs e)
-        {
-            if (e.Content == this.lastActiveContent)
-                this.lastActiveContent = null;
-        }
-
-        private void FilesDock_ActiveContentChanged(object sender, EventArgs e)
-        {
-            var content = filesDock.ActiveContent as DockContent;
-            if (content != null && this.objectExplorerContent != content)
-            {
-                this.lastActiveContent = content;
-            }
+            this.filesDock.SetObjectExplorerImageList(this.ObjectExplorerImageList);
+            this.filesDock.SetAplicationService(this);
         }
 
         private void startTimer_Tick(object sender, EventArgs e)
         {
             startTimer.Enabled = false;
-            AddNewQueryTab();
+            this.filesDock.AddNewQueryTab();
         }
-
 
         #region Code related to File menu
 
         private void menuFileNew_Click(object sender, EventArgs e)
         {
-            AddNewQueryTab();
-        }
-
-        private void AddNewQueryTab()
-        {
-            using (NewConnection nc = new NewConnection())
-            {
-                if (nc.ShowDialog(this) != DialogResult.OK)
-                    return;
-
-                string msg = null;
-
-                try
-                {
-                    ConnectionInfo info;
-                    bool alreadyExists = false;
-                    alreadyExists = serverList.TryGet(nc.ConnectionInfo.ServerType, nc.ConnectionInfo.Server, nc.ConnectionInfo.UserName, out info);
-                    if (!alreadyExists)
-                    {
-                        info = nc.ConnectionInfo;
-                        info.Connect();
-                        serverList.Add(info);
-
-                        info.ConnectionClosed += (sender, args) => serverList.Remove(info);
-                    }
-
-                    if (!alreadyExists)
-                    {
-                        var provider = new SwisMetaDataProvider(info);
-                        objectExplorer.AddServer(provider, info);
-                        _metadataProviders[info] = provider;
-                    }
-
-                    CreateQueryTab(info.Title, info, _metadataProviders[info]);
-                }
-                catch (FaultException<InfoServiceFaultContract> ex)
-                {
-                    log.Error("Failed to connect", ex);
-                    msg = ex.Detail.Message;
-                }
-                catch (SecurityNegotiationException ex)
-                {
-                    log.Error("Failed to connect", ex);
-                    msg = ex.Message;
-                }
-                catch (FaultException ex)
-                {
-                    log.Error("Failed to connect", ex);
-                    msg = (ex.InnerException != null) ? ex.InnerException.Message : ex.Message;
-                }
-                catch (MessageSecurityException ex)
-                {
-                    log.Error("Failed to connect", ex);
-                    if (ex.InnerException != null && ex.InnerException is FaultException)
-                    {
-                        msg = (ex.InnerException as FaultException).Message;
-                    }
-                    else
-                    {
-                        msg = ex.Message;
-                    }
-                }
-                catch (Exception ex)
-                {
-                    log.Error("Failed to connect", ex);
-                    msg = ex.Message;
-                }
-
-                if (msg != null)
-                {
-                    msg = string.Format("Unable to connect to Information Service. {0}", msg);
-                    MessageBox.Show(this, msg, "Connection Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-            }
-        }
-
-        private QueryTab CreateQueryTab(string title, ConnectionInfo info, IMetadataProvider provider)
-        {
-            var queryTab = new QueryTab { ConnectionInfo = info, Dock = DockStyle.Fill, ApplicationService = this };
-
-            queryTab.SetMetadataProvider(provider);
-
-            AddNewTab(queryTab, title);
-
-            info.ConnectionClosed += (sender, args) =>
-            {
-                RemoveTab(queryTab.Parent as DockContent);
-            };
-
-            return queryTab;
+            this.filesDock.AddNewQueryTab();
         }
 
         private void menuFileOpen_Click(object sender, EventArgs e)
         {
             if (openFileDialog.ShowDialog() == DialogResult.OK)
-                // Try to open chosen file
-                OpenFiles(openFileDialog.FileNames);
+                this.filesDock.OpenFiles(openFileDialog.FileNames);
         }
 
-        private void OpenFiles(string[] fns)
-        {
-            var originalConnection = ActiveConnectionInfo;
-            if (originalConnection == null)
-                return;
-
-            // Close default untitled document if it is still empty
-            if (filesDock.Contents.Count == 2 &&
-                ActiveQueryTab != null && ActiveQueryTab.QueryText.Trim() == String.Empty)
-                RemoveTab(this.lastActiveContent);
-
-            // Open file(s)
-            foreach (string fn in fns)
-            {
-                QueryTab queryTab = null;
-                try
-                {
-                    var connectionInfo = originalConnection.Copy();
-                    connectionInfo.Connect();
-
-                    IMetadataProvider metadataProvider;
-                    _metadataProviders.TryGetValue(connectionInfo, out metadataProvider);
-
-                    queryTab = CreateQueryTab(Path.GetFileName(fn), connectionInfo, metadataProvider);
-                    queryTab.QueryText = File.ReadAllText(fn);
-                    // Modified flag is set during loading because the document 
-                    // "changes" (from nothing to something). So, clear it again.
-                    queryTab.IsDirty = false;
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(this, ex.Message, ex.GetType().Name);
-                    if (queryTab != null)
-                        RemoveTab(queryTab.Parent as DockContent);
-                    return;
-                }
-
-                // ICSharpCode.TextEditor doesn't have any built-in code folding
-                // strategies, so I've included a simple one. Apparently, the
-                // foldings are not updated automatically, so in this demo the user
-                // cannot add or remove folding regions after loading the file.
-                //--				editor.Document.FoldingManager.FoldingStrategy = new RegionFoldingStrategy();
-                //--				editor.Document.FoldingManager.UpdateFoldings(null, null);
-            }
-        }
-
+        
         private void menuFileClose_Click(object sender, EventArgs e)
         {
-            if (HasActiveContent())
-                RemoveTab(this.lastActiveContent);
-        }
-
-        private void RemoveTab(DockContent tabPage)
-        {
-            if (tabPage != null)
-            {
-                tabPage.Close();
-            }
+            this.filesDock.CloseActiveContent();
         }
 
         private void menuFileSave_Click(object sender, EventArgs e)
         {
-            SciTextEditorControl editor = ActiveEditor;
+            SciTextEditorControl editor = this.filesDock.ActiveEditor;
             if (editor != null)
                 DoSave(editor);
         }
@@ -280,7 +98,7 @@ namespace SwqlStudio
 
         private void menuFileSaveAs_Click(object sender, EventArgs e)
         {
-            var editor = ActiveEditor;
+            var editor = this.filesDock.ActiveEditor;
             if (editor != null)
                 DoSaveAs(editor);
         }
@@ -343,42 +161,32 @@ namespace SwqlStudio
 
         private void undoToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (ActiveEditor == null)
-                return;
-
-            ActiveEditor.Undo();
+            if (this.filesDock.ActiveEditor != null)
+                this.filesDock.ActiveEditor.Undo();
         }
 
         private void redoToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (ActiveEditor == null)
-                return;
-
-            ActiveEditor.Redo();
+            if (this.filesDock.ActiveEditor != null)
+                this.filesDock.ActiveEditor.Redo();
         }
 
         private void menuEditCut_Click(object sender, EventArgs e)
         {
-            if (ActiveEditor == null)
-                return;
-
-            ActiveEditor.Cut();
+            if (this.filesDock.ActiveEditor != null)
+                this.filesDock.ActiveEditor.Cut();
         }
 
         private void menuEditCopy_Click(object sender, EventArgs e)
         {
-            if (ActiveQueryTab == null)
-                return;
-
-            ActiveQueryTab.CopySelectionToClipboard();
+            if (this.filesDock.ActiveQueryTab != null)
+                this.filesDock.ActiveQueryTab.CopySelectionToClipboard();
         }
 
         private void menuEditPaste_Click(object sender, EventArgs e)
         {
-            if (ActiveEditor == null)
-                return;
-
-            ActiveEditor.Paste();
+            if (this.filesDock.ActiveEditor != null)
+                this.filesDock.ActiveEditor.Paste();
         }
 
         #endregion
@@ -395,13 +203,13 @@ namespace SwqlStudio
         {
             Entity entity = e.Data.GetData(typeof(Entity)) as Entity;
             if (entity != null)
-                objectExplorer.GenerateSelectStatement(entity, (e.KeyState & 8) == 8);
+                this.filesDock.GenerateSelectStatement(entity, (e.KeyState & 8) == 8);
         }
 
         private void TextEditor_FormClosing(object sender, FormClosingEventArgs e)
         {
             // Ask user to save changes
-            foreach (var editor in AllEditors)
+            foreach (var editor in this.filesDock.AllEditors)
             {
                 if (editor.Modified)
                 {
@@ -419,67 +227,6 @@ namespace SwqlStudio
                 {
                     info.Dispose();
                 }
-            }
-        }
-
-        /// <summary>Returns a list of all editor controls</summary>
-        private IEnumerable<SciTextEditorControl> AllEditors
-        {
-            get
-            {
-                return from t in filesDock.Contents.OfType<DockContent>()
-                       from c in t.Controls.OfType<SciTextEditorControl>()
-                       select c;
-            }
-        }
-
-        private QueryTab ActiveQueryTab
-        {
-            get
-            {
-                return SelectedTabFirstControl() as QueryTab;
-            }
-        }
-
-        private IConnectionTab ActiveConnectionTab
-        {
-            get
-            {
-                return SelectedTabFirstControl() as IConnectionTab;
-            }
-        }
-
-        private Control SelectedTabFirstControl()
-        {
-            if (!HasActiveContent())
-                return null;
-
-            return this.lastActiveContent.Controls[0];
-        }
-
-        private bool HasActiveContent()
-        {
-            return this.lastActiveContent != null;
-        }
-
-        /// <summary>Returns the currently displayed editor, or null if none are open</summary>
-        private SciTextEditorControl ActiveEditor
-        {
-            get
-            {
-                var tab = ActiveQueryTab;
-                if (tab == null) return null;
-                return tab.Editor;
-            }
-        }
-
-        private ConnectionInfo ActiveConnectionInfo
-        {
-            get
-            {
-                var tab = ActiveConnectionTab;
-                if (tab == null) return null;
-                return tab.ConnectionInfo;
             }
         }
 
@@ -517,32 +264,25 @@ namespace SwqlStudio
         {
             string[] list = e.Data.GetData(DataFormats.FileDrop) as string[];
             if (list != null)
-                OpenFiles(list);
+                this.filesDock.OpenFiles(list);
         }
 
         #endregion
 
         private void menuQueryExecute_Click(object sender, EventArgs e)
         {
-            if (ActiveQueryTab == null)
-                return;
-
-            ActiveQueryTab.RunQuery();
+            if (this.filesDock.ActiveQueryTab != null)
+                this.filesDock.ActiveQueryTab.RunQuery();
         }
 
         private void parametersToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (ActiveConnectionInfo == null)
-                return;
-
-            var dialog = new QueryParameters(ActiveConnectionInfo.QueryParameters ?? new PropertyBag());
-            if (DialogResult.OK == dialog.ShowDialog(this))
-                ActiveConnectionInfo.QueryParameters = dialog.Parameters;
+            this.filesDock.ShowParametersToolbox();
         }
 
         private void enumEntitiesToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            ConnectionInfo connection = ActiveConnectionInfo;
+            ConnectionInfo connection = this.filesDock.ActiveConnectionInfo;
             if (connection == null)
                 return; // should we try to connect?
 
@@ -575,7 +315,8 @@ namespace SwqlStudio
 
         private void playbackToolStripMenuItem_Click_1(object sender, EventArgs e)
         {
-            ActiveQueryTab.RunPlayback();
+            if (this.filesDock.ActiveQueryTab != null)
+                this.filesDock.ActiveQueryTab.RunPlayback();
         }
 
         private void aboutSWQLStudioToolStripMenuItem_Click(object sender, EventArgs e)
@@ -603,8 +344,7 @@ namespace SwqlStudio
             Settings.Default.EntityGroupingMode = mode.ToString();
             Settings.Default.Save();
 
-            objectExplorer.EntityGroupingMode = mode;
-            objectExplorer.RefreshAllServers();
+            this.filesDock.SetEntityGroupingMode(mode);
         }
 
         private void byBaseTypeToolStripMenuItem_Click(object sender, EventArgs e)
@@ -630,17 +370,7 @@ namespace SwqlStudio
 
         private void menuFileTabPage_Click(object sender, EventArgs e)
         {
-            var tab = ActiveConnectionTab;
-            if (tab != null)
-            {
-                var connection = tab.ConnectionInfo;
-                var swql = ActiveQueryTab.QueryText;
-                AddTextToEditor(swql, connection);
-            }
-            else
-            {
-                AddNewQueryTab();
-            }
+            this.filesDock.CreateTabFromPrevious();
         }
 
         private void enableAutocompleteToolStripMenuItem_CheckedChanged(object sender, EventArgs e)
@@ -656,7 +386,12 @@ namespace SwqlStudio
 
         private void searchInTreeHotKeyToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            objectExplorer.FocusSearch();
+            this.filesDock.FocusSearch();
+        }
+
+        private void discoverQueryParametersToolStripMenuItem_CheckedChanged(object sender, EventArgs e)
+        {
+            this.filesDock.AllowSetParameters(this.discoverQueryParametersMenuItem.Checked);
         }
     }
 }

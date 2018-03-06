@@ -1,19 +1,12 @@
-﻿using System;
-using SwqlStudio.Metadata;
+﻿using SolarWinds.InformationService.Contract2;
 using SwqlStudio.Subscriptions;
 
 namespace SwqlStudio
 {
     public interface IApplicationService
     {
-        SubscriptionManager SubscriptionManager{ get; }
+        PropertyBag QueryParameters { get; set; }
 
-        void AddTextToEditor(string text, ConnectionInfo info);
-
-        void OpenActivityMonitor(string title, ConnectionInfo connectionInfo);
-
-        void OpenInvokeTab(string title, ConnectionInfo connectionInfo, Verb verb);
-
-        void OpenCrudTab(CrudOperation operation, ConnectionInfo connectionInfo, Entity entity);
+        SubscriptionManager SubscriptionManager { get; }
     }
 }

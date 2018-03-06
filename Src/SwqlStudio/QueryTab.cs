@@ -6,6 +6,7 @@ using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using System.Xml;
 using System.Xml.Linq;
@@ -17,6 +18,8 @@ namespace SwqlStudio
 {
     public partial class QueryTab : UserControl, IConnectionTab
     {
+        private static readonly Regex queryParamRegEx = new Regex(@"\@([\w.$]+|""[^""]+""|'[^']+')", RegexOptions.Compiled);
+
         private string subscriptionId;
 
         [Flags]
@@ -288,6 +291,8 @@ namespace SwqlStudio
             ConnectionInfo connection = ConnectionInfo;
             if (connection == null)
                 return; // should we try to connect?
+
+            connection.QueryParameters = this.ApplicationService.QueryParameters;
 
             if (queryWorker.IsBusy)
                 return;
@@ -736,6 +741,32 @@ namespace SwqlStudio
         internal void SetMetadataProvider(IMetadataProvider provider)
         {
             sciTextEditorControl1.SetMetadata(provider);
+        }
+
+        private void sciTextEditorControl1_TextChanged(object sender, EventArgs e)
+        {
+            this.delayTimer.Start();
+        }
+
+        private void delayTimer_Tick(object sender, EventArgs e)
+        {
+            this.delayTimer.Stop();
+            DetectQueryParameters();
+        }
+
+        internal void DetectQueryParameters()
+        {
+            string queryText = this.QueryText;
+
+            var propertyBag = new PropertyBag();
+
+            foreach (Match item in queryParamRegEx.Matches(queryText))
+            {
+                string paramName = item.Value.Substring(1);
+                propertyBag[paramName] = string.Empty;
+            }
+
+            this.ApplicationService.QueryParameters = propertyBag;
         }
     }
 }

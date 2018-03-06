@@ -18,6 +18,8 @@ namespace SwqlStudio
 {
     public partial class QueryTab : UserControl, IConnectionTab
     {
+        private static readonly Regex queryParamRegEx = new Regex(@"\@([\w.$]+|""[^""]+""|'[^']+')", RegexOptions.Compiled);
+
         private string subscriptionId;
 
         [Flags]
@@ -749,11 +751,16 @@ namespace SwqlStudio
         private void delayTimer_Tick(object sender, EventArgs e)
         {
             this.delayTimer.Stop();
+            DetectQueryParameters();
+        }
+
+        internal void DetectQueryParameters()
+        {
             string queryText = this.QueryText;
-            var rxPattern = @"\@([\w.$]+|""[^""]+""|'[^']+')";
+
             var propertyBag = new PropertyBag();
 
-            foreach (Match item in Regex.Matches(queryText, rxPattern))
+            foreach (Match item in queryParamRegEx.Matches(queryText))
             {
                 string paramName = item.Value.Substring(1);
                 propertyBag[paramName] = string.Empty;

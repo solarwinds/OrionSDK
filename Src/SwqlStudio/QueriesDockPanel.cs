@@ -269,9 +269,32 @@ namespace SwqlStudio
             this.objectExplorer.CloseServer(connection);
         }
 
-        public void RefreshServer(ConnectionInfo connection)
+        internal void RefreshServer(ConnectionInfo connection)
         {
             this.objectExplorer.RefreshServer(connection);
+        }
+
+        internal void CloseAllFixedConnectionTabs(ConnectionInfo connection)
+        {
+            var toClose =this.Contents.OfType<DockContent>()
+                .Where(t => IsFixedConnectionTab(t, connection))
+                .ToList();
+
+            foreach (var connectionTab in toClose)
+            {
+                connectionTab.Close();
+            }
+        }
+
+        private bool IsFixedConnectionTab(DockContent tab, ConnectionInfo connection)
+        {
+            if(tab.Controls.Count < 1)
+                return false;
+
+            var connectionTab = tab.Controls[0] as IConnectionTab;
+            return connectionTab != null && 
+                   connectionTab.ConnectionInfo == connection &&
+                   !connectionTab.AllowsChangeConnection;
         }
     }
 }

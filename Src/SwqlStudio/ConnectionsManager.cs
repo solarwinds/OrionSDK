@@ -52,7 +52,7 @@ namespace SwqlStudio
 
             info.ConnectionClosed += (sender, args) =>
             {
-                // TODO remove all tabs holding this connection this.dockPanel.RemoveTab(queryTab.Parent as DockContent);
+                this.dockPanel.CloseAllFixedConnectionTabs(info);
                 serverList.Remove(info);
             };
 

@@ -20,7 +20,11 @@ namespace SwqlStudio
         public PropertyBag QueryParameters
         {
             get { return this.queryParametersContent.Parameters; }
-            set { this.queryParametersContent.Parameters = value; }
+            set
+            {
+                this.queryParametersContent.Parameters = value;
+                ShowPropertiesContent(value);
+            }
         }
 
         /// <summary>Returns the currently displayed editor, or null if none are open</summary>
@@ -125,7 +129,7 @@ namespace SwqlStudio
             this.queryParametersContent = new QueryParameters();
             this.queryParametersContent.Text = "Query parameters";
             ConfigureBuildInToolbox(this.queryParametersContent);
-            this.queryParametersContent.Show(this, DockState.DockRight);
+            this.queryParametersContent.Show(this, DockState.DockRightAutoHide);
         }
 
         private void ConfigureBuildInToolbox(DockContent content)
@@ -218,6 +222,46 @@ namespace SwqlStudio
         internal void AllowSetParameters(bool allow)
         {
             this.queryParametersContent.AllowSetParameters = allow;
+        }
+
+        private void ShowPropertiesContent(PropertyBag value)
+        {
+            if (value.Keys.Count > 0 && IsPropertiesTabAutoHiden())
+            {
+                this.queryParametersContent.IsHidden = false;
+                this.queryParametersContent.DockState = ActivateHidenProperties();
+            }
+        }
+
+        private bool IsPropertiesTabAutoHiden()
+        {
+            switch (this.queryParametersContent.DockState)
+            {
+                case DockState.DockTopAutoHide:
+                case DockState.DockLeftAutoHide:
+                case DockState.DockBottomAutoHide:
+                case DockState.DockRightAutoHide:
+                    return true;
+                default:
+                    return false;
+            }
+        }
+        
+        private DockState ActivateHidenProperties()
+        {
+            switch (this.queryParametersContent.DockState)
+            {
+                case DockState.DockTopAutoHide:
+                    return DockState.DockTop;
+                case DockState.DockLeftAutoHide:
+                    return DockState.DockLeft;
+                case DockState.DockBottomAutoHide:
+                    return DockState.DockBottom;
+                case DockState.DockRightAutoHide:
+                    return DockState.DockRight;
+                default:
+                    return  DockState.DockRight;
+            }
         }
     }
 }

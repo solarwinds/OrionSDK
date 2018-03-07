@@ -572,11 +572,12 @@ namespace SwqlStudio
             connection.ConnectionClosed += (o, e) =>
             {
                 _tableContextMenuItems.Remove(connection.Title);
+                tableContextMenuWithoutCrud.Dispose();
+                tableContextMenuWithoutCrud = null; 
+
+                _tableCrudContextMenuItems.Remove(connection.Title);
                 tableContextMenuWithCrud.Dispose();
                 tableContextMenuWithCrud = null;
-
-                tableContextMenuWithoutCrud.Dispose();
-                tableContextMenuWithoutCrud = null;
 
                 _serverContextMenuItems.Remove(connection.Title);
                 serverContextMenu.Dispose();
@@ -591,6 +592,7 @@ namespace SwqlStudio
             {
                 node.Connection.Close();
                 _treeData.Nodes.Remove(_treeBindings.FindDataNode(node));
+                _tree.Nodes.Remove(contextMenuNode);
             }
         }
 

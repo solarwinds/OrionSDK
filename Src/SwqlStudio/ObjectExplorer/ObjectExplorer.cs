@@ -547,7 +547,7 @@ namespace SwqlStudio
                 serverContextMenu.Items.Add("Activity Monitor", null, (s, e) => OpenActivityMonitor(_contextMenuNode));
 
             serverContextMenu.Items.Add("Generate C# Code...", null, (s, e) => GenerateCSharpCode(_contextMenuNode));
-            var closeMenuItem = new ToolStripMenuItem("Close", Properties.Resources.Disconnect_16x, (s, e) => CloseServer(_contextMenuNode));
+            var closeMenuItem = new ToolStripMenuItem("Disconnect", Properties.Resources.Disconnect_16x, (s, e) => CloseServer(_contextMenuNode));
             serverContextMenu.Items.Add(closeMenuItem);
 
             _serverContextMenuItems.Add(connection.Title, serverContextMenu);
@@ -586,9 +586,17 @@ namespace SwqlStudio
             };
         }
 
+        internal void CloseServer(ConnectionInfo connection)
+        {
+            var serverNode = _tree.Nodes.OfType<TreeNodeWithConnectionInfo>()
+                .FirstOrDefault(n => n.Connection == connection);
+
+            CloseServer(serverNode);
+        }
+
         private void CloseServer(TreeNode contextMenuNode)
         {
-            TreeNodeWithConnectionInfo node = contextMenuNode as TreeNodeWithConnectionInfo;
+            var node = contextMenuNode as TreeNodeWithConnectionInfo;
             if (node != null)
             {
                 node.Connection.Close();

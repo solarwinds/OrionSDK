@@ -453,5 +453,14 @@ namespace SwqlStudio
         {
             this.connectionsManager.CreateConnection();
         }
+
+        private void disconnectToolButton_Click(object sender, EventArgs e)
+        {
+            var connection = this.connectionsCombobox.SelectedItem as ConnectionInfo;
+            if (connection != null)
+            {
+                this.filesDock.CloseServer(connection);
+            }
+        }
     }
 }

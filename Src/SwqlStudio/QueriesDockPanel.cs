@@ -263,5 +263,10 @@ namespace SwqlStudio
                     return  DockState.DockRight;
             }
         }
+
+        internal void CloseServer(ConnectionInfo connection)
+        {
+            this.objectExplorer.CloseServer(connection);
+        }
     }
 }

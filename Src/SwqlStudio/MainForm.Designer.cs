@@ -80,6 +80,7 @@
             this.newFileToolButton = new System.Windows.Forms.ToolStripButton();
             this.openFileButton = new System.Windows.Forms.ToolStripButton();
             this.saveToolButton = new System.Windows.Forms.ToolStripButton();
+            this.disconnectToolButton = new System.Windows.Forms.ToolStripButton();
             toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.menu.SuspendLayout();
             this.mainToolbar.SuspendLayout();
@@ -410,7 +411,7 @@
             this.filesDock.DockBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(238)))), ((int)(((byte)(238)))), ((int)(((byte)(242)))));
             this.filesDock.Location = new System.Drawing.Point(0, 24);
             this.filesDock.Name = "filesDock";
-            this.filesDock.Padding = new System.Windows.Forms.Padding(6);
+            this.filesDock.Padding = new System.Windows.Forms.Padding(6, 6, 31, 6);
             this.filesDock.QueryParameters = ((SolarWinds.InformationService.Contract2.PropertyBag)(resources.GetObject("filesDock.QueryParameters")));
             this.filesDock.ShowAutoHideContentOnHover = false;
             this.filesDock.Size = new System.Drawing.Size(827, 571);
@@ -445,6 +446,7 @@
             this.connectionsCombobox,
             this.executeToolButton,
             this.newConnectionButton,
+            this.disconnectToolButton,
             this.undoToolButton,
             this.redoToolButton,
             this.newFileToolButton,
@@ -534,6 +536,16 @@
             this.saveToolButton.ToolTipText = "Save (Ctrl+S)";
             this.saveToolButton.Click += new System.EventHandler(this.menuFileSave_Click);
             // 
+            // disconnectToolButton
+            // 
+            this.disconnectToolButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.disconnectToolButton.Image = global::SwqlStudio.Properties.Resources.Disconnect_16x;
+            this.disconnectToolButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.disconnectToolButton.Name = "disconnectToolButton";
+            this.disconnectToolButton.Size = new System.Drawing.Size(23, 22);
+            this.disconnectToolButton.Text = "Disconnect";
+            this.disconnectToolButton.Click += new System.EventHandler(this.disconnectToolButton_Click);
+            // 
             // MainForm
             // 
             this.AllowDrop = true;
@@ -611,6 +623,7 @@
         private System.Windows.Forms.ToolStripButton openFileButton;
         private System.Windows.Forms.ToolStripComboBox connectionsCombobox;
         private System.Windows.Forms.ToolStripButton newConnectionButton;
+        private System.Windows.Forms.ToolStripButton disconnectToolButton;
     }
 }
 

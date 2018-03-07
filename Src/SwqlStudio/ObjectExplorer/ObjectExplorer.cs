@@ -37,7 +37,7 @@ namespace SwqlStudio
         private TreeNode _contextMenuNode;
         private readonly Dictionary<string, ContextMenu> _tableContextMenuItems;
         private readonly Dictionary<string, ContextMenu> _tableCrudContextMenuItems;
-        private readonly Dictionary<string, ContextMenu> _serverContextMenuItems;
+        private readonly Dictionary<string, ContextMenuStrip> _serverContextMenuItems;
         private readonly ContextMenu _verbContextMenu;
         private bool _isDragging;
         private string _filter;
@@ -97,7 +97,7 @@ namespace SwqlStudio
             _treeSearch.DebounceLimit = TimeSpan.FromMilliseconds(400);
 
             _tableContextMenuItems = new Dictionary<string, ContextMenu>();
-            _serverContextMenuItems = new Dictionary<string, ContextMenu>();
+            _serverContextMenuItems = new Dictionary<string, ContextMenuStrip>();
             _tableCrudContextMenuItems = new Dictionary<string, ContextMenu>();
 
             _verbContextMenu = new ContextMenu();
@@ -540,14 +540,15 @@ namespace SwqlStudio
             _tableContextMenuItems.Add(connection.Title, tableContextMenuWithoutCrud);
             _tableCrudContextMenuItems.Add(connection.Title, tableContextMenuWithCrud);
 
-            var serverContextMenu = new ContextMenu();
-            serverContextMenu.MenuItems.Add("Refresh", (s, e) => RefreshServer(_contextMenuNode));
+            var serverContextMenu = new ContextMenuStrip();
+            serverContextMenu.Items.Add("Refresh", Properties.Resources.Refresh_16x, (s, e) => RefreshServer(_contextMenuNode));
 
             if (connection.CanCreateSubscription)
-                serverContextMenu.MenuItems.Add("Activity Monitor", (s, e) => OpenActivityMonitor(_contextMenuNode));
+                serverContextMenu.Items.Add("Activity Monitor", null, (s, e) => OpenActivityMonitor(_contextMenuNode));
 
-            serverContextMenu.MenuItems.Add("Generate C# Code...", (s, e) => GenerateCSharpCode(_contextMenuNode));
-            serverContextMenu.MenuItems.Add("Close", (s, e) => CloseServer(_contextMenuNode));
+            serverContextMenu.Items.Add("Generate C# Code...", null, (s, e) => GenerateCSharpCode(_contextMenuNode));
+            var closeMenuItem = new ToolStripMenuItem("Close", Properties.Resources.Disconnect_16x, (s, e) => CloseServer(_contextMenuNode));
+            serverContextMenu.Items.Add(closeMenuItem);
 
             _serverContextMenuItems.Add(connection.Title, serverContextMenu);
 

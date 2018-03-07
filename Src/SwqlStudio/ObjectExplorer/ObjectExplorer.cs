@@ -354,6 +354,12 @@ namespace SwqlStudio
             UpdateDrawnNodes();
         }
 
+        internal void RefreshServer(ConnectionInfo connection)
+        {
+            TreeNodeWithConnectionInfo serverNode = FindServerNodeByConnection(connection);
+            RefreshServer(serverNode);
+        }
+
         private void RefreshServer(TreeNode node)
         {
             var provider = node.Tag as IMetadataProvider;
@@ -588,10 +594,14 @@ namespace SwqlStudio
 
         internal void CloseServer(ConnectionInfo connection)
         {
-            var serverNode = _tree.Nodes.OfType<TreeNodeWithConnectionInfo>()
-                .FirstOrDefault(n => n.Connection == connection);
-
+            TreeNodeWithConnectionInfo serverNode = FindServerNodeByConnection(connection);
             CloseServer(serverNode);
+        }
+
+        private TreeNodeWithConnectionInfo FindServerNodeByConnection(ConnectionInfo connection)
+        {
+            return _tree.Nodes.OfType<TreeNodeWithConnectionInfo>()
+                .FirstOrDefault(n => n.Connection == connection);
         }
 
         private void CloseServer(TreeNode contextMenuNode)

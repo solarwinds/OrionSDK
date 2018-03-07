@@ -75,12 +75,16 @@
             this.connectionsCombobox = new System.Windows.Forms.ToolStripComboBox();
             this.executeToolButton = new System.Windows.Forms.ToolStripButton();
             this.newConnectionButton = new System.Windows.Forms.ToolStripButton();
+            this.disconnectToolButton = new System.Windows.Forms.ToolStripButton();
             this.undoToolButton = new System.Windows.Forms.ToolStripButton();
             this.redoToolButton = new System.Windows.Forms.ToolStripButton();
             this.newFileToolButton = new System.Windows.Forms.ToolStripButton();
             this.openFileButton = new System.Windows.Forms.ToolStripButton();
             this.saveToolButton = new System.Windows.Forms.ToolStripButton();
-            this.disconnectToolButton = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.refreshToolButton = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
             toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.menu.SuspendLayout();
             this.mainToolbar.SuspendLayout();
@@ -445,10 +449,14 @@
             this.mainToolbar.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.connectionsCombobox,
             this.executeToolButton,
+            this.toolStripSeparator4,
             this.newConnectionButton,
             this.disconnectToolButton,
+            this.refreshToolButton,
+            this.toolStripSeparator2,
             this.undoToolButton,
             this.redoToolButton,
+            this.toolStripSeparator3,
             this.newFileToolButton,
             this.openFileButton,
             this.saveToolButton});
@@ -485,6 +493,16 @@
             this.newConnectionButton.Size = new System.Drawing.Size(23, 22);
             this.newConnectionButton.ToolTipText = "New connection";
             this.newConnectionButton.Click += new System.EventHandler(this.newConnectionButton_Click);
+            // 
+            // disconnectToolButton
+            // 
+            this.disconnectToolButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.disconnectToolButton.Image = global::SwqlStudio.Properties.Resources.Disconnect_16x;
+            this.disconnectToolButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.disconnectToolButton.Name = "disconnectToolButton";
+            this.disconnectToolButton.Size = new System.Drawing.Size(23, 22);
+            this.disconnectToolButton.Text = "Disconnect";
+            this.disconnectToolButton.Click += new System.EventHandler(this.disconnectToolButton_Click);
             // 
             // undoToolButton
             // 
@@ -536,15 +554,30 @@
             this.saveToolButton.ToolTipText = "Save (Ctrl+S)";
             this.saveToolButton.Click += new System.EventHandler(this.menuFileSave_Click);
             // 
-            // disconnectToolButton
+            // toolStripSeparator2
             // 
-            this.disconnectToolButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.disconnectToolButton.Image = global::SwqlStudio.Properties.Resources.Disconnect_16x;
-            this.disconnectToolButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.disconnectToolButton.Name = "disconnectToolButton";
-            this.disconnectToolButton.Size = new System.Drawing.Size(23, 22);
-            this.disconnectToolButton.Text = "Disconnect";
-            this.disconnectToolButton.Click += new System.EventHandler(this.disconnectToolButton_Click);
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 25);
+            // 
+            // refreshToolButton
+            // 
+            this.refreshToolButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.refreshToolButton.Image = global::SwqlStudio.Properties.Resources.Refresh_16x;
+            this.refreshToolButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.refreshToolButton.Name = "refreshToolButton";
+            this.refreshToolButton.Size = new System.Drawing.Size(23, 22);
+            this.refreshToolButton.Text = "Refresh server metadata";
+            this.refreshToolButton.Click += new System.EventHandler(this.refreshToolButton_Click);
+            // 
+            // toolStripSeparator3
+            // 
+            this.toolStripSeparator3.Name = "toolStripSeparator3";
+            this.toolStripSeparator3.Size = new System.Drawing.Size(6, 25);
+            // 
+            // toolStripSeparator4
+            // 
+            this.toolStripSeparator4.Name = "toolStripSeparator4";
+            this.toolStripSeparator4.Size = new System.Drawing.Size(6, 25);
             // 
             // MainForm
             // 
@@ -624,6 +657,10 @@
         private System.Windows.Forms.ToolStripComboBox connectionsCombobox;
         private System.Windows.Forms.ToolStripButton newConnectionButton;
         private System.Windows.Forms.ToolStripButton disconnectToolButton;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
+        private System.Windows.Forms.ToolStripButton refreshToolButton;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
     }
 }
 

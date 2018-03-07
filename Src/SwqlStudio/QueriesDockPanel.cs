@@ -268,5 +268,10 @@ namespace SwqlStudio
         {
             this.objectExplorer.CloseServer(connection);
         }
+
+        public void RefreshServer(ConnectionInfo connection)
+        {
+            this.objectExplorer.RefreshServer(connection);
+        }
     }
 }

@@ -4,12 +4,14 @@ using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.ServiceModel;
+using System.Web;
 using System.Windows.Forms;
 using SolarWinds.InformationService.Contract2;
 using SolarWinds.InformationService.InformationServiceClient;
 using SwqlStudio.Metadata;
 using SwqlStudio.Properties;
 using SwqlStudio.Subscriptions;
+using SwqlStudio.Utils;
 using WeifenLuo.WinFormsUI.Docking;
 
 namespace SwqlStudio
@@ -436,6 +438,34 @@ namespace SwqlStudio
             {
                 this.filesDock.RefreshServer(connection);
             }
+        }
+
+        private void editToolStripMenuItem_DropDownOpening(object sender, EventArgs e)
+        {
+            copyQueryAsToolStripMenuItem.Enabled = filesDock.ActiveQueryTab != null;
+        }
+
+        private void curlCmdToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            CopyQueryAs(CommandLineGenerator.GetQueryForCurlCmd);
+        }
+
+        private void curlBashToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            CopyQueryAs(CommandLineGenerator.GetQueryForCurlBash);
+        }
+
+        private void getSwisDataPowerShellToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            CopyQueryAs(CommandLineGenerator.GetQueryForPowerShellGetSwisData);
+        }
+
+        private void CopyQueryAs(Func<string, ConnectionInfo, string> formatter)
+        {
+            var connection = filesDock.ActiveConnectionTab.ConnectionInfo;
+            var query = filesDock.ActiveQueryTab.QueryText;
+            string command = formatter(query, connection);
+            Clipboard.SetText(command);
         }
     }
 }

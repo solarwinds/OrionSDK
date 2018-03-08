@@ -17,8 +17,8 @@ namespace SwqlStudio
             InitializeComponent();
         }
 
-        public IApplicationService ApplicationService { get; set; }
         public ConnectionInfo ConnectionInfo { get; set; }
+        public bool AllowsChangeConnection => true;
         private int locationX = 0;
         private int locationY = 0;
 

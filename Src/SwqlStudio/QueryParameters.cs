@@ -24,7 +24,7 @@ namespace SwqlStudio
             get
             {
                 var bag = new PropertyBag();
-                foreach (QueryVariable pair in ((BindingList<QueryVariable>)parametersGrid.DataSource).Where(v => v.Key != null))
+                foreach (QueryVariable pair in GetBoundQueryVariables())
                     bag[pair.Key] = pair.Value;
 
                 return bag;
@@ -36,7 +36,7 @@ namespace SwqlStudio
                     return;
 
                 UpdateFromLastKnown(value);
-                var currentVariables = (BindingList<QueryVariable>)parametersGrid.DataSource;
+                var currentVariables = GetBoundQueryVariables();
                 UpdateWithCurrentValues(value, currentVariables);
                 var pairs = value.Select(pair => new QueryVariable(pair.Key, pair.Value?.ToString()));
                 QuessRenamedParameter(value);
@@ -57,9 +57,15 @@ namespace SwqlStudio
             }
         }
 
-        private void UpdateWithCurrentValues(PropertyBag propertyBag, BindingList<QueryVariable> currentVariables)
+        private IEnumerable<QueryVariable> GetBoundQueryVariables()
         {
-            foreach (QueryVariable variable in currentVariables.Where(v => v.Key != null))
+            return ((BindingList<QueryVariable>)parametersGrid.DataSource)
+                .Where(v => v.Key != null);
+        }
+
+        private void UpdateWithCurrentValues(PropertyBag propertyBag, IEnumerable<QueryVariable> currentVariables)
+        {
+            foreach (QueryVariable variable in currentVariables)
             {
                 if (propertyBag.ContainsKey(variable.Key))
                 {

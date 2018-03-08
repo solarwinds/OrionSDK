@@ -8,5 +8,9 @@ namespace SwqlStudio
         PropertyBag QueryParameters { get; set; }
 
         SubscriptionManager SubscriptionManager { get; }
+
+        ConnectionInfo SelectedConnection { get; }
+        
+        void RefreshSelectedConnections();
     }
 }

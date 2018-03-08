@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace SwqlStudio
 {
@@ -7,24 +8,44 @@ namespace SwqlStudio
     {
         private readonly Dictionary<string, ConnectionInfo> connections = new Dictionary<string, ConnectionInfo>();
 
-        public void Add(ConnectionInfo connection)
+        private readonly Dictionary<ConnectionInfo, IMetadataProvider> metadataProviders =
+            new Dictionary<ConnectionInfo, IMetadataProvider>();
+
+        internal List<ConnectionInfo> Connections
         {
-            connections.Add(GetKey(connection), connection);
+            get { return this.connections.Values.ToList(); }
+        }
+
+        public event EventHandler ConnectionsChanged;
+
+        public IMetadataProvider Add(ConnectionInfo connection)
+        {
+            string key = GetKey(connection);
+            connections.Add(key, connection);
+            var provider = new SwisMetaDataProvider(connection);
+            metadataProviders[connection] = provider;
+            ConnectionsChanged(this, EventArgs.Empty);
+            return provider;
         }
 
         public void Remove(ConnectionInfo connection)
         {
-            connections.Remove(GetKey(connection));
+            string key = GetKey(connection);
+            connections.Remove(key);
+            metadataProviders.Remove(connection);
+            ConnectionsChanged(this, EventArgs.Empty);
         }
 
         public bool Exists(ConnectionInfo connection)
         {
-            return connections.ContainsKey(GetKey(connection));
+            string key = GetKey(connection);
+            return connections.ContainsKey(key);
         }
 
         public bool TryGet(string serverType, string server, string username, out ConnectionInfo connection)
         {
-            return connections.TryGetValue(GetKey(serverType, server, username), out connection);
+            string key = GetKey(serverType, server, username);
+            return connections.TryGetValue(key, out connection);
         }
 
         private string GetKey(ConnectionInfo connection)
@@ -35,7 +56,11 @@ namespace SwqlStudio
         private string GetKey(string serverType, string server, string username)
         {
             return String.Format("{0},{1},{2}", serverType, server, username);
+        }
 
+        public bool TryGetProvider(ConnectionInfo connection, out IMetadataProvider provider)
+        {
+            return metadataProviders.TryGetValue(connection, out provider);
         }
     }
 }

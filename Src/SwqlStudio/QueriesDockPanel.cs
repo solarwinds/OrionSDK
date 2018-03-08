@@ -20,27 +20,10 @@ namespace SwqlStudio
         public PropertyBag QueryParameters
         {
             get { return this.queryParametersContent.Parameters; }
-            set { this.queryParametersContent.Parameters = value; }
-        }
-
-        /// <summary>Returns the currently displayed editor, or null if none are open</summary>
-        internal SciTextEditorControl ActiveEditor
-        {
-            get
+            set
             {
-                var tab = ActiveQueryTab;
-                if (tab == null) return null;
-                return tab.Editor;
-            }
-        }
-
-        internal ConnectionInfo ActiveConnectionInfo
-        {
-            get
-            {
-                var tab = ActiveConnectionTab;
-                if (tab == null) return null;
-                return tab.ConnectionInfo;
+                this.queryParametersContent.Parameters = value;
+                ShowPropertiesContent(value);
             }
         }
 
@@ -61,12 +44,12 @@ namespace SwqlStudio
         }
 
         /// <summary>Returns a list of all editor controls</summary>
-        internal IEnumerable<SciTextEditorControl> AllEditors
+        internal IEnumerable<QueryTab> AllEditors
         {
             get
             {
                 return from t in this.Contents.OfType<DockContent>()
-                    from c in t.Controls.OfType<SciTextEditorControl>()
+                    from c in t.Controls.OfType<QueryTab>()
                     select c;
             }
         }
@@ -135,7 +118,7 @@ namespace SwqlStudio
             this.queryParametersContent = new QueryParameters();
             this.queryParametersContent.Text = "Query parameters";
             ConfigureBuildInToolbox(this.queryParametersContent);
-            this.queryParametersContent.Show(this, DockState.DockRight);
+            this.queryParametersContent.Show(this, DockState.DockRightAutoHide);
         }
 
         private void ConfigureBuildInToolbox(DockContent content)
@@ -153,7 +136,7 @@ namespace SwqlStudio
         private void FilesDock_ActiveContentChanged(object sender, EventArgs e)
         {
             var content = this.ActiveContent as DockContent;
-            if (content != null &&  content != this.objectExplorerContent || content != this.queryParametersContent)
+            if (content != null &&  (content != this.objectExplorerContent || content != this.queryParametersContent))
             {
                 this.lastActiveContent = content;
                 this.ActiveQueryTab?.DetectQueryParameters();
@@ -219,15 +202,88 @@ namespace SwqlStudio
             this.tabsFactory.AddNewQueryTab();
         }
 
-        public void SetAplicationService(IApplicationService applicationService)
+        internal void SetAplicationService(TabsFactory tabsFactory)
         {
-            this.tabsFactory = new TabsFactory(this, applicationService);
-            this.objectExplorer.TabsFactory = this.tabsFactory;
+            this.tabsFactory = tabsFactory;
+            this.objectExplorer.TabsFactory = tabsFactory;
         }
                 
         internal void AllowSetParameters(bool allow)
         {
             this.queryParametersContent.AllowSetParameters = allow;
+        }
+
+        private void ShowPropertiesContent(PropertyBag value)
+        {
+            if (value.Keys.Count > 0 && IsPropertiesTabAutoHiden())
+            {
+                this.queryParametersContent.IsHidden = false;
+                this.queryParametersContent.DockState = ActivateHidenProperties();
+            }
+        }
+
+        private bool IsPropertiesTabAutoHiden()
+        {
+            switch (this.queryParametersContent.DockState)
+            {
+                case DockState.DockTopAutoHide:
+                case DockState.DockLeftAutoHide:
+                case DockState.DockBottomAutoHide:
+                case DockState.DockRightAutoHide:
+                    return true;
+                default:
+                    return false;
+            }
+        }
+        
+        private DockState ActivateHidenProperties()
+        {
+            switch (this.queryParametersContent.DockState)
+            {
+                case DockState.DockTopAutoHide:
+                    return DockState.DockTop;
+                case DockState.DockLeftAutoHide:
+                    return DockState.DockLeft;
+                case DockState.DockBottomAutoHide:
+                    return DockState.DockBottom;
+                case DockState.DockRightAutoHide:
+                    return DockState.DockRight;
+                default:
+                    return  DockState.DockRight;
+            }
+        }
+
+        internal void CloseServer(ConnectionInfo connection)
+        {
+            this.objectExplorer.CloseServer(connection);
+        }
+
+        internal void RefreshServer(ConnectionInfo connection)
+        {
+            this.objectExplorer.RefreshServer(connection);
+        }
+
+        internal void CloseAllFixedConnectionTabs(ConnectionInfo connection)
+        {
+            var toClose =this.Contents.OfType<DockContent>()
+                .Where(t => IsFixedConnectionTab(t, connection))
+                .ToList();
+
+            foreach (var connectionTab in toClose)
+            {
+                connectionTab.Close();
+            }
+        }
+
+        private bool IsFixedConnectionTab(DockContent tab, ConnectionInfo connection)
+        {
+            if(tab.Controls.Count < 1)
+                return false;
+
+            var connectionTab = tab.Controls[0] as IConnectionTab;
+            return connectionTab != null && 
+                   connectionTab.ConnectionInfo == connection &&
+                   !connectionTab.AllowsChangeConnection;
         }
     }
 }

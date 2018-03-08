@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Diagnostics;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -13,6 +14,7 @@ using System.Xml.Linq;
 using SolarWinds.InformationService.Contract2;
 using SwqlStudio.Playback;
 using SwqlStudio.Properties;
+using SwqlStudio.Subscriptions;
 
 namespace SwqlStudio
 {
@@ -21,6 +23,13 @@ namespace SwqlStudio
         private static readonly Regex queryParamRegEx = new Regex(@"\@([\w.$]+|""[^""]+""|'[^']+')", RegexOptions.Compiled);
 
         private string subscriptionId;
+
+        private bool HasSubscription
+        {
+            get { return !String.IsNullOrEmpty(subscriptionId); }
+        }
+        
+        public bool AllowsChangeConnection => !this.HasSubscription;
 
         [Flags]
         enum Tabs
@@ -35,6 +44,8 @@ namespace SwqlStudio
         }
 
         private Font nullFont;
+        public IApplicationService ApplicationService { get; set; }
+        public SubscriptionManager SubscriptionManager { get; set; }
 
         public QueryTab()
         {
@@ -72,13 +83,12 @@ namespace SwqlStudio
 
         private void Unsubscribe()
         {
-            if (!String.IsNullOrEmpty(subscriptionId))
+            if (HasSubscription)
             {
-                ApplicationService.SubscriptionManager.Unsubscribe(ConnectionInfo, subscriptionId);
+                this.SubscriptionManager.Unsubscribe(ConnectionInfo, subscriptionId);
+                this.subscriptionId = string.Empty;
             }
         }
-
-        public IApplicationService ApplicationService { get; set; }
 
         private void ShowTabs(Tabs tabsToShow)
         {
@@ -105,16 +115,9 @@ namespace SwqlStudio
             set { sciTextEditorControl1.Text = value; }
         }
 
-        public bool IsDirty
+        internal void MarkSaved()
         {
-            get { return sciTextEditorControl1.Modified; }
-            set
-            {
-                if (value == false)
-                    sciTextEditorControl1.SetSavePoint();
-                else
-                    throw new ArgumentException("Can't set IsDirty to true, only false");
-            }
+            this.sciTextEditorControl1.SetSavePoint();
         }
 
         private ConnectionInfo connectionInfo;
@@ -185,7 +188,7 @@ namespace SwqlStudio
             return str;
         }
 
-        public void CopySelectionToClipboard()
+        internal void CopySelectionToClipboard()
         {
             if (sciTextEditorControl1.Focused)
             {
@@ -245,16 +248,13 @@ namespace SwqlStudio
                 if (openFileDialog1.ShowDialog() == DialogResult.OK)
                 {
                     var pbi = new PlaybackItem() { FileName = openFileDialog1.FileName, MultiThread = false, QueryTab = this };
-                    using (var nc = new NewConnection())
-                    {
-                        if (nc.ShowDialog(this) != DialogResult.OK)
-                            return;
-
-                        var info = nc.ConnectionInfo;
-                        info.Connect();
-                        pbi.ConnectionInfo = info;
-                        PlaybackManager.StartPlayback(pbi);
-                    }
+                    ConnectionInfo info = ConnectionsManager.AskForNewConnection();
+                    if (info == null)
+                        return;
+                    
+                    info.Connect();
+                    pbi.ConnectionInfo = info;
+                    PlaybackManager.StartPlayback(pbi);
                     logTextbox.Text = "Started Playback...\r\n";
                 }
             }
@@ -306,9 +306,12 @@ namespace SwqlStudio
             }
             else
             {
+                ShowTabs(Tabs.Results);
                 queryStatusBar1.UpdateStatusLabel("Running query...");
                 queryWorker.RunWorkerAsync(new QueryArguments(connection, query));
             }
+
+            this.ApplicationService.RefreshSelectedConnections();
         }
 
         void SubscriptionIndicationReceived(IndicationEventArgs e)
@@ -643,6 +646,22 @@ namespace SwqlStudio
             }
         }
 
+        internal string FileName
+        {
+            get { return this.sciTextEditorControl1.FileName; }
+            set
+            {
+                this.sciTextEditorControl1.FileName = value;
+                if (this.Parent != null)
+                    this.Parent.Text = Path.GetFileName(value);
+            }
+        }
+
+        public bool Modified
+        {
+            get { return this.sciTextEditorControl1.Modified; }
+        }
+
         private class QueryArguments
         {
             public ConnectionInfo Connection { get; set; }
@@ -679,9 +698,8 @@ namespace SwqlStudio
 
             try
             {
-                subscriptionId = ApplicationService.SubscriptionManager.CreateSubscription(ConnectionInfo, arg.Query,
-                    SubscriptionIndicationReceived);
-
+                subscriptionId = this.SubscriptionManager.CreateSubscription(ConnectionInfo, arg.Query, SubscriptionIndicationReceived);
+                this.Invoke(new Action(() => this.ApplicationService.RefreshSelectedConnections()));
                 subscriptionWorker.ReportProgress(0, "Waiting for notifications");
             }
             catch (Exception ex)
@@ -751,6 +769,11 @@ namespace SwqlStudio
         private void delayTimer_Tick(object sender, EventArgs e)
         {
             this.delayTimer.Stop();
+
+            if (this.Parent != null && this.Modified &&
+                !string.IsNullOrEmpty(this.FileName) && !this.Parent.Text.EndsWith("*"))
+                this.Parent.Text = this.Parent.Text + "*";
+            
             DetectQueryParameters();
         }
 
@@ -767,6 +790,26 @@ namespace SwqlStudio
             }
 
             this.ApplicationService.QueryParameters = propertyBag;
+        }
+
+        internal void Paste()
+        {
+            this.sciTextEditorControl1.Paste();
+        }
+
+        internal void Cut()
+        {
+            this.sciTextEditorControl1.Cut();
+        }
+
+        internal void Undo()
+        {
+            this.sciTextEditorControl1.Undo();
+        }
+
+        internal void Redo()
+        {
+            this.sciTextEditorControl1.Redo();
         }
     }
 }

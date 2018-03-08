@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Drawing;
-using System.IO;
 using System.Windows.Forms;
 using ScintillaNET;
-using System.Collections.Generic;
 using System.Linq;
 using SwqlStudio.Properties;
 
@@ -202,11 +200,6 @@ namespace SwqlStudio
         public string FileName { get; set; }
 
         public LexerService LexerService { get; }
-
-        public void SaveFile(string path)
-        {
-            File.WriteAllText(path, Text);
-        }
 
         public event Action Execute;
 

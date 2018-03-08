@@ -37,7 +37,7 @@ namespace SwqlStudio
         private TreeNode _contextMenuNode;
         private readonly Dictionary<string, ContextMenu> _tableContextMenuItems;
         private readonly Dictionary<string, ContextMenu> _tableCrudContextMenuItems;
-        private readonly Dictionary<string, ContextMenu> _serverContextMenuItems;
+        private readonly Dictionary<string, ContextMenuStrip> _serverContextMenuItems;
         private readonly ContextMenu _verbContextMenu;
         private bool _isDragging;
         private string _filter;
@@ -97,7 +97,7 @@ namespace SwqlStudio
             _treeSearch.DebounceLimit = TimeSpan.FromMilliseconds(400);
 
             _tableContextMenuItems = new Dictionary<string, ContextMenu>();
-            _serverContextMenuItems = new Dictionary<string, ContextMenu>();
+            _serverContextMenuItems = new Dictionary<string, ContextMenuStrip>();
             _tableCrudContextMenuItems = new Dictionary<string, ContextMenu>();
 
             _verbContextMenu = new ContextMenu();
@@ -354,6 +354,12 @@ namespace SwqlStudio
             UpdateDrawnNodes();
         }
 
+        internal void RefreshServer(ConnectionInfo connection)
+        {
+            TreeNodeWithConnectionInfo serverNode = FindServerNodeByConnection(connection);
+            RefreshServer(serverNode);
+        }
+
         private void RefreshServer(TreeNode node)
         {
             var provider = node.Tag as IMetadataProvider;
@@ -406,7 +412,7 @@ namespace SwqlStudio
         {
             var provider = node.Tag as IMetadataProvider;
             if (provider != null && provider.ConnectionInfo.CanCreateSubscription)
-                TabsFactory.OpenActivityMonitor(provider.ConnectionInfo.Title + " Activity", provider.ConnectionInfo);
+                TabsFactory.OpenActivityMonitor(provider.ConnectionInfo);
         }
 
         private void OpenInvokeTab()
@@ -415,21 +421,15 @@ namespace SwqlStudio
             var verb = (Verb)_contextMenuNode.Tag;
             if (verb.Arguments.Count == 0)
                 verb.Arguments.AddRange(provider.GetVerbArguments(verb));
-            TabsFactory.OpenInvokeTab(string.Format("{0} - Invoke {1}.{2}", provider.ConnectionInfo.Title, verb.EntityName, verb.Name),
-                                             provider.ConnectionInfo, verb);
+            TabsFactory.OpenInvokeTab(provider.ConnectionInfo, verb);
         }
 
         public void GenerateSelectStatement(Entity table, bool includeInheritedProperties)
         {
             if (table != null)
             {
-                string swql = GenerateSwql(table, includeInheritedProperties);
-
-                ConnectionInfo connection = null;
-                if ((_contextMenuNode as TreeNodeWithConnectionInfo) != null)
-                    connection = (_contextMenuNode as TreeNodeWithConnectionInfo).Connection;
-
-                TabsFactory.AddTextToEditor(swql, connection);
+                string query = GenerateSwql(table, includeInheritedProperties);
+                AddTextEditor(query);
             }
         }
 
@@ -545,14 +545,15 @@ namespace SwqlStudio
             _tableContextMenuItems.Add(connection.Title, tableContextMenuWithoutCrud);
             _tableCrudContextMenuItems.Add(connection.Title, tableContextMenuWithCrud);
 
-            var serverContextMenu = new ContextMenu();
-            serverContextMenu.MenuItems.Add("Refresh", (s, e) => RefreshServer(_contextMenuNode));
+            var serverContextMenu = new ContextMenuStrip();
+            serverContextMenu.Items.Add("Refresh", Properties.Resources.Refresh_16x, (s, e) => RefreshServer(_contextMenuNode));
 
             if (connection.CanCreateSubscription)
-                serverContextMenu.MenuItems.Add("Activity Monitor", (s, e) => OpenActivityMonitor(_contextMenuNode));
+                serverContextMenu.Items.Add("Activity Monitor", null, (s, e) => OpenActivityMonitor(_contextMenuNode));
 
-            serverContextMenu.MenuItems.Add("Generate C# Code...", (s, e) => GenerateCSharpCode(_contextMenuNode));
-            serverContextMenu.MenuItems.Add("Close", (s, e) => CloseServer(_contextMenuNode));
+            serverContextMenu.Items.Add("Generate C# Code...", null, (s, e) => GenerateCSharpCode(_contextMenuNode));
+            var closeMenuItem = new ToolStripMenuItem("Disconnect", Properties.Resources.Disconnect_16x, (s, e) => CloseServer(_contextMenuNode));
+            serverContextMenu.Items.Add(closeMenuItem);
 
             _serverContextMenuItems.Add(connection.Title, serverContextMenu);
 
@@ -577,11 +578,12 @@ namespace SwqlStudio
             connection.ConnectionClosed += (o, e) =>
             {
                 _tableContextMenuItems.Remove(connection.Title);
+                tableContextMenuWithoutCrud.Dispose();
+                tableContextMenuWithoutCrud = null; 
+
+                _tableCrudContextMenuItems.Remove(connection.Title);
                 tableContextMenuWithCrud.Dispose();
                 tableContextMenuWithCrud = null;
-
-                tableContextMenuWithoutCrud.Dispose();
-                tableContextMenuWithoutCrud = null;
 
                 _serverContextMenuItems.Remove(connection.Title);
                 serverContextMenu.Dispose();
@@ -589,13 +591,26 @@ namespace SwqlStudio
             };
         }
 
+        internal void CloseServer(ConnectionInfo connection)
+        {
+            TreeNodeWithConnectionInfo serverNode = FindServerNodeByConnection(connection);
+            CloseServer(serverNode);
+        }
+
+        private TreeNodeWithConnectionInfo FindServerNodeByConnection(ConnectionInfo connection)
+        {
+            return _tree.Nodes.OfType<TreeNodeWithConnectionInfo>()
+                .FirstOrDefault(n => n.Connection == connection);
+        }
+
         private void CloseServer(TreeNode contextMenuNode)
         {
-            TreeNodeWithConnectionInfo node = contextMenuNode as TreeNodeWithConnectionInfo;
+            var node = contextMenuNode as TreeNodeWithConnectionInfo;
             if (node != null)
             {
                 node.Connection.Close();
                 _treeData.Nodes.Remove(_treeBindings.FindDataNode(node));
+                _tree.Nodes.Remove(contextMenuNode);
             }
         }
 
@@ -824,12 +839,16 @@ CanDelete: {4}",
             if (table != null)
             {
                 string query = string.Format(table.IsIndication ? "SUBSCRIBE {0}" : "SUBSCRIBE CHANGES TO {0}", table.FullName);
+                AddTextEditor(query);
+            }
+        }
 
-                ConnectionInfo connection = null;
-                if ((_contextMenuNode as TreeNodeWithConnectionInfo) != null)
-                    connection = (_contextMenuNode as TreeNodeWithConnectionInfo).Connection;
-
-                TabsFactory.AddTextToEditor(query, connection);
+        private void AddTextEditor(string query)
+        {
+            var node = _contextMenuNode as TreeNodeWithConnectionInfo;
+            if (node != null)
+            {
+                TabsFactory.AddTextToEditor(query, node.Connection);
             }
         }
     }

@@ -32,10 +32,9 @@ namespace SwqlStudio
         }
 
         /// <inheritdoc />
-        public IApplicationService ApplicationService { get; set; }
-
-        /// <inheritdoc />
         public ConnectionInfo ConnectionInfo { get; set; }
+
+        public bool AllowsChangeConnection => true;
 
         public event EventHandler CloseItself;
 

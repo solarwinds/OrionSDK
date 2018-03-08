@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using System.ServiceModel;
 using System.ServiceModel.Security;
@@ -15,66 +14,74 @@ namespace SwqlStudio
     {
         private static readonly SolarWinds.Logging.Log log = new SolarWinds.Logging.Log();
 
-        private readonly Dictionary<ConnectionInfo, IMetadataProvider> metadataProviders =
-            new Dictionary<ConnectionInfo, IMetadataProvider>();
-                
-        private readonly ServerList serverList = new ServerList();
-
+        private readonly ServerList serverList;
         private readonly QueriesDockPanel dockPanel;
         private readonly IApplicationService applicationService;
+        private readonly ConnectionsManager connectionsManager;
+        private int queryTabsCounter = 0;
 
-        internal TabsFactory(QueriesDockPanel dockPanel, IApplicationService applicationService)
+        internal TabsFactory(QueriesDockPanel dockPanel, IApplicationService applicationService,
+            ServerList serverList, ConnectionsManager connectionsManager)
         {
             this.dockPanel = dockPanel;
             this.applicationService = applicationService;
+            this.serverList = serverList;
+            this.connectionsManager = connectionsManager;
         }
 
         public void AddTextToEditor(string text, ConnectionInfo info)
         {
             if (info == null)
-                info = this.dockPanel.ActiveConnectionInfo;
+                info = this.applicationService.SelectedConnection;
+            
+            if (info == null)
+                return;
 
-            IMetadataProvider metadataProvider;
-            this.metadataProviders.TryGetValue(info, out metadataProvider);
-
-            CreateQueryTab(info.Title, info, metadataProvider);
+            string title = CreateQueryTitile();
+            CreateQueryTab(title, info);
             this.dockPanel.ActiveQueryTab.QueryText = text;
         }
 
-        public void OpenActivityMonitor(string title, ConnectionInfo info)
+        private string CreateQueryTitile()
+        {
+            queryTabsCounter++;
+            return "Query" + queryTabsCounter;
+        }
+
+        public void OpenActivityMonitor(ConnectionInfo info)
         {
             var activityMonitorTab = new ActivityMonitorTab
             {
-                ConnectionInfo = info, 
+                ConnectionInfo = info,
                 Dock = DockStyle.Fill,
-                ApplicationService = this.applicationService
+                SubscriptionManager = this.applicationService.SubscriptionManager
             };
+
+            string title = info.Title + " Activity";
             AddNewTab(activityMonitorTab, title);
             activityMonitorTab.Start();
         }
 
-
-        public void OpenInvokeTab(string title, ConnectionInfo info, Verb verb)
+        public void OpenInvokeTab(ConnectionInfo info, Verb verb)
         {
             var invokeVerbTab = new InvokeVerbTab
             {
-                ConnectionInfo = info, 
+                ConnectionInfo = info,
                 Dock = DockStyle.Fill,
-                ApplicationService = this.applicationService, 
                 Verb = verb
             };
+
+            string title = string.Format("Invoke {1}.{2}", verb.EntityName, verb.Name);
             AddNewTab(invokeVerbTab, title);
         }
 
         /// <inheritdoc />
         public void OpenCrudTab(CrudOperation operation, ConnectionInfo info, Entity entity)
         {
-            string title = entity.FullName + " - " + operation;
             var crudTab = new CrudTab(operation)
             {
                 ConnectionInfo = info,
                 Dock = DockStyle.Fill,
-                ApplicationService = this.applicationService,
                 Entity = entity
             };
 
@@ -83,107 +90,84 @@ namespace SwqlStudio
                 this.dockPanel.RemoveTab(crudTab.Parent as DockContent);
             };
 
+            string title = entity.FullName + " - " + operation;
             AddNewTab(crudTab, title);
         }
 
         internal void AddNewQueryTab()
         {
-            using (NewConnection nc = new NewConnection())
+            string msg = null;
+
+            try
             {
-                if (nc.ShowDialog() != DialogResult.OK)
+                ConnectionInfo info = this.connectionsManager.ResolveConnection();
+                if (info== null)
                     return;
 
-                string msg = null;
-
-                try
+                string title = CreateQueryTitile();
+                this.CreateQueryTab(title, info);
+            }
+            catch (FaultException<InfoServiceFaultContract> ex)
+            {
+                log.Error("Failed to connect", ex);
+                msg = ex.Detail.Message;
+            }
+            catch (SecurityNegotiationException ex)
+            {
+                log.Error("Failed to connect", ex);
+                msg = ex.Message;
+            }
+            catch (FaultException ex)
+            {
+                log.Error("Failed to connect", ex);
+                msg = (ex.InnerException != null) ? ex.InnerException.Message : ex.Message;
+            }
+            catch (MessageSecurityException ex)
+            {
+                log.Error("Failed to connect", ex);
+                if (ex.InnerException != null && ex.InnerException is FaultException)
                 {
-                    ConnectionInfo info;
-                    bool alreadyExists = false;
-                    alreadyExists = serverList.TryGet(nc.ConnectionInfo.ServerType, nc.ConnectionInfo.Server, nc.ConnectionInfo.UserName, out info);
-                    if (!alreadyExists)
-                    {
-                        info = nc.ConnectionInfo;
-                        info.Connect();
-                        serverList.Add(info);
-
-                        info.ConnectionClosed += (sender, args) => serverList.Remove(info);
-                    }
-
-                    if (!alreadyExists)
-                    {
-                        var provider = new SwisMetaDataProvider(info);
-                        this.dockPanel.AddServer(provider, info);
-                        metadataProviders[info] = provider;
-                    }
-
-                    this.CreateQueryTab(info.Title, info, metadataProviders[info]);
+                    msg = (ex.InnerException as FaultException).Message;
                 }
-                catch (FaultException<InfoServiceFaultContract> ex)
+                else
                 {
-                    log.Error("Failed to connect", ex);
-                    msg = ex.Detail.Message;
-                }
-                catch (SecurityNegotiationException ex)
-                {
-                    log.Error("Failed to connect", ex);
                     msg = ex.Message;
                 }
-                catch (FaultException ex)
-                {
-                    log.Error("Failed to connect", ex);
-                    msg = (ex.InnerException != null) ? ex.InnerException.Message : ex.Message;
-                }
-                catch (MessageSecurityException ex)
-                {
-                    log.Error("Failed to connect", ex);
-                    if (ex.InnerException != null && ex.InnerException is FaultException)
-                    {
-                        msg = (ex.InnerException as FaultException).Message;
-                    }
-                    else
-                    {
-                        msg = ex.Message;
-                    }
-                }
-                catch (Exception ex)
-                {
-                    log.Error("Failed to connect", ex);
-                    msg = ex.Message;
-                }
+            }
+            catch (Exception ex)
+            {
+                log.Error("Failed to connect", ex);
+                msg = ex.Message;
+            }
 
-                if (msg != null)
-                {
-                    msg = string.Format("Unable to connect to Information Service. {0}", msg);
-                    MessageBox.Show(msg, "Connection Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
+            if (msg != null)
+            {
+                msg = string.Format("Unable to connect to Information Service. {0}", msg);
+                MessageBox.Show(msg, "Connection Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
         internal void OpenFiles(string[] files)
         {
-            var originalConnection = this.dockPanel.ActiveConnectionInfo;
-            if (originalConnection == null)
+            var connectionInfo = this.connectionsManager.ResolveConnection();
+            if (connectionInfo == null)
                 return;
 
             this.dockPanel.ColoseInitialDocument();
-
+            connectionInfo.Connect();
+            
             // Open file(s)
             foreach (string fn in files)
             {
                 QueryTab queryTab = null;
                 try
                 {
-                    var connectionInfo = originalConnection.Copy();
-                    connectionInfo.Connect();
-
-                    IMetadataProvider metadataProvider;
-                    metadataProviders.TryGetValue(connectionInfo, out metadataProvider);
-
-                    queryTab = this.CreateQueryTab(Path.GetFileName(fn), connectionInfo, metadataProvider);
+                    queryTab = this.CreateQueryTab(string.Empty, connectionInfo);
                     queryTab.QueryText = File.ReadAllText(fn);
+                    queryTab.FileName = fn;
                     // Modified flag is set during loading because the document 
                     // "changes" (from nothing to something). So, clear it again.
-                    queryTab.IsDirty = false;
+                    queryTab.MarkSaved();
                 }
                 catch (Exception ex)
                 {
@@ -207,7 +191,10 @@ namespace SwqlStudio
             var tab = this.dockPanel.ActiveConnectionTab;
             if (tab != null)
             {
-                var connection = tab.ConnectionInfo;
+                var connection = this.connectionsManager.ResolveConnection();
+                if (connection == null)
+                    return;
+
                 var swql = this.dockPanel.ActiveQueryTab.QueryText;
                 this.AddTextToEditor(swql, connection);
             }
@@ -217,24 +204,20 @@ namespace SwqlStudio
             }
         }
 
-        private QueryTab CreateQueryTab(string title, ConnectionInfo info, IMetadataProvider provider)
+        private QueryTab CreateQueryTab(string title, ConnectionInfo info)
         {
             var queryTab = new QueryTab
             {
                 ConnectionInfo = info,
                 Dock = DockStyle.Fill,
-                ApplicationService = this.applicationService
+                ApplicationService = this.applicationService,
+                SubscriptionManager = this.applicationService.SubscriptionManager
             };
-
+            
+            IMetadataProvider provider;
+            this.serverList.TryGetProvider(info, out provider);
             queryTab.SetMetadataProvider(provider);
-
             AddNewTab(queryTab, title);
-
-            info.ConnectionClosed += (sender, args) =>
-            {
-                this.dockPanel.RemoveTab(queryTab.Parent as DockContent);
-            };
-
             return queryTab;
         }
 

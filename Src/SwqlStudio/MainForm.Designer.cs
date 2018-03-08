@@ -62,6 +62,7 @@
             this.byHierarchyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.noGroupingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.enableAutocompleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.discoverQueryParametersMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutSWQLStudioToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
@@ -70,9 +71,23 @@
             this.filesDock = new SwqlStudio.QueriesDockPanel();
             this.ObjectExplorerImageList = new System.Windows.Forms.ImageList(this.components);
             this.startTimer = new System.Windows.Forms.Timer(this.components);
-            this.discoverQueryParametersMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.mainToolbar = new System.Windows.Forms.ToolStrip();
+            this.connectionsCombobox = new System.Windows.Forms.ToolStripComboBox();
+            this.executeToolButton = new System.Windows.Forms.ToolStripButton();
+            this.newConnectionButton = new System.Windows.Forms.ToolStripButton();
+            this.disconnectToolButton = new System.Windows.Forms.ToolStripButton();
+            this.undoToolButton = new System.Windows.Forms.ToolStripButton();
+            this.redoToolButton = new System.Windows.Forms.ToolStripButton();
+            this.newFileToolButton = new System.Windows.Forms.ToolStripButton();
+            this.openFileButton = new System.Windows.Forms.ToolStripButton();
+            this.saveToolButton = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.refreshToolButton = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
             toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.menu.SuspendLayout();
+            this.mainToolbar.SuspendLayout();
             this.SuspendLayout();
             // 
             // toolStripSeparator1
@@ -365,6 +380,16 @@
             this.enableAutocompleteToolStripMenuItem.Text = "Enable Autocomplete";
             this.enableAutocompleteToolStripMenuItem.CheckedChanged += new System.EventHandler(this.enableAutocompleteToolStripMenuItem_CheckedChanged);
             // 
+            // discoverQueryParametersMenuItem
+            // 
+            this.discoverQueryParametersMenuItem.Checked = true;
+            this.discoverQueryParametersMenuItem.CheckOnClick = true;
+            this.discoverQueryParametersMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.discoverQueryParametersMenuItem.Name = "discoverQueryParametersMenuItem";
+            this.discoverQueryParametersMenuItem.Size = new System.Drawing.Size(214, 22);
+            this.discoverQueryParametersMenuItem.Text = "Discover query parameters";
+            this.discoverQueryParametersMenuItem.CheckedChanged += new System.EventHandler(this.discoverQueryParametersToolStripMenuItem_CheckedChanged);
+            // 
             // helpToolStripMenuItem
             // 
             this.helpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -390,7 +415,7 @@
             this.filesDock.DockBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(238)))), ((int)(((byte)(238)))), ((int)(((byte)(242)))));
             this.filesDock.Location = new System.Drawing.Point(0, 24);
             this.filesDock.Name = "filesDock";
-            this.filesDock.Padding = new System.Windows.Forms.Padding(6);
+            this.filesDock.Padding = new System.Windows.Forms.Padding(6, 6, 31, 6);
             this.filesDock.QueryParameters = ((SolarWinds.InformationService.Contract2.PropertyBag)(resources.GetObject("filesDock.QueryParameters")));
             this.filesDock.ShowAutoHideContentOnHover = false;
             this.filesDock.Size = new System.Drawing.Size(827, 571);
@@ -419,15 +444,140 @@
             // 
             this.startTimer.Tick += new System.EventHandler(this.startTimer_Tick);
             // 
-            // discoverQueryParametersMenuItem
+            // mainToolbar
             // 
-            this.discoverQueryParametersMenuItem.Checked = true;
-            this.discoverQueryParametersMenuItem.CheckOnClick = true;
-            this.discoverQueryParametersMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.discoverQueryParametersMenuItem.Name = "discoverQueryParametersMenuItem";
-            this.discoverQueryParametersMenuItem.Size = new System.Drawing.Size(214, 22);
-            this.discoverQueryParametersMenuItem.Text = "Discover query parameters";
-            this.discoverQueryParametersMenuItem.CheckedChanged += new System.EventHandler(this.discoverQueryParametersToolStripMenuItem_CheckedChanged);
+            this.mainToolbar.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.connectionsCombobox,
+            this.executeToolButton,
+            this.toolStripSeparator4,
+            this.newConnectionButton,
+            this.disconnectToolButton,
+            this.refreshToolButton,
+            this.toolStripSeparator2,
+            this.undoToolButton,
+            this.redoToolButton,
+            this.toolStripSeparator3,
+            this.newFileToolButton,
+            this.openFileButton,
+            this.saveToolButton});
+            this.mainToolbar.Location = new System.Drawing.Point(0, 24);
+            this.mainToolbar.Name = "mainToolbar";
+            this.mainToolbar.Size = new System.Drawing.Size(827, 25);
+            this.mainToolbar.TabIndex = 5;
+            this.mainToolbar.Text = "toolStrip1";
+            // 
+            // connectionsCombobox
+            // 
+            this.connectionsCombobox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.connectionsCombobox.DropDownWidth = 300;
+            this.connectionsCombobox.Name = "connectionsCombobox";
+            this.connectionsCombobox.Size = new System.Drawing.Size(250, 25);
+            this.connectionsCombobox.SelectedIndexChanged += new System.EventHandler(this.connectionsCombobox_SelectedIndexChanged);
+            // 
+            // executeToolButton
+            // 
+            this.executeToolButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.executeToolButton.Image = global::SwqlStudio.Properties.Resources.Run_16x;
+            this.executeToolButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.executeToolButton.Name = "executeToolButton";
+            this.executeToolButton.Size = new System.Drawing.Size(23, 22);
+            this.executeToolButton.ToolTipText = "Execute query (F5)";
+            this.executeToolButton.Click += new System.EventHandler(this.menuQueryExecute_Click);
+            // 
+            // newConnectionButton
+            // 
+            this.newConnectionButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.newConnectionButton.Image = global::SwqlStudio.Properties.Resources.ConnectFilled_16x;
+            this.newConnectionButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.newConnectionButton.Name = "newConnectionButton";
+            this.newConnectionButton.Size = new System.Drawing.Size(23, 22);
+            this.newConnectionButton.ToolTipText = "New connection";
+            this.newConnectionButton.Click += new System.EventHandler(this.newConnectionButton_Click);
+            // 
+            // disconnectToolButton
+            // 
+            this.disconnectToolButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.disconnectToolButton.Image = global::SwqlStudio.Properties.Resources.Disconnect_16x;
+            this.disconnectToolButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.disconnectToolButton.Name = "disconnectToolButton";
+            this.disconnectToolButton.Size = new System.Drawing.Size(23, 22);
+            this.disconnectToolButton.Text = "Disconnect";
+            this.disconnectToolButton.Click += new System.EventHandler(this.disconnectToolButton_Click);
+            // 
+            // undoToolButton
+            // 
+            this.undoToolButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.undoToolButton.Image = global::SwqlStudio.Properties.Resources.Undo_16x;
+            this.undoToolButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.undoToolButton.Name = "undoToolButton";
+            this.undoToolButton.Size = new System.Drawing.Size(23, 22);
+            this.undoToolButton.ToolTipText = "Undo (Ctrl+Z)";
+            this.undoToolButton.Click += new System.EventHandler(this.undoToolStripMenuItem_Click);
+            // 
+            // redoToolButton
+            // 
+            this.redoToolButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.redoToolButton.Image = global::SwqlStudio.Properties.Resources.Redo_16x;
+            this.redoToolButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.redoToolButton.Name = "redoToolButton";
+            this.redoToolButton.Size = new System.Drawing.Size(23, 22);
+            this.redoToolButton.ToolTipText = "Redo (Ctrl+Y)";
+            this.redoToolButton.Click += new System.EventHandler(this.redoToolStripMenuItem_Click);
+            // 
+            // newFileToolButton
+            // 
+            this.newFileToolButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.newFileToolButton.Image = global::SwqlStudio.Properties.Resources.NewFile_16x;
+            this.newFileToolButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.newFileToolButton.Name = "newFileToolButton";
+            this.newFileToolButton.Size = new System.Drawing.Size(23, 22);
+            this.newFileToolButton.ToolTipText = "New file (Ctrl+N)";
+            this.newFileToolButton.Click += new System.EventHandler(this.menuFileNew_Click);
+            // 
+            // openFileButton
+            // 
+            this.openFileButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.openFileButton.Image = global::SwqlStudio.Properties.Resources.OpenFolder_16x;
+            this.openFileButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.openFileButton.Name = "openFileButton";
+            this.openFileButton.Size = new System.Drawing.Size(23, 22);
+            this.openFileButton.ToolTipText = "Open file (Ctrl+O)";
+            this.openFileButton.Click += new System.EventHandler(this.menuFileOpen_Click);
+            // 
+            // saveToolButton
+            // 
+            this.saveToolButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.saveToolButton.Image = global::SwqlStudio.Properties.Resources.Save_16x;
+            this.saveToolButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.saveToolButton.Name = "saveToolButton";
+            this.saveToolButton.Size = new System.Drawing.Size(23, 22);
+            this.saveToolButton.ToolTipText = "Save (Ctrl+S)";
+            this.saveToolButton.Click += new System.EventHandler(this.menuFileSave_Click);
+            // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 25);
+            // 
+            // refreshToolButton
+            // 
+            this.refreshToolButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.refreshToolButton.Image = global::SwqlStudio.Properties.Resources.Refresh_16x;
+            this.refreshToolButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.refreshToolButton.Name = "refreshToolButton";
+            this.refreshToolButton.Size = new System.Drawing.Size(23, 22);
+            this.refreshToolButton.Text = "Refresh server metadata";
+            this.refreshToolButton.Click += new System.EventHandler(this.refreshToolButton_Click);
+            // 
+            // toolStripSeparator3
+            // 
+            this.toolStripSeparator3.Name = "toolStripSeparator3";
+            this.toolStripSeparator3.Size = new System.Drawing.Size(6, 25);
+            // 
+            // toolStripSeparator4
+            // 
+            this.toolStripSeparator4.Name = "toolStripSeparator4";
+            this.toolStripSeparator4.Size = new System.Drawing.Size(6, 25);
             // 
             // MainForm
             // 
@@ -435,6 +585,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(827, 595);
+            this.Controls.Add(this.mainToolbar);
             this.Controls.Add(this.filesDock);
             this.Controls.Add(this.menu);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -447,6 +598,8 @@
             this.DragEnter += new System.Windows.Forms.DragEventHandler(this.TextEditorForm_DragEnter);
             this.menu.ResumeLayout(false);
             this.menu.PerformLayout();
+            this.mainToolbar.ResumeLayout(false);
+            this.mainToolbar.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -494,6 +647,20 @@
         private System.Windows.Forms.ToolStripMenuItem undoToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem redoToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem discoverQueryParametersMenuItem;
+        private System.Windows.Forms.ToolStrip mainToolbar;
+        private System.Windows.Forms.ToolStripButton undoToolButton;
+        private System.Windows.Forms.ToolStripButton redoToolButton;
+        private System.Windows.Forms.ToolStripButton newFileToolButton;
+        private System.Windows.Forms.ToolStripButton saveToolButton;
+        private System.Windows.Forms.ToolStripButton executeToolButton;
+        private System.Windows.Forms.ToolStripButton openFileButton;
+        private System.Windows.Forms.ToolStripComboBox connectionsCombobox;
+        private System.Windows.Forms.ToolStripButton newConnectionButton;
+        private System.Windows.Forms.ToolStripButton disconnectToolButton;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
+        private System.Windows.Forms.ToolStripButton refreshToolButton;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
     }
 }
 

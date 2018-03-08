@@ -8,8 +8,6 @@ namespace SwqlStudio
 {
     public partial class QueryParameters : DockContent
     {
-        private CachedParameters preserved = new CachedParameters();
-
         public bool AllowSetParameters { get; set; }
 
         public QueryParameters()
@@ -35,9 +33,9 @@ namespace SwqlStudio
                 if (!this.AllowSetParameters)
                     return;
 
-                preserved.UpdateFromCachedValues(value, this.Parameters);
                 var ordered = value.Select(pair => new QueryVariable(pair.Key, pair.Value?.ToString()))
-                                   .OrderBy(p => p.Key).ToList();
+                                   .OrderBy(p => p.Key)
+                                   .ToList();
                 parametersGrid.DataSource = new BindingList<QueryVariable>(ordered) { AllowNew = true };
             }
         }

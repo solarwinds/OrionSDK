@@ -7,7 +7,6 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
-using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using System.Xml;
 using System.Xml.Linq;
@@ -20,7 +19,7 @@ namespace SwqlStudio
 {
     public partial class QueryTab : UserControl, IConnectionTab
     {
-        private static readonly Regex queryParamRegEx = new Regex(@"\@([\w.$]+|""[^""]+""|'[^']+')", RegexOptions.Compiled);
+        private readonly CachedParameters preserved = new CachedParameters();
 
         private string subscriptionId;
 
@@ -773,23 +772,21 @@ namespace SwqlStudio
             if (this.Parent != null && this.Modified &&
                 !string.IsNullOrEmpty(this.FileName) && !this.Parent.Text.EndsWith("*"))
                 this.Parent.Text = this.Parent.Text + "*";
-            
-            DetectQueryParameters();
+
+            this.PutParameters();
+            this.ParseParameters();
         }
 
-        internal void DetectQueryParameters()
+        internal void ParseParameters()
         {
-            string queryText = this.QueryText;
+            PropertyBag parsed = preserved.Get(this.QueryText);
+            this.ApplicationService.QueryParameters = parsed;
+        }
 
-            var propertyBag = new PropertyBag();
-
-            foreach (Match item in queryParamRegEx.Matches(queryText))
-            {
-                string paramName = item.Value.Substring(1);
-                propertyBag[paramName] = string.Empty;
-            }
-
-            this.ApplicationService.QueryParameters = propertyBag;
+        internal void PutParameters()
+        {
+            PropertyBag current = this.ApplicationService.QueryParameters;
+            preserved.Put(current);
         }
 
         internal void Paste()

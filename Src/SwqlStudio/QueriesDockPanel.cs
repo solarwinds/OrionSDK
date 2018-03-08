@@ -135,11 +135,15 @@ namespace SwqlStudio
 
         private void FilesDock_ActiveContentChanged(object sender, EventArgs e)
         {
-            var content = this.ActiveContent as DockContent;
-            if (content != null &&  (content != this.objectExplorerContent || content != this.queryParametersContent))
+            var newContent = this.ActiveContent as DockContent;
+            if (newContent != null &&  
+                newContent != this.objectExplorerContent &&
+                newContent != this.queryParametersContent &&
+                newContent != this.lastActiveContent)
             {
-                this.lastActiveContent = content;
-                this.ActiveQueryTab?.DetectQueryParameters();
+                this.ActiveQueryTab?.PutParameters();
+                this.lastActiveContent = newContent;
+                this.ActiveQueryTab?.ParseParameters();
             }
         }
 

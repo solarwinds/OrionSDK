@@ -10,6 +10,7 @@ using SolarWinds.InformationService.InformationServiceClient;
 using SwqlStudio.Metadata;
 using SwqlStudio.Properties;
 using SwqlStudio.Subscriptions;
+using WeifenLuo.WinFormsUI.Docking;
 
 namespace SwqlStudio
 {
@@ -117,61 +118,54 @@ namespace SwqlStudio
 
         private void menuFileSave_Click(object sender, EventArgs e)
         {
-            SciTextEditorControl editor = this.filesDock.ActiveEditor;
+            var editor = this.filesDock.ActiveQueryTab;
             if (editor != null)
                 DoSave(editor);
         }
 
-        private bool DoSave(SciTextEditorControl editor)
+        private bool DoSave(QueryTab editor)
         {
             if (string.IsNullOrEmpty(editor.FileName))
                 return DoSaveAs(editor);
-            else
-            {
-                try
-                {
-                    editor.SaveFile(editor.FileName);
-                    SetModifiedFlag(editor, false);
-                    return true;
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(this, ex.Message, ex.GetType().Name);
-                    return false;
-                }
-            }
+                
+            return SaveEditor(editor, editor.FileName);
         }
 
         private void menuFileSaveAs_Click(object sender, EventArgs e)
         {
-            var editor = this.filesDock.ActiveEditor;
+            var editor = this.filesDock.ActiveQueryTab;
             if (editor != null)
                 DoSaveAs(editor);
         }
 
-        private bool DoSaveAs(SciTextEditorControl editor)
+        private bool DoSaveAs(QueryTab editor)
         {
             saveFileDialog.FileName = editor.FileName;
-            if (saveFileDialog.ShowDialog() == DialogResult.OK)
-            {
-                try
-                {
-                    editor.SaveFile(saveFileDialog.FileName);
-                    editor.Parent.Text = Path.GetFileName(editor.FileName);
-                    SetModifiedFlag(editor, false);
+            if (saveFileDialog.ShowDialog() != DialogResult.OK)
+                return false;
 
-                    // The syntax highlighting strategy doesn't change
-                    // automatically, so do it manually.
-                    //editor.Document.HighlightingStrategy = 
-                    //    HighlightingStrategyFactory.CreateHighlightingStrategyForFile(editor.FileName);
-                    return true;
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(this, ex.Message, ex.GetType().Name);
-                }
+            return SaveEditor(editor, saveFileDialog.FileName);
+        }
+
+        private bool SaveEditor(QueryTab editor, string fileName)
+        {
+            try
+            {
+                File.WriteAllText(fileName, editor.QueryText);
+                editor.FileName = fileName;
+                editor.MarkSaved();
+
+                // The syntax highlighting strategy doesn't change
+                // automatically, so do it manually.
+                //editor.Document.HighlightingStrategy = 
+                //    HighlightingStrategyFactory.CreateHighlightingStrategyForFile(editor.FileName);
+                return true;
             }
-            return false;
+            catch (Exception ex)
+            {
+                MessageBox.Show(this, ex.Message, ex.GetType().Name);
+                return false;
+            }
         }
 
         private void menuNotificationListenerActive_Click(object sender, EventArgs e)
@@ -207,32 +201,27 @@ namespace SwqlStudio
 
         private void undoToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (this.filesDock.ActiveEditor != null)
-                this.filesDock.ActiveEditor.Undo();
+                this.filesDock.ActiveQueryTab?.Undo();
         }
 
         private void redoToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (this.filesDock.ActiveEditor != null)
-                this.filesDock.ActiveEditor.Redo();
+                this.filesDock.ActiveQueryTab?.Redo();
         }
 
         private void menuEditCut_Click(object sender, EventArgs e)
         {
-            if (this.filesDock.ActiveEditor != null)
-                this.filesDock.ActiveEditor.Cut();
+                this.filesDock.ActiveQueryTab?.Cut();
         }
 
         private void menuEditCopy_Click(object sender, EventArgs e)
         {
-            if (this.filesDock.ActiveQueryTab != null)
-                this.filesDock.ActiveQueryTab.CopySelectionToClipboard();
+            this.filesDock.ActiveQueryTab?.CopySelectionToClipboard();
         }
 
         private void menuEditPaste_Click(object sender, EventArgs e)
         {
-            if (this.filesDock.ActiveEditor != null)
-                this.filesDock.ActiveEditor.Paste();
+            this.filesDock.ActiveQueryTab?.Paste();
         }
 
         #endregion
@@ -273,29 +262,6 @@ namespace SwqlStudio
                 {
                     info.Dispose();
                 }
-            }
-        }
-
-        /// <summary>Gets whether the file in the specified editor is modified.</summary>
-        /// <remarks>TextEditorControl doesn't maintain its own internal modified 
-        /// flag, so we use the '*' shown after the file name to represent the 
-        /// modified state.</remarks>
-        private static bool IsModified(SciTextEditorControl editor)
-        {
-            // TextEditorControl doesn't seem to contain its own 'modified' flag, so 
-            // instead we'll treat the "*" on the filename as the modified flag.
-            return editor.Parent.Text.EndsWith("*");
-        }
-
-        private static void SetModifiedFlag(SciTextEditorControl editor, bool flag)
-        {
-            if (IsModified(editor) != flag)
-            {
-                var p = editor.Parent;
-                if (IsModified(editor))
-                    p.Text = p.Text.Substring(0, p.Text.Length - 1);
-                else
-                    p.Text += "*";
             }
         }
 

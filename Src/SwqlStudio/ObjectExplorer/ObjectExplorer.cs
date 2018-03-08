@@ -412,7 +412,7 @@ namespace SwqlStudio
         {
             var provider = node.Tag as IMetadataProvider;
             if (provider != null && provider.ConnectionInfo.CanCreateSubscription)
-                TabsFactory.OpenActivityMonitor(provider.ConnectionInfo.Title + " Activity", provider.ConnectionInfo);
+                TabsFactory.OpenActivityMonitor(provider.ConnectionInfo);
         }
 
         private void OpenInvokeTab()
@@ -421,8 +421,7 @@ namespace SwqlStudio
             var verb = (Verb)_contextMenuNode.Tag;
             if (verb.Arguments.Count == 0)
                 verb.Arguments.AddRange(provider.GetVerbArguments(verb));
-            TabsFactory.OpenInvokeTab(string.Format("{0} - Invoke {1}.{2}", provider.ConnectionInfo.Title, verb.EntityName, verb.Name),
-                                             provider.ConnectionInfo, verb);
+            TabsFactory.OpenInvokeTab(provider.ConnectionInfo, verb);
         }
 
         public void GenerateSelectStatement(Entity table, bool includeInheritedProperties)

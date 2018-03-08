@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Diagnostics;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -114,16 +115,9 @@ namespace SwqlStudio
             set { sciTextEditorControl1.Text = value; }
         }
 
-        public bool IsDirty
+        internal void MarkSaved()
         {
-            get { return sciTextEditorControl1.Modified; }
-            set
-            {
-                if (value == false)
-                    sciTextEditorControl1.SetSavePoint();
-                else
-                    throw new ArgumentException("Can't set IsDirty to true, only false");
-            }
+            this.sciTextEditorControl1.SetSavePoint();
         }
 
         private ConnectionInfo connectionInfo;
@@ -194,7 +188,7 @@ namespace SwqlStudio
             return str;
         }
 
-        public void CopySelectionToClipboard()
+        internal void CopySelectionToClipboard()
         {
             if (sciTextEditorControl1.Focused)
             {
@@ -652,6 +646,22 @@ namespace SwqlStudio
             }
         }
 
+        internal string FileName
+        {
+            get { return this.sciTextEditorControl1.FileName; }
+            set
+            {
+                this.sciTextEditorControl1.FileName = value;
+                if (this.Parent != null)
+                    this.Parent.Text = Path.GetFileName(value);
+            }
+        }
+
+        public bool Modified
+        {
+            get { return this.sciTextEditorControl1.Modified; }
+        }
+
         private class QueryArguments
         {
             public ConnectionInfo Connection { get; set; }
@@ -759,6 +769,10 @@ namespace SwqlStudio
         private void delayTimer_Tick(object sender, EventArgs e)
         {
             this.delayTimer.Stop();
+
+            if (this.Parent != null && this.Modified && !this.Parent.Text.EndsWith("*"))
+                this.Parent.Text = this.Parent.Text + "*";
+            
             DetectQueryParameters();
         }
 
@@ -775,6 +789,26 @@ namespace SwqlStudio
             }
 
             this.ApplicationService.QueryParameters = propertyBag;
+        }
+
+        internal void Paste()
+        {
+            this.sciTextEditorControl1.Paste();
+        }
+
+        internal void Cut()
+        {
+            this.sciTextEditorControl1.Cut();
+        }
+
+        internal void Undo()
+        {
+            this.sciTextEditorControl1.Undo();
+        }
+
+        internal void Redo()
+        {
+            this.sciTextEditorControl1.Redo();
         }
     }
 }

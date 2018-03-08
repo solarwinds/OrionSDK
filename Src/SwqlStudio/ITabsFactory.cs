@@ -6,9 +6,9 @@ namespace SwqlStudio
     {
         void AddTextToEditor(string text, ConnectionInfo info);
 
-        void OpenActivityMonitor(string title, ConnectionInfo connectionInfo);
+        void OpenActivityMonitor(ConnectionInfo connectionInfo);
 
-        void OpenInvokeTab(string title, ConnectionInfo connectionInfo, Verb verb);
+        void OpenInvokeTab(ConnectionInfo connectionInfo, Verb verb);
 
         void OpenCrudTab(CrudOperation operation, ConnectionInfo connectionInfo, Entity entity);
     }

@@ -18,6 +18,7 @@ namespace SwqlStudio
         private readonly QueriesDockPanel dockPanel;
         private readonly IApplicationService applicationService;
         private readonly ConnectionsManager connectionsManager;
+        private int queryTabsCounter = 0;
 
         internal TabsFactory(QueriesDockPanel dockPanel, IApplicationService applicationService,
             ServerList serverList, ConnectionsManager connectionsManager)
@@ -36,11 +37,18 @@ namespace SwqlStudio
             if (info == null)
                 return;
 
-            CreateQueryTab(info.Title, info);
+            string title = CreateQueryTitile();
+            CreateQueryTab(title, info);
             this.dockPanel.ActiveQueryTab.QueryText = text;
         }
 
-        public void OpenActivityMonitor(string title, ConnectionInfo info)
+        private string CreateQueryTitile()
+        {
+            queryTabsCounter++;
+            return "Query" + queryTabsCounter;
+        }
+
+        public void OpenActivityMonitor(ConnectionInfo info)
         {
             var activityMonitorTab = new ActivityMonitorTab
             {
@@ -48,11 +56,13 @@ namespace SwqlStudio
                 Dock = DockStyle.Fill,
                 SubscriptionManager = this.applicationService.SubscriptionManager
             };
+
+            string title = info.Title + " Activity";
             AddNewTab(activityMonitorTab, title);
             activityMonitorTab.Start();
         }
 
-        public void OpenInvokeTab(string title, ConnectionInfo info, Verb verb)
+        public void OpenInvokeTab(ConnectionInfo info, Verb verb)
         {
             var invokeVerbTab = new InvokeVerbTab
             {
@@ -60,13 +70,14 @@ namespace SwqlStudio
                 Dock = DockStyle.Fill,
                 Verb = verb
             };
+
+            string title = string.Format("Invoke {1}.{2}", verb.EntityName, verb.Name);
             AddNewTab(invokeVerbTab, title);
         }
 
         /// <inheritdoc />
         public void OpenCrudTab(CrudOperation operation, ConnectionInfo info, Entity entity)
         {
-            string title = entity.FullName + " - " + operation;
             var crudTab = new CrudTab(operation)
             {
                 ConnectionInfo = info,
@@ -79,6 +90,7 @@ namespace SwqlStudio
                 this.dockPanel.RemoveTab(crudTab.Parent as DockContent);
             };
 
+            string title = entity.FullName + " - " + operation;
             AddNewTab(crudTab, title);
         }
 
@@ -92,7 +104,8 @@ namespace SwqlStudio
                 if (info== null)
                     return;
 
-                this.CreateQueryTab(info.Title, info);
+                string title = CreateQueryTitile();
+                this.CreateQueryTab(title, info);
             }
             catch (FaultException<InfoServiceFaultContract> ex)
             {
@@ -149,11 +162,12 @@ namespace SwqlStudio
                 QueryTab queryTab = null;
                 try
                 {
-                    queryTab = this.CreateQueryTab(Path.GetFileName(fn), connectionInfo);
+                    queryTab = this.CreateQueryTab(string.Empty, connectionInfo);
                     queryTab.QueryText = File.ReadAllText(fn);
+                    queryTab.FileName = fn;
                     // Modified flag is set during loading because the document 
                     // "changes" (from nothing to something). So, clear it again.
-                    queryTab.IsDirty = false;
+                    queryTab.MarkSaved();
                 }
                 catch (Exception ex)
                 {

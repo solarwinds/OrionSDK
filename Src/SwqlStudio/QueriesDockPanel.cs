@@ -27,17 +27,6 @@ namespace SwqlStudio
             }
         }
 
-        /// <summary>Returns the currently displayed editor, or null if none are open</summary>
-        internal SciTextEditorControl ActiveEditor
-        {
-            get
-            {
-                var tab = ActiveQueryTab;
-                if (tab == null) return null;
-                return tab.Editor;
-            }
-        }
-
         internal QueryTab ActiveQueryTab
         {
             get
@@ -55,12 +44,12 @@ namespace SwqlStudio
         }
 
         /// <summary>Returns a list of all editor controls</summary>
-        internal IEnumerable<SciTextEditorControl> AllEditors
+        internal IEnumerable<QueryTab> AllEditors
         {
             get
             {
                 return from t in this.Contents.OfType<DockContent>()
-                    from c in t.Controls.OfType<SciTextEditorControl>()
+                    from c in t.Controls.OfType<QueryTab>()
                     select c;
             }
         }

@@ -770,7 +770,8 @@ namespace SwqlStudio
         {
             this.delayTimer.Stop();
 
-            if (this.Parent != null && this.Modified && !this.Parent.Text.EndsWith("*"))
+            if (this.Parent != null && this.Modified &&
+                !string.IsNullOrEmpty(this.FileName) && !this.Parent.Text.EndsWith("*"))
                 this.Parent.Text = this.Parent.Text + "*";
             
             DetectQueryParameters();

@@ -4,8 +4,19 @@ using System.Linq;
 
 namespace SwqlStudio
 {
+    internal class ConnectionsEventArgs : EventArgs
+    {
+        internal ConnectionInfo Connection { get; private set; }
+
+        public ConnectionsEventArgs(ConnectionInfo connection)
+        {
+            this.Connection = connection;
+        }
+    }
+
     internal class ServerList
     {
+        internal delegate void ConnectionsEventHandler(object sender, ConnectionsEventArgs e);
         private readonly Dictionary<string, ConnectionInfo> connections = new Dictionary<string, ConnectionInfo>();
 
         private readonly Dictionary<ConnectionInfo, IMetadataProvider> metadataProviders =
@@ -17,6 +28,8 @@ namespace SwqlStudio
         }
 
         public event EventHandler ConnectionsChanged;
+
+        public event ConnectionsEventHandler ConnectionRemoved;
 
         public IMetadataProvider Add(ConnectionInfo connection)
         {
@@ -33,7 +46,8 @@ namespace SwqlStudio
             string key = GetKey(connection);
             connections.Remove(key);
             metadataProviders.Remove(connection);
-            ConnectionsChanged(this, EventArgs.Empty);
+            var e = new ConnectionsEventArgs(connection);
+            ConnectionRemoved(this, e);
         }
 
         public bool Exists(ConnectionInfo connection)

@@ -52,7 +52,6 @@ namespace SwqlStudio
 
             info.ConnectionClosed += (sender, args) =>
             {
-                this.dockPanel.CloseAllFixedConnectionTabs(info);
                 serverList.Remove(info);
             };
 

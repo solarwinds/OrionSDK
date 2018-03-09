@@ -260,6 +260,7 @@ namespace SwqlStudio
         internal void CloseServer(ConnectionInfo connection)
         {
             this.objectExplorer.CloseServer(connection);
+            this.CloseAllFixedConnectionTabs(connection);
         }
 
         internal void RefreshServer(ConnectionInfo connection)
@@ -267,7 +268,7 @@ namespace SwqlStudio
             this.objectExplorer.RefreshServer(connection);
         }
 
-        internal void CloseAllFixedConnectionTabs(ConnectionInfo connection)
+        private void CloseAllFixedConnectionTabs(ConnectionInfo connection)
         {
             var toClose =this.Contents.OfType<DockContent>()
                 .Where(t => IsFixedConnectionTab(t, connection))

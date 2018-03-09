@@ -57,6 +57,7 @@ namespace SwqlStudio
             this.filesDock.SetObjectExplorerImageList(this.ObjectExplorerImageList);
             this.serverList = new ServerList();
             this.serverList.ConnectionsChanged += ServerListOnConnectionsChanged;
+            this.serverList.ConnectionRemoved += ServerListOnConnectionRemoved;
             this.connectionsManager = new ConnectionsManager(this, this.serverList, this.filesDock);
             var tabsFactory = new TabsFactory(this.filesDock, this, this.serverList, this.connectionsManager);
             this.filesDock.SetAplicationService(tabsFactory);
@@ -91,6 +92,11 @@ namespace SwqlStudio
                 lastSelected = serverListConnections.First();
             
             this.connectionsCombobox.SelectedItem = lastSelected;
+        }
+
+        private void ServerListOnConnectionRemoved(object sender, ConnectionsEventArgs e)
+        {
+            this.filesDock.CloseServer(e.Connection);
         }
 
         private void startTimer_Tick(object sender, EventArgs e)
@@ -425,10 +431,7 @@ namespace SwqlStudio
         private void disconnectToolButton_Click(object sender, EventArgs e)
         {
             var connection = this.connectionsCombobox.SelectedItem as ConnectionInfo;
-            if (connection != null)
-            {
-                this.filesDock.CloseServer(connection);
-            }
+            connection?.Close();
         }
 
         private void refreshToolButton_Click(object sender, EventArgs e)

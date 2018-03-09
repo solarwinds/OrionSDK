@@ -71,7 +71,7 @@ namespace SwqlStudio
                 Verb = verb
             };
 
-            string title = string.Format("Invoke {1}.{2}", verb.EntityName, verb.Name);
+            string title = $"Invoke {verb.EntityName}.{verb.Name}";
             AddNewTab(invokeVerbTab, title);
         }
 

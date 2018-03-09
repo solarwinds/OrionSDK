@@ -34,6 +34,7 @@ namespace SwqlStudio
         public ConnectionInfo SelectedConnection
         {
             get { return this.connectionsCombobox.SelectedItem as ConnectionInfo; }
+            set { this.connectionsCombobox.SelectedItem = value; }
         }
 
         public MainForm()
@@ -75,7 +76,7 @@ namespace SwqlStudio
             IConnectionTab activeConnectionTab = this.filesDock.ActiveConnectionTab;
             if (activeConnectionTab != null)
             {
-                this.connectionsCombobox.SelectedItem = activeConnectionTab.ConnectionInfo;
+                this.SelectedConnection = activeConnectionTab.ConnectionInfo;
             }
         }
 
@@ -91,7 +92,7 @@ namespace SwqlStudio
             this.connectionsDataSource.Add(addedConnection);
             this.serverList.TryGetProvider(addedConnection, out IMetadataProvider provider);
             this.filesDock.AddServer(provider, addedConnection);
-            this.connectionsCombobox.SelectedItem = addedConnection;
+            this.SelectedConnection = addedConnection;
         }
 
         private void ServerListOnConnectionRemoved(object sender, ConnectionsEventArgs e)
@@ -100,7 +101,7 @@ namespace SwqlStudio
             this.connectionsDataSource.Remove(e.Connection);
 
             if(connectionsDataSource.Any())
-                this.connectionsCombobox.SelectedItem = connectionsDataSource.First();
+                this.SelectedConnection = connectionsDataSource.First();
         }
 
         private void startTimer_Tick(object sender, EventArgs e)
@@ -434,17 +435,14 @@ namespace SwqlStudio
 
         private void disconnectToolButton_Click(object sender, EventArgs e)
         {
-            var connection = this.connectionsCombobox.SelectedItem as ConnectionInfo;
-            connection?.Close();
+            this.SelectedConnection?.Close();
         }
 
         private void refreshToolButton_Click(object sender, EventArgs e)
         {
-            var connection = this.connectionsCombobox.SelectedItem as ConnectionInfo;
+            var connection = this.SelectedConnection;
             if (connection != null)
-            {
                 this.filesDock.RefreshServer(connection);
-            }
         }
 
         private void editToolStripMenuItem_DropDownOpening(object sender, EventArgs e)

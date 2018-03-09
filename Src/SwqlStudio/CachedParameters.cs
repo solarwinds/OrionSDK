@@ -9,12 +9,13 @@ namespace SwqlStudio
     internal class CachedParameters
     {
         private static readonly Regex queryParamRegEx = new Regex(@"\@([\w.$]+|""[^""]+""|'[^']+')", RegexOptions.Compiled);
-        private static readonly Dictionary<string, string> lastKnownValues = new Dictionary<string, string>();
+        private static readonly Dictionary<string, object> lastKnownValues = new Dictionary<string, object>();
         private PropertyBag current = new PropertyBag();
 
         internal void Put(PropertyBag toPreserve)
         {
             this.current = toPreserve;
+            MarkLastKnownValues(toPreserve);
         }
 
         internal PropertyBag Get(string query)
@@ -40,34 +41,28 @@ namespace SwqlStudio
 
         private void UpdateFromCachedValues(PropertyBag toUpdate)
         {
-            UpdateFromLastKnown(toUpdate);
-            UpdateWithCurrentValues(toUpdate);
+            UpdateFrom(toUpdate, lastKnownValues);
+            UpdateFrom(toUpdate, this.current);
+            MarkLastKnownValues(toUpdate);
             QuessRenamedParameter(toUpdate);
         }
 
-        private void UpdateFromLastKnown(PropertyBag toUpdate)
+        private void UpdateFrom(PropertyBag toUpdate, Dictionary<string, object> source)
         {
-            foreach (string preservedKey in lastKnownValues.Keys.Where(toUpdate.ContainsKey))
+            foreach (var key in source.Keys.Where(toUpdate.ContainsKey))
             {
-                toUpdate[preservedKey] = lastKnownValues[preservedKey];
+                toUpdate[key] = source[key];
             }
         }
 
-        private void UpdateWithCurrentValues(PropertyBag toUpdate)
+        private void MarkLastKnownValues(PropertyBag toUpdate)
         {
-            foreach (var variable in this.current)
+            foreach (var variable in toUpdate)
             {
-                if (toUpdate.ContainsKey(variable.Key))
-                {
-                    toUpdate[variable.Key] = variable.Value;
-                }
-                else
-                {
-                    string lastKnownValue = variable.Value?.ToString();
-                        
-                    if (!String.IsNullOrEmpty(lastKnownValue))
-                        lastKnownValues[variable.Key] = lastKnownValue;
-                }
+                string lastKnownValue = variable.Value?.ToString();
+
+                if (!String.IsNullOrEmpty(lastKnownValue))
+                    lastKnownValues[variable.Key] = lastKnownValue;
             }
         }
 

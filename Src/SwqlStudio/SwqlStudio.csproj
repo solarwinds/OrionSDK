@@ -126,6 +126,7 @@
     <Compile Include="CachedParameters.cs" />
     <Compile Include="ConnectionHistory.cs" />
     <Compile Include="ConnectionInfo.cs" />
+    <Compile Include="ConnectionsEventArgs.cs" />
     <Compile Include="ConnectionsManager.cs" />
     <Compile Include="Controls\TabControlEx.cs">
       <SubType>Component</SubType>

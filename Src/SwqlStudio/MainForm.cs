@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.ServiceModel;
-using System.Web;
 using System.Windows.Forms;
 using SolarWinds.InformationService.Contract2;
 using SolarWinds.InformationService.InformationServiceClient;
@@ -12,7 +10,6 @@ using SwqlStudio.Metadata;
 using SwqlStudio.Properties;
 using SwqlStudio.Subscriptions;
 using SwqlStudio.Utils;
-using WeifenLuo.WinFormsUI.Docking;
 
 namespace SwqlStudio
 {
@@ -23,6 +20,7 @@ namespace SwqlStudio
     {
         private static readonly SolarWinds.Logging.Log log = new SolarWinds.Logging.Log();
         private ServerList serverList;
+        private readonly BindingList<ConnectionInfo> connectionsDataSource = new BindingList<ConnectionInfo>();
         private ConnectionsManager connectionsManager;
 
         public PropertyBag QueryParameters
@@ -48,20 +46,26 @@ namespace SwqlStudio
             startTimer.Enabled = true;
 
             SubscriptionManager = new SubscriptionManager();
+            AssignConnectionsDataSource();
         }
 
         private void InitializeDockPanel()
         {
-            var connectionsDropDown = this.connectionsCombobox.ComboBox;
-            connectionsDropDown.DisplayMember = "Title";
             this.filesDock.SetObjectExplorerImageList(this.ObjectExplorerImageList);
             this.serverList = new ServerList();
-            this.serverList.ConnectionsChanged += ServerListOnConnectionsChanged;
+            this.serverList.ConnectionAdded += ServerListOnConnectionAdded;
             this.serverList.ConnectionRemoved += ServerListOnConnectionRemoved;
-            this.connectionsManager = new ConnectionsManager(this, this.serverList, this.filesDock);
+            this.connectionsManager = new ConnectionsManager(this, this.serverList);
             var tabsFactory = new TabsFactory(this.filesDock, this, this.serverList, this.connectionsManager);
             this.filesDock.SetAplicationService(tabsFactory);
             this.filesDock.ActiveContentChanged += FilesDock_ActiveContentChanged;
+        }
+
+        private void AssignConnectionsDataSource()
+        {
+            var connectionsDropDown = this.connectionsCombobox.ComboBox;
+            connectionsDropDown.DisplayMember = "Title";
+            connectionsDropDown.DataSource = this.connectionsDataSource;
         }
 
         private void FilesDock_ActiveContentChanged(object sender, EventArgs e)
@@ -81,22 +85,22 @@ namespace SwqlStudio
             this.connectionsCombobox.Enabled = activeConnectionTab == null || activeConnectionTab.AllowsChangeConnection;
         }
 
-        private void ServerListOnConnectionsChanged(object sender, EventArgs eventArgs)
+        private void ServerListOnConnectionAdded(object sender, ConnectionsEventArgs e)
         {
-            var connectionsDropDown = this.connectionsCombobox.ComboBox;
-            var lastSelected = this.connectionsCombobox.SelectedItem;
-            List<ConnectionInfo> serverListConnections = this.serverList.Connections;
-            connectionsDropDown.DataSource = new BindingList<ConnectionInfo>(serverListConnections);
-            
-            if(lastSelected == null && serverListConnections.Any())
-                lastSelected = serverListConnections.First();
-            
-            this.connectionsCombobox.SelectedItem = lastSelected;
+            ConnectionInfo addedConnection = e.Connection;
+            this.connectionsDataSource.Add(addedConnection);
+            this.serverList.TryGetProvider(addedConnection, out IMetadataProvider provider);
+            this.filesDock.AddServer(provider, addedConnection);
+            this.connectionsCombobox.SelectedItem = addedConnection;
         }
 
         private void ServerListOnConnectionRemoved(object sender, ConnectionsEventArgs e)
         {
             this.filesDock.CloseServer(e.Connection);
+            this.connectionsDataSource.Remove(e.Connection);
+
+            if(connectionsDataSource.Any())
+                this.connectionsCombobox.SelectedItem = connectionsDataSource.First();
         }
 
         private void startTimer_Tick(object sender, EventArgs e)

@@ -1,19 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace SwqlStudio
 {
-    internal class ConnectionsEventArgs : EventArgs
-    {
-        internal ConnectionInfo Connection { get; private set; }
-
-        public ConnectionsEventArgs(ConnectionInfo connection)
-        {
-            this.Connection = connection;
-        }
-    }
-
     internal class ServerList
     {
         internal delegate void ConnectionsEventHandler(object sender, ConnectionsEventArgs e);
@@ -22,23 +11,18 @@ namespace SwqlStudio
         private readonly Dictionary<ConnectionInfo, IMetadataProvider> metadataProviders =
             new Dictionary<ConnectionInfo, IMetadataProvider>();
 
-        internal List<ConnectionInfo> Connections
-        {
-            get { return this.connections.Values.ToList(); }
-        }
-
-        public event EventHandler ConnectionsChanged;
+        public event ConnectionsEventHandler ConnectionAdded;
 
         public event ConnectionsEventHandler ConnectionRemoved;
 
-        public IMetadataProvider Add(ConnectionInfo connection)
+        public void Add(ConnectionInfo connection)
         {
             string key = GetKey(connection);
             connections.Add(key, connection);
             var provider = new SwisMetaDataProvider(connection);
             metadataProviders[connection] = provider;
-            ConnectionsChanged(this, EventArgs.Empty);
-            return provider;
+            var e = new ConnectionsEventArgs(connection);
+            ConnectionAdded(this, e);
         }
 
         public void Remove(ConnectionInfo connection)

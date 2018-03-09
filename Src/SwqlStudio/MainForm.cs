@@ -248,9 +248,9 @@ namespace SwqlStudio
             // Ask user to save changes
             foreach (var editor in this.filesDock.AllEditors)
             {
-                if (editor.Modified)
+                if (editor.Modified && Settings.Default.PromptToSaveOnClose)
                 {
-                    var r = MessageBox.Show(this, string.Format("Save changes to {0}?", editor.FileName ?? "new file"),
+                    var r = MessageBox.Show(this, $"Save changes to {editor.FileName ?? "new file"}?",
                         "Save?", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
                     if (r == DialogResult.Cancel)
                         e.Cancel = true;
@@ -259,8 +259,7 @@ namespace SwqlStudio
                             e.Cancel = true;
                 }
 
-                ConnectionInfo info = editor.Tag as ConnectionInfo;
-                if (info != null)
+                if (editor.Tag is ConnectionInfo info)
                 {
                     info.Dispose();
                 }
@@ -396,6 +395,7 @@ namespace SwqlStudio
         private void preferencesToolStripMenuItem_DropDownOpening(object sender, EventArgs e)
         {
             enableAutocompleteToolStripMenuItem.Checked = Settings.Default.AutocompleteEnabled;
+            promptToSaveOnCloseToolStripMenuItem.Checked = Settings.Default.PromptToSaveOnClose;
         }
 
         private void searchInTreeHotKeyToolStripMenuItem_Click(object sender, EventArgs e)
@@ -466,6 +466,12 @@ namespace SwqlStudio
             var query = filesDock.ActiveQueryTab.QueryText;
             string command = formatter(query, connection);
             Clipboard.SetText(command);
+        }
+
+        private void promptToSaveOnCloseToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Settings.Default.PromptToSaveOnClose = !Settings.Default.PromptToSaveOnClose;
+            Settings.Default.Save();
         }
     }
 }

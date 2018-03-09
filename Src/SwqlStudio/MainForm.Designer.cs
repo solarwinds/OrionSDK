@@ -89,6 +89,7 @@
             this.newFileToolButton = new System.Windows.Forms.ToolStripButton();
             this.openFileButton = new System.Windows.Forms.ToolStripButton();
             this.saveToolButton = new System.Windows.Forms.ToolStripButton();
+            this.promptToSaveOnCloseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.menu.SuspendLayout();
             this.mainToolbar.SuspendLayout();
@@ -243,7 +244,7 @@
             this.undoToolStripMenuItem.Image = global::SwqlStudio.Properties.Resources.Undo_16x;
             this.undoToolStripMenuItem.Name = "undoToolStripMenuItem";
             this.undoToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Z)));
-            this.undoToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.undoToolStripMenuItem.Size = new System.Drawing.Size(153, 22);
             this.undoToolStripMenuItem.Text = "Undo";
             this.undoToolStripMenuItem.Click += new System.EventHandler(this.undoToolStripMenuItem_Click);
             // 
@@ -252,7 +253,7 @@
             this.redoToolStripMenuItem.Image = global::SwqlStudio.Properties.Resources.Redo_16x;
             this.redoToolStripMenuItem.Name = "redoToolStripMenuItem";
             this.redoToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Y)));
-            this.redoToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.redoToolStripMenuItem.Size = new System.Drawing.Size(153, 22);
             this.redoToolStripMenuItem.Text = "Redo";
             this.redoToolStripMenuItem.Click += new System.EventHandler(this.redoToolStripMenuItem_Click);
             // 
@@ -261,7 +262,7 @@
             this.menuEditCut.Image = ((System.Drawing.Image)(resources.GetObject("menuEditCut.Image")));
             this.menuEditCut.Name = "menuEditCut";
             this.menuEditCut.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.X)));
-            this.menuEditCut.Size = new System.Drawing.Size(180, 22);
+            this.menuEditCut.Size = new System.Drawing.Size(153, 22);
             this.menuEditCut.Text = "Cu&t";
             this.menuEditCut.Click += new System.EventHandler(this.menuEditCut_Click);
             // 
@@ -270,7 +271,7 @@
             this.menuEditCopy.Image = global::SwqlStudio.Properties.Resources.ASX_Copy_blue_16x;
             this.menuEditCopy.Name = "menuEditCopy";
             this.menuEditCopy.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.C)));
-            this.menuEditCopy.Size = new System.Drawing.Size(180, 22);
+            this.menuEditCopy.Size = new System.Drawing.Size(153, 22);
             this.menuEditCopy.Text = "&Copy";
             this.menuEditCopy.Click += new System.EventHandler(this.menuEditCopy_Click);
             // 
@@ -279,7 +280,7 @@
             this.menuEditPaste.Image = global::SwqlStudio.Properties.Resources.ASX_Paste_blue_16x;
             this.menuEditPaste.Name = "menuEditPaste";
             this.menuEditPaste.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.V)));
-            this.menuEditPaste.Size = new System.Drawing.Size(180, 22);
+            this.menuEditPaste.Size = new System.Drawing.Size(153, 22);
             this.menuEditPaste.Text = "&Paste";
             this.menuEditPaste.Click += new System.EventHandler(this.menuEditPaste_Click);
             // 
@@ -290,7 +291,7 @@
             this.curlBashToolStripMenuItem,
             this.getSwisDataPowerShellToolStripMenuItem});
             this.copyQueryAsToolStripMenuItem.Name = "copyQueryAsToolStripMenuItem";
-            this.copyQueryAsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.copyQueryAsToolStripMenuItem.Size = new System.Drawing.Size(153, 22);
             this.copyQueryAsToolStripMenuItem.Text = "Copy &Query As";
             // 
             // curlCmdToolStripMenuItem
@@ -362,7 +363,8 @@
             this.preferencesToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.groupEntityTreeToolStripMenuItem,
             this.enableAutocompleteToolStripMenuItem,
-            this.discoverQueryParametersMenuItem});
+            this.discoverQueryParametersMenuItem,
+            this.promptToSaveOnCloseToolStripMenuItem});
             this.preferencesToolStripMenuItem.Name = "preferencesToolStripMenuItem";
             this.preferencesToolStripMenuItem.Size = new System.Drawing.Size(80, 20);
             this.preferencesToolStripMenuItem.Text = "&Preferences";
@@ -616,6 +618,13 @@
             this.saveToolButton.ToolTipText = "Save (Ctrl+S)";
             this.saveToolButton.Click += new System.EventHandler(this.menuFileSave_Click);
             // 
+            // promptToSaveOnCloseToolStripMenuItem
+            // 
+            this.promptToSaveOnCloseToolStripMenuItem.Name = "promptToSaveOnCloseToolStripMenuItem";
+            this.promptToSaveOnCloseToolStripMenuItem.Size = new System.Drawing.Size(214, 22);
+            this.promptToSaveOnCloseToolStripMenuItem.Text = "Prompt to save on close";
+            this.promptToSaveOnCloseToolStripMenuItem.Click += new System.EventHandler(this.promptToSaveOnCloseToolStripMenuItem_Click);
+            // 
             // MainForm
             // 
             this.AllowDrop = true;
@@ -702,6 +711,7 @@
         private System.Windows.Forms.ToolStripMenuItem curlCmdToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem curlBashToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem getSwisDataPowerShellToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem promptToSaveOnCloseToolStripMenuItem;
     }
 }
 

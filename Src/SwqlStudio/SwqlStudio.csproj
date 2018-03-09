@@ -123,6 +123,7 @@
     <Compile Include="ActivityMonitorTab.Designer.cs">
       <DependentUpon>ActivityMonitorTab.cs</DependentUpon>
     </Compile>
+    <Compile Include="CachedParameters.cs" />
     <Compile Include="ConnectionHistory.cs" />
     <Compile Include="ConnectionInfo.cs" />
     <Compile Include="ConnectionsManager.cs" />

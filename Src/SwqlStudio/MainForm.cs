@@ -93,6 +93,9 @@ namespace SwqlStudio
             this.serverList.TryGetProvider(addedConnection, out IMetadataProvider provider);
             this.filesDock.AddServer(provider, addedConnection);
             this.SelectedConnection = addedConnection;
+
+            if (this.connectionsDataSource.Count == 1)
+                this.filesDock.ReplaceConnection(null, addedConnection);
         }
 
         private void ServerListOnConnectionRemoved(object sender, ConnectionsEventArgs e)
@@ -468,7 +471,7 @@ namespace SwqlStudio
 
         private void CopyQueryAs(Func<string, ConnectionInfo, string> formatter)
         {
-            var connection = filesDock.ActiveConnectionTab.ConnectionInfo;
+            var connection = filesDock.ActiveConnectionTab?.ConnectionInfo;
             if (connection == null)
                 return;
 

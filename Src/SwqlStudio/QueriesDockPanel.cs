@@ -264,7 +264,7 @@ namespace SwqlStudio
             this.ReplaceConnection(current, replacement);
         }
 
-        private void ReplaceConnection(ConnectionInfo current, ConnectionInfo replacement)
+        internal void ReplaceConnection(ConnectionInfo current, ConnectionInfo replacement)
         {
             IEnumerable<IConnectionTab> connectionTabs = this.GetAllControlsOnTabs<IConnectionTab>()
                 .Where(t => t.ConnectionInfo == current && t.AllowsChangeConnection);

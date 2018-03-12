@@ -4,8 +4,10 @@ using System.Windows.Forms;
 
 namespace SwqlStudio
 {
-    class QueryStatusBar : StatusStrip
+    internal class QueryStatusBar : StatusStrip
     {
+        private const string NotAvailable = "N/A";
+
         private readonly ToolStripStatusLabel _connectionLabel;
         private readonly ToolStripStatusLabel _serverLabel;
         private readonly ToolStripStatusLabel _userLabel;
@@ -45,13 +47,22 @@ namespace SwqlStudio
             }
         }
 
-        public void Initialize(string serverName, string userName)
+        public void Initialize(ConnectionInfo connection)
         {
             Items.AddRange(AllLabels);
 
-            _connectionLabel.Text = "Connected";
-            _serverLabel.Text = String.Format("Server: {0}", serverName);
-            _userLabel.Text = String.Format("User: {0}", userName);
+            if (connection != null)
+            {
+                _connectionLabel.Text = "Connected";
+                _serverLabel.Text = String.Format("Server: {0}", connection.Server);
+                _userLabel.Text = String.Format("User: {0}", connection.UserName);
+            }
+            else
+            {
+                _connectionLabel.Text = NotAvailable;
+                _serverLabel.Text = NotAvailable;
+                _userLabel.Text = NotAvailable;
+            }
 
             UpdateValues(0, TimeSpan.Zero);
         }

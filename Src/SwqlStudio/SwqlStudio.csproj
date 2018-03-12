@@ -235,6 +235,9 @@
       <DependentUpon>SubscriptionTab.cs</DependentUpon>
     </Compile>
     <Compile Include="TabsFactory.cs" />
+    <Compile Include="TabTemplate.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="Utility.cs" />
     <Compile Include="Utils\CommandLineGenerator.cs" />
     <Compile Include="Utils\Win32.cs" />

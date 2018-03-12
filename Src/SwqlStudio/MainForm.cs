@@ -97,11 +97,12 @@ namespace SwqlStudio
 
         private void ServerListOnConnectionRemoved(object sender, ConnectionsEventArgs e)
         {
-            this.filesDock.CloseServer(e.Connection);
             this.connectionsDataSource.Remove(e.Connection);
 
             if(connectionsDataSource.Any())
                 this.SelectedConnection = connectionsDataSource.First();
+
+            this.filesDock.CloseServer(e.Connection, this.SelectedConnection);
         }
 
         private void startTimer_Tick(object sender, EventArgs e)
@@ -257,7 +258,7 @@ namespace SwqlStudio
         private void TextEditor_FormClosing(object sender, FormClosingEventArgs e)
         {
             // Ask user to save changes
-            foreach (var editor in this.filesDock.AllEditors)
+            foreach (var editor in this.filesDock.QueryTabs)
             {
                 if (editor.Modified && Settings.Default.PromptToSaveOnClose)
                 {
@@ -468,6 +469,9 @@ namespace SwqlStudio
         private void CopyQueryAs(Func<string, ConnectionInfo, string> formatter)
         {
             var connection = filesDock.ActiveConnectionTab.ConnectionInfo;
+            if (connection == null)
+                return;
+
             var query = filesDock.ActiveQueryTab.QueryText;
             string command = formatter(query, connection);
             Clipboard.SetText(command);

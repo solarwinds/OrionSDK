@@ -6,7 +6,7 @@ using SwqlStudio.Metadata;
 
 namespace SwqlStudio
 {
-    public partial class CrudTab : UserControl, IConnectionTab
+    public partial class CrudTab : TabTemplate, IConnectionTab
     {
         private const int ControlsMargin = 3;
         private readonly CrudOperation _operation;
@@ -30,11 +30,6 @@ namespace SwqlStudio
                 CreateSubComponents();
             }
         }
-
-        /// <inheritdoc />
-        public ConnectionInfo ConnectionInfo { get; set; }
-
-        public bool AllowsChangeConnection => true;
 
         public event EventHandler CloseItself;
 
@@ -90,6 +85,9 @@ namespace SwqlStudio
 
         private void OnCommit(object sender, EventArgs e)
         {
+            if (ConnectionInfo == null)
+                return;
+
             var propertyBag = CreatePropertyBag();
 
             try

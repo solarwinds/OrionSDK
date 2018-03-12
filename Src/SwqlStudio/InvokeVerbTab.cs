@@ -10,15 +10,13 @@ using UserControl = System.Windows.Forms.UserControl;
 
 namespace SwqlStudio
 {
-    public partial class InvokeVerbTab : UserControl, IConnectionTab
+    public partial class InvokeVerbTab : TabTemplate, IConnectionTab
     {
         public InvokeVerbTab()
         {
             InitializeComponent();
         }
 
-        public ConnectionInfo ConnectionInfo { get; set; }
-        public bool AllowsChangeConnection => true;
         private int locationX = 0;
         private int locationY = 0;
 
@@ -127,6 +125,9 @@ namespace SwqlStudio
 
         private void Invoke_Click(object sender, HtmlElementEventArgs e)
         {
+            if (ConnectionInfo == null)
+                return;
+
             bool argumentParsingFailed = false;
 
             XmlElement[] parameters = verb.Arguments.Select(argument =>

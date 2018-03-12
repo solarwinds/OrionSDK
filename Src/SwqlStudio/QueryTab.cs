@@ -17,7 +17,7 @@ using SwqlStudio.Subscriptions;
 
 namespace SwqlStudio
 {
-    public partial class QueryTab : UserControl, IConnectionTab
+    public partial class QueryTab : TabTemplate, IConnectionTab
     {
         private readonly CachedParameters preserved = new CachedParameters();
 
@@ -28,7 +28,17 @@ namespace SwqlStudio
             get { return !String.IsNullOrEmpty(subscriptionId); }
         }
         
-        public bool AllowsChangeConnection => !this.HasSubscription;
+        public override bool AllowsChangeConnection => !this.HasSubscription;
+
+        public override ConnectionInfo ConnectionInfo
+        {
+            get { return base.ConnectionInfo; }
+            set
+            {
+                base.ConnectionInfo = value;
+                queryStatusBar1.Initialize(base.ConnectionInfo);
+            }
+        }
 
         [Flags]
         enum Tabs
@@ -119,17 +129,6 @@ namespace SwqlStudio
             this.sciTextEditorControl1.SetSavePoint();
         }
 
-        private ConnectionInfo connectionInfo;
-
-        public ConnectionInfo ConnectionInfo
-        {
-            get { return connectionInfo; }
-            set
-            {
-                connectionInfo = value;
-                queryStatusBar1.Initialize(connectionInfo.Server, connectionInfo.UserName);
-            }
-        }
 
         internal SciTextEditorControl Editor { get { return sciTextEditorControl1; } }
 
@@ -728,6 +727,9 @@ namespace SwqlStudio
 
         private void deleteToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            if (ConnectionInfo == null)
+                return;
+
             var errors = new StringBuilder();
             var deletedRows = new List<DataGridViewRow>();
             foreach (DataGridViewRow row in dataGridView1.SelectedRows)
@@ -735,7 +737,7 @@ namespace SwqlStudio
                 try
                 {
                     var uri = (string)row.Cells["Uri"].Value;
-                    ConnectionInfo.DoWithExceptionTranslation(() => connectionInfo.Proxy.Delete(uri));
+                    ConnectionInfo.DoWithExceptionTranslation(() => ConnectionInfo.Proxy.Delete(uri));
                     deletedRows.Add(row);
                 }
                 catch (Exception ex)

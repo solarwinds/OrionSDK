@@ -406,5 +406,10 @@ namespace SwqlStudio
                 return hashCode;
             }
         }
+
+        public override string ToString()
+        {
+            return this.Title;
+        }
     }
 }

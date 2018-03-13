@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.ServiceModel;
-using System.Web;
 using System.Windows.Forms;
 using SolarWinds.InformationService.Contract2;
 using SolarWinds.InformationService.InformationServiceClient;
@@ -12,7 +10,6 @@ using SwqlStudio.Metadata;
 using SwqlStudio.Properties;
 using SwqlStudio.Subscriptions;
 using SwqlStudio.Utils;
-using WeifenLuo.WinFormsUI.Docking;
 
 namespace SwqlStudio
 {
@@ -23,6 +20,7 @@ namespace SwqlStudio
     {
         private static readonly SolarWinds.Logging.Log log = new SolarWinds.Logging.Log();
         private ServerList serverList;
+        private readonly BindingList<ConnectionInfo> connectionsDataSource = new BindingList<ConnectionInfo>();
         private ConnectionsManager connectionsManager;
 
         public PropertyBag QueryParameters
@@ -36,6 +34,7 @@ namespace SwqlStudio
         public ConnectionInfo SelectedConnection
         {
             get { return this.connectionsCombobox.SelectedItem as ConnectionInfo; }
+            set { this.connectionsCombobox.SelectedItem = value; }
         }
 
         public MainForm()
@@ -48,19 +47,26 @@ namespace SwqlStudio
             startTimer.Enabled = true;
 
             SubscriptionManager = new SubscriptionManager();
+            AssignConnectionsDataSource();
         }
 
         private void InitializeDockPanel()
         {
-            var connectionsDropDown = this.connectionsCombobox.ComboBox;
-            connectionsDropDown.DisplayMember = "Title";
             this.filesDock.SetObjectExplorerImageList(this.ObjectExplorerImageList);
             this.serverList = new ServerList();
-            this.serverList.ConnectionsChanged += ServerListOnConnectionsChanged;
-            this.connectionsManager = new ConnectionsManager(this, this.serverList, this.filesDock);
+            this.serverList.ConnectionAdded += ServerListOnConnectionAdded;
+            this.serverList.ConnectionRemoved += ServerListOnConnectionRemoved;
+            this.connectionsManager = new ConnectionsManager(this, this.serverList);
             var tabsFactory = new TabsFactory(this.filesDock, this, this.serverList, this.connectionsManager);
             this.filesDock.SetAplicationService(tabsFactory);
             this.filesDock.ActiveContentChanged += FilesDock_ActiveContentChanged;
+        }
+
+        private void AssignConnectionsDataSource()
+        {
+            var connectionsDropDown = this.connectionsCombobox.ComboBox;
+            connectionsDropDown.DisplayMember = "Title";
+            connectionsDropDown.DataSource = this.connectionsDataSource;
         }
 
         private void FilesDock_ActiveContentChanged(object sender, EventArgs e)
@@ -70,7 +76,7 @@ namespace SwqlStudio
             IConnectionTab activeConnectionTab = this.filesDock.ActiveConnectionTab;
             if (activeConnectionTab != null)
             {
-                this.connectionsCombobox.SelectedItem = activeConnectionTab.ConnectionInfo;
+                this.SelectedConnection = activeConnectionTab.ConnectionInfo;
             }
         }
 
@@ -80,17 +86,26 @@ namespace SwqlStudio
             this.connectionsCombobox.Enabled = activeConnectionTab == null || activeConnectionTab.AllowsChangeConnection;
         }
 
-        private void ServerListOnConnectionsChanged(object sender, EventArgs eventArgs)
+        private void ServerListOnConnectionAdded(object sender, ConnectionsEventArgs e)
         {
-            var connectionsDropDown = this.connectionsCombobox.ComboBox;
-            var lastSelected = this.connectionsCombobox.SelectedItem;
-            List<ConnectionInfo> serverListConnections = this.serverList.Connections;
-            connectionsDropDown.DataSource = new BindingList<ConnectionInfo>(serverListConnections);
-            
-            if(lastSelected == null && serverListConnections.Any())
-                lastSelected = serverListConnections.First();
-            
-            this.connectionsCombobox.SelectedItem = lastSelected;
+            ConnectionInfo addedConnection = e.Connection;
+            this.connectionsDataSource.Add(addedConnection);
+            this.serverList.TryGetProvider(addedConnection, out IMetadataProvider provider);
+            this.filesDock.AddServer(provider, addedConnection);
+            this.SelectedConnection = addedConnection;
+
+            if (this.connectionsDataSource.Count == 1)
+                this.filesDock.ReplaceConnection(null, addedConnection);
+        }
+
+        private void ServerListOnConnectionRemoved(object sender, ConnectionsEventArgs e)
+        {
+            this.connectionsDataSource.Remove(e.Connection);
+
+            if(connectionsDataSource.Any())
+                this.SelectedConnection = connectionsDataSource.First();
+
+            this.filesDock.CloseServer(e.Connection, this.SelectedConnection);
         }
 
         private void startTimer_Tick(object sender, EventArgs e)
@@ -246,7 +261,7 @@ namespace SwqlStudio
         private void TextEditor_FormClosing(object sender, FormClosingEventArgs e)
         {
             // Ask user to save changes
-            foreach (var editor in this.filesDock.AllEditors)
+            foreach (var editor in this.filesDock.QueryTabs)
             {
                 if (editor.Modified && Settings.Default.PromptToSaveOnClose)
                 {
@@ -424,20 +439,14 @@ namespace SwqlStudio
 
         private void disconnectToolButton_Click(object sender, EventArgs e)
         {
-            var connection = this.connectionsCombobox.SelectedItem as ConnectionInfo;
-            if (connection != null)
-            {
-                this.filesDock.CloseServer(connection);
-            }
+            this.SelectedConnection?.Close();
         }
 
         private void refreshToolButton_Click(object sender, EventArgs e)
         {
-            var connection = this.connectionsCombobox.SelectedItem as ConnectionInfo;
+            var connection = this.SelectedConnection;
             if (connection != null)
-            {
                 this.filesDock.RefreshServer(connection);
-            }
         }
 
         private void editToolStripMenuItem_DropDownOpening(object sender, EventArgs e)
@@ -462,7 +471,10 @@ namespace SwqlStudio
 
         private void CopyQueryAs(Func<string, ConnectionInfo, string> formatter)
         {
-            var connection = filesDock.ActiveConnectionTab.ConnectionInfo;
+            var connection = filesDock.ActiveConnectionTab?.ConnectionInfo;
+            if (connection == null)
+                return;
+
             var query = filesDock.ActiveQueryTab.QueryText;
             string command = formatter(query, connection);
             Clipboard.SetText(command);

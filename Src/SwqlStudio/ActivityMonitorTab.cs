@@ -4,17 +4,23 @@ using SwqlStudio.Subscriptions;
 
 namespace SwqlStudio
 {
-    public partial class ActivityMonitorTab : UserControl, IConnectionTab
+    public partial class ActivityMonitorTab : TabTemplate, IConnectionTab
     {
         private string subscriptionId;
-
-        public ConnectionInfo ConnectionInfo { get; set; }
+        private bool conneciotnSet = false;
 
         public SubscriptionManager SubscriptionManager { get; set; }
 
-        public bool AllowsChangeConnection
+        public override bool AllowsChangeConnection => !this.conneciotnSet;
+
+        public override ConnectionInfo ConnectionInfo
         {
-            get { return false; }
+            get { return base.ConnectionInfo; }
+            set
+            {
+                base.ConnectionInfo = value;
+                this.conneciotnSet = true;
+            }
         }
 
         public ActivityMonitorTab()

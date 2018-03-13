@@ -44,16 +44,11 @@ namespace SwqlStudio
         }
 
         /// <summary>Returns a list of all editor controls</summary>
-        internal IEnumerable<QueryTab> AllEditors
+        internal IEnumerable<QueryTab> QueryTabs
         {
-            get
-            {
-                return from t in this.Contents.OfType<DockContent>()
-                    from c in t.Controls.OfType<QueryTab>()
-                    select c;
-            }
+            get { return GetAllControlsOnTabs<QueryTab>(); }
         }
-
+        
         public QueriesDockPanel()
         {
             InitializeComponent();
@@ -257,17 +252,30 @@ namespace SwqlStudio
             }
         }
 
-        internal void CloseServer(ConnectionInfo connection)
-        {
-            this.objectExplorer.CloseServer(connection);
-        }
-
         internal void RefreshServer(ConnectionInfo connection)
         {
             this.objectExplorer.RefreshServer(connection);
         }
 
-        internal void CloseAllFixedConnectionTabs(ConnectionInfo connection)
+        internal void CloseServer(ConnectionInfo current, ConnectionInfo replacement)
+        {
+            this.objectExplorer.CloseServer(current);
+            this.CloseAllFixedConnectionTabs(current);
+            this.ReplaceConnection(current, replacement);
+        }
+
+        internal void ReplaceConnection(ConnectionInfo current, ConnectionInfo replacement)
+        {
+            IEnumerable<IConnectionTab> connectionTabs = this.GetAllControlsOnTabs<IConnectionTab>()
+                .Where(t => t.ConnectionInfo == current && t.AllowsChangeConnection);
+
+            foreach (var tab in connectionTabs)
+            {
+                tab.ConnectionInfo = replacement;
+            }
+        }
+
+        private void CloseAllFixedConnectionTabs(ConnectionInfo connection)
         {
             var toClose =this.Contents.OfType<DockContent>()
                 .Where(t => IsFixedConnectionTab(t, connection))
@@ -288,6 +296,13 @@ namespace SwqlStudio
             return connectionTab != null && 
                    connectionTab.ConnectionInfo == connection &&
                    !connectionTab.AllowsChangeConnection;
+        }
+
+        private IEnumerable<TControl> GetAllControlsOnTabs<TControl>()
+        {
+            return from t in this.Contents.OfType<DockContent>()
+                from c in t.Controls.OfType<TControl>()
+                select c;
         }
     }
 }

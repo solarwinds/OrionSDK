@@ -552,7 +552,8 @@ namespace SwqlStudio
                 serverContextMenu.Items.Add("Activity Monitor", null, (s, e) => OpenActivityMonitor(_contextMenuNode));
 
             serverContextMenu.Items.Add("Generate C# Code...", null, (s, e) => GenerateCSharpCode(_contextMenuNode));
-            var closeMenuItem = new ToolStripMenuItem("Disconnect", Properties.Resources.Disconnect_16x, (s, e) => CloseServer(_contextMenuNode));
+            var closeMenuItem = new ToolStripMenuItem("Disconnect", Properties.Resources.Disconnect_16x,
+                (s, e) => CloseServer(_contextMenuNode));
             serverContextMenu.Items.Add(closeMenuItem);
 
             _serverContextMenuItems.Add(connection.Title, serverContextMenu);
@@ -574,27 +575,17 @@ namespace SwqlStudio
                 _treeData.SelectedNode = existingNodes[0];
                 UpdateDrawnNodesSelection();
             }
-
-            connection.ConnectionClosed += (o, e) =>
-            {
-                _tableContextMenuItems.Remove(connection.Title);
-                tableContextMenuWithoutCrud.Dispose();
-                tableContextMenuWithoutCrud = null; 
-
-                _tableCrudContextMenuItems.Remove(connection.Title);
-                tableContextMenuWithCrud.Dispose();
-                tableContextMenuWithCrud = null;
-
-                _serverContextMenuItems.Remove(connection.Title);
-                serverContextMenu.Dispose();
-                serverContextMenu = null;
-            };
         }
 
         internal void CloseServer(ConnectionInfo connection)
         {
             TreeNodeWithConnectionInfo serverNode = FindServerNodeByConnection(connection);
-            CloseServer(serverNode);
+            if (serverNode != null)
+            {
+                RemoveFromMenus(serverNode.Connection);
+                _treeData.Nodes.Remove(_treeBindings.FindDataNode(serverNode));
+                _tree.Nodes.Remove(serverNode);
+            }
         }
 
         private TreeNodeWithConnectionInfo FindServerNodeByConnection(ConnectionInfo connection)
@@ -607,11 +598,23 @@ namespace SwqlStudio
         {
             var node = contextMenuNode as TreeNodeWithConnectionInfo;
             if (node != null)
-            {
                 node.Connection.Close();
-                _treeData.Nodes.Remove(_treeBindings.FindDataNode(node));
-                _tree.Nodes.Remove(contextMenuNode);
-            }
+        }
+
+        private void RemoveFromMenus(ConnectionInfo connection)
+        {
+            string title = connection.Title;
+            var tableContextMenuWithoutCrud = _tableContextMenuItems[title];
+            _tableContextMenuItems.Remove(title);
+            tableContextMenuWithoutCrud.Dispose();
+
+            var tableContextMenuWithCrud = _tableCrudContextMenuItems[title];
+            _tableCrudContextMenuItems.Remove(title);
+            tableContextMenuWithCrud.Dispose();
+
+            var serverContextMenu = _serverContextMenuItems[title];
+            _serverContextMenuItems.Remove(title);
+            serverContextMenu.Dispose();
         }
 
         private static TreeNode CreateDatabaseNode(IMetadataProvider provider, ConnectionInfo connection)

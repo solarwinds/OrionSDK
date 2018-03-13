@@ -6,13 +6,11 @@ namespace SwqlStudio
     {
         private readonly IApplicationService applicationService;
         private readonly ServerList serverList;
-        private readonly QueriesDockPanel dockPanel;
 
-        public ConnectionsManager(IApplicationService applicationService, ServerList serverList, QueriesDockPanel dockPanel)
+        public ConnectionsManager(IApplicationService applicationService, ServerList serverList)
         {
             this.applicationService = applicationService;
             this.serverList = serverList;
-            this.dockPanel = dockPanel;
         }
 
         public void CreateConnection()
@@ -48,15 +46,8 @@ namespace SwqlStudio
                 return found;
 
             info.Connect();
-            var provider = serverList.Add(info);
-
-            info.ConnectionClosed += (sender, args) =>
-            {
-                this.dockPanel.CloseAllFixedConnectionTabs(info);
-                serverList.Remove(info);
-            };
-
-            this.dockPanel.AddServer(provider, info);
+            info.ConnectionClosed += (sender, args) => serverList.Remove(info);
+            serverList.Add(info);
             return info;
         }
 

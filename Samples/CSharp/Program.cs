@@ -17,8 +17,8 @@ namespace CSRestClient
             {
                 var swisClient = new SwisClient(Hostname, Username, Password);
                 
-                var alert = GetOneAlert(swisClient);
-                var invokeResult = AcknowledgeAlert(swisClient, alert);
+                var alertObjectId = GetOneAlert(swisClient);
+                var invokeResult = AcknowledgeAlert(swisClient, alertObjectId, "Ack from API");
                 Console.WriteLine(invokeResult);
 
                 Console.WriteLine(AddNode(swisClient).Result);
@@ -35,34 +35,23 @@ namespace CSRestClient
             }
         }
 
-        private static JToken GetOneAlert(ISwisClient swisClient)
+        private static int GetOneAlert(ISwisClient swisClient)
         {
-            const string query = @"SELECT TOP 1 AlertDefID, ActiveObject, ObjectType 
-FROM Orion.AlertStatus
-WHERE Acknowledged=0
-ORDER BY TriggerTimeStamp DESC";
+            const string query = @"SELECT TOP 1 AlertObjectID
+FROM Orion.AlertActive
+WHERE ISNULL(Acknowledged,0)!=1
+ORDER BY TriggeredDateTime DESC";
 
             JToken queryResult = swisClient.QueryAsync(query).Result;
             Console.WriteLine(queryResult);
 
-            var alert = queryResult["results"][0];
-            return alert;
+            var alertObjectId = (int)queryResult["results"][0]["AlertObjectID"];
+            return alertObjectId;
         }
 
-        private static JToken AcknowledgeAlert(ISwisClient swisClient, JToken alert)
+        private static JToken AcknowledgeAlert(ISwisClient swisClient, int alertObjectId, string note)
         {
-            JToken invokeResult = swisClient.InvokeAsync("Orion.AlertStatus", "Acknowledge", new object[]
-            {
-                new[]
-                {
-                    new
-                    {
-                        DefinitionId = alert["AlertDefID"],
-                        ObjectType = alert["ObjectType"],
-                        ObjectId = alert["ActiveObject"]
-                    }
-                }
-            }).Result;
+            JToken invokeResult = swisClient.InvokeAsync("Orion.AlertActive", "Acknowledge", new[] {alertObjectId}, note).Result;
             return invokeResult;
         }
 

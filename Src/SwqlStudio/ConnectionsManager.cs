@@ -1,4 +1,5 @@
-﻿using System.Windows.Forms;
+﻿using System;
+using System.Windows.Forms;
 
 namespace SwqlStudio
 {
@@ -57,7 +58,15 @@ namespace SwqlStudio
             {
                 if (nc.ShowDialog() == DialogResult.OK)
                 {
-                    return nc.ConnectionInfo;
+                    try
+                    {
+                        return nc.ConnectionInfo;
+                    }
+                    catch (Exception e)
+                    {
+                        MessageBox.Show(e.Message, "Connection Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return AskForNewConnection(); // tail recursive retry. user can break out by hitting cancel.
+                    }
                 }
             }
 

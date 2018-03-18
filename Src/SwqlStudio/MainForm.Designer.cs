@@ -67,6 +67,7 @@
             this.noGroupingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.enableAutocompleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.discoverQueryParametersMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.promptToSaveOnCloseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutSWQLStudioToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
@@ -89,7 +90,6 @@
             this.newFileToolButton = new System.Windows.Forms.ToolStripButton();
             this.openFileButton = new System.Windows.Forms.ToolStripButton();
             this.saveToolButton = new System.Windows.Forms.ToolStripButton();
-            this.promptToSaveOnCloseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.menu.SuspendLayout();
             this.mainToolbar.SuspendLayout();
@@ -141,19 +141,20 @@
             // 
             // menuFileNew
             // 
-            this.menuFileNew.Image = global::SwqlStudio.Properties.Resources.NewFile_16x;
+            this.menuFileNew.Image = global::SwqlStudio.Properties.Resources.ConnectFilled_16x;
             this.menuFileNew.Name = "menuFileNew";
             this.menuFileNew.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.N)));
             this.menuFileNew.Size = new System.Drawing.Size(219, 22);
-            this.menuFileNew.Text = "&New";
+            this.menuFileNew.Text = "&New Connection...";
             this.menuFileNew.Click += new System.EventHandler(this.menuFileNew_Click);
             // 
             // menuFileTabPage
             // 
+            this.menuFileTabPage.Image = global::SwqlStudio.Properties.Resources.NewFile_16x;
             this.menuFileTabPage.Name = "menuFileTabPage";
             this.menuFileTabPage.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.T)));
             this.menuFileTabPage.Size = new System.Drawing.Size(219, 22);
-            this.menuFileTabPage.Text = "Tab Page";
+            this.menuFileTabPage.Text = "New Query &Tab";
             this.menuFileTabPage.Click += new System.EventHandler(this.menuFileTabPage_Click);
             // 
             // menuFileOpen
@@ -162,7 +163,7 @@
             this.menuFileOpen.Name = "menuFileOpen";
             this.menuFileOpen.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
             this.menuFileOpen.Size = new System.Drawing.Size(219, 22);
-            this.menuFileOpen.Text = "&Open";
+            this.menuFileOpen.Text = "&Open File...";
             this.menuFileOpen.Click += new System.EventHandler(this.menuFileOpen_Click);
             // 
             // menuFileSave
@@ -178,13 +179,13 @@
             // 
             this.menuFileSaveAs.Name = "menuFileSaveAs";
             this.menuFileSaveAs.Size = new System.Drawing.Size(219, 22);
-            this.menuFileSaveAs.Text = "&Save As";
+            this.menuFileSaveAs.Text = "&Save As...";
             this.menuFileSaveAs.Click += new System.EventHandler(this.menuFileSaveAs_Click);
             // 
             // menuFileClose
             // 
             this.menuFileClose.Name = "menuFileClose";
-            this.menuFileClose.ShortcutKeyDisplayString = "Ctrl+W, Ctrl-F4";
+            this.menuFileClose.ShortcutKeyDisplayString = "Ctrl+W, Ctrl+F4";
             this.menuFileClose.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.W)));
             this.menuFileClose.Size = new System.Drawing.Size(219, 22);
             this.menuFileClose.Text = "&Close";
@@ -330,7 +331,6 @@
             // 
             this.menuQueryExecute.Image = global::SwqlStudio.Properties.Resources.Run_16x;
             this.menuQueryExecute.Name = "menuQueryExecute";
-            this.menuQueryExecute.ShortcutKeyDisplayString = "F5, Ctrl-E";
             this.menuQueryExecute.ShortcutKeys = System.Windows.Forms.Keys.F5;
             this.menuQueryExecute.Size = new System.Drawing.Size(210, 22);
             this.menuQueryExecute.Text = "&Execute";
@@ -428,6 +428,13 @@
             this.discoverQueryParametersMenuItem.Size = new System.Drawing.Size(214, 22);
             this.discoverQueryParametersMenuItem.Text = "Discover query parameters";
             this.discoverQueryParametersMenuItem.CheckedChanged += new System.EventHandler(this.discoverQueryParametersToolStripMenuItem_CheckedChanged);
+            // 
+            // promptToSaveOnCloseToolStripMenuItem
+            // 
+            this.promptToSaveOnCloseToolStripMenuItem.Name = "promptToSaveOnCloseToolStripMenuItem";
+            this.promptToSaveOnCloseToolStripMenuItem.Size = new System.Drawing.Size(214, 22);
+            this.promptToSaveOnCloseToolStripMenuItem.Text = "Prompt to save on close";
+            this.promptToSaveOnCloseToolStripMenuItem.Click += new System.EventHandler(this.promptToSaveOnCloseToolStripMenuItem_Click);
             // 
             // helpToolStripMenuItem
             // 
@@ -535,8 +542,8 @@
             this.newConnectionButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.newConnectionButton.Name = "newConnectionButton";
             this.newConnectionButton.Size = new System.Drawing.Size(23, 22);
-            this.newConnectionButton.ToolTipText = "New connection";
-            this.newConnectionButton.Click += new System.EventHandler(this.newConnectionButton_Click);
+            this.newConnectionButton.ToolTipText = "New Connection... (Ctrl+N)";
+            this.newConnectionButton.Click += new System.EventHandler(this.menuFileNew_Click);
             // 
             // disconnectToolButton
             // 
@@ -555,7 +562,7 @@
             this.refreshToolButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.refreshToolButton.Name = "refreshToolButton";
             this.refreshToolButton.Size = new System.Drawing.Size(23, 22);
-            this.refreshToolButton.Text = "Refresh server metadata";
+            this.refreshToolButton.Text = "Refresh Server Metadata";
             this.refreshToolButton.Click += new System.EventHandler(this.refreshToolButton_Click);
             // 
             // toolStripSeparator2
@@ -595,8 +602,8 @@
             this.newFileToolButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.newFileToolButton.Name = "newFileToolButton";
             this.newFileToolButton.Size = new System.Drawing.Size(23, 22);
-            this.newFileToolButton.ToolTipText = "New file (Ctrl+N)";
-            this.newFileToolButton.Click += new System.EventHandler(this.menuFileNew_Click);
+            this.newFileToolButton.ToolTipText = "New Query Tab (Ctrl+T)";
+            this.newFileToolButton.Click += new System.EventHandler(this.menuFileTabPage_Click);
             // 
             // openFileButton
             // 
@@ -605,7 +612,7 @@
             this.openFileButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.openFileButton.Name = "openFileButton";
             this.openFileButton.Size = new System.Drawing.Size(23, 22);
-            this.openFileButton.ToolTipText = "Open file (Ctrl+O)";
+            this.openFileButton.ToolTipText = "Open File... (Ctrl+O)";
             this.openFileButton.Click += new System.EventHandler(this.menuFileOpen_Click);
             // 
             // saveToolButton
@@ -617,13 +624,6 @@
             this.saveToolButton.Size = new System.Drawing.Size(23, 22);
             this.saveToolButton.ToolTipText = "Save (Ctrl+S)";
             this.saveToolButton.Click += new System.EventHandler(this.menuFileSave_Click);
-            // 
-            // promptToSaveOnCloseToolStripMenuItem
-            // 
-            this.promptToSaveOnCloseToolStripMenuItem.Name = "promptToSaveOnCloseToolStripMenuItem";
-            this.promptToSaveOnCloseToolStripMenuItem.Size = new System.Drawing.Size(214, 22);
-            this.promptToSaveOnCloseToolStripMenuItem.Text = "Prompt to save on close";
-            this.promptToSaveOnCloseToolStripMenuItem.Click += new System.EventHandler(this.promptToSaveOnCloseToolStripMenuItem_Click);
             // 
             // MainForm
             // 

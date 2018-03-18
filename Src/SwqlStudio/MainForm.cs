@@ -6,7 +6,6 @@ using System.ServiceModel;
 using System.Windows.Forms;
 using SolarWinds.InformationService.Contract2;
 using SolarWinds.InformationService.InformationServiceClient;
-using SwqlStudio.Metadata;
 using SwqlStudio.Properties;
 using SwqlStudio.Subscriptions;
 using SwqlStudio.Utils;
@@ -118,7 +117,7 @@ namespace SwqlStudio
 
         private void menuFileNew_Click(object sender, EventArgs e)
         {
-            this.filesDock.AddNewQueryTab();
+            this.connectionsManager.CreateConnection();
         }
 
         private void menuFileOpen_Click(object sender, EventArgs e)
@@ -244,19 +243,6 @@ namespace SwqlStudio
         #endregion
 
         #region Other stuff
-
-        private void TextEditorDragEnter(object sender, DragEventArgs e)
-        {
-            if (e.Data.GetDataPresent(typeof(Entity)))
-                e.Effect = DragDropEffects.Copy;
-        }
-
-        private void TextEditorDragDrop(object sender, DragEventArgs e)
-        {
-            Entity entity = e.Data.GetData(typeof(Entity)) as Entity;
-            if (entity != null)
-                this.filesDock.GenerateSelectStatement(entity, (e.KeyState & 8) == 8);
-        }
 
         private void TextEditor_FormClosing(object sender, FormClosingEventArgs e)
         {
@@ -430,11 +416,6 @@ namespace SwqlStudio
             {
                 activeConnectionTab.ConnectionInfo = this.SelectedConnection;
             }
-        }
-
-        private void newConnectionButton_Click(object sender, EventArgs e)
-        {
-            this.connectionsManager.CreateConnection();
         }
 
         private void disconnectToolButton_Click(object sender, EventArgs e)

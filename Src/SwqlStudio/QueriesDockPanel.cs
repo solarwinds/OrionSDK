@@ -4,7 +4,6 @@ using System.Linq;
 using System.Windows.Forms;
 using ScintillaNET;
 using SolarWinds.InformationService.Contract2;
-using SwqlStudio.Metadata;
 using WeifenLuo.WinFormsUI.Docking;
 
 namespace SwqlStudio
@@ -145,11 +144,6 @@ namespace SwqlStudio
         internal void AddServer(IMetadataProvider provider, ConnectionInfo info)
         {
             this.objectExplorer.AddServer(provider, info);
-        }
-
-        internal void GenerateSelectStatement(Entity table, bool includeInheritedProperties)
-        {
-            this.objectExplorer.GenerateSelectStatement(table, includeInheritedProperties);
         }
 
         internal void CloseActiveContent()

@@ -2,7 +2,7 @@
 
 namespace SwqlStudio
 {
-    public abstract class TabTemplate : UserControl
+    public class TabTemplate : UserControl
     {
         private ConnectionInfo connection;
 

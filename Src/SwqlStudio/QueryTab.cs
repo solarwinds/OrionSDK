@@ -32,7 +32,6 @@ namespace SwqlStudio
 
         public override ConnectionInfo ConnectionInfo
         {
-            get { return base.ConnectionInfo; }
             set
             {
                 base.ConnectionInfo = value;

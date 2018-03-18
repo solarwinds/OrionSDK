@@ -117,7 +117,16 @@ namespace SwqlStudio
 
         private void menuFileNew_Click(object sender, EventArgs e)
         {
-            this.connectionsManager.CreateConnection();
+            try
+            {
+                ConnectionInfo.DoWithExceptionTranslation(() => connectionsManager.CreateConnection());
+            }
+            catch (Exception ex)
+            {
+                log.Error("Failed to connect", ex);
+                var msg = $"Unable to connect to Information Service.\n{ex.Message}";
+                MessageBox.Show(msg, "Connection Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void menuFileOpen_Click(object sender, EventArgs e)

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Data;
 using System.Drawing;
 using System.Linq;
-using System.Runtime.InteropServices;
 using System.ServiceModel;
 using System.ServiceModel.Security;
 using System.Text;
@@ -851,7 +850,7 @@ CanDelete: {4}",
             var node = _contextMenuNode as TreeNodeWithConnectionInfo;
             if (node != null)
             {
-                TabsFactory.AddTextToEditor(query, node.Connection);
+                TabsFactory.OpenQueryTab(query, node.Connection);
             }
         }
     }

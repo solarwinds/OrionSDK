@@ -11,7 +11,7 @@ namespace SwqlStudio
     public partial class QueriesDockPanel : DockPanel
     {
         private DockContent lastActiveContent = null;
-        private TabsFactory tabsFactory;
+        private ITabsFactory tabsFactory;
         private ObjectExplorer objectExplorer;
         private DockContent objectExplorerContent;
         private QueryParameters queryParametersContent;
@@ -59,7 +59,15 @@ namespace SwqlStudio
 
         public void CreateTabFromPrevious()
         {
-            this.tabsFactory.CreateTabFromPrevious();
+            var previousTab = this.ActiveQueryTab;
+            if (previousTab != null)
+            {
+                this.tabsFactory.OpenQueryTab(previousTab.QueryText, previousTab.ConnectionInfo);
+            }
+            else
+            {
+                this.tabsFactory.OpenQueryTab();
+            }
         }
 
         private Control SelectedTabFirstControl()
@@ -192,7 +200,7 @@ namespace SwqlStudio
 
         internal void AddNewQueryTab()
         {
-            this.tabsFactory.AddNewQueryTab();
+            this.tabsFactory.OpenQueryTab();
         }
 
         internal void SetAplicationService(TabsFactory tabsFactory)

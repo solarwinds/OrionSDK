@@ -11,7 +11,7 @@ namespace SwqlStudio
     {
         string Text { get; }
     }
-    internal class LexerService
+    internal sealed class LexerService : IDisposable
     {
         /// <summary>
         /// Namespace is, for our usage, SwisEntity with ColumnNames of the internal namespaces and classes
@@ -122,12 +122,18 @@ namespace SwqlStudio
             return Tuple.Create(entityFullName.Substring(0, lastDot), entityFullName.Substring(lastDot + 1));
         }
 
+        private void OnProviderEntitiesRefreshed(object sender, EventArgs args)
+        {
+            RefreshMetadata((IMetadataProvider) sender);
+        }
+
+        private Action Unsubscribe;
+
         public void SetMetadata(IMetadataProvider provider)
         {
-            provider.EntitiesRefreshed += (sender, args) =>
-            {
-                RefreshMetadata(provider);
-            };
+            Unsubscribe?.Invoke();
+            Unsubscribe = () => provider.EntitiesRefreshed -= OnProviderEntitiesRefreshed;
+            provider.EntitiesRefreshed += OnProviderEntitiesRefreshed;
             RefreshMetadata(provider);
         }
 
@@ -222,5 +228,10 @@ namespace SwqlStudio
                 return new ExpectedCaretPosition(ExpectedCaretPositionType.Keyword, null);
         }
 
+        public void Dispose()
+        {
+            Unsubscribe?.Invoke();
+            Unsubscribe = null;
+        }
     }
 }

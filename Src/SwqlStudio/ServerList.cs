@@ -22,7 +22,7 @@ namespace SwqlStudio
             var provider = new SwisMetaDataProvider(connection);
             metadataProviders[connection] = provider;
             var e = new ConnectionsEventArgs(connection);
-            ConnectionAdded(this, e);
+            ConnectionAdded?.Invoke(this, e);
         }
 
         public void Remove(ConnectionInfo connection)
@@ -31,7 +31,7 @@ namespace SwqlStudio
             connections.Remove(key);
             metadataProviders.Remove(connection);
             var e = new ConnectionsEventArgs(connection);
-            ConnectionRemoved(this, e);
+            ConnectionRemoved?.Invoke(this, e);
         }
 
         public bool Exists(ConnectionInfo connection)

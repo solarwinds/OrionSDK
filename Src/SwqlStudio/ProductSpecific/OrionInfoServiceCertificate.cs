@@ -27,7 +27,7 @@ namespace SwqlStudio
             var x509Store = new X509Store(StoreName.My, StoreLocation.LocalMachine);
             x509Store.Open(OpenFlags.ReadOnly);
             var subjectName = Settings.Default.CertificateSubjectName;
-            var certs = x509Store.Certificates.Find(X509FindType.FindBySubjectName, subjectName, true);
+            var certs = x509Store.Certificates.Find(X509FindType.FindBySubjectName, subjectName, false);
             x509Store.Close();
             if (certs.Count == 0)
             {

@@ -4,7 +4,6 @@ using System.Linq;
 using System.Windows.Forms;
 using ScintillaNET;
 using SolarWinds.InformationService.Contract2;
-using SwqlStudio.Metadata;
 using WeifenLuo.WinFormsUI.Docking;
 
 namespace SwqlStudio
@@ -12,7 +11,7 @@ namespace SwqlStudio
     public partial class QueriesDockPanel : DockPanel
     {
         private DockContent lastActiveContent = null;
-        private TabsFactory tabsFactory;
+        private ITabsFactory tabsFactory;
         private ObjectExplorer objectExplorer;
         private DockContent objectExplorerContent;
         private QueryParameters queryParametersContent;
@@ -60,7 +59,15 @@ namespace SwqlStudio
 
         public void CreateTabFromPrevious()
         {
-            this.tabsFactory.CreateTabFromPrevious();
+            var previousTab = this.ActiveQueryTab;
+            if (previousTab != null)
+            {
+                this.tabsFactory.OpenQueryTab(previousTab.QueryText, previousTab.ConnectionInfo);
+            }
+            else
+            {
+                this.tabsFactory.OpenQueryTab();
+            }
         }
 
         private Control SelectedTabFirstControl()
@@ -147,11 +154,6 @@ namespace SwqlStudio
             this.objectExplorer.AddServer(provider, info);
         }
 
-        internal void GenerateSelectStatement(Entity table, bool includeInheritedProperties)
-        {
-            this.objectExplorer.GenerateSelectStatement(table, includeInheritedProperties);
-        }
-
         internal void CloseActiveContent()
         {
             if (HasActiveContent())
@@ -198,7 +200,7 @@ namespace SwqlStudio
 
         internal void AddNewQueryTab()
         {
-            this.tabsFactory.AddNewQueryTab();
+            this.tabsFactory.OpenQueryTab();
         }
 
         internal void SetAplicationService(TabsFactory tabsFactory)

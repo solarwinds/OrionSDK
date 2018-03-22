@@ -4,12 +4,16 @@ namespace SwqlStudio
 {
     internal interface ITabsFactory
     {
-        void AddTextToEditor(string text, ConnectionInfo info);
+        void OpenQueryTab();
+
+        void OpenQueryTab(string text, ConnectionInfo info);
 
         void OpenActivityMonitor(ConnectionInfo connectionInfo);
 
         void OpenInvokeTab(ConnectionInfo connectionInfo, Verb verb);
 
         void OpenCrudTab(CrudOperation operation, ConnectionInfo connectionInfo, Entity entity);
+
+        void OpenFiles(string[] files);
     }
 }

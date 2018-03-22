@@ -1,9 +1,6 @@
 ﻿using System;
 using System.IO;
-using System.ServiceModel;
-using System.ServiceModel.Security;
 using System.Windows.Forms;
-using SolarWinds.InformationService.Contract2;
 using SwqlStudio.Metadata;
 using SwqlStudio.Properties;
 using WeifenLuo.WinFormsUI.Docking;
@@ -29,20 +26,32 @@ namespace SwqlStudio
             this.connectionsManager = connectionsManager;
         }
 
-        public void AddTextToEditor(string text, ConnectionInfo info)
+        public void OpenQueryTab()
         {
-            if (info == null)
-                info = this.applicationService.SelectedConnection;
-            
-            if (info == null)
-                return;
-
-            string title = CreateQueryTitile();
-            CreateQueryTab(title, info);
-            this.dockPanel.ActiveQueryTab.QueryText = text;
+            OpenQueryTab(null, null);
         }
 
-        private string CreateQueryTitile()
+        public void OpenQueryTab(string text, ConnectionInfo info)
+        {
+            try
+            {
+                var connection = info ?? ConnectionInfo.DoWithExceptionTranslation(() => connectionsManager.ResolveConnection());
+                if (connection != null)
+                {
+                    string title = CreateQueryTitle();
+                    var queryTab = CreateQueryTab(title, connection);
+                    queryTab.QueryText = text;
+                }
+            }
+            catch (Exception ex)
+            {
+                log.Error("Failed to connect", ex);
+                var msg = $"Unable to connect to Information Service.\n{ex.Message}";
+                MessageBox.Show(msg, "Connection Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private string CreateQueryTitle()
         {
             queryTabsCounter++;
             return "Query" + queryTabsCounter;
@@ -94,60 +103,7 @@ namespace SwqlStudio
             AddNewTab(crudTab, title);
         }
 
-        internal void AddNewQueryTab()
-        {
-            string msg = null;
-
-            try
-            {
-                ConnectionInfo info = this.connectionsManager.ResolveConnection();
-                if (info== null)
-                    return;
-
-                string title = CreateQueryTitile();
-                this.CreateQueryTab(title, info);
-            }
-            catch (FaultException<InfoServiceFaultContract> ex)
-            {
-                log.Error("Failed to connect", ex);
-                msg = ex.Detail.Message;
-            }
-            catch (SecurityNegotiationException ex)
-            {
-                log.Error("Failed to connect", ex);
-                msg = ex.Message;
-            }
-            catch (FaultException ex)
-            {
-                log.Error("Failed to connect", ex);
-                msg = (ex.InnerException != null) ? ex.InnerException.Message : ex.Message;
-            }
-            catch (MessageSecurityException ex)
-            {
-                log.Error("Failed to connect", ex);
-                if (ex.InnerException != null && ex.InnerException is FaultException)
-                {
-                    msg = (ex.InnerException as FaultException).Message;
-                }
-                else
-                {
-                    msg = ex.Message;
-                }
-            }
-            catch (Exception ex)
-            {
-                log.Error("Failed to connect", ex);
-                msg = ex.Message;
-            }
-
-            if (msg != null)
-            {
-                msg = string.Format("Unable to connect to Information Service. {0}", msg);
-                MessageBox.Show(msg, "Connection Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-
-        internal void OpenFiles(string[] files)
+        public void OpenFiles(string[] files)
         {
             var connectionInfo = this.connectionsManager.ResolveConnection();
             if (connectionInfo == null)
@@ -183,24 +139,6 @@ namespace SwqlStudio
                 // cannot add or remove folding regions after loading the file.
                 //--				editor.Document.FoldingManager.FoldingStrategy = new RegionFoldingStrategy();
                 //--				editor.Document.FoldingManager.UpdateFoldings(null, null);
-            }
-        }
-
-        internal void CreateTabFromPrevious()
-        {
-            var tab = this.dockPanel.ActiveConnectionTab;
-            if (tab != null)
-            {
-                var connection = this.connectionsManager.ResolveConnection();
-                if (connection == null)
-                    return;
-
-                var swql = this.dockPanel.ActiveQueryTab.QueryText;
-                this.AddTextToEditor(swql, connection);
-            }
-            else
-            {
-                AddNewQueryTab();
             }
         }
 

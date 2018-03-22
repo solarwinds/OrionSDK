@@ -228,5 +228,11 @@ namespace SwqlStudio
         }
 
         string ILexerDataSource.Text => this.Text;
+
+        protected override void Dispose(bool disposing)
+        {
+            LexerService.Dispose();
+            base.Dispose(disposing);
+        }
     }
 }

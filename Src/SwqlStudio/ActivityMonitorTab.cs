@@ -7,19 +7,18 @@ namespace SwqlStudio
     public partial class ActivityMonitorTab : TabTemplate, IConnectionTab
     {
         private string subscriptionId;
-        private bool conneciotnSet = false;
+        private bool connectionSet;
 
         public SubscriptionManager SubscriptionManager { get; set; }
 
-        public override bool AllowsChangeConnection => !this.conneciotnSet;
+        public override bool AllowsChangeConnection => !this.connectionSet;
 
         public override ConnectionInfo ConnectionInfo
         {
-            get { return base.ConnectionInfo; }
             set
             {
                 base.ConnectionInfo = value;
-                this.conneciotnSet = true;
+                this.connectionSet = true;
             }
         }
 

@@ -206,17 +206,11 @@ namespace SwqlStudio
 
         private QueryTab CreateQueryTab(string title, ConnectionInfo info)
         {
-            var queryTab = new QueryTab
+            var queryTab = new QueryTab(applicationService, serverList, info, applicationService.SubscriptionManager)
             {
-                ConnectionInfo = info,
-                Dock = DockStyle.Fill,
-                ApplicationService = this.applicationService,
-                SubscriptionManager = this.applicationService.SubscriptionManager
+                Dock = DockStyle.Fill
             };
-            
-            IMetadataProvider provider;
-            this.serverList.TryGetProvider(info, out provider);
-            queryTab.SetMetadataProvider(provider);
+
             AddNewTab(queryTab, title);
             return queryTab;
         }

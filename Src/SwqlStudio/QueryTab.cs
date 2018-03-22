@@ -17,7 +17,7 @@ using SwqlStudio.Subscriptions;
 
 namespace SwqlStudio
 {
-    public partial class QueryTab : TabTemplate, IConnectionTab
+    public sealed partial class QueryTab : TabTemplate, IConnectionTab
     {
         private readonly CachedParameters preserved = new CachedParameters();
 
@@ -32,10 +32,10 @@ namespace SwqlStudio
 
         public override ConnectionInfo ConnectionInfo
         {
-            get { return base.ConnectionInfo; }
             set
             {
                 base.ConnectionInfo = value;
+                SetMetadataProvider();
                 queryStatusBar1.Initialize(base.ConnectionInfo);
             }
         }
@@ -53,8 +53,9 @@ namespace SwqlStudio
         }
 
         private Font nullFont;
-        public IApplicationService ApplicationService { get; set; }
-        public SubscriptionManager SubscriptionManager { get; set; }
+        private IApplicationService ApplicationService { get; }
+        private SubscriptionManager SubscriptionManager { get; }
+        private ServerList ServerList { get; }
 
         public QueryTab()
         {
@@ -63,6 +64,14 @@ namespace SwqlStudio
             ShowTabs(Tabs.Results);
             Disposed += QueryTabDisposed;
             AddRunContextMenu();
+        }
+
+        internal QueryTab(IApplicationService applicationService, ServerList serverList, ConnectionInfo connectionInfo, SubscriptionManager subscriptionManager) : this()
+        {
+            ApplicationService = applicationService;
+            ServerList = serverList;
+            ConnectionInfo = connectionInfo;
+            SubscriptionManager = subscriptionManager;
         }
 
         private void AddRunContextMenu()
@@ -757,9 +766,13 @@ namespace SwqlStudio
             deleteToolStripMenuItem.Enabled = dataGridView1.Columns.Contains("Uri") && dataGridView1.SelectedRows.Count > 0;
         }
 
-        internal void SetMetadataProvider(IMetadataProvider provider)
+        private void SetMetadataProvider()
         {
-            sciTextEditorControl1.SetMetadata(provider);
+            IMetadataProvider provider;
+            if (ServerList != null && ConnectionInfo != null && ServerList.TryGetProvider(ConnectionInfo, out provider))
+            {
+                sciTextEditorControl1.SetMetadata(provider);
+            }
         }
 
         private void sciTextEditorControl1_TextChanged(object sender, EventArgs e)

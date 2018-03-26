@@ -11,3 +11,9 @@ paket.dependencies.locked
 UpgradeLog.htm
 
 Samples/Java/swis-client/\.settings/
+
+packages\.inputs
+
+paket-files/
+
+\.paket/

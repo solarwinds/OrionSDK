@@ -102,8 +102,8 @@ if ($disableResult.Code -eq 0) {
 }
 
 # Enable pool
-$disableResult = Invoke-SwisVerb $swis Orion.HA.Pools EnablePool $poolId
-if ($disableResult.Code -eq 0) {
+$enableResult = Invoke-SwisVerb $swis Orion.HA.Pools EnablePool $poolId
+if ($enableResult.Code -eq 0) {
     Write-Host "Pool enabled successfuly."
 } else {
     Write-Warning "Pool enable failed."

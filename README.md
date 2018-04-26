@@ -1,12 +1,14 @@
 # Orion SDK
 
-This project contains the samples, SWQL Studio graphical query tool, and PowerShell snapin for the SolarWinds Orion platform API.
+This project contains the samples, SWQL Studio graphical query tool, and PowerShell module for the SolarWinds Orion platform API.
 
 The Python client and sample code is in another repo: https://github.com/solarwinds/orionsdk-python.
 
 ## Installer
 
 You can download a pre-compiled [installer for the Orion SDK tools](https://github.com/solarwinds/OrionSDK/releases) from GitHub.
+
+If you have [Chocolatey](https://chocolatey.org/), you can use `choco install orionsdk` to fetch and run the same installer.
 
 ## Wiki
 
@@ -22,7 +24,7 @@ You can discuss the Orion SDK with SolarWinds staff and other SDK users on the [
 
 	This software is licensed under the Apache License, version 2 ("ALv2"), quoted below.
 
-	Copyright © 2015 SolarWinds Worldwide, LLC.  All rights reserved.
+	Copyright © 2018 SolarWinds Worldwide, LLC.  All rights reserved.
 
 	Licensed under the Apache License, Version 2.0 (the "License"); you may not
 	use this file except in compliance with the License. You may obtain a copy of

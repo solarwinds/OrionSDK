@@ -12,11 +12,14 @@
       <a href="index.html">Index</a>
     </p>
     <h1>
-      <a name="Orion.NetFlow.ApplicationsTop">Orion.NetFlow.ApplicationsTop</a>
+      <a name="Orion.LoadAverage">Orion.LoadAverage</a>
     </h1>
     <p>
         Base type:
-        <a href="System.Entity.html">System.Entity</a></p>
+        <a href="System.StatisticsEntity.html">System.StatisticsEntity</a></p>
+    <p>
+        Summary:
+        This entity contains historical load average data</p>
     <h2>Properties</h2>
     <table>
       <tr>
@@ -25,74 +28,81 @@
         <th>Notes</th>
       </tr>
       <tr>
-        <td>AppID</td>
-        <td>System.String</td>
-        <td />
-      </tr>
-      <tr>
-        <td>ApplicationName</td>
-        <td>System.String</td>
-        <td />
-      </tr>
-      <tr>
-        <td>MapTo</td>
-        <td>System.Int64</td>
-        <td />
-      </tr>
-      <tr>
-        <td>TCP</td>
-        <td>System.Int16</td>
-        <td />
-      </tr>
-      <tr>
-        <td>UDP</td>
-        <td>System.Int16</td>
-        <td />
-      </tr>
-      <tr>
         <td>NodeID</td>
         <td>System.Int32</td>
         <td />
       </tr>
       <tr>
-        <td>InterfaceID</td>
-        <td>System.Int32</td>
+        <td>TimeStamp</td>
+        <td>System.DateTime</td>
         <td />
       </tr>
       <tr>
-        <td>TotalBytes</td>
-        <td>System.Int64</td>
+        <td>Archive</td>
+        <td>System.Byte</td>
         <td />
       </tr>
       <tr>
-        <td>TotalPackets</td>
-        <td>System.Int64</td>
+        <td>LoadAverage1Min</td>
+        <td>System.Double</td>
         <td />
       </tr>
       <tr>
-        <td>TotalBytesIngress</td>
-        <td>System.Int64</td>
+        <td>LoadAverage1Max</td>
+        <td>System.Double</td>
         <td />
       </tr>
       <tr>
-        <td>TotalBytesEgress</td>
-        <td>System.Int64</td>
+        <td>LoadAverage1Avg</td>
+        <td>System.Double</td>
         <td />
       </tr>
       <tr>
-        <td>TotalPacketsIngress</td>
-        <td>System.Int64</td>
+        <td>LoadAverage5Min</td>
+        <td>System.Double</td>
         <td />
       </tr>
       <tr>
-        <td>TotalPacketsEgress</td>
-        <td>System.Int64</td>
+        <td>LoadAverage5Max</td>
+        <td>System.Double</td>
         <td />
       </tr>
       <tr>
-        <td>ProtocolName</td>
-        <td>System.String</td>
+        <td>LoadAverage5Avg</td>
+        <td>System.Double</td>
         <td />
+      </tr>
+      <tr>
+        <td>LoadAverage15Min</td>
+        <td>System.Double</td>
+        <td />
+      </tr>
+      <tr>
+        <td>LoadAverage15Max</td>
+        <td>System.Double</td>
+        <td />
+      </tr>
+      <tr>
+        <td>LoadAverage15Avg</td>
+        <td>System.Double</td>
+        <td />
+      </tr>
+      <tr>
+        <td>ObservationTimestamp</td>
+        <td>System.DateTime</td>
+        <td />
+      </tr>
+      <tr>
+        <td>ObservationFrequency</td>
+        <td>System.DateTime</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Weight</td>
+        <td>System.Double</td>
+        <td>
+          Default='1.0'.
+        </td>
       </tr>
       <tr>
         <td>DisplayName</td>
@@ -120,6 +130,15 @@
         <td>
           Default='0'.
         </td>
+      </tr>
+      <tr>
+        <td>Node</td>
+        <td>
+          <a href="Orion.Nodes.html">Orion.Nodes</a>
+        </td>
+        <td>
+        Defined by relationship Orion.NodesHostsLoadAverage (System.Hosting)
+      </td>
       </tr>
     </table>
   </body>

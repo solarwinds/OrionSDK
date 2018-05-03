@@ -12,7 +12,7 @@
       <a href="index.html">Index</a>
     </p>
     <h1>
-      <a name="Orion.NetFlow.ApplicationsDetail">Orion.NetFlow.ApplicationsDetail</a>
+      <a name="NCM.CiscoFruFanTrayStatus">NCM.CiscoFruFanTrayStatus</a>
     </h1>
     <p>
         Base type:
@@ -25,33 +25,38 @@
         <th>Notes</th>
       </tr>
       <tr>
-        <td>AppID</td>
-        <td>System.String</td>
+        <td>EntityID</td>
+        <td>System.Int32</td>
         <td />
       </tr>
       <tr>
-        <td>ApplicationName</td>
-        <td>System.String</td>
+        <td>NodeID</td>
+        <td>System.Guid</td>
         <td />
       </tr>
       <tr>
-        <td>StartTime</td>
+        <td>FRUIndex</td>
+        <td>System.Int32</td>
+        <td />
+      </tr>
+      <tr>
+        <td>FanTrayOperStatus</td>
+        <td>System.Int32</td>
+        <td />
+      </tr>
+      <tr>
+        <td>LastDiscovery</td>
         <td>System.DateTime</td>
         <td />
       </tr>
       <tr>
-        <td>TotalBytes</td>
-        <td>System.Int64</td>
+        <td>FirstDiscovery</td>
+        <td>System.DateTime</td>
         <td />
       </tr>
       <tr>
-        <td>TotalPackets</td>
-        <td>System.Int64</td>
-        <td />
-      </tr>
-      <tr>
-        <td>ProtocolName</td>
-        <td>System.String</td>
+        <td>Missing</td>
+        <td>System.Boolean</td>
         <td />
       </tr>
       <tr>
@@ -80,6 +85,33 @@
         <td>
           Default='0'.
         </td>
+      </tr>
+      <tr>
+        <td>EntityPhysical</td>
+        <td>
+          <a href="NCM.EntityPhysical.html">NCM.EntityPhysical</a>
+        </td>
+        <td>
+        Defined by relationship NCM.EntityPhysicalRefCiscoFruFanTrayStatus (System.Reference)
+      </td>
+      </tr>
+      <tr>
+        <td>NodeProperties</td>
+        <td>
+          <a href="NCM.NodeProperties.html">NCM.NodeProperties</a>
+        </td>
+        <td>
+        Defined by relationship NCM.NodePropertiesRefCiscoFruFanTrayStatus (System.Reference)
+      </td>
+      </tr>
+      <tr>
+        <td>Nodes</td>
+        <td>
+          <a href="NCM.Nodes.html">NCM.Nodes</a>
+        </td>
+        <td>
+        Defined by relationship NCM.NodesHostsCiscoFruFanTrayStatus (System.Hosting)
+      </td>
       </tr>
     </table>
   </body>

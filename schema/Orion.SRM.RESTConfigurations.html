@@ -12,11 +12,14 @@
       <a href="index.html">Index</a>
     </p>
     <h1>
-      <a name="Orion.NetFlow.CountriesDetail">Orion.NetFlow.CountriesDetail</a>
+      <a name="Orion.SRM.RESTConfigurations">Orion.SRM.RESTConfigurations</a>
     </h1>
     <p>
         Base type:
         <a href="System.Entity.html">System.Entity</a></p>
+    <p>
+        Summary:
+        Contains configurations for generc REST clients</p>
     <h2>Properties</h2>
     <table>
       <tr>
@@ -25,18 +28,13 @@
         <th>Notes</th>
       </tr>
       <tr>
-        <td>CountryCode</td>
+        <td>DeviceGroupID</td>
+        <td>System.Guid</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Configuration</td>
         <td>System.String</td>
-        <td />
-      </tr>
-      <tr>
-        <td>StartTime</td>
-        <td>System.DateTime</td>
-        <td />
-      </tr>
-      <tr>
-        <td>TotalBytes</td>
-        <td>System.Int64</td>
         <td />
       </tr>
       <tr>
@@ -65,6 +63,15 @@
         <td>
           Default='0'.
         </td>
+      </tr>
+      <tr>
+        <td>DeviceGroup</td>
+        <td>
+          <a href="Orion.SRM.DeviceGroups.html">Orion.SRM.DeviceGroups</a>
+        </td>
+        <td>
+        Defined by relationship Orion.SRM.DeviceGroupsReferencesRESTConfigurations (System.Reference)
+      </td>
       </tr>
     </table>
   </body>

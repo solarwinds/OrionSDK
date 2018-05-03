@@ -12,7 +12,7 @@
       <a href="index.html">Index</a>
     </p>
     <h1>
-      <a name="Orion.Netflow.Maintenance.FastBitBackupState">Orion.Netflow.Maintenance.FastBitBackupState</a>
+      <a name="IPAM.IPRequests">IPAM.IPRequests</a>
     </h1>
     <p>
         Base type:
@@ -25,32 +25,77 @@
         <th>Notes</th>
       </tr>
       <tr>
-        <td>BackupType</td>
-        <td>System.String</td>
+        <td>IPRequestId</td>
+        <td>System.Int32</td>
         <td />
       </tr>
       <tr>
-        <td>IsRunning</td>
-        <td>System.Boolean</td>
+        <td>RequestAccountId</td>
+        <td>System.Int32</td>
         <td />
       </tr>
       <tr>
-        <td>IsSuccessful</td>
-        <td>System.Boolean</td>
-        <td />
-      </tr>
-      <tr>
-        <td>LastError</td>
-        <td>System.String</td>
-        <td />
-      </tr>
-      <tr>
-        <td>LastExecutionDate</td>
+        <td>RequestDate</td>
         <td>System.DateTime</td>
         <td />
       </tr>
       <tr>
+        <td>RequestAddressCount</td>
+        <td>System.Int32</td>
+        <td />
+      </tr>
+      <tr>
+        <td>ResolutionAccountId</td>
+        <td>System.Int32</td>
+        <td />
+      </tr>
+      <tr>
+        <td>ResolutionDate</td>
+        <td>System.DateTime</td>
+        <td />
+      </tr>
+      <tr>
+        <td>State</td>
+        <td>System.Int32</td>
+        <td />
+      </tr>
+      <tr>
+        <td>FirstName</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>LastName</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Phone</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Email</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Comment</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Subnet</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
         <td>DetailsUrl</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>DisplayName</td>
         <td>System.String</td>
         <td />
       </tr>
@@ -80,6 +125,15 @@
         <td>
           Default='0'.
         </td>
+      </tr>
+      <tr>
+        <td>IPRequestId</td>
+        <td>
+          <a href="IPAM.IPRequestAddresses.html">IPAM.IPRequestAddresses</a>
+        </td>
+        <td>
+        Defined by relationship IPAM.IPRequests.IPRequestId (System.Reference)
+      </td>
       </tr>
     </table>
   </body>

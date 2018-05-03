@@ -12,11 +12,14 @@
       <a href="index.html">Index</a>
     </p>
     <h1>
-      <a name="Orion.NPM.SwitchStackMember">Orion.NPM.SwitchStackMember</a>
+      <a name="Orion.SRM.StorageControllers">Orion.SRM.StorageControllers</a>
     </h1>
     <p>
         Base type:
-        <a href="System.Entity.html">System.Entity</a></p>
+        <a href="System.ManagedEntity.html">System.ManagedEntity</a></p>
+    <p>
+        Summary:
+        Contains information about all Storage Controllers</p>
     <h2>Properties</h2>
     <table>
       <tr>
@@ -25,92 +28,134 @@
         <th>Notes</th>
       </tr>
       <tr>
+        <td>StorageControllerID</td>
+        <td>System.Int32</td>
+        <td />
+      </tr>
+      <tr>
+        <td>StorageArrayID</td>
+        <td>System.Int32</td>
+        <td />
+      </tr>
+      <tr>
+        <td>PoolID</td>
+        <td>System.Int32</td>
+        <td />
+      </tr>
+      <tr>
         <td>ID</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>IPAddresses</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>PortCount</td>
         <td>System.Int32</td>
         <td />
       </tr>
       <tr>
-        <td>NodeID</td>
-        <td>System.Int32</td>
-        <td />
-      </tr>
-      <tr>
-        <td>MemberID</td>
-        <td>System.Int32</td>
-        <td />
-      </tr>
-      <tr>
-        <td>Role</td>
-        <td>System.Byte</td>
-        <td />
-      </tr>
-      <tr>
-        <td>RoleDescription</td>
-        <td>System.String</td>
-        <td />
-      </tr>
-      <tr>
-        <td>State</td>
-        <td>System.Byte</td>
-        <td />
-      </tr>
-      <tr>
-        <td>StateDescription</td>
-        <td>System.String</td>
-        <td />
-      </tr>
-      <tr>
-        <td>MacAddress</td>
-        <td>System.String</td>
-        <td />
-      </tr>
-      <tr>
-        <td>Model</td>
-        <td>System.String</td>
-        <td />
-      </tr>
-      <tr>
-        <td>SoftwareImage</td>
-        <td>System.String</td>
-        <td />
-      </tr>
-      <tr>
-        <td>SerialNumber</td>
-        <td>System.String</td>
-        <td />
-      </tr>
-      <tr>
-        <td>HwPriority</td>
-        <td>System.Byte</td>
-        <td />
-      </tr>
-      <tr>
-        <td>SwPriority</td>
-        <td>System.Byte</td>
-        <td />
-      </tr>
-      <tr>
-        <td>SwitchNumber</td>
-        <td>System.Byte</td>
-        <td />
-      </tr>
-      <tr>
-        <td>PowerAvailable</td>
-        <td>System.Int32</td>
-        <td />
-      </tr>
-      <tr>
-        <td>PowerUsed</td>
-        <td>System.Int32</td>
-        <td />
-      </tr>
-      <tr>
-        <td>PostResult</td>
+        <td>IsActive</td>
         <td>System.Boolean</td>
         <td />
       </tr>
       <tr>
+        <td>OperStatus</td>
+        <td>System.Int32</td>
+        <td />
+      </tr>
+      <tr>
+        <td>OperStatusDescription</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Firmware</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>LastSync</td>
+        <td>System.DateTime</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Name</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>UserCaption</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Caption</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
         <td>DisplayName</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Status</td>
+        <td>System.Int32</td>
+        <td />
+      </tr>
+      <tr>
+        <td>StatusDescription</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>StatusLED</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>UnManaged</td>
+        <td>System.Boolean</td>
+        <td>
+          Default='false'.
+        </td>
+      </tr>
+      <tr>
+        <td>UnManageFrom</td>
+        <td>System.DateTime</td>
+        <td />
+      </tr>
+      <tr>
+        <td>UnManageUntil</td>
+        <td>System.DateTime</td>
+        <td />
+      </tr>
+      <tr>
+        <td>DetailsUrl</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Image</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>AncestorDisplayNames</td>
+        <td>System.String[]</td>
+        <td />
+      </tr>
+      <tr>
+        <td>AncestorDetailsUrls</td>
+        <td>System.String[]</td>
+        <td />
+      </tr>
+      <tr>
+        <td>StatusIconHint</td>
         <td>System.String</td>
         <td />
       </tr>
@@ -142,21 +187,12 @@
         </td>
       </tr>
       <tr>
-        <td>SwitchStackMemberPort</td>
+        <td>StorageArray</td>
         <td>
-          <a href="Orion.NPM.SwitchStackMemberPort.html">Orion.NPM.SwitchStackMemberPort</a>
+          <a href="Orion.SRM.StorageArrays.html">Orion.SRM.StorageArrays</a>
         </td>
         <td>
-        Defined by relationship Orion.NPM.SwitchStackMemberHostsSwitchStackMemberPort (System.Hosting)
-      </td>
-      </tr>
-      <tr>
-        <td>SwitchStack</td>
-        <td>
-          <a href="Orion.NPM.SwitchStack.html">Orion.NPM.SwitchStack</a>
-        </td>
-        <td>
-        Defined by relationship Orion.NPM.SwitchStackHostsSwitchStackMember (System.Hosting)
+        Defined by relationship Orion.SRM.StorageArraysReferencesControllers (System.Reference)
       </td>
       </tr>
     </table>

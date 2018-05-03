@@ -12,7 +12,7 @@
       <a href="index.html">Index</a>
     </p>
     <h1>
-      <a name="Orion.NetFlow.ProtocolsTop">Orion.NetFlow.ProtocolsTop</a>
+      <a name="NCM.CiscoBootloadImages">NCM.CiscoBootloadImages</a>
     </h1>
     <p>
         Base type:
@@ -25,53 +25,43 @@
         <th>Notes</th>
       </tr>
       <tr>
-        <td>Protocol</td>
-        <td>System.Int16</td>
-        <td />
-      </tr>
-      <tr>
-        <td>ProtocolName</td>
-        <td>System.String</td>
+        <td>EntityID</td>
+        <td>System.Int32</td>
         <td />
       </tr>
       <tr>
         <td>NodeID</td>
+        <td>System.Guid</td>
+        <td />
+      </tr>
+      <tr>
+        <td>ImageIndex</td>
         <td>System.Int32</td>
         <td />
       </tr>
       <tr>
-        <td>InterfaceID</td>
-        <td>System.Int32</td>
+        <td>SysBootImageList</td>
+        <td>System.String</td>
         <td />
       </tr>
       <tr>
-        <td>TotalBytes</td>
-        <td>System.Int64</td>
+        <td>SysKickstartImageList</td>
+        <td>System.String</td>
         <td />
       </tr>
       <tr>
-        <td>TotalPackets</td>
-        <td>System.Int64</td>
+        <td>LastDiscovery</td>
+        <td>System.DateTime</td>
         <td />
       </tr>
       <tr>
-        <td>TotalBytesIngress</td>
-        <td>System.Int64</td>
+        <td>FirstDiscovery</td>
+        <td>System.DateTime</td>
         <td />
       </tr>
       <tr>
-        <td>TotalBytesEgress</td>
-        <td>System.Int64</td>
-        <td />
-      </tr>
-      <tr>
-        <td>TotalPacketsIngress</td>
-        <td>System.Int64</td>
-        <td />
-      </tr>
-      <tr>
-        <td>TotalPacketsEgress</td>
-        <td>System.Int64</td>
+        <td>Missing</td>
+        <td>System.Boolean</td>
         <td />
       </tr>
       <tr>
@@ -100,6 +90,33 @@
         <td>
           Default='0'.
         </td>
+      </tr>
+      <tr>
+        <td>EntityPhysical</td>
+        <td>
+          <a href="NCM.EntityPhysical.html">NCM.EntityPhysical</a>
+        </td>
+        <td>
+        Defined by relationship NCM.EntityPhysicalHostsCiscoBootloadImages (System.Reference)
+      </td>
+      </tr>
+      <tr>
+        <td>NodeProperties</td>
+        <td>
+          <a href="NCM.NodeProperties.html">NCM.NodeProperties</a>
+        </td>
+        <td>
+        Defined by relationship NCM.NodePropertiesHostsCiscoBootloadImages (System.Reference)
+      </td>
+      </tr>
+      <tr>
+        <td>Nodes</td>
+        <td>
+          <a href="NCM.Nodes.html">NCM.Nodes</a>
+        </td>
+        <td>
+        Defined by relationship NCM.NodesHostsCiscoBootloadImages (System.Hosting)
+      </td>
       </tr>
     </table>
   </body>

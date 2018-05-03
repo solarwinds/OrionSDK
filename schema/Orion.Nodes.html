@@ -182,12 +182,32 @@
         <td />
       </tr>
       <tr>
+        <td>CPUCount</td>
+        <td>System.Int16</td>
+        <td />
+      </tr>
+      <tr>
         <td>CPULoad</td>
         <td>System.Int32</td>
         <td />
       </tr>
       <tr>
         <td>MemoryUsed</td>
+        <td>System.Double</td>
+        <td />
+      </tr>
+      <tr>
+        <td>LoadAverage1</td>
+        <td>System.Double</td>
+        <td />
+      </tr>
+      <tr>
+        <td>LoadAverage5</td>
+        <td>System.Double</td>
+        <td />
+      </tr>
+      <tr>
+        <td>LoadAverage15</td>
         <td>System.Double</td>
         <td />
       </tr>
@@ -945,6 +965,15 @@
       </td>
       </tr>
       <tr>
+        <td>LoadAverageHistory</td>
+        <td>
+          <a href="Orion.LoadAverage.html">Orion.LoadAverage</a>
+        </td>
+        <td>
+        Defined by relationship Orion.NodesHostsLoadAverage (System.Hosting)
+      </td>
+      </tr>
+      <tr>
         <td>Events</td>
         <td>
           <a href="Orion.Events.html">Orion.Events</a>
@@ -1023,24 +1052,6 @@
         </td>
         <td>
         Defined by relationship Orion.NodesHostsResponseTime (System.Hosting)
-      </td>
-      </tr>
-      <tr>
-        <td>Syslogs</td>
-        <td>
-          <a href="Orion.SysLog.html">Orion.SysLog</a>
-        </td>
-        <td>
-        Defined by relationship Orion.NodesHostsSyslogs (System.Reference)
-      </td>
-      </tr>
-      <tr>
-        <td>Traps</td>
-        <td>
-          <a href="Orion.Traps.html">Orion.Traps</a>
-        </td>
-        <td>
-        Defined by relationship Orion.NodesHostsTraps (System.Reference)
       </td>
       </tr>
       <tr>
@@ -1131,6 +1142,24 @@
         </td>
         <td>
         Defined by relationship Orion.NodesHostsNodeVlans (System.Hosting)
+      </td>
+      </tr>
+      <tr>
+        <td>Syslogs</td>
+        <td>
+          <a href="Orion.SysLog.html">Orion.SysLog</a>
+        </td>
+        <td>
+        Defined by relationship Orion.NodesHostsSyslogs (System.Reference)
+      </td>
+      </tr>
+      <tr>
+        <td>Traps</td>
+        <td>
+          <a href="Orion.Traps.html">Orion.Traps</a>
+        </td>
+        <td>
+        Defined by relationship Orion.NodesHostsTraps (System.Reference)
       </td>
       </tr>
       <tr>

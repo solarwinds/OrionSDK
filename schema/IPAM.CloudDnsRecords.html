@@ -12,7 +12,7 @@
       <a href="index.html">Index</a>
     </p>
     <h1>
-      <a name="Orion.NetFlow.AsConversationsTop">Orion.NetFlow.AsConversationsTop</a>
+      <a name="IPAM.CloudDnsRecords">IPAM.CloudDnsRecords</a>
     </h1>
     <p>
         Base type:
@@ -25,73 +25,108 @@
         <th>Notes</th>
       </tr>
       <tr>
-        <td>AsConversationID</td>
-        <td>System.String</td>
-        <td />
-      </tr>
-      <tr>
-        <td>AsConversationName</td>
-        <td>System.String</td>
-        <td />
-      </tr>
-      <tr>
-        <td>AsId1</td>
+        <td>DnsRecordId</td>
         <td>System.Int32</td>
         <td />
       </tr>
       <tr>
-        <td>AsId2</td>
+        <td>DnsZoneId</td>
         <td>System.Int32</td>
         <td />
       </tr>
       <tr>
-        <td>AsName1</td>
+        <td>AliasDnsName</td>
         <td>System.String</td>
         <td />
       </tr>
       <tr>
-        <td>AsName2</td>
+        <td>AliasEvaluateTargetHealth</td>
+        <td>System.Boolean</td>
+        <td />
+      </tr>
+      <tr>
+        <td>AliasHostedZoneId</td>
         <td>System.String</td>
         <td />
       </tr>
       <tr>
-        <td>NodeID</td>
+        <td>Failover</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>GeolocationContinentCode</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>GeolocationCountryCode</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>GeolocationSubdivisionCode</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>HealthCheckId</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>MultiValueAnswer</td>
+        <td>System.Boolean</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Name</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Region</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>SetIdentifier</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>TrafficPolicyInstanceId</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Ttl</td>
         <td>System.Int32</td>
         <td />
       </tr>
       <tr>
-        <td>InterfaceID</td>
+        <td>Type</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Weight</td>
         <td>System.Int32</td>
         <td />
       </tr>
       <tr>
-        <td>TotalBytes</td>
-        <td>System.Int64</td>
+        <td>Value</td>
+        <td>System.String</td>
         <td />
       </tr>
       <tr>
-        <td>TotalPackets</td>
-        <td>System.Int64</td>
+        <td>Metadata</td>
+        <td>System.String</td>
         <td />
       </tr>
       <tr>
-        <td>TotalBytesIngress</td>
-        <td>System.Int64</td>
-        <td />
-      </tr>
-      <tr>
-        <td>TotalBytesEgress</td>
-        <td>System.Int64</td>
-        <td />
-      </tr>
-      <tr>
-        <td>TotalPacketsIngress</td>
-        <td>System.Int64</td>
-        <td />
-      </tr>
-      <tr>
-        <td>TotalPacketsEgress</td>
-        <td>System.Int64</td>
+        <td>DetailsUrl</td>
+        <td>System.String</td>
         <td />
       </tr>
       <tr>
@@ -120,6 +155,15 @@
         <td>
           Default='0'.
         </td>
+      </tr>
+      <tr>
+        <td>DnsZoneId</td>
+        <td>
+          <a href="IPAM.CloudDnsZones.html">IPAM.CloudDnsZones</a>
+        </td>
+        <td>
+        Defined by relationship IPAM.CloudDnsRecords.DnsZoneId (System.Reference)
+      </td>
       </tr>
     </table>
   </body>

@@ -8,7 +8,7 @@ namespace SwqlStudio
 {
     internal class CachedParameters
     {
-        private static readonly Regex queryParamRegEx = new Regex(@"\@([\w.$]+|""[^""]+""|'[^']+')", RegexOptions.Compiled);
+        private static readonly Regex queryParamRegEx = new Regex(@"\@([\w.$]+|""[^""]+""|'[^']+')(?(=\[(.*?)\]))", RegexOptions.Compiled);
         private static readonly Dictionary<string, object> lastKnownValues = new Dictionary<string, object>();
         private PropertyBag current = new PropertyBag();
 
@@ -32,8 +32,9 @@ namespace SwqlStudio
 
             foreach (Match item in queryParamRegEx.Matches(query))
             {
-                string paramName = item.Value.Substring(1);
-                parsed[paramName] = string.Empty;
+                string paramName = item.Groups[1].Value;
+                string paramValue = item.Groups[2].Value;
+                parsed[paramName] = paramValue;
             }
 
             return parsed;

@@ -97,7 +97,14 @@ namespace SwqlStudio
                 return;
 
             var text = listView1.SelectedItems[0].SubItems[1].Text;
-            Clipboard.SetDataObject(text, true);
+            var param = listView1.SelectedItems[0].SubItems[2].Text;
+
+            var finalText = text;
+
+            if (!string.IsNullOrEmpty(param))
+                finalText += $"\n-- {param}";
+
+            Clipboard.SetDataObject(finalText, true);
         }
 
         private void ClearContent(object sender, EventArgs e)

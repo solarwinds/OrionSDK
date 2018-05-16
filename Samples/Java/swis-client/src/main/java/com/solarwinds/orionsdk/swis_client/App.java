@@ -6,7 +6,7 @@ public class App {
 	private static final String USERNAME = "admin";
 	private static final String PASSWORD = "";
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws InterruptedException {
 		ISwisClient swis = new SwisClient(HOSTNAME, USERNAME, PASSWORD);
 		Demo demo = new Demo(swis);
 
@@ -18,5 +18,6 @@ public class App {
 //		demo.testGrantUserAdminRights();
 //		demo.testDeleteUser();
 //		demo.testCreateGroup();
+//		demo.testDiscoverSnmpv3Node();
 	}
 }

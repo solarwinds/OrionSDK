@@ -6,17 +6,27 @@ import java.util.List;
 import java.util.Map;
 
 import com.google.gson.JsonElement;
+import com.solarwinds.orionsdk.discovery.CorePluginContext;
+import com.solarwinds.orionsdk.discovery.Credential;
+import com.solarwinds.orionsdk.discovery.DiscoveredObject;
+import com.solarwinds.orionsdk.discovery.DiscoveryResults;
+import com.solarwinds.orionsdk.discovery.IpAddress;
+import com.solarwinds.orionsdk.discovery.OrionDiscoveryManager;
+import com.solarwinds.orionsdk.discovery.PluginConfiguration;
+import com.solarwinds.orionsdk.discovery.StartDiscoveryContext;
 import com.solarwinds.orionsdk.swis_client.OrionAccountManager.WindowsAccountType;
 
 public class Demo {
 	private ISwisClient swis;
 	private OrionAccountManager accounts;
 	private OrionGroupManager groups;
+	private OrionDiscoveryManager discovery;
 
 	public Demo(ISwisClient swis) {
 		this.swis = swis;
 		this.accounts = new OrionAccountManager(swis);
 		this.groups = new OrionGroupManager(swis);
+		this.discovery = new OrionDiscoveryManager(swis);
 	}
 
 	public void testQuery() {
@@ -66,5 +76,30 @@ public class Demo {
 
 		groups.createGroup("Sample Java Group", 60, GroupRollupMode.Mixed, "Group created by Java sample", true,
 				members);
+	}
+
+	public void testDiscoverSnmpv3Node() throws InterruptedException {
+		CorePluginContext corePluginContext = new CorePluginContext();
+		corePluginContext.getBulkList().add(new IpAddress("10.199.4.3"));
+		corePluginContext.getCredentials().add(new Credential(6, 1));
+
+		String corePluginConfiguration = discovery.createCorePluginConfiguration(corePluginContext);
+
+		StartDiscoveryContext startDiscoveryContext = new StartDiscoveryContext();
+		startDiscoveryContext.setName("Demo.java");
+		startDiscoveryContext.setEngineId(1);
+		startDiscoveryContext.getPluginConfigurations().add(new PluginConfiguration(corePluginConfiguration));
+
+		int profileId = discovery.startDiscovery(startDiscoveryContext);
+
+		DiscoveryResults results = discovery.waitForCompletion(profileId);
+		System.out.println(String.format("Result: %s  ResultDescription: %s  ErrorMessage: %s  Objects discovered: %s",
+				results.getResult(), results.getResultDescription(), results.getErrorMessage(),
+				results.getDiscoveredObjects().size()));
+
+		for (DiscoveredObject obj : results.getDiscoveredObjects()) {
+			System.out.println(
+					String.format("%s %s %s", obj.getDisplayName(), obj.getEntityType(), obj.getNetObjectId()));
+		}
 	}
 }

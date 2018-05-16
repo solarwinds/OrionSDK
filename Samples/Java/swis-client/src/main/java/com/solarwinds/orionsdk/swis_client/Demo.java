@@ -1,5 +1,6 @@
 package com.solarwinds.orionsdk.swis_client;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -10,10 +11,12 @@ import com.solarwinds.orionsdk.swis_client.OrionAccountManager.WindowsAccountTyp
 public class Demo {
 	private ISwisClient swis;
 	private OrionAccountManager accounts;
+	private OrionGroupManager groups;
 
 	public Demo(ISwisClient swis) {
 		this.swis = swis;
 		this.accounts = new OrionAccountManager(swis);
+		this.groups = new OrionGroupManager(swis);
 	}
 
 	public void testQuery() {
@@ -54,5 +57,14 @@ public class Demo {
 	public void testDeleteUser() {
 		accounts.deleteAccount("bob");
 		System.out.println("bob is gone");
+	}
+
+	public void testCreateGroup() {
+		List<GroupMemberDefinition> members = new ArrayList<GroupMemberDefinition>();
+		members.add(new GroupMemberDefinition("Cisco Devices", "filter:/Orion.Nodes[Vendor='Cisco']"));
+		members.add(new GroupMemberDefinition("Windows Devices", "filter:/Orion.Nodes[Vendor='Windows']"));
+
+		groups.createGroup("Sample Java Group", 60, GroupRollupMode.Mixed, "Group created by Java sample", true,
+				members);
 	}
 }

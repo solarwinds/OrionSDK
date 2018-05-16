@@ -17,5 +17,6 @@ public class App {
 //		demo.testCreateWindowsAccount();
 //		demo.testGrantUserAdminRights();
 //		demo.testDeleteUser();
+//		demo.testCreateGroup();
 	}
 }

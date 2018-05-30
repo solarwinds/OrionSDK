@@ -4,15 +4,16 @@ use warnings;
 use REST::Client;
 use MIME::Base64;
 use URI::Encode qw(uri_encode);
+use JSON;
 use JSON::Parse ':all';
  
 ################################################################################
 # Configuration
 ################################################################################
  
-my $username = 'domain\username';  # user/pass works too for local SW accounts
-my $password = 'password_here';
-my $hostname = 'your_hostname';
+my $username = 'admin';  # user/pass works too for local SW accounts
+my $password = '';
+my $hostname = 'tim.swdev.local';
  
 ################################################################################
 # Execution
@@ -29,7 +30,7 @@ $client->setHost('https://' . $hostname . ':17778');
 $client->addHeader('Authorization', 'Basic ' . encode_base64("$username:$password", ''));
  
 # build query string
-my $query = sprintf("SELECT Caption, IPAddress FROM Orion.Nodes WHERE Vendor = '%s'", 'Cisco');
+my $query = sprintf("SELECT Caption, IPAddress, Uri FROM Orion.Nodes WHERE Vendor = '%s'", 'Cisco');
 my $response = $client->GET('/SolarWinds/InformationService/v3/Json/Query?query=' . uri_encode($query));
  
 # examine response
@@ -46,3 +47,11 @@ foreach my $node (@{$results->{results}}) {
     print "\n";
 }
 
+# Set a custom property on the first node that was returned
+my $nodeUri = $results->{results}[0]->{Uri};
+my $nodeCustomPropertiesUri = "$nodeUri/CustomProperties";
+print $nodeCustomPropertiesUri;
+my %customProperties = (Comments => "perl test comment");
+$response = $client->POST("/SolarWinds/InformationService/v3/Json/$nodeCustomPropertiesUri", 
+	encode_json \%customProperties,
+	{'Content-Type' => 'application/json'});

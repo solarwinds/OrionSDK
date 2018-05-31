@@ -17,3 +17,5 @@ packages\.inputs
 paket-files/
 
 \.paket/
+
+*.nupkg

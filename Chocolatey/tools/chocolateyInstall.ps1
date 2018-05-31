@@ -4,7 +4,7 @@ $ErrorActionPreference = 'Stop';
 
 $packageName= 'orionsdk'
 $toolsDir   = "$(Split-Path -parent $MyInvocation.MyCommand.Definition)"
-$url        = 'https://github.com/solarwinds/OrionSDK/releases/download/v2.3.123/OrionSDK.msi'
+$url        = 'https://github.com/solarwinds/OrionSDK/releases/download/v2.4.0.176/OrionSDK.msi'
 $url64      = $url
 
 $packageArgs = @{
@@ -18,9 +18,9 @@ $packageArgs = @{
   validExitCodes= @(0, 3010, 1641)
 
   softwareName  = 'orionsdk*'
-  checksum      = '4bade89485b5b9a4013aa59272b0bf3c43e8c94ea2c75ec675f7e3a5a31f1e66'
+  checksum      = '357d6e366164edbc3405142e00713b4a4a189017f52a4abb6e8268e75633c1c7'
   checksumType  = 'sha256'
-  checksum64    = '4bade89485b5b9a4013aa59272b0bf3c43e8c94ea2c75ec675f7e3a5a31f1e66'
+  checksum64    = '357d6e366164edbc3405142e00713b4a4a189017f52a4abb6e8268e75633c1c7'
   checksumType64= 'sha256'
 }
 

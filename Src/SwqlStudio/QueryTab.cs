@@ -103,7 +103,7 @@ namespace SwqlStudio
         {
             if (HasSubscription)
             {
-                this.SubscriptionManager.Unsubscribe(ConnectionInfo, subscriptionId);
+                this.SubscriptionManager.Unsubscribe(ConnectionInfo, subscriptionId, SubscriptionIndicationReceived);
                 this.subscriptionId = string.Empty;
             }
         }
@@ -705,7 +705,8 @@ namespace SwqlStudio
 
             try
             {
-                subscriptionId = this.SubscriptionManager.CreateSubscription(ConnectionInfo, arg.Query, SubscriptionIndicationReceived);
+                subscriptionId = this.SubscriptionManager
+                    .CreateSubscription(ConnectionInfo, arg.Query, SubscriptionIndicationReceived);
                 this.Invoke(new Action(() => this.ApplicationService.RefreshSelectedConnections()));
                 subscriptionWorker.ReportProgress(0, "Waiting for notifications");
             }

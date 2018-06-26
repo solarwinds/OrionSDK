@@ -16,17 +16,106 @@ namespace SwqlStudio.Subscriptions
     public class SubscriptionManager : INotificationSubscriber
     {
         private readonly static Log log = new Log();
-        private readonly ConcurrentDictionary<string, SubscriberCallback> subscriptions = new ConcurrentDictionary<string, SubscriberCallback>();
         private readonly ConcurrentDictionary<ConnectionInfo, SubscriptionInfo> proxies = new ConcurrentDictionary<ConnectionInfo, SubscriptionInfo>();
         
         private readonly SubscriptionServiceHost _subscriptionListener;
         private readonly string _activeSubscriberAddress;
 
-        class SubscriptionInfo
+        internal class SubscriptionCallbacks
         {
-            public List<string > SubscriptionIDs { get; } = new List<string>();
+            internal string Uri { get; }
+            internal string Id { get; set; }
 
-            public NotificationDeliveryServiceProxy Proxy { get; set; }
+            internal IEnumerable<SubscriberCallback> Callbacks => this.callbacks;
+            public bool Empty => !this.callbacks.Any();
+
+            private readonly List<SubscriberCallback> callbacks = new List<SubscriberCallback>();
+
+            public SubscriptionCallbacks(string uri)
+            {
+                this.Uri = uri;
+                this.Id = uri.Substring(uri.LastIndexOf("=") + 1);
+            }
+
+            internal void Add(SubscriberCallback callback)
+            {
+                if (!this.callbacks.Contains(callback))
+                    this.callbacks.Add(callback);
+            }
+
+            internal void Remove(SubscriberCallback callback)
+            {
+                this.callbacks.Remove(callback);
+            }
+        }
+
+        internal class SubscriptionInfo
+        {
+            private readonly ConnectionInfo connection;
+            public NotificationDeliveryServiceProxy Proxy { get; }
+
+            private readonly ConcurrentDictionary<string, SubscriptionCallbacks> subscriptions =
+                new ConcurrentDictionary<string, SubscriptionCallbacks>();
+
+            internal SubscriptionInfo(ConnectionInfo connection, NotificationDeliveryServiceProxy proxy)
+            {
+                Proxy = proxy;
+                this.connection = connection;
+            }
+
+            internal bool HasSubScription(string subscriptionId)
+            {
+                return this.subscriptions.Values.Any(s => s.Id == subscriptionId);
+            }
+
+            internal string Register(string query, SubscriberCallback callback,
+                Func<ConnectionInfo, string, string> subscribe)
+            {
+                SubscriptionCallbacks subscription;
+                var normalized = query.ToLower();
+
+                if (!this.subscriptions.TryGetValue(normalized, out subscription))
+                {
+                    var subscriptionUri = subscribe(this.connection, query);
+                    subscription = new SubscriptionCallbacks(subscriptionUri);
+                    this.subscriptions.TryAdd(normalized, subscription);
+                }
+
+                subscription.Add(callback);
+                return subscription.Uri;
+            }
+
+            internal void Remove(string subscriptionUri, SubscriberCallback callback)
+            {
+                var query = this.subscriptions.Where(kv => kv.Value.Uri == subscriptionUri)
+                    .Select(kv => kv.Key)
+                    .FirstOrDefault();
+
+                if (string.IsNullOrEmpty(query))
+                    return;
+                
+                var subscription = this.subscriptions[query];
+                subscription.Remove(callback);
+
+                if (subscription.Empty)
+                {
+                    this.subscriptions.TryRemove(query, out subscription);
+                    this.Unsubscribe(subscriptionUri);
+                }
+            }
+
+            private void Unsubscribe(string subscriptionUri)
+            {
+                if (this.connection.IsConnected)
+                    this.connection.Proxy.Delete(subscriptionUri);
+            }
+
+            internal IEnumerable<SubscriberCallback> CallBacks(string subscriptionId)
+            {
+                return this.subscriptions.Values.Where(v => v.Id == subscriptionId)
+                    .SelectMany(kv => kv.Callbacks)
+                    .ToList();
+            }
         }
 
         public SubscriptionManager()
@@ -36,29 +125,20 @@ namespace SwqlStudio.Subscriptions
             _activeSubscriberAddress = $"active://{Utility.GetFqdn()}/SolarWinds/SwqlStudio/{Process.GetCurrentProcess().Id}";
         }
 
-        public void Unsubscribe(ConnectionInfo connectionInfo, string subscriptionId)
+        public void Unsubscribe(ConnectionInfo connectionInfo, string subscriptionUri, SubscriberCallback callback)
         {
             try
             {
-                if (connectionInfo.IsConnected)
+                SubscriptionInfo subscriptionInfo;
+                if (proxies.TryGetValue(connectionInfo, out subscriptionInfo))
                 {
-                    connectionInfo.Proxy.Delete(subscriptionId);
+                    subscriptionInfo.Remove(subscriptionUri, callback);
                 }
             }
             catch (FaultException<InfoServiceFaultContract> ex)
             {
-                log.Debug($"Unable to unsubscribe {subscriptionId}.  Must have been deleted already", ex);
+                log.Debug($"Unable to unsubscribe {subscriptionUri}.  Must have been deleted already", ex);
             }
-
-            SubscriptionInfo subscriptionInfo;
-            if (proxies.TryGetValue(connectionInfo, out subscriptionInfo))
-            {
-                subscriptionInfo.SubscriptionIDs.Remove(subscriptionId);
-            }
-
-            var key = GetSubscriptionKeyFromUri(subscriptionId);
-            SubscriberCallback callback;
-            subscriptions.TryRemove(key, out callback);
         }
 
         public string CreateSubscription(ConnectionInfo connectionInfo, string subscriptionQuery, SubscriberCallback callback)
@@ -70,19 +150,12 @@ namespace SwqlStudio.Subscriptions
             if (!proxies.TryGetValue(connectionInfo, out subInfo))
             {
                 var listener = CreateListener(connectionInfo);
-
-                subInfo = new SubscriptionInfo() { Proxy = listener };
+                subInfo = new SubscriptionInfo(connectionInfo, listener);
                 proxies[connectionInfo] = subInfo;
                 connectionInfo.ConnectionClosing += ServerConnectionClosing;
             }
 
-            var subscriptionId = Subscribe(connectionInfo, subscriptionQuery);
-            subInfo.SubscriptionIDs.Add(subscriptionId);
-
-            var key = GetSubscriptionKeyFromUri(subscriptionId);
-            subscriptions.TryAdd(key, callback);
-
-            return subscriptionId;
+            return subInfo.Register(subscriptionQuery, callback, Subscribe);
         }
 
         private void ServerConnectionClosing(object sender, EventArgs e)
@@ -92,31 +165,26 @@ namespace SwqlStudio.Subscriptions
             SubscriptionInfo subscriptionInfo;
             if (proxies.TryRemove(connectionInfo, out subscriptionInfo))
             {
-                foreach (var id in subscriptionInfo.SubscriptionIDs.ToList())
-                    Unsubscribe(connectionInfo, id);
-
-                if (subscriptionInfo.Proxy != null)
+                var proxy = subscriptionInfo.Proxy;
+                if (proxy != null)
                 {
-                    subscriptionInfo.Proxy.Disconnect(_activeSubscriberAddress);
-                    subscriptionInfo.Proxy.Close();
+                    proxy.Disconnect(_activeSubscriberAddress);
+                    proxy.Close();
                 }
             }
-        }
-
-        private static string GetSubscriptionKeyFromUri(string subscriptionId)
-        {
-            var key = subscriptionId.Substring(subscriptionId.LastIndexOf("=") + 1);
-            return key;
         }
 
         public void OnIndication(string subscriptionId, string indicationType, PropertyBag indicationProperties,
             PropertyBag sourceInstanceProperties)
         {
-            SubscriberCallback targetSubscriber;
+            var targetSubscribers = this.proxies.Values
+                .Where(p => p.HasSubScription(subscriptionId))
+                .SelectMany(p => p.CallBacks(subscriptionId))
+                .ToList();
 
-            if (subscriptions.TryGetValue(subscriptionId, out targetSubscriber))
+            foreach (var callback in targetSubscribers)
             {
-                targetSubscriber(new IndicationEventArgs
+                callback(new IndicationEventArgs
                 {
                     SubscriptionID = subscriptionId
                     ,IndicationType = indicationType

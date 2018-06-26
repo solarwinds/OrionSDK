@@ -32,7 +32,7 @@ namespace SwqlStudio
         {
             if (!String.IsNullOrEmpty(subscriptionId) && ConnectionInfo.IsConnected)
             {
-                this.SubscriptionManager.Unsubscribe(ConnectionInfo, subscriptionId);
+                this.SubscriptionManager.Unsubscribe(ConnectionInfo, subscriptionId, SubscriptionIndicationReceived);
             }
         }
 
@@ -69,7 +69,8 @@ namespace SwqlStudio
             backgroundWorker1.ReportProgress(0, "Starting subscription...");
             try
             {
-                subscriptionId = this.SubscriptionManager.CreateSubscription(ConnectionInfo, "SUBSCRIBE System.QueryExecuted", SubscriptionIndicationReceived);
+                subscriptionId = this.SubscriptionManager
+                    .CreateSubscription(ConnectionInfo, "SUBSCRIBE System.QueryExecuted", SubscriptionIndicationReceived);
                 backgroundWorker1.ReportProgress(0, "Waiting for notifications");
             }
             catch (ApplicationException ex)

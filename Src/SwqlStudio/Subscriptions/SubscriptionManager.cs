@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Concurrent;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.ServiceModel;
@@ -16,18 +15,10 @@ namespace SwqlStudio.Subscriptions
     public class SubscriptionManager : INotificationSubscriber
     {
         private readonly static Log log = new Log();
-        private readonly ConcurrentDictionary<string, SubscriberCallback> subscriptions = new ConcurrentDictionary<string, SubscriberCallback>();
         private readonly ConcurrentDictionary<ConnectionInfo, SubscriptionInfo> proxies = new ConcurrentDictionary<ConnectionInfo, SubscriptionInfo>();
         
         private readonly SubscriptionServiceHost _subscriptionListener;
         private readonly string _activeSubscriberAddress;
-
-        class SubscriptionInfo
-        {
-            public List<string > SubscriptionIDs { get; } = new List<string>();
-
-            public NotificationDeliveryServiceProxy Proxy { get; set; }
-        }
 
         public SubscriptionManager()
         {
@@ -36,29 +27,20 @@ namespace SwqlStudio.Subscriptions
             _activeSubscriberAddress = $"active://{Utility.GetFqdn()}/SolarWinds/SwqlStudio/{Process.GetCurrentProcess().Id}";
         }
 
-        public void Unsubscribe(ConnectionInfo connectionInfo, string subscriptionId)
+        public void Unsubscribe(ConnectionInfo connectionInfo, string subscriptionUri, SubscriberCallback callback)
         {
             try
             {
-                if (connectionInfo.IsConnected)
+                SubscriptionInfo subscriptionInfo;
+                if (proxies.TryGetValue(connectionInfo, out subscriptionInfo))
                 {
-                    connectionInfo.Proxy.Delete(subscriptionId);
+                    subscriptionInfo.Remove(subscriptionUri, callback);
                 }
             }
             catch (FaultException<InfoServiceFaultContract> ex)
             {
-                log.Debug($"Unable to unsubscribe {subscriptionId}.  Must have been deleted already", ex);
+                log.Debug($"Unable to unsubscribe {subscriptionUri}.  Must have been deleted already", ex);
             }
-
-            SubscriptionInfo subscriptionInfo;
-            if (proxies.TryGetValue(connectionInfo, out subscriptionInfo))
-            {
-                subscriptionInfo.SubscriptionIDs.Remove(subscriptionId);
-            }
-
-            var key = GetSubscriptionKeyFromUri(subscriptionId);
-            SubscriberCallback callback;
-            subscriptions.TryRemove(key, out callback);
         }
 
         public string CreateSubscription(ConnectionInfo connectionInfo, string subscriptionQuery, SubscriberCallback callback)
@@ -69,54 +51,32 @@ namespace SwqlStudio.Subscriptions
             SubscriptionInfo subInfo;
             if (!proxies.TryGetValue(connectionInfo, out subInfo))
             {
-                var listener = CreateListener(connectionInfo);
-
-                subInfo = new SubscriptionInfo() { Proxy = listener };
+                subInfo = new SubscriptionInfo(connectionInfo);
                 proxies[connectionInfo] = subInfo;
                 connectionInfo.ConnectionClosing += ServerConnectionClosing;
             }
 
-            var subscriptionId = Subscribe(connectionInfo, subscriptionQuery);
-            subInfo.SubscriptionIDs.Add(subscriptionId);
-
-            var key = GetSubscriptionKeyFromUri(subscriptionId);
-            subscriptions.TryAdd(key, callback);
-
-            return subscriptionId;
+            return subInfo.Register(subscriptionQuery, callback, Subscribe);
         }
 
         private void ServerConnectionClosing(object sender, EventArgs e)
         {
             ConnectionInfo connectionInfo = (ConnectionInfo) sender;
-
             SubscriptionInfo subscriptionInfo;
-            if (proxies.TryRemove(connectionInfo, out subscriptionInfo))
-            {
-                foreach (var id in subscriptionInfo.SubscriptionIDs.ToList())
-                    Unsubscribe(connectionInfo, id);
-
-                if (subscriptionInfo.Proxy != null)
-                {
-                    subscriptionInfo.Proxy.Disconnect(_activeSubscriberAddress);
-                    subscriptionInfo.Proxy.Close();
-                }
-            }
-        }
-
-        private static string GetSubscriptionKeyFromUri(string subscriptionId)
-        {
-            var key = subscriptionId.Substring(subscriptionId.LastIndexOf("=") + 1);
-            return key;
+            proxies.TryRemove(connectionInfo, out subscriptionInfo);
         }
 
         public void OnIndication(string subscriptionId, string indicationType, PropertyBag indicationProperties,
             PropertyBag sourceInstanceProperties)
         {
-            SubscriberCallback targetSubscriber;
+            var targetSubscribers = this.proxies.Values
+                .Where(p => p.HasSubScription(subscriptionId))
+                .SelectMany(p => p.CallBacks(subscriptionId))
+                .ToList();
 
-            if (subscriptions.TryGetValue(subscriptionId, out targetSubscriber))
+            foreach (var callback in targetSubscribers)
             {
-                targetSubscriber(new IndicationEventArgs
+                callback(new IndicationEventArgs
                 {
                     SubscriptionID = subscriptionId
                     ,IndicationType = indicationType
@@ -126,7 +86,7 @@ namespace SwqlStudio.Subscriptions
             }
         }
 
-        private string Subscribe(ConnectionInfo connectioninfo, string query)
+        private SubscriptionCallbacks Subscribe(ConnectionInfo connectioninfo, string query)
         {
             var credentialType = connectioninfo.SupportsActiveSubscriptions ? "None" : _subscriptionListener.GetCredentialTypeForBinding(connectioninfo.Binding);
 
@@ -147,7 +107,9 @@ namespace SwqlStudio.Subscriptions
                 propertyBag.Add("Password", "subscriber");
             }
 
-            return ConnectionInfo.DoWithExceptionTranslation(() => connectioninfo.Proxy.Create("System.Subscription", propertyBag));
+            var subscriptionUri = ConnectionInfo.DoWithExceptionTranslation(() => connectioninfo.Proxy.Create("System.Subscription", propertyBag));
+            var listener = CreateListener(connectioninfo);
+            return new SubscriptionCallbacks(subscriptionUri, listener, _activeSubscriberAddress);
         }
 
         private NotificationDeliveryServiceProxy CreateListener(ConnectionInfo connectionInfo)

@@ -10,9 +10,29 @@ namespace SwqlStudio.Subscriptions
         internal string Id { get; set; }
 
         private readonly NotificationDeliveryServiceProxy proxy;
+        private readonly object itemsLock = new object();
 
-        internal IEnumerable<SubscriberCallback> Callbacks => this.callbacks;
-        public bool Empty => !this.callbacks.Any();
+        internal IEnumerable<SubscriberCallback> Callbacks
+        {
+            get
+            {
+                lock (this.itemsLock)
+                {
+                    return new List<SubscriberCallback>(this.callbacks);
+                }
+            }
+        }
+
+        public bool Empty
+        {
+            get
+            {
+                lock (this.itemsLock)
+                {
+                    return !this.callbacks.Any();
+                }
+            }
+        }
 
         private readonly List<SubscriberCallback> callbacks = new List<SubscriberCallback>();
 
@@ -26,21 +46,30 @@ namespace SwqlStudio.Subscriptions
 
         internal void Add(SubscriberCallback callback)
         {
-            if (!this.callbacks.Contains(callback))
-                this.callbacks.Add(callback);
+            lock (this.itemsLock)
+            {
+                if (!this.callbacks.Contains(callback))
+                    this.callbacks.Add(callback);
+            }
         }
 
         internal void Remove(SubscriberCallback callback)
         {
-            this.callbacks.Remove(callback);
+            lock (this.itemsLock)
+            {
+                this.callbacks.Remove(callback);
+            }
         }
 
         internal void CloseProxy()
         {
-            if (this.proxy != null)
+            lock (this.itemsLock)
             {
-                this.proxy.Disconnect(this.activeSubscriberAddress);
-                this.proxy.Close();
+                if (this.proxy != null)
+                {
+                    this.proxy.Disconnect(this.activeSubscriberAddress);
+                    this.proxy.Close();
+                }
             }
         }
     }

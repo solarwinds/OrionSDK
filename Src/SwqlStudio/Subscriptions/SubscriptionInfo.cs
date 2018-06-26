@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -8,9 +7,10 @@ namespace SwqlStudio.Subscriptions
     internal class SubscriptionInfo
     {
         private readonly ConnectionInfo connection;
+        private readonly object itemsLock = new object();
 
-        private readonly ConcurrentDictionary<string, SubscriptionCallbacks> subscriptions =
-            new ConcurrentDictionary<string, SubscriptionCallbacks>();
+        private readonly Dictionary<string, SubscriptionCallbacks> subscriptions =
+            new Dictionary<string, SubscriptionCallbacks>();
 
         internal SubscriptionInfo(ConnectionInfo connection)
         {
@@ -19,7 +19,10 @@ namespace SwqlStudio.Subscriptions
 
         internal bool HasSubScription(string subscriptionId)
         {
-            return this.subscriptions.Values.Any(s => s.Id == subscriptionId);
+            lock (this.itemsLock)
+            {
+                return this.subscriptions.Values.Any(s => s.Id == subscriptionId);
+            }
         }
 
         internal string Register(string query, SubscriberCallback callback,
@@ -28,10 +31,13 @@ namespace SwqlStudio.Subscriptions
             SubscriptionCallbacks subscription;
             var normalized = query.ToLower();
 
-            if (!this.subscriptions.TryGetValue(normalized, out subscription))
+            lock (this.itemsLock)
             {
-                subscription = subscribe(this.connection, query);
-                this.subscriptions.TryAdd(normalized, subscription);
+                if (!this.subscriptions.TryGetValue(normalized, out subscription))
+                {
+                    subscription = subscribe(this.connection, query);
+                    this.subscriptions.Add(normalized, subscription);
+                }
             }
 
             subscription.Add(callback);
@@ -40,21 +46,24 @@ namespace SwqlStudio.Subscriptions
 
         internal void Remove(string subscriptionUri, SubscriberCallback callback)
         {
-            var query = this.subscriptions.Where(kv => kv.Value.Uri == subscriptionUri)
-                .Select(kv => kv.Key)
-                .FirstOrDefault();
-
-            if (String.IsNullOrEmpty(query))
-                return;
-                
-            var subscription = this.subscriptions[query];
-            subscription.Remove(callback);
-
-            if (subscription.Empty)
+            lock (this.itemsLock)
             {
-                this.subscriptions.TryRemove(query, out subscription);
-                this.Unsubscribe(subscriptionUri);
-                subscription.CloseProxy();
+                var query = this.subscriptions.Where(kv => kv.Value.Uri == subscriptionUri)
+                    .Select(kv => kv.Key)
+                    .FirstOrDefault();
+
+                if (String.IsNullOrEmpty(query))
+                    return;
+
+                var subscription = this.subscriptions[query];
+                subscription.Remove(callback);
+
+                if (subscription.Empty)
+                {
+                    this.subscriptions.Remove(query);
+                    this.Unsubscribe(subscriptionUri);
+                    subscription.CloseProxy();
+                }
             }
         }
 
@@ -66,9 +75,12 @@ namespace SwqlStudio.Subscriptions
 
         internal IEnumerable<SubscriberCallback> CallBacks(string subscriptionId)
         {
-            return this.subscriptions.Values.Where(v => v.Id == subscriptionId)
-                .SelectMany(kv => kv.Callbacks)
-                .ToList();
+            lock (this.itemsLock)
+            {
+                return this.subscriptions.Values.Where(v => v.Id == subscriptionId)
+                    .SelectMany(kv => kv.Callbacks)
+                    .ToList();
+            }
         }
     }
 }

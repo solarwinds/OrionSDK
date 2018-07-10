@@ -307,6 +307,7 @@ namespace SwqlStudio
             this.logTextbox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.logTextbox.Size = new System.Drawing.Size(466, 206);
             this.logTextbox.TabIndex = 0;
+            this.logTextbox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.logTextbox_KeyDown);
             // 
             // notificationTab
             // 

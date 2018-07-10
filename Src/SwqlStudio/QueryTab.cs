@@ -205,6 +205,31 @@ namespace SwqlStudio
             {
                 CopyActiveGridCellToClipboard(dataGridView1);
             }
+            else
+            {
+                // if none of previous cases worked, try to find active control and copy contents of it
+                var activeControl = FindFocusedControl(this);
+                HandleCopyEventForActiveControl(activeControl);
+            }          
+        }
+
+        private void HandleCopyEventForActiveControl(Control activeControl)
+        {
+            if (activeControl is TextBox)
+            {
+                ((TextBox)activeControl).Copy();
+            }
+        }
+
+        private Control FindFocusedControl(Control control)
+        {
+            var container = control as IContainerControl;
+            while (container != null)
+            {
+                control = container.ActiveControl;
+                container = control as IContainerControl;
+            }
+            return control;
         }
 
         private void toolStripMenuItem2_Click(object sender, System.EventArgs e)
@@ -823,6 +848,18 @@ namespace SwqlStudio
         internal void Redo()
         {
             this.sciTextEditorControl1.Redo();
+        }
+
+        private void logTextbox_KeyDown(object sender, KeyEventArgs e)
+        {
+            // a bit ugly, but considering the fact that CTRL+A doesn't work
+            // if TextBox is multiline...
+            // https://stackoverflow.com/questions/435433/what-is-the-preferred-way-to-find-focused-control-in-winforms-app
+            if (e.Control && e.KeyCode == Keys.A)
+            {
+                if (sender != null)
+                    ((TextBox)sender).SelectAll();
+            }
         }
     }
 }

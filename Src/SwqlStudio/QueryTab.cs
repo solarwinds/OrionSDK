@@ -854,7 +854,7 @@ namespace SwqlStudio
         {
             // a bit ugly, but considering the fact that CTRL+A doesn't work
             // if TextBox is multiline...
-            // https://stackoverflow.com/questions/435433/what-is-the-preferred-way-to-find-focused-control-in-winforms-app
+            // https://msdn.microsoft.com/en-us/library/system.windows.forms.textboxbase.shortcutsenabled(v=vs.100).aspx
             if (e.Control && e.KeyCode == Keys.A)
             {
                 if (sender != null)

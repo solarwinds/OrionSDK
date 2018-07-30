@@ -330,6 +330,7 @@
   <ItemGroup>
     <Content Include="ResizableTextAreaStyle.css" />
     <Content Include="Main.ico" />
+    <None Include="Resources\Pause_16x.png" />
     <None Include="Resources\Refresh_16x.png" />
     <None Include="Resources\TextFile_16x.ico" />
     <None Include="Resources\Run_16x.png" />

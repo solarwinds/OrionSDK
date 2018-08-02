@@ -41,10 +41,10 @@ namespace SwqlStudio.Utils
                 decimal tempNum = 0;
                 currentParameterIndex++;
                 var isNumber = decimal.TryParse(param.Value.ToString(), out tempNum);
-                var format = "{0}='{1}'";
+                var format = "{0}={1}";
                 var isLastElement = currentParameterIndex == parametersCount;
                 format = isLastElement ? format : string.Concat(format, ";");
-                result.Append(string.Format(format, param.Key, param.Value));
+                result.Append(string.Format(format, param.Key, QuoteForPowerShell(param.Value.ToString())));
             }
 
             return string.Format("@{{{0}}}", result.ToString());

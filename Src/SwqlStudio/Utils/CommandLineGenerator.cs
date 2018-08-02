@@ -1,4 +1,6 @@
-﻿using System;
+﻿using SolarWinds.InformationService.Contract2;
+using System;
+using System.Globalization;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Web;
@@ -7,13 +9,13 @@ namespace SwqlStudio.Utils
 {
     internal static class CommandLineGenerator
     {
-        public static string GetQueryForCurlCmd(string query, ConnectionInfo connection)
+        public static string GetQueryForCurlCmd(string query, ConnectionInfo connection, PropertyBag parameters)
         {
             string creds = QuoteForCmd($"{connection.UserName}:{connection.Password}");
             return $"curl.exe -k -u {creds} {GetUrlForQuery(query, connection)}";
         }
 
-        public static string GetQueryForCurlBash(string query, ConnectionInfo connection)
+        public static string GetQueryForCurlBash(string query, ConnectionInfo connection, PropertyBag parameters)
         {
             string creds = $"{connection.UserName}:{connection.Password}";
             var url = GetUrlForQuery(query, connection);
@@ -21,11 +23,31 @@ namespace SwqlStudio.Utils
             return $"curl -k -u {QuoteForBash(creds)} {QuoteForBash(url)}";
         }
 
-        public static string GetQueryForPowerShellGetSwisData(string query, ConnectionInfo connection)
+        public static string GetQueryForPowerShellGetSwisData(string query, ConnectionInfo connection, PropertyBag parameters)
         {
             Func<string, string> q = QuoteForPowerShell;
+            var paramsObjectString = GetParamsObjectInPowershellFormat(parameters);
             return $"Get-SwisData (Connect-Swis -Hostname {connection.Server} -Username {q(connection.UserName)} " +
-                   $"-Password {q(connection.Password)}) -Query {q(CollapseWhitespace(query))}";
+                   $"-Password {q(connection.Password)}) -Query {q(CollapseWhitespace(query))} -Parameters {paramsObjectString}";
+        }
+
+        private static string GetParamsObjectInPowershellFormat(PropertyBag parameters)
+        {
+            var result = new StringBuilder();
+            var parametersCount = parameters.Count;
+            var currentParameterIndex = 0;
+            foreach (var param in parameters)
+            {
+                decimal tempNum = 0;
+                currentParameterIndex++;
+                var isNumber = decimal.TryParse(param.Value.ToString(), out tempNum);
+                var format = "{0}='{1}'";
+                var isLastElement = currentParameterIndex == parametersCount;
+                format = isLastElement ? format : string.Concat(format, ";");
+                result.Append(string.Format(format, param.Key, param.Value));
+            }
+
+            return string.Format("@{{{0}}}", result.ToString());
         }
 
         private static string GetUrlForQuery(string query, ConnectionInfo connection)

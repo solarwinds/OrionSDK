@@ -459,14 +459,15 @@ namespace SwqlStudio
             CopyQueryAs(CommandLineGenerator.GetQueryForPowerShellGetSwisData);
         }
 
-        private void CopyQueryAs(Func<string, ConnectionInfo, string> formatter)
+        private void CopyQueryAs(Func<string, ConnectionInfo, PropertyBag, string> formatter)
         {
             var connection = filesDock.ActiveConnectionTab?.ConnectionInfo;
             if (connection == null)
                 return;
 
             var query = filesDock.ActiveQueryTab.QueryText;
-            string command = formatter(query, connection);
+            var parameters = filesDock.QueryParameters;
+            string command = formatter(query, connection, parameters);
             Clipboard.SetText(command);
         }
 

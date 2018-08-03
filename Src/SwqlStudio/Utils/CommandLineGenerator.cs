@@ -1,6 +1,7 @@
 ﻿using SolarWinds.InformationService.Contract2;
 using System;
 using System.Globalization;
+using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Web;
@@ -33,21 +34,11 @@ namespace SwqlStudio.Utils
 
         private static string GetParamsObjectInPowershellFormat(PropertyBag parameters)
         {
-            var result = new StringBuilder();
-            var parametersCount = parameters.Count;
-            var currentParameterIndex = 0;
-            foreach (var param in parameters)
-            {
-                decimal tempNum = 0;
-                currentParameterIndex++;
-                var isNumber = decimal.TryParse(param.Value.ToString(), out tempNum);
-                var format = "{0}={1}";
-                var isLastElement = currentParameterIndex == parametersCount;
-                format = isLastElement ? format : string.Concat(format, ";");
-                result.Append(string.Format(format, param.Key, QuoteForPowerShell(param.Value.ToString())));
-            }
+            var parametersSerialized = string.Join(
+                ";", 
+                parameters.Select(x => string.Format("{0}={1}", x.Key, QuoteForPowerShell(x.Value.ToString()))));
 
-            return string.Format("@{{{0}}}", result.ToString());
+            return string.Format("@{{{0}}}", parametersSerialized.ToString());
         }
 
         private static string GetUrlForQuery(string query, ConnectionInfo connection)

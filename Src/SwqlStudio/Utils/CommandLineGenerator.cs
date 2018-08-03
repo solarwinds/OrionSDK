@@ -1,6 +1,5 @@
 ﻿using SolarWinds.InformationService.Contract2;
 using System;
-using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -13,7 +12,22 @@ namespace SwqlStudio.Utils
         public static string GetQueryForCurlCmd(string query, ConnectionInfo connection, PropertyBag parameters)
         {
             string creds = QuoteForCmd($"{connection.UserName}:{connection.Password}");
-            return $"curl.exe -k -u {creds} {GetUrlForQuery(query, connection)}";
+            if (!parameters.Any())
+            {
+                return $"curl.exe -k -u {creds} {GetUrlForQuery(query, connection)}";
+            }
+            else
+            {
+                var escapedQuery = CollapseWhitespace(query);
+                var postUrl = $"https://{connection.Server}:17778/SolarWinds/InformationService/v3/Json/Query";
+                var parametersSerialized = string.Join(
+                ",",
+                parameters.Select(x => string.Format("\"{0}\" : \"{1}\"", x.Key, x.Value.ToString())));
+
+                var postData = $"{{ \"query\": \"{escapedQuery}\", \"parameters\": {{{parametersSerialized}}}".Replace("\"", "\\\"");
+
+                return $"curl -X POST -d \"{postData}}}\" {postUrl} --insecure -u {creds} --header \"Content-Type:application/json\"";
+            }
         }
 
         public static string GetQueryForCurlBash(string query, ConnectionInfo connection, PropertyBag parameters)
@@ -21,7 +35,14 @@ namespace SwqlStudio.Utils
             string creds = $"{connection.UserName}:{connection.Password}";
             var url = GetUrlForQuery(query, connection);
             Func<string, string> q = QuoteForBash;
-            return $"curl -k -u {QuoteForBash(creds)} {QuoteForBash(url)}";
+            if (!parameters.Any())
+            {
+                return $"curl -k -u {QuoteForBash(creds)} {QuoteForBash(url)}";
+            }
+            else
+            {
+                return GetQueryForCurlCmd(query, connection, parameters);
+            }
         }
 
         public static string GetQueryForPowerShellGetSwisData(string query, ConnectionInfo connection, PropertyBag parameters)
@@ -46,7 +67,7 @@ namespace SwqlStudio.Utils
             var encodedQuery = HttpUtility.UrlEncode(CollapseWhitespace(query));
             return $"https://{connection.Server}:17778/SolarWinds/InformationService/v3/Json/Query?query={encodedQuery}";
         }
-        
+
         private static string CollapseWhitespace(string str)
         {
             return Regex.Replace(str.Trim(), @"\s+", " ");

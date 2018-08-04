@@ -12,6 +12,8 @@ namespace SwqlStudio
         private static readonly Dictionary<string, object> lastKnownValues = new Dictionary<string, object>();
         private PropertyBag current = new PropertyBag();
 
+        private static string unknownValue = string.Empty;
+
         internal void Put(PropertyBag toPreserve)
         {
             this.current = toPreserve;
@@ -33,7 +35,7 @@ namespace SwqlStudio
             foreach (Match item in queryParamRegEx.Matches(query))
             {
                 string paramName = item.Groups[1].Value;
-                string paramValue = item.Groups[2].Value;
+                string paramValue = item.Groups[2].Success ? item.Groups[2].Value : unknownValue;
                 parsed[paramName] = paramValue;
             }
 
@@ -52,7 +54,11 @@ namespace SwqlStudio
         {
             foreach (var key in source.Keys.Where(toUpdate.ContainsKey))
             {
-                toUpdate[key] = source[key];
+                // update from cache only in case value wasn't fetched from query already
+                if (object.ReferenceEquals(toUpdate[key], unknownValue))
+                {
+                    toUpdate[key] = source[key];
+                }
             }
         }
 

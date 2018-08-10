@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Linq;
 using System.Windows.Forms;
 using SolarWinds.InformationService.Contract2;
 using SwqlStudio.Metadata;
@@ -8,11 +8,10 @@ namespace SwqlStudio
 {
     public partial class CrudTab : TabTemplate, IConnectionTab
     {
-        private const int ControlsMargin = 3;
+        private const string SwisUri = "SwisUri";
+
         private readonly CrudOperation _operation;
 
-        private readonly Dictionary<Property, TextBox> _textboxes = new Dictionary<Property, TextBox>();
-        private TextBox _uri;
         private Entity _entity;
 
         public CrudTab(CrudOperation operation)
@@ -27,63 +26,52 @@ namespace SwqlStudio
             set
             {
                 _entity = value;
-                CreateSubComponents();
+                BindProperties();
+                CommitButton.Text = _operation.ToString();
             }
         }
 
         public event EventHandler CloseItself;
 
-        private void CreateSubComponents()
+        private void BindProperties()
         {
-            _textboxes.Clear();
-            container.Controls.Clear();
-            container.SuspendLayout();
-            try
+            crudPropertyBindingSource.Clear();
+
+            bool createProperties = true;
+            switch (_operation)
             {
-                var y = 0;
-
-                bool createProperties = true;
-                switch (_operation)
-                {
-                    case CrudOperation.Create:
-                        break;
-                    case CrudOperation.Delete:
-                        createProperties = false;
-                        goto case CrudOperation.Update;
-                    case CrudOperation.Update:
-                        _uri = CreateLabelAndTextbox("SwisUri", ref y);
-                        y += ControlsMargin * 3;
-                        break;
-                    default:
-                        throw new ArgumentOutOfRangeException();
-                }
-
-                // for delete, uri is enough
-                if (createProperties)
-                {
-                    foreach (var property in _entity.Properties)
+                case CrudOperation.Create:
+                    break;
+                case CrudOperation.Delete:
+                    createProperties = false;
+                    goto case CrudOperation.Update;
+                case CrudOperation.Update:
+                    crudPropertyBindingSource.Add(new CrudProperty(new Property()
                     {
-                        var textBox = CreateLabelAndTextbox(property.Name, ref y);
-
-                        _textboxes[property] = textBox;
-                    }
-                }
-
-                var commit = new Button();
-                container.Controls.Add(commit);
-
-                commit.Text = _operation.ToString();
-                commit.Top = y;
-                commit.AutoSize = true;
-                commit.Click += OnCommit;
+                        IsKey = true,
+                        Name = SwisUri,
+                        Type = typeof(string).Name
+                    }));
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
             }
-            finally
+
+            // for delete, uri is enough
+            if (createProperties)
             {
-                container.ResumeLayout();
+                foreach (var property in _entity.Properties
+                    .OrderByDescending(p => p.IsKey)
+                    .ThenBy(p=> p.IsNavigable)
+                    .ThenBy(p=> p.IsInherited)
+                    .ThenBy(p => p.Name))
+                {
+                    crudPropertyBindingSource.Add(new CrudProperty(property));
+                }
             }
         }
 
-        private void OnCommit(object sender, EventArgs e)
+        private void CommitButton_Click(object sender, EventArgs e)
         {
             if (ConnectionInfo == null)
                 return;
@@ -100,11 +88,11 @@ namespace SwqlStudio
                         message = $"Created: {rv}";
                         break;
                     case CrudOperation.Update:
-                        ConnectionInfo.Proxy.Update(_uri.Text, propertyBag);
+                        ConnectionInfo.Proxy.Update(((CrudProperty)crudPropertyBindingSource[0]).Value, propertyBag);
                         message = "OK";
                         break;
                     case CrudOperation.Delete:
-                        ConnectionInfo.Proxy.Delete(_uri.Text);
+                        ConnectionInfo.Proxy.Delete(((CrudProperty)crudPropertyBindingSource[0]).Value);
                         message = "OK";
                         break;
                     default:
@@ -126,11 +114,11 @@ namespace SwqlStudio
         private PropertyBag CreatePropertyBag()
         {
             var rv = new PropertyBag();
-            foreach (var property in _textboxes)
+            foreach (CrudProperty property in crudPropertyBindingSource)
             {
-                if (!string.IsNullOrEmpty(property.Value.Text))
+                if (!string.IsNullOrEmpty(property.Value))
                 {
-                    rv[property.Key.Name] = property.Value.Text;
+                    rv[property.Name] = property.Value;
                 }
             }
 
@@ -138,29 +126,18 @@ namespace SwqlStudio
         }
 
 
-        private TextBox CreateLabelAndTextbox(string name, ref int y)
-        {
-            var label = new Label();
-            container.Controls.Add(label);
-
-            label.Text = name;
-            label.AutoSize = true;
-            label.Top = y;
-            y += label.Height + ControlsMargin;
-
-            var textBox = new TextBox();
-            container.Controls.Add(textBox);
-            textBox.Top = y;
-            textBox.Anchor = AnchorStyles.Left | AnchorStyles.Top | AnchorStyles.Right;
-            textBox.Width = container.Width - ControlsMargin * 2;
-            textBox.Left = ControlsMargin;
-            y += textBox.Height + ControlsMargin;
-            return textBox;
-        }
-
         protected virtual void OnCloseItself()
         {
             CloseItself?.Invoke(this, EventArgs.Empty);
+        }
+
+        private void propertiesDataGridView_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            if (e.ColumnIndex == 0)
+            {
+                int imageIndex = (int) propertiesDataGridView[e.ColumnIndex, e.RowIndex].Value;
+                e.Value = propertiesImageList.Images[imageIndex];
+            }
         }
     }
 }

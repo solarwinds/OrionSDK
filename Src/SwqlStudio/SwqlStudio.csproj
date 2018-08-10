@@ -132,6 +132,7 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="CrudOperation.cs" />
+    <Compile Include="CrudProperty.cs" />
     <Compile Include="CrudTab.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -263,9 +264,11 @@
     </EmbeddedResource>
     <EmbeddedResource Include="CrudTab.resx">
       <DependentUpon>CrudTab.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="EntityClassGraphForm.resx">
       <DependentUpon>EntityClassGraphForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="InvokeVerbTab.resx">
       <DependentUpon>InvokeVerbTab.cs</DependentUpon>
@@ -286,6 +289,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="SubscriptionTab.resx">
       <DependentUpon>SubscriptionTab.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="XmlRender\XmlBrowser.resx">
       <DependentUpon>XmlBrowser.cs</DependentUpon>
@@ -294,6 +298,7 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="packages.config" />
+    <None Include="Properties\DataSources\CrudProperty.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

@@ -1,0 +1,94 @@
+﻿
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <title>SolarWinds Information Service v3.0 Schema Documentation</title>
+    <link href="SchemaDoc.css" type="text/css" rel="stylesheet" />
+  </head>
+  <body>
+    <h1>SolarWinds Information Service v3.0 Schema Documentation</h1>
+    <p>
+      <a href="index.html">Index</a>
+    </p>
+    <h1>
+      <a name="Orion.SCM.NodesProfiles">Orion.SCM.NodesProfiles</a>
+    </h1>
+    <p>
+        Base type:
+        <a href="System.Entity.html">System.Entity</a></p>
+    <p>
+        Summary:
+        
+      This entity represents mapping table for M:N relationship between SCM Nodes and SCM Profiles.
+    </p>
+    <h2>Properties</h2>
+    <table>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Notes</th>
+      </tr>
+      <tr>
+        <td>NodeID</td>
+        <td>System.Int32</td>
+        <td />
+      </tr>
+      <tr>
+        <td>ProfileID</td>
+        <td>System.Int32</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Assigned</td>
+        <td>System.DateTime</td>
+        <td />
+      </tr>
+      <tr>
+        <td>DisplayName</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Description</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>InstanceType</td>
+        <td>System.Type</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Uri</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>InstanceSiteId</td>
+        <td>System.Int32</td>
+        <td>
+          Default='0'.
+        </td>
+      </tr>
+      <tr>
+        <td>SCMNode</td>
+        <td>
+          <a href="Orion.SCM.ServerConfiguration.html">Orion.SCM.ServerConfiguration</a>
+        </td>
+        <td>
+        Defined by relationship NodeReferencesOrion.SCM.NodesProfiles (System.Reference)
+      </td>
+      </tr>
+      <tr>
+        <td>Profile</td>
+        <td>
+          <a href="Orion.SCM.Profiles.html">Orion.SCM.Profiles</a>
+        </td>
+        <td>
+        Defined by relationship ProfileReferencesOrion.SCM.NodesProfiles (System.Reference)
+      </td>
+      </tr>
+    </table>
+  </body>
+</html>

@@ -12,7 +12,7 @@
       <a href="index.html">Index</a>
     </p>
     <h1>
-      <a name="Orion.MapStudioFiles">Orion.MapStudioFiles</a>
+      <a name="Orion.OLM.LogEntry">Orion.OLM.LogEntry</a>
     </h1>
     <p>
         Base type:
@@ -25,57 +25,47 @@
         <th>Notes</th>
       </tr>
       <tr>
-        <td>FileId</td>
-        <td>System.Guid</td>
+        <td>LogEntryID</td>
+        <td>System.Int64</td>
         <td />
       </tr>
       <tr>
-        <td>FileName</td>
-        <td>System.String</td>
-        <td />
-      </tr>
-      <tr>
-        <td>FileData</td>
-        <td>System.Binary</td>
-        <td />
-      </tr>
-      <tr>
-        <td>Timestamp</td>
-        <td>System.DateTime</td>
-        <td />
-      </tr>
-      <tr>
-        <td>Owner</td>
-        <td>System.String</td>
-        <td />
-      </tr>
-      <tr>
-        <td>UpdateUser</td>
-        <td>System.String</td>
-        <td />
-      </tr>
-      <tr>
-        <td>IsDeleted</td>
-        <td>System.Boolean</td>
-        <td />
-      </tr>
-      <tr>
-        <td>LockUser</td>
-        <td>System.String</td>
-        <td />
-      </tr>
-      <tr>
-        <td>FileType</td>
+        <td>LogEntryTypeID</td>
         <td>System.Int32</td>
         <td />
       </tr>
       <tr>
-        <td>LockDate</td>
+        <td>LogEntryLevelID</td>
+        <td>System.Int32</td>
+        <td />
+      </tr>
+      <tr>
+        <td>NodeID</td>
+        <td>System.Int32</td>
+        <td />
+      </tr>
+      <tr>
+        <td>MessageSourceID</td>
+        <td>System.Int32</td>
+        <td />
+      </tr>
+      <tr>
+        <td>DateTime</td>
         <td>System.DateTime</td>
         <td />
       </tr>
       <tr>
-        <td>ComputerName</td>
+        <td>MessageDateTime</td>
+        <td>System.DateTime</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Message</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Level</td>
         <td>System.String</td>
         <td />
       </tr>
@@ -107,12 +97,39 @@
         </td>
       </tr>
       <tr>
-        <td>WirelessHeatMap</td>
+        <td>LogType</td>
         <td>
-          <a href="Orion.Map.html">Orion.Map</a>
+          <a href="Orion.OLM.LogEntryType.html">Orion.OLM.LogEntryType</a>
         </td>
         <td>
-        Defined by relationship Orion.MapToMapStudioFiles (System.Reference)
+        Defined by relationship Orion.OLMLogEntryTypes (System.Reference)
+      </td>
+      </tr>
+      <tr>
+        <td>FieldValues</td>
+        <td>
+          <a href="Orion.OLM.LogEntryFieldValue.html">Orion.OLM.LogEntryFieldValue</a>
+        </td>
+        <td>
+        Defined by relationship Orion.OLMLogEntryFieldValues (System.Reference)
+      </td>
+      </tr>
+      <tr>
+        <td>Tags</td>
+        <td>
+          <a href="Orion.OLM.Tags.html">Orion.OLM.Tags</a>
+        </td>
+        <td>
+        Defined by relationship Orion.OLMLogEntryTags (System.Reference)
+      </td>
+      </tr>
+      <tr>
+        <td>LogMessageSource</td>
+        <td>
+          <a href="Orion.OLM.MessageSources.html">Orion.OLM.MessageSources</a>
+        </td>
+        <td>
+        Defined by relationship Orion.OLMMessageSourcesLogEntry (System.Reference)
       </td>
       </tr>
     </table>
@@ -125,44 +142,20 @@
         <th>Returns</th>
       </tr>
       <tr>
-        <td>InsertFile</td>
+        <td>UidMaxForDate</td>
         <td />
         <td />
         <td />
       </tr>
       <tr>
-        <td>UpdateFile</td>
+        <td>UidMinForDate</td>
         <td />
         <td />
         <td />
       </tr>
       <tr>
-        <td>LockFile</td>
+        <td>UidExtractDate</td>
         <td />
-        <td />
-        <td />
-      </tr>
-      <tr>
-        <td>LockFileTable</td>
-        <td />
-        <td />
-        <td />
-      </tr>
-      <tr>
-        <td>UnlockAllFiles</td>
-        <td />
-        <td />
-        <td />
-      </tr>
-      <tr>
-        <td>DeleteFile</td>
-        <td />
-        <td />
-        <td />
-      </tr>
-      <tr>
-        <td>GetMapStyle</td>
-        <td>Get map style of the map</td>
         <td />
         <td />
       </tr>

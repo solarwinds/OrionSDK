@@ -1,0 +1,110 @@
+﻿
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <title>SolarWinds Information Service v3.0 Schema Documentation</title>
+    <link href="SchemaDoc.css" type="text/css" rel="stylesheet" />
+  </head>
+  <body>
+    <h1>SolarWinds Information Service v3.0 Schema Documentation</h1>
+    <p>
+      <a href="index.html">Index</a>
+    </p>
+    <h1>
+      <a name="Orion.SCM.ProfileElements">Orion.SCM.ProfileElements</a>
+    </h1>
+    <p>
+        Base type:
+        <a href="System.Entity.html">System.Entity</a></p>
+    <p>
+        Summary:
+        
+      This entity represents monitored element for SCM profile, which could be set and maintained by a user.
+      Monitored element can represent file or registry key which is monitored by superior profile.
+    </p>
+    <h2>Properties</h2>
+    <table>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Notes</th>
+      </tr>
+      <tr>
+        <td>ElementID</td>
+        <td>System.Int32</td>
+        <td />
+      </tr>
+      <tr>
+        <td>ProfileID</td>
+        <td>System.Int32</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Type</td>
+        <td>System.Int16</td>
+        <td />
+      </tr>
+      <tr>
+        <td>DisplayAlias</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Settings</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Description</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>DisplayName</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Description</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>InstanceType</td>
+        <td>System.Type</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Uri</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>InstanceSiteId</td>
+        <td>System.Int32</td>
+        <td>
+          Default='0'.
+        </td>
+      </tr>
+      <tr>
+        <td>PolledElements</td>
+        <td>
+          <a href="Orion.SCM.Results.PolledElements.html">Orion.SCM.Results.PolledElements</a>
+        </td>
+        <td>
+        Defined by relationship Orion.SCM.ProfilesElementsReferencesPolledElements (System.Reference)
+      </td>
+      </tr>
+      <tr>
+        <td>Profile</td>
+        <td>
+          <a href="Orion.SCM.Profiles.html">Orion.SCM.Profiles</a>
+        </td>
+        <td>
+        Defined by relationship Orion.SCM.ProfilesReferencesProfileElements (System.Reference)
+      </td>
+      </tr>
+    </table>
+  </body>
+</html>

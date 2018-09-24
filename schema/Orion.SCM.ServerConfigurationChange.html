@@ -12,15 +12,17 @@
       <a href="index.html">Index</a>
     </p>
     <h1>
-      <a name="Orion.VIM.ManagedEntity">Orion.VIM.ManagedEntity</a>
+      <a name="Orion.SCM.ServerConfigurationChange">Orion.SCM.ServerConfigurationChange</a>
     </h1>
     <p>Abstract</p>
     <p>
         Base type:
-        <a href="System.Entity.html">System.Entity</a></p>
+        <a href="System.Indication.html">System.Indication</a></p>
     <p>
         Summary:
-        Managed Entity</p>
+        
+      This entity represents indication containing info about configuration change on server.
+    </p>
     <h2>Properties</h2>
     <table>
       <tr>
@@ -29,56 +31,64 @@
         <th>Notes</th>
       </tr>
       <tr>
-        <td>Status</td>
+        <td>NodeID</td>
         <td>System.Int32</td>
-        <td>The status of a entity.</td>
+        <td />
       </tr>
       <tr>
-        <td>StatusDescription</td>
+        <td>ProfileName</td>
         <td>System.String</td>
-        <td>The string value that contains entity status description.</td>
+        <td />
       </tr>
       <tr>
-        <td>StatusLED</td>
+        <td>ElementPath</td>
         <td>System.String</td>
-        <td>The string value that contains LED status.</td>
+        <td />
       </tr>
       <tr>
-        <td>UnManaged</td>
-        <td>System.Boolean</td>
-        <td>
-          Default='false'.
-        The boolean value that specifies if entity is unmanaged.</td>
+        <td>PolledElementPath</td>
+        <td>System.String</td>
+        <td />
       </tr>
       <tr>
-        <td>UnManageFrom</td>
+        <td>ChangeType</td>
+        <td>System.Int32</td>
+        <td />
+      </tr>
+      <tr>
+        <td>ChangeDetectedOn</td>
         <td>System.DateTime</td>
-        <td>The date and time from which entity is unmanaged.</td>
+        <td />
       </tr>
       <tr>
-        <td>UnManageUntil</td>
+        <td>CompareUrl</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Description</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>IndicationID</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>IndicationTime</td>
         <td>System.DateTime</td>
-        <td>The date and time until which entity is unmanaged.</td>
+        <td />
       </tr>
       <tr>
-        <td>StatusIconHint</td>
-        <td>System.String</td>
-        <td>The string value that contains hint icon status.</td>
+        <td>IndicationSequence</td>
+        <td>System.Int64</td>
+        <td />
       </tr>
       <tr>
-        <td>TriggeredAlarmDescription</td>
+        <td>AccountID</td>
         <td>System.String</td>
-        <td>The string value that contains triggered alarm description.</td>
-      </tr>
-      <tr>
-        <td>DetailsUrl</td>
-        <td>System.String</td>
-        <td>URL to application details page. Used in alerting.</td>
-      </tr>
-      <tr>
-        <td>Image</td>
-        <td>System.String</td>
-        <td>Image.</td>
+        <td />
       </tr>
       <tr>
         <td>DisplayName</td>
@@ -106,6 +116,15 @@
         <td>
           Default='0'.
         </td>
+      </tr>
+      <tr>
+        <td>ServerConfiguration</td>
+        <td>
+          <a href="Orion.SCM.ServerConfiguration.html">Orion.SCM.ServerConfiguration</a>
+        </td>
+        <td>
+        Defined by relationship Orion.SCM.ServerConfigurationChangeRel (System.Reference)
+      </td>
       </tr>
     </table>
   </body>

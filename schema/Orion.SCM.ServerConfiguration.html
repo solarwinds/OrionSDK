@@ -12,11 +12,17 @@
       <a href="index.html">Index</a>
     </p>
     <h1>
-      <a name="Orion.IpSla.CCMMonitoring">Orion.IpSla.CCMMonitoring</a>
+      <a name="Orion.SCM.ServerConfiguration">Orion.SCM.ServerConfiguration</a>
     </h1>
     <p>
         Base type:
         <a href="System.ManagedEntity.html">System.ManagedEntity</a></p>
+    <p>
+        Summary:
+        
+      This entity represents nodes, which are monitored by SCM product.
+      Every SCM node, can be polled for configuration changes.
+    </p>
     <h2>Properties</h2>
     <table>
       <tr>
@@ -25,93 +31,33 @@
         <th>Notes</th>
       </tr>
       <tr>
-        <td>ID</td>
-        <td>System.Int32</td>
-        <td />
-      </tr>
-      <tr>
         <td>NodeID</td>
         <td>System.Int32</td>
         <td />
       </tr>
       <tr>
-        <td>DisplayName</td>
-        <td>System.String</td>
+        <td>Enabled</td>
+        <td>System.Boolean</td>
         <td />
       </tr>
       <tr>
-        <td>CCMMonitoringTypeID</td>
+        <td>PollingInterval</td>
         <td>System.Int32</td>
         <td />
       </tr>
       <tr>
-        <td>RecordTime</td>
+        <td>LastPoll</td>
         <td>System.DateTime</td>
         <td />
       </tr>
       <tr>
-        <td>Deleted</td>
-        <td>System.Boolean</td>
-        <td />
-      </tr>
-      <tr>
-        <td>CcmName</td>
+        <td>StatusDescription</td>
         <td>System.String</td>
         <td />
       </tr>
       <tr>
-        <td>ClusterName</td>
+        <td>StatusLED</td>
         <td>System.String</td>
-        <td />
-      </tr>
-      <tr>
-        <td>ClusterNodeID</td>
-        <td>System.Int32</td>
-        <td />
-      </tr>
-      <tr>
-        <td>Version</td>
-        <td>System.String</td>
-        <td />
-      </tr>
-      <tr>
-        <td>Unmanaged</td>
-        <td>System.Boolean</td>
-        <td />
-      </tr>
-      <tr>
-        <td>UnmanageUntil</td>
-        <td>System.DateTime</td>
-        <td />
-      </tr>
-      <tr>
-        <td>UnmanageFrom</td>
-        <td>System.DateTime</td>
-        <td />
-      </tr>
-      <tr>
-        <td>UtcOffsetMinutes</td>
-        <td>System.Int32</td>
-        <td />
-      </tr>
-      <tr>
-        <td>MonitoringEnabled</td>
-        <td>System.Boolean</td>
-        <td />
-      </tr>
-      <tr>
-        <td>PollingFrequency</td>
-        <td>System.Int32</td>
-        <td />
-      </tr>
-      <tr>
-        <td>SipTrunkPollingFrequency</td>
-        <td>System.Int32</td>
-        <td />
-      </tr>
-      <tr>
-        <td>SipTrunkMonitoringEnabled</td>
-        <td>System.Boolean</td>
         <td />
       </tr>
       <tr>
@@ -120,18 +66,33 @@
         <td />
       </tr>
       <tr>
-        <td>Caption</td>
+        <td>Description</td>
         <td>System.String</td>
         <td />
       </tr>
       <tr>
-        <td>SysName</td>
+        <td>Image</td>
         <td>System.String</td>
         <td />
       </tr>
       <tr>
-        <td>Status</td>
+        <td>BaselineStatus</td>
         <td>System.Int32</td>
+        <td />
+      </tr>
+      <tr>
+        <td>LastAgentPluginHealthCheck</td>
+        <td>System.DateTime</td>
+        <td />
+      </tr>
+      <tr>
+        <td>LastChangeDetected</td>
+        <td>System.DateTime</td>
+        <td />
+      </tr>
+      <tr>
+        <td>DisplayName</td>
+        <td>System.String</td>
         <td />
       </tr>
       <tr>
@@ -219,66 +180,30 @@
         </td>
       </tr>
       <tr>
-        <td>Region</td>
+        <td>NodesProfiles</td>
         <td>
-          <a href="Orion.IpSla.CCMRegions.html">Orion.IpSla.CCMRegions</a>
+          <a href="Orion.SCM.NodesProfiles.html">Orion.SCM.NodesProfiles</a>
         </td>
         <td>
-        Defined by relationship Orion.Ipsla.CCMMonitoringHostsCCMRegions (System.Hosting)
+        Defined by relationship NodeReferencesOrion.SCM.NodesProfiles (System.Reference)
       </td>
       </tr>
       <tr>
-        <td>CCMGateways</td>
+        <td>Baselines</td>
         <td>
-          <a href="Orion.IpSla.CCMGateways.html">Orion.IpSla.CCMGateways</a>
+          <a href="Orion.SCM.Baseline.html">Orion.SCM.Baseline</a>
         </td>
         <td>
-        Defined by relationship Orion.Ipsla.CCMMonitoringHostsCCMGateways (System.Hosting)
+        Defined by relationship Orion.SCM.NodesReferencesBaseline (System.Reference)
       </td>
       </tr>
       <tr>
-        <td>WebUri</td>
+        <td>ElementMetadata</td>
         <td>
-          <a href="Orion.IpSla.CCMMonitoringWebUri.html">Orion.IpSla.CCMMonitoringWebUri</a>
+          <a href="Orion.SCM.Results.ElementMetadata.html">Orion.SCM.Results.ElementMetadata</a>
         </td>
         <td>
-        Defined by relationship Orion.IpSla.CCMMonitoringHostsWebUri (System.Hosting)
-      </td>
-      </tr>
-      <tr>
-        <td>CCMSipTrunk</td>
-        <td>
-          <a href="Orion.IpSla.CCMSipTrunk.html">Orion.IpSla.CCMSipTrunk</a>
-        </td>
-        <td>
-        Defined by relationship Orion.CCMMonitoringHostsCCMSipTrunk (System.Hosting)
-      </td>
-      </tr>
-      <tr>
-        <td>CCMPhones</td>
-        <td>
-          <a href="Orion.IpSla.CCMPhones.html">Orion.IpSla.CCMPhones</a>
-        </td>
-        <td>
-        Defined by relationship Orion.Ipsla.CCMMonitoringHostsCCMPhones (System.Hosting)
-      </td>
-      </tr>
-      <tr>
-        <td>CurrentStats</td>
-        <td>
-          <a href="Orion.IpSla.CallManagerCurrentStats.html">Orion.IpSla.CallManagerCurrentStats</a>
-        </td>
-        <td>
-        Defined by relationship Orion.IpSla.CCMMonitoringHostsCallManagerCurrentStats (System.Hosting)
-      </td>
-      </tr>
-      <tr>
-        <td>VoipCallDetails</td>
-        <td>
-          <a href="Orion.IpSla.VoipCallDetails.html">Orion.IpSla.VoipCallDetails</a>
-        </td>
-        <td>
-        Defined by relationship Orion.Ipsla.CCMMonitoringHostsVoipCallDetails (System.Hosting)
+        Defined by relationship Orion.SCM.SCMNodesReferencesElementMetadata (System.Reference)
       </td>
       </tr>
       <tr>
@@ -287,26 +212,59 @@
           <a href="Orion.Nodes.html">Orion.Nodes</a>
         </td>
         <td>
-        Defined by relationship Orion.NodesHostsCCMMonitoring (System.Hosting)
+        Defined by relationship Orion.NodesHostsServerConfigurations (System.Hosting)
       </td>
       </tr>
       <tr>
-        <td>MonitoringType</td>
+        <td>Profiles</td>
         <td>
-          <a href="Orion.IpSla.CCMMonitoringType.html">Orion.IpSla.CCMMonitoringType</a>
+          <a href="Orion.SCM.Profiles.html">Orion.SCM.Profiles</a>
         </td>
         <td>
-        Defined by relationship Orion.IpSla.CCMMonitoringReferencesCCMMonitoringType (System.Reference)
+        Defined by relationship Orion.SCM.NodeReferencesOrion.SCM.Profiles (System.Reference)
       </td>
       </tr>
       <tr>
-        <td>NPMinterfaces</td>
+        <td>PollEntries</td>
         <td>
-          <a href="Orion.NPM.Interfaces.html">Orion.NPM.Interfaces</a>
+          <a href="Orion.SCM.PollEntries.html">Orion.SCM.PollEntries</a>
         </td>
         <td>
-        Defined by relationship Orion.Ipsla.CCMMonitoringReferencesInterfaces (System.Reference)
+        Defined by relationship Orion.SCM.SCMPollEntriesReferencesSCMNodes (System.Reference)
       </td>
+      </tr>
+      <tr>
+        <td>SCMServerConfigurationChange</td>
+        <td>
+          <a href="Orion.SCM.ServerConfigurationChange.html">Orion.SCM.ServerConfigurationChange</a>
+        </td>
+        <td>
+        Defined by relationship Orion.SCM.ServerConfigurationChangeRel (System.Reference)
+      </td>
+      </tr>
+      <tr>
+        <td>SCMServerConfigurationDiffersFromBaseline</td>
+        <td>
+          <a href="Orion.SCM.ServerConfigurationDiffersFromBaseline.html">Orion.SCM.ServerConfigurationDiffersFromBaseline</a>
+        </td>
+        <td>
+        Defined by relationship Orion.SCM.ServerConfigurationDiffersFromBaselineRel (System.Reference)
+      </td>
+      </tr>
+    </table>
+    <h2>Verbs</h2>
+    <table>
+      <tr>
+        <th>Name</th>
+        <th>Summary</th>
+        <th>Parameters</th>
+        <th>Returns</th>
+      </tr>
+      <tr>
+        <td>PollNow</td>
+        <td>On target nodes triggers refreshing of watchers and executes jobs for polling SWIS elements.</td>
+        <td />
+        <td />
       </tr>
     </table>
   </body>

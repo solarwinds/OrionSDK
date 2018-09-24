@@ -1,0 +1,128 @@
+﻿
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <title>SolarWinds Information Service v3.0 Schema Documentation</title>
+    <link href="SchemaDoc.css" type="text/css" rel="stylesheet" />
+  </head>
+  <body>
+    <h1>SolarWinds Information Service v3.0 Schema Documentation</h1>
+    <p>
+      <a href="index.html">Index</a>
+    </p>
+    <h1>
+      <a name="Orion.SCM.Profiles">Orion.SCM.Profiles</a>
+    </h1>
+    <p>
+        Base type:
+        <a href="System.Entity.html">System.Entity</a></p>
+    <p>
+        Summary:
+        
+      This entity represents profiles, which could be set and maintained by a user.
+    </p>
+    <h2>Properties</h2>
+    <table>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Notes</th>
+      </tr>
+      <tr>
+        <td>ProfileID</td>
+        <td>System.Int32</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Name</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>BuiltIn</td>
+        <td>System.Boolean</td>
+        <td />
+      </tr>
+      <tr>
+        <td>UniqueId</td>
+        <td>System.Guid</td>
+        <td />
+      </tr>
+      <tr>
+        <td>TemplateMappingRules</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>ProfileOrigin</td>
+        <td>System.Int32</td>
+        <td />
+      </tr>
+      <tr>
+        <td>OriginalProfileUniqueID</td>
+        <td>System.Guid</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Modified</td>
+        <td>System.DateTime</td>
+        <td />
+      </tr>
+      <tr>
+        <td>DisplayName</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Description</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>InstanceType</td>
+        <td>System.Type</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Uri</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>InstanceSiteId</td>
+        <td>System.Int32</td>
+        <td>
+          Default='0'.
+        </td>
+      </tr>
+      <tr>
+        <td>NodesProfiles</td>
+        <td>
+          <a href="Orion.SCM.NodesProfiles.html">Orion.SCM.NodesProfiles</a>
+        </td>
+        <td>
+        Defined by relationship ProfileReferencesOrion.SCM.NodesProfiles (System.Reference)
+      </td>
+      </tr>
+      <tr>
+        <td>SCMNodes</td>
+        <td>
+          <a href="Orion.SCM.ServerConfiguration.html">Orion.SCM.ServerConfiguration</a>
+        </td>
+        <td>
+        Defined by relationship Orion.SCM.NodeReferencesOrion.SCM.Profiles (System.Reference)
+      </td>
+      </tr>
+      <tr>
+        <td>Elements</td>
+        <td>
+          <a href="Orion.SCM.ProfileElements.html">Orion.SCM.ProfileElements</a>
+        </td>
+        <td>
+        Defined by relationship Orion.SCM.ProfilesReferencesProfileElements (System.Reference)
+      </td>
+      </tr>
+    </table>
+  </body>
+</html>

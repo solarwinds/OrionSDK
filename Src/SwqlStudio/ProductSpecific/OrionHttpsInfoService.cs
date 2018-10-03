@@ -12,7 +12,8 @@ namespace SwqlStudio
     {
         static OrionHttpsInfoService()
         {
-            ServicePointManager.ServerCertificateValidationCallback = ValidateRemoteCertificate;
+            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls12;
+            ServicePointManager.ServerCertificateValidationCallback = CertificateValidatorWithCache.ValidateRemoteCertificate;
         }
 
         private static bool ValidateRemoteCertificate(object sender, X509Certificate certificate, X509Chain chain, SslPolicyErrors sslpolicyerrors)

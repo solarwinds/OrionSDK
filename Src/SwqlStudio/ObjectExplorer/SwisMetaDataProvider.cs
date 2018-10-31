@@ -16,7 +16,10 @@ namespace SwqlStudio
         {
             this.info = info;
             Name = info.Title;
+            _capabilities = new Lazy<Capability>(GetCapabilities);
         }
+
+        private readonly Lazy<Capability> _capabilities;
 
         public void Refresh()
         {
@@ -24,33 +27,52 @@ namespace SwqlStudio
             const string queryTemplate =
                 @"SELECT Entity.FullName, Entity.Namespace, Entity.BaseType, (Entity.Type ISA 'System.Indication') AS IsIndication,
 	Entity.Properties.Name, Entity.Properties.Type, Entity.Properties.IsNavigable, Entity.Properties.IsInherited, Entity.Properties.IsKey,
-	Entity.Verbs.EntityName, Entity.Verbs.Name, Entity.IsAbstract{0}
+	Entity.Verbs.EntityName, Entity.Verbs.Name, Entity.IsAbstract{0}{1}
 FROM Metadata.Entity";
             const string crudFragment =
                 ", Entity.CanCreate, Entity.CanDelete, Entity.CanInvoke, Entity.CanRead, Entity.CanUpdate";
+            const string docFragment = ", Entity.Summary, Entity.Properties.Summary, Entity.Verbs.Summary";
 
-            string query = string.Format(queryTemplate, SupportsAccessControl() ? crudFragment : string.Empty);
+            var capabilities = _capabilities.Value;
+            string query = string.Format(queryTemplate, capabilities.HasFlag(Capability.AccessControl) ? crudFragment : string.Empty,
+                capabilities.HasFlag(Capability.Documentation) ? docFragment : string.Empty);
 
             entities = info.Query<Entity>(query).ToDictionary(entity => entity.FullName);
 
             foreach (var entity in entities.Values)
             {
-                Entity baseEntity;
-                if (entity.BaseType != null && entities.TryGetValue(entity.BaseType, out baseEntity))
+                if (entity.BaseType != null && entities.TryGetValue(entity.BaseType, out var baseEntity))
                     entity.BaseEntity = baseEntity;
             }
 
             EntitiesRefreshed?.Invoke(this, new EventArgs());
         }
 
-        public bool SupportsAccessControl()
+        [Flags]
+        public enum Capability
+        {
+            None = 0,
+            AccessControl = 1,
+            Documentation = 2,
+        }
+
+        public Capability GetCapabilities()
         {
             const string query = @"SELECT Name
 FROM Metadata.Property
-WHERE EntityName='Metadata.Entity' AND Name='CanCreate'";
+WHERE EntityName='Metadata.Entity' AND Name IN ('CanCreate', 'Summary')";
 
+            Capability cap = Capability.None;
             DataTable dt = info.Query(query);
-            return dt != null && dt.Rows.Count == 1;
+            foreach (DataRow row in dt.Rows)
+            {
+                if ((string)row["Name"] == "CanCreate")
+                    cap |= Capability.AccessControl;
+                else if ((string)row["Name"] == "Summary")
+                    cap |= Capability.Documentation;
+            }
+
+            return cap;
         }
 
         public IEnumerable<VerbArgument> GetVerbArguments(Verb verb)
@@ -59,6 +81,7 @@ WHERE EntityName='Metadata.Entity' AND Name='CanCreate'";
                 string.Format(
                     "SELECT VerbArgument.Name, VerbArgument.Type, VerbArgument.Position " +
                     (XmlTemplateSupported ? ", VerbArgument.XmlTemplate " : "") +
+                    (_capabilities.Value.HasFlag(Capability.Documentation) ? ", VerbArgument.Summary " : "") +
                     "FROM Metadata.VerbArgument WHERE VerbArgument.EntityName='{0}' AND VerbArgument.VerbName='{1}' " +
                     "ORDER BY VerbArgument.Position",
                     verb.EntityName, verb.Name));

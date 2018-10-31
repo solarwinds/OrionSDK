@@ -8,6 +8,7 @@ namespace SwqlStudio.Metadata
 
         public string Name { get; set; }
         public string EntityName { get; set; }
+        public string Summary { get; set; }
 
         public List<VerbArgument> Arguments
         {

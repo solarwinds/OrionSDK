@@ -19,6 +19,8 @@ namespace SwqlStudio.Metadata
         public bool CanRead   { get; set; }
         public bool CanUpdate { get; set; }
 
+        public string Summary { get; set; }
+
         public Entity BaseEntity { get; set; }
 
         public List<Property> Properties { get { return properties; } }

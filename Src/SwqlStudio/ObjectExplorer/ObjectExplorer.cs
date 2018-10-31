@@ -293,17 +293,18 @@ namespace SwqlStudio
 
         void _tree_BeforeExpand(object sender, TreeViewCancelEventArgs e)
         {
-            var verb = e.Node.Tag as Verb;
-            if (verb != null)
+            if (e.Node.Tag is Verb verb)
             {
                 e.Node.Nodes.Clear();
 
                 foreach (var arg in FindProvider(e.Node).GetVerbArguments(verb))
                 {
-                    string text = String.Format("{0}({1})", arg.Name, arg.Type);
+                    string text = $"{arg.Name} ({arg.Type})";
                     var argNode = new TreeNode(text) { SelectedImageKey = "Argument" };
                     argNode.ImageKey = argNode.SelectedImageKey;
                     argNode.Tag = arg;
+                    if (!string.IsNullOrEmpty(arg.Summary))
+                        argNode.ToolTipText = arg.Summary;
                     e.Node.Nodes.Add(argNode);
                 }
             }
@@ -727,25 +728,18 @@ namespace SwqlStudio
             node.Tag = table;
             if (table.IsIndication)
             {
-                node.ToolTipText += string.Format(@"{0}
-Base type: {1}
-CanSubscribe: {2}",
-                    table.FullName, table.BaseType, connection.CanCreateSubscription);
+                node.ToolTipText += $@"{table.FullName}
+{(string.IsNullOrEmpty(table.Summary) ? string.Empty : table.Summary + Environment.NewLine)}Base type: {table.BaseType}
+CanSubscribe: {connection.CanCreateSubscription}";
             }
             else
             {
 
-                node.ToolTipText = string.Format(
-                    @"{0}
-Base type: {1}
-CanCreate: {2}
-CanUpdate: {3}
-CanDelete: {4}",
-                    table.FullName,
-                    table.BaseType,
-                    table.CanCreate,
-                    table.CanUpdate,
-                    table.CanDelete);
+                node.ToolTipText = $@"{table.FullName}
+{(string.IsNullOrEmpty(table.Summary) ? string.Empty : table.Summary + Environment.NewLine)}Base type: {table.BaseType}
+CanCreate: {table.CanCreate}
+CanUpdate: {table.CanUpdate}
+CanDelete: {table.CanDelete}";
             }
 
             // Add keys
@@ -784,6 +778,7 @@ CanDelete: {4}",
                 verbNode.SelectedImageKey = "Verb";
                 verbNode.ImageKey = verbNode.SelectedImageKey;
                 verbNode.Tag = verb;
+                verbNode.ToolTipText = verb.Name + Environment.NewLine + verb.Summary;
 
                 parent.Nodes.Add(verbNode);
 
@@ -803,15 +798,17 @@ CanDelete: {4}",
             }
         }
 
-        private static void AddPropertiesToNode(TreeNode parent, IEnumerable<Property> Properties)
+        private static void AddPropertiesToNode(TreeNode parent, IEnumerable<Property> properties)
         {
-            foreach (Property column in Properties.OrderBy(c => c.Name))
+            foreach (Property column in properties.OrderBy(c => c.Name))
             {
-                string text = String.Format("{0} ({1})", column.Name, column.Type);
+                string text = $"{column.Name} ({column.Type})";
                 TreeNode node = new TreeNode(text);
                 node.SelectedImageKey = GetColumnIcon(column);
                 node.ImageKey = node.SelectedImageKey;
                 node.Tag = column;
+                if (!string.IsNullOrEmpty(column.Summary))
+                    node.ToolTipText = text + Environment.NewLine + column.Summary;
 
                 parent.Nodes.Add(node);
             }

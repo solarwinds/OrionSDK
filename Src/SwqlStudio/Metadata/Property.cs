@@ -8,5 +8,6 @@ namespace SwqlStudio.Metadata
         public bool IsNavigable { get; set; }
         public bool IsInherited { get; set; }
         public bool IsKey { get; set; }
+        public string Summary { get; set; }
     }
 }

@@ -11,6 +11,8 @@
   <?define TempDir = "[TempFolder]" ?>
   <?define OutputDir = "..\..\bin\Release" ?>
 
+  <?define BuildNumber = "$(var.ProductVersion_Major).$(var.ProductVersion_Minor).$(var.ProductVersion_Release).$(var.ProductVersion_Build)" ?>
+
   <Product
     Id="*"
     Name="SolarWinds Orion SDK v$(var.ProductVersion)"
@@ -139,7 +141,7 @@
         <Directory Id="WindowsPowerShell" Name="WindowsPowerShell">
           <Directory Id="Modules" Name="Modules">
             <Directory Id="SwisPowerShell" Name="SwisPowerShell">
-              <Directory Id="psm_Version" Name="$(var.ProductVersion)">
+              <Directory Id="psm_Version" Name="$(var.BuildNumber)">
                 <Component Id="SwisPowerShellModule" Guid="077E4881-0A55-4646-BF7A-25F1B084348B">
                   <File Id="psm_SwisPowerShellDll" Source="..\SwisPowerShell\bin\Release\SwisPowerShell.dll" />
                   <File Id="psm_SwisPowerShell.psd1" Source="..\SwisPowerShell\bin\Release\SwisPowerShell.psd1" />
@@ -157,7 +159,7 @@
         <Directory Id="WindowsPowerShell64" Name="WindowsPowerShell">
           <Directory Id="Modules64" Name="Modules">
             <Directory Id="SwisPowerShell64" Name="SwisPowerShell">
-              <Directory Id="psm64_Version" Name="$(var.ProductVersion)">
+              <Directory Id="psm64_Version" Name="$(var.BuildNumber)">
                 <Component Id="SwisPowerShellModule64" Win64="yes" Guid="8618CFEC-57A9-4C6D-8128-6D204B13015A">
                   <File Id="psm64_SwisPowerShellDll" Source="..\SwisPowerShell\bin\Release\SwisPowerShell.dll" />
                   <File Id="psm64_SwisPowerShell.psd1" Source="..\SwisPowerShell\bin\Release\SwisPowerShell.psd1" />

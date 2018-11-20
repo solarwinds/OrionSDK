@@ -4,5 +4,9 @@
   <!-- Version and FullVersion are being changed automatically by a build script.
        Editing this manually has no effect.-->  
   <?define ProductVersion="1.0.0.0" ?>  
+  <?define ProductVersion_Major="1" ?>  
+  <?define ProductVersion_Minor="1" ?>  
+  <?define ProductVersion_Build="1" ?>  
+  <?define ProductVersion_Release="1" ?>  
 
 </Include>

@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.ServiceModel;
 using System.Windows.Forms;
 using SolarWinds.InformationService.Contract2;
@@ -21,6 +22,7 @@ namespace SwqlStudio
         private ServerList serverList;
         private readonly BindingList<ConnectionInfo> connectionsDataSource = new BindingList<ConnectionInfo>();
         private ConnectionsManager connectionsManager;
+        private QueryTab lastActiveTab;
 
         public PropertyBag QueryParameters
         {
@@ -59,6 +61,7 @@ namespace SwqlStudio
             var tabsFactory = new TabsFactory(this.filesDock, this, this.serverList, this.connectionsManager);
             this.filesDock.SetAplicationService(tabsFactory);
             this.filesDock.ActiveContentChanged += FilesDock_ActiveContentChanged;
+
         }
 
         private void AssignConnectionsDataSource()
@@ -77,6 +80,15 @@ namespace SwqlStudio
             {
                 this.SelectedConnection = activeConnectionTab.ConnectionInfo;
             }
+
+
+            var activeTab = filesDock.ActiveQueryTab;
+            if (lastActiveTab != null && activeTab != lastActiveTab)
+            {
+                lastActiveTab.HideFindReplaceDialog();
+            }
+
+            lastActiveTab = activeTab;
         }
 
         public void RefreshSelectedConnections()
@@ -475,6 +487,24 @@ namespace SwqlStudio
         {
             Settings.Default.PromptToSaveOnClose = !Settings.Default.PromptToSaveOnClose;
             Settings.Default.Save();
+        }
+
+        private void findToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var activeTab = filesDock.ActiveQueryTab;
+            if (activeTab == null)
+                return;
+
+            activeTab.FindDialog();
+        }
+
+        private void replaceToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var activeTab = filesDock.ActiveQueryTab;
+            if (activeTab == null)
+                return;
+
+            activeTab.ReplaceDialog();
         }
     }
 }

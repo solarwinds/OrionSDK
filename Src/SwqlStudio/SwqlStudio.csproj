@@ -113,6 +113,44 @@
     <Compile Include="..\CommonAssemblyInfo.cs">
       <Link>Properties\CommonAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="3rdParty\ScintillaNET-FindReplaceDialog\CharacterRange.cs" />
+    <Compile Include="3rdParty\ScintillaNET-FindReplaceDialog\FindAllResults\FindAllResultsPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="3rdParty\ScintillaNET-FindReplaceDialog\FindAllResults\FindAllResultsPanel.Designer.cs">
+      <DependentUpon>FindAllResultsPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="3rdParty\ScintillaNET-FindReplaceDialog\FindReplace\FindOption.cs" />
+    <Compile Include="3rdParty\ScintillaNET-FindReplaceDialog\FindReplace\FindReplace.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="3rdParty\ScintillaNET-FindReplaceDialog\FindReplace\FindReplaceDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="3rdParty\ScintillaNET-FindReplaceDialog\FindReplace\FindReplaceDialog.Designer.cs">
+      <DependentUpon>FindReplaceDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="3rdParty\ScintillaNET-FindReplaceDialog\FindReplace\IncrementalSearcher.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="3rdParty\ScintillaNET-FindReplaceDialog\FindReplace\IncrementalSearcher.Designer.cs">
+      <DependentUpon>IncrementalSearcher.cs</DependentUpon>
+    </Compile>
+    <Compile Include="3rdParty\ScintillaNET-FindReplaceDialog\FindReplace\ToolStripIncrementalSearcher.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="3rdParty\ScintillaNET-FindReplaceDialog\GoTo\GoTo.cs" />
+    <Compile Include="3rdParty\ScintillaNET-FindReplaceDialog\GoTo\GoToDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="3rdParty\ScintillaNET-FindReplaceDialog\GoTo\GoToDialog.Designer.cs">
+      <DependentUpon>GoToDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="3rdParty\ScintillaNET-FindReplaceDialog\Properties\Resources1.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="About.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -259,6 +297,23 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>XmlRender.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="3rdParty\ScintillaNET-FindReplaceDialog\FindAllResults\FindAllResultsPanel.resx">
+      <DependentUpon>FindAllResultsPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="3rdParty\ScintillaNET-FindReplaceDialog\FindReplace\FindReplaceDialog.resx">
+      <DependentUpon>FindReplaceDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="3rdParty\ScintillaNET-FindReplaceDialog\FindReplace\IncrementalSearcher.resx">
+      <DependentUpon>IncrementalSearcher.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="3rdParty\ScintillaNET-FindReplaceDialog\GoTo\GoToDialog.resx">
+      <DependentUpon>GoToDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="3rdParty\ScintillaNET-FindReplaceDialog\Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources1.Designer.cs</LastGenOutput>
+      <CustomToolNamespace>ScintillaNET_FindReplaceDialog.Properties</CustomToolNamespace>
+    </EmbeddedResource>
     <EmbeddedResource Include="About.resx">
       <DependentUpon>About.cs</DependentUpon>
     </EmbeddedResource>
@@ -336,6 +391,12 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="3rdParty\ScintillaNET-FindReplaceDialog\Resources\Clock.ico" />
+    <Content Include="3rdParty\ScintillaNET-FindReplaceDialog\Resources\Clock.png" />
+    <Content Include="3rdParty\ScintillaNET-FindReplaceDialog\Resources\DeleteHS.png" />
+    <Content Include="3rdParty\ScintillaNET-FindReplaceDialog\Resources\GoToNextMessage.png" />
+    <Content Include="3rdParty\ScintillaNET-FindReplaceDialog\Resources\GoToPreviousMessage.png" />
+    <Content Include="3rdParty\ScintillaNET-FindReplaceDialog\Resources\LineColorHS.png" />
     <Content Include="ResizableTextAreaStyle.css" />
     <Content Include="Main.ico" />
     <None Include="Resources\Refresh_16x.png" />

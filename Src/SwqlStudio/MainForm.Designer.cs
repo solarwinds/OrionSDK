@@ -179,7 +179,8 @@
             // 
             this.menuFileSaveAs.Name = "menuFileSaveAs";
             this.menuFileSaveAs.Size = new System.Drawing.Size(219, 22);
-            this.menuFileSaveAs.Text = "&Save As...";
+            this.menuFileSaveAs.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.F12)));
+            this.menuFileSaveAs.Text = "S&ave As...";
             this.menuFileSaveAs.Click += new System.EventHandler(this.menuFileSaveAs_Click);
             // 
             // menuFileClose

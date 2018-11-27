@@ -861,5 +861,20 @@ namespace SwqlStudio
                     ((TextBox)sender).SelectAll();
             }
         }
+
+        internal void FindDialog()
+        {
+            findReplaceDialog.ShowFind();
+        }
+
+        internal void ReplaceDialog()
+        {
+            findReplaceDialog.ShowReplace();
+        }
+
+        public void HideFindReplaceDialog()
+        {
+            findReplaceDialog.Window.Hide();
+        }
     }
 }

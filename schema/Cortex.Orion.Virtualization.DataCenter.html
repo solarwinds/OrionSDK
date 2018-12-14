@@ -1,0 +1,139 @@
+﻿
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <title>SolarWinds Information Service v3.0 Schema Documentation</title>
+    <link href="SchemaDoc.css" type="text/css" rel="stylesheet" />
+  </head>
+  <body>
+    <h1>SolarWinds Information Service v3.0 Schema Documentation</h1>
+    <p>
+      <a href="index.html">Index</a>
+    </p>
+    <h1>
+      <a name="Cortex.Orion.Virtualization.DataCenter">Cortex.Orion.Virtualization.DataCenter</a>
+    </h1>
+    <p>
+        Base type:
+        <a href="Cortex.Orion.Virtualization.HypervisorEntity.html">Cortex.Orion.Virtualization.HypervisorEntity</a></p>
+    <h2>Properties</h2>
+    <table>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Notes</th>
+      </tr>
+      <tr>
+        <td>DataCenterId</td>
+        <td>System.Int32</td>
+        <td />
+      </tr>
+      <tr>
+        <td>VCenterId</td>
+        <td>System.Int32</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Name</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>RelatedVCenter</td>
+        <td>System.Int64</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Clusters</td>
+        <td>
+          <a href="Cortex.Orion.Virtualization.Cluster.html">Cortex.Orion.Virtualization.Cluster</a>
+        </td>
+        <td>
+        Defined by relationship Cortex.Orion.Virtualization.DataCenterToClusters (System.Reference)
+      </td>
+      </tr>
+      <tr>
+        <td>Hosts</td>
+        <td>
+          <a href="Cortex.Orion.Virtualization.Host.html">Cortex.Orion.Virtualization.Host</a>
+        </td>
+        <td>
+        Defined by relationship Cortex.Orion.Virtualization.DataCenterToHosts (System.Reference)
+      </td>
+      </tr>
+      <tr>
+        <td>OrionDataCenter</td>
+        <td>
+          <a href="Orion.VIM.DataCenters.html">Orion.VIM.DataCenters</a>
+        </td>
+        <td>
+        Defined by relationship Cortex.Orion.Virtualization.OrionDataCenterToDataCenter (System.Hosting)
+      </td>
+      </tr>
+      <tr>
+        <td>TriggeredAlarmStates</td>
+        <td>
+          <a href="Cortex.Orion.Virtualization.TriggeredAlarmState.html">Cortex.Orion.Virtualization.TriggeredAlarmState</a>
+        </td>
+        <td>
+        Defined by relationship Cortex.Orion.Virtualization.TriggeredAlarmStatesToDataCenter (System.Reference)
+      </td>
+      </tr>
+      <tr>
+        <td>VCenter</td>
+        <td>
+          <a href="Cortex.Orion.Virtualization.VCenter.html">Cortex.Orion.Virtualization.VCenter</a>
+        </td>
+        <td>
+        Defined by relationship Cortex.Orion.Virtualization.VCenterToDataCenters (System.Reference)
+      </td>
+      </tr>
+    </table>
+    <h2>Verbs</h2>
+    <table>
+      <tr>
+        <th>Name</th>
+        <th>Summary</th>
+        <th>Parameters</th>
+        <th>Returns</th>
+      </tr>
+      <tr>
+        <td>Core.AssignToEngine</td>
+        <td />
+        <td />
+        <td />
+      </tr>
+      <tr>
+        <td>Core.GetSupportedMetrics</td>
+        <td />
+        <td />
+        <td />
+      </tr>
+      <tr>
+        <td>Core.InventoryNow</td>
+        <td />
+        <td />
+        <td />
+      </tr>
+      <tr>
+        <td>Core.SetPolling</td>
+        <td />
+        <td />
+        <td />
+      </tr>
+      <tr>
+        <td>Core.StartRealTimePolling</td>
+        <td />
+        <td />
+        <td />
+      </tr>
+      <tr>
+        <td>Core.StopRealTimePolling</td>
+        <td />
+        <td />
+        <td />
+      </tr>
+    </table>
+  </body>
+</html>

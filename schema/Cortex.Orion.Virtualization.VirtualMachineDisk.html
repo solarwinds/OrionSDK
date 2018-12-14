@@ -1,0 +1,160 @@
+﻿
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <title>SolarWinds Information Service v3.0 Schema Documentation</title>
+    <link href="SchemaDoc.css" type="text/css" rel="stylesheet" />
+  </head>
+  <body>
+    <h1>SolarWinds Information Service v3.0 Schema Documentation</h1>
+    <p>
+      <a href="index.html">Index</a>
+    </p>
+    <h1>
+      <a name="Cortex.Orion.Virtualization.VirtualMachineDisk">Cortex.Orion.Virtualization.VirtualMachineDisk</a>
+    </h1>
+    <p>
+        Base type:
+        <a href="Cortex.Orion.Virtualization.HypervisorEntity.html">Cortex.Orion.Virtualization.HypervisorEntity</a></p>
+    <h2>Properties</h2>
+    <table>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Notes</th>
+      </tr>
+      <tr>
+        <td>VirtualMachineDiskId</td>
+        <td>System.Int32</td>
+        <td />
+      </tr>
+      <tr>
+        <td>VirtualMachineId</td>
+        <td>System.Int32</td>
+        <td />
+      </tr>
+      <tr>
+        <td>DataStoreId</td>
+        <td>System.Int32</td>
+        <td />
+      </tr>
+      <tr>
+        <td>FileName</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Label</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>ControllerBusNumber</td>
+        <td>System.Int32</td>
+        <td />
+      </tr>
+      <tr>
+        <td>DiskUnitNumber</td>
+        <td>System.Int32</td>
+        <td />
+      </tr>
+      <tr>
+        <td>LatencyRead</td>
+        <td>System.Double</td>
+        <td />
+      </tr>
+      <tr>
+        <td>LatencyWrite</td>
+        <td>System.Double</td>
+        <td />
+      </tr>
+      <tr>
+        <td>LatencyTotal</td>
+        <td>System.Double</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Statistics</td>
+        <td>
+          <a href="Cortex.Orion.Virtualization.VirtualMachineDisk.Statistics.html">Cortex.Orion.Virtualization.VirtualMachineDisk.Statistics</a>
+        </td>
+        <td>
+        Defined by relationship Cortex.Orion.Virtualization.VirtualMachineDiskToStatistics (System.Hosting)
+      </td>
+      </tr>
+      <tr>
+        <td>OrionVirtualDisk</td>
+        <td>
+          <a href="Orion.VIM.VirtualDisks.html">Orion.VIM.VirtualDisks</a>
+        </td>
+        <td>
+        Defined by relationship Cortex.Orion.Virtualization.OrionVirtualDiskToVirtualMachineDisk (System.Hosting)
+      </td>
+      </tr>
+      <tr>
+        <td>Datastore</td>
+        <td>
+          <a href="Cortex.Orion.Virtualization.Datastore.html">Cortex.Orion.Virtualization.Datastore</a>
+        </td>
+        <td>
+        Defined by relationship Cortex.Orion.Virtualization.DatastoreToVirtualMachineDisks (System.Reference)
+      </td>
+      </tr>
+      <tr>
+        <td>VirtualMachine</td>
+        <td>
+          <a href="Cortex.Orion.Virtualization.VirtualMachine.html">Cortex.Orion.Virtualization.VirtualMachine</a>
+        </td>
+        <td>
+        Defined by relationship Cortex.Orion.Virtualization.VirtualMachineToVirtualMachineDisks (System.Reference)
+      </td>
+      </tr>
+    </table>
+    <h2>Verbs</h2>
+    <table>
+      <tr>
+        <th>Name</th>
+        <th>Summary</th>
+        <th>Parameters</th>
+        <th>Returns</th>
+      </tr>
+      <tr>
+        <td>Core.AssignToEngine</td>
+        <td />
+        <td />
+        <td />
+      </tr>
+      <tr>
+        <td>Core.GetSupportedMetrics</td>
+        <td />
+        <td />
+        <td />
+      </tr>
+      <tr>
+        <td>Core.InventoryNow</td>
+        <td />
+        <td />
+        <td />
+      </tr>
+      <tr>
+        <td>Core.SetPolling</td>
+        <td />
+        <td />
+        <td />
+      </tr>
+      <tr>
+        <td>Core.StartRealTimePolling</td>
+        <td />
+        <td />
+        <td />
+      </tr>
+      <tr>
+        <td>Core.StopRealTimePolling</td>
+        <td />
+        <td />
+        <td />
+      </tr>
+    </table>
+  </body>
+</html>

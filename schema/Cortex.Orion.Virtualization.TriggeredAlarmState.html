@@ -1,0 +1,113 @@
+﻿
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <title>SolarWinds Information Service v3.0 Schema Documentation</title>
+    <link href="SchemaDoc.css" type="text/css" rel="stylesheet" />
+  </head>
+  <body>
+    <h1>SolarWinds Information Service v3.0 Schema Documentation</h1>
+    <p>
+      <a href="index.html">Index</a>
+    </p>
+    <h1>
+      <a name="Cortex.Orion.Virtualization.TriggeredAlarmState">Cortex.Orion.Virtualization.TriggeredAlarmState</a>
+    </h1>
+    <p>
+        Base type:
+        <a href="Cortex.System.ElementInstance.html">Cortex.System.ElementInstance</a></p>
+    <h2>Properties</h2>
+    <table>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Notes</th>
+      </tr>
+      <tr>
+        <td>Acknowledged</td>
+        <td>System.Boolean</td>
+        <td />
+      </tr>
+      <tr>
+        <td>AcknowledgedByUser</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>AcknowledgedTime</td>
+        <td>System.DateTime</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Status</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Timestamp</td>
+        <td>System.DateTime</td>
+        <td />
+      </tr>
+      <tr>
+        <td>RelatedAlarm</td>
+        <td>System.Int64</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Cluster</td>
+        <td>
+          <a href="Cortex.Orion.Virtualization.Cluster.html">Cortex.Orion.Virtualization.Cluster</a>
+        </td>
+        <td>
+        Defined by relationship Cortex.Orion.Virtualization.TriggeredAlarmStatesToCluster (System.Reference)
+      </td>
+      </tr>
+      <tr>
+        <td>DataCenter</td>
+        <td>
+          <a href="Cortex.Orion.Virtualization.DataCenter.html">Cortex.Orion.Virtualization.DataCenter</a>
+        </td>
+        <td>
+        Defined by relationship Cortex.Orion.Virtualization.TriggeredAlarmStatesToDataCenter (System.Reference)
+      </td>
+      </tr>
+      <tr>
+        <td>Datastore</td>
+        <td>
+          <a href="Cortex.Orion.Virtualization.Datastore.html">Cortex.Orion.Virtualization.Datastore</a>
+        </td>
+        <td>
+        Defined by relationship Cortex.Orion.Virtualization.TriggeredAlarmStatesToDatastore (System.Reference)
+      </td>
+      </tr>
+      <tr>
+        <td>Host</td>
+        <td>
+          <a href="Cortex.Orion.Virtualization.Host.html">Cortex.Orion.Virtualization.Host</a>
+        </td>
+        <td>
+        Defined by relationship Cortex.Orion.Virtualization.TriggeredAlarmStatesToHost (System.Reference)
+      </td>
+      </tr>
+      <tr>
+        <td>VirtualMachine</td>
+        <td>
+          <a href="Cortex.Orion.Virtualization.VirtualMachine.html">Cortex.Orion.Virtualization.VirtualMachine</a>
+        </td>
+        <td>
+        Defined by relationship Cortex.Orion.Virtualization.TriggeredAlarmStatesToVirtualMachine (System.Reference)
+      </td>
+      </tr>
+      <tr>
+        <td>Alarm</td>
+        <td>
+          <a href="Cortex.Orion.Virtualization.Alarm.html">Cortex.Orion.Virtualization.Alarm</a>
+        </td>
+        <td>
+        Defined by relationship Cortex.Orion.Virtualization.AlarmToTriggeredAlarmStates (System.Hosting)
+      </td>
+      </tr>
+    </table>
+  </body>
+</html>

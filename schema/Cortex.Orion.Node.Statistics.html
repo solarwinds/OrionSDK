@@ -12,11 +12,11 @@
       <a href="index.html">Index</a>
     </p>
     <h1>
-      <a name="Orion.NPM.UCSFansOnChassis">Orion.NPM.UCSFansOnChassis</a>
+      <a name="Cortex.Orion.Node.Statistics">Cortex.Orion.Node.Statistics</a>
     </h1>
     <p>
         Base type:
-        <a href="Orion.NPM.UCSFans.html">Orion.NPM.UCSFans</a></p>
+        <a href="System.StatisticsEntity.html">System.StatisticsEntity</a></p>
     <h2>Properties</h2>
     <table>
       <tr>
@@ -25,43 +25,18 @@
         <th>Notes</th>
       </tr>
       <tr>
-        <td>ID</td>
-        <td>System.Int64</td>
-        <td />
-      </tr>
-      <tr>
-        <td>ParentID</td>
-        <td>System.Int64</td>
-        <td />
-      </tr>
-      <tr>
-        <td>ParentType</td>
+        <td>CpuPercentUtilization</td>
         <td>System.Int32</td>
         <td />
       </tr>
       <tr>
-        <td>DistinguishedName</td>
-        <td>System.String</td>
+        <td>PercentMemoryUsed</td>
+        <td>System.Double</td>
         <td />
       </tr>
       <tr>
-        <td>Power</td>
-        <td>System.String</td>
-        <td />
-      </tr>
-      <tr>
-        <td>Module</td>
-        <td>System.Int32</td>
-        <td />
-      </tr>
-      <tr>
-        <td>Model</td>
-        <td>System.String</td>
-        <td />
-      </tr>
-      <tr>
-        <td>Name</td>
-        <td>System.String</td>
+        <td>MemoryUsed</td>
+        <td>System.Int64</td>
         <td />
       </tr>
       <tr>
@@ -70,29 +45,31 @@
         <td />
       </tr>
       <tr>
-        <td>Description</td>
-        <td>System.String</td>
-        <td />
-      </tr>
-      <tr>
-        <td>NodeID</td>
+        <td>ResponseTime</td>
         <td>System.Int64</td>
         <td />
       </tr>
       <tr>
-        <td>ParentTypeDescription</td>
-        <td>System.String</td>
+        <td>ElementId</td>
+        <td>System.Int64</td>
         <td />
       </tr>
       <tr>
-        <td>DisplayName</td>
-        <td>System.String</td>
+        <td>ObservationTimestamp</td>
+        <td>System.DateTime</td>
         <td />
       </tr>
       <tr>
-        <td>DetailsUrl</td>
-        <td>System.String</td>
+        <td>ObservationFrequency</td>
+        <td>System.DateTime</td>
         <td />
+      </tr>
+      <tr>
+        <td>Weight</td>
+        <td>System.Double</td>
+        <td>
+          Default='1.0'.
+        </td>
       </tr>
       <tr>
         <td>DisplayName</td>
@@ -122,12 +99,12 @@
         </td>
       </tr>
       <tr>
-        <td>UCSChassis</td>
+        <td>Node</td>
         <td>
-          <a href="Orion.NPM.UCSChassis.html">Orion.NPM.UCSChassis</a>
+          <a href="Cortex.Orion.Node.html">Cortex.Orion.Node</a>
         </td>
         <td>
-        Defined by relationship Orion.UCSChassisHostsFans (System.Hosting)
+        Defined by relationship Cortex.Orion.NodeToStatistics (System.Hosting)
       </td>
       </tr>
     </table>

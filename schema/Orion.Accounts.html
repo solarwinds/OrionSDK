@@ -165,6 +165,11 @@
         <td />
       </tr>
       <tr>
+        <td>GroupPriority</td>
+        <td>System.Int16</td>
+        <td />
+      </tr>
+      <tr>
         <td>AllowViewCopCheck</td>
         <td>System.String</td>
         <td />
@@ -263,6 +268,27 @@
             <tr>
               <td>password</td>
               <td>Required. Account password.</td>
+            </tr>
+          </table>
+        </td>
+        <td />
+      </tr>
+      <tr>
+        <td>CreateSamlAccount</td>
+        <td>Adds SAML user account specified by its name into Orion.</td>
+        <td>
+          <table>
+            <tr>
+              <th>Name</th>
+              <th>Summary</th>
+            </tr>
+            <tr>
+              <td>accountType</td>
+              <td>Required. A flag that indicates the type of account(s) to add. '5' for SAML User, '6' for SAML Group.</td>
+            </tr>
+            <tr>
+              <td>userOrGroupName</td>
+              <td>Required. SAML User or Group name used to map the account. This value has to match the claim in the SAML response to log in as this user.</td>
             </tr>
           </table>
         </td>

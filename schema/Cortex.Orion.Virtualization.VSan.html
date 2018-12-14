@@ -1,0 +1,276 @@
+﻿
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <title>SolarWinds Information Service v3.0 Schema Documentation</title>
+    <link href="SchemaDoc.css" type="text/css" rel="stylesheet" />
+  </head>
+  <body>
+    <h1>SolarWinds Information Service v3.0 Schema Documentation</h1>
+    <p>
+      <a href="index.html">Index</a>
+    </p>
+    <h1>
+      <a name="Cortex.Orion.Virtualization.VSan">Cortex.Orion.Virtualization.VSan</a>
+    </h1>
+    <p>
+        Base type:
+        <a href="Cortex.Orion.MonitoringElement.html">Cortex.Orion.MonitoringElement</a></p>
+    <h2>Properties</h2>
+    <table>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Notes</th>
+      </tr>
+      <tr>
+        <td>VsanIdentifier</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>ClusterId</td>
+        <td>System.Int32</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Status</td>
+        <td>System.Int32</td>
+        <td />
+      </tr>
+      <tr>
+        <td>DetailsUrl</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>DisplayName</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Name</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>TotalCapacity</td>
+        <td>System.Int64</td>
+        <td />
+      </tr>
+      <tr>
+        <td>UsedSpace</td>
+        <td>System.Int64</td>
+        <td />
+      </tr>
+      <tr>
+        <td>UsedSpacePercentage</td>
+        <td>System.Single</td>
+        <td />
+      </tr>
+      <tr>
+        <td>UsedByVms</td>
+        <td>System.Int64</td>
+        <td />
+      </tr>
+      <tr>
+        <td>IsDedupEnabled</td>
+        <td>System.Boolean</td>
+        <td />
+      </tr>
+      <tr>
+        <td>DedupRatio</td>
+        <td>System.Single</td>
+        <td />
+      </tr>
+      <tr>
+        <td>DedupUsedSpaceBefore</td>
+        <td>System.Int64</td>
+        <td />
+      </tr>
+      <tr>
+        <td>DedupUsedSpaceAfter</td>
+        <td>System.Int64</td>
+        <td />
+      </tr>
+      <tr>
+        <td>IOPSTotal</td>
+        <td>System.Double</td>
+        <td />
+      </tr>
+      <tr>
+        <td>IOPSRead</td>
+        <td>System.Double</td>
+        <td />
+      </tr>
+      <tr>
+        <td>IOPSWrite</td>
+        <td>System.Double</td>
+        <td />
+      </tr>
+      <tr>
+        <td>ThroughputTotal</td>
+        <td>System.Double</td>
+        <td />
+      </tr>
+      <tr>
+        <td>ThroughputRead</td>
+        <td>System.Double</td>
+        <td />
+      </tr>
+      <tr>
+        <td>ThroughputWrite</td>
+        <td>System.Double</td>
+        <td />
+      </tr>
+      <tr>
+        <td>LatencyTotal</td>
+        <td>System.Double</td>
+        <td />
+      </tr>
+      <tr>
+        <td>LatencyRead</td>
+        <td>System.Double</td>
+        <td />
+      </tr>
+      <tr>
+        <td>LatencyWrite</td>
+        <td>System.Double</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Congestions</td>
+        <td>System.Double</td>
+        <td />
+      </tr>
+      <tr>
+        <td>OutstandingIO</td>
+        <td>System.Double</td>
+        <td />
+      </tr>
+      <tr>
+        <td>RelatedCluster</td>
+        <td>System.Int64</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Statistics</td>
+        <td>
+          <a href="Cortex.Orion.Virtualization.VSan.Statistics.html">Cortex.Orion.Virtualization.VSan.Statistics</a>
+        </td>
+        <td>
+        Defined by relationship Cortex.Orion.Virtualization.VSanToStatistics (System.Hosting)
+      </td>
+      </tr>
+      <tr>
+        <td>VSanDiskGroups</td>
+        <td>
+          <a href="Cortex.Orion.Virtualization.VSanDiskGroup.html">Cortex.Orion.Virtualization.VSanDiskGroup</a>
+        </td>
+        <td>
+        Defined by relationship Cortex.Orion.Virtualization.VSanToVSanDiskGroups (System.Hosting)
+      </td>
+      </tr>
+      <tr>
+        <td>VSanHealthGroups</td>
+        <td>
+          <a href="Cortex.Orion.Virtualization.VSanHealthGroup.html">Cortex.Orion.Virtualization.VSanHealthGroup</a>
+        </td>
+        <td>
+        Defined by relationship Cortex.Orion.Virtualization.VSanToVSanHealthGroups (System.Hosting)
+      </td>
+      </tr>
+      <tr>
+        <td>VSanObjectSpaceSummaries</td>
+        <td>
+          <a href="Cortex.Orion.Virtualization.VSanObjectSpaceSummary.html">Cortex.Orion.Virtualization.VSanObjectSpaceSummary</a>
+        </td>
+        <td>
+        Defined by relationship Cortex.Orion.Virtualization.VSanToVSanObjectSpaceSummaries (System.Hosting)
+      </td>
+      </tr>
+      <tr>
+        <td>VSanResyncInfos</td>
+        <td>
+          <a href="Cortex.Orion.Virtualization.VSanResyncInfo.html">Cortex.Orion.Virtualization.VSanResyncInfo</a>
+        </td>
+        <td>
+        Defined by relationship Cortex.Orion.Virtualization.VSanToVSanResyncInfos (System.Reference)
+      </td>
+      </tr>
+      <tr>
+        <td>OrionCluster</td>
+        <td>
+          <a href="Orion.VIM.Clusters.html">Orion.VIM.Clusters</a>
+        </td>
+        <td>
+        Defined by relationship Cortex.Orion.Virtualization.OrionClusterToVSan (System.Hosting)
+      </td>
+      </tr>
+      <tr>
+        <td>Cluster</td>
+        <td>
+          <a href="Cortex.Orion.Virtualization.Cluster.html">Cortex.Orion.Virtualization.Cluster</a>
+        </td>
+        <td>
+        Defined by relationship Cortex.Orion.Virtualization.ClusterToVSan (System.Reference)
+      </td>
+      </tr>
+      <tr>
+        <td>Datastore</td>
+        <td>
+          <a href="Cortex.Orion.Virtualization.Datastore.html">Cortex.Orion.Virtualization.Datastore</a>
+        </td>
+        <td>
+        Defined by relationship Cortex.Orion.Virtualization.DatastoreToVSan (System.Reference)
+      </td>
+      </tr>
+    </table>
+    <h2>Verbs</h2>
+    <table>
+      <tr>
+        <th>Name</th>
+        <th>Summary</th>
+        <th>Parameters</th>
+        <th>Returns</th>
+      </tr>
+      <tr>
+        <td>Core.AssignToEngine</td>
+        <td />
+        <td />
+        <td />
+      </tr>
+      <tr>
+        <td>Core.GetSupportedMetrics</td>
+        <td />
+        <td />
+        <td />
+      </tr>
+      <tr>
+        <td>Core.InventoryNow</td>
+        <td />
+        <td />
+        <td />
+      </tr>
+      <tr>
+        <td>Core.SetPolling</td>
+        <td />
+        <td />
+        <td />
+      </tr>
+      <tr>
+        <td>Core.StartRealTimePolling</td>
+        <td />
+        <td />
+        <td />
+      </tr>
+      <tr>
+        <td>Core.StopRealTimePolling</td>
+        <td />
+        <td />
+        <td />
+      </tr>
+    </table>
+  </body>
+</html>

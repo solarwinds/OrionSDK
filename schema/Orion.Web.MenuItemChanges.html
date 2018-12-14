@@ -12,11 +12,15 @@
       <a href="index.html">Index</a>
     </p>
     <h1>
-      <a name="Orion.NPM.UCSBlades">Orion.NPM.UCSBlades</a>
+      <a name="Orion.Web.MenuItemChanges">Orion.Web.MenuItemChanges</a>
     </h1>
+    <p>Abstract</p>
     <p>
         Base type:
         <a href="System.Entity.html">System.Entity</a></p>
+    <p>
+        Summary:
+        Abstract entity for mega menu pluggability.</p>
     <h2>Properties</h2>
     <table>
       <tr>
@@ -25,43 +29,28 @@
         <th>Notes</th>
       </tr>
       <tr>
-        <td>ID</td>
-        <td>System.Int64</td>
-        <td />
-      </tr>
-      <tr>
-        <td>ParentID</td>
-        <td>System.Int64</td>
-        <td />
-      </tr>
-      <tr>
-        <td>NodeID</td>
+        <td>MenuItemID</td>
         <td>System.Int32</td>
         <td />
       </tr>
       <tr>
-        <td>DistinguishedName</td>
+        <td>Title</td>
         <td>System.String</td>
         <td />
       </tr>
       <tr>
-        <td>Name</td>
+        <td>Link</td>
         <td>System.String</td>
         <td />
       </tr>
       <tr>
-        <td>Status</td>
-        <td>System.String</td>
+        <td>System</td>
+        <td>System.Char</td>
         <td />
       </tr>
       <tr>
-        <td>Model</td>
-        <td>System.String</td>
-        <td />
-      </tr>
-      <tr>
-        <td>IPAddress</td>
-        <td>System.String</td>
+        <td>NewWindow</td>
+        <td>System.Char</td>
         <td />
       </tr>
       <tr>
@@ -70,18 +59,13 @@
         <td />
       </tr>
       <tr>
-        <td>DisplayName</td>
-        <td>System.String</td>
+        <td>GUID</td>
+        <td>System.Guid</td>
         <td />
       </tr>
       <tr>
-        <td>BladeNodeID</td>
-        <td>System.Int32</td>
-        <td />
-      </tr>
-      <tr>
-        <td>DetailsUrl</td>
-        <td>System.String</td>
+        <td>IsAvailable</td>
+        <td>System.Boolean</td>
         <td />
       </tr>
       <tr>
@@ -110,24 +94,6 @@
         <td>
           Default='0'.
         </td>
-      </tr>
-      <tr>
-        <td>Node</td>
-        <td>
-          <a href="Orion.Nodes.html">Orion.Nodes</a>
-        </td>
-        <td>
-        Defined by relationship Orion.UCSBladeReferencesNode (System.Reference)
-      </td>
-      </tr>
-      <tr>
-        <td>UCSChassis</td>
-        <td>
-          <a href="Orion.NPM.UCSChassis.html">Orion.NPM.UCSChassis</a>
-        </td>
-        <td>
-        Defined by relationship Orion.UCSChassisHostsUCSBlades (System.Hosting)
-      </td>
       </tr>
     </table>
   </body>

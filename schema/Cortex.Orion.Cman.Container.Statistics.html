@@ -12,11 +12,11 @@
       <a href="index.html">Index</a>
     </p>
     <h1>
-      <a name="Orion.NPM.UCSPSUsOnChassis">Orion.NPM.UCSPSUsOnChassis</a>
+      <a name="Cortex.Orion.Cman.Container.Statistics">Cortex.Orion.Cman.Container.Statistics</a>
     </h1>
     <p>
         Base type:
-        <a href="Orion.NPM.UCSPSUs.html">Orion.NPM.UCSPSUs</a></p>
+        <a href="System.StatisticsEntity.html">System.StatisticsEntity</a></p>
     <h2>Properties</h2>
     <table>
       <tr>
@@ -25,69 +25,36 @@
         <th>Notes</th>
       </tr>
       <tr>
-        <td>ID</td>
+        <td>Cpu</td>
+        <td>System.Double</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Memory</td>
+        <td>System.Double</td>
+        <td />
+      </tr>
+      <tr>
+        <td>ElementId</td>
         <td>System.Int64</td>
         <td />
       </tr>
       <tr>
-        <td>ParentID</td>
-        <td>System.Int64</td>
+        <td>ObservationTimestamp</td>
+        <td>System.DateTime</td>
         <td />
       </tr>
       <tr>
-        <td>ParentType</td>
-        <td>System.Int32</td>
+        <td>ObservationFrequency</td>
+        <td>System.DateTime</td>
         <td />
       </tr>
       <tr>
-        <td>DistinguishedName</td>
-        <td>System.String</td>
-        <td />
-      </tr>
-      <tr>
-        <td>Power</td>
-        <td>System.String</td>
-        <td />
-      </tr>
-      <tr>
-        <td>Status</td>
-        <td>System.String</td>
-        <td />
-      </tr>
-      <tr>
-        <td>Model</td>
-        <td>System.String</td>
-        <td />
-      </tr>
-      <tr>
-        <td>Name</td>
-        <td>System.String</td>
-        <td />
-      </tr>
-      <tr>
-        <td>Description</td>
-        <td>System.String</td>
-        <td />
-      </tr>
-      <tr>
-        <td>NodeID</td>
-        <td>System.Int64</td>
-        <td />
-      </tr>
-      <tr>
-        <td>ParentTypeDescription</td>
-        <td>System.String</td>
-        <td />
-      </tr>
-      <tr>
-        <td>DisplayName</td>
-        <td>System.String</td>
-        <td />
-      </tr>
-      <tr>
-        <td>DetailsUrl</td>
-        <td>System.String</td>
-        <td />
+        <td>Weight</td>
+        <td>System.Double</td>
+        <td>
+          Default='1.0'.
+        </td>
       </tr>
       <tr>
         <td>DisplayName</td>
@@ -117,12 +84,12 @@
         </td>
       </tr>
       <tr>
-        <td>UCSChassis</td>
+        <td>Container</td>
         <td>
-          <a href="Orion.NPM.UCSChassis.html">Orion.NPM.UCSChassis</a>
+          <a href="Cortex.Orion.Cman.Container.html">Cortex.Orion.Cman.Container</a>
         </td>
         <td>
-        Defined by relationship Orion.UCSChassisHostsPSUs (System.Hosting)
+        Defined by relationship Cortex.Orion.Cman.ContainerToStatistics (System.Hosting)
       </td>
       </tr>
     </table>

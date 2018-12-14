@@ -1,0 +1,228 @@
+﻿
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <title>SolarWinds Information Service v3.0 Schema Documentation</title>
+    <link href="SchemaDoc.css" type="text/css" rel="stylesheet" />
+  </head>
+  <body>
+    <h1>SolarWinds Information Service v3.0 Schema Documentation</h1>
+    <p>
+      <a href="index.html">Index</a>
+    </p>
+    <h1>
+      <a name="Cortex.Orion.Node">Cortex.Orion.Node</a>
+    </h1>
+    <p>
+        Base type:
+        <a href="Cortex.Orion.MonitoringElement.html">Cortex.Orion.MonitoringElement</a></p>
+    <h2>Properties</h2>
+    <table>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Notes</th>
+      </tr>
+      <tr>
+        <td>NodeId</td>
+        <td>System.Int32</td>
+        <td />
+      </tr>
+      <tr>
+        <td>IpAddress</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>ObjectSubType</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Vendor</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>SnmpPort</td>
+        <td>System.Int16</td>
+        <td />
+      </tr>
+      <tr>
+        <td>SnmpVersion</td>
+        <td>System.Int32</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Pollers</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Fqdn</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>OsVersion</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Uptime</td>
+        <td>System.Int64</td>
+        <td />
+      </tr>
+      <tr>
+        <td>DiscoveryProfileId</td>
+        <td>System.Int32</td>
+        <td />
+      </tr>
+      <tr>
+        <td>SysObjectId</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>CpuPercentUtilization</td>
+        <td>System.Int32</td>
+        <td />
+      </tr>
+      <tr>
+        <td>PercentMemoryUsed</td>
+        <td>System.Double</td>
+        <td />
+      </tr>
+      <tr>
+        <td>MemoryUsed</td>
+        <td>System.Int64</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Status</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>ResponseTime</td>
+        <td>System.Int64</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Statistics</td>
+        <td>
+          <a href="Cortex.Orion.Node.Statistics.html">Cortex.Orion.Node.Statistics</a>
+        </td>
+        <td>
+        Defined by relationship Cortex.Orion.NodeToStatistics (System.Hosting)
+      </td>
+      </tr>
+      <tr>
+        <td>CPUs</td>
+        <td>
+          <a href="Cortex.Orion.Cpu.html">Cortex.Orion.Cpu</a>
+        </td>
+        <td>
+        Defined by relationship Cortex.Orion.NodeToCpus (System.Hosting)
+      </td>
+      </tr>
+      <tr>
+        <td>Credentials</td>
+        <td>
+          <a href="Cortex.Orion.Credential.html">Cortex.Orion.Credential</a>
+        </td>
+        <td>
+        Defined by relationship Cortex.Orion.NodeToCredentials (System.Reference)
+      </td>
+      </tr>
+      <tr>
+        <td>PCUs</td>
+        <td>
+          <a href="Cortex.Orion.PowerControlUnit.html">Cortex.Orion.PowerControlUnit</a>
+        </td>
+        <td>
+        Defined by relationship Cortex.Orion.NodeToPCUs (System.Reference)
+      </td>
+      </tr>
+      <tr>
+        <td>Volumes</td>
+        <td>
+          <a href="Cortex.Orion.Volume.html">Cortex.Orion.Volume</a>
+        </td>
+        <td>
+        Defined by relationship Cortex.Orion.NodeToVolumes (System.Hosting)
+      </td>
+      </tr>
+      <tr>
+        <td>Host</td>
+        <td>
+          <a href="Cortex.Orion.Virtualization.Host.html">Cortex.Orion.Virtualization.Host</a>
+        </td>
+        <td>
+        Defined by relationship Cortex.Orion.Virtualization.HostToNode (System.Reference)
+      </td>
+      </tr>
+      <tr>
+        <td>VCenter</td>
+        <td>
+          <a href="Cortex.Orion.Virtualization.VCenter.html">Cortex.Orion.Virtualization.VCenter</a>
+        </td>
+        <td>
+        Defined by relationship Cortex.Orion.Virtualization.VCenterToNode (System.Reference)
+      </td>
+      </tr>
+    </table>
+    <h2>Verbs</h2>
+    <table>
+      <tr>
+        <th>Name</th>
+        <th>Summary</th>
+        <th>Parameters</th>
+        <th>Returns</th>
+      </tr>
+      <tr>
+        <td>Core.AddToCortex</td>
+        <td />
+        <td />
+        <td />
+      </tr>
+      <tr>
+        <td>Core.AssignToEngine</td>
+        <td />
+        <td />
+        <td />
+      </tr>
+      <tr>
+        <td>Core.GetSupportedMetrics</td>
+        <td />
+        <td />
+        <td />
+      </tr>
+      <tr>
+        <td>Core.InventoryNow</td>
+        <td />
+        <td />
+        <td />
+      </tr>
+      <tr>
+        <td>Core.SetPolling</td>
+        <td />
+        <td />
+        <td />
+      </tr>
+      <tr>
+        <td>Core.StartRealTimePolling</td>
+        <td />
+        <td />
+        <td />
+      </tr>
+      <tr>
+        <td>Core.StopRealTimePolling</td>
+        <td />
+        <td />
+        <td />
+      </tr>
+    </table>
+  </body>
+</html>

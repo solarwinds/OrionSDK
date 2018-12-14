@@ -1,0 +1,86 @@
+﻿
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <title>SolarWinds Information Service v3.0 Schema Documentation</title>
+    <link href="SchemaDoc.css" type="text/css" rel="stylesheet" />
+  </head>
+  <body>
+    <h1>SolarWinds Information Service v3.0 Schema Documentation</h1>
+    <p>
+      <a href="index.html">Index</a>
+    </p>
+    <h1>
+      <a name="Cortex.Orion.Virtualization.Alarm">Cortex.Orion.Virtualization.Alarm</a>
+    </h1>
+    <p>
+        Base type:
+        <a href="Cortex.System.ElementInstance.html">Cortex.System.ElementInstance</a></p>
+    <h2>Properties</h2>
+    <table>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Notes</th>
+      </tr>
+      <tr>
+        <td>ManagedObjectId</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Name</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Description</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>SystemName</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>IsDeleted</td>
+        <td>System.Boolean</td>
+        <td />
+      </tr>
+      <tr>
+        <td>IsEnabled</td>
+        <td>System.Boolean</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Host</td>
+        <td>
+          <a href="Cortex.Orion.Virtualization.Host.html">Cortex.Orion.Virtualization.Host</a>
+        </td>
+        <td>
+        Defined by relationship Cortex.Orion.Virtualization.AlarmsToHost (System.Reference)
+      </td>
+      </tr>
+      <tr>
+        <td>VCenter</td>
+        <td>
+          <a href="Cortex.Orion.Virtualization.VCenter.html">Cortex.Orion.Virtualization.VCenter</a>
+        </td>
+        <td>
+        Defined by relationship Cortex.Orion.Virtualization.AlarmsToVCenter (System.Reference)
+      </td>
+      </tr>
+      <tr>
+        <td>TriggeredAlarmStates</td>
+        <td>
+          <a href="Cortex.Orion.Virtualization.TriggeredAlarmState.html">Cortex.Orion.Virtualization.TriggeredAlarmState</a>
+        </td>
+        <td>
+        Defined by relationship Cortex.Orion.Virtualization.AlarmToTriggeredAlarmStates (System.Hosting)
+      </td>
+      </tr>
+    </table>
+  </body>
+</html>

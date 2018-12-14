@@ -12,11 +12,11 @@
       <a href="index.html">Index</a>
     </p>
     <h1>
-      <a name="Orion.NPM.UCSChassis">Orion.NPM.UCSChassis</a>
+      <a name="Cortex.Orion.PowerControlUnit.Statistics">Cortex.Orion.PowerControlUnit.Statistics</a>
     </h1>
     <p>
         Base type:
-        <a href="System.Entity.html">System.Entity</a></p>
+        <a href="System.StatisticsEntity.html">System.StatisticsEntity</a></p>
     <h2>Properties</h2>
     <table>
       <tr>
@@ -25,49 +25,76 @@
         <th>Notes</th>
       </tr>
       <tr>
-        <td>ID</td>
+        <td>BatteryPackCount</td>
+        <td>System.Int32</td>
+        <td />
+      </tr>
+      <tr>
+        <td>BatteryCapacity</td>
+        <td>System.Int32</td>
+        <td />
+      </tr>
+      <tr>
+        <td>BatteryTemperature</td>
+        <td>System.Int32</td>
+        <td />
+      </tr>
+      <tr>
+        <td>TimeOnBattery</td>
+        <td>System.Double</td>
+        <td />
+      </tr>
+      <tr>
+        <td>ReplaceIndicator</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>BasicBatteryStatus</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>OutputStatus</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>OutputPercentLoad</td>
+        <td>System.Int32</td>
+        <td />
+      </tr>
+      <tr>
+        <td>RunTimeRemaining</td>
+        <td>System.Double</td>
+        <td />
+      </tr>
+      <tr>
+        <td>LastFailCause</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>ElementId</td>
         <td>System.Int64</td>
         <td />
       </tr>
       <tr>
-        <td>ParentID</td>
-        <td>System.Int64</td>
+        <td>ObservationTimestamp</td>
+        <td>System.DateTime</td>
         <td />
       </tr>
       <tr>
-        <td>DistinguishedName</td>
-        <td>System.String</td>
+        <td>ObservationFrequency</td>
+        <td>System.DateTime</td>
         <td />
       </tr>
       <tr>
-        <td>Status</td>
-        <td>System.String</td>
-        <td />
-      </tr>
-      <tr>
-        <td>Model</td>
-        <td>System.String</td>
-        <td />
-      </tr>
-      <tr>
-        <td>Name</td>
-        <td>System.String</td>
-        <td />
-      </tr>
-      <tr>
-        <td>DisplayName</td>
-        <td>System.String</td>
-        <td />
-      </tr>
-      <tr>
-        <td>Description</td>
-        <td>System.String</td>
-        <td />
-      </tr>
-      <tr>
-        <td>DetailsUrl</td>
-        <td>System.String</td>
-        <td />
+        <td>Weight</td>
+        <td>System.Double</td>
+        <td>
+          Default='1.0'.
+        </td>
       </tr>
       <tr>
         <td>DisplayName</td>
@@ -97,39 +124,12 @@
         </td>
       </tr>
       <tr>
-        <td>UCSBlades</td>
+        <td>PowerControlUnit</td>
         <td>
-          <a href="Orion.NPM.UCSBlades.html">Orion.NPM.UCSBlades</a>
+          <a href="Cortex.Orion.PowerControlUnit.html">Cortex.Orion.PowerControlUnit</a>
         </td>
         <td>
-        Defined by relationship Orion.UCSChassisHostsUCSBlades (System.Hosting)
-      </td>
-      </tr>
-      <tr>
-        <td>Fans</td>
-        <td>
-          <a href="Orion.NPM.UCSFansOnChassis.html">Orion.NPM.UCSFansOnChassis</a>
-        </td>
-        <td>
-        Defined by relationship Orion.UCSChassisHostsFans (System.Hosting)
-      </td>
-      </tr>
-      <tr>
-        <td>PSUs</td>
-        <td>
-          <a href="Orion.NPM.UCSPSUsOnChassis.html">Orion.NPM.UCSPSUsOnChassis</a>
-        </td>
-        <td>
-        Defined by relationship Orion.UCSChassisHostsPSUs (System.Hosting)
-      </td>
-      </tr>
-      <tr>
-        <td>UCSFabric</td>
-        <td>
-          <a href="Orion.NPM.UCSFabrics.html">Orion.NPM.UCSFabrics</a>
-        </td>
-        <td>
-        Defined by relationship Orion.UCSFabricHostsUCSChassis (System.Hosting)
+        Defined by relationship Cortex.Orion.PowerControlUnitToStatistics (System.Hosting)
       </td>
       </tr>
     </table>

@@ -1,0 +1,282 @@
+﻿
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <title>SolarWinds Information Service v3.0 Schema Documentation</title>
+    <link href="SchemaDoc.css" type="text/css" rel="stylesheet" />
+  </head>
+  <body>
+    <h1>SolarWinds Information Service v3.0 Schema Documentation</h1>
+    <p>
+      <a href="index.html">Index</a>
+    </p>
+    <h1>
+      <a name="Cortex.Orion.Virtualization.Host">Cortex.Orion.Virtualization.Host</a>
+    </h1>
+    <p>
+        Base type:
+        <a href="Cortex.Orion.Virtualization.HypervisorEntity.html">Cortex.Orion.Virtualization.HypervisorEntity</a></p>
+    <h2>Properties</h2>
+    <table>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Notes</th>
+      </tr>
+      <tr>
+        <td>HostId</td>
+        <td>System.Int32</td>
+        <td />
+      </tr>
+      <tr>
+        <td>DataCenterId</td>
+        <td>System.Int32</td>
+        <td />
+      </tr>
+      <tr>
+        <td>ClusterId</td>
+        <td>System.Int32</td>
+        <td />
+      </tr>
+      <tr>
+        <td>NodeId</td>
+        <td>System.Int32</td>
+        <td />
+      </tr>
+      <tr>
+        <td>CredentialId</td>
+        <td>System.Int32</td>
+        <td />
+      </tr>
+      <tr>
+        <td>HostName</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>IpAddress</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>BiosSerial</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>VsanNodeUuid</td>
+        <td>System.Guid</td>
+        <td />
+      </tr>
+      <tr>
+        <td>LatencyRead</td>
+        <td>System.Double</td>
+        <td />
+      </tr>
+      <tr>
+        <td>LatencyWrite</td>
+        <td>System.Double</td>
+        <td />
+      </tr>
+      <tr>
+        <td>LatencyTotal</td>
+        <td>System.Double</td>
+        <td />
+      </tr>
+      <tr>
+        <td>ThroughputRead</td>
+        <td>System.Double</td>
+        <td />
+      </tr>
+      <tr>
+        <td>ThroughputWrite</td>
+        <td>System.Double</td>
+        <td />
+      </tr>
+      <tr>
+        <td>ThroughputTotal</td>
+        <td>System.Double</td>
+        <td />
+      </tr>
+      <tr>
+        <td>IOPSRead</td>
+        <td>System.Double</td>
+        <td />
+      </tr>
+      <tr>
+        <td>IOPSWrite</td>
+        <td>System.Double</td>
+        <td />
+      </tr>
+      <tr>
+        <td>IOPSTotal</td>
+        <td>System.Double</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Congestions</td>
+        <td>System.Double</td>
+        <td />
+      </tr>
+      <tr>
+        <td>OutstandingIO</td>
+        <td>System.Double</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Statistics</td>
+        <td>
+          <a href="Cortex.Orion.Virtualization.Host.Statistics.html">Cortex.Orion.Virtualization.Host.Statistics</a>
+        </td>
+        <td>
+        Defined by relationship Cortex.Orion.Virtualization.HostToStatistics (System.Hosting)
+      </td>
+      </tr>
+      <tr>
+        <td>Datastores</td>
+        <td>
+          <a href="Cortex.Orion.Virtualization.Datastore.html">Cortex.Orion.Virtualization.Datastore</a>
+        </td>
+        <td>
+        Defined by relationship Cortex.Orion.Virtualization.HostsToDatastores (System.Reference)
+      </td>
+      </tr>
+      <tr>
+        <td>Node</td>
+        <td>
+          <a href="Cortex.Orion.Node.html">Cortex.Orion.Node</a>
+        </td>
+        <td>
+        Defined by relationship Cortex.Orion.Virtualization.HostToNode (System.Reference)
+      </td>
+      </tr>
+      <tr>
+        <td>VirtualMachines</td>
+        <td>
+          <a href="Cortex.Orion.Virtualization.VirtualMachine.html">Cortex.Orion.Virtualization.VirtualMachine</a>
+        </td>
+        <td>
+        Defined by relationship Cortex.Orion.Virtualization.HostToVirtualMachines (System.Reference)
+      </td>
+      </tr>
+      <tr>
+        <td>Credential</td>
+        <td>
+          <a href="Cortex.Orion.VMwareCredential.html">Cortex.Orion.VMwareCredential</a>
+        </td>
+        <td>
+        Defined by relationship Cortex.Orion.Virtualization.HostToVMwareCredential (System.Reference)
+      </td>
+      </tr>
+      <tr>
+        <td>VSanDiskGroups</td>
+        <td>
+          <a href="Cortex.Orion.Virtualization.VSanDiskGroup.html">Cortex.Orion.Virtualization.VSanDiskGroup</a>
+        </td>
+        <td>
+        Defined by relationship Cortex.Orion.Virtualization.HostToVSanDiskGroups (System.Reference)
+      </td>
+      </tr>
+      <tr>
+        <td>VSanResyncInfo</td>
+        <td>
+          <a href="Cortex.Orion.Virtualization.VSanResyncInfo.html">Cortex.Orion.Virtualization.VSanResyncInfo</a>
+        </td>
+        <td>
+        Defined by relationship Cortex.Orion.Virtualization.HostToVSanResyncInfo (System.Hosting)
+      </td>
+      </tr>
+      <tr>
+        <td>OrionHost</td>
+        <td>
+          <a href="Orion.VIM.Hosts.html">Orion.VIM.Hosts</a>
+        </td>
+        <td>
+        Defined by relationship Cortex.Orion.Virtualization.OrionHostToHost (System.Hosting)
+      </td>
+      </tr>
+      <tr>
+        <td>Alarms</td>
+        <td>
+          <a href="Cortex.Orion.Virtualization.Alarm.html">Cortex.Orion.Virtualization.Alarm</a>
+        </td>
+        <td>
+        Defined by relationship Cortex.Orion.Virtualization.AlarmsToHost (System.Reference)
+      </td>
+      </tr>
+      <tr>
+        <td>Cluster</td>
+        <td>
+          <a href="Cortex.Orion.Virtualization.Cluster.html">Cortex.Orion.Virtualization.Cluster</a>
+        </td>
+        <td>
+        Defined by relationship Cortex.Orion.Virtualization.ClusterToHosts (System.Reference)
+      </td>
+      </tr>
+      <tr>
+        <td>DataCenter</td>
+        <td>
+          <a href="Cortex.Orion.Virtualization.DataCenter.html">Cortex.Orion.Virtualization.DataCenter</a>
+        </td>
+        <td>
+        Defined by relationship Cortex.Orion.Virtualization.DataCenterToHosts (System.Reference)
+      </td>
+      </tr>
+      <tr>
+        <td>TriggeredAlarmStates</td>
+        <td>
+          <a href="Cortex.Orion.Virtualization.TriggeredAlarmState.html">Cortex.Orion.Virtualization.TriggeredAlarmState</a>
+        </td>
+        <td>
+        Defined by relationship Cortex.Orion.Virtualization.TriggeredAlarmStatesToHost (System.Reference)
+      </td>
+      </tr>
+    </table>
+    <h2>Verbs</h2>
+    <table>
+      <tr>
+        <th>Name</th>
+        <th>Summary</th>
+        <th>Parameters</th>
+        <th>Returns</th>
+      </tr>
+      <tr>
+        <td>Core.AssignToEngine</td>
+        <td />
+        <td />
+        <td />
+      </tr>
+      <tr>
+        <td>Core.GetSupportedMetrics</td>
+        <td />
+        <td />
+        <td />
+      </tr>
+      <tr>
+        <td>Core.InventoryNow</td>
+        <td />
+        <td />
+        <td />
+      </tr>
+      <tr>
+        <td>Core.SetPolling</td>
+        <td />
+        <td />
+        <td />
+      </tr>
+      <tr>
+        <td>Core.StartRealTimePolling</td>
+        <td />
+        <td />
+        <td />
+      </tr>
+      <tr>
+        <td>Core.StopRealTimePolling</td>
+        <td />
+        <td />
+        <td />
+      </tr>
+    </table>
+  </body>
+</html>

@@ -12,12 +12,14 @@
       <a href="index.html">Index</a>
     </p>
     <h1>
-      <a name="Orion.NPM.UCSFans">Orion.NPM.UCSFans</a>
+      <a name="Orion.Web.Menu">Orion.Web.Menu</a>
     </h1>
-    <p>Abstract</p>
     <p>
         Base type:
         <a href="System.Entity.html">System.Entity</a></p>
+    <p>
+        Summary:
+        Orion mega menu entity holding final data for menu presentation.</p>
     <h2>Properties</h2>
     <table>
       <tr>
@@ -27,61 +29,16 @@
       </tr>
       <tr>
         <td>ID</td>
-        <td>System.Int64</td>
+        <td>System.String</td>
         <td />
       </tr>
       <tr>
         <td>ParentID</td>
-        <td>System.Int64</td>
-        <td />
-      </tr>
-      <tr>
-        <td>ParentType</td>
-        <td>System.Int32</td>
-        <td />
-      </tr>
-      <tr>
-        <td>DistinguishedName</td>
         <td>System.String</td>
         <td />
       </tr>
       <tr>
-        <td>Power</td>
-        <td>System.String</td>
-        <td />
-      </tr>
-      <tr>
-        <td>Module</td>
-        <td>System.Int32</td>
-        <td />
-      </tr>
-      <tr>
-        <td>Model</td>
-        <td>System.String</td>
-        <td />
-      </tr>
-      <tr>
-        <td>Name</td>
-        <td>System.String</td>
-        <td />
-      </tr>
-      <tr>
-        <td>Status</td>
-        <td>System.String</td>
-        <td />
-      </tr>
-      <tr>
-        <td>Description</td>
-        <td>System.String</td>
-        <td />
-      </tr>
-      <tr>
-        <td>NodeID</td>
-        <td>System.Int64</td>
-        <td />
-      </tr>
-      <tr>
-        <td>ParentTypeDescription</td>
+        <td>Type</td>
         <td>System.String</td>
         <td />
       </tr>
@@ -91,8 +48,28 @@
         <td />
       </tr>
       <tr>
-        <td>DetailsUrl</td>
+        <td>Name</td>
         <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Description</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Url</td>
+        <td>System.String</td>
+        <td />
+      </tr>
+      <tr>
+        <td>OpenInNewWindow</td>
+        <td>System.Boolean</td>
+        <td />
+      </tr>
+      <tr>
+        <td>SortOrder</td>
+        <td>System.Int32</td>
         <td />
       </tr>
       <tr>
@@ -122,14 +99,20 @@
           Default='0'.
         </td>
       </tr>
+    </table>
+    <h2>Verbs</h2>
+    <table>
       <tr>
-        <td>Node</td>
-        <td>
-          <a href="Orion.Nodes.html">Orion.Nodes</a>
-        </td>
-        <td>
-        Defined by relationship Orion.NodeReferencesUCSFans (System.Reference)
-      </td>
+        <th>Name</th>
+        <th>Summary</th>
+        <th>Parameters</th>
+        <th>Returns</th>
+      </tr>
+      <tr>
+        <td>ClearCache</td>
+        <td>Clears menu item cache.</td>
+        <td />
+        <td />
       </tr>
     </table>
   </body>

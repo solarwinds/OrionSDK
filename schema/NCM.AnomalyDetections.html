@@ -12,11 +12,11 @@
       <a href="index.html">Index</a>
     </p>
     <h1>
-      <a name="Orion.NPM.UCSPSUsOnFabrics">Orion.NPM.UCSPSUsOnFabrics</a>
+      <a name="NCM.AnomalyDetections">NCM.AnomalyDetections</a>
     </h1>
     <p>
         Base type:
-        <a href="Orion.NPM.UCSPSUs.html">Orion.NPM.UCSPSUs</a></p>
+        <a href="System.Entity.html">System.Entity</a></p>
     <h2>Properties</h2>
     <table>
       <tr>
@@ -25,67 +25,77 @@
         <th>Notes</th>
       </tr>
       <tr>
-        <td>ID</td>
-        <td>System.Int64</td>
-        <td />
-      </tr>
-      <tr>
-        <td>ParentID</td>
-        <td>System.Int64</td>
-        <td />
-      </tr>
-      <tr>
-        <td>ParentType</td>
+        <td>DetectionID</td>
         <td>System.Int32</td>
         <td />
       </tr>
       <tr>
-        <td>DistinguishedName</td>
+        <td>AnomalyLevel</td>
         <td>System.String</td>
         <td />
       </tr>
       <tr>
-        <td>Power</td>
+        <td>DetectionType</td>
         <td>System.String</td>
         <td />
       </tr>
       <tr>
-        <td>Status</td>
-        <td>System.String</td>
+        <td>Duration</td>
+        <td>System.Int32</td>
         <td />
       </tr>
       <tr>
-        <td>Model</td>
-        <td>System.String</td>
+        <td>Average</td>
+        <td>System.Double</td>
         <td />
       </tr>
       <tr>
-        <td>Name</td>
-        <td>System.String</td>
+        <td>Sigma</td>
+        <td>System.Double</td>
         <td />
       </tr>
       <tr>
-        <td>Description</td>
-        <td>System.String</td>
+        <td>Difference</td>
+        <td>System.Double</td>
         <td />
       </tr>
       <tr>
         <td>NodeID</td>
-        <td>System.Int64</td>
+        <td>System.Int32</td>
         <td />
       </tr>
       <tr>
-        <td>ParentTypeDescription</td>
+        <td>DeviceFamily</td>
         <td>System.String</td>
         <td />
       </tr>
       <tr>
-        <td>DisplayName</td>
+        <td>EngineID</td>
+        <td>System.Int32</td>
+        <td />
+      </tr>
+      <tr>
+        <td>TimeStamp</td>
+        <td>System.DateTime</td>
+        <td />
+      </tr>
+      <tr>
+        <td>LearnDate</td>
+        <td>System.DateTime</td>
+        <td />
+      </tr>
+      <tr>
+        <td>HourIndex</td>
+        <td>System.Int32</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Metrics</td>
         <td>System.String</td>
         <td />
       </tr>
       <tr>
-        <td>DetailsUrl</td>
+        <td>ModuleVersion</td>
         <td>System.String</td>
         <td />
       </tr>
@@ -115,15 +125,6 @@
         <td>
           Default='0'.
         </td>
-      </tr>
-      <tr>
-        <td>UCSFabrics</td>
-        <td>
-          <a href="Orion.NPM.UCSFabrics.html">Orion.NPM.UCSFabrics</a>
-        </td>
-        <td>
-        Defined by relationship Orion.UCSFabricsHostsPSUs (System.Hosting)
-      </td>
       </tr>
     </table>
   </body>

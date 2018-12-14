@@ -12,9 +12,8 @@
       <a href="index.html">Index</a>
     </p>
     <h1>
-      <a name="Orion.NPM.UCSPSUs">Orion.NPM.UCSPSUs</a>
+      <a name="NCM.AnomalyStatistics">NCM.AnomalyStatistics</a>
     </h1>
-    <p>Abstract</p>
     <p>
         Base type:
         <a href="System.Entity.html">System.Entity</a></p>
@@ -26,68 +25,58 @@
         <th>Notes</th>
       </tr>
       <tr>
-        <td>ID</td>
-        <td>System.Int64</td>
-        <td />
-      </tr>
-      <tr>
-        <td>ParentID</td>
-        <td>System.Int64</td>
-        <td />
-      </tr>
-      <tr>
-        <td>ParentType</td>
+        <td>StatisticsId</td>
         <td>System.Int32</td>
         <td />
       </tr>
       <tr>
-        <td>DistinguishedName</td>
+        <td>EngineId</td>
+        <td>System.Int32</td>
+        <td />
+      </tr>
+      <tr>
+        <td>DeviceFamily</td>
         <td>System.String</td>
         <td />
       </tr>
       <tr>
-        <td>Power</td>
+        <td>Metrics</td>
         <td>System.String</td>
         <td />
       </tr>
       <tr>
-        <td>Status</td>
-        <td>System.String</td>
+        <td>HourIndex</td>
+        <td>System.Int32</td>
         <td />
       </tr>
       <tr>
-        <td>Model</td>
-        <td>System.String</td>
+        <td>CenterLine</td>
+        <td>System.Double</td>
         <td />
       </tr>
       <tr>
-        <td>Name</td>
-        <td>System.String</td>
+        <td>UpperBound</td>
+        <td>System.Double</td>
         <td />
       </tr>
       <tr>
-        <td>Description</td>
-        <td>System.String</td>
+        <td>LowerBound</td>
+        <td>System.Double</td>
         <td />
       </tr>
       <tr>
-        <td>NodeID</td>
-        <td>System.Int64</td>
+        <td>Sigma</td>
+        <td>System.Double</td>
         <td />
       </tr>
       <tr>
-        <td>ParentTypeDescription</td>
-        <td>System.String</td>
+        <td>RetrainDate</td>
+        <td>System.DateTime</td>
         <td />
       </tr>
       <tr>
-        <td>DisplayName</td>
-        <td>System.String</td>
-        <td />
-      </tr>
-      <tr>
-        <td>DetailsUrl</td>
-        <td>System.String</td>
+        <td>IsLearning</td>
+        <td>System.Boolean</td>
         <td />
       </tr>
       <tr>
@@ -116,15 +105,6 @@
         <td>
           Default='0'.
         </td>
-      </tr>
-      <tr>
-        <td>Node</td>
-        <td>
-          <a href="Orion.Nodes.html">Orion.Nodes</a>
-        </td>
-        <td>
-        Defined by relationship Orion.NodeReferencesUCSPSUs (System.Reference)
-      </td>
       </tr>
     </table>
   </body>

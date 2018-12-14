@@ -12,11 +12,11 @@
       <a href="index.html">Index</a>
     </p>
     <h1>
-      <a name="Orion.NPM.UCSManagers">Orion.NPM.UCSManagers</a>
+      <a name="Cortex.Orion.Volume.Statistics">Cortex.Orion.Volume.Statistics</a>
     </h1>
     <p>
         Base type:
-        <a href="System.Entity.html">System.Entity</a></p>
+        <a href="System.StatisticsEntity.html">System.StatisticsEntity</a></p>
     <h2>Properties</h2>
     <table>
       <tr>
@@ -25,49 +25,66 @@
         <th>Notes</th>
       </tr>
       <tr>
-        <td>NodeID</td>
+        <td>VolumeAllocationFailuresThisHour</td>
         <td>System.Int32</td>
         <td />
       </tr>
       <tr>
-        <td>Port</td>
+        <td>VolumeAllocationFailuresToday</td>
         <td>System.Int32</td>
         <td />
       </tr>
       <tr>
-        <td>Name</td>
-        <td>System.String</td>
+        <td>VolumeSize</td>
+        <td>System.Double</td>
         <td />
       </tr>
       <tr>
-        <td>SystemUpTime</td>
-        <td>System.String</td>
+        <td>VolumeSpaceUsed</td>
+        <td>System.Double</td>
         <td />
       </tr>
       <tr>
-        <td>Mode</td>
-        <td>System.String</td>
+        <td>DiskQueueLength</td>
+        <td>System.Double</td>
         <td />
       </tr>
       <tr>
-        <td>UseSSL</td>
-        <td>System.Boolean</td>
+        <td>DiskTransfer</td>
+        <td>System.Double</td>
         <td />
       </tr>
       <tr>
-        <td>Description</td>
-        <td>System.String</td>
+        <td>DiskReads</td>
+        <td>System.Double</td>
         <td />
       </tr>
       <tr>
-        <td>DisplayName</td>
-        <td>System.String</td>
+        <td>DiskWrites</td>
+        <td>System.Double</td>
         <td />
       </tr>
       <tr>
-        <td>DetailsUrl</td>
-        <td>System.String</td>
+        <td>ElementId</td>
+        <td>System.Int64</td>
         <td />
+      </tr>
+      <tr>
+        <td>ObservationTimestamp</td>
+        <td>System.DateTime</td>
+        <td />
+      </tr>
+      <tr>
+        <td>ObservationFrequency</td>
+        <td>System.DateTime</td>
+        <td />
+      </tr>
+      <tr>
+        <td>Weight</td>
+        <td>System.Double</td>
+        <td>
+          Default='1.0'.
+        </td>
       </tr>
       <tr>
         <td>DisplayName</td>
@@ -97,30 +114,12 @@
         </td>
       </tr>
       <tr>
-        <td>UCSEvents</td>
+        <td>Volume</td>
         <td>
-          <a href="Orion.NPM.UCSEvents.html">Orion.NPM.UCSEvents</a>
+          <a href="Cortex.Orion.Volume.html">Cortex.Orion.Volume</a>
         </td>
         <td>
-        Defined by relationship Orion.UCSManagerHostsUCSEvents (System.Reference)
-      </td>
-      </tr>
-      <tr>
-        <td>UCSFabrics</td>
-        <td>
-          <a href="Orion.NPM.UCSFabrics.html">Orion.NPM.UCSFabrics</a>
-        </td>
-        <td>
-        Defined by relationship Orion.UCSManagerHostsUCSFabrics (System.Hosting)
-      </td>
-      </tr>
-      <tr>
-        <td>Nodes</td>
-        <td>
-          <a href="Orion.Nodes.html">Orion.Nodes</a>
-        </td>
-        <td>
-        Defined by relationship Orion.NodesHostsUCSManagers (System.Hosting)
+        Defined by relationship Cortex.Orion.VolumeToStatistics (System.Hosting)
       </td>
       </tr>
     </table>

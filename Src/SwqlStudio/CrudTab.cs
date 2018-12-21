@@ -46,12 +46,12 @@ namespace SwqlStudio
                     createProperties = false;
                     goto case CrudOperation.Update;
                 case CrudOperation.Update:
-                    crudPropertyBindingSource.Add(new CrudProperty(new Property()
+                    crudPropertyBindingSource.Add(new CrudProperty(new Property
                     {
                         IsKey = true,
                         Name = SwisUri,
                         Type = typeof(string).Name
-                    }));
+                    }, false));
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
@@ -116,7 +116,7 @@ namespace SwqlStudio
             var rv = new PropertyBag();
             foreach (CrudProperty property in crudPropertyBindingSource)
             {
-                if (!string.IsNullOrEmpty(property.Value))
+                if (property.UseInPropertyBag && !string.IsNullOrEmpty(property.Value))
                 {
                     rv[property.Name] = property.Value;
                 }

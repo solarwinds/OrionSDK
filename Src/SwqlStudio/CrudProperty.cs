@@ -5,10 +5,12 @@ namespace SwqlStudio
 {
     public class CrudProperty
     {
+        public bool UseInPropertyBag { get; }
         private readonly Property _property;
 
-        public CrudProperty(Property property)
+        public CrudProperty(Property property, bool useInPropertyBag = true)
         {
+            UseInPropertyBag = useInPropertyBag;
             _property = property;
         }
 

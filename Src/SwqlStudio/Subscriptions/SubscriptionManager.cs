@@ -41,6 +41,11 @@ namespace SwqlStudio.Subscriptions
             {
                 log.Debug($"Unable to unsubscribe {subscriptionUri}.  Must have been deleted already", ex);
             }
+            catch (CommunicationException ex)
+            {
+                // also in case connection already disposed
+                log.Debug("Unable to unsubscribe due to communication error.", ex);
+            }
         }
 
         public string CreateSubscription(ConnectionInfo connectionInfo, string subscriptionQuery, SubscriberCallback callback)

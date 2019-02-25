@@ -1,4 +1,5 @@
 using System;
+using System.Globalization;
 using System.ServiceModel.Channels;
 using SolarWinds.InformationService.Contract2;
 using SolarWinds.InformationService.Contract2.PubSub;
@@ -44,8 +45,18 @@ namespace SwqlStudio
 
         public virtual Uri Uri(string serverAddress)
         {
-            Uri uri = new Uri(String.Format("{0}://{1}:{2}/" + _endpoint, _protocolName, serverAddress, Port));
-            return uri;
+            if (serverAddress.Contains(":"))
+            {
+                var parts = serverAddress.Split(':');
+                return Uri(parts[0], parts[1]);
+            }
+
+            return Uri(serverAddress, Port.ToString(CultureInfo.InvariantCulture));
+        }
+
+        private Uri Uri(string serverAddress, string port)
+        {
+            return new Uri(String.Format("{0}://{1}:{2}/" + _endpoint, _protocolName, serverAddress, port));
         }
 
         public virtual InfoServiceProxy CreateProxy(string server)

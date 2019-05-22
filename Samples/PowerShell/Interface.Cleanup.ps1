@@ -16,6 +16,7 @@ $query = "
         Nodes.Caption AS NodeName
         ,Interfaces.Caption AS InterfaceName
         ,Interfaces.URI
+        ,Interfaces.Status
     FROM Orion.Nodes AS Nodes
     JOIN Orion.NPM.Interfaces AS Interfaces ON Nodes.NodeID = Interfaces.NodeID
     WHERE Interfaces.Status != 1
@@ -24,7 +25,7 @@ $query = "
 $results = Get-SwisData $swis $query
 
 foreach ($result in $results) {
-    Write-Host ("Deleting interface [{0}] from node [{1}] with status [{2}]" -f $result.InterfaceName, $result.NodeName)
+    Write-Host ("Deleting interface [{0}] from node [{1}] with status [{2}]" -f $result.InterfaceName, $result.NodeName, $result.Status)
 
     # un-comment this line to do the actual deletion
     # Remove-SwisObject $swis $results.URI

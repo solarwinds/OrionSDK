@@ -13,12 +13,11 @@ $swis = Connect-Swis -Hostname $OrionServer -Username $Username -Password $Passw
 # interface
 $query = "
     SELECT
-        Nodes.Caption AS NodeName
+        Interfaces.Node.Caption AS NodeName
         ,Interfaces.Caption AS InterfaceName
         ,Interfaces.URI
         ,Interfaces.Status
-    FROM Orion.Nodes AS Nodes
-    JOIN Orion.NPM.Interfaces AS Interfaces ON Nodes.NodeID = Interfaces.NodeID
+    FROM Orion.NPM.Interfaces AS Interfaces
     WHERE Interfaces.Status != 1
 "
 

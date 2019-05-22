@@ -13,12 +13,11 @@ $swis = Connect-Swis -Hostname $OrionServer -Username $Username -Password $Passw
 # volumes
 $query = "
     SELECT
-        Nodes.Caption AS NodeName
+        Volumes.Node.Caption AS NodeName
         ,Volumes.Caption AS VolumeName
         ,Volumes.URI
         ,Volumes.Status
-    FROM Orion.Nodes AS Nodes
-    JOIN Orion.Volumes AS Volumes ON Nodes.NodeID = Volumes.NodeID
+    FROM Orion.Volumes AS Volumes
     WHERE Volumes.Status != 1
 "
 

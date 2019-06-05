@@ -42,6 +42,8 @@ namespace SwqlStudio
         private string _filter;
         private bool _treeIsUnderUpdate; 
         private Point _lastLocation;
+        private ImageList objectExplorerImageList;
+        private System.ComponentModel.IContainer components;
         private TreeNode _dragNode;
 
 
@@ -51,6 +53,8 @@ namespace SwqlStudio
 
         public ObjectExplorer()
         {
+            InitializeComponent();
+
             _treeSearch = new SearchTextBox
             {
                 Dock = DockStyle.Top
@@ -91,6 +95,7 @@ namespace SwqlStudio
             };
 
             _tree.NodeMouseDoubleClick += _tree_NodeMouseDoubleClick;
+            _tree.ImageList = this.objectExplorerImageList;
             _treeSearch.TextChangedWithDebounce += (sender, e) => { SetFilter(((TextBox) sender).Text); };
             _treeSearch.CueText = "Search (Ctrl + \\)";
             _treeSearch.DebounceLimit = TimeSpan.FromMilliseconds(400);
@@ -497,12 +502,6 @@ namespace SwqlStudio
             return sb.ToString();
         }
 
-        public ImageList ImageList
-        {
-            get { return _tree.ImageList; }
-            set { _tree.ImageList = value; }
-        }
-
         public void AddServer(IMetadataProvider provider, ConnectionInfo connection)
         {
             //Check if the current connection can create subscription
@@ -849,6 +848,35 @@ CanDelete: {table.CanDelete}";
             {
                 TabsFactory.OpenQueryTab(query, node.Connection);
             }
+        }
+
+        private void InitializeComponent()
+        {
+            this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ObjectExplorer));
+            this.objectExplorerImageList = new System.Windows.Forms.ImageList(this.components);
+            this.SuspendLayout();
+            // 
+            // objectExplorerImageList
+            // 
+            this.objectExplorerImageList.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("objectExplorerImageList.ImageStream")));
+            this.objectExplorerImageList.TransparentColor = System.Drawing.Color.Transparent;
+            this.objectExplorerImageList.Images.SetKeyName(0, "Column");
+            this.objectExplorerImageList.Images.SetKeyName(1, "Database");
+            this.objectExplorerImageList.Images.SetKeyName(2, "Link");
+            this.objectExplorerImageList.Images.SetKeyName(3, "Table");
+            this.objectExplorerImageList.Images.SetKeyName(4, "InheritedColumn");
+            this.objectExplorerImageList.Images.SetKeyName(5, "KeyColumn");
+            this.objectExplorerImageList.Images.SetKeyName(6, "Verb");
+            this.objectExplorerImageList.Images.SetKeyName(7, "Argument");
+            this.objectExplorerImageList.Images.SetKeyName(8, "Indication");
+            this.objectExplorerImageList.Images.SetKeyName(9, "Namespace");
+            this.objectExplorerImageList.Images.SetKeyName(10, "BaseType");
+            this.objectExplorerImageList.Images.SetKeyName(11, "BaseTypeAbstract");
+            this.objectExplorerImageList.Images.SetKeyName(12, "TableAbstract");
+            this.objectExplorerImageList.Images.SetKeyName(13, "TableCrud");
+            this.ResumeLayout(false);
+
         }
     }
 }

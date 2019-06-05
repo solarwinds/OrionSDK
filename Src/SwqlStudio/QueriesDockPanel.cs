@@ -83,11 +83,6 @@ namespace SwqlStudio
             return this.lastActiveContent != null;
         }
 
-        internal void SetObjectExplorerImageList(ImageList imageList)
-        {
-            this.objectExplorer.ImageList = imageList;
-        }
-
         private void InitializeDockPanel()
         {
             // Workaround for crash, when form is MDI

@@ -53,7 +53,6 @@ namespace SwqlStudio
 
         private void InitializeDockPanel()
         {
-            this.filesDock.SetObjectExplorerImageList(this.ObjectExplorerImageList);
             this.serverList = new ServerList();
             this.serverList.ConnectionAdded += ServerListOnConnectionAdded;
             this.serverList.ConnectionRemoved += ServerListOnConnectionRemoved;

@@ -308,12 +308,12 @@ namespace SwqlStudio
                     var argNode = new TreeNode(text) { SelectedImageKey = "Argument" };
                     argNode.ImageKey = argNode.SelectedImageKey;
                     argNode.Tag = arg;
-                    if (!string.IsNullOrEmpty(arg.Summary))
-                        argNode.ToolTipText = arg.Summary;
+                    argNode.ToolTipText = ToolTipBuilder.ToToolTip(arg);
                     e.Node.Nodes.Add(argNode);
                 }
             }
         }
+
 
         void _tree_NodeMouseDoubleClick(object sender, TreeNodeMouseClickEventArgs e)
         {
@@ -725,21 +725,7 @@ namespace SwqlStudio
             node.ImageKey = GetImageKey(entity);
             node.SelectedImageKey = node.ImageKey;
             node.Tag = entity;
-            if (entity.IsIndication)
-            {
-                node.ToolTipText += $@"{entity.FullName}
-{(string.IsNullOrEmpty(entity.Summary) ? string.Empty : entity.Summary + Environment.NewLine)}Base type: {entity.BaseType}
-CanSubscribe: {connection.CanCreateSubscription}";
-            }
-            else
-            {
-
-                node.ToolTipText = $@"{entity.FullName}
-{(string.IsNullOrEmpty(entity.Summary) ? string.Empty : entity.Summary + Environment.NewLine)}Base type: {entity.BaseType}
-CanCreate: {entity.CanCreate}
-CanUpdate: {entity.CanUpdate}
-CanDelete: {entity.CanDelete}";
-            }
+            node.ToolTipText = ToolTipBuilder.ToToolTip(connection, entity);
 
             // Add keys
             AddPropertiesToNode(node, entity.Properties.Where(c => c.IsKey));
@@ -777,7 +763,7 @@ CanDelete: {entity.CanDelete}";
                 verbNode.SelectedImageKey = "Verb";
                 verbNode.ImageKey = verbNode.SelectedImageKey;
                 verbNode.Tag = verb;
-                verbNode.ToolTipText = verb.Name + Environment.NewLine + verb.Summary;
+                verbNode.ToolTipText = ToolTipBuilder.ToToolTip(verb);
 
                 parent.Nodes.Add(verbNode);
 
@@ -799,16 +785,14 @@ CanDelete: {entity.CanDelete}";
 
         private static void AddPropertiesToNode(TreeNode parent, IEnumerable<Property> properties)
         {
-            foreach (Property column in properties.OrderBy(c => c.Name))
+            foreach (Property property in properties.OrderBy(c => c.Name))
             {
-                string text = $"{column.Name} ({column.Type})";
-                TreeNode node = new TreeNode(text);
-                node.SelectedImageKey = GetColumnIcon(column);
+                string name = $"{property.Name} ({property.Type})";
+                TreeNode node = new TreeNode(name);
+                node.SelectedImageKey = GetColumnIcon(property);
                 node.ImageKey = node.SelectedImageKey;
-                node.Tag = column;
-                if (!string.IsNullOrEmpty(column.Summary))
-                    node.ToolTipText = text + Environment.NewLine + column.Summary;
-
+                node.Tag = property;
+                node.ToolTipText = ToolTipBuilder.ToToolTip(property, name);
                 parent.Nodes.Add(node);
             }
         }

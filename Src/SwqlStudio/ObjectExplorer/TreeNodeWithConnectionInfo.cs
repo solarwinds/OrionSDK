@@ -13,20 +13,7 @@ namespace SwqlStudio
         public TreeNode CloneShallow()
         {
             var treeNode = new TreeNodeWithConnectionInfo(Text, Connection);
-            treeNode.Text = Text;
-            treeNode.Name = Name;
-            treeNode.ImageIndex = ImageIndex;
-            treeNode.SelectedImageIndex = SelectedImageIndex;
-            treeNode.StateImageIndex = StateImageIndex;
-
-            treeNode.SelectedImageKey = SelectedImageKey;
-            treeNode.ImageKey = ImageKey;
-            treeNode.Tag = Tag;
-            
-            treeNode.ToolTipText = ToolTipText;
-            treeNode.ContextMenu = ContextMenu;
-            treeNode.ContextMenuStrip = ContextMenuStrip;
-            treeNode.Checked = Checked;
+            TreeNodeUtils.CopyContent(this, treeNode);
             return treeNode;
         }
 

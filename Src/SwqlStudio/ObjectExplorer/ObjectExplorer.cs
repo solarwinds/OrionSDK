@@ -719,41 +719,41 @@ namespace SwqlStudio
             return entities.Select(e => MakeEntityTreeNode(provider, connection, e)).ToArray();
         }
 
-        private static TreeNodeWithConnectionInfo MakeEntityTreeNode(IMetadataProvider provider, ConnectionInfo connection, Entity table)
+        private static TreeNodeWithConnectionInfo MakeEntityTreeNode(IMetadataProvider provider, ConnectionInfo connection, Entity entity)
         {
-            var node = new TreeNodeWithConnectionInfo(table.FullName, connection);
-            node.ImageKey = GetImageKey(table);
+            var node = new TreeNodeWithConnectionInfo(entity.FullName, connection);
+            node.ImageKey = GetImageKey(entity);
             node.SelectedImageKey = node.ImageKey;
-            node.Tag = table;
-            if (table.IsIndication)
+            node.Tag = entity;
+            if (entity.IsIndication)
             {
-                node.ToolTipText += $@"{table.FullName}
-{(string.IsNullOrEmpty(table.Summary) ? string.Empty : table.Summary + Environment.NewLine)}Base type: {table.BaseType}
+                node.ToolTipText += $@"{entity.FullName}
+{(string.IsNullOrEmpty(entity.Summary) ? string.Empty : entity.Summary + Environment.NewLine)}Base type: {entity.BaseType}
 CanSubscribe: {connection.CanCreateSubscription}";
             }
             else
             {
 
-                node.ToolTipText = $@"{table.FullName}
-{(string.IsNullOrEmpty(table.Summary) ? string.Empty : table.Summary + Environment.NewLine)}Base type: {table.BaseType}
-CanCreate: {table.CanCreate}
-CanUpdate: {table.CanUpdate}
-CanDelete: {table.CanDelete}";
+                node.ToolTipText = $@"{entity.FullName}
+{(string.IsNullOrEmpty(entity.Summary) ? string.Empty : entity.Summary + Environment.NewLine)}Base type: {entity.BaseType}
+CanCreate: {entity.CanCreate}
+CanUpdate: {entity.CanUpdate}
+CanDelete: {entity.CanDelete}";
             }
 
             // Add keys
-            AddPropertiesToNode(node, table.Properties.Where(c => c.IsKey));
+            AddPropertiesToNode(node, entity.Properties.Where(c => c.IsKey));
 
             // Add the simple Properties
-            AddPropertiesToNode(node, table.Properties.Where(c => !c.IsInherited && !c.IsNavigable && !c.IsKey));
+            AddPropertiesToNode(node, entity.Properties.Where(c => !c.IsInherited && !c.IsNavigable && !c.IsKey));
 
             // Add the inherited Properties
-            AddPropertiesToNode(node, table.Properties.Where(c => c.IsInherited && !c.IsNavigable && !c.IsKey));
+            AddPropertiesToNode(node, entity.Properties.Where(c => c.IsInherited && !c.IsNavigable && !c.IsKey));
 
             // Add the Navigation Properties
-            AddPropertiesToNode(node, table.Properties.Where(c => c.IsNavigable));
+            AddPropertiesToNode(node, entity.Properties.Where(c => c.IsNavigable));
 
-            AddVerbsToNode(node, table, provider);
+            AddVerbsToNode(node, entity, provider);
             return node;
         }
 

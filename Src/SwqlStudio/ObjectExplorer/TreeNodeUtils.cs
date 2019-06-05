@@ -60,21 +60,26 @@ namespace SwqlStudio
         private static TreeNode CloneShallow(TreeNode node)
         {
             var treeNode = new TreeNode();
-            treeNode.Text = node.Text;
-            treeNode.Name = node.Name;
-            treeNode.ImageIndex = node.ImageIndex;
-            treeNode.SelectedImageIndex = node.SelectedImageIndex;
-            treeNode.StateImageIndex = node.StateImageIndex;
-
-            treeNode.SelectedImageKey = node.SelectedImageKey;
-            treeNode.ImageKey = node.ImageKey;
-            treeNode.Tag = node.Tag;
-
-            treeNode.ToolTipText = node.ToolTipText;
-            treeNode.ContextMenu = node.ContextMenu;
-            treeNode.ContextMenuStrip = node.ContextMenuStrip;
-            treeNode.Checked = node.Checked;
+            CopyContent(node, treeNode);
             return treeNode;
+        }
+
+        internal static void CopyContent(TreeNode source, TreeNode target)
+        {
+            target.Text = source.Text;
+            target.Name = source.Name;
+            target.ImageIndex = source.ImageIndex;
+            target.SelectedImageIndex = source.SelectedImageIndex;
+            target.StateImageIndex = source.StateImageIndex;
+
+            target.SelectedImageKey = source.SelectedImageKey;
+            target.ImageKey = source.ImageKey;
+            target.Tag = source.Tag;
+
+            target.ToolTipText = source.ToolTipText;
+            target.ContextMenu = source.ContextMenu;
+            target.ContextMenuStrip = source.ContextMenuStrip;
+            target.Checked = source.Checked;
         }
 
         /// <summary>

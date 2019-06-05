@@ -19,3 +19,4 @@ paket-files/
 \.paket/
 
 *.nupkg
+/Src/OrionSDK.sln.DotSettings.user

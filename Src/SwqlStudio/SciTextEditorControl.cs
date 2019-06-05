@@ -3,6 +3,7 @@ using System.Drawing;
 using System.Windows.Forms;
 using ScintillaNET;
 using System.Linq;
+using SwqlStudio.Metadata;
 using SwqlStudio.Properties;
 
 namespace SwqlStudio

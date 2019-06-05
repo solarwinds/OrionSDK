@@ -249,11 +249,11 @@
     <Compile Include="NewConnection.Designer.cs">
       <DependentUpon>NewConnection.cs</DependentUpon>
     </Compile>
-    <Compile Include="ObjectExplorer\IMetadataProvider.cs" />
+    <Compile Include="Metadata\IMetadataProvider.cs" />
     <Compile Include="ObjectExplorer\ObjectExplorer.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="ObjectExplorer\SwisMetaDataProvider.cs" />
+    <Compile Include="Metadata\SwisMetaDataProvider.cs" />
     <Compile Include="ProductSpecific\JavaHttpInfoService.cs" />
     <Compile Include="ProductSpecific\NCMForwarderInfoService.cs" />
     <Compile Include="ProductSpecific\NCMWindowsAuthInfoService.cs" />

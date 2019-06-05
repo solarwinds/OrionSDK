@@ -11,6 +11,7 @@ using System.Windows.Forms;
 using System.Xml;
 using System.Xml.Linq;
 using SolarWinds.InformationService.Contract2;
+using SwqlStudio.Metadata;
 using SwqlStudio.Playback;
 using SwqlStudio.Properties;
 using SwqlStudio.Subscriptions;

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Windows.Forms;
 using ScintillaNET;
 using SolarWinds.InformationService.Contract2;
+using SwqlStudio.Metadata;
 using WeifenLuo.WinFormsUI.Docking;
 
 namespace SwqlStudio

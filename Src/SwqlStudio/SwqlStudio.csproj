@@ -209,10 +209,12 @@
     <Compile Include="Metadata\Verb.cs" />
     <Compile Include="Metadata\VerbArgument.cs" />
     <Compile Include="CodeGenerator.cs" />
+    <Compile Include="ObjectExplorer\ArgumentsPlaceholderTreeNode.cs" />
     <Compile Include="ObjectExplorer\SearchTextBox.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="ObjectExplorer\ToolTipBuilder.cs" />
+    <Compile Include="ObjectExplorer\TreeNodesFactory.cs" />
     <Compile Include="ObjectExplorer\TreeNodeUtils.cs" />
     <Compile Include="ProductSpecific\CertificateValidatorWithCache.cs" />
     <Compile Include="Properties\Resources.Designer.cs">

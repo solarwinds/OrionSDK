@@ -302,7 +302,7 @@ namespace SwqlStudio
             if (verbNode.Tag is Verb)
             {
                 var provider = FindProvider(verbNode);
-                TreeNodesFactory.RebuildVerbArguments(verbNode, provider);
+                TreeNodesBuilder.RebuildVerbArguments(verbNode, provider);
             }
         }
 
@@ -376,9 +376,9 @@ namespace SwqlStudio
                                                                  {
                                                                      var treeNodeWithConnectionInfo = node as TreeNodeWithConnectionInfo;
                                                                      if (treeNodeWithConnectionInfo != null)
-                                                                         TreeNodesFactory.RebuildDatabaseNode(this.EntityGroupingMode, node, provider, treeNodeWithConnectionInfo.Connection);
+                                                                         TreeNodesBuilder.RebuildDatabaseNode(this.EntityGroupingMode, node, provider, treeNodeWithConnectionInfo.Connection);
                                                                      else
-                                                                         TreeNodesFactory.RebuildDatabaseNode(this.EntityGroupingMode, node, provider, null);
+                                                                         TreeNodesBuilder.RebuildDatabaseNode(this.EntityGroupingMode, node, provider, null);
 
                                                                      UpdateDrawnNodes();
                                                                  }));
@@ -551,7 +551,7 @@ namespace SwqlStudio
             TreeNode[] existingNodes = _treeData.Nodes.Find(provider.Name, false);
             if (existingNodes.Length == 0)
             {
-                TreeNode databaseNode = TreeNodesFactory.CreateDatabaseNode(_treeData, provider, connection);
+                TreeNode databaseNode = TreeNodesBuilder.CreateDatabaseNode(_treeData, provider, connection);
                 RefreshServer(databaseNode);
             }
             else

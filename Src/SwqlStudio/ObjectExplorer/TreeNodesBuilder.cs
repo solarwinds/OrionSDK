@@ -6,7 +6,7 @@ using SwqlStudio.Metadata;
 
 namespace SwqlStudio
 {
-    internal class TreeNodesFactory
+    internal class TreeNodesBuilder
     {
         public static TreeNode CreateDatabaseNode(TreeView treeView, IMetadataProvider provider,
             ConnectionInfo connection)
@@ -55,7 +55,7 @@ namespace SwqlStudio
 
         public static TreeNodeWithConnectionInfo MakeEntityTreeNode(IMetadataProvider provider, ConnectionInfo connection, Entity entity)
         {
-            var node = TreeNodesFactory.CreateEntityNode(connection, entity);
+            var node = CreateEntityNode(connection, entity);
 
             // Add keys
             AddPropertiesToNode(node, entity.Properties.Where(c => c.IsKey));
@@ -164,14 +164,14 @@ namespace SwqlStudio
 
             foreach (var arg in provider.GetVerbArguments(verb))
             {
-                var argNode = TreeNodesFactory.CreateVerbArgumentNode(arg);
+                var argNode = CreateVerbArgumentNode(arg);
                 verbNode.Nodes.Add(argNode);
             }
         }
 
-        public static TreeNode[] MakeEntityTreeNodes(IMetadataProvider provider, ConnectionInfo connection, IEnumerable<Entity> entities)
+        public static TreeNodeWithConnectionInfo[] MakeEntityTreeNodes(IMetadataProvider provider, ConnectionInfo connection, IEnumerable<Entity> entities)
         {
-            return entities.Select(e => TreeNodesFactory.MakeEntityTreeNode(provider, connection, e)).ToArray();
+            return entities.Select(e => MakeEntityTreeNode(provider, connection, e)).ToArray();
         }
 
         public static void RebuildDatabaseNode(EntityGroupingMode groupingMode, TreeNode databaseNode, IMetadataProvider provider, ConnectionInfo connection)
@@ -181,13 +181,13 @@ namespace SwqlStudio
             switch (groupingMode)
             {
                 case EntityGroupingMode.Flat:
-                    databaseNode.Nodes.AddRange(TreeNodesFactory.MakeEntityTreeNodes(provider, connection, provider.Tables.OrderBy(e => e.FullName)));
+                    databaseNode.Nodes.AddRange(MakeEntityTreeNodes(provider, connection, provider.Tables.OrderBy(e => e.FullName)));
                     break;
                 case EntityGroupingMode.ByNamespace:
                     foreach (var group in provider.Tables.GroupBy(e => e.Namespace).OrderBy(g => g.Key))
                     {
-                        TreeNode[] childNodes = TreeNodesFactory.MakeEntityTreeNodes(provider, connection, group.OrderBy(e => e.FullName));
-                        var namespaceNode = TreeNodesFactory.CreateNamespaceNode(childNodes, group.Key);
+                        TreeNode[] childNodes = MakeEntityTreeNodes(provider, connection, group.OrderBy(e => e.FullName));
+                        var namespaceNode = CreateNamespaceNode(childNodes, group.Key);
                         databaseNode.Nodes.Add(namespaceNode);
                     }
                     break;
@@ -196,8 +196,8 @@ namespace SwqlStudio
                         e => e.BaseEntity,
                         (key, group) => new { Key = key, Entities = group }).OrderBy(item => item.Key.FullName))
                     {
-                        TreeNode[] childNodes = TreeNodesFactory.MakeEntityTreeNodes(provider, connection, group.Entities.OrderBy(e => e.FullName));
-                        var entityNode = TreeNodesFactory.CreateEntityNode(connection, group.Key, childNodes);
+                        TreeNode[] childNodes = MakeEntityTreeNodes(provider, connection, group.Entities.OrderBy(e => e.FullName));
+                        var entityNode = CreateEntityNode(connection, group.Key, childNodes);
                         databaseNode.Nodes.Add(entityNode);
                     }
                     break;
@@ -217,7 +217,7 @@ namespace SwqlStudio
 
             if (entities.Any())
             {
-                TreeNode[] childNodes = TreeNodesFactory.MakeEntityTreeNodes(provider, connection, entities.OrderBy(e => e.FullName));
+                TreeNode[] childNodes = MakeEntityTreeNodes(provider, connection, entities.OrderBy(e => e.FullName));
                 
                 baseNode.Nodes.AddRange(childNodes);
 

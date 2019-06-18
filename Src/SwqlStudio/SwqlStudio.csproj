@@ -214,7 +214,7 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="ObjectExplorer\ToolTipBuilder.cs" />
-    <Compile Include="ObjectExplorer\TreeNodesFactory.cs" />
+    <Compile Include="ObjectExplorer\TreeNodesBuilder.cs" />
     <Compile Include="ObjectExplorer\TreeNodeUtils.cs" />
     <Compile Include="ProductSpecific\CertificateValidatorWithCache.cs" />
     <Compile Include="Properties\Resources.Designer.cs">

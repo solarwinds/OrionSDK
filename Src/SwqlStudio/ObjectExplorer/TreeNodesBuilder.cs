@@ -8,127 +8,50 @@ namespace SwqlStudio
 {
     internal class TreeNodesBuilder
     {
-        public static TreeNode CreateDatabaseNode(TreeView treeView, IMetadataProvider provider,
-            ConnectionInfo connection)
+        public static TreeNodeWithConnectionInfo MakeEntityTreeNode(IMetadataProvider provider, ConnectionInfo connection, Entity entity)
         {
-            TreeNode node = new TreeNodeWithConnectionInfo(provider.Name, connection);
-            node.SelectedImageKey = ImageKeys.Database;
-            node.ImageKey = ImageKeys.Database;
-            node.Tag = provider;
-            node.Name = node.Text;
+            var entityNode = CreateEntityNode(connection, entity);
 
-            treeView.Nodes.Add(node);
-            treeView.SelectedNode = node;
+            // Add keys
+            AddPropertiesToNode(entityNode, entity.Properties.Where(c => c.IsKey));
 
-            return node;
-        }
+            // Add the simple Properties
+            AddPropertiesToNode(entityNode, entity.Properties.Where(c => !c.IsInherited && !c.IsNavigable && !c.IsKey));
 
-        public static TreeNodeWithConnectionInfo CreateEntityNode(ConnectionInfo connection,
-            Entity entity, TreeNode[] childNodes)
-        {
-            int countChilds = childNodes.Length;
-            var countSuffix = countChilds > 1 ? "s" : String.Empty;
-            var name = String.Format("{0} ({1} item{2})", entity.FullName, countChilds, countSuffix);
-            var entityNode = new TreeNodeWithConnectionInfo(name, connection)
-            {
-                Tag = entity
-            };
-            entityNode.ImageKey = !entity.IsAbstract ? ImageKeys.BaseType : ImageKeys.BaseTypeAbstract;
-            entityNode.SelectedImageKey = entityNode.ImageKey;
+            // Add the inherited Properties
+            AddPropertiesToNode(entityNode, entity.Properties.Where(c => c.IsInherited && !c.IsNavigable && !c.IsKey));
 
-            entityNode.Nodes.AddRange(childNodes);
+            // Add the Navigation Properties
+            AddPropertiesToNode(entityNode, entity.Properties.Where(c => c.IsNavigable));
+
+            AddVerbsToNode(entityNode, entity, provider);
             return entityNode;
         }
 
-        public static TreeNode CreateVerbArgumentNode(VerbArgument arg)
+        private static void AddVerbsToNode(TreeNode entityNode, Entity entity, IMetadataProvider provider)
         {
-            string text = $"{arg.Name} ({arg.Type})";
-            var argNode = new TreeNode(text)
+            foreach (var verb in entity.Verbs.OrderBy(v => v.Name))
             {
-                SelectedImageKey = ImageKeys.Argument
-            };
-            argNode.ImageKey = argNode.SelectedImageKey;
-            argNode.Tag = arg;
-            argNode.ToolTipText = ToolTipBuilder.ToToolTip(arg);
-            return argNode;
-        }
-
-        public static TreeNodeWithConnectionInfo MakeEntityTreeNode(IMetadataProvider provider, ConnectionInfo connection, Entity entity)
-        {
-            var node = CreateEntityNode(connection, entity);
-
-            // Add keys
-            AddPropertiesToNode(node, entity.Properties.Where(c => c.IsKey));
-
-            // Add the simple Properties
-            AddPropertiesToNode(node, entity.Properties.Where(c => !c.IsInherited && !c.IsNavigable && !c.IsKey));
-
-            // Add the inherited Properties
-            AddPropertiesToNode(node, entity.Properties.Where(c => c.IsInherited && !c.IsNavigable && !c.IsKey));
-
-            // Add the Navigation Properties
-            AddPropertiesToNode(node, entity.Properties.Where(c => c.IsNavigable));
-
-            AddVerbsToNode(node, entity, provider);
-            return node;
-        }
-
-        private static void AddVerbsToNode(TreeNode parent, Entity table, IMetadataProvider provider)
-        {
-            foreach (var verb in table.Verbs.OrderBy(v => v.Name))
-            {
-                TreeNode verbNode = new TreeNode(verb.Name);
-                verbNode.SelectedImageKey = "Verb";
-                verbNode.ImageKey = verbNode.SelectedImageKey;
-                verbNode.Tag = verb;
+                TreeNode verbNode = CreateNode(verb.Name, ImageKeys.Verb, verb);
                 verbNode.ToolTipText = ToolTipBuilder.ToToolTip(verb);
 
                 var argumentsPlaceholder = new ArgumentsPlaceholderTreeNode(verb, provider);
                 verbNode.Nodes.Add(argumentsPlaceholder);
 
-                parent.Nodes.Add(verbNode);
+                entityNode.Nodes.Add(verbNode);
             }
         }
 
-        private static TreeNodeWithConnectionInfo CreateEntityNode(ConnectionInfo connection, Entity entity)
-        {
-            var node = new TreeNodeWithConnectionInfo(entity.FullName, connection);
-            node.ImageKey = ImageKeys.GetImageKey(entity);
-            node.SelectedImageKey = node.ImageKey;
-            node.Tag = entity;
-            node.ToolTipText = ToolTipBuilder.ToToolTip(connection, entity);
-            return node;
-        }
-
-        private static void AddPropertiesToNode(TreeNode parent, IEnumerable<Property> properties)
+        private static void AddPropertiesToNode(TreeNode entityNode, IEnumerable<Property> properties)
         {
             foreach (Property property in properties.OrderBy(c => c.Name))
             {
-                string name = $"{property.Name} ({property.Type})";
-                TreeNode node = new TreeNode(name);
-                node.SelectedImageKey = ImageKeys.GetImageKey(property);
-                node.ImageKey = node.SelectedImageKey;
-                node.Tag = property;
+                string name = ToNodeText(property);
+                var imageKey = ImageKeys.GetImageKey(property);
+                TreeNode node = CreateNode(name, imageKey, property);
                 node.ToolTipText = ToolTipBuilder.ToToolTip(property, name);
-                parent.Nodes.Add(node);
+                entityNode.Nodes.Add(node);
             }
-        }
-
-        public static TreeNode CreateNamespaceNode(TreeNode[] childNodes, string namespaceName)
-        {
-            int countChilds = childNodes.Length;
-            
-            var countSuffix = countChilds > 1 ? "s" : String.Empty;
-            var name = String.Format("{0} ({1} item{2})", namespaceName, countChilds, countSuffix);
-            var namespaceNode = new TreeNode(name)
-            {
-                Tag = namespaceName,
-                ImageKey = ImageKeys.Namespace
-            };
-            namespaceNode.SelectedImageKey = namespaceNode.ImageKey;
-
-            namespaceNode.Nodes.AddRange(childNodes);
-            return namespaceNode;
         }
 
         public static void RebuildVerbArguments(TreeNode verbNode, IMetadataProvider provider)
@@ -136,14 +59,14 @@ namespace SwqlStudio
             verbNode.Nodes.Clear();
             var verb = verbNode.Tag as Verb;
 
-            foreach (var arg in provider.GetVerbArguments(verb))
+            foreach (var argument in provider.GetVerbArguments(verb))
             {
-                var argNode = CreateVerbArgumentNode(arg);
+                var argNode = CreateVerbArgumentNode(argument);
                 verbNode.Nodes.Add(argNode);
             }
         }
 
-        public static TreeNodeWithConnectionInfo[] MakeEntityTreeNodes(IMetadataProvider provider, ConnectionInfo connection, IEnumerable<Entity> entities)
+        private static TreeNodeWithConnectionInfo[] MakeEntityTreeNodes(IMetadataProvider provider, ConnectionInfo connection, IEnumerable<Entity> entities)
         {
             return entities.Select(e => MakeEntityTreeNode(provider, connection, e)).ToArray();
         }
@@ -160,8 +83,8 @@ namespace SwqlStudio
                 case EntityGroupingMode.ByNamespace:
                     foreach (var group in provider.Tables.GroupBy(e => e.Namespace).OrderBy(g => g.Key))
                     {
-                        TreeNode[] childNodes = MakeEntityTreeNodes(provider, connection, group.OrderBy(e => e.FullName));
-                        var namespaceNode = CreateNamespaceNode(childNodes, group.Key);
+                        TreeNode[] entityNodes = MakeEntityTreeNodes(provider, connection, group.OrderBy(e => e.FullName));
+                        var namespaceNode = CreateNamespaceNode(entityNodes, group.Key);
                         databaseNode.Nodes.Add(namespaceNode);
                     }
                     break;
@@ -197,9 +120,7 @@ namespace SwqlStudio
 
                 if (baseEntity != null)
                 {
-                    int countChilds = childNodes.Length;
-                    var entitiesSuffix = countChilds > 1 ? "ies" : "y";
-                    baseNode.Text = String.Format("{0} ({1} derived entit{2})", baseNode.Text, countChilds, entitiesSuffix);
+                    baseNode.Text = ToBaseNodeText(baseNode, childNodes.Length);
                 }
 
                 foreach (var node in childNodes)
@@ -216,6 +137,90 @@ namespace SwqlStudio
                     baseNode.Expand();
                 }
             }
+        }
+
+        public static TreeNode CreateDatabaseNode(TreeView treeView, IMetadataProvider provider,
+            ConnectionInfo connection)
+        {
+            TreeNode node = CreateNode(connection, provider.Name, ImageKeys.Database, provider);
+            node.Name = node.Text;
+            treeView.Nodes.Add(node);
+            treeView.SelectedNode = node;
+            return node;
+        }
+
+        public static TreeNode CreateNamespaceNode(TreeNode[] entityNodes, string namespaceName)
+        {
+            var name = ToNodeText(namespaceName, entityNodes.Length);
+            var namespaceNode = CreateNode(name, ImageKeys.Namespace, namespaceName);
+            namespaceNode.Nodes.AddRange(entityNodes);
+            return namespaceNode;
+        }
+
+        private static TreeNodeWithConnectionInfo CreateEntityNode(ConnectionInfo connection,
+            Entity entity, TreeNode[] childNodes)
+        {
+            var imageKey = !entity.IsAbstract ? ImageKeys.BaseType : ImageKeys.BaseTypeAbstract;
+            var name = ToNodeText(entity.FullName, childNodes.Length);
+            var entityNode = CreateNode(connection, name, imageKey, entity);
+            
+            entityNode.Nodes.AddRange(childNodes);
+            return entityNode;
+        }
+
+        private static TreeNodeWithConnectionInfo CreateEntityNode(ConnectionInfo connection, Entity entity)
+        {
+            var imageKey = ImageKeys.GetImageKey(entity);
+            var node = CreateNode(connection, entity.FullName, imageKey, entity);
+            node.ToolTipText = ToolTipBuilder.ToToolTip(connection, entity);
+            return node;
+        }
+
+        private static TreeNode CreateVerbArgumentNode(VerbArgument argument)
+        {
+            string text = ToNodeText(argument);
+            var argNode = CreateNode(text, ImageKeys.Argument, argument);
+            argNode.ToolTipText = ToolTipBuilder.ToToolTip(argument);
+            return argNode;
+        }
+
+        private static TreeNode CreateNode(string name, string imageKey, object data)
+        {
+            var node = new TreeNode(name);
+            AssignProperties(node, imageKey, data);
+            return node;
+        }
+
+        private static TreeNodeWithConnectionInfo CreateNode(ConnectionInfo connection, string name,
+            string imageKey, object data)
+        {
+            var node = new TreeNodeWithConnectionInfo(name, connection);
+            AssignProperties(node, imageKey, data);
+            return node;
+        }
+
+        private static void AssignProperties(TreeNode node, string imageKey, object data)
+        {
+            node.ImageKey = imageKey;
+            node.SelectedImageKey = imageKey;
+            node.Tag = data;
+        }
+
+        private static string ToNodeText(string name, int childsCount)
+        {
+            var countSuffix = childsCount > 1 ? "s" : String.Empty;
+            return $"{name} ({childsCount} item{countSuffix})";
+        }
+
+        private static string ToNodeText(ITypedMetadata metadata)
+        {
+            return $"{metadata.Name} ({metadata.Type})";
+        }
+
+        private static string ToBaseNodeText(TreeNode baseNode, int childsCount)
+        {
+            var entitiesSuffix = childsCount > 1 ? "ies" : "y";
+            return $"{baseNode.Text} ({childsCount} derived entit{entitiesSuffix})";
         }
     }
 }

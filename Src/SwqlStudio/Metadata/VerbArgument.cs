@@ -1,6 +1,6 @@
 ﻿namespace SwqlStudio.Metadata
 {
-    public class VerbArgument
+    public class VerbArgument : ITypedMetadata
     {
         public string Name { get; set; }
 

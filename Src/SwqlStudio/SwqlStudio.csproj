@@ -205,6 +205,7 @@
     <Compile Include="LogHeaderMessageInspector.cs" />
     <Compile Include="LogHeaderReaderBehavior.cs" />
     <Compile Include="Metadata\Entity.cs" />
+    <Compile Include="Metadata\ITypedMetadata.cs" />
     <Compile Include="Metadata\Property.cs" />
     <Compile Include="Metadata\Verb.cs" />
     <Compile Include="Metadata\VerbArgument.cs" />

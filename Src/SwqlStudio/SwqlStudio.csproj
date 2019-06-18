@@ -210,6 +210,7 @@
     <Compile Include="Metadata\VerbArgument.cs" />
     <Compile Include="CodeGenerator.cs" />
     <Compile Include="ObjectExplorer\ArgumentsPlaceholderTreeNode.cs" />
+    <Compile Include="ObjectExplorer\ImageKeys.cs" />
     <Compile Include="ObjectExplorer\SearchTextBox.cs">
       <SubType>Component</SubType>
     </Compile>

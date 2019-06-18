@@ -638,20 +638,20 @@ namespace SwqlStudio
             // 
             this.objectExplorerImageList.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("objectExplorerImageList.ImageStream")));
             this.objectExplorerImageList.TransparentColor = System.Drawing.Color.Transparent;
-            this.objectExplorerImageList.Images.SetKeyName(0, "Column");
-            this.objectExplorerImageList.Images.SetKeyName(1, "Database");
-            this.objectExplorerImageList.Images.SetKeyName(2, "Link");
-            this.objectExplorerImageList.Images.SetKeyName(3, "Table");
-            this.objectExplorerImageList.Images.SetKeyName(4, "InheritedColumn");
-            this.objectExplorerImageList.Images.SetKeyName(5, "KeyColumn");
-            this.objectExplorerImageList.Images.SetKeyName(6, "Verb");
-            this.objectExplorerImageList.Images.SetKeyName(7, "Argument");
-            this.objectExplorerImageList.Images.SetKeyName(8, "Indication");
-            this.objectExplorerImageList.Images.SetKeyName(9, "Namespace");
-            this.objectExplorerImageList.Images.SetKeyName(10, "BaseType");
-            this.objectExplorerImageList.Images.SetKeyName(11, "BaseTypeAbstract");
-            this.objectExplorerImageList.Images.SetKeyName(12, "TableAbstract");
-            this.objectExplorerImageList.Images.SetKeyName(13, "TableCrud");
+            this.objectExplorerImageList.Images.SetKeyName(0, ImageKeys.Column);
+            this.objectExplorerImageList.Images.SetKeyName(1, ImageKeys.Database);
+            this.objectExplorerImageList.Images.SetKeyName(2, ImageKeys.Link);
+            this.objectExplorerImageList.Images.SetKeyName(3, ImageKeys.Table);
+            this.objectExplorerImageList.Images.SetKeyName(4, ImageKeys.InheritedColumn);
+            this.objectExplorerImageList.Images.SetKeyName(5, ImageKeys.KeyColumn);
+            this.objectExplorerImageList.Images.SetKeyName(6, ImageKeys.Verb);
+            this.objectExplorerImageList.Images.SetKeyName(7, ImageKeys.Argument);
+            this.objectExplorerImageList.Images.SetKeyName(8, ImageKeys.Indication);
+            this.objectExplorerImageList.Images.SetKeyName(9, ImageKeys.Namespace);
+            this.objectExplorerImageList.Images.SetKeyName(10, ImageKeys.BaseType);
+            this.objectExplorerImageList.Images.SetKeyName(11, ImageKeys.BaseTypeAbstract);
+            this.objectExplorerImageList.Images.SetKeyName(12, ImageKeys.TableAbstract);
+            this.objectExplorerImageList.Images.SetKeyName(13, ImageKeys.TableCrud);
             this.ResumeLayout(false);
 
         }

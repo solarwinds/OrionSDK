@@ -12,8 +12,8 @@ namespace SwqlStudio
             ConnectionInfo connection)
         {
             TreeNode node = new TreeNodeWithConnectionInfo(provider.Name, connection);
-            node.SelectedImageKey = "Database";
-            node.ImageKey = "Database";
+            node.SelectedImageKey = ImageKeys.Database;
+            node.ImageKey = ImageKeys.Database;
             node.Tag = provider;
             node.Name = node.Text;
 
@@ -33,7 +33,7 @@ namespace SwqlStudio
             {
                 Tag = entity
             };
-            entityNode.ImageKey = !entity.IsAbstract ? "BaseType" : "BaseTypeAbstract";
+            entityNode.ImageKey = !entity.IsAbstract ? ImageKeys.BaseType : ImageKeys.BaseTypeAbstract;
             entityNode.SelectedImageKey = entityNode.ImageKey;
 
             entityNode.Nodes.AddRange(childNodes);
@@ -45,7 +45,7 @@ namespace SwqlStudio
             string text = $"{arg.Name} ({arg.Type})";
             var argNode = new TreeNode(text)
             {
-                SelectedImageKey = "Argument"
+                SelectedImageKey = ImageKeys.Argument
             };
             argNode.ImageKey = argNode.SelectedImageKey;
             argNode.Tag = arg;
@@ -93,25 +93,11 @@ namespace SwqlStudio
         private static TreeNodeWithConnectionInfo CreateEntityNode(ConnectionInfo connection, Entity entity)
         {
             var node = new TreeNodeWithConnectionInfo(entity.FullName, connection);
-            node.ImageKey = GetImageKey(entity);
+            node.ImageKey = ImageKeys.GetImageKey(entity);
             node.SelectedImageKey = node.ImageKey;
             node.Tag = entity;
             node.ToolTipText = ToolTipBuilder.ToToolTip(connection, entity);
             return node;
-        }
-
-        private static string GetImageKey(Entity table)
-        {
-            if (table.IsIndication)
-                return "Indication";
-        
-            if (table.IsAbstract)
-                return "TableAbstract";
-        
-            if (table.CanCreate || table.CanDelete || table.CanUpdate)
-                return "TableCrud";
-
-            return "Table";
         }
 
         private static void AddPropertiesToNode(TreeNode parent, IEnumerable<Property> properties)
@@ -120,24 +106,12 @@ namespace SwqlStudio
             {
                 string name = $"{property.Name} ({property.Type})";
                 TreeNode node = new TreeNode(name);
-                node.SelectedImageKey = GetColumnIcon(property);
+                node.SelectedImageKey = ImageKeys.GetImageKey(property);
                 node.ImageKey = node.SelectedImageKey;
                 node.Tag = property;
                 node.ToolTipText = ToolTipBuilder.ToToolTip(property, name);
                 parent.Nodes.Add(node);
             }
-        }
-
-        private static string GetColumnIcon(Property column)
-        {
-            if (column.IsNavigable)
-                return "Link";
-            if (column.IsKey)
-                return "KeyColumn";
-            if (column.IsInherited)
-                return "InheritedColumn";
-
-            return "Column";
         }
 
         public static TreeNode CreateNamespaceNode(TreeNode[] childNodes, string namespaceName)
@@ -149,7 +123,7 @@ namespace SwqlStudio
             var namespaceNode = new TreeNode(name)
             {
                 Tag = namespaceName,
-                ImageKey = "Namespace"
+                ImageKey = ImageKeys.Namespace
             };
             namespaceNode.SelectedImageKey = namespaceNode.ImageKey;
 

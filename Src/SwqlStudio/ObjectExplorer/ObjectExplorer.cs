@@ -298,15 +298,11 @@ namespace SwqlStudio
 
         void _tree_BeforeExpand(object sender, TreeViewCancelEventArgs e)
         {
-            if (e.Node.Tag is Verb verb)
+            var verbNode = e.Node;
+            if (verbNode.Tag is Verb)
             {
-                e.Node.Nodes.Clear();
-
-                foreach (var arg in FindProvider(e.Node).GetVerbArguments(verb))
-                {
-                    var argNode = TreeNodesFactory.CreateVerbArgumentNode(arg);
-                    e.Node.Nodes.Add(argNode);
-                }
+                var provider = FindProvider(verbNode);
+                TreeNodesFactory.RebuildVerbArguments(verbNode, provider);
             }
         }
 
@@ -378,12 +374,11 @@ namespace SwqlStudio
                                                              provider.Refresh();
                                                              BeginInvoke(new Action(() =>
                                                                  {
-                                                                     node.Nodes.Clear();
                                                                      var treeNodeWithConnectionInfo = node as TreeNodeWithConnectionInfo;
                                                                      if (treeNodeWithConnectionInfo != null)
-                                                                         AddTablesToNode(node, provider, treeNodeWithConnectionInfo.Connection);
+                                                                         TreeNodesFactory.RebuildDatabaseNode(this.EntityGroupingMode, node, provider, treeNodeWithConnectionInfo.Connection);
                                                                      else
-                                                                         AddTablesToNode(node, provider, null);
+                                                                         TreeNodesFactory.RebuildDatabaseNode(this.EntityGroupingMode, node, provider, null);
 
                                                                      UpdateDrawnNodes();
                                                                  }));
@@ -553,16 +548,11 @@ namespace SwqlStudio
 
             _serverContextMenuItems.Add(connection.Title, serverContextMenu);
 
-
-            TreeNode node = TreeNodesFactory.CreateDatabaseNode(provider, connection);
-
-            TreeNode[] existingNodes = _treeData.Nodes.Find(node.Name, false);
+            TreeNode[] existingNodes = _treeData.Nodes.Find(provider.Name, false);
             if (existingNodes.Length == 0)
             {
-                // Node doesn't already exist.  Add it
-                _treeData.Nodes.Add(node);
-                _treeData.SelectedNode = node;
-                RefreshServer(node);
+                TreeNode databaseNode = TreeNodesFactory.CreateDatabaseNode(_treeData, provider, connection);
+                RefreshServer(databaseNode);
             }
             else
             {
@@ -610,79 +600,6 @@ namespace SwqlStudio
             var serverContextMenu = _serverContextMenuItems[title];
             _serverContextMenuItems.Remove(title);
             serverContextMenu.Dispose();
-        }
-
-        private void AddTablesToNode(TreeNode parent, IMetadataProvider provider, ConnectionInfo connection)
-        {
-            switch (EntityGroupingMode)
-            {
-                case EntityGroupingMode.Flat:
-                    parent.Nodes.AddRange(MakeEntityTreeNodes(provider, connection, provider.Tables.OrderBy(e => e.FullName)));
-                    break;
-                case EntityGroupingMode.ByNamespace:
-                    foreach (var group in provider.Tables.GroupBy(e => e.Namespace).OrderBy(g => g.Key))
-                    {
-                        TreeNode[] childNodes = MakeEntityTreeNodes(provider, connection, group.OrderBy(e => e.FullName));
-                        var namespaceName = group.Key;
-                        var namespaceNode = TreeNodesFactory.CreateNamespaceNode(childNodes, namespaceName);
-                        parent.Nodes.Add(namespaceNode);
-                    }
-                    break;
-                case SwqlStudio.EntityGroupingMode.ByBaseType:
-                    foreach (var group in provider.Tables.Where(e => e.BaseEntity != null).GroupBy(
-                        e => e.BaseEntity,
-                        (key, group) => new { Key = key, Entities = group }).OrderBy(item => item.Key.FullName))
-                    {
-                        TreeNode[] childNodes = MakeEntityTreeNodes(provider, connection, group.Entities.OrderBy(e => e.FullName));
-                        var entityNode = TreeNodesFactory.CreateEntityNode(connection, @group.Key, childNodes);
-                        parent.Nodes.Add(entityNode);
-                    }
-                    break;
-                case SwqlStudio.EntityGroupingMode.ByHierarchy:
-                    GroupByHierarchy(provider, connection, parent);
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
-        }
-
-        private static void GroupByHierarchy(IMetadataProvider provider, ConnectionInfo connection, TreeNode baseNode)
-        {
-            Entity baseEntity = baseNode != null ? baseNode.Tag as Entity : null;
-
-            var entities = provider.Tables.Where(e => baseEntity == null ? e.BaseEntity == null : e.BaseEntity == baseEntity);
-
-            if (entities.Any())
-            {
-                TreeNode[] childNodes = MakeEntityTreeNodes(provider, connection, entities.OrderBy(e => e.FullName));
-                
-                baseNode.Nodes.AddRange(childNodes);
-
-                if (baseEntity != null)
-                {
-                    int countChilds = childNodes.Length;
-                    baseNode.Text = string.Format("{0} ({1} derived entit{2})", baseNode.Text, countChilds, countChilds > 1 ? "ies" : "y");
-                }
-
-                foreach (var node in childNodes)
-                {
-                    GroupByHierarchy(provider, connection, node);
-                }
-
-                if (baseEntity == null)
-                {
-                    foreach (var node in childNodes)
-                    {
-                        node.Expand();
-                    }
-                    baseNode.Expand();
-                }
-            }
-        }
-
-        private static TreeNode[] MakeEntityTreeNodes(IMetadataProvider provider, ConnectionInfo connection, IEnumerable<Entity> entities)
-        {
-            return entities.Select(e => TreeNodesFactory.MakeEntityTreeNode(provider, connection, e)).ToArray();
         }
 
         private void Crud(Entity entity, CrudOperation operation)

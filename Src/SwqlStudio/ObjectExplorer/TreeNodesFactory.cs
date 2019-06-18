@@ -8,13 +8,17 @@ namespace SwqlStudio
 {
     internal class TreeNodesFactory
     {
-        public static TreeNode CreateDatabaseNode(IMetadataProvider provider, ConnectionInfo connection)
+        public static TreeNode CreateDatabaseNode(TreeView treeView, IMetadataProvider provider,
+            ConnectionInfo connection)
         {
             TreeNode node = new TreeNodeWithConnectionInfo(provider.Name, connection);
             node.SelectedImageKey = "Database";
             node.ImageKey = "Database";
             node.Tag = provider;
             node.Name = node.Text;
+
+            treeView.Nodes.Add(node);
+            treeView.SelectedNode = node;
 
             return node;
         }
@@ -79,9 +83,10 @@ namespace SwqlStudio
                 verbNode.Tag = verb;
                 verbNode.ToolTipText = ToolTipBuilder.ToToolTip(verb);
 
-                parent.Nodes.Add(verbNode);
+                var argumentsPlaceholder = new ArgumentsPlaceholderTreeNode(verb, provider);
+                verbNode.Nodes.Add(argumentsPlaceholder);
 
-                verbNode.Nodes.Add(new ArgumentsPlaceholderTreeNode(verb, provider));
+                parent.Nodes.Add(verbNode);
             }
         }
 
@@ -150,6 +155,93 @@ namespace SwqlStudio
 
             namespaceNode.Nodes.AddRange(childNodes);
             return namespaceNode;
+        }
+
+        public static void RebuildVerbArguments(TreeNode verbNode, IMetadataProvider provider)
+        {
+            verbNode.Nodes.Clear();
+            var verb = verbNode.Tag as Verb;
+
+            foreach (var arg in provider.GetVerbArguments(verb))
+            {
+                var argNode = TreeNodesFactory.CreateVerbArgumentNode(arg);
+                verbNode.Nodes.Add(argNode);
+            }
+        }
+
+        public static TreeNode[] MakeEntityTreeNodes(IMetadataProvider provider, ConnectionInfo connection, IEnumerable<Entity> entities)
+        {
+            return entities.Select(e => TreeNodesFactory.MakeEntityTreeNode(provider, connection, e)).ToArray();
+        }
+
+        public static void RebuildDatabaseNode(EntityGroupingMode groupingMode, TreeNode databaseNode, IMetadataProvider provider, ConnectionInfo connection)
+        {
+            databaseNode.Nodes.Clear();
+
+            switch (groupingMode)
+            {
+                case EntityGroupingMode.Flat:
+                    databaseNode.Nodes.AddRange(TreeNodesFactory.MakeEntityTreeNodes(provider, connection, provider.Tables.OrderBy(e => e.FullName)));
+                    break;
+                case EntityGroupingMode.ByNamespace:
+                    foreach (var group in provider.Tables.GroupBy(e => e.Namespace).OrderBy(g => g.Key))
+                    {
+                        TreeNode[] childNodes = TreeNodesFactory.MakeEntityTreeNodes(provider, connection, group.OrderBy(e => e.FullName));
+                        var namespaceNode = TreeNodesFactory.CreateNamespaceNode(childNodes, group.Key);
+                        databaseNode.Nodes.Add(namespaceNode);
+                    }
+                    break;
+                case EntityGroupingMode.ByBaseType:
+                    foreach (var group in provider.Tables.Where(e => e.BaseEntity != null).GroupBy(
+                        e => e.BaseEntity,
+                        (key, group) => new { Key = key, Entities = group }).OrderBy(item => item.Key.FullName))
+                    {
+                        TreeNode[] childNodes = TreeNodesFactory.MakeEntityTreeNodes(provider, connection, group.Entities.OrderBy(e => e.FullName));
+                        var entityNode = TreeNodesFactory.CreateEntityNode(connection, group.Key, childNodes);
+                        databaseNode.Nodes.Add(entityNode);
+                    }
+                    break;
+                case EntityGroupingMode.ByHierarchy:
+                    GroupByHierarchy(provider, connection, databaseNode);
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+        }
+
+        private static void GroupByHierarchy(IMetadataProvider provider, ConnectionInfo connection, TreeNode baseNode)
+        {
+            Entity baseEntity = baseNode != null ? baseNode.Tag as Entity : null;
+
+            var entities = provider.Tables.Where(e => baseEntity == null ? e.BaseEntity == null : e.BaseEntity == baseEntity);
+
+            if (entities.Any())
+            {
+                TreeNode[] childNodes = TreeNodesFactory.MakeEntityTreeNodes(provider, connection, entities.OrderBy(e => e.FullName));
+                
+                baseNode.Nodes.AddRange(childNodes);
+
+                if (baseEntity != null)
+                {
+                    int countChilds = childNodes.Length;
+                    var entitiesSuffix = countChilds > 1 ? "ies" : "y";
+                    baseNode.Text = String.Format("{0} ({1} derived entit{2})", baseNode.Text, countChilds, entitiesSuffix);
+                }
+
+                foreach (var node in childNodes)
+                {
+                    GroupByHierarchy(provider, connection, node);
+                }
+
+                if (baseEntity == null)
+                {
+                    foreach (var node in childNodes)
+                    {
+                        node.Expand();
+                    }
+                    baseNode.Expand();
+                }
+            }
         }
     }
 }

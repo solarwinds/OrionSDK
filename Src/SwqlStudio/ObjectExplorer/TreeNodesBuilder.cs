@@ -8,6 +8,8 @@ namespace SwqlStudio
 {
     internal class TreeNodesBuilder
     {
+        public EntityGroupingMode EntityGroupingMode { get; set; }
+
         public static TreeNodeWithConnectionInfo MakeEntityTreeNode(IMetadataProvider provider, ConnectionInfo connection, Entity entity)
         {
             var entityNode = CreateEntityNode(connection, entity);
@@ -71,11 +73,11 @@ namespace SwqlStudio
             return entities.Select(e => MakeEntityTreeNode(provider, connection, e)).ToArray();
         }
 
-        public static void RebuildDatabaseNode(EntityGroupingMode groupingMode, TreeNode databaseNode, IMetadataProvider provider, ConnectionInfo connection)
+        public void RebuildDatabaseNode(TreeNode databaseNode, IMetadataProvider provider, ConnectionInfo connection)
         {
             databaseNode.Nodes.Clear();
 
-            switch (groupingMode)
+            switch (this.EntityGroupingMode)
             {
                 case EntityGroupingMode.Flat:
                     databaseNode.Nodes.AddRange(MakeEntityTreeNodes(provider, connection, provider.Tables.OrderBy(e => e.FullName)));

@@ -99,7 +99,7 @@ namespace SwqlStudio
         {
             this.objectExplorer = new ObjectExplorer();
             this.objectExplorer.Dock = DockStyle.Fill;
-            this.objectExplorer.EntityGroupingMode = EntityGroupingMode.Flat;
+            this.objectExplorer.SetGroupingMode(EntityGroupingMode.Flat);
             this.objectExplorer.Location = new System.Drawing.Point(0, 0);
             this.objectExplorer.Name = "objectExplorer";
             this.objectExplorer.Size = new System.Drawing.Size(191, 571);
@@ -164,7 +164,7 @@ namespace SwqlStudio
 
         internal void SetEntityGroupingMode(EntityGroupingMode mode)
         {
-            objectExplorer.EntityGroupingMode = mode;
+            objectExplorer.SetGroupingMode(mode);
             objectExplorer.RefreshAllServers();
         }
 

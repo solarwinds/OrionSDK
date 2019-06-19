@@ -17,15 +17,7 @@ using TreeView = System.Windows.Forms.TreeView;
 
 namespace SwqlStudio
 {
-    enum EntityGroupingMode
-    {
-        Flat = 1,
-        ByNamespace = 2,
-        ByBaseType = 3,
-        ByHierarchy = 4
-    }
-
-    class ObjectExplorer : Control
+    internal class ObjectExplorer : Control
     {
         private static readonly Log log = new Log();
 
@@ -45,11 +37,10 @@ namespace SwqlStudio
         private ImageList objectExplorerImageList;
         private System.ComponentModel.IContainer components;
         private TreeNode _dragNode;
+        private readonly TreeNodesBuilder treeNodesBuilder = new TreeNodesBuilder();
 
 
         public ITabsFactory TabsFactory { get; set; }
-
-        public EntityGroupingMode EntityGroupingMode { get; set; }
 
         public ObjectExplorer()
         {
@@ -376,9 +367,9 @@ namespace SwqlStudio
                                                                  {
                                                                      var treeNodeWithConnectionInfo = node as TreeNodeWithConnectionInfo;
                                                                      if (treeNodeWithConnectionInfo != null)
-                                                                         TreeNodesBuilder.RebuildDatabaseNode(this.EntityGroupingMode, node, provider, treeNodeWithConnectionInfo.Connection);
+                                                                         this.treeNodesBuilder.RebuildDatabaseNode(node, provider, treeNodeWithConnectionInfo.Connection);
                                                                      else
-                                                                         TreeNodesBuilder.RebuildDatabaseNode(this.EntityGroupingMode, node, provider, null);
+                                                                         this.treeNodesBuilder.RebuildDatabaseNode(node, provider, null);
 
                                                                      UpdateDrawnNodes();
                                                                  }));
@@ -654,6 +645,11 @@ namespace SwqlStudio
             this.objectExplorerImageList.Images.SetKeyName(13, ImageKeys.TableCrud);
             this.ResumeLayout(false);
 
+        }
+
+        public void SetGroupingMode(EntityGroupingMode mode)
+        {
+            this.treeNodesBuilder.EntityGroupingMode = mode;
         }
     }
 }

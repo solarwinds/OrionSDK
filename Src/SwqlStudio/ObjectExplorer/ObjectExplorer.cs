@@ -23,7 +23,7 @@ namespace SwqlStudio
 
         private readonly SearchTextBox _treeSearch;
         private readonly TreeView _tree;
-        private readonly TreeView _treeData;
+        private TreeView _treeData;
         private TreeNodeUtils.TreeNodeBindings _treeBindings = new TreeNodeUtils.TreeNodeBindings(); // default value, so this field is never null
         private TreeNode _contextMenuNode;
         private readonly Dictionary<string, ContextMenu> _tableContextMenuItems;
@@ -38,7 +38,7 @@ namespace SwqlStudio
         private System.ComponentModel.IContainer components;
         private TreeNode _dragNode;
         private readonly TreeNodesBuilder treeNodesBuilder = new TreeNodesBuilder();
-
+        public event TreeViewEventHandler SelectionChanged;
 
         public ITabsFactory TabsFactory { get; set; }
 
@@ -58,18 +58,41 @@ namespace SwqlStudio
                 ShowNodeToolTips = true
             };
 
+            InitializeTreeview();
+
+            _treeSearch.TextChangedWithDebounce += (sender, e) => { SetFilter(((TextBox) sender).Text); };
+            _treeSearch.CueText = "Search (Ctrl + \\)";
+            _treeSearch.DebounceLimit = TimeSpan.FromMilliseconds(400);
+
+            _tableContextMenuItems = new Dictionary<string, ContextMenu>();
+            _serverContextMenuItems = new Dictionary<string, ContextMenuStrip>();
+            _tableCrudContextMenuItems = new Dictionary<string, ContextMenu>();
+
+            _verbContextMenu = new ContextMenu();
+            _verbContextMenu.MenuItems.Add("Invoke...", (s, e) => OpenInvokeTab());
+
+            Controls.Add(_tree);
+            Controls.Add(_treeSearch);
+        }
+
+        private void InitializeTreeview()
+        {
             _treeData = new TreeView();
 
             _tree.MouseDown += TreeMouseDown;
             _tree.MouseMove += TreeMouseMove;
             _tree.MouseUp += _tree_MouseUp;
-            _tree.BeforeExpand += (sender, e) => { e.Cancel = !AllowExpandCollapse; if (!e.Cancel) _tree_BeforeExpand(sender, e); };
+            _tree.BeforeExpand += (sender, e) =>
+            {
+                e.Cancel = !AllowExpandCollapse;
+                if (!e.Cancel) _tree_BeforeExpand(sender, e);
+            };
             _tree.BeforeCollapse += (sender, e) => { e.Cancel = !AllowExpandCollapse; };
             // copy expanded / not expanded state to data, so it is persisted
             _tree.AfterExpand += (sender, e) =>
             {
                 if (_treeIsUnderUpdate) // we are calling expand on the display tree when cloning from data. 
-                                        // we do not want to update data with such information, as we dont have proper _treeBindings at the moment
+                    // we do not want to update data with such information, as we dont have proper _treeBindings at the moment
                     return;
 
                 var dataNode = _treeBindings.FindDataNode(e.Node);
@@ -86,20 +109,13 @@ namespace SwqlStudio
             };
 
             _tree.NodeMouseDoubleClick += _tree_NodeMouseDoubleClick;
+            _tree.AfterSelect += OnTreeOnAfterSelect;
             _tree.ImageList = this.objectExplorerImageList;
-            _treeSearch.TextChangedWithDebounce += (sender, e) => { SetFilter(((TextBox) sender).Text); };
-            _treeSearch.CueText = "Search (Ctrl + \\)";
-            _treeSearch.DebounceLimit = TimeSpan.FromMilliseconds(400);
+        }
 
-            _tableContextMenuItems = new Dictionary<string, ContextMenu>();
-            _serverContextMenuItems = new Dictionary<string, ContextMenuStrip>();
-            _tableCrudContextMenuItems = new Dictionary<string, ContextMenu>();
-
-            _verbContextMenu = new ContextMenu();
-            _verbContextMenu.MenuItems.Add("Invoke...", (s, e) => OpenInvokeTab());
-
-            Controls.Add(_tree);
-            Controls.Add(_treeSearch);
+        private void OnTreeOnAfterSelect(object sender, TreeViewEventArgs args)
+        {
+            this.SelectionChanged?.Invoke(this, args);
         }
 
         public void FocusSearch()

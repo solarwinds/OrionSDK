@@ -16,6 +16,7 @@ namespace SwqlStudio
         private ObjectExplorer objectExplorer;
         private DockContent objectExplorerContent;
         private QueryParameters queryParametersContent;
+        private DocumentationContent documentationContent;
 
         public PropertyBag QueryParameters
         {
@@ -56,6 +57,7 @@ namespace SwqlStudio
             InitializeDockPanel();
             InitializeObjectExplorer();
             InitializeQueryParameters();
+            InitializeDocumentation();
         }
 
         public void CreateTabFromPrevious()
@@ -119,6 +121,19 @@ namespace SwqlStudio
             this.queryParametersContent.Show(this, DockState.DockRightAutoHide);
         }
 
+        private void InitializeDocumentation()
+        {
+            this.documentationContent = new DocumentationContent();
+            ConfigureBuildInToolbox(this.documentationContent);
+            this.objectExplorer.SelectionChanged += ObjectExplorer_SelectionChanged;
+            this.documentationContent.Show(this.objectExplorerContent.Pane, DockAlignment.Bottom, 0.25);
+        }
+
+        private void ObjectExplorer_SelectionChanged(object sender, TreeViewEventArgs e)
+        {
+            this.documentationContent.UpdateDocumentation(e.Node);
+        }
+
         private void ConfigureBuildInToolbox(DockContent content)
         {
             content.CloseButton = false;
@@ -137,6 +152,7 @@ namespace SwqlStudio
             if (newContent != null &&  
                 newContent != this.objectExplorerContent &&
                 newContent != this.queryParametersContent &&
+                newContent != this.documentationContent &&
                 newContent != this.lastActiveContent)
             {
                 this.ActiveQueryTab?.PutParameters();

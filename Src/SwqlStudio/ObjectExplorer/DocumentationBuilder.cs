@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Text;
 using System.Windows.Forms;
 using SwqlStudio.Metadata;
 
@@ -10,17 +9,21 @@ namespace SwqlStudio
         public static string Build(TreeNode node)
         {
             var data = node.Tag;
-            var builder = new StringBuilder();
-            
-            // TODO if (data is SwisMetaDataProvider provider)
-            //    return ToToolTip(builder, provider);
+            var connectedNode = node as TreeNodeWithConnectionInfo;
+            var provider = connectedNode?.Provider;
+
+            if (provider == null)
+                return string.Empty;
+
+            if (data is SwisMetaDataProvider)
+                return provider.Name;
 
             if (data is string nameSpace)
-                builder.Append(nameSpace);
+                return nameSpace;
 
-            // TODO if (data is Entity entity)
-            //    return ToToolTip(connection, entity);
-            
+            if (data is Entity entity)
+                return ToToolTip(provider.ConnectionInfo, entity);
+
             if (data is Property property)
                 return ToToolTip(property, "name");
 
@@ -30,7 +33,7 @@ namespace SwqlStudio
             if (data is VerbArgument verbArg)
                 return ToToolTip(verbArg);
 
-            return builder.ToString();
+            return string.Empty;
         }
 
         public static string ToToolTip(VerbArgument arg)

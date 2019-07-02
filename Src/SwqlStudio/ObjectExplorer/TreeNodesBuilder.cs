@@ -10,7 +10,7 @@ namespace SwqlStudio
     {
         public EntityGroupingMode EntityGroupingMode { get; set; }
 
-        public static TreeNodeWithConnectionInfo MakeEntityTreeNode(IMetadataProvider provider, Entity entity)
+        private static TreeNodeWithConnectionInfo MakeEntityTreeNode(IMetadataProvider provider, Entity entity)
         {
             var entityNode = CreateEntityNode(provider, entity);
 

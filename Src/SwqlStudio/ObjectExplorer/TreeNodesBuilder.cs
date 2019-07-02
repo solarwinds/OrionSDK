@@ -188,15 +188,10 @@ namespace SwqlStudio
         private static TreeNodeWithConnectionInfo CreateNode(IMetadataProvider provider, string name, string imageKey, object data)
         {
             var node = new TreeNodeWithConnectionInfo(name, provider);
-            AssignProperties(node, imageKey, data);
-            return node;
-        }
-
-        private static void AssignProperties(TreeNode node, string imageKey, object data)
-        {
             node.ImageKey = imageKey;
             node.SelectedImageKey = imageKey;
             node.Tag = data;
+            return node;
         }
     }
 }

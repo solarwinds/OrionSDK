@@ -338,14 +338,11 @@ namespace SwqlStudio
 
         private IMetadataProvider FindProvider(TreeNode node)
         {
-            var provider = node.Tag as IMetadataProvider;
-            if (provider != null)
-                return provider;
+            var providerNode = node as TreeNodeWithConnectionInfo;
+            if (providerNode?.Provider != null)
+                return providerNode.Provider;
 
-            if (node.Parent == null)
-                throw new InvalidOperationException("No IMetadataProvider found in tree.");
-
-            return FindProvider(node.Parent);
+            throw new InvalidOperationException("No IMetadataProvider found in tree.");
         }
 
         public void RefreshAllServers()

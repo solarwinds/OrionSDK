@@ -51,23 +51,44 @@ namespace SwqlStudio
 
         public static string ToToolTip(ConnectionInfo connection, Entity entity)
         {
+            var summary = String.IsNullOrEmpty(entity.Summary) ? String.Empty : entity.Summary;
+
             if (entity.IsIndication)
             {
                 return $@"{entity.FullName}
-{(String.IsNullOrEmpty(entity.Summary) ? String.Empty : entity.Summary + Environment.NewLine)}Base type: {entity.BaseType}
-CanSubscribe: {connection.CanCreateSubscription}";
+Base type: {entity.BaseType}
+CanSubscribe: {connection.CanCreateSubscription}
+{summary}";
             }
 
             return $@"{entity.FullName}
-{(String.IsNullOrEmpty(entity.Summary) ? String.Empty : entity.Summary + Environment.NewLine)}Base type: {entity.BaseType}
+Base type: {entity.BaseType}
 CanCreate: {entity.CanCreate}
 CanUpdate: {entity.CanUpdate}
-CanDelete: {entity.CanDelete}";
+CanDelete: {entity.CanDelete}
+{summary}";
         }
 
         public static string ToToolTip(Verb verb)
         {
             return verb.Name + Environment.NewLine + verb.Summary;
+        }
+
+        public static string ToNodeText(string name, int childsCount)
+        {
+            var countSuffix = childsCount > 1 ? "s" : String.Empty;
+            return $"{name} ({childsCount} item{countSuffix})";
+        }
+
+        public static string ToNodeText(ITypedMetadata metadata)
+        {
+            return $"{metadata.Name} ({metadata.Type})";
+        }
+
+        public static string ToBaseNodeText(TreeNode baseNode, int childsCount)
+        {
+            var entitiesSuffix = childsCount > 1 ? "ies" : "y";
+            return $"{baseNode.Text} ({childsCount} derived entit{entitiesSuffix})";
         }
     }
 }

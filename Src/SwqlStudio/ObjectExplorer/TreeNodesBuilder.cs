@@ -48,7 +48,7 @@ namespace SwqlStudio
         {
             foreach (Property property in properties.OrderBy(c => c.Name))
             {
-                string name = ToNodeText(property);
+                string name = DocumentationBuilder.ToNodeText(property);
                 var imageKey = ImageKeys.GetImageKey(property);
                 TreeNode node = CreateNode(name, imageKey, property);
                 node.ToolTipText = DocumentationBuilder.ToToolTip(property, name);
@@ -122,7 +122,7 @@ namespace SwqlStudio
 
                 if (baseEntity != null)
                 {
-                    baseNode.Text = ToBaseNodeText(baseNode, childNodes.Length);
+                    baseNode.Text = DocumentationBuilder.ToBaseNodeText(baseNode, childNodes.Length);
                 }
 
                 foreach (var node in childNodes)
@@ -153,7 +153,7 @@ namespace SwqlStudio
 
         public static TreeNode CreateNamespaceNode(TreeNode[] entityNodes, string namespaceName)
         {
-            var name = ToNodeText(namespaceName, entityNodes.Length);
+            var name = DocumentationBuilder.ToNodeText(namespaceName, entityNodes.Length);
             var namespaceNode = CreateNode(name, ImageKeys.Namespace, namespaceName);
             namespaceNode.Nodes.AddRange(entityNodes);
             return namespaceNode;
@@ -163,7 +163,7 @@ namespace SwqlStudio
             Entity entity, TreeNode[] childNodes)
         {
             var imageKey = !entity.IsAbstract ? ImageKeys.BaseType : ImageKeys.BaseTypeAbstract;
-            var name = ToNodeText(entity.FullName, childNodes.Length);
+            var name = DocumentationBuilder.ToNodeText(entity.FullName, childNodes.Length);
             var entityNode = CreateNode(connection, name, imageKey, entity);
             
             entityNode.Nodes.AddRange(childNodes);
@@ -180,7 +180,7 @@ namespace SwqlStudio
 
         private static TreeNode CreateVerbArgumentNode(VerbArgument argument)
         {
-            string text = ToNodeText(argument);
+            string text = DocumentationBuilder.ToNodeText(argument);
             var argNode = CreateNode(text, ImageKeys.Argument, argument);
             argNode.ToolTipText = DocumentationBuilder.ToToolTip(argument);
             return argNode;
@@ -206,23 +206,6 @@ namespace SwqlStudio
             node.ImageKey = imageKey;
             node.SelectedImageKey = imageKey;
             node.Tag = data;
-        }
-
-        private static string ToNodeText(string name, int childsCount)
-        {
-            var countSuffix = childsCount > 1 ? "s" : String.Empty;
-            return $"{name} ({childsCount} item{countSuffix})";
-        }
-
-        private static string ToNodeText(ITypedMetadata metadata)
-        {
-            return $"{metadata.Name} ({metadata.Type})";
-        }
-
-        private static string ToBaseNodeText(TreeNode baseNode, int childsCount)
-        {
-            var entitiesSuffix = childsCount > 1 ? "ies" : "y";
-            return $"{baseNode.Text} ({childsCount} derived entit{entitiesSuffix})";
         }
     }
 }

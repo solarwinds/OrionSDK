@@ -383,9 +383,9 @@ namespace SwqlStudio
                                                                  {
                                                                      var treeNodeWithConnectionInfo = node as TreeNodeWithConnectionInfo;
                                                                      if (treeNodeWithConnectionInfo != null)
-                                                                         this.treeNodesBuilder.RebuildDatabaseNode(node, provider, treeNodeWithConnectionInfo.Connection);
+                                                                         this.treeNodesBuilder.RebuildDatabaseNode(node, provider);
                                                                      else
-                                                                         this.treeNodesBuilder.RebuildDatabaseNode(node, provider, null);
+                                                                         node.Nodes.Clear();
 
                                                                      UpdateDrawnNodes();
                                                                  }));

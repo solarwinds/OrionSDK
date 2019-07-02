@@ -1,22 +1,26 @@
 ﻿using System;
 using System.Windows.Forms;
+using SwqlStudio.Metadata;
 
 namespace SwqlStudio
 {
-    public class TreeNodeWithConnectionInfo : TreeNode, ICloneable
+    internal class TreeNodeWithConnectionInfo : TreeNode
     {
-        public TreeNodeWithConnectionInfo(string text, ConnectionInfo connection) : base(text)
+        public IMetadataProvider Provider { get; }
+
+        public ConnectionInfo Connection => this.Provider.ConnectionInfo;
+
+
+        public TreeNodeWithConnectionInfo(string text, IMetadataProvider provider) : base(text)
         {
-            Connection = connection;
+            Provider = provider;
         }
 
         public TreeNode CloneShallow()
         {
-            var treeNode = new TreeNodeWithConnectionInfo(Text, Connection);
+            var treeNode = new TreeNodeWithConnectionInfo(this.Text, this.Provider);
             TreeNodeUtils.CopyContent(this, treeNode);
             return treeNode;
         }
-
-        public ConnectionInfo Connection { get; private set; }
     }
 }

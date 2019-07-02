@@ -10,21 +10,21 @@ namespace SwqlStudio
     {
         public EntityGroupingMode EntityGroupingMode { get; set; }
 
-        public static TreeNodeWithConnectionInfo MakeEntityTreeNode(IMetadataProvider provider, ConnectionInfo connection, Entity entity)
+        public static TreeNodeWithConnectionInfo MakeEntityTreeNode(IMetadataProvider provider, Entity entity)
         {
-            var entityNode = CreateEntityNode(connection, entity);
+            var entityNode = CreateEntityNode(provider, entity);
 
             // Add keys
-            AddPropertiesToNode(entityNode, entity.Properties.Where(c => c.IsKey));
+            AddPropertiesToNode(provider, entityNode, entity.Properties.Where(c => c.IsKey));
 
             // Add the simple Properties
-            AddPropertiesToNode(entityNode, entity.Properties.Where(c => !c.IsInherited && !c.IsNavigable && !c.IsKey));
+            AddPropertiesToNode(provider, entityNode, entity.Properties.Where(c => !c.IsInherited && !c.IsNavigable && !c.IsKey));
 
             // Add the inherited Properties
-            AddPropertiesToNode(entityNode, entity.Properties.Where(c => c.IsInherited && !c.IsNavigable && !c.IsKey));
+            AddPropertiesToNode(provider, entityNode, entity.Properties.Where(c => c.IsInherited && !c.IsNavigable && !c.IsKey));
 
             // Add the Navigation Properties
-            AddPropertiesToNode(entityNode, entity.Properties.Where(c => c.IsNavigable));
+            AddPropertiesToNode(provider, entityNode, entity.Properties.Where(c => c.IsNavigable));
 
             AddVerbsToNode(entityNode, entity, provider);
             return entityNode;
@@ -34,7 +34,7 @@ namespace SwqlStudio
         {
             foreach (var verb in entity.Verbs.OrderBy(v => v.Name))
             {
-                TreeNode verbNode = CreateNode(verb.Name, ImageKeys.Verb, verb);
+                TreeNode verbNode = CreateNode(provider, verb.Name, ImageKeys.Verb, verb);
                 verbNode.ToolTipText = DocumentationBuilder.ToToolTip(verb);
 
                 var argumentsPlaceholder = new ArgumentsPlaceholderTreeNode(verb, provider);
@@ -44,13 +44,13 @@ namespace SwqlStudio
             }
         }
 
-        private static void AddPropertiesToNode(TreeNode entityNode, IEnumerable<Property> properties)
+        private static void AddPropertiesToNode(IMetadataProvider provider, TreeNode entityNode, IEnumerable<Property> properties)
         {
             foreach (Property property in properties.OrderBy(c => c.Name))
             {
                 string name = DocumentationBuilder.ToNodeText(property);
                 var imageKey = ImageKeys.GetImageKey(property);
-                TreeNode node = CreateNode(name, imageKey, property);
+                TreeNode node = CreateNode(provider, name, imageKey, property);
                 node.ToolTipText = DocumentationBuilder.ToToolTip(property, name);
                 entityNode.Nodes.Add(node);
             }
@@ -63,30 +63,30 @@ namespace SwqlStudio
 
             foreach (var argument in provider.GetVerbArguments(verb))
             {
-                var argNode = CreateVerbArgumentNode(argument);
+                var argNode = CreateVerbArgumentNode(provider, argument);
                 verbNode.Nodes.Add(argNode);
             }
         }
 
-        private static TreeNodeWithConnectionInfo[] MakeEntityTreeNodes(IMetadataProvider provider, ConnectionInfo connection, IEnumerable<Entity> entities)
+        private static TreeNodeWithConnectionInfo[] MakeEntityTreeNodes(IMetadataProvider provider, IEnumerable<Entity> entities)
         {
-            return entities.Select(e => MakeEntityTreeNode(provider, connection, e)).ToArray();
+            return entities.Select(e => MakeEntityTreeNode(provider, e)).ToArray();
         }
 
-        public void RebuildDatabaseNode(TreeNode databaseNode, IMetadataProvider provider, ConnectionInfo connection)
+        public void RebuildDatabaseNode(TreeNode databaseNode, IMetadataProvider provider)
         {
             databaseNode.Nodes.Clear();
 
             switch (this.EntityGroupingMode)
             {
                 case EntityGroupingMode.Flat:
-                    databaseNode.Nodes.AddRange(MakeEntityTreeNodes(provider, connection, provider.Tables.OrderBy(e => e.FullName)));
+                    databaseNode.Nodes.AddRange(MakeEntityTreeNodes(provider, provider.Tables.OrderBy(e => e.FullName)));
                     break;
                 case EntityGroupingMode.ByNamespace:
                     foreach (var group in provider.Tables.GroupBy(e => e.Namespace).OrderBy(g => g.Key))
                     {
-                        TreeNode[] entityNodes = MakeEntityTreeNodes(provider, connection, group.OrderBy(e => e.FullName));
-                        var namespaceNode = CreateNamespaceNode(entityNodes, group.Key);
+                        TreeNode[] entityNodes = MakeEntityTreeNodes(provider, group.OrderBy(e => e.FullName));
+                        var namespaceNode = CreateNamespaceNode(provider, entityNodes, group.Key);
                         databaseNode.Nodes.Add(namespaceNode);
                     }
                     break;
@@ -95,20 +95,20 @@ namespace SwqlStudio
                         e => e.BaseEntity,
                         (key, group) => new { Key = key, Entities = group }).OrderBy(item => item.Key.FullName))
                     {
-                        TreeNode[] childNodes = MakeEntityTreeNodes(provider, connection, group.Entities.OrderBy(e => e.FullName));
-                        var entityNode = CreateEntityNode(connection, group.Key, childNodes);
+                        TreeNode[] childNodes = MakeEntityTreeNodes(provider, group.Entities.OrderBy(e => e.FullName));
+                        var entityNode = CreateEntityNode(provider, group.Key, childNodes);
                         databaseNode.Nodes.Add(entityNode);
                     }
                     break;
                 case EntityGroupingMode.ByHierarchy:
-                    GroupByHierarchy(provider, connection, databaseNode);
+                    GroupByHierarchy(provider, databaseNode);
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
             }
         }
 
-        private static void GroupByHierarchy(IMetadataProvider provider, ConnectionInfo connection, TreeNode baseNode)
+        private static void GroupByHierarchy(IMetadataProvider provider, TreeNode baseNode)
         {
             Entity baseEntity = baseNode != null ? baseNode.Tag as Entity : null;
 
@@ -116,7 +116,7 @@ namespace SwqlStudio
 
             if (entities.Any())
             {
-                TreeNode[] childNodes = MakeEntityTreeNodes(provider, connection, entities.OrderBy(e => e.FullName));
+                TreeNode[] childNodes = MakeEntityTreeNodes(provider, entities.OrderBy(e => e.FullName));
                 
                 baseNode.Nodes.AddRange(childNodes);
 
@@ -127,7 +127,7 @@ namespace SwqlStudio
 
                 foreach (var node in childNodes)
                 {
-                    GroupByHierarchy(provider, connection, node);
+                    GroupByHierarchy(provider, node);
                 }
 
                 if (baseEntity == null)
@@ -141,62 +141,53 @@ namespace SwqlStudio
             }
         }
 
-        public static TreeNode CreateDatabaseNode(TreeView treeView, IMetadataProvider provider,
+        public static TreeNodeWithConnectionInfo CreateDatabaseNode(TreeView treeView, IMetadataProvider provider,
             ConnectionInfo connection)
         {
-            TreeNode node = CreateNode(connection, provider.Name, ImageKeys.Database, provider);
+            TreeNodeWithConnectionInfo node = CreateNode(provider, provider.Name, ImageKeys.Database, provider);
             node.Name = node.Text;
             treeView.Nodes.Add(node);
             treeView.SelectedNode = node;
             return node;
         }
 
-        public static TreeNode CreateNamespaceNode(TreeNode[] entityNodes, string namespaceName)
+        public static TreeNodeWithConnectionInfo CreateNamespaceNode(IMetadataProvider provider, TreeNode[] entityNodes, string namespaceName)
         {
             var name = DocumentationBuilder.ToNodeText(namespaceName, entityNodes.Length);
-            var namespaceNode = CreateNode(name, ImageKeys.Namespace, namespaceName);
+            var namespaceNode = CreateNode(provider, name, ImageKeys.Namespace, namespaceName);
             namespaceNode.Nodes.AddRange(entityNodes);
             return namespaceNode;
         }
 
-        private static TreeNodeWithConnectionInfo CreateEntityNode(ConnectionInfo connection,
-            Entity entity, TreeNode[] childNodes)
+        private static TreeNodeWithConnectionInfo CreateEntityNode(IMetadataProvider provider, Entity entity, TreeNode[] childNodes)
         {
             var imageKey = !entity.IsAbstract ? ImageKeys.BaseType : ImageKeys.BaseTypeAbstract;
             var name = DocumentationBuilder.ToNodeText(entity.FullName, childNodes.Length);
-            var entityNode = CreateNode(connection, name, imageKey, entity);
+            var entityNode = CreateNode(provider, name, imageKey, entity);
             
             entityNode.Nodes.AddRange(childNodes);
             return entityNode;
         }
 
-        private static TreeNodeWithConnectionInfo CreateEntityNode(ConnectionInfo connection, Entity entity)
+        private static TreeNodeWithConnectionInfo CreateEntityNode(IMetadataProvider provider, Entity entity)
         {
             var imageKey = ImageKeys.GetImageKey(entity);
-            var node = CreateNode(connection, entity.FullName, imageKey, entity);
-            node.ToolTipText = DocumentationBuilder.ToToolTip(connection, entity);
+            var node = CreateNode(provider, entity.FullName, imageKey, entity);
+            node.ToolTipText = DocumentationBuilder.ToToolTip(provider.ConnectionInfo, entity);
             return node;
         }
 
-        private static TreeNode CreateVerbArgumentNode(VerbArgument argument)
+        private static TreeNodeWithConnectionInfo CreateVerbArgumentNode(IMetadataProvider provider, VerbArgument argument)
         {
             string text = DocumentationBuilder.ToNodeText(argument);
-            var argNode = CreateNode(text, ImageKeys.Argument, argument);
+            var argNode = CreateNode(provider, text, ImageKeys.Argument, argument);
             argNode.ToolTipText = DocumentationBuilder.ToToolTip(argument);
             return argNode;
         }
 
-        private static TreeNode CreateNode(string name, string imageKey, object data)
+        private static TreeNodeWithConnectionInfo CreateNode(IMetadataProvider provider, string name, string imageKey, object data)
         {
-            var node = new TreeNode(name);
-            AssignProperties(node, imageKey, data);
-            return node;
-        }
-
-        private static TreeNodeWithConnectionInfo CreateNode(ConnectionInfo connection, string name,
-            string imageKey, object data)
-        {
-            var node = new TreeNodeWithConnectionInfo(name, connection);
+            var node = new TreeNodeWithConnectionInfo(name, provider);
             AssignProperties(node, imageKey, data);
             return node;
         }

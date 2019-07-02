@@ -1,10 +1,38 @@
 ﻿using System;
+using System.Text;
+using System.Windows.Forms;
 using SwqlStudio.Metadata;
 
 namespace SwqlStudio
 {
-    internal class ToolTipBuilder
+    internal class DocumentationBuilder
     {
+        public static string Build(TreeNode node)
+        {
+            var data = node.Tag;
+            var builder = new StringBuilder();
+            
+            // TODO if (data is SwisMetaDataProvider provider)
+            //    return ToToolTip(builder, provider);
+
+            if (data is string nameSpace)
+                builder.Append(nameSpace);
+
+            // TODO if (data is Entity entity)
+            //    return ToToolTip(connection, entity);
+            
+            if (data is Property property)
+                return ToToolTip(property, "name");
+
+            if (data is Verb verb)
+                return ToToolTip(verb);
+
+            if (data is VerbArgument verbArg)
+                return ToToolTip(verbArg);
+
+            return builder.ToString();
+        }
+
         public static string ToToolTip(VerbArgument arg)
         {
             if (!String.IsNullOrEmpty(arg.Summary))

@@ -222,7 +222,7 @@
     <Compile Include="ObjectExplorer\SearchTextBox.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="ObjectExplorer\ToolTipBuilder.cs" />
+    <Compile Include="ObjectExplorer\DocumentationBuilder.cs" />
     <Compile Include="ObjectExplorer\TreeNodesBuilder.cs" />
     <Compile Include="ObjectExplorer\TreeNodeUtils.cs" />
     <Compile Include="ProductSpecific\CertificateValidatorWithCache.cs" />

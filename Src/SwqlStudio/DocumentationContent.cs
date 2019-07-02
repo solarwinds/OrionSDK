@@ -1,4 +1,5 @@
-﻿using System.Windows.Forms;
+﻿using System.Drawing.Design;
+using System.Windows.Forms;
 using WeifenLuo.WinFormsUI.Docking;
 
 namespace SwqlStudio
@@ -16,6 +17,10 @@ namespace SwqlStudio
             {
                 this.docTextBox.Text = newNode.Text;
                 this.docTextBox.AppendText(newNode.ToolTipText);
+
+                var doc = DocumentationBuilder.Build(newNode);
+                this.docTextBox.AppendText("\r\n\r\n ");
+                this.docTextBox.AppendText(doc);
             }
         }
     }

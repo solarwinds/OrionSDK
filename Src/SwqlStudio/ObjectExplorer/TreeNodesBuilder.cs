@@ -35,7 +35,7 @@ namespace SwqlStudio
             foreach (var verb in entity.Verbs.OrderBy(v => v.Name))
             {
                 TreeNode verbNode = CreateNode(verb.Name, ImageKeys.Verb, verb);
-                verbNode.ToolTipText = ToolTipBuilder.ToToolTip(verb);
+                verbNode.ToolTipText = DocumentationBuilder.ToToolTip(verb);
 
                 var argumentsPlaceholder = new ArgumentsPlaceholderTreeNode(verb, provider);
                 verbNode.Nodes.Add(argumentsPlaceholder);
@@ -51,7 +51,7 @@ namespace SwqlStudio
                 string name = ToNodeText(property);
                 var imageKey = ImageKeys.GetImageKey(property);
                 TreeNode node = CreateNode(name, imageKey, property);
-                node.ToolTipText = ToolTipBuilder.ToToolTip(property, name);
+                node.ToolTipText = DocumentationBuilder.ToToolTip(property, name);
                 entityNode.Nodes.Add(node);
             }
         }
@@ -174,7 +174,7 @@ namespace SwqlStudio
         {
             var imageKey = ImageKeys.GetImageKey(entity);
             var node = CreateNode(connection, entity.FullName, imageKey, entity);
-            node.ToolTipText = ToolTipBuilder.ToToolTip(connection, entity);
+            node.ToolTipText = DocumentationBuilder.ToToolTip(connection, entity);
             return node;
         }
 
@@ -182,7 +182,7 @@ namespace SwqlStudio
         {
             string text = ToNodeText(argument);
             var argNode = CreateNode(text, ImageKeys.Argument, argument);
-            argNode.ToolTipText = ToolTipBuilder.ToToolTip(argument);
+            argNode.ToolTipText = DocumentationBuilder.ToToolTip(argument);
             return argNode;
         }
 

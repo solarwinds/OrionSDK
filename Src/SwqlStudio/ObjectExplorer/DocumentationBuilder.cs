@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text;
 using System.Windows.Forms;
 using SwqlStudio.Metadata;
 
@@ -6,81 +7,137 @@ namespace SwqlStudio
 {
     internal class DocumentationBuilder
     {
-        public static string Build(TreeNode node)
+        public static Documentation Build(TreeNode node)
         {
             var data = node.Tag;
             var connectedNode = node as TreeNodeWithConnectionInfo;
             var provider = connectedNode?.Provider;
 
             if (provider == null)
-                return string.Empty;
+                return Documentation.Empty;
 
             if (data is SwisMetaDataProvider)
-                return provider.Name;
+                return ProviderDocumentation(provider);
 
             if (data is string nameSpace)
-                return nameSpace;
+                return NamespaceDocumentation(nameSpace, node.Nodes.Count);
 
             if (data is Entity entity)
-                return ToToolTip(provider.ConnectionInfo, entity);
+                return EntityDocumentation(provider, entity);
 
             if (data is Property property)
-                return ToToolTip(property, "name");
+                return PropertyDocumentation(property);
 
             if (data is Verb verb)
-                return ToToolTip(verb);
+                return VerbDocumentation(verb);
 
             if (data is VerbArgument verbArg)
-                return ToToolTip(verbArg);
+                return VerbArgumentDocumentation(verbArg);
 
-            return string.Empty;
+            return Documentation.Empty;
+        }
+
+        private static Documentation VerbArgumentDocumentation(VerbArgument verbArg)
+        {
+            var docs = ToToolTip(verbArg);
+            return new Documentation("Verb argument", docs);
+        }
+
+        private static Documentation VerbDocumentation(Verb verb)
+        {
+            var docs = ToToolTip(verb);
+            return new Documentation("Verb", docs);
+        }
+
+        private static Documentation EntityDocumentation(IMetadataProvider provider, Entity entity)
+        {
+            var docs = ToToolTip(provider.ConnectionInfo, entity);
+            return new Documentation("Entity", docs);
+        }
+
+        private static Documentation NamespaceDocumentation(string nameSpace, int childsCount)
+        {
+            var childs = ChildsText(childsCount);
+            var docs = $"Name: {nameSpace}\r\n{childs}";
+            return new Documentation("Namespace", docs);
+        }
+
+        private static Documentation PropertyDocumentation(Property property)
+        {
+            var docs = ToToolTip(property);
+            return new Documentation("Property", docs);
+        }
+
+        private static string NameAndType(ITypedMetadata metadata)
+        {
+            return $"Name: {metadata.Name}\r\nType: {metadata.Type}";
+        }
+
+        private static Documentation ProviderDocumentation(IMetadataProvider provider)
+        {
+            var documents = $@"Connection: {provider.Name}";
+            return new Documentation("Database", documents);
         }
 
         public static string ToToolTip(VerbArgument arg)
         {
-            if (!String.IsNullOrEmpty(arg.Summary))
-                return arg.Summary;
-
-            return String.Empty;
+            var docs = NameAndType(arg);
+            return AppendSummary(docs, arg.Summary);
         }
 
-        public static string ToToolTip(Property column, string name)
+        public static string ToToolTip(Property property)
         {
-            if (!String.IsNullOrEmpty(column.Summary))
-                return name + Environment.NewLine + column.Summary;
-
-            return String.Empty;
+            var docs = NameAndType(property);
+            return AppendSummary(docs, property.Summary);
         }
 
         public static string ToToolTip(ConnectionInfo connection, Entity entity)
         {
-            var summary = String.IsNullOrEmpty(entity.Summary) ? String.Empty : entity.Summary;
+            var builder = new StringBuilder();
+            builder.Append($"Name: {entity.FullName}\r\n");
+            builder.Append($"Base type: {entity.BaseType}\r\n");
 
             if (entity.IsIndication)
             {
-                return $@"{entity.FullName}
-Base type: {entity.BaseType}
-CanSubscribe: {connection.CanCreateSubscription}
-{summary}";
+                builder.Append($@"Can Subscribe: {connection.CanCreateSubscription}");
+            }
+            else
+            {
+                builder.Append($"Can Read: {entity.CanRead}\r\n");
+                builder.Append($"Can Create: {entity.CanCreate}\r\n");
+                builder.Append($"Can Update: {entity.CanUpdate}\r\n");
+                builder.Append($"Can Delete: {entity.CanDelete}\r\n");
             }
 
-            return $@"{entity.FullName}
-Base type: {entity.BaseType}
-CanCreate: {entity.CanCreate}
-CanUpdate: {entity.CanUpdate}
-CanDelete: {entity.CanDelete}
-{summary}";
+            var summary = String.IsNullOrEmpty(entity.Summary) ? String.Empty : entity.Summary;
+            builder.Append(summary);
+            return builder.ToString();
         }
 
         public static string ToToolTip(Verb verb)
         {
-            return verb.Name + Environment.NewLine + verb.Summary;
+            var docs = $"Name: {verb.Name}";
+            return AppendSummary(docs, verb.Summary);
+        }
+
+        private static string AppendSummary(string docs, string summary)
+        {
+            if (!String.IsNullOrEmpty(summary))
+                return $"{docs}\r\n\r\n{summary}";
+
+            return docs;
         }
 
         public static string ToNodeText(string name, int childsCount)
         {
+            var childs = ChildsText(childsCount);
+            return $"{name} ({childs})";
+        }
+
+        private static string ChildsText(int childsCount)
+        {
             var countSuffix = childsCount > 1 ? "s" : String.Empty;
-            return $"{name} ({childsCount} item{countSuffix})";
+            return $"{childsCount} item{countSuffix}";
         }
 
         public static string ToNodeText(ITypedMetadata metadata)

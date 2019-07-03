@@ -15,12 +15,9 @@ namespace SwqlStudio
         {
             if (newNode != null)
             {
-                this.docTextBox.Text = newNode.Text;
-                this.docTextBox.AppendText(newNode.ToolTipText);
-                
-                this.docTextBox.AppendText("\r\n\r\n ");
                 var doc = DocumentationBuilder.Build(newNode);
-                this.docTextBox.AppendText(doc);
+                this.itemTypeLabel.Text = doc.ItemType;
+                this.docTextBox.AppendText(doc.Documents);
             }
         }
     }

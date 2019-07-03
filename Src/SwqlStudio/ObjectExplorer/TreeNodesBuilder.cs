@@ -51,7 +51,7 @@ namespace SwqlStudio
                 string name = DocumentationBuilder.ToNodeText(property);
                 var imageKey = ImageKeys.GetImageKey(property);
                 TreeNode node = CreateNode(provider, name, imageKey, property);
-                node.ToolTipText = DocumentationBuilder.ToToolTip(property, name);
+                node.ToolTipText = DocumentationBuilder.ToToolTip(property);
                 entityNode.Nodes.Add(node);
             }
         }

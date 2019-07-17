@@ -4,5 +4,6 @@
     {
         string Name { get; set; }
         string Type { get; set; }
+        string Summary { get; set; }
     }
 }

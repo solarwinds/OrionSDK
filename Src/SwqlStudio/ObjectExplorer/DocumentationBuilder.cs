@@ -68,64 +68,37 @@ namespace SwqlStudio
             return new Documentation("Property", docs);
         }
 
-        private static string NameAndType(ITypedMetadata metadata)
-        {
-            return $"Name: {metadata.Name}\r\nType: {metadata.Type}";
-        }
-
         private static Documentation ProviderDocumentation(IMetadataProvider provider)
         {
             var documents = $@"Connection: {provider.Name}";
             return new Documentation("Database", documents);
         }
 
-        public static string ToToolTip(VerbArgument arg)
+        public static string ToToolTip(ITypedMetadata metadata)
         {
-            var docs = NameAndType(arg);
-            return AppendSummary(docs, arg.Summary);
-        }
-
-        public static string ToToolTip(Property property)
-        {
-            var docs = NameAndType(property);
-            return AppendSummary(docs, property.Summary);
+            var builder = new StringBuilder();
+            builder.AppendName(metadata.Name);
+            builder.AppendType(metadata.Type);
+            builder.AppendSummary(metadata.Summary);
+            return builder.ToString();
         }
 
         public static string ToToolTip(ConnectionInfo connection, Entity entity)
         {
             var builder = new StringBuilder();
-            builder.Append($"Name: {entity.FullName}\r\n");
+            builder.AppendName(entity.FullName);
             builder.Append($"Base type: {entity.BaseType}\r\n");
-
-            if (entity.IsIndication)
-            {
-                builder.Append($@"Can Subscribe: {connection.CanCreateSubscription}");
-            }
-            else
-            {
-                builder.Append($"Can Read: {entity.CanRead}\r\n");
-                builder.Append($"Can Create: {entity.CanCreate}\r\n");
-                builder.Append($"Can Update: {entity.CanUpdate}\r\n");
-                builder.Append($"Can Delete: {entity.CanDelete}\r\n");
-            }
-
-            var summary = String.IsNullOrEmpty(entity.Summary) ? String.Empty : entity.Summary;
-            builder.Append(summary);
+            builder.AppendAccessControl(connection, entity);
+            builder.AppendSummary(entity.Summary);
             return builder.ToString();
         }
 
         public static string ToToolTip(Verb verb)
         {
-            var docs = $"Name: {verb.Name}";
-            return AppendSummary(docs, verb.Summary);
-        }
-
-        private static string AppendSummary(string docs, string summary)
-        {
-            if (!String.IsNullOrEmpty(summary))
-                return $"{docs}\r\n\r\n{summary}";
-
-            return docs;
+            var builder = new StringBuilder();
+            builder.AppendName(verb.Name);
+            builder.AppendSummary(verb.Summary);
+            return builder.ToString();
         }
 
         public static string ToNodeText(string name, int childsCount)

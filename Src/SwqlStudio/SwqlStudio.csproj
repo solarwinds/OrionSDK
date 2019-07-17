@@ -224,6 +224,7 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="ObjectExplorer\DocumentationBuilder.cs" />
+    <Compile Include="ObjectExplorer\StringBuilderExtensions.cs" />
     <Compile Include="ObjectExplorer\TreeNodesBuilder.cs" />
     <Compile Include="ObjectExplorer\TreeNodeUtils.cs" />
     <Compile Include="ProductSpecific\CertificateValidatorWithCache.cs" />

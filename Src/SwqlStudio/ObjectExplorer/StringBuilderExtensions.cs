@@ -16,13 +16,19 @@ namespace SwqlStudio
             builder.AppendFormat("Type: {0}\r\n", metadataType);
         }
 
+        public static void AppendSummaryParagraph(this StringBuilder builder,string summary)
+        {
+            builder.Append("\r\n\r\n");
+            builder.AppendSummary(summary);
+        }
+
         public static void AppendSummary(this StringBuilder builder,string summary)
         {
             if (String.IsNullOrEmpty(summary))
                 return;
 
             var trimmed = summary.Trim();
-            builder.AppendFormat("\r\n\r\n{0}", trimmed);
+            builder.AppendFormat(trimmed);
         }
 
         public static void AppendAccessControl(this StringBuilder builder, ConnectionInfo connection, Entity entity)

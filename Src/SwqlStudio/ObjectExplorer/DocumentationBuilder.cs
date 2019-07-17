@@ -39,32 +39,43 @@ namespace SwqlStudio
 
         private static Documentation VerbArgumentDocumentation(VerbArgument verbArg)
         {
-            var docs = ToToolTip(verbArg);
+            var docs = MetadataDocumentation(verbArg);
             return new Documentation("Verb argument", docs);
         }
 
         private static Documentation VerbDocumentation(Verb verb)
         {
-            var docs = ToToolTip(verb);
+            var builder = new StringBuilder();
+            builder.AppendName(verb.Name);
+            builder.AppendSummaryParagraph(verb.Summary);
+            var docs = builder.ToString();
             return new Documentation("Verb", docs);
         }
 
         private static Documentation EntityDocumentation(IMetadataProvider provider, Entity entity)
         {
-            var docs = ToToolTip(provider.ConnectionInfo, entity);
+            var builder = new StringBuilder();
+            builder.AppendName(entity.FullName);
+            builder.Append($"Base type: {entity.BaseType}\r\n");
+            builder.AppendAccessControl(provider.ConnectionInfo, entity);
+            builder.AppendSummaryParagraph(entity.Summary);
+            var docs = builder.ToString();
             return new Documentation("Entity", docs);
         }
 
         private static Documentation NamespaceDocumentation(string nameSpace, int childsCount)
         {
+            var builder = new StringBuilder();
+            builder.AppendName(nameSpace);
             var childs = ChildsText(childsCount);
-            var docs = $"Name: {nameSpace}\r\n{childs}";
+            builder.Append(childs);
+            var docs = builder.ToString();
             return new Documentation("Namespace", docs);
         }
 
         private static Documentation PropertyDocumentation(Property property)
         {
-            var docs = ToToolTip(property);
+            var docs = MetadataDocumentation(property);
             return new Documentation("Property", docs);
         }
 
@@ -74,29 +85,32 @@ namespace SwqlStudio
             return new Documentation("Database", documents);
         }
 
-        public static string ToToolTip(ITypedMetadata metadata)
+        private static string MetadataDocumentation(ITypedMetadata metadata)
         {
             var builder = new StringBuilder();
             builder.AppendName(metadata.Name);
             builder.AppendType(metadata.Type);
+            builder.AppendSummaryParagraph(metadata.Summary);
+            return builder.ToString();
+        }
+
+        public static string ToToolTip(ITypedMetadata metadata)
+        {
+            var builder = new StringBuilder();
             builder.AppendSummary(metadata.Summary);
             return builder.ToString();
         }
-
+        
         public static string ToToolTip(ConnectionInfo connection, Entity entity)
         {
             var builder = new StringBuilder();
-            builder.AppendName(entity.FullName);
-            builder.Append($"Base type: {entity.BaseType}\r\n");
-            builder.AppendAccessControl(connection, entity);
             builder.AppendSummary(entity.Summary);
             return builder.ToString();
         }
-
+        
         public static string ToToolTip(Verb verb)
         {
             var builder = new StringBuilder();
-            builder.AppendName(verb.Name);
             builder.AppendSummary(verb.Summary);
             return builder.ToString();
         }

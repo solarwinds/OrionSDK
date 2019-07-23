@@ -212,6 +212,7 @@
     <Compile Include="LogHeaderReaderBehavior.cs" />
     <Compile Include="Metadata\Entity.cs" />
     <Compile Include="Metadata\ITypedMetadata.cs" />
+    <Compile Include="Metadata\IObsoleteMetadata.cs" />
     <Compile Include="Metadata\Property.cs" />
     <Compile Include="Metadata\Verb.cs" />
     <Compile Include="Metadata\VerbArgument.cs" />
@@ -226,6 +227,11 @@
     <Compile Include="ObjectExplorer\DocumentationBuilder.cs" />
     <Compile Include="ObjectExplorer\StringBuilderExtensions.cs" />
     <Compile Include="ObjectExplorer\TreeNodesBuilder.cs" />
+    <Compile Include="ObjectExplorer\Filtering\INodeFilterStrategy.cs" />
+    <Compile Include="ObjectExplorer\Filtering\NodeFilter.cs" />
+    <Compile Include="ObjectExplorer\Filtering\SearchNodeFilter.cs" />
+    <Compile Include="ObjectExplorer\Filtering\ObsoleteNodeFilter.cs" />
+    <Compile Include="ObjectExplorer\Filtering\VisibilityStatus.cs" />
     <Compile Include="ObjectExplorer\TreeNodeUtils.cs" />
     <Compile Include="ProductSpecific\CertificateValidatorWithCache.cs" />
     <Compile Include="Properties\Resources.Designer.cs">

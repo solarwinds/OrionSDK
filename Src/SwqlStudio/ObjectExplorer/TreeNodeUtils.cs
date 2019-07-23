@@ -5,6 +5,8 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Windows.Forms;
+using SwqlStudio.Filtering;
+using SwqlStudio.Metadata;
 
 namespace SwqlStudio
 {
@@ -42,9 +44,7 @@ namespace SwqlStudio
                 {
                     newNode = CloneShallow(node);
                 }
-
                 
-
                 target.Add(newNode);
                 bindings.BindNodes(node, newNode);
                 CopyTree(node.Nodes, newNode.Nodes, bindings, filter, updateAction);
@@ -80,71 +80,7 @@ namespace SwqlStudio
             target.ContextMenu = source.ContextMenu;
             target.ContextMenuStrip = source.ContextMenuStrip;
             target.Checked = source.Checked;
-        }
-
-        /// <summary>
-        /// Used in filtering of the nodes.
-        /// 
-        /// Keeps track of visibility of each single one
-        /// </summary>
-        public class NodeVisibility
-        {
-            private readonly Dictionary<TreeNode, VisibilityStatus> _visibility = new Dictionary<TreeNode, VisibilityStatus>(ReferenceEqualityComparer.Default);
-
-
-            public void SetVisible(TreeNode node)
-            {
-                _visibility[node] = VisibilityStatus.Visible;
-                for (var parent = node.Parent; parent != null; parent = parent.Parent)
-                {
-                    _visibility.TryGetValue(parent, out var parentVisibility);
-                    if (parentVisibility != VisibilityStatus.Visible)
-                        parentVisibility = VisibilityStatus.ChildVisible;
-
-                    _visibility[parent] = parentVisibility;
-                }
-            }
-
-            public VisibilityStatus GetVisibility(TreeNode node)
-            {
-                if (!_visibility.TryGetValue(node, out var rv))
-                {
-                    rv = VisibilityStatus.NotVisible;
-                    // check if some of the parents is not directly visible (visible, not childvisible)
-                    for (var parent = node.Parent; parent != null; parent = parent.Parent)
-                    {
-                        if (_visibility.TryGetValue(parent, out var parentVisibility))
-                        {
-                            if (parentVisibility == VisibilityStatus.Visible)
-                                rv = VisibilityStatus.ParentVisible;
-                            else
-                                break;
-                        }
-                    }
-                }
-
-                return rv;
-            }
-
-            public enum VisibilityStatus
-            {
-                /// <summary>
-                /// This node is not visible
-                /// </summary>
-                NotVisible,
-                /// <summary>
-                /// Some children of this node passed filter
-                /// </summary>
-                ChildVisible,
-                /// <summary>
-                /// This node passed filter
-                /// </summary>
-                Visible,
-                /// <summary>
-                /// This node's parent passed filter
-                /// </summary>
-                ParentVisible
-            }
+            target.NodeFont = source.NodeFont;
         }
 
         /// <summary>
@@ -184,7 +120,7 @@ namespace SwqlStudio
                 return rv;
             }
         }
-        private sealed class ReferenceEqualityComparer : IEqualityComparer, IEqualityComparer<object>
+        internal sealed class ReferenceEqualityComparer : IEqualityComparer, IEqualityComparer<object>
         {
             public static ReferenceEqualityComparer Default { get; } = new ReferenceEqualityComparer();
 

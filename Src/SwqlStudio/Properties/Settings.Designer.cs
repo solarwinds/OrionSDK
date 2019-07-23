@@ -331,5 +331,17 @@ namespace SwqlStudio.Properties {
                 this["PromptToSaveOnClose"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool ShowObsolete {
+            get {
+                return ((bool)(this["ShowObsolete"]));
+            }
+            set {
+                this["ShowObsolete"] = value;
+            }
+        }
     }
 }

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using SwqlStudio.Metadata;
@@ -10,7 +11,15 @@ namespace SwqlStudio
     {
         public EntityGroupingMode EntityGroupingMode { get; set; }
 
-        private static TreeNodeWithConnectionInfo MakeEntityTreeNode(IMetadataProvider provider, Entity entity)
+        private readonly Font _defaultFont;
+        private Font NodeFont(IObsoleteMetadata entity) => entity.IsObsolete ? new Font(_defaultFont, FontStyle.Strikeout) : null;
+
+        public TreeNodesBuilder(Font defaultFont)
+        {
+            _defaultFont = defaultFont;
+        }
+
+        private TreeNodeWithConnectionInfo MakeEntityTreeNode(IMetadataProvider provider, Entity entity)
         {
             var entityNode = CreateEntityNode(provider, entity);
 
@@ -30,7 +39,7 @@ namespace SwqlStudio
             return entityNode;
         }
 
-        private static void AddVerbsToNode(TreeNode entityNode, Entity entity, IMetadataProvider provider)
+        private void AddVerbsToNode(TreeNode entityNode, Entity entity, IMetadataProvider provider)
         {
             foreach (var verb in entity.Verbs.OrderBy(v => v.Name))
             {
@@ -39,19 +48,21 @@ namespace SwqlStudio
 
                 var argumentsPlaceholder = new ArgumentsPlaceholderTreeNode(verb, provider);
                 verbNode.Nodes.Add(argumentsPlaceholder);
+                verbNode.NodeFont = NodeFont(verb);
 
                 entityNode.Nodes.Add(verbNode);
             }
         }
 
-        private static void AddPropertiesToNode(IMetadataProvider provider, TreeNode entityNode, IEnumerable<Property> properties)
+        private void AddPropertiesToNode(IMetadataProvider provider, TreeNode entityNode, IEnumerable<Property> properties)
         {
             foreach (Property property in properties.OrderBy(c => c.Name))
             {
                 string name = DocumentationBuilder.ToNodeText(property);
                 var imageKey = ImageKeys.GetImageKey(property);
                 TreeNode node = CreateNode(provider, name, imageKey, property);
-                node.ToolTipText = DocumentationBuilder.ToToolTip(property);
+                node.ToolTipText = DocumentationBuilder.ToToolTip(property, property);
+                node.NodeFont = NodeFont(property);
                 entityNode.Nodes.Add(node);
             }
         }
@@ -68,7 +79,7 @@ namespace SwqlStudio
             }
         }
 
-        private static TreeNodeWithConnectionInfo[] MakeEntityTreeNodes(IMetadataProvider provider, IEnumerable<Entity> entities)
+        private TreeNodeWithConnectionInfo[] MakeEntityTreeNodes(IMetadataProvider provider, IEnumerable<Entity> entities)
         {
             return entities.Select(e => MakeEntityTreeNode(provider, e)).ToArray();
         }
@@ -108,7 +119,7 @@ namespace SwqlStudio
             }
         }
 
-        private static void GroupByHierarchy(IMetadataProvider provider, TreeNode baseNode)
+        private void GroupByHierarchy(IMetadataProvider provider, TreeNode baseNode)
         {
             Entity baseEntity = baseNode != null ? baseNode.Tag as Entity : null;
 
@@ -169,11 +180,12 @@ namespace SwqlStudio
             return entityNode;
         }
 
-        private static TreeNodeWithConnectionInfo CreateEntityNode(IMetadataProvider provider, Entity entity)
+        private TreeNodeWithConnectionInfo CreateEntityNode(IMetadataProvider provider, Entity entity)
         {
             var imageKey = ImageKeys.GetImageKey(entity);
             var node = CreateNode(provider, entity.FullName, imageKey, entity);
             node.ToolTipText = DocumentationBuilder.ToToolTip(provider.ConnectionInfo, entity);
+            node.NodeFont = NodeFont(entity);
             return node;
         }
 

@@ -181,6 +181,12 @@
     </Compile>
     <Compile Include="CustomCertificateValidator.cs" />
     <Compile Include="DataGridExporter.cs" />
+    <Compile Include="DocumentationContent.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DocumentationContent.Designer.cs">
+      <DependentUpon>DocumentationContent.cs</DependentUpon>
+    </Compile>
     <Compile Include="EntityClassGraphForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -205,13 +211,21 @@
     <Compile Include="LogHeaderMessageInspector.cs" />
     <Compile Include="LogHeaderReaderBehavior.cs" />
     <Compile Include="Metadata\Entity.cs" />
+    <Compile Include="Metadata\ITypedMetadata.cs" />
     <Compile Include="Metadata\Property.cs" />
     <Compile Include="Metadata\Verb.cs" />
     <Compile Include="Metadata\VerbArgument.cs" />
     <Compile Include="CodeGenerator.cs" />
+    <Compile Include="ObjectExplorer\ArgumentsPlaceholderTreeNode.cs" />
+    <Compile Include="ObjectExplorer\Documentation.cs" />
+    <Compile Include="ObjectExplorer\EntityGroupingMode.cs" />
+    <Compile Include="ObjectExplorer\ImageKeys.cs" />
     <Compile Include="ObjectExplorer\SearchTextBox.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="ObjectExplorer\DocumentationBuilder.cs" />
+    <Compile Include="ObjectExplorer\StringBuilderExtensions.cs" />
+    <Compile Include="ObjectExplorer\TreeNodesBuilder.cs" />
     <Compile Include="ObjectExplorer\TreeNodeUtils.cs" />
     <Compile Include="ProductSpecific\CertificateValidatorWithCache.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
@@ -249,11 +263,11 @@
     <Compile Include="NewConnection.Designer.cs">
       <DependentUpon>NewConnection.cs</DependentUpon>
     </Compile>
-    <Compile Include="ObjectExplorer\IMetadataProvider.cs" />
+    <Compile Include="Metadata\IMetadataProvider.cs" />
     <Compile Include="ObjectExplorer\ObjectExplorer.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="ObjectExplorer\SwisMetaDataProvider.cs" />
+    <Compile Include="Metadata\SwisMetaDataProvider.cs" />
     <Compile Include="ProductSpecific\JavaHttpInfoService.cs" />
     <Compile Include="ProductSpecific\NCMForwarderInfoService.cs" />
     <Compile Include="ProductSpecific\NCMWindowsAuthInfoService.cs" />
@@ -324,6 +338,9 @@
       <DependentUpon>CrudTab.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="DocumentationContent.resx">
+      <DependentUpon>DocumentationContent.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="EntityClassGraphForm.resx">
       <DependentUpon>EntityClassGraphForm.cs</DependentUpon>
       <SubType>Designer</SubType>
@@ -333,6 +350,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ObjectExplorer\ObjectExplorer.resx">
+      <DependentUpon>ObjectExplorer.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

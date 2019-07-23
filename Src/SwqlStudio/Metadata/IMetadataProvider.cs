@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using SwqlStudio.Metadata;
 
-namespace SwqlStudio
+namespace SwqlStudio.Metadata
 {
     interface IMetadataProvider
     {

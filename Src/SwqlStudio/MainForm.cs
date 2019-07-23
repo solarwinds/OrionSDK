@@ -7,6 +7,7 @@ using System.ServiceModel;
 using System.Windows.Forms;
 using SolarWinds.InformationService.Contract2;
 using SolarWinds.InformationService.InformationServiceClient;
+using SwqlStudio.Metadata;
 using SwqlStudio.Properties;
 using SwqlStudio.Subscriptions;
 using SwqlStudio.Utils;
@@ -53,7 +54,6 @@ namespace SwqlStudio
 
         private void InitializeDockPanel()
         {
-            this.filesDock.SetObjectExplorerImageList(this.ObjectExplorerImageList);
             this.serverList = new ServerList();
             this.serverList.ConnectionAdded += ServerListOnConnectionAdded;
             this.serverList.ConnectionRemoved += ServerListOnConnectionRemoved;

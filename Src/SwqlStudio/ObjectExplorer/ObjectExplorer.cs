@@ -17,21 +17,13 @@ using TreeView = System.Windows.Forms.TreeView;
 
 namespace SwqlStudio
 {
-    enum EntityGroupingMode
-    {
-        Flat = 1,
-        ByNamespace = 2,
-        ByBaseType = 3,
-        ByHierarchy = 4
-    }
-
-    class ObjectExplorer : Control
+    internal class ObjectExplorer : Control
     {
         private static readonly Log log = new Log();
 
         private readonly SearchTextBox _treeSearch;
         private readonly TreeView _tree;
-        private readonly TreeView _treeData;
+        private TreeView _treeData;
         private TreeNodeUtils.TreeNodeBindings _treeBindings = new TreeNodeUtils.TreeNodeBindings(); // default value, so this field is never null
         private TreeNode _contextMenuNode;
         private readonly Dictionary<string, ContextMenu> _tableContextMenuItems;
@@ -42,15 +34,18 @@ namespace SwqlStudio
         private string _filter;
         private bool _treeIsUnderUpdate; 
         private Point _lastLocation;
+        private ImageList objectExplorerImageList;
+        private System.ComponentModel.IContainer components;
         private TreeNode _dragNode;
-
+        private readonly TreeNodesBuilder treeNodesBuilder = new TreeNodesBuilder();
+        public event TreeViewEventHandler SelectionChanged;
 
         public ITabsFactory TabsFactory { get; set; }
 
-        public EntityGroupingMode EntityGroupingMode { get; set; }
-
         public ObjectExplorer()
         {
+            InitializeComponent();
+
             _treeSearch = new SearchTextBox
             {
                 Dock = DockStyle.Top
@@ -63,18 +58,41 @@ namespace SwqlStudio
                 ShowNodeToolTips = true
             };
 
+            InitializeTreeview();
+
+            _treeSearch.TextChangedWithDebounce += (sender, e) => { SetFilter(((TextBox) sender).Text); };
+            _treeSearch.CueText = "Search (Ctrl + \\)";
+            _treeSearch.DebounceLimit = TimeSpan.FromMilliseconds(400);
+
+            _tableContextMenuItems = new Dictionary<string, ContextMenu>();
+            _serverContextMenuItems = new Dictionary<string, ContextMenuStrip>();
+            _tableCrudContextMenuItems = new Dictionary<string, ContextMenu>();
+
+            _verbContextMenu = new ContextMenu();
+            _verbContextMenu.MenuItems.Add("Invoke...", (s, e) => OpenInvokeTab());
+
+            Controls.Add(_tree);
+            Controls.Add(_treeSearch);
+        }
+
+        private void InitializeTreeview()
+        {
             _treeData = new TreeView();
 
             _tree.MouseDown += TreeMouseDown;
             _tree.MouseMove += TreeMouseMove;
             _tree.MouseUp += _tree_MouseUp;
-            _tree.BeforeExpand += (sender, e) => { e.Cancel = !AllowExpandCollapse; if (!e.Cancel) _tree_BeforeExpand(sender, e); };
+            _tree.BeforeExpand += (sender, e) =>
+            {
+                e.Cancel = !AllowExpandCollapse;
+                if (!e.Cancel) _tree_BeforeExpand(sender, e);
+            };
             _tree.BeforeCollapse += (sender, e) => { e.Cancel = !AllowExpandCollapse; };
             // copy expanded / not expanded state to data, so it is persisted
             _tree.AfterExpand += (sender, e) =>
             {
                 if (_treeIsUnderUpdate) // we are calling expand on the display tree when cloning from data. 
-                                        // we do not want to update data with such information, as we dont have proper _treeBindings at the moment
+                    // we do not want to update data with such information, as we dont have proper _treeBindings at the moment
                     return;
 
                 var dataNode = _treeBindings.FindDataNode(e.Node);
@@ -91,19 +109,13 @@ namespace SwqlStudio
             };
 
             _tree.NodeMouseDoubleClick += _tree_NodeMouseDoubleClick;
-            _treeSearch.TextChangedWithDebounce += (sender, e) => { SetFilter(((TextBox) sender).Text); };
-            _treeSearch.CueText = "Search (Ctrl + \\)";
-            _treeSearch.DebounceLimit = TimeSpan.FromMilliseconds(400);
+            _tree.AfterSelect += OnTreeOnAfterSelect;
+            _tree.ImageList = this.objectExplorerImageList;
+        }
 
-            _tableContextMenuItems = new Dictionary<string, ContextMenu>();
-            _serverContextMenuItems = new Dictionary<string, ContextMenuStrip>();
-            _tableCrudContextMenuItems = new Dictionary<string, ContextMenu>();
-
-            _verbContextMenu = new ContextMenu();
-            _verbContextMenu.MenuItems.Add("Invoke...", (s, e) => OpenInvokeTab());
-
-            Controls.Add(_tree);
-            Controls.Add(_treeSearch);
+        private void OnTreeOnAfterSelect(object sender, TreeViewEventArgs args)
+        {
+            this.SelectionChanged?.Invoke(this, args);
         }
 
         public void FocusSearch()
@@ -293,22 +305,14 @@ namespace SwqlStudio
 
         void _tree_BeforeExpand(object sender, TreeViewCancelEventArgs e)
         {
-            if (e.Node.Tag is Verb verb)
+            var verbNode = e.Node;
+            if (verbNode.Tag is Verb)
             {
-                e.Node.Nodes.Clear();
-
-                foreach (var arg in FindProvider(e.Node).GetVerbArguments(verb))
-                {
-                    string text = $"{arg.Name} ({arg.Type})";
-                    var argNode = new TreeNode(text) { SelectedImageKey = "Argument" };
-                    argNode.ImageKey = argNode.SelectedImageKey;
-                    argNode.Tag = arg;
-                    if (!string.IsNullOrEmpty(arg.Summary))
-                        argNode.ToolTipText = arg.Summary;
-                    e.Node.Nodes.Add(argNode);
-                }
+                var provider = FindProvider(verbNode);
+                TreeNodesBuilder.RebuildVerbArguments(verbNode, provider);
             }
         }
+
 
         void _tree_NodeMouseDoubleClick(object sender, TreeNodeMouseClickEventArgs e)
         {
@@ -334,14 +338,11 @@ namespace SwqlStudio
 
         private IMetadataProvider FindProvider(TreeNode node)
         {
-            var provider = node.Tag as IMetadataProvider;
-            if (provider != null)
-                return provider;
+            var providerNode = node as TreeNodeWithConnectionInfo;
+            if (providerNode?.Provider != null)
+                return providerNode.Provider;
 
-            if (node.Parent == null)
-                throw new InvalidOperationException("No IMetadataProvider found in tree.");
-
-            return FindProvider(node.Parent);
+            throw new InvalidOperationException("No IMetadataProvider found in tree.");
         }
 
         public void RefreshAllServers()
@@ -377,12 +378,11 @@ namespace SwqlStudio
                                                              provider.Refresh();
                                                              BeginInvoke(new Action(() =>
                                                                  {
-                                                                     node.Nodes.Clear();
                                                                      var treeNodeWithConnectionInfo = node as TreeNodeWithConnectionInfo;
                                                                      if (treeNodeWithConnectionInfo != null)
-                                                                         AddTablesToNode(node, provider, treeNodeWithConnectionInfo.Connection);
+                                                                         this.treeNodesBuilder.RebuildDatabaseNode(node, provider);
                                                                      else
-                                                                         AddTablesToNode(node, provider, null);
+                                                                         node.Nodes.Clear();
 
                                                                      UpdateDrawnNodes();
                                                                  }));
@@ -497,12 +497,6 @@ namespace SwqlStudio
             return sb.ToString();
         }
 
-        public ImageList ImageList
-        {
-            get { return _tree.ImageList; }
-            set { _tree.ImageList = value; }
-        }
-
         public void AddServer(IMetadataProvider provider, ConnectionInfo connection)
         {
             //Check if the current connection can create subscription
@@ -558,16 +552,11 @@ namespace SwqlStudio
 
             _serverContextMenuItems.Add(connection.Title, serverContextMenu);
 
-
-            TreeNode node = CreateDatabaseNode(provider, connection);
-
-            TreeNode[] existingNodes = _treeData.Nodes.Find(node.Name, false);
+            TreeNode[] existingNodes = _treeData.Nodes.Find(provider.Name, false);
             if (existingNodes.Length == 0)
             {
-                // Node doesn't already exist.  Add it
-                _treeData.Nodes.Add(node);
-                _treeData.SelectedNode = node;
-                RefreshServer(node);
+                TreeNode databaseNode = TreeNodesBuilder.CreateDatabaseNode(_treeData, provider, connection);
+                RefreshServer(databaseNode);
             }
             else
             {
@@ -617,215 +606,6 @@ namespace SwqlStudio
             serverContextMenu.Dispose();
         }
 
-        private static TreeNode CreateDatabaseNode(IMetadataProvider provider, ConnectionInfo connection)
-        {
-            TreeNode node = new TreeNodeWithConnectionInfo(provider.Name, connection);
-            node.SelectedImageKey = "Database";
-            node.ImageKey = "Database";
-            node.Tag = provider;
-            node.Name = node.Text;
-
-            return node;
-        }
-
-        private void AddTablesToNode(TreeNode parent, IMetadataProvider provider, ConnectionInfo connection)
-        {
-            switch (EntityGroupingMode)
-            {
-                case EntityGroupingMode.Flat:
-                    parent.Nodes.AddRange(MakeEntityTreeNodes(provider, connection, provider.Tables.OrderBy(e => e.FullName)));
-                    break;
-                case EntityGroupingMode.ByNamespace:
-                    foreach (var group in provider.Tables.GroupBy(e => e.Namespace).OrderBy(g => g.Key))
-                    {
-                        TreeNode[] childNodes = MakeEntityTreeNodes(provider, connection, group.OrderBy(e => e.FullName));
-
-                        int countChilds = childNodes.Length;
-                        var namespaceNode = new TreeNode(string.Format("{0} ({1} item{2})", group.Key, countChilds, countChilds > 1 ? "s" : string.Empty))
-                        {
-                            Tag = group.Key,
-                            ImageKey = "Namespace"
-                        };
-                        namespaceNode.SelectedImageKey = namespaceNode.ImageKey;
-
-                        namespaceNode.Nodes.AddRange(childNodes);
-                        parent.Nodes.Add(namespaceNode);
-                    }
-                    break;
-                case SwqlStudio.EntityGroupingMode.ByBaseType:
-                    foreach (var group in provider.Tables.Where(e => e.BaseEntity != null).GroupBy(
-                        e => e.BaseEntity,
-                        (key, group) => new { Key = key, Entities = group }).OrderBy(item => item.Key.FullName))
-                    {
-                        TreeNode[] childNodes = MakeEntityTreeNodes(provider, connection, group.Entities.OrderBy(e => e.FullName));
-
-                        int countChilds = childNodes.Length;
-                        var baseTypeNode = new TreeNodeWithConnectionInfo(
-                            string.Format("{0} ({1} item{2})", group.Key.FullName, countChilds, countChilds > 1 ? "s" : string.Empty),
-                            connection)
-                        {
-                            Tag = group.Key
-                        };
-                        baseTypeNode.ImageKey = !group.Key.IsAbstract ? "BaseType" : "BaseTypeAbstract";
-                        baseTypeNode.SelectedImageKey = baseTypeNode.ImageKey;
-
-                        baseTypeNode.Nodes.AddRange(childNodes);
-                        parent.Nodes.Add(baseTypeNode);
-                    }
-                    break;
-                case SwqlStudio.EntityGroupingMode.ByHierarchy:
-                    GroupByHierarchy(provider, connection, parent);
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
-        }
-
-        private static void GroupByHierarchy(IMetadataProvider provider, ConnectionInfo connection, TreeNode baseNode)
-        {
-            Entity baseEntity = baseNode != null ? baseNode.Tag as Entity : null;
-
-            var entities = provider.Tables.Where(e => baseEntity == null ? e.BaseEntity == null : e.BaseEntity == baseEntity);
-
-            if (entities.Any())
-            {
-                TreeNode[] childNodes = MakeEntityTreeNodes(provider, connection, entities.OrderBy(e => e.FullName));
-                
-                baseNode.Nodes.AddRange(childNodes);
-
-                if (baseEntity != null)
-                {
-                    int countChilds = childNodes.Length;
-                    baseNode.Text = string.Format("{0} ({1} derived entit{2})", baseNode.Text, countChilds, countChilds > 1 ? "ies" : "y");
-                }
-
-                foreach (var node in childNodes)
-                {
-                    GroupByHierarchy(provider, connection, node);
-                }
-
-                if (baseEntity == null)
-                {
-                    foreach (var node in childNodes)
-                    {
-                        node.Expand();
-                    }
-                    baseNode.Expand();
-                }
-            }
-        }
-
-        private static TreeNode[] MakeEntityTreeNodes(IMetadataProvider provider, ConnectionInfo connection, IEnumerable<Entity> entities)
-        {
-            return entities.Select(e => MakeEntityTreeNode(provider, connection, e)).ToArray();
-        }
-
-        private static TreeNodeWithConnectionInfo MakeEntityTreeNode(IMetadataProvider provider, ConnectionInfo connection, Entity table)
-        {
-            var node = new TreeNodeWithConnectionInfo(table.FullName, connection);
-            node.ImageKey = GetImageKey(table);
-            node.SelectedImageKey = node.ImageKey;
-            node.Tag = table;
-            if (table.IsIndication)
-            {
-                node.ToolTipText += $@"{table.FullName}
-{(string.IsNullOrEmpty(table.Summary) ? string.Empty : table.Summary + Environment.NewLine)}Base type: {table.BaseType}
-CanSubscribe: {connection.CanCreateSubscription}";
-            }
-            else
-            {
-
-                node.ToolTipText = $@"{table.FullName}
-{(string.IsNullOrEmpty(table.Summary) ? string.Empty : table.Summary + Environment.NewLine)}Base type: {table.BaseType}
-CanCreate: {table.CanCreate}
-CanUpdate: {table.CanUpdate}
-CanDelete: {table.CanDelete}";
-            }
-
-            // Add keys
-            AddPropertiesToNode(node, table.Properties.Where(c => c.IsKey));
-
-            // Add the simple Properties
-            AddPropertiesToNode(node, table.Properties.Where(c => !c.IsInherited && !c.IsNavigable && !c.IsKey));
-
-            // Add the inherited Properties
-            AddPropertiesToNode(node, table.Properties.Where(c => c.IsInherited && !c.IsNavigable && !c.IsKey));
-
-            // Add the Navigation Properties
-            AddPropertiesToNode(node, table.Properties.Where(c => c.IsNavigable));
-
-            AddVerbsToNode(node, table, provider);
-            return node;
-        }
-
-        private static string GetImageKey(Entity table)
-        {
-            if (table.IsIndication)
-                return "Indication";
-            else if (table.IsAbstract)
-                return "TableAbstract";
-            else if (table.CanCreate || table.CanDelete || table.CanUpdate)
-                return "TableCrud";
-
-            return "Table";
-        }
-
-        private static void AddVerbsToNode(TreeNode parent, Entity table, IMetadataProvider provider)
-        {
-            foreach (var verb in table.Verbs.OrderBy(v => v.Name))
-            {
-                TreeNode verbNode = new TreeNode(verb.Name);
-                verbNode.SelectedImageKey = "Verb";
-                verbNode.ImageKey = verbNode.SelectedImageKey;
-                verbNode.Tag = verb;
-                verbNode.ToolTipText = verb.Name + Environment.NewLine + verb.Summary;
-
-                parent.Nodes.Add(verbNode);
-
-                verbNode.Nodes.Add(new ObjectExplorer.ArgumentsPlaceholderTreeNode(verb, provider));
-            }
-        }
-
-        private class ArgumentsPlaceholderTreeNode : TreeNode
-        {
-            public Verb Verb { get; set; }
-            public IMetadataProvider Provider { get; set; }
-
-            public ArgumentsPlaceholderTreeNode(Verb verb, IMetadataProvider provider)
-            {
-                Verb = verb;
-                Provider = provider;
-            }
-        }
-
-        private static void AddPropertiesToNode(TreeNode parent, IEnumerable<Property> properties)
-        {
-            foreach (Property column in properties.OrderBy(c => c.Name))
-            {
-                string text = $"{column.Name} ({column.Type})";
-                TreeNode node = new TreeNode(text);
-                node.SelectedImageKey = GetColumnIcon(column);
-                node.ImageKey = node.SelectedImageKey;
-                node.Tag = column;
-                if (!string.IsNullOrEmpty(column.Summary))
-                    node.ToolTipText = text + Environment.NewLine + column.Summary;
-
-                parent.Nodes.Add(node);
-            }
-        }
-
-        private static string GetColumnIcon(Property column)
-        {
-            if (column.IsNavigable)
-                return "Link";
-            if (column.IsKey)
-                return "KeyColumn";
-            if (column.IsInherited)
-                return "InheritedColumn";
-
-            return "Column";
-        }
-
         private void Crud(Entity entity, CrudOperation operation)
         {
             var provider = FindProvider(_contextMenuNode);
@@ -849,6 +629,40 @@ CanDelete: {table.CanDelete}";
             {
                 TabsFactory.OpenQueryTab(query, node.Connection);
             }
+        }
+
+        private void InitializeComponent()
+        {
+            this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ObjectExplorer));
+            this.objectExplorerImageList = new System.Windows.Forms.ImageList(this.components);
+            this.SuspendLayout();
+            // 
+            // objectExplorerImageList
+            // 
+            this.objectExplorerImageList.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("objectExplorerImageList.ImageStream")));
+            this.objectExplorerImageList.TransparentColor = System.Drawing.Color.Transparent;
+            this.objectExplorerImageList.Images.SetKeyName(0, ImageKeys.Column);
+            this.objectExplorerImageList.Images.SetKeyName(1, ImageKeys.Database);
+            this.objectExplorerImageList.Images.SetKeyName(2, ImageKeys.Link);
+            this.objectExplorerImageList.Images.SetKeyName(3, ImageKeys.Table);
+            this.objectExplorerImageList.Images.SetKeyName(4, ImageKeys.InheritedColumn);
+            this.objectExplorerImageList.Images.SetKeyName(5, ImageKeys.KeyColumn);
+            this.objectExplorerImageList.Images.SetKeyName(6, ImageKeys.Verb);
+            this.objectExplorerImageList.Images.SetKeyName(7, ImageKeys.Argument);
+            this.objectExplorerImageList.Images.SetKeyName(8, ImageKeys.Indication);
+            this.objectExplorerImageList.Images.SetKeyName(9, ImageKeys.Namespace);
+            this.objectExplorerImageList.Images.SetKeyName(10, ImageKeys.BaseType);
+            this.objectExplorerImageList.Images.SetKeyName(11, ImageKeys.BaseTypeAbstract);
+            this.objectExplorerImageList.Images.SetKeyName(12, ImageKeys.TableAbstract);
+            this.objectExplorerImageList.Images.SetKeyName(13, ImageKeys.TableCrud);
+            this.ResumeLayout(false);
+
+        }
+
+        public void SetGroupingMode(EntityGroupingMode mode)
+        {
+            this.treeNodesBuilder.EntityGroupingMode = mode;
         }
     }
 }

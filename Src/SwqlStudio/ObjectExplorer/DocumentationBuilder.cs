@@ -63,12 +63,12 @@ namespace SwqlStudio
             return new Documentation("Entity", docs);
         }
 
-        private static Documentation NamespaceDocumentation(string nameSpace, int childsCount)
+        private static Documentation NamespaceDocumentation(string nameSpace, int childrenCount)
         {
             var builder = new StringBuilder();
             builder.AppendName(nameSpace);
-            var childs = ChildsText(childsCount);
-            builder.Append(childs);
+            var children = ChildrenText(childrenCount);
+            builder.Append(children);
             var docs = builder.ToString();
             return new Documentation("Namespace", docs);
         }
@@ -115,16 +115,16 @@ namespace SwqlStudio
             return builder.ToString();
         }
 
-        public static string ToNodeText(string name, int childsCount)
+        public static string ToNodeText(string name, int childrenCount)
         {
-            var childs = ChildsText(childsCount);
-            return $"{name} ({childs})";
+            var children = ChildrenText(childrenCount);
+            return $"{name} ({children})";
         }
 
-        private static string ChildsText(int childsCount)
+        private static string ChildrenText(int childrenCount)
         {
-            var countSuffix = childsCount > 1 ? "s" : String.Empty;
-            return $"{childsCount} item{countSuffix}";
+            var countSuffix = childrenCount > 1 ? "s" : String.Empty;
+            return $"{childrenCount} item{countSuffix}";
         }
 
         public static string ToNodeText(ITypedMetadata metadata)
@@ -132,10 +132,10 @@ namespace SwqlStudio
             return $"{metadata.Name} ({metadata.Type})";
         }
 
-        public static string ToBaseNodeText(TreeNode baseNode, int childsCount)
+        public static string ToBaseNodeText(TreeNode baseNode, int childrenCount)
         {
-            var entitiesSuffix = childsCount > 1 ? "ies" : "y";
-            return $"{baseNode.Text} ({childsCount} derived entit{entitiesSuffix})";
+            var entitiesSuffix = childrenCount > 1 ? "ies" : "y";
+            return $"{baseNode.Text} ({childrenCount} derived entit{entitiesSuffix})";
         }
     }
 }

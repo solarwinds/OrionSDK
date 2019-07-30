@@ -47,6 +47,7 @@ namespace SwqlStudio
         {
             var builder = new StringBuilder();
             builder.AppendName(verb.Name);
+            builder.AppendObsoleteSection(verb);
             builder.AppendSummaryParagraph(verb.Summary);
             var docs = builder.ToString();
             return new Documentation("Verb", docs);
@@ -58,6 +59,7 @@ namespace SwqlStudio
             builder.AppendName(entity.FullName);
             builder.Append($"Base type: {entity.BaseType}\r\n");
             builder.AppendAccessControl(provider.ConnectionInfo, entity);
+            builder.AppendObsoleteSection(entity);
             builder.AppendSummaryParagraph(entity.Summary);
             var docs = builder.ToString();
             return new Documentation("Entity", docs);
@@ -75,8 +77,10 @@ namespace SwqlStudio
 
         private static Documentation PropertyDocumentation(Property property)
         {
-            var docs = MetadataDocumentation(property);
-            return new Documentation("Property", docs);
+            var builder = new StringBuilder();
+            builder.Append(MetadataDocumentation(property));
+            builder.AppendObsoleteSection(property);
+            return new Documentation("Property", builder.ToString());
         }
 
         private static Documentation ProviderDocumentation(IMetadataProvider provider)
@@ -100,11 +104,21 @@ namespace SwqlStudio
             builder.AppendSummary(metadata.Summary);
             return builder.ToString();
         }
-        
+
+        public static string ToToolTip(ITypedMetadata metadata, IObsoleteMetadata obsoleteMetadata)
+        {
+            var builder = new StringBuilder();
+            builder.AppendSummary(metadata.Summary);
+            builder.AppendObsoleteSection(obsoleteMetadata);
+            return builder.ToString();
+        }
+
+
         public static string ToToolTip(ConnectionInfo connection, Entity entity)
         {
             var builder = new StringBuilder();
             builder.AppendSummary(entity.Summary);
+            builder.AppendObsoleteSection(entity);
             return builder.ToString();
         }
         
@@ -112,6 +126,7 @@ namespace SwqlStudio
         {
             var builder = new StringBuilder();
             builder.AppendSummary(verb.Summary);
+            builder.AppendObsoleteSection(verb);
             return builder.ToString();
         }
 

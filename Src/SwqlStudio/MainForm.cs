@@ -418,6 +418,7 @@ namespace SwqlStudio
         {
             enableAutocompleteToolStripMenuItem.Checked = Settings.Default.AutocompleteEnabled;
             promptToSaveOnCloseToolStripMenuItem.Checked = Settings.Default.PromptToSaveOnClose;
+            showObsoleteToolStripMenuItem.Checked = Settings.Default.ShowObsolete;
         }
 
         private void searchInTreeHotKeyToolStripMenuItem_Click(object sender, EventArgs e)
@@ -505,6 +506,13 @@ namespace SwqlStudio
                 return;
 
             activeTab.ReplaceDialog();
+        }
+
+        private void showObsoleteToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Settings.Default.ShowObsolete = !Settings.Default.ShowObsolete;
+            Settings.Default.Save();
+            filesDock.RefreshObjectExplorerFilters();
         }
     }
 }

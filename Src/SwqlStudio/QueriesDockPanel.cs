@@ -184,6 +184,11 @@ namespace SwqlStudio
             objectExplorer.RefreshAllServers();
         }
 
+        internal void RefreshObjectExplorerFilters()
+        {
+            objectExplorer.RefreshFilters();
+        }
+
         internal void FocusSearch()
         {
             objectExplorer.FocusSearch();

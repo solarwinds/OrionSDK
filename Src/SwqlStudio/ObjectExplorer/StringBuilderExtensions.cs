@@ -45,5 +45,13 @@ namespace SwqlStudio
                 builder.Append($"Can Delete: {entity.CanDelete}\r\n");
             }
         }
+
+        public static void AppendObsoleteSection(this StringBuilder builder, IObsoleteMetadata entity)
+        {
+            if (entity != null && entity.IsObsolete)
+            {
+                builder.Append($"Obsolete: {entity.ObsolescenceReason}{Environment.NewLine}");
+            }
+        }
     }
 }

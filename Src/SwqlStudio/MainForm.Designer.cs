@@ -93,6 +93,7 @@
             this.newFileToolButton = new System.Windows.Forms.ToolStripButton();
             this.openFileButton = new System.Windows.Forms.ToolStripButton();
             this.saveToolButton = new System.Windows.Forms.ToolStripButton();
+            this.showObsoleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.menu.SuspendLayout();
             this.mainToolbar.SuspendLayout();
@@ -398,7 +399,8 @@
             this.groupEntityTreeToolStripMenuItem,
             this.enableAutocompleteToolStripMenuItem,
             this.discoverQueryParametersMenuItem,
-            this.promptToSaveOnCloseToolStripMenuItem});
+            this.promptToSaveOnCloseToolStripMenuItem,
+            this.showObsoleteToolStripMenuItem});
             this.preferencesToolStripMenuItem.Name = "preferencesToolStripMenuItem";
             this.preferencesToolStripMenuItem.Size = new System.Drawing.Size(80, 20);
             this.preferencesToolStripMenuItem.Text = "&Preferences";
@@ -640,6 +642,13 @@
             this.saveToolButton.ToolTipText = "Save (Ctrl+S)";
             this.saveToolButton.Click += new System.EventHandler(this.menuFileSave_Click);
             // 
+            // showObsoleteToolStripMenuItem
+            // 
+            this.showObsoleteToolStripMenuItem.Name = "showObsoleteToolStripMenuItem";
+            this.showObsoleteToolStripMenuItem.Size = new System.Drawing.Size(214, 22);
+            this.showObsoleteToolStripMenuItem.Text = "Show Obsolete";
+            this.showObsoleteToolStripMenuItem.Click += new System.EventHandler(this.showObsoleteToolStripMenuItem_Click);
+            // 
             // MainForm
             // 
             this.AllowDrop = true;
@@ -730,6 +739,7 @@
         private System.Windows.Forms.ToolStripMenuItem findToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator6;
         private System.Windows.Forms.ToolStripMenuItem replaceToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem showObsoleteToolStripMenuItem;
     }
 }
 

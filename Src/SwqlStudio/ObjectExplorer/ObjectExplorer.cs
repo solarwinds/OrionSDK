@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading;
 using System.Windows.Forms;
 using SolarWinds.Logging;
+using SwqlStudio.Filtering;
 using SwqlStudio.Metadata;
 using SwqlStudio.Utils;
 using TextBox = System.Windows.Forms.TextBox;
@@ -37,9 +38,8 @@ namespace SwqlStudio
         private ImageList objectExplorerImageList;
         private System.ComponentModel.IContainer components;
         private TreeNode _dragNode;
-        private readonly TreeNodesBuilder treeNodesBuilder = new TreeNodesBuilder();
+        private readonly TreeNodesBuilder treeNodesBuilder = new TreeNodesBuilder(DefaultFont);
         public event TreeViewEventHandler SelectionChanged;
-
         public ITabsFactory TabsFactory { get; set; }
 
         public ObjectExplorer()
@@ -134,7 +134,7 @@ namespace SwqlStudio
                 UpdateDrawnNodes();
             }
         }
-        
+
         // since we have data in _treeData, but are displaying _tree,
         // we need to copy data from treedata to trees (according to applied filter)
         private void UpdateDrawnNodes()
@@ -143,45 +143,13 @@ namespace SwqlStudio
 
             _treeIsUnderUpdate = true;
             _tree.BeginUpdate();
-            _tree.Nodes.Clear();
             try
             {
-                // quick path
-                if (_filter == null)
-                {
-                    _treeBindings = TreeNodeUtils.CopyTree(_treeData, _tree, null, null);
-                }
-                else
-                {
-                    var visibility = new TreeNodeUtils.NodeVisibility();
-                    TreeNodeUtils.IterateNodes(_treeData, node =>
-                    {
-                        if (PassesFilter(node))
-                            visibility.SetVisible(node);
-                    });
+                var filters = new NodeFilter(_treeData, _filter);
 
-                    _treeBindings = TreeNodeUtils.CopyTree(_treeData, _tree,
-                        node => visibility.GetVisibility(node) !=
-                                TreeNodeUtils.NodeVisibility.VisibilityStatus.NotVisible, (data, display) =>
-                        {
-                            var nodeVisibility = visibility.GetVisibility(data);
-                            if (nodeVisibility == TreeNodeUtils.NodeVisibility.VisibilityStatus.ChildVisible)
-                                // this one is not directly visible, gray it out
-                                display.ForeColor = Color.LightBlue;
+                _treeBindings = TreeNodeUtils.CopyTree(_treeData, _tree, filters.FilterAction, filters.UpdateAction);
 
-                            if (nodeVisibility == TreeNodeUtils.NodeVisibility.VisibilityStatus.ParentVisible)
-                                // this one is not directly visible, gray it out
-                                display.ForeColor = Color.DarkGray;
-
-                            // this one is visible directly, ensure it is visible (parents are expanded).
-                            // it's children are visible as well, but may be not expanded
-                            if (nodeVisibility == TreeNodeUtils.NodeVisibility.VisibilityStatus.Visible)
-                                display.EnsureVisible();
-                        });
-
-
-                    _tree.SetHorizontalScroll(0);
-                }
+                _tree.SetHorizontalScroll(0);
 
                 UpdateDrawnNodesSelection();
             }
@@ -191,73 +159,6 @@ namespace SwqlStudio
                 _treeIsUnderUpdate = false;
             }
         }
-
-        private bool PassesFilter(TreeNode node)
-        {
-            var nodeText = node.Text.Split('(')[0]; // trim everything after first (, we do not want to use it in search
-
-            if (nodeText.IndexOf(_filter, StringComparison.OrdinalIgnoreCase) >= 0)
-                return true;
-
-            else // behave in 'special' way for dots, and capitals, the same way as resharper does
-                 // let's Met.Ent match also METadata...ENTity
-                 // also Met.EntNa should match Metadata.EntityName
-            {
-                var filter = SplitTextByCapsAndDot(_filter);
-                var text = SplitTextByCapsAndDot(nodeText);
-
-                int textPivot = 0;
-
-                for (int filterPivot = 0; filterPivot < filter.Count; filterPivot++)
-                {
-                    for (; textPivot <= text.Count; textPivot++)
-                    {
-                        if (textPivot == text.Count)
-                            return false;
-
-                        if (text[textPivot].StartsWith(filter[filterPivot], StringComparison.OrdinalIgnoreCase))
-                            break;
-                    }
-                    textPivot++;
-                }
-
-                return true;
-            }
-        }
-
-        private static List<string> SplitTextByCapsAndDot(string text)
-        {
-            var rv = new List<string>();
-
-            var buf = new StringBuilder();
-
-            void FlushBuffer()
-            {
-                if (buf.Length > 0)
-                    rv.Add(buf.ToString());
-
-                buf.Clear();
-            }
-
-            foreach (var t in text)
-            {
-                if (t == '.')
-                {
-                    FlushBuffer();
-                }
-                else
-                {
-                    if (char.IsUpper(t))
-                        FlushBuffer();
-
-                    buf.Append(t);
-                }
-            }
-
-            FlushBuffer();
-            return rv;
-        }
-
 
         private void UpdateDrawnNodesSelection()
         {
@@ -271,7 +172,7 @@ namespace SwqlStudio
                 Point p = _tree.PointToClient(MousePosition);
                 var hitTest = _tree.HitTest(p);
 
-                return hitTest != null && hitTest.Location != TreeViewHitTestLocations.Label;
+                return hitTest != null && hitTest.Location != TreeViewHitTestLocations.Label || _treeIsUnderUpdate;
             }
         }
 
@@ -354,6 +255,8 @@ namespace SwqlStudio
 
             UpdateDrawnNodes();
         }
+
+        public void RefreshFilters() => UpdateDrawnNodes();
 
         internal void RefreshServer(ConnectionInfo connection)
         {

@@ -10,7 +10,7 @@ namespace SwqlStudio.Metadata
         private readonly ConnectionInfo info;
 
         private Dictionary<string, Entity> entities = new Dictionary<string, Entity>();
-        
+
         public SwisMetaDataProvider(ConnectionInfo info)
         {
             this.info = info;
@@ -19,22 +19,36 @@ namespace SwqlStudio.Metadata
         }
 
         private readonly Lazy<Capability> _capabilities;
+        private Capability Capabilities => _capabilities.Value;
+
+        private readonly IEnumerable<string> _metadataDefaultAttributes = new[]
+        {
+            "Entity.FullName", "Entity.Namespace", "Entity.BaseType",
+            "(Entity.Type ISA 'System.Indication') AS IsIndication",
+            "Entity.Properties.Name", "Entity.Properties.Type", "Entity.Properties.IsNavigable",
+            "Entity.Properties.IsInherited", "Entity.Properties.IsKey", "Entity.Verbs.EntityName", "Entity.Verbs.Name",
+            "Entity.IsAbstract"
+        };
+
+        private IEnumerable<string> AccessControlMetadataAttributes => Capabilities.HasFlag(Capability.AccessControl)
+            ? new[] {"Entity.CanCreate", "Entity.CanDelete", "Entity.CanInvoke", "Entity.CanRead", "Entity.CanUpdate"}
+            : new string[0];
+
+        private IEnumerable<string> DocumentationMetadataAttributes => Capabilities.HasFlag(Capability.Documentation)
+            ? new[] { "Entity.Summary", "Entity.Properties.Summary", "Entity.Verbs.Summary" }
+            : new string[0];
+
+        private IEnumerable<string> ObsoleteMetadataAttributes => Capabilities.HasFlag(Capability.Obsolete)
+            ? new[] { "Entity.IsObsolete", "Entity.ObsolescenceReason", "Entity.Properties.IsObsolete", "Entity.Properties.ObsolescenceReason",
+                      "Entity.Verbs.IsObsolete", "Entity.Verbs.ObsolescenceReason" }
+            : new string[0];
+
+        private IEnumerable<string> MetadataAttributes => _metadataDefaultAttributes
+            .Concat(AccessControlMetadataAttributes).Concat(DocumentationMetadataAttributes).Concat(ObsoleteMetadataAttributes);
 
         public void Refresh()
         {
-
-            const string queryTemplate =
-                @"SELECT Entity.FullName, Entity.Namespace, Entity.BaseType, (Entity.Type ISA 'System.Indication') AS IsIndication,
-	Entity.Properties.Name, Entity.Properties.Type, Entity.Properties.IsNavigable, Entity.Properties.IsInherited, Entity.Properties.IsKey,
-	Entity.Verbs.EntityName, Entity.Verbs.Name, Entity.IsAbstract{0}{1}
-FROM Metadata.Entity";
-            const string crudFragment =
-                ", Entity.CanCreate, Entity.CanDelete, Entity.CanInvoke, Entity.CanRead, Entity.CanUpdate";
-            const string docFragment = ", Entity.Summary, Entity.Properties.Summary, Entity.Verbs.Summary";
-
-            var capabilities = _capabilities.Value;
-            string query = string.Format(queryTemplate, capabilities.HasFlag(Capability.AccessControl) ? crudFragment : string.Empty,
-                capabilities.HasFlag(Capability.Documentation) ? docFragment : string.Empty);
+            string query = $"SELECT {string.Join(",", MetadataAttributes)} FROM Metadata.Entity";
 
             entities = info.Query<Entity>(query).ToDictionary(entity => entity.FullName);
 
@@ -53,22 +67,25 @@ FROM Metadata.Entity";
             None = 0,
             AccessControl = 1,
             Documentation = 2,
+            Obsolete = 4,
         }
 
         public Capability GetCapabilities()
         {
             const string query = @"SELECT Name
 FROM Metadata.Property
-WHERE EntityName='Metadata.Entity' AND Name IN ('CanCreate', 'Summary')";
+WHERE EntityName='Metadata.Entity' AND Name IN ('CanCreate', 'Summary', 'IsObsolete')";
 
             Capability cap = Capability.None;
             DataTable dt = info.Query(query);
             foreach (DataRow row in dt.Rows)
             {
-                if ((string)row["Name"] == "CanCreate")
+                if ((string) row["Name"] == "CanCreate")
                     cap |= Capability.AccessControl;
-                else if ((string)row["Name"] == "Summary")
+                else if ((string) row["Name"] == "Summary")
                     cap |= Capability.Documentation;
+                else if ((string) row["Name"] == "IsObsolete")
+                    cap |= Capability.Obsolete;
             }
 
             return cap;

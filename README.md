@@ -14,7 +14,7 @@ If you have [Chocolatey](https://chocolatey.org/), you can use `choco install or
 
 Documentation for the API and SDK tools can be found in the the GitHub [OrionSDK wiki](https://github.com/solarwinds/OrionSDK/wiki).
 
-There is also generated reference documentation for the [Orion schema](http://solarwinds.github.io/OrionSDK/schema/).
+There is also generated reference documentation for the [Orion schema](http://solarwinds.github.io/OrionSDK/).
 
 ## Forum
 

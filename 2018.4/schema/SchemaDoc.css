@@ -1,0 +1,12 @@
+﻿body { font: 14px Arial; }
+h1 { margin-top: 2em; font-size: 18px; }
+h2 { font-size: 16px; }
+table { border-collapse: collapse; border:1px solid grey;}
+tr:nth-child(even) { background-color: #ddd; }
+td { padding-right: 10px; border-right: 1px solid grey;}
+tr:hover {background-color : #F5EEEE;}
+th { padding-right: 10px; border-right: 1px solid grey; background-color:gray; color: white;}
+td table {margin: 5px 5px 5px 5px;}
+td table tr { border-bottom: 1px solid grey; background-color: Beige;}
+td table tr:nth-child(even) { background-color: Beige; }
+td table tr:hover { background-color: bisque; }

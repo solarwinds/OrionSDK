@@ -306,8 +306,7 @@ namespace SwqlStudio
 
         private void menuQueryExecute_Click(object sender, EventArgs e)
         {
-            if (this.filesDock.ActiveQueryTab != null)
-                this.filesDock.ActiveQueryTab.RunQuery();
+            this.filesDock.ActiveQueryTab?.RunQuery();
         }
 
         private void parametersToolStripMenuItem_Click(object sender, EventArgs e)
@@ -350,8 +349,7 @@ namespace SwqlStudio
 
         private void playbackToolStripMenuItem_Click_1(object sender, EventArgs e)
         {
-            if (this.filesDock.ActiveQueryTab != null)
-                this.filesDock.ActiveQueryTab.RunPlayback();
+            filesDock.ActiveQueryTab?.RunPlayback();
         }
 
         private void aboutSWQLStudioToolStripMenuItem_Click(object sender, EventArgs e)
@@ -492,20 +490,12 @@ namespace SwqlStudio
 
         private void findToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var activeTab = filesDock.ActiveQueryTab;
-            if (activeTab == null)
-                return;
-
-            activeTab.FindDialog();
+            filesDock.ActiveQueryTab?.FindDialog();
         }
 
         private void replaceToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var activeTab = filesDock.ActiveQueryTab;
-            if (activeTab == null)
-                return;
-
-            activeTab.ReplaceDialog();
+            filesDock.ActiveQueryTab?.ReplaceDialog();
         }
 
         private void showObsoleteToolStripMenuItem_Click(object sender, EventArgs e)

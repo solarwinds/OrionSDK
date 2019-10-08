@@ -1,5 +1,6 @@
 ﻿using System.Windows.Forms;
 using ScintillaNET;
+using ScintillaNET_FindReplaceDialog;
 
 namespace SwqlStudio
 {
@@ -57,6 +58,7 @@ namespace SwqlStudio
             this.queryStatusBar1 = new SwqlStudio.QueryStatusBar();
             this.subscriptionWorker = new System.ComponentModel.BackgroundWorker();
             this.delayTimer = new System.Windows.Forms.Timer(this.components);
+            this.findReplaceDialog = new FindReplace(sciTextEditorControl1);
             this.gridContextMenuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -349,6 +351,10 @@ namespace SwqlStudio
             // delayTimer
             // 
             this.delayTimer.Tick += new System.EventHandler(this.delayTimer_Tick);
+            //
+            // findReplaceDialog
+            //
+            
             // 
             // QueryTab
             // 
@@ -382,6 +388,7 @@ namespace SwqlStudio
 
         #endregion
 
+        private ScintillaNET_FindReplaceDialog.FindReplace findReplaceDialog;
         private System.Windows.Forms.SplitContainer splitContainer1;
         private SciTextEditorControl sciTextEditorControl1;
         private System.Windows.Forms.TabControl tabControl1;

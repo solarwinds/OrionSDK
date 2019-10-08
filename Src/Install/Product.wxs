@@ -11,6 +11,8 @@
   <?define TempDir = "[TempFolder]" ?>
   <?define OutputDir = "..\..\bin\Release" ?>
 
+  <?define BuildNumber = "$(var.ProductVersion_Major).$(var.ProductVersion_Minor).$(var.ProductVersion_Release).$(var.ProductVersion_Build)" ?>
+
   <Product
     Id="*"
     Name="SolarWinds Orion SDK v$(var.ProductVersion)"
@@ -22,6 +24,7 @@
     <Package
       InstallerVersion="200"
       Compressed="yes"
+      Platform="x64"
       InstallScope="perMachine" />
 
     <PropertyRef Id="NETFRAMEWORK40FULL"/>
@@ -134,7 +137,42 @@
 
           </Directory>
         </Directory>
+
+        <Directory Id="WindowsPowerShell" Name="WindowsPowerShell">
+          <Directory Id="Modules" Name="Modules">
+            <Directory Id="SwisPowerShell" Name="SwisPowerShell">
+              <Directory Id="psm_Version" Name="$(var.BuildNumber)">
+                <Component Id="SwisPowerShellModule" Guid="077E4881-0A55-4646-BF7A-25F1B084348B">
+                  <File Id="psm_SwisPowerShellDll" Source="..\SwisPowerShell\bin\Release\SwisPowerShell.dll" />
+                  <File Id="psm_SwisPowerShell.psd1" Source="..\SwisPowerShell\bin\Release\SwisPowerShell.psd1" />
+                  <File Id="psm_SolarWinds.SDK.Swis.Contract.dll" Source="$(var.OutputDir)\SolarWinds.SDK.Swis.Contract.dll" />
+                  <File Id="psm_log4net.dll" Source="$(var.OutputDir)\log4net.dll" />
+                  <File Id="psm_SolarWinds.Logging.dll" Source="$(var.OutputDir)\SolarWinds.Logging.dll" />
+                </Component>
+              </Directory>
+            </Directory>
+          </Directory>
+        </Directory>
       </Directory>
+
+      <Directory Id="ProgramFiles64Folder">
+        <Directory Id="WindowsPowerShell64" Name="WindowsPowerShell">
+          <Directory Id="Modules64" Name="Modules">
+            <Directory Id="SwisPowerShell64" Name="SwisPowerShell">
+              <Directory Id="psm64_Version" Name="$(var.BuildNumber)">
+                <Component Id="SwisPowerShellModule64" Win64="yes" Guid="8618CFEC-57A9-4C6D-8128-6D204B13015A">
+                  <File Id="psm64_SwisPowerShellDll" Source="..\SwisPowerShell\bin\Release\SwisPowerShell.dll" />
+                  <File Id="psm64_SwisPowerShell.psd1" Source="..\SwisPowerShell\bin\Release\SwisPowerShell.psd1" />
+                  <File Id="psm64_SolarWinds.SDK.Swis.Contract.dll" Source="$(var.OutputDir)\SolarWinds.SDK.Swis.Contract.dll" />
+                  <File Id="psm64_log4net.dll" Source="$(var.OutputDir)\log4net.dll" />
+                  <File Id="psm64_SolarWinds.Logging.dll" Source="$(var.OutputDir)\SolarWinds.Logging.dll" />
+                </Component>
+              </Directory>
+            </Directory>
+          </Directory>
+        </Directory>
+      </Directory>
+
 
       <Directory Id="ProgramMenuFolder" Name="Programs">
         <Directory Id="ProgramMenuDir" Name="SolarWinds Orion SDK">
@@ -198,6 +236,8 @@
       <ComponentRef Id="SwqlStudioComponent" />
       <ComponentRef Id="ProgramMenuDirComponent" />
       <ComponentRef Id="SwisSnapInComponent" />
+      <ComponentRef Id="SwisPowerShellModule" />
+      <ComponentRef Id="SwisPowerShellModule64" />
     </Feature>
 
     <InstallExecuteSequence>

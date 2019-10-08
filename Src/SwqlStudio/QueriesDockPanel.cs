@@ -4,6 +4,7 @@ using System.Linq;
 using System.Windows.Forms;
 using ScintillaNET;
 using SolarWinds.InformationService.Contract2;
+using SwqlStudio.Metadata;
 using WeifenLuo.WinFormsUI.Docking;
 
 namespace SwqlStudio
@@ -15,6 +16,7 @@ namespace SwqlStudio
         private ObjectExplorer objectExplorer;
         private DockContent objectExplorerContent;
         private QueryParameters queryParametersContent;
+        private DocumentationContent documentationContent;
 
         public PropertyBag QueryParameters
         {
@@ -55,6 +57,7 @@ namespace SwqlStudio
             InitializeDockPanel();
             InitializeObjectExplorer();
             InitializeQueryParameters();
+            InitializeDocumentation();
         }
 
         public void CreateTabFromPrevious()
@@ -83,11 +86,6 @@ namespace SwqlStudio
             return this.lastActiveContent != null;
         }
 
-        internal void SetObjectExplorerImageList(ImageList imageList)
-        {
-            this.objectExplorer.ImageList = imageList;
-        }
-
         private void InitializeDockPanel()
         {
             // Workaround for crash, when form is MDI
@@ -103,7 +101,7 @@ namespace SwqlStudio
         {
             this.objectExplorer = new ObjectExplorer();
             this.objectExplorer.Dock = DockStyle.Fill;
-            this.objectExplorer.EntityGroupingMode = EntityGroupingMode.Flat;
+            this.objectExplorer.SetGroupingMode(EntityGroupingMode.Flat);
             this.objectExplorer.Location = new System.Drawing.Point(0, 0);
             this.objectExplorer.Name = "objectExplorer";
             this.objectExplorer.Size = new System.Drawing.Size(191, 571);
@@ -121,6 +119,19 @@ namespace SwqlStudio
             this.queryParametersContent.Text = "Query parameters";
             ConfigureBuildInToolbox(this.queryParametersContent);
             this.queryParametersContent.Show(this, DockState.DockRightAutoHide);
+        }
+
+        private void InitializeDocumentation()
+        {
+            this.documentationContent = new DocumentationContent();
+            ConfigureBuildInToolbox(this.documentationContent);
+            this.objectExplorer.SelectionChanged += ObjectExplorer_SelectionChanged;
+            this.documentationContent.Show(this.objectExplorerContent.Pane, DockAlignment.Bottom, 0.25);
+        }
+
+        private void ObjectExplorer_SelectionChanged(object sender, TreeViewEventArgs e)
+        {
+            this.documentationContent.UpdateDocumentation(e.Node);
         }
 
         private void ConfigureBuildInToolbox(DockContent content)
@@ -141,6 +152,7 @@ namespace SwqlStudio
             if (newContent != null &&  
                 newContent != this.objectExplorerContent &&
                 newContent != this.queryParametersContent &&
+                newContent != this.documentationContent &&
                 newContent != this.lastActiveContent)
             {
                 this.ActiveQueryTab?.PutParameters();
@@ -168,8 +180,13 @@ namespace SwqlStudio
 
         internal void SetEntityGroupingMode(EntityGroupingMode mode)
         {
-            objectExplorer.EntityGroupingMode = mode;
+            objectExplorer.SetGroupingMode(mode);
             objectExplorer.RefreshAllServers();
+        }
+
+        internal void RefreshObjectExplorerFilters()
+        {
+            objectExplorer.RefreshFilters();
         }
 
         internal void FocusSearch()

@@ -11,6 +11,7 @@ using System.Windows.Forms;
 using System.Xml;
 using System.Xml.Linq;
 using SolarWinds.InformationService.Contract2;
+using SwqlStudio.Metadata;
 using SwqlStudio.Playback;
 using SwqlStudio.Properties;
 using SwqlStudio.Subscriptions;
@@ -860,6 +861,21 @@ namespace SwqlStudio
                 if (sender != null)
                     ((TextBox)sender).SelectAll();
             }
+        }
+
+        internal void FindDialog()
+        {
+            findReplaceDialog.ShowFind();
+        }
+
+        internal void ReplaceDialog()
+        {
+            findReplaceDialog.ShowReplace();
+        }
+
+        public void HideFindReplaceDialog()
+        {
+            findReplaceDialog.Window.Hide();
         }
     }
 }

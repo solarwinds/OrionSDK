@@ -10,7 +10,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>SwqlStudio</RootNamespace>
     <AssemblyName>SwqlStudio</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ApplicationIcon>Main.ico</ApplicationIcon>
     <SccProjectName>
@@ -54,6 +54,7 @@
     <WarningLevel>4</WarningLevel>
     <PlatformTarget>x86</PlatformTarget>
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -64,6 +65,7 @@
     <WarningLevel>4</WarningLevel>
     <PlatformTarget>x86</PlatformTarget>
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Interop.MSXML2">
@@ -111,6 +113,44 @@
     <Compile Include="..\CommonAssemblyInfo.cs">
       <Link>Properties\CommonAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="3rdParty\ScintillaNET-FindReplaceDialog\CharacterRange.cs" />
+    <Compile Include="3rdParty\ScintillaNET-FindReplaceDialog\FindAllResults\FindAllResultsPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="3rdParty\ScintillaNET-FindReplaceDialog\FindAllResults\FindAllResultsPanel.Designer.cs">
+      <DependentUpon>FindAllResultsPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="3rdParty\ScintillaNET-FindReplaceDialog\FindReplace\FindOption.cs" />
+    <Compile Include="3rdParty\ScintillaNET-FindReplaceDialog\FindReplace\FindReplace.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="3rdParty\ScintillaNET-FindReplaceDialog\FindReplace\FindReplaceDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="3rdParty\ScintillaNET-FindReplaceDialog\FindReplace\FindReplaceDialog.Designer.cs">
+      <DependentUpon>FindReplaceDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="3rdParty\ScintillaNET-FindReplaceDialog\FindReplace\IncrementalSearcher.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="3rdParty\ScintillaNET-FindReplaceDialog\FindReplace\IncrementalSearcher.Designer.cs">
+      <DependentUpon>IncrementalSearcher.cs</DependentUpon>
+    </Compile>
+    <Compile Include="3rdParty\ScintillaNET-FindReplaceDialog\FindReplace\ToolStripIncrementalSearcher.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="3rdParty\ScintillaNET-FindReplaceDialog\GoTo\GoTo.cs" />
+    <Compile Include="3rdParty\ScintillaNET-FindReplaceDialog\GoTo\GoToDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="3rdParty\ScintillaNET-FindReplaceDialog\GoTo\GoToDialog.Designer.cs">
+      <DependentUpon>GoToDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="3rdParty\ScintillaNET-FindReplaceDialog\Properties\Resources1.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="About.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -132,6 +172,7 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="CrudOperation.cs" />
+    <Compile Include="CrudProperty.cs" />
     <Compile Include="CrudTab.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -140,6 +181,12 @@
     </Compile>
     <Compile Include="CustomCertificateValidator.cs" />
     <Compile Include="DataGridExporter.cs" />
+    <Compile Include="DocumentationContent.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DocumentationContent.Designer.cs">
+      <DependentUpon>DocumentationContent.cs</DependentUpon>
+    </Compile>
     <Compile Include="EntityClassGraphForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -164,14 +211,29 @@
     <Compile Include="LogHeaderMessageInspector.cs" />
     <Compile Include="LogHeaderReaderBehavior.cs" />
     <Compile Include="Metadata\Entity.cs" />
+    <Compile Include="Metadata\ITypedMetadata.cs" />
+    <Compile Include="Metadata\IObsoleteMetadata.cs" />
     <Compile Include="Metadata\Property.cs" />
     <Compile Include="Metadata\Verb.cs" />
     <Compile Include="Metadata\VerbArgument.cs" />
     <Compile Include="CodeGenerator.cs" />
+    <Compile Include="ObjectExplorer\ArgumentsPlaceholderTreeNode.cs" />
+    <Compile Include="ObjectExplorer\Documentation.cs" />
+    <Compile Include="ObjectExplorer\EntityGroupingMode.cs" />
+    <Compile Include="ObjectExplorer\ImageKeys.cs" />
     <Compile Include="ObjectExplorer\SearchTextBox.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="ObjectExplorer\DocumentationBuilder.cs" />
+    <Compile Include="ObjectExplorer\StringBuilderExtensions.cs" />
+    <Compile Include="ObjectExplorer\TreeNodesBuilder.cs" />
+    <Compile Include="ObjectExplorer\Filtering\INodeFilterStrategy.cs" />
+    <Compile Include="ObjectExplorer\Filtering\NodeFilter.cs" />
+    <Compile Include="ObjectExplorer\Filtering\SearchNodeFilter.cs" />
+    <Compile Include="ObjectExplorer\Filtering\ObsoleteNodeFilter.cs" />
+    <Compile Include="ObjectExplorer\Filtering\VisibilityStatus.cs" />
     <Compile Include="ObjectExplorer\TreeNodeUtils.cs" />
+    <Compile Include="ProductSpecific\CertificateValidatorWithCache.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -207,11 +269,11 @@
     <Compile Include="NewConnection.Designer.cs">
       <DependentUpon>NewConnection.cs</DependentUpon>
     </Compile>
-    <Compile Include="ObjectExplorer\IMetadataProvider.cs" />
+    <Compile Include="Metadata\IMetadataProvider.cs" />
     <Compile Include="ObjectExplorer\ObjectExplorer.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="ObjectExplorer\SwisMetaDataProvider.cs" />
+    <Compile Include="Metadata\SwisMetaDataProvider.cs" />
     <Compile Include="ProductSpecific\JavaHttpInfoService.cs" />
     <Compile Include="ProductSpecific\NCMForwarderInfoService.cs" />
     <Compile Include="ProductSpecific\NCMWindowsAuthInfoService.cs" />
@@ -255,6 +317,23 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>XmlRender.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="3rdParty\ScintillaNET-FindReplaceDialog\FindAllResults\FindAllResultsPanel.resx">
+      <DependentUpon>FindAllResultsPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="3rdParty\ScintillaNET-FindReplaceDialog\FindReplace\FindReplaceDialog.resx">
+      <DependentUpon>FindReplaceDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="3rdParty\ScintillaNET-FindReplaceDialog\FindReplace\IncrementalSearcher.resx">
+      <DependentUpon>IncrementalSearcher.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="3rdParty\ScintillaNET-FindReplaceDialog\GoTo\GoToDialog.resx">
+      <DependentUpon>GoToDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="3rdParty\ScintillaNET-FindReplaceDialog\Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources1.Designer.cs</LastGenOutput>
+      <CustomToolNamespace>ScintillaNET_FindReplaceDialog.Properties</CustomToolNamespace>
+    </EmbeddedResource>
     <EmbeddedResource Include="About.resx">
       <DependentUpon>About.cs</DependentUpon>
     </EmbeddedResource>
@@ -263,15 +342,23 @@
     </EmbeddedResource>
     <EmbeddedResource Include="CrudTab.resx">
       <DependentUpon>CrudTab.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DocumentationContent.resx">
+      <DependentUpon>DocumentationContent.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="EntityClassGraphForm.resx">
       <DependentUpon>EntityClassGraphForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="InvokeVerbTab.resx">
       <DependentUpon>InvokeVerbTab.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ObjectExplorer\ObjectExplorer.resx">
+      <DependentUpon>ObjectExplorer.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -286,6 +373,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="SubscriptionTab.resx">
       <DependentUpon>SubscriptionTab.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="XmlRender\XmlBrowser.resx">
       <DependentUpon>XmlBrowser.cs</DependentUpon>
@@ -294,6 +382,7 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="packages.config" />
+    <None Include="Properties\DataSources\CrudProperty.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -328,6 +417,12 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="3rdParty\ScintillaNET-FindReplaceDialog\Resources\Clock.ico" />
+    <Content Include="3rdParty\ScintillaNET-FindReplaceDialog\Resources\Clock.png" />
+    <Content Include="3rdParty\ScintillaNET-FindReplaceDialog\Resources\DeleteHS.png" />
+    <Content Include="3rdParty\ScintillaNET-FindReplaceDialog\Resources\GoToNextMessage.png" />
+    <Content Include="3rdParty\ScintillaNET-FindReplaceDialog\Resources\GoToPreviousMessage.png" />
+    <Content Include="3rdParty\ScintillaNET-FindReplaceDialog\Resources\LineColorHS.png" />
     <Content Include="ResizableTextAreaStyle.css" />
     <Content Include="Main.ico" />
     <None Include="Resources\Pause_16x.png" />

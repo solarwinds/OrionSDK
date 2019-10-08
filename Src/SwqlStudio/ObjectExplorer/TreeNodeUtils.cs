@@ -5,6 +5,8 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Windows.Forms;
+using SwqlStudio.Filtering;
+using SwqlStudio.Metadata;
 
 namespace SwqlStudio
 {
@@ -42,9 +44,7 @@ namespace SwqlStudio
                 {
                     newNode = CloneShallow(node);
                 }
-
                 
-
                 target.Add(newNode);
                 bindings.BindNodes(node, newNode);
                 CopyTree(node.Nodes, newNode.Nodes, bindings, filter, updateAction);
@@ -60,86 +60,27 @@ namespace SwqlStudio
         private static TreeNode CloneShallow(TreeNode node)
         {
             var treeNode = new TreeNode();
-            treeNode.Text = node.Text;
-            treeNode.Name = node.Name;
-            treeNode.ImageIndex = node.ImageIndex;
-            treeNode.SelectedImageIndex = node.SelectedImageIndex;
-            treeNode.StateImageIndex = node.StateImageIndex;
-
-            treeNode.SelectedImageKey = node.SelectedImageKey;
-            treeNode.ImageKey = node.ImageKey;
-            treeNode.Tag = node.Tag;
-
-            treeNode.ToolTipText = node.ToolTipText;
-            treeNode.ContextMenu = node.ContextMenu;
-            treeNode.ContextMenuStrip = node.ContextMenuStrip;
-            treeNode.Checked = node.Checked;
+            CopyContent(node, treeNode);
             return treeNode;
         }
 
-        /// <summary>
-        /// Used in filtering of the nodes.
-        /// 
-        /// Keeps track of visibility of each single one
-        /// </summary>
-        public class NodeVisibility
+        internal static void CopyContent(TreeNode source, TreeNode target)
         {
-            private readonly Dictionary<TreeNode, VisibilityStatus> _visibility = new Dictionary<TreeNode, VisibilityStatus>(ReferenceEqualityComparer.Default);
+            target.Text = source.Text;
+            target.Name = source.Name;
+            target.ImageIndex = source.ImageIndex;
+            target.SelectedImageIndex = source.SelectedImageIndex;
+            target.StateImageIndex = source.StateImageIndex;
 
+            target.SelectedImageKey = source.SelectedImageKey;
+            target.ImageKey = source.ImageKey;
+            target.Tag = source.Tag;
 
-            public void SetVisible(TreeNode node)
-            {
-                _visibility[node] = VisibilityStatus.Visible;
-                for (var parent = node.Parent; parent != null; parent = parent.Parent)
-                {
-                    _visibility.TryGetValue(parent, out var parentVisibility);
-                    if (parentVisibility != VisibilityStatus.Visible)
-                        parentVisibility = VisibilityStatus.ChildVisible;
-
-                    _visibility[parent] = parentVisibility;
-                }
-            }
-
-            public VisibilityStatus GetVisibility(TreeNode node)
-            {
-                if (!_visibility.TryGetValue(node, out var rv))
-                {
-                    rv = VisibilityStatus.NotVisible;
-                    // check if some of the parents is not directly visible (visible, not childvisible)
-                    for (var parent = node.Parent; parent != null; parent = parent.Parent)
-                    {
-                        if (_visibility.TryGetValue(parent, out var parentVisibility))
-                        {
-                            if (parentVisibility == VisibilityStatus.Visible)
-                                rv = VisibilityStatus.ParentVisible;
-                            else
-                                break;
-                        }
-                    }
-                }
-
-                return rv;
-            }
-
-            public enum VisibilityStatus
-            {
-                /// <summary>
-                /// This node is not visible
-                /// </summary>
-                NotVisible,
-                /// <summary>
-                /// Some children of this node passed filter
-                /// </summary>
-                ChildVisible,
-                /// <summary>
-                /// This node passed filter
-                /// </summary>
-                Visible,
-                /// <summary>
-                /// This node's parent passed filter
-                /// </summary>
-                ParentVisible
-            }
+            target.ToolTipText = source.ToolTipText;
+            target.ContextMenu = source.ContextMenu;
+            target.ContextMenuStrip = source.ContextMenuStrip;
+            target.Checked = source.Checked;
+            target.NodeFont = source.NodeFont;
         }
 
         /// <summary>
@@ -179,7 +120,7 @@ namespace SwqlStudio
                 return rv;
             }
         }
-        private sealed class ReferenceEqualityComparer : IEqualityComparer, IEqualityComparer<object>
+        internal sealed class ReferenceEqualityComparer : IEqualityComparer, IEqualityComparer<object>
         {
             public static ReferenceEqualityComparer Default { get; } = new ReferenceEqualityComparer();
 

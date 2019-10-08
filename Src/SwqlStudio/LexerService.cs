@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using SwqlStudio.Autocomplete;
+using SwqlStudio.Metadata;
 using SwqlStudio.Properties;
 
 namespace SwqlStudio

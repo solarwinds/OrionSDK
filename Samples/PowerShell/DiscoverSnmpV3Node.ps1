@@ -10,14 +10,16 @@ $Password = ""
 
 # Discovery parameters
 $ip = "10.199.4.3"
-$snmpv3credentialname = "test"
+$snmpv3credentialname1 = "foo"
+$snmpv3credentialname2 = "bar"
 $engindId = 1
 $DeleteProfileAfterDiscoveryCompletes = "true"
 
 $swis = Connect-Swis $OrionServer -UserName $Username -Password $Password
 
 # Get the ID of the named SNMPv3 credential
-$snmpv3credentialid = Get-SwisData $swis "SELECT ID FROM Orion.Credential WHERE Name=@name" @{name = $snmpv3credentialname}
+$snmpv3credentialid1 = Get-SwisData $swis "SELECT ID FROM Orion.Credential WHERE Name=@name" @{name = $snmpv3credentialname1}
+$snmpv3credentialid2 = Get-SwisData $swis "SELECT ID FROM Orion.Credential WHERE Name=@name" @{name = $snmpv3credentialname2}
 
 $CorePluginConfigurationContext = ([xml]"
 <CorePluginConfigurationContext xmlns='http://schemas.solarwinds.com/2012/Orion/Core' xmlns:i='http://www.w3.org/2001/XMLSchema-instance'>
@@ -28,8 +30,12 @@ $CorePluginConfigurationContext = ([xml]"
 	</BulkList>
 	<Credentials>
 		<SharedCredentialInfo>
-			<CredentialID>$snmpv3credentialid</CredentialID>
+			<CredentialID>$snmpv3credentialid1</CredentialID>
 			<Order>1</Order>
+		</SharedCredentialInfo>
+		<SharedCredentialInfo>
+			<CredentialID>$snmpv3credentialid2</CredentialID>
+			<Order>2</Order>
 		</SharedCredentialInfo>
 	</Credentials>
 	<WmiRetriesCount>1</WmiRetriesCount>

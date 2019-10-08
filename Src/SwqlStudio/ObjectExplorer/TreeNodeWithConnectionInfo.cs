@@ -1,35 +1,26 @@
 ﻿using System;
 using System.Windows.Forms;
+using SwqlStudio.Metadata;
 
 namespace SwqlStudio
 {
-    public class TreeNodeWithConnectionInfo : TreeNode, ICloneable
+    internal class TreeNodeWithConnectionInfo : TreeNode
     {
-        public TreeNodeWithConnectionInfo(string text, ConnectionInfo connection) : base(text)
+        public IMetadataProvider Provider { get; }
+
+        public ConnectionInfo Connection => this.Provider.ConnectionInfo;
+
+
+        public TreeNodeWithConnectionInfo(string text, IMetadataProvider provider) : base(text)
         {
-            Connection = connection;
+            Provider = provider;
         }
 
         public TreeNode CloneShallow()
         {
-            var treeNode = new TreeNodeWithConnectionInfo(Text, Connection);
-            treeNode.Text = Text;
-            treeNode.Name = Name;
-            treeNode.ImageIndex = ImageIndex;
-            treeNode.SelectedImageIndex = SelectedImageIndex;
-            treeNode.StateImageIndex = StateImageIndex;
-
-            treeNode.SelectedImageKey = SelectedImageKey;
-            treeNode.ImageKey = ImageKey;
-            treeNode.Tag = Tag;
-            
-            treeNode.ToolTipText = ToolTipText;
-            treeNode.ContextMenu = ContextMenu;
-            treeNode.ContextMenuStrip = ContextMenuStrip;
-            treeNode.Checked = Checked;
+            var treeNode = new TreeNodeWithConnectionInfo(this.Text, this.Provider);
+            TreeNodeUtils.CopyContent(this, treeNode);
             return treeNode;
         }
-
-        public ConnectionInfo Connection { get; private set; }
     }
 }

@@ -5,7 +5,7 @@
     <!-- Read this before publishing packages to chocolatey.org: https://github.com/chocolatey/chocolatey/wiki/CreatePackages -->
     <id>orionsdk</id>
     <title>SolarWinds Orion SDK</title>
-    <version>2.4.0.176</version>
+    <version>2.5.0.214</version>
     <authors>SolarWinds</authors>
     <owners>Tim Danner</owners>
     <summary>Software development kit for the SolarWinds Orion platform.</summary>
@@ -26,35 +26,20 @@
       <dependency id="" />
     </dependencies>-->
     <releaseNotes><![CDATA[
-# v2.4.0.176
-This release contains a set of nice SWQL Studio UI upgrades from @jirkapok and others:
+# v2.5.0.214
 
-* Fancy tabs with Visual Studio-like behavior courtesy of [DockPanelSuite](http://dockpanelsuite.com/)
-* The query parameter window has been converted into a docking panel that automatically tracks the names of the query parameters used by the current query
-* Adds a toolbar
-* Combobox on the toolbar for switching which open connection is used for the current tab
-* Support for calling CRUD directly from SwqlStudio
-* Menu items to copy the current query as a `curl` or `Get-SwisData` command line
-* Preference for whether to prompt for saving queries on exit
-* Include "TOP 1000" when SWQL Studio generates a SELECT statement #66
+This release contains new features and upgrades from @tdanner, @nothrow, and others:
+
+* Added a Find/Replace dialog to SWQL Studio
+* Install SwisPowerShell module from OrionSDK.msi (fixes #155)
+* New UI for CRUD tab
+* SWQL Studio updated to .NET Framework 4.5
 
 And bugfixes:
 
-* Automatically reconnect when connection has gone stale #109 
-* Ugly error in SWQL Studio when verb argument contains malformed XML #107 
-
-Finally:
-
-* All binaries are now code-signed by SolarWinds
-
-# v2.3.123
-* Added Search to Object Explorer
-* Fix a crash in SWQL Studio if you double-click the "database" node in the tree
-* Use .NET 4.0's InstallUtil.exe to register SwisSnapin, not 2.0
-* SwisSnapin is still included in this release, but deprecated in favor of the new PowerShell module [SwisPowerShell](https://www.powershellgallery.com/packages/SwisPowerShell).
-
-# v2.2.54
-* Adds smart autocomplete to SWQL Studio, along with miscellaneous bugfixes and minor enhancements.
+* Fixed issue in SWQL studio with disappearing subscriptions
+* Fixed a CRUD UI bug
+* Fixed a few other minor bugs
 ]]></releaseNotes>
     <!--<provides></provides>-->
   </metadata>

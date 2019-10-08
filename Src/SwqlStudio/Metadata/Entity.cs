@@ -2,7 +2,7 @@
 
 namespace SwqlStudio.Metadata
 {
-    public class Entity
+    public class Entity : IObsoleteMetadata
     {
         private readonly List<Property> properties = new List<Property>();
         private readonly List<Verb> verbs = new List<Verb>();
@@ -12,12 +12,16 @@ namespace SwqlStudio.Metadata
         public string BaseType { get; set; }
         public bool IsIndication { get; set; }
         public bool IsAbstract { get; set; }
+        public bool IsObsolete { get; set; }
+        public string ObsolescenceReason { get; set; }
 
         public bool CanCreate { get; set; }
         public bool CanDelete { get; set; }
         public bool CanInvoke { get; set; }
         public bool CanRead   { get; set; }
         public bool CanUpdate { get; set; }
+
+        public string Summary { get; set; }
 
         public Entity BaseEntity { get; set; }
 

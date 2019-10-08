@@ -38,6 +38,9 @@ namespace SwisPowerShell
 
         internal static XmlElement SerializeArgument(object arg)
         {
+            if (arg is PSObject psobj)
+                return SerializeArgument(psobj.BaseObject);
+
             var doc = new XmlDocument();
             
             using (XmlWriter writer = doc.CreateNavigator().AppendChild())

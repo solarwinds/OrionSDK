@@ -2,10 +2,12 @@
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.ServiceModel;
 using System.Windows.Forms;
 using SolarWinds.InformationService.Contract2;
 using SolarWinds.InformationService.InformationServiceClient;
+using SwqlStudio.Metadata;
 using SwqlStudio.Properties;
 using SwqlStudio.Subscriptions;
 using SwqlStudio.Utils;
@@ -21,6 +23,7 @@ namespace SwqlStudio
         private ServerList serverList;
         private readonly BindingList<ConnectionInfo> connectionsDataSource = new BindingList<ConnectionInfo>();
         private ConnectionsManager connectionsManager;
+        private QueryTab lastActiveTab;
 
         public PropertyBag QueryParameters
         {
@@ -51,7 +54,6 @@ namespace SwqlStudio
 
         private void InitializeDockPanel()
         {
-            this.filesDock.SetObjectExplorerImageList(this.ObjectExplorerImageList);
             this.serverList = new ServerList();
             this.serverList.ConnectionAdded += ServerListOnConnectionAdded;
             this.serverList.ConnectionRemoved += ServerListOnConnectionRemoved;
@@ -59,6 +61,7 @@ namespace SwqlStudio
             var tabsFactory = new TabsFactory(this.filesDock, this, this.serverList, this.connectionsManager);
             this.filesDock.SetAplicationService(tabsFactory);
             this.filesDock.ActiveContentChanged += FilesDock_ActiveContentChanged;
+
         }
 
         private void AssignConnectionsDataSource()
@@ -77,6 +80,15 @@ namespace SwqlStudio
             {
                 this.SelectedConnection = activeConnectionTab.ConnectionInfo;
             }
+
+
+            var activeTab = filesDock.ActiveQueryTab;
+            if (lastActiveTab != null && activeTab != lastActiveTab)
+            {
+                lastActiveTab.HideFindReplaceDialog();
+            }
+
+            lastActiveTab = activeTab;
         }
 
         public void RefreshSelectedConnections()
@@ -406,6 +418,7 @@ namespace SwqlStudio
         {
             enableAutocompleteToolStripMenuItem.Checked = Settings.Default.AutocompleteEnabled;
             promptToSaveOnCloseToolStripMenuItem.Checked = Settings.Default.PromptToSaveOnClose;
+            showObsoleteToolStripMenuItem.Checked = Settings.Default.ShowObsolete;
         }
 
         private void searchInTreeHotKeyToolStripMenuItem_Click(object sender, EventArgs e)
@@ -459,14 +472,15 @@ namespace SwqlStudio
             CopyQueryAs(CommandLineGenerator.GetQueryForPowerShellGetSwisData);
         }
 
-        private void CopyQueryAs(Func<string, ConnectionInfo, string> formatter)
+        private void CopyQueryAs(Func<string, ConnectionInfo, PropertyBag, string> formatter)
         {
             var connection = filesDock.ActiveConnectionTab?.ConnectionInfo;
             if (connection == null)
                 return;
 
             var query = filesDock.ActiveQueryTab.QueryText;
-            string command = formatter(query, connection);
+            var parameters = filesDock.QueryParameters;
+            string command = formatter(query, connection, parameters);
             Clipboard.SetText(command);
         }
 
@@ -474,6 +488,31 @@ namespace SwqlStudio
         {
             Settings.Default.PromptToSaveOnClose = !Settings.Default.PromptToSaveOnClose;
             Settings.Default.Save();
+        }
+
+        private void findToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var activeTab = filesDock.ActiveQueryTab;
+            if (activeTab == null)
+                return;
+
+            activeTab.FindDialog();
+        }
+
+        private void replaceToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var activeTab = filesDock.ActiveQueryTab;
+            if (activeTab == null)
+                return;
+
+            activeTab.ReplaceDialog();
+        }
+
+        private void showObsoleteToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Settings.Default.ShowObsolete = !Settings.Default.ShowObsolete;
+            Settings.Default.Save();
+            filesDock.RefreshObjectExplorerFilters();
         }
     }
 }

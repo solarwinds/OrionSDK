@@ -2,6 +2,7 @@
 # by its name.
 # You need to be logged as a user with Allow Alert Management rights.
 
+Import-Module SwisPowerShell
 
 # Connect to SWIS
 $hostname = "swis-machine-hostname"                     # Update to match your configuration
@@ -11,16 +12,16 @@ $cred = New-Object -typename System.Management.Automation.PSCredential -argument
 $swis = Connect-Swis -host $hostname -cred $cred
 
 $alertName = "NTA Alert on machine-hostname"
-$alertUri = Get-SwisData $swis "Select Uri FROM Orion.AlertConfigurations WHERE Name = '$alertName'"
+$alertUri = Get-SwisData -SwisConnection $swis -Query "Select Uri FROM Orion.AlertConfigurations WHERE Name = @alertName" -Parameters @{alertName = $alertName}
 
 # Disable alert
 $enabledProps = @{
     Enabled = $false;
 }
-Set-SwisObject $swis -Uri $alertUri -Properties $enabledProps | Out-Null
+Set-SwisObject -SwisConnection $swis -Uri $alertUri -Properties $enabledProps | Out-Null
 
 # Enable alert
 $enabledProps = @{
     Enabled = $true;
 }
-Set-SwisObject $swis -Uri $alertUri -Properties $enabledProps | Out-Null
+Set-SwisObject -SwisConnection $swis -Uri $alertUri -Properties $enabledProps | Out-Null

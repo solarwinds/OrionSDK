@@ -59,7 +59,7 @@ namespace SwqlStudio
 
         public void OpenActivityMonitor(ConnectionInfo info)
         {
-            var activityMonitorTab = new ActivityMonitorTab
+            var activityMonitorTab = new ActivityMonitorTab(this.applicationService)
             {
                 ConnectionInfo = info,
                 Dock = DockStyle.Fill,

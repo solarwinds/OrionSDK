@@ -17,7 +17,7 @@ $nodeCaption = "My test router"
 $nodeId = Get-SwisData -SwisConnection $swis -Query "SELECT NodeID FROM Orion.Nodes WHERE Caption = @nodeCaption" -Parameters @{nodeCaption = $nodeCaption}
 $flowSourcesIds = Get-SwisData -SwisConnection $swis -Query "SELECT NetflowSourceID FROM Orion.Netflow.Source WHERE NodeID = @nodeID" -Parameters @{nodeID = $nodeId}
 $flowSourcesIds = $flowSourcesIds | ForEach-Object {[int]$_}
-Invoke-SwisVerb -SwisConnection $swis -Query Orion.Netflow.Source DisableFlowSources @(,$flowSourcesIds) | Out-Null
+Invoke-SwisVerb -SwisConnection $swis -EntityName Orion.Netflow.Source -Verb DisableFlowSources -Arguments @(,$flowSourcesIds) | Out-Null
 $disableflowSourcesIds = Get-SwisData -SwisConnection $swis -Query "SELECT NetflowSourceID FROM Orion.Netflow.Source WHERE NodeID = @nodeID and Enabled = false" -Parameters @{nodeID = $nodeId}
 Write-Host "Disabled $($disableflowSourcesIds.Count) Flow Sources for node with ID $nodeId. Total interface count $($flowSourcesIds.Count)"
 

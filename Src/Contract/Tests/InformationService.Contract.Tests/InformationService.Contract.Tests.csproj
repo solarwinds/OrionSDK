@@ -10,8 +10,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Reference Include="nunit.framework">
-      <HintPath>..\..\..\packages\NUnit.2.6.4\lib\nunit.framework.dll</HintPath>
-    </Reference>
+    <PackageReference Include="NUnit" Version="2.6.4" />
   </ItemGroup>
 </Project>

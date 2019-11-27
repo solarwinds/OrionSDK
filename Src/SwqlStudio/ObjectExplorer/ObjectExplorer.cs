@@ -16,7 +16,7 @@ using TextBox = System.Windows.Forms.TextBox;
 using TreeNode = System.Windows.Forms.TreeNode;
 using TreeView = System.Windows.Forms.TreeView;
 
-namespace SwqlStudio
+namespace SwqlStudio.ObjectExplorer
 {
     internal class ObjectExplorer : Control
     {
@@ -537,7 +537,7 @@ namespace SwqlStudio
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ObjectExplorer));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ObjectExplorerResources));
             this.objectExplorerImageList = new System.Windows.Forms.ImageList(this.components);
             this.SuspendLayout();
             // 

@@ -44,7 +44,7 @@ do
 {
     if ($sw.Elapsed.TotalSeconds -gt $timeout)
     {
-        throw ("Timeout elapsed when crating job. This is probably caused by calling this script with same nodeId. Please wait few minutes or extend timeout.")
+        throw ("Timeout elapsed when creating job. This is probably caused by calling this script with same nodeId. Please wait few minutes or extend timeout.")
     }
     $result = Invoke-SwisVerb $swis "orion.nodes" "ScheduleListResources" @($nodeId)
     $jobId = $result.'#text'

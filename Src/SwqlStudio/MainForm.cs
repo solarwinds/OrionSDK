@@ -267,25 +267,53 @@ namespace SwqlStudio
 
         private void TextEditor_FormClosing(object sender, FormClosingEventArgs e)
         {
-            // Ask user to save changes
+            bool canceled = !SaveModifiedEditors();
+
+            if (canceled)
+            {
+                e.Cancel = true;
+                return;
+            }
+            
             foreach (var editor in this.filesDock.QueryTabs)
             {
-                if (editor.Modified && Settings.Default.PromptToSaveOnClose)
-                {
-                    var r = MessageBox.Show(this, $"Save changes to {editor.FileName ?? "new file"}?",
-                        "Save?", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
-                    if (r == DialogResult.Cancel)
-                        e.Cancel = true;
-                    else if (r == DialogResult.Yes)
-                        if (!DoSave(editor))
-                            e.Cancel = true;
-                }
-
                 if (editor.Tag is ConnectionInfo info)
                 {
                     info.Dispose();
                 }
             }
+        }
+
+        private bool SaveModifiedEditors()
+        {
+            var modifiedEditors = this.filesDock.QueryTabs.Where(qe => qe.Modified)
+                .ToList();
+            var needsSave = modifiedEditors.Any();
+            DialogResult saveResult = AskToSaveResult(needsSave);
+
+            if (saveResult == DialogResult.Yes)
+            {
+                foreach (var editor in modifiedEditors)
+                {
+                    if (!DoSave(editor))
+                    {
+                        return false;
+                    }
+                }
+            }
+
+            return saveResult != DialogResult.Cancel;
+        }
+
+        private DialogResult AskToSaveResult(bool needsSave)
+        {
+            if (needsSave && Settings.Default.PromptToSaveOnClose)
+            {
+                var message = $"There are unsaved changes in some editors. Do you want to save them?";
+                return MessageBox.Show(this, message, "Save?", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
+            }
+
+            return DialogResult.Yes;
         }
 
         /// <summary>We handle DragEnter and DragDrop so users can drop files on the editor.</summary>

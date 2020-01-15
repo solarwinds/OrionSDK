@@ -1,8 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
-using System.IO;
 using System.Linq;
-using System.Runtime.InteropServices;
 using System.ServiceModel;
 using System.Windows.Forms;
 using SolarWinds.InformationService.Contract2;
@@ -30,7 +28,7 @@ namespace SwqlStudio
             get { return this.filesDock.QueryParameters; }
             set { this.filesDock.QueryParameters = value; }
         }
-        
+
         public SubscriptionManager SubscriptionManager { get; } = new SubscriptionManager();
 
         public ConnectionInfo SelectedConnection
@@ -44,12 +42,14 @@ namespace SwqlStudio
             InitializeComponent();
 
             InitializeDockPanel();
-            SetEntityGroupingMode((EntityGroupingMode)Enum.Parse(typeof(EntityGroupingMode), Settings.Default.EntityGroupingMode));
+            SetEntityGroupingMode((EntityGroupingMode) Enum.Parse(typeof(EntityGroupingMode),
+                Settings.Default.EntityGroupingMode));
 
             startTimer.Enabled = true;
 
             SubscriptionManager = new SubscriptionManager();
             AssignConnectionsDataSource();
+            this.modifiedEditors1.Parent = this;
         }
 
         private void InitializeDockPanel()
@@ -94,7 +94,8 @@ namespace SwqlStudio
         public void RefreshSelectedConnections()
         {
             IConnectionTab activeConnectionTab = this.filesDock.ActiveConnectionTab;
-            this.connectionsCombobox.Enabled = activeConnectionTab == null || activeConnectionTab.AllowsChangeConnection;
+            this.connectionsCombobox.Enabled =
+                activeConnectionTab == null || activeConnectionTab.AllowsChangeConnection;
         }
 
         private void ServerListOnConnectionAdded(object sender, ConnectionsEventArgs e)
@@ -113,7 +114,7 @@ namespace SwqlStudio
         {
             this.connectionsDataSource.Remove(e.Connection);
 
-            if(connectionsDataSource.Any())
+            if (connectionsDataSource.Any())
                 this.SelectedConnection = connectionsDataSource.First();
 
             this.filesDock.CloseServer(e.Connection, this.SelectedConnection);
@@ -147,7 +148,6 @@ namespace SwqlStudio
                 this.filesDock.OpenFiles(openFileDialog.FileNames);
         }
 
-        
         private void menuFileClose_Click(object sender, EventArgs e)
         {
             this.filesDock.CloseActiveContent();
@@ -157,52 +157,14 @@ namespace SwqlStudio
         {
             var editor = this.filesDock.ActiveQueryTab;
             if (editor != null)
-                DoSave(editor);
-        }
-
-        private bool DoSave(QueryTab editor)
-        {
-            if (string.IsNullOrEmpty(editor.FileName))
-                return DoSaveAs(editor);
-                
-            return SaveEditor(editor, editor.FileName);
+                this.modifiedEditors1.DoSave(editor);
         }
 
         private void menuFileSaveAs_Click(object sender, EventArgs e)
         {
             var editor = this.filesDock.ActiveQueryTab;
             if (editor != null)
-                DoSaveAs(editor);
-        }
-
-        private bool DoSaveAs(QueryTab editor)
-        {
-            saveFileDialog.FileName = editor.FileName;
-            if (saveFileDialog.ShowDialog() != DialogResult.OK)
-                return false;
-
-            return SaveEditor(editor, saveFileDialog.FileName);
-        }
-
-        private bool SaveEditor(QueryTab editor, string fileName)
-        {
-            try
-            {
-                File.WriteAllText(fileName, editor.QueryText);
-                editor.FileName = fileName;
-                editor.MarkSaved();
-
-                // The syntax highlighting strategy doesn't change
-                // automatically, so do it manually.
-                //editor.Document.HighlightingStrategy = 
-                //    HighlightingStrategyFactory.CreateHighlightingStrategyForFile(editor.FileName);
-                return true;
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(this, ex.Message, ex.GetType().Name);
-                return false;
-            }
+                this.modifiedEditors1.DoSaveAs(editor);
         }
 
         private void menuNotificationListenerActive_Click(object sender, EventArgs e)
@@ -238,17 +200,17 @@ namespace SwqlStudio
 
         private void undoToolStripMenuItem_Click(object sender, EventArgs e)
         {
-                this.filesDock.ActiveQueryTab?.Undo();
+            this.filesDock.ActiveQueryTab?.Undo();
         }
 
         private void redoToolStripMenuItem_Click(object sender, EventArgs e)
         {
-                this.filesDock.ActiveQueryTab?.Redo();
+            this.filesDock.ActiveQueryTab?.Redo();
         }
 
         private void menuEditCut_Click(object sender, EventArgs e)
         {
-                this.filesDock.ActiveQueryTab?.Cut();
+            this.filesDock.ActiveQueryTab?.Cut();
         }
 
         private void menuEditCopy_Click(object sender, EventArgs e)
@@ -267,20 +229,21 @@ namespace SwqlStudio
 
         private void TextEditor_FormClosing(object sender, FormClosingEventArgs e)
         {
-            // Ask user to save changes
+            bool canceled = !this.modifiedEditors1.SaveModifiedEditors(this.filesDock.QueryTabs);
+
+            if (canceled)
+            {
+                e.Cancel = true;
+                return;
+            }
+
+            CloseEditorConnections();
+        }
+
+        private void CloseEditorConnections()
+        {
             foreach (var editor in this.filesDock.QueryTabs)
             {
-                if (editor.Modified && Settings.Default.PromptToSaveOnClose)
-                {
-                    var r = MessageBox.Show(this, $"Save changes to {editor.FileName ?? "new file"}?",
-                        "Save?", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
-                    if (r == DialogResult.Cancel)
-                        e.Cancel = true;
-                    else if (r == DialogResult.Yes)
-                        if (!DoSave(editor))
-                            e.Cancel = true;
-                }
-
                 if (editor.Tag is ConnectionInfo info)
                 {
                     info.Dispose();

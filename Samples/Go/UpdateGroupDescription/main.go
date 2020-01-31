@@ -2,9 +2,9 @@ package main
 
 import (
 	"encoding/json"
-	"gosolar"
 	"log"
 
+	"github.com/mrxinu/gosolar"
 	"github.com/pkg/errors"
 )
 

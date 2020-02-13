@@ -29,22 +29,22 @@ $swis = Connect-Swis -host $hostname -cred $cred
 <# Filter samples w/ all operators:
 
 IP_Address is 192.168.10.10
-filter:\Orion.Nodes[IP_Address='192.168.10.10')]
+filter:/Orion.Nodes[IP_Address='192.168.10.10')]
 
 IP_Address is not 192.168.10.10
-filter:\Orion.Nodes[IP_Address!='192.168.10.10']
+filter:/Orion.Nodes[IP_Address!='192.168.10.10']
 
 IP_Address starts with 192.168.10.
 filter:/Orion.Nodes[StartsWith(IP_Address,'192.168.10.')]
 
 IP_Address ends with .10.%
-filter:\Orion.Nodes[EndsWith(IP_Address,'10.%')]
+filter:/Orion.Nodes[EndsWith(IP_Address,'10.%')]
 
 IP_Address contains .10.
-filter:\Orion.Nodes[Contains(IP_Address,'.10.')]
+filter:/Orion.Nodes[Contains(IP_Address,'.10.')]
 
 IP_Address matches 192.168.*
-filter:\Orion.Nodes[Pattern(IP_Address,'192.168.%')]
+filter:/Orion.Nodes[Pattern(IP_Address,'192.168.%')]
 
 #>
 

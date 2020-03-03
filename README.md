@@ -18,7 +18,7 @@ There is also generated reference documentation for the [Orion schema](http://so
 
 ## Forum
 
-You can discuss the Orion SDK with SolarWinds staff and other SDK users on the [Orion SDK thwack forum](https://thwack.solarwinds.com/community/labs_tht/orion-sdk).
+You can discuss the Orion SDK with SolarWinds staff and other SDK users on the [Orion SDK thwack forum](https://thwack.solarwinds.com/t5/Orion-SDK/ct-p/orion-sdk).
 
 ## License
 

@@ -27,6 +27,6 @@ foreach ($node in $nodes) {
 
     Write-Output "Renaming node [$($node.Caption)] to [$newName]..."
 
-    # uncomment the line below if you're seeing the output you expect abovee
+    # uncomment the line below if you're seeing the output you expect above
     # Set-SwisObject -SwisConnection $swis -Uri $node.URI -Properties @{ "Caption" = $newName }
 }

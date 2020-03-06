@@ -17,7 +17,7 @@
     <GenerateAssemblyFileVersionAttribute>false</GenerateAssemblyFileVersionAttribute>
     <GenerateAssemblyVersionAttribute>false</GenerateAssemblyVersionAttribute>
     <GenerateAssemblyInformationalVersionAttribute>false</GenerateAssemblyInformationalVersionAttribute>
-    <ApplicationIcon />
+    <ApplicationIcon>Main.ico</ApplicationIcon>
     <StartupObject />
   </PropertyGroup>
   

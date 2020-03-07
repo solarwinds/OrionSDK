@@ -1,72 +1,26 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project Sdk="Microsoft.NET.Sdk">
+
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>9.0.30729</ProductVersion>
-    <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{B4F89558-AE9F-4704-B210-6949EF8DD65B}</ProjectGuid>
+    <TargetFramework>net45</TargetFramework>
     <OutputType>WinExe</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>SwqlStudio</RootNamespace>
-    <AssemblyName>SwqlStudio</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
+    <OutputPath>..\..\bin\$(Configuration)\</OutputPath>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <GenerateAssemblyTitleAttribute>false</GenerateAssemblyTitleAttribute>
+    <GenerateAssemblyDescriptionAttribute>false</GenerateAssemblyDescriptionAttribute>
+    <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
+    <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
+    <GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
+    <GenerateAssemblyCopyrightAttribute>false</GenerateAssemblyCopyrightAttribute>
+    <GenerateAssemblyFileVersionAttribute>false</GenerateAssemblyFileVersionAttribute>
+    <GenerateAssemblyVersionAttribute>false</GenerateAssemblyVersionAttribute>
+    <GenerateAssemblyInformationalVersionAttribute>false</GenerateAssemblyInformationalVersionAttribute>
     <ApplicationIcon>Main.ico</ApplicationIcon>
-    <SccProjectName>
-    </SccProjectName>
-    <SccLocalPath>
-    </SccLocalPath>
-    <SccAuxPath>
-    </SccAuxPath>
-    <SccProvider>
-    </SccProvider>
-    <FileUpgradeFlags>
-    </FileUpgradeFlags>
-    <OldToolsVersion>3.5</OldToolsVersion>
-    <UpgradeBackupLocation />
-    <IsWebBootstrapper>false</IsWebBootstrapper>
-    <PublishUrl>publish\</PublishUrl>
-    <Install>true</Install>
-    <InstallFrom>Disk</InstallFrom>
-    <UpdateEnabled>false</UpdateEnabled>
-    <UpdateMode>Foreground</UpdateMode>
-    <UpdateInterval>7</UpdateInterval>
-    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
-    <UpdatePeriodically>false</UpdatePeriodically>
-    <UpdateRequired>false</UpdateRequired>
-    <MapFileExtensions>true</MapFileExtensions>
-    <ApplicationRevision>0</ApplicationRevision>
-    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
-    <UseApplicationTrust>false</UseApplicationTrust>
-    <BootstrapperEnabled>true</BootstrapperEnabled>
-    <TargetFrameworkProfile />
-    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
-    <RestorePackages>true</RestorePackages>
+    <StartupObject />
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>..\..\bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <PlatformTarget>x86</PlatformTarget>
-    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
-    <Prefer32Bit>false</Prefer32Bit>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>..\..\bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <PlatformTarget>x86</PlatformTarget>
-    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
-    <Prefer32Bit>false</Prefer32Bit>
-  </PropertyGroup>
+  
   <ItemGroup>
     <Reference Include="Interop.MSXML2">
       <HintPath>.\Interop.MSXML2.dll</HintPath>
@@ -109,318 +63,12 @@
       <HintPath>..\packages\DockPanelSuite.ThemeVS2015.3.0.4\lib\net40\WeifenLuo.WinFormsUI.Docking.ThemeVS2015.dll</HintPath>
     </Reference>
   </ItemGroup>
+
   <ItemGroup>
     <Compile Include="..\CommonAssemblyInfo.cs">
       <Link>Properties\CommonAssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="3rdParty\ScintillaNET-FindReplaceDialog\CharacterRange.cs" />
-    <Compile Include="3rdParty\ScintillaNET-FindReplaceDialog\FindAllResults\FindAllResultsPanel.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="3rdParty\ScintillaNET-FindReplaceDialog\FindAllResults\FindAllResultsPanel.Designer.cs">
-      <DependentUpon>FindAllResultsPanel.cs</DependentUpon>
-    </Compile>
-    <Compile Include="3rdParty\ScintillaNET-FindReplaceDialog\FindReplace\FindOption.cs" />
-    <Compile Include="3rdParty\ScintillaNET-FindReplaceDialog\FindReplace\FindReplace.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="3rdParty\ScintillaNET-FindReplaceDialog\FindReplace\FindReplaceDialog.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="3rdParty\ScintillaNET-FindReplaceDialog\FindReplace\FindReplaceDialog.Designer.cs">
-      <DependentUpon>FindReplaceDialog.cs</DependentUpon>
-    </Compile>
-    <Compile Include="3rdParty\ScintillaNET-FindReplaceDialog\FindReplace\IncrementalSearcher.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="3rdParty\ScintillaNET-FindReplaceDialog\FindReplace\IncrementalSearcher.Designer.cs">
-      <DependentUpon>IncrementalSearcher.cs</DependentUpon>
-    </Compile>
-    <Compile Include="3rdParty\ScintillaNET-FindReplaceDialog\FindReplace\ToolStripIncrementalSearcher.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="3rdParty\ScintillaNET-FindReplaceDialog\GoTo\GoTo.cs" />
-    <Compile Include="3rdParty\ScintillaNET-FindReplaceDialog\GoTo\GoToDialog.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="3rdParty\ScintillaNET-FindReplaceDialog\GoTo\GoToDialog.Designer.cs">
-      <DependentUpon>GoToDialog.cs</DependentUpon>
-    </Compile>
-    <Compile Include="3rdParty\ScintillaNET-FindReplaceDialog\Properties\Resources1.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
-    <Compile Include="About.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="About.Designer.cs">
-      <DependentUpon>About.cs</DependentUpon>
-    </Compile>
-    <Compile Include="ActivityMonitorTab.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="ActivityMonitorTab.Designer.cs">
-      <DependentUpon>ActivityMonitorTab.cs</DependentUpon>
-    </Compile>
-    <Compile Include="CachedParameters.cs" />
-    <Compile Include="ConnectionHistory.cs" />
-    <Compile Include="ConnectionInfo.cs" />
-    <Compile Include="ConnectionsEventArgs.cs" />
-    <Compile Include="ConnectionsManager.cs" />
-    <Compile Include="Controls\TabControlEx.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="CrudOperation.cs" />
-    <Compile Include="CrudProperty.cs" />
-    <Compile Include="CrudTab.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="CrudTab.Designer.cs">
-      <DependentUpon>CrudTab.cs</DependentUpon>
-    </Compile>
-    <Compile Include="CustomCertificateValidator.cs" />
-    <Compile Include="DataGridExporter.cs" />
-    <Compile Include="DocumentationContent.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="DocumentationContent.Designer.cs">
-      <DependentUpon>DocumentationContent.cs</DependentUpon>
-    </Compile>
-    <Compile Include="EntityClassGraphForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="EntityClassGraphForm.designer.cs">
-      <DependentUpon>EntityClassGraphForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="IConnectionTab.cs" />
-    <Compile Include="IndicationEventArgs.cs" />
-    <Compile Include="IndicationListerUsernameValidator.cs" />
-    <Compile Include="Autocomplete\ExpectedCaretPosition.cs" />
-    <Compile Include="Autocomplete\ExpectedCaretPositionType.cs" />
-    <Compile Include="Autocomplete\AutocompleteProvider.cs" />
-    <Compile Include="Autocomplete\AutocompleteTokenizer.cs" />
-    <Compile Include="InvokeVerbTab.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="InvokeVerbTab.Designer.cs">
-      <DependentUpon>InvokeVerbTab.cs</DependentUpon>
-    </Compile>
-    <Compile Include="ITabsFactory.cs" />
-    <Compile Include="LexerService.cs" />
-    <Compile Include="LogHeaderMessageInspector.cs" />
-    <Compile Include="LogHeaderReaderBehavior.cs" />
-    <Compile Include="Metadata\Entity.cs" />
-    <Compile Include="Metadata\ITypedMetadata.cs" />
-    <Compile Include="Metadata\IObsoleteMetadata.cs" />
-    <Compile Include="Metadata\Property.cs" />
-    <Compile Include="Metadata\Verb.cs" />
-    <Compile Include="Metadata\VerbArgument.cs" />
-    <Compile Include="CodeGenerator.cs" />
-    <Compile Include="ModifiedEditors.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="ObjectExplorer\ArgumentsPlaceholderTreeNode.cs" />
-    <Compile Include="ObjectExplorer\Documentation.cs" />
-    <Compile Include="ObjectExplorer\EntityGroupingMode.cs" />
-    <Compile Include="ObjectExplorer\ImageKeys.cs" />
-    <Compile Include="ObjectExplorer\SearchTextBox.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="ObjectExplorer\DocumentationBuilder.cs" />
-    <Compile Include="ObjectExplorer\StringBuilderExtensions.cs" />
-    <Compile Include="ObjectExplorer\TreeNodesBuilder.cs" />
-    <Compile Include="ObjectExplorer\Filtering\INodeFilterStrategy.cs" />
-    <Compile Include="ObjectExplorer\Filtering\NodeFilter.cs" />
-    <Compile Include="ObjectExplorer\Filtering\SearchNodeFilter.cs" />
-    <Compile Include="ObjectExplorer\Filtering\ObsoleteNodeFilter.cs" />
-    <Compile Include="ObjectExplorer\Filtering\VisibilityStatus.cs" />
-    <Compile Include="ObjectExplorer\TreeNodeUtils.cs" />
-    <Compile Include="ProductSpecific\CertificateValidatorWithCache.cs" />
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
-    <Compile Include="QueriesDockPanel.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="QueriesDockPanel.Designer.cs">
-      <DependentUpon>QueriesDockPanel.cs</DependentUpon>
-    </Compile>
-    <Compile Include="QueryVariable.cs" />
-    <Compile Include="Subscriptions\NotificationDeliveryServiceProxy.cs" />
-    <Compile Include="Subscriptions\NotificationSubscriber.cs" />
-    <Compile Include="ObjectExplorer\TreeNodeWithConnectionInfo.cs" />
-    <Compile Include="Playback\PlaybackItem.cs" />
-    <Compile Include="Playback\PlaybackManager.cs" />
-    <Compile Include="Playback\ProfileItem.cs" />
-    <Compile Include="ProductSpecific\OrionInfoServiceCertificate.cs" />
-    <Compile Include="ProductSpecific\EOCInfoService.cs" />
-    <Compile Include="IApplicationService.cs" />
-    <Compile Include="InfoServiceBase.cs" />
-    <Compile Include="InfoServiceFactory.cs" />
-    <Compile Include="MainForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="MainForm.Designer.cs">
-      <DependentUpon>MainForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="NewConnection.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="NewConnection.Designer.cs">
-      <DependentUpon>NewConnection.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Metadata\IMetadataProvider.cs" />
-    <Compile Include="ObjectExplorer\ObjectExplorer.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Metadata\SwisMetaDataProvider.cs" />
-    <Compile Include="ProductSpecific\JavaHttpInfoService.cs" />
-    <Compile Include="ProductSpecific\NCMForwarderInfoService.cs" />
-    <Compile Include="ProductSpecific\NCMWindowsAuthInfoService.cs" />
-    <Compile Include="ProductSpecific\OrionHttpsInfoService.cs" />
-    <Compile Include="ProductSpecific\OrionInfoService.cs" />
-    <Compile Include="ProductSpecific\NCMInfoService.cs" />
-    <Compile Include="ProductSpecific\OrionInfoServiceCompressed.cs" />
-    <Compile Include="ProductSpecific\OrionInfoServiceWindows.cs" />
-    <Compile Include="ProductSpecific\OrionInfoServiceWindowsCompressed.cs" />
-    <Compile Include="Program.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ServerList.cs" />
-    <Compile Include="ServerType.cs" />
-    <Compile Include="Subscription.cs" />
-    <Compile Include="Subscriptions\SubscriptionCallbacks.cs" />
-    <Compile Include="Subscriptions\SubscriptionInfo.cs" />
-    <Compile Include="Subscriptions\SubscriptionManager.cs" />
-    <Compile Include="Subscriptions\SubscriptionServiceHost.cs" />
-    <Compile Include="SubscriptionTab.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="SubscriptionTab.Designer.cs">
-      <DependentUpon>SubscriptionTab.cs</DependentUpon>
-    </Compile>
-    <Compile Include="TabsFactory.cs" />
-    <Compile Include="TabTemplate.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Utility.cs" />
-    <Compile Include="Utils\CommandLineGenerator.cs" />
-    <Compile Include="Utils\Win32.cs" />
-    <Compile Include="XmlRender\RenderXmlToHtml.cs" />
-    <Compile Include="XmlRender\XmlBrowser.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="XmlRender\XmlBrowser.Designer.cs">
-      <DependentUpon>XmlBrowser.cs</DependentUpon>
-    </Compile>
-    <Compile Include="XmlRender\XmlRender.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>XmlRender.resx</DependentUpon>
-    </Compile>
-    <EmbeddedResource Include="3rdParty\ScintillaNET-FindReplaceDialog\FindAllResults\FindAllResultsPanel.resx">
-      <DependentUpon>FindAllResultsPanel.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="3rdParty\ScintillaNET-FindReplaceDialog\FindReplace\FindReplaceDialog.resx">
-      <DependentUpon>FindReplaceDialog.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="3rdParty\ScintillaNET-FindReplaceDialog\FindReplace\IncrementalSearcher.resx">
-      <DependentUpon>IncrementalSearcher.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="3rdParty\ScintillaNET-FindReplaceDialog\GoTo\GoToDialog.resx">
-      <DependentUpon>GoToDialog.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="3rdParty\ScintillaNET-FindReplaceDialog\Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources1.Designer.cs</LastGenOutput>
-      <CustomToolNamespace>ScintillaNET_FindReplaceDialog.Properties</CustomToolNamespace>
-    </EmbeddedResource>
-    <EmbeddedResource Include="About.resx">
-      <DependentUpon>About.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="ActivityMonitorTab.resx">
-      <DependentUpon>ActivityMonitorTab.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="CrudTab.resx">
-      <DependentUpon>CrudTab.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="DocumentationContent.resx">
-      <DependentUpon>DocumentationContent.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="EntityClassGraphForm.resx">
-      <DependentUpon>EntityClassGraphForm.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="InvokeVerbTab.resx">
-      <DependentUpon>InvokeVerbTab.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="MainForm.resx">
-      <DependentUpon>MainForm.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="ObjectExplorer\ObjectExplorer.resx">
-      <DependentUpon>ObjectExplorer.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <SubType>Designer</SubType>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="QueryParameters.resx">
-      <DependentUpon>QueryParameters.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="QueryTab.resx">
-      <DependentUpon>QueryTab.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="SubscriptionTab.resx">
-      <DependentUpon>SubscriptionTab.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="XmlRender\XmlBrowser.resx">
-      <DependentUpon>XmlBrowser.cs</DependentUpon>
-    </EmbeddedResource>
-    <None Include="app.config">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="packages.config" />
-    <None Include="Properties\DataSources\CrudProperty.datasource" />
-    <None Include="Properties\Settings.settings">
-      <Generator>SettingsSingleFileGenerator</Generator>
-      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
-    </None>
-    <Compile Include="Properties\Settings.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Settings.settings</DependentUpon>
-      <DesignTimeSharedInput>True</DesignTimeSharedInput>
-    </Compile>
-    <Compile Include="QueryParameters.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="QueryParameters.Designer.cs">
-      <DependentUpon>QueryParameters.cs</DependentUpon>
-    </Compile>
-    <Compile Include="QueryStatusBar.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="QueryTab.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="QueryTab.Designer.cs">
-      <DependentUpon>QueryTab.cs</DependentUpon>
-    </Compile>
-    <Compile Include="SciTextEditorControl.cs">
-      <SubType>Component</SubType>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="NewConnection.resx">
-      <DependentUpon>NewConnection.cs</DependentUpon>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
+    
     <Content Include="3rdParty\ScintillaNET-FindReplaceDialog\Resources\Clock.ico" />
     <Content Include="3rdParty\ScintillaNET-FindReplaceDialog\Resources\Clock.png" />
     <Content Include="3rdParty\ScintillaNET-FindReplaceDialog\Resources\DeleteHS.png" />
@@ -429,73 +77,36 @@
     <Content Include="3rdParty\ScintillaNET-FindReplaceDialog\Resources\LineColorHS.png" />
     <Content Include="ResizableTextAreaStyle.css" />
     <Content Include="Main.ico" />
-    <None Include="Resources\Pause_16x.png" />
-    <None Include="Resources\Refresh_16x.png" />
-    <None Include="Resources\TextFile_16x.ico" />
-    <None Include="Resources\Run_16x.png" />
-    <None Include="Resources\OpenFolder_16x.png" />
-    <None Include="Resources\Save_16x.png" />
-    <None Include="Resources\CloseDocument_16x.png" />
-    <None Include="Resources\NewFile_16x.png" />
-    <None Include="Resources\Redo_16x.png" />
-    <None Include="Resources\Undo_16x.png" />
-    <None Include="Resources\ConnectFilled_16x.png" />
-    <None Include="Resources\Disconnect_16x.png" />
-    <None Include="Resources\Cut_16x.png" />
-    <None Include="Resources\ASX_Copy_blue_16x.png" />
-    <None Include="Resources\ASX_Paste_blue_16x.png" />
-    <EmbeddedResource Include="XmlRender\XmlRender.resx">
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Contract\SolarWinds.InformationService.Contract.csproj" />
+    <ProjectReference Include="..\Logging\SolarWinds.Logging.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="ObjectExplorer\ObjectExplorerResources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>ObjectExplorerResources.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="ObjectExplorer\ObjectExplorerResources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>XmlRender.Designer.cs</LastGenOutput>
+      <LastGenOutput>ObjectExplorerResources.Designer.cs</LastGenOutput>
+      <CustomToolNamespace></CustomToolNamespace>
     </EmbeddedResource>
-    <EmbeddedResource Include="XmlRender\XMLToHTML.xsl" />
-    <EmbeddedResource Include="XmlRender\XmlToHtml10.xslt" />
-    <EmbeddedResource Include="XmlRender\XmlToHtml10Basic.xslt" />
-    <EmbeddedResource Include="XmlRender\XmlToHtml10Cdata.xslt" />
-    <EmbeddedResource Include="XmlRender\XmlToHtml10Plus.xslt" />
-    <EmbeddedResource Include="XmlRender\XSLTHtml20.xslt" />
   </ItemGroup>
-  <ItemGroup>
-    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
-      <Visible>False</Visible>
-      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
-      <Install>false</Install>
-    </BootstrapperPackage>
-    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
-      <Visible>False</Visible>
-      <ProductName>.NET Framework 3.5 SP1</ProductName>
-      <Install>true</Install>
-    </BootstrapperPackage>
-    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
-      <Visible>False</Visible>
-      <ProductName>Windows Installer 3.1</ProductName>
-      <Install>true</Install>
-    </BootstrapperPackage>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Contract\SolarWinds.InformationService.Contract.csproj">
-      <Project>{7ab6a2c2-ad8f-40af-9527-b12eb4b78b0a}</Project>
-      <Name>SolarWinds.InformationService.Contract</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Logging\SolarWinds.Logging.csproj">
-      <Project>{d6a25e78-f75d-4368-8244-bb33aaaa4ab2}</Project>
-      <Name>SolarWinds.Logging</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup />
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
+
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
     <Error Condition="!Exists('$(SolutionDir)\.nuget\NuGet.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)\.nuget\NuGet.targets'))" />
   </Target>
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
+
 </Project>

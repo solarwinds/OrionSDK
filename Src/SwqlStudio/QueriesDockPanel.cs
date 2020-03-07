@@ -13,7 +13,7 @@ namespace SwqlStudio
     {
         private DockContent lastActiveContent = null;
         private ITabsFactory tabsFactory;
-        private ObjectExplorer objectExplorer;
+        private ObjectExplorer.ObjectExplorer objectExplorer;
         private DockContent objectExplorerContent;
         private QueryParameters queryParametersContent;
         private DocumentationContent documentationContent;
@@ -99,7 +99,7 @@ namespace SwqlStudio
 
         private void InitializeObjectExplorer()
         {
-            this.objectExplorer = new ObjectExplorer();
+            this.objectExplorer = new ObjectExplorer.ObjectExplorer();
             this.objectExplorer.Dock = DockStyle.Fill;
             this.objectExplorer.SetGroupingMode(EntityGroupingMode.Flat);
             this.objectExplorer.Location = new System.Drawing.Point(0, 0);

@@ -68,9 +68,9 @@ namespace ScintillaNET_FindReplaceDialog
             set
             {
                 _findReplace = value;
-                if (value!=null)
+                if (value != null)
                 {
-                _scintilla = _findReplace.Scintilla;
+                    _scintilla = _findReplace.Scintilla;
                 }
                 else
                 {

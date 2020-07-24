@@ -31,7 +31,7 @@ namespace SwqlStudio.Metadata
         };
 
         private IEnumerable<string> AccessControlMetadataAttributes => Capabilities.HasFlag(Capability.AccessControl)
-            ? new[] {"Entity.CanCreate", "Entity.CanDelete", "Entity.CanInvoke", "Entity.CanRead", "Entity.CanUpdate"}
+            ? new[] { "Entity.CanCreate", "Entity.CanDelete", "Entity.CanInvoke", "Entity.CanRead", "Entity.CanUpdate" }
             : new string[0];
 
         private IEnumerable<string> DocumentationMetadataAttributes => Capabilities.HasFlag(Capability.Documentation)
@@ -80,11 +80,11 @@ WHERE EntityName='Metadata.Entity' AND Name IN ('CanCreate', 'Summary', 'IsObsol
             DataTable dt = info.Query(query);
             foreach (DataRow row in dt.Rows)
             {
-                if ((string) row["Name"] == "CanCreate")
+                if ((string)row["Name"] == "CanCreate")
                     cap |= Capability.AccessControl;
-                else if ((string) row["Name"] == "Summary")
+                else if ((string)row["Name"] == "Summary")
                     cap |= Capability.Documentation;
-                else if ((string) row["Name"] == "IsObsolete")
+                else if ((string)row["Name"] == "IsObsolete")
                     cap |= Capability.Obsolete;
             }
 

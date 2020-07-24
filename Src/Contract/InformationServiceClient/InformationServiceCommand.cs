@@ -196,7 +196,7 @@ namespace SolarWinds.InformationService.InformationServiceClient
 
             Message message = null;
 
-            using (new SwisSettingsContext { DataProviderTimeout = TimeSpan.FromSeconds(commandTimeout), ApplicationTag = ApplicationTag, AppendErrors = true})
+            using (new SwisSettingsContext { DataProviderTimeout = TimeSpan.FromSeconds(commandTimeout), ApplicationTag = ApplicationTag, AppendErrors = true })
             {
                 message = this.connection.Service.Query(queryRequest);
             }

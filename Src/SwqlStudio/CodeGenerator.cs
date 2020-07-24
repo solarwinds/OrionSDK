@@ -44,7 +44,7 @@ namespace SwqlStudio
                     propertyType = new CodeTypeReference(RemapTypeForCSharp(property.Type));
                 }
 
-                var backingField = new CodeMemberField(propertyType, "_" + property.Name) {Attributes = MemberAttributes.Private};
+                var backingField = new CodeMemberField(propertyType, "_" + property.Name) { Attributes = MemberAttributes.Private };
 
                 if (property.IsNavigable)
                     backingField.InitExpression = new CodeObjectCreateExpression(propertyType);
@@ -70,7 +70,7 @@ namespace SwqlStudio
             }
 
             var provider = CodeDomProvider.CreateProvider("CSharp");
-            var options = new CodeGeneratorOptions {BracingStyle = "C"};
+            var options = new CodeGeneratorOptions { BracingStyle = "C" };
             using (var writer = new StreamWriter(Path.Combine(path, entity.FullName + '.' + provider.FileExtension)))
             {
                 provider.GenerateCodeFromCompileUnit(targetUnit, writer, options);

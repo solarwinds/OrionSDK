@@ -7,7 +7,7 @@ using System.ServiceModel.Description;
 namespace SolarWinds.InformationService.Contract2.Bindings
 {
     //This is the binding element that, when plugged into a custom binding, will enable the GZip encoder
-    public sealed class GZipMessageEncodingBindingElement 
+    public sealed class GZipMessageEncodingBindingElement
                         : MessageEncodingBindingElement //BindingElement
                         , IPolicyExportExtension
     {
@@ -40,7 +40,7 @@ namespace SolarWinds.InformationService.Contract2.Bindings
         {
             return new GZipMessageEncoderFactory(innerBindingElement.CreateMessageEncoderFactory());
         }
-       
+
         public override MessageVersion MessageVersion
         {
             get { return innerBindingElement.MessageVersion; }
@@ -58,7 +58,7 @@ namespace SolarWinds.InformationService.Contract2.Bindings
             {
                 return innerBindingElement.GetProperty<T>(context);
             }
-            else 
+            else
             {
                 return base.GetProperty<T>(context);
             }

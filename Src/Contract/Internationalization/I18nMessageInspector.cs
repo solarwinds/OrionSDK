@@ -9,7 +9,7 @@ namespace SolarWinds.InformationService.Contract2.Internationalization
     {
         public object BeforeSendRequest(ref Message request, IClientChannel channel)
         {
-            var i18nHeader = new I18nHeader {Culture = Thread.CurrentThread.CurrentUICulture.Name};
+            var i18nHeader = new I18nHeader { Culture = Thread.CurrentThread.CurrentUICulture.Name };
             MessageHeader header = MessageHeader.CreateHeader(Constants.HeaderName, Constants.Namespace, i18nHeader);
             request.Headers.Add(header);
             return null;

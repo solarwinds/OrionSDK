@@ -23,7 +23,7 @@ namespace SwqlStudio.Playback
         {
             try
             {
-                
+
                 if (f != null)
                 {
                     var playbackItem = f as PlaybackItem;

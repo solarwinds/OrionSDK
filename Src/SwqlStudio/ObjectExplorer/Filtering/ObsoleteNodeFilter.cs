@@ -18,7 +18,7 @@ namespace SwqlStudio.Filtering
         }
 
         public VisibilityStatus GetVisibility(TreeNode node) => _visibility.ContainsKey(node) ? _visibility[node] : VisibilityStatus.None;
-        
+
         private void InitializeObsoleteVisibility(TreeNode node)
         {
             if (!_visibility.ContainsKey(node))

@@ -8,7 +8,7 @@ using SolarWinds.Logging;
 
 namespace SolarWinds.InformationService.Contract2
 {
-    public class InfoServiceProxy : IStreamInformationService,  IDisposable
+    public class InfoServiceProxy : IStreamInformationService, IDisposable
     {
         private readonly static Log _log = new Log();
         private static readonly TimeSpan longRunningQueryTime = TimeSpan.FromSeconds(15);

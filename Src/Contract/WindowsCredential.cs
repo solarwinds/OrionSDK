@@ -35,18 +35,18 @@ namespace SolarWinds.InformationService.Contract2
         {
             get { return _password; }
         }
-        
+
         public TokenImpersonationLevel ImpersonationLevel
         {
             get { return _tokenImpersonationLevel; }
             set { _tokenImpersonationLevel = value; }
         }
 
-        public WindowsCredential():this(String.Empty, String.Empty, String.Empty)
+        public WindowsCredential() : this(String.Empty, String.Empty, String.Empty)
         {
 
         }
-        
+
         public WindowsCredential(string username, string password)
         {
             SetUsername(username);
@@ -76,11 +76,11 @@ namespace SolarWinds.InformationService.Contract2
         private void SetUsername(string username)
         {
             int index = username.IndexOf('\\');
-            if(index < 0 || index == (username.Length - 1))
+            if (index < 0 || index == (username.Length - 1))
             {
                 _username = username;
             }
-            else if(index > 0)
+            else if (index > 0)
             {
                 _domain = username.Substring(0, index);
                 _username = username.Substring(index + 1);
@@ -95,14 +95,14 @@ namespace SolarWinds.InformationService.Contract2
         private static SecureString SecurePassword(String password)
         {
             SecureString pass = new SecureString();
-            foreach(char c in password)
+            foreach (char c in password)
             {
                 pass.AppendChar(c);
             }
 
             return pass;
         }
-        
+
         public override void ApplyTo(ChannelFactory channelFactory)
         {
             if (!String.IsNullOrEmpty(Domain))
@@ -159,7 +159,7 @@ namespace SolarWinds.InformationService.Contract2
 
         protected override void Dispose(bool disposing)
         {
-            if(_password != null)
+            if (_password != null)
             {
                 _password.Dispose();
                 _password = null;

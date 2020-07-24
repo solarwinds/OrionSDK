@@ -9,7 +9,7 @@ using SolarWinds.InformationService.Contract2.PubSub;
 
 namespace SolarWinds.InformationService.Contract2
 {
-    public class IndicationReporterProxy: IIndicationReporter, IDisposable
+    public class IndicationReporterProxy : IIndicationReporter, IDisposable
     {
         private readonly static Log log = new Log();
 
@@ -69,14 +69,14 @@ namespace SolarWinds.InformationService.Contract2
 
             var binding = new NetMsmqBinding(NetMsmqSecurityMode.Message);
             binding.Security.Mode = NetMsmqSecurityMode.Message;
-            binding.Security.Message.ClientCredentialType = MessageCredentialType.Certificate;                                                                    
+            binding.Security.Message.ClientCredentialType = MessageCredentialType.Certificate;
 
-            var end = new EndpointAddress(address, EndpointIdentity.CreateX509CertificateIdentity(cert));            
+            var end = new EndpointAddress(address, EndpointIdentity.CreateX509CertificateIdentity(cert));
             channelFactory = new ChannelFactory<IIndicationReporter>(binding, end);
             channelFactory.Credentials.ServiceCertificate.Authentication.CertificateValidationMode = X509CertificateValidationMode.None;
             channelFactory.Credentials.ClientCertificate.Certificate = cert;
 
-            log.DebugFormat("ChannelFactory created - {0}", address.ToString());        
+            log.DebugFormat("ChannelFactory created - {0}", address.ToString());
         }
 
         public IndicationReporterProxy(Uri address)

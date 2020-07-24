@@ -17,7 +17,7 @@ namespace SolarWinds.InformationService.Contract2
             {
                 get { return CredentialType.None; }
             }
-            
+
             public override void ApplyTo(ChannelFactory channelFactory)
             {
             }
@@ -31,9 +31,9 @@ namespace SolarWinds.InformationService.Contract2
         }
 
         public abstract CredentialType CredentialType { get; }
-        
+
         public abstract void ApplyTo(ChannelFactory channelFactory);
-        
+
         #region IDisposable Members
 
         public void Dispose()
@@ -51,7 +51,7 @@ namespace SolarWinds.InformationService.Contract2
         {
 
         }
-        
+
         #endregion
     }
 }

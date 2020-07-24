@@ -42,7 +42,7 @@ namespace SwqlStudio
             InitializeComponent();
 
             InitializeDockPanel();
-            SetEntityGroupingMode((EntityGroupingMode) Enum.Parse(typeof(EntityGroupingMode),
+            SetEntityGroupingMode((EntityGroupingMode)Enum.Parse(typeof(EntityGroupingMode),
                 Settings.Default.EntityGroupingMode));
 
             startTimer.Enabled = true;

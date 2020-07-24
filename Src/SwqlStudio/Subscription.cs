@@ -17,10 +17,10 @@ namespace SwqlStudio
 
             PropertyBag propertyBag = new PropertyBag
                 {
-                    {"Query", query}, 
-                    {"EndpointAddress", endpointAddress}, 
-                    {"Description", "SWQL Studio"}, 
-                    {"DataFormat", dataFormat}, 
+                    {"Query", query},
+                    {"EndpointAddress", endpointAddress},
+                    {"Description", "SWQL Studio"},
+                    {"DataFormat", dataFormat},
                     {"CredentialType", credentialType.ToString()}
                 };
 

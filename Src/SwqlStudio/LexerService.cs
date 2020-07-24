@@ -100,7 +100,7 @@ namespace SwqlStudio
                     SwisEntity swisEntity;
                     if (!_swisEntities.TryGetValue(entity.FullName, out swisEntity))
                         _swisEntities[entity.FullName] = swisEntity = new SwisEntity();
-                    
+
                     foreach (var column in entity.Properties)
                     {
                         swisEntity.ColumnNames.Add(column.Name);
@@ -125,7 +125,7 @@ namespace SwqlStudio
 
         private void OnProviderEntitiesRefreshed(object sender, EventArgs args)
         {
-            RefreshMetadata((IMetadataProvider) sender);
+            RefreshMetadata((IMetadataProvider)sender);
         }
 
         private Action Unsubscribe;

@@ -68,7 +68,7 @@ namespace SwqlStudio.Autocomplete
                 }
                 yield return Tuple.Create(position, 1, Token.Special);
                 position++;
-                end:
+            end:
                 ;
             }
 

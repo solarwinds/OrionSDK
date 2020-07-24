@@ -794,21 +794,21 @@ namespace SolarWinds.InformationService.InformationServiceClient
                                 break;
 
                             case ParserState.Root:
-                            {
-                                if (reader.LocalName == "errors")
                                 {
-                                    this.state = ParserState.Error;
-                                }
-                                else if (reader.LocalName == "statistics")
-                                {
-                                    this.QueryStats = new XmlDocument();
-                                    QueryStats.Load(reader.ReadSubtree());
-                                }
-                                else
-                                    throw new InvalidOperationException("Unexpected state " + this.state);
+                                    if (reader.LocalName == "errors")
+                                    {
+                                        this.state = ParserState.Error;
+                                    }
+                                    else if (reader.LocalName == "statistics")
+                                    {
+                                        this.QueryStats = new XmlDocument();
+                                        QueryStats.Load(reader.ReadSubtree());
+                                    }
+                                    else
+                                        throw new InvalidOperationException("Unexpected state " + this.state);
 
-                                break;
-                            }
+                                    break;
+                                }
 
                             default:
                                 throw new InvalidOperationException("Unexpected state " + this.state);

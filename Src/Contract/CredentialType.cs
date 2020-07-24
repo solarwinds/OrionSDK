@@ -3,7 +3,7 @@ using System.Runtime.Serialization;
 
 namespace SolarWinds.InformationService.Contract2
 {
-    [DataContract(Name="CredentialType", Namespace = "http://schema.solarwinds.com/2007/08/IS")]
+    [DataContract(Name = "CredentialType", Namespace = "http://schema.solarwinds.com/2007/08/IS")]
     public enum CredentialType
     {
         [EnumMember(Value = "None")]

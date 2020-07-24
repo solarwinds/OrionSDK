@@ -46,7 +46,7 @@ namespace SwqlStudio.Subscriptions
 
         public string GetAddressForBinding(Binding binding)
         {
-            if(binding.Scheme.Equals("net.tcp", StringComparison.OrdinalIgnoreCase))
+            if (binding.Scheme.Equals("net.tcp", StringComparison.OrdinalIgnoreCase))
                 return netTcpAddress + "/Subscriber";
 
             if (binding.Scheme.Equals("http", StringComparison.OrdinalIgnoreCase))

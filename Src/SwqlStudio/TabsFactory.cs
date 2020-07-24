@@ -111,7 +111,7 @@ namespace SwqlStudio
 
             this.dockPanel.ColoseInitialDocument();
             connectionInfo.Connect();
-            
+
             // Open file(s)
             foreach (string fn in files)
             {

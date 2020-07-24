@@ -6,7 +6,7 @@ namespace SolarWinds.InformationService.Contract2
     {
         private static readonly TimeSpan DefaultProviderTimeout = TimeSpan.FromSeconds(30);
 
-        [ThreadStatic] 
+        [ThreadStatic]
         public static SwisSettingsContext Current;
 
         public TimeSpan DataProviderTimeout { get; set; }

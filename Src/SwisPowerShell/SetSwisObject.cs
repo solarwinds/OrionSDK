@@ -13,7 +13,7 @@ namespace SwisPowerShell
         [Parameter(Mandatory = true, Position = 2)]
         public Hashtable Properties { get; set; }
 
-        private readonly List<string> uris = new List<string>(); 
+        private readonly List<string> uris = new List<string>();
 
         protected override void InternalProcessRecord()
         {

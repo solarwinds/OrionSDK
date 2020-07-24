@@ -20,7 +20,7 @@ namespace SwqlStudio
             StyleResetDefault();
             Styles[Style.Default].Font = "Consolas";
             Styles[Style.Default].Size = 10;
-            
+
             StyleClearAll(); // Propagates the settings from Style.Default to all language-specific lexer styles
 
             // TODO: wait for newest nuget package, it will ocntains this method!!!
@@ -81,7 +81,7 @@ namespace SwqlStudio
 
             // Keyword user-list 1 style index. (scalar functions)
             Styles[Style.Sql.User1].ForeColor = Color.Fuchsia;
-            
+
             // Keyword user-list 2 style index. (aggregate functions)
             Styles[Style.Sql.User2].ForeColor = Color.Salmon;
 
@@ -104,31 +104,31 @@ namespace SwqlStudio
         {
             this.editorContextMenu = new ContextMenuStrip();
             this.editorContextMenu.SuspendLayout();
-            
+
             ToolStripMenuItem undoMenuItem = new ToolStripMenuItem();
             undoMenuItem.Text = "Undo";
             undoMenuItem.Image = Resources.Undo_16x;
             undoMenuItem.ShortcutKeys = Keys.Control | Keys.Z;
             undoMenuItem.Click += new EventHandler(this.UndoMenuClick);
-            
+
             ToolStripMenuItem redoMenuItem = new ToolStripMenuItem();
             redoMenuItem.Text = "Redo";
             redoMenuItem.Image = Resources.Redo_16x;
             redoMenuItem.ShortcutKeys = Keys.Control | Keys.Y;
             redoMenuItem.Click += new EventHandler(this.RedodoMenuClick);
-            
+
             ToolStripMenuItem cutMenuItem = new ToolStripMenuItem();
             cutMenuItem.Text = "Cut";
             cutMenuItem.Image = Resources.Cut_16x;
             cutMenuItem.ShortcutKeys = Keys.Control | Keys.X;
             cutMenuItem.Click += new EventHandler(this.CutMenuClick);
-            
+
             ToolStripMenuItem copyMenuItem = new ToolStripMenuItem();
             copyMenuItem.Text = "Copy";
             copyMenuItem.Image = Resources.ASX_Copy_blue_16x;
             copyMenuItem.ShortcutKeys = Keys.Control | Keys.C;
             copyMenuItem.Click += new EventHandler(this.CopyMenuClick);
-            
+
             ToolStripMenuItem pasteMenuItem = new ToolStripMenuItem();
             pasteMenuItem.Text = "Paste";
             pasteMenuItem.Image = Resources.ASX_Paste_blue_16x;
@@ -220,7 +220,7 @@ namespace SwqlStudio
                 return;
 
             var currentWord = this.GetWordFromPosition(wordStartPos) ?? "";
-            
+
 
             // Display the autocompletion list
             var keywords = string.Join(" ", LexerService.GetAutoCompletionKeywords(currentPos).

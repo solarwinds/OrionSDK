@@ -56,7 +56,7 @@ namespace SwqlStudio.Utils
         private static string GetParamsObjectInPowershellFormat(PropertyBag parameters)
         {
             var parametersSerialized = string.Join(
-                ";", 
+                ";",
                 parameters.Select(x => string.Format("{0}={1}", x.Key, QuoteForPowerShell(x.Value.ToString()))));
 
             return string.Format("@{{{0}}}", parametersSerialized.ToString());

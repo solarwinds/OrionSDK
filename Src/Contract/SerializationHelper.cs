@@ -34,16 +34,16 @@ namespace SolarWinds.InformationService.Contract2
             using (MemoryStream stream = new MemoryStream(data))
             {
                 DataContractSerializer serializer = new DataContractSerializer(typeof(T));
-                result = (T) serializer.ReadObject(stream);
+                result = (T)serializer.ReadObject(stream);
             }
 
             return result;
         }
-        
+
         public static string GetString(byte[] data)
         {
             using (MemoryStream stream = new MemoryStream(data))
-            using(StreamReader reader = new StreamReader(stream))
+            using (StreamReader reader = new StreamReader(stream))
             {
                 return reader.ReadToEnd();
             }
@@ -121,7 +121,7 @@ namespace SolarWinds.InformationService.Contract2
 
             return deserializedValue;
         }
-        
+
         public static string SerializeValue(object value, Type type)
         {
             return Convert.ToString(value, CultureInfo.InvariantCulture);
@@ -156,7 +156,7 @@ namespace SolarWinds.InformationService.Contract2
 
         public static string SerializeDateTime(object value, Type type)
         {
-            return XmlConvert.ToString((DateTime)value, XmlDateTimeSerializationMode.Utc); 
+            return XmlConvert.ToString((DateTime)value, XmlDateTimeSerializationMode.Utc);
         }
 
         public static object DeserializeDateTime(string value, Type type)

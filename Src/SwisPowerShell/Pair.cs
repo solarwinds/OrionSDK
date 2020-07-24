@@ -55,7 +55,7 @@ namespace SwisPowerShell
         /// First element gets the Key, and the Second elements gets the Value.
         /// </summary>
         /// <param name="keyAndValue">The KeyValuePair to initialize the Pair with .</param>
-        public Pair(KeyValuePair<TFirst,TSecond> keyAndValue)
+        public Pair(KeyValuePair<TFirst, TSecond> keyAndValue)
         {
             this.First = keyAndValue.Key;
             this.Second = keyAndValue.Value;
@@ -70,12 +70,14 @@ namespace SwisPowerShell
         /// <returns>True if the objects are equal. False if the objects are not equal.</returns>
         public override bool Equals(object obj)
         {
-            if (obj != null && obj is Pair<TFirst, TSecond>) {
+            if (obj != null && obj is Pair<TFirst, TSecond>)
+            {
                 Pair<TFirst, TSecond> other = (Pair<TFirst, TSecond>)obj;
 
                 return Equals(other);
             }
-            else {
+            else
+            {
                 return false;
             }
         }
@@ -122,21 +124,25 @@ namespace SwisPowerShell
         /// via the IComparable&lt;T&gt; or IComparable interfaces.</exception>
         public int CompareTo(Pair<TFirst, TSecond> other)
         {
-            try {
+            try
+            {
                 int firstCompare = firstComparer.Compare(First, other.First);
                 if (firstCompare != 0)
                     return firstCompare;
                 else
                     return secondComparer.Compare(Second, other.Second);
             }
-            catch (ArgumentException) {
+            catch (ArgumentException)
+            {
                 // Determine which type caused the problem for a better error message.
                 if (!typeof(IComparable<TFirst>).IsAssignableFrom(typeof(TFirst)) &&
-                    !typeof(System.IComparable).IsAssignableFrom(typeof(TFirst))) {
+                    !typeof(System.IComparable).IsAssignableFrom(typeof(TFirst)))
+                {
                     throw new NotSupportedException(string.Format("Type \"{0}\" does not implement IComparable<{0}> or IComparable.", typeof(TFirst).FullName));
                 }
                 else if (!typeof(IComparable<TSecond>).IsAssignableFrom(typeof(TSecond)) &&
-                    !typeof(System.IComparable).IsAssignableFrom(typeof(TSecond))) {
+                    !typeof(System.IComparable).IsAssignableFrom(typeof(TSecond)))
+                {
                     throw new NotSupportedException(string.Format("Type \"{0}\" does not implement IComparable<{0}> or IComparable.", typeof(TSecond).FullName));
                 }
                 else
@@ -212,7 +218,7 @@ namespace SwisPowerShell
         /// </summary>
         /// <param name="pair">Pair to convert.</param>
         /// <returns>The KeyValuePair created from <paramref name="pair"/>.</returns>
-        public static explicit operator KeyValuePair<TFirst,TSecond>(Pair<TFirst, TSecond> pair)
+        public static explicit operator KeyValuePair<TFirst, TSecond>(Pair<TFirst, TSecond> pair)
         {
             return new KeyValuePair<TFirst, TSecond>(pair.First, pair.Second);
         }

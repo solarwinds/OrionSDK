@@ -13,7 +13,7 @@ namespace SwqlStudio
             cmbServer.SelectedIndex = 0;
 
             cmbServerType.DisplayMember = "Type";
-            cmbServerType.Items.AddRange(ConnectionInfo.AvailableServerTypes.ToArray());            
+            cmbServerType.Items.AddRange(ConnectionInfo.AvailableServerTypes.ToArray());
             cmbServerType.SelectedIndex = Math.Max(0, ConnectionInfo.AvailableServerTypes.FindIndex(s => s.Type.Equals(ConnectionHistory.PreviousServerType, StringComparison.OrdinalIgnoreCase)));
             cmbUserName.Items.AddRange(ConnectionHistory.PreviousUserNames);
             cmbUserName.SelectedIndex = 0;

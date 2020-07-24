@@ -39,7 +39,7 @@ namespace SolarWinds.InformationService.Contract2.OldContract
             : base(info, context)
         {
         }
-        
+
         public override string ToString()
         {
             StringBuilder buffer = new StringBuilder();

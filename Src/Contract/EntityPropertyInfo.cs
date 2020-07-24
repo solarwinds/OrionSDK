@@ -35,7 +35,7 @@ namespace SolarWinds.InformationService.Contract2
             foreach (var pair in typeMap)
             {
                 toAdd.Add(pair.Key + "[]", new TypeInfo()
-                { 
+                {
                     Type = pair.Value.Type.MakeArrayType(),
                     PropertyType = pair.Value.PropertyType,
                     IsArray = true

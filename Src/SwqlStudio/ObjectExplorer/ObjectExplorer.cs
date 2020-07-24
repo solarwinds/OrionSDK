@@ -33,7 +33,7 @@ namespace SwqlStudio.ObjectExplorer
         private readonly ContextMenu _verbContextMenu;
         private bool _isDragging;
         private string _filter;
-        private bool _treeIsUnderUpdate; 
+        private bool _treeIsUnderUpdate;
         private Point _lastLocation;
         private ImageList objectExplorerImageList;
         private System.ComponentModel.IContainer components;
@@ -60,7 +60,7 @@ namespace SwqlStudio.ObjectExplorer
 
             InitializeTreeview();
 
-            _treeSearch.TextChangedWithDebounce += (sender, e) => { SetFilter(((TextBox) sender).Text); };
+            _treeSearch.TextChangedWithDebounce += (sender, e) => { SetFilter(((TextBox)sender).Text); };
             _treeSearch.CueText = "Search (Ctrl + \\)";
             _treeSearch.DebounceLimit = TimeSpan.FromMilliseconds(400);
 
@@ -230,10 +230,11 @@ namespace SwqlStudio.ObjectExplorer
                     }
                     else
                         if (_contextMenuNode.Tag is IMetadataProvider)
-                            OpenActivityMonitor(_contextMenuNode);
-                } else
+                        OpenActivityMonitor(_contextMenuNode);
+                }
+                else
                     if (_contextMenuNode.Tag is Verb)
-                        OpenInvokeTab();
+                    OpenInvokeTab();
             }
         }
 
@@ -423,8 +424,8 @@ namespace SwqlStudio.ObjectExplorer
             var tableContextMenuWithCrud = new ContextMenu();
 
             var commonTableContextMenus = new[] { tableContextMenuWithCrud, tableContextMenuWithoutCrud };
-            foreach(var tableContextMenu in commonTableContextMenus)
-            { 
+            foreach (var tableContextMenu in commonTableContextMenus)
+            {
                 tableContextMenu.MenuItems.Add("Generate Select Statement", (s, e) => GenerateSelectStatement(_contextMenuNode.Tag as Entity, false));
                 tableContextMenu.MenuItems.Add("Generate Select Statement (with Inherited Properties)", (s, e) => GenerateSelectStatement(_contextMenuNode.Tag as Entity, true));
 

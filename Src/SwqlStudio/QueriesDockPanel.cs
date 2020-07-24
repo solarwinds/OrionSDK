@@ -49,7 +49,7 @@ namespace SwqlStudio
         {
             get { return GetAllControlsOnTabs<QueryTab>(); }
         }
-        
+
         public QueriesDockPanel()
         {
             InitializeComponent();
@@ -149,7 +149,7 @@ namespace SwqlStudio
         private void FilesDock_ActiveContentChanged(object sender, EventArgs e)
         {
             var newContent = this.ActiveContent as DockContent;
-            if (newContent != null &&  
+            if (newContent != null &&
                 newContent != this.objectExplorerContent &&
                 newContent != this.queryParametersContent &&
                 newContent != this.documentationContent &&
@@ -225,7 +225,7 @@ namespace SwqlStudio
             this.tabsFactory = tabsFactory;
             this.objectExplorer.TabsFactory = tabsFactory;
         }
-                
+
         internal void AllowSetParameters(bool allow)
         {
             this.queryParametersContent.AllowSetParameters = allow;
@@ -253,7 +253,7 @@ namespace SwqlStudio
                     return false;
             }
         }
-        
+
         private DockState ActivateHidenProperties()
         {
             switch (this.queryParametersContent.DockState)
@@ -267,7 +267,7 @@ namespace SwqlStudio
                 case DockState.DockRightAutoHide:
                     return DockState.DockRight;
                 default:
-                    return  DockState.DockRight;
+                    return DockState.DockRight;
             }
         }
 
@@ -296,7 +296,7 @@ namespace SwqlStudio
 
         private void CloseAllFixedConnectionTabs(ConnectionInfo connection)
         {
-            var toClose =this.Contents.OfType<DockContent>()
+            var toClose = this.Contents.OfType<DockContent>()
                 .Where(t => IsFixedConnectionTab(t, connection))
                 .ToList();
 
@@ -308,11 +308,11 @@ namespace SwqlStudio
 
         private bool IsFixedConnectionTab(DockContent tab, ConnectionInfo connection)
         {
-            if(tab.Controls.Count < 1)
+            if (tab.Controls.Count < 1)
                 return false;
 
             var connectionTab = tab.Controls[0] as IConnectionTab;
-            return connectionTab != null && 
+            return connectionTab != null &&
                    connectionTab.ConnectionInfo == connection &&
                    !connectionTab.AllowsChangeConnection;
         }
@@ -320,8 +320,8 @@ namespace SwqlStudio
         private IEnumerable<TControl> GetAllControlsOnTabs<TControl>()
         {
             return from t in this.Contents.OfType<DockContent>()
-                from c in t.Controls.OfType<TControl>()
-                select c;
+                   from c in t.Controls.OfType<TControl>()
+                   select c;
         }
     }
 }

@@ -714,7 +714,7 @@ namespace ScintillaNET_FindReplaceDialog
                     int SCI_TEXTHEIGHT = 2279;
                     int lineHeight = Scintilla.DirectMessage(SCI_TEXTHEIGHT, IntPtr.Zero, IntPtr.Zero).ToInt32();
                     // int lineHeight = Scintilla.Lines[Scintilla.LineFromPosition(pos)].Height;
-                    
+
                     // Top half of the screen
                     newLocation = Scintilla.PointToClient(
                         new Point(Location.X, cursorPoint.Y + lineHeight * 2));
@@ -725,7 +725,7 @@ namespace ScintillaNET_FindReplaceDialog
                     int SCI_TEXTHEIGHT = 2279;
                     int lineHeight = Scintilla.DirectMessage(SCI_TEXTHEIGHT, IntPtr.Zero, IntPtr.Zero).ToInt32();
                     // int lineHeight = Scintilla.Lines[Scintilla.LineFromPosition(pos)].Height;
-                    
+
                     // Bottom half of the screen
                     newLocation = Scintilla.PointToClient(
                         new Point(Location.X, cursorPoint.Y - Height - (lineHeight * 2)));

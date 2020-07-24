@@ -30,7 +30,7 @@ namespace SwqlStudio
                 return;
 
             Stack<KeyValuePair<EntityMetadata, TreeNode>> baseClasses = new Stack<KeyValuePair<EntityMetadata, TreeNode>>();
-            
+
             //Add the root node.
             TreeNode node = entityClassGraphTreeView.Nodes.Add(entityClassGraph.Root.FullName, entityClassGraph.Root.FullName, 3);
             baseClasses.Push(new KeyValuePair<EntityMetadata, TreeNode>(entityClassGraph.Root, node));

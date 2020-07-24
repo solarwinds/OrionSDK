@@ -11,7 +11,7 @@ namespace SwqlStudio
         {
             using (log.Block())
             {
-                
+
             }
         }
 

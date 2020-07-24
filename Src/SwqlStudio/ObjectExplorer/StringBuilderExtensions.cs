@@ -16,13 +16,13 @@ namespace SwqlStudio
             builder.AppendFormat("Type: {0}\r\n", metadataType);
         }
 
-        public static void AppendSummaryParagraph(this StringBuilder builder,string summary)
+        public static void AppendSummaryParagraph(this StringBuilder builder, string summary)
         {
             builder.Append("\r\n\r\n");
             builder.AppendSummary(summary);
         }
 
-        public static void AppendSummary(this StringBuilder builder,string summary)
+        public static void AppendSummary(this StringBuilder builder, string summary)
         {
             if (String.IsNullOrEmpty(summary))
                 return;

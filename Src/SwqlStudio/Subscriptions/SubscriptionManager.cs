@@ -16,7 +16,7 @@ namespace SwqlStudio.Subscriptions
     {
         private readonly static Log log = new Log();
         private readonly ConcurrentDictionary<ConnectionInfo, SubscriptionInfo> proxies = new ConcurrentDictionary<ConnectionInfo, SubscriptionInfo>();
-        
+
         private readonly SubscriptionServiceHost _subscriptionListener;
         private readonly string _activeSubscriberAddress;
 
@@ -66,7 +66,7 @@ namespace SwqlStudio.Subscriptions
 
         private void ServerConnectionClosing(object sender, EventArgs e)
         {
-            ConnectionInfo connectionInfo = (ConnectionInfo) sender;
+            ConnectionInfo connectionInfo = (ConnectionInfo)sender;
             SubscriptionInfo subscriptionInfo;
             proxies.TryRemove(connectionInfo, out subscriptionInfo);
         }
@@ -84,9 +84,12 @@ namespace SwqlStudio.Subscriptions
                 callback(new IndicationEventArgs
                 {
                     SubscriptionID = subscriptionId
-                    ,IndicationType = indicationType
-                    ,IndicationProperties = indicationProperties
-                    ,SourceInstanceProperties = sourceInstanceProperties
+                    ,
+                    IndicationType = indicationType
+                    ,
+                    IndicationProperties = indicationProperties
+                    ,
+                    SourceInstanceProperties = sourceInstanceProperties
                 });
             }
         }
@@ -125,13 +128,13 @@ namespace SwqlStudio.Subscriptions
                 proxy.Open();
                 proxy.InnerChannel.Faulted += (x, y) => ChannelFaulted(connectionInfo);
                 proxy.InnerChannel.Closed += (x, y) => ChannelClosed(connectionInfo);
-                
+
                 proxy.ReceiveIndications(_activeSubscriberAddress);
                 return proxy;
             }
             else
             {
-                if(!_subscriptionListener.IsListening())
+                if (!_subscriptionListener.IsListening())
                     _subscriptionListener.OpenSubscriber();
             }
 
@@ -140,12 +143,12 @@ namespace SwqlStudio.Subscriptions
 
         private void ChannelClosed(ConnectionInfo connectionInfo)
         {
-            
+
         }
 
         private void ChannelFaulted(ConnectionInfo connectionInfo)
         {
-            
+
         }
 
         public bool IsListening()

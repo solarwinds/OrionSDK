@@ -17,7 +17,7 @@ namespace SwisPowerShell
             CheckConnection();
             string uri = null;
             DoWithExceptionReporting(() => uri = SwisConnection.Create(EntityType, PropertyBagFromHashtable(Properties)));
-            if (uri != null) 
+            if (uri != null)
                 WriteObject(uri);
         }
     }

@@ -25,7 +25,7 @@ namespace SolarWinds.InformationService.InformationServiceClient
         {
             get
             {
-                foreach(EntityMetadata child in DerivedClasses)
+                foreach (EntityMetadata child in DerivedClasses)
                 {
                     yield return child;
                     foreach (EntityMetadata descendant in child.Descendants)

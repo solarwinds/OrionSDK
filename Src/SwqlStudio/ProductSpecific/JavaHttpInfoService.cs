@@ -25,7 +25,7 @@ namespace SwqlStudio
         {
             get { return "Java over HTTP"; }
         }
-        
+
         public override Uri Uri(string serverAddress)
         {
             Uri resultUri;

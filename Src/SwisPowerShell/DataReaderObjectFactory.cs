@@ -23,7 +23,7 @@ namespace SwisPowerShell
 
         public Type ReturnType { get; set; }
 
-        public bool IgnoreCase { get; set;  }
+        public bool IgnoreCase { get; set; }
 
         public IEnumerator GetEnumerator()
         {

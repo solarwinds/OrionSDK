@@ -55,9 +55,9 @@ namespace SwqlStudio.Playback
 
         public static ProfileItems Deserialize(string xml)
         {
-            var serializer = new XmlSerializer(typeof (ProfileItems));
+            var serializer = new XmlSerializer(typeof(ProfileItems));
             var reader = new StringReader(xml);
-            return (ProfileItems) serializer.Deserialize(reader);
+            return (ProfileItems)serializer.Deserialize(reader);
         }
 
         private static XmlSerializer _serializer = new XmlSerializer(typeof(ProfileItems));

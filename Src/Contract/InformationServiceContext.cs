@@ -99,7 +99,7 @@ namespace SolarWinds.InformationService.Contract2
 
             return new InformationServiceQuery<T>(this, queryString, parameters);
         }
-        
+
         public InfoServiceProxy Proxy
         {
             get

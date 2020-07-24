@@ -190,7 +190,7 @@ namespace SolarWinds.InformationService.InformationServiceClient
                 return; // Must be in-process. Nothing to do for Open().
 
             if (this.proxy == null && !this.open)
-                    CreateProxy();
+                CreateProxy();
 
             if ((this.proxy.Channel != null) && (this.proxy.Channel.State != System.ServiceModel.CommunicationState.Created))
                 throw new InvalidOperationException("Cannot open an opened or previously closed connection");
@@ -226,7 +226,7 @@ namespace SolarWinds.InformationService.InformationServiceClient
         {
             if ((this.proxy != null) && (this.bProxyOwner != true))
                 throw new InvalidOperationException("The Proxy Connection is not owned by InformationServiceConnection object");
-            
+
             if ((this.proxy != null) && (this.proxy.Channel.State != CommunicationState.Created))
                 throw new InvalidOperationException("Cannot change the endpoint for an existing connection");
 

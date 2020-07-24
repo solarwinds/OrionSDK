@@ -69,8 +69,8 @@ namespace SwqlStudio.Filtering
                 return true;
 
             else // behave in 'special' way for dots, and capitals, the same way as resharper does
-                // let's Met.Ent match also METadata...ENTity
-                // also Met.EntNa should match Metadata.EntityName
+                 // let's Met.Ent match also METadata...ENTity
+                 // also Met.EntNa should match Metadata.EntityName
             {
                 var filter = SplitTextByCapsAndDot(_filter);
                 var text = SplitTextByCapsAndDot(nodeText);

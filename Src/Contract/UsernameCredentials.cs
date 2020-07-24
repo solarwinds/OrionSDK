@@ -25,12 +25,12 @@ namespace SolarWinds.InformationService.Contract2
         {
             get { return CredentialType.Username; }
         }
-        
+
         public override void ApplyTo(ChannelFactory channelFactory)
         {
-            
+
             channelFactory.Endpoint.Address = new EndpointAddress(channelFactory.Endpoint.Address.Uri);
-            
+
             channelFactory.Credentials.UserName.UserName = _username;
             channelFactory.Credentials.UserName.Password = _password;
             channelFactory.Credentials.ServiceCertificate.Authentication.CertificateValidationMode = X509CertificateValidationMode.Custom;

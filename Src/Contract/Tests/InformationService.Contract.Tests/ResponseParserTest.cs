@@ -10,7 +10,7 @@ namespace SolarWinds.InformationService.Contract2
     public class ResponseParserTest
     {
         [Test]
-        [ExpectedException(typeof(ArgumentNullException), ExpectedMessage="reader", MatchType=MessageMatch.Contains)]
+        [ExpectedException(typeof(ArgumentNullException), ExpectedMessage = "reader", MatchType = MessageMatch.Contains)]
         public void ReadNextEntityNullReader()
         {
             ResponseParser<object> parser = new ResponseParser<object>();
@@ -21,7 +21,7 @@ namespace SolarWinds.InformationService.Contract2
         public void ReadNextEntityBlob()
         {
             MemoryStream input = new MemoryStream(UTF8Encoding.UTF8.GetBytes(Properties.Resources.ResponseWithBlob));
-            
+
             XmlDictionaryReader reader = XmlDictionaryReader.CreateTextReader(input, XmlDictionaryReaderQuotas.Max);
 
             ResponseParser<MapStudioFiles> parser = new ResponseParser<MapStudioFiles>();
@@ -44,7 +44,7 @@ namespace SolarWinds.InformationService.Contract2
         }
 
         [Test]
-        [ExpectedException(typeof(InvalidOperationException), ExpectedMessage="Don't know how to handle element MapStudioFiles")]
+        [ExpectedException(typeof(InvalidOperationException), ExpectedMessage = "Don't know how to handle element MapStudioFiles")]
         public void ReaderNextEntityWithRootEntityWrongName()
         {
             MemoryStream input = new MemoryStream(UTF8Encoding.UTF8.GetBytes(Properties.Resources.ResponseWithBlob));
@@ -71,7 +71,7 @@ namespace SolarWinds.InformationService.Contract2
             public string[] SomeStringArray { get; set; }
         }
 
-        [InformationServiceEntity(EntityType="Orion.MapStudioFiles")]
+        [InformationServiceEntity(EntityType = "Orion.MapStudioFiles")]
         class M : MapStudioFiles
         {
         }

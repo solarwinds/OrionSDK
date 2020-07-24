@@ -19,7 +19,7 @@ namespace SwqlStudio
             SizingGrip = false;
             Stretch = true;
             DockPadding.All = 0;
-            
+
             _connectionLabel = new ToolStripStatusLabel();
             _connectionLabel.Spring = true;
 
@@ -43,7 +43,7 @@ namespace SwqlStudio
         {
             get
             {
-                return new[] {_connectionLabel, _serverLabel, _userLabel, _userLabel, _queryTimeLabel, _rowCountLabel};
+                return new[] { _connectionLabel, _serverLabel, _userLabel, _userLabel, _queryTimeLabel, _rowCountLabel };
             }
         }
 

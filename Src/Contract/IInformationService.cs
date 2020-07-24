@@ -15,11 +15,11 @@ namespace SolarWinds.InformationService.Contract2
     {
         [OperationContract(
             Name = "Invoke",
-            Action = "http://schemas.solarwinds.com/2007/08/informationservice/InformationService/Invoke", 
+            Action = "http://schemas.solarwinds.com/2007/08/informationservice/InformationService/Invoke",
             ReplyAction = "http://schemas.solarwinds.com/2007/08/informationservice/InformationService/InvokeResponse")]
         [FaultContract(
-            typeof(InfoServiceFaultContract), 
-            Action = "http://schemas.solarwinds.com/2007/08/informationservice/InformationService/InvokeInfoServiceFaultContractFault", 
+            typeof(InfoServiceFaultContract),
+            Action = "http://schemas.solarwinds.com/2007/08/informationservice/InformationService/InvokeInfoServiceFaultContractFault",
             Name = "InformationServiceFaultContract")]
         XmlElement Invoke(string entity, string verb, params XmlElement[] parameters);
 

@@ -131,7 +131,7 @@ namespace SolarWinds.InformationService.Contract2
 
         public void WriteXml(XmlWriter writer)
         {
-            foreach (KeyValuePair<string, object> kvp in this)            
+            foreach (KeyValuePair<string, object> kvp in this)
             {
                 writer.WriteStartElement("item", Constants.PropertyBagNamespace);
 

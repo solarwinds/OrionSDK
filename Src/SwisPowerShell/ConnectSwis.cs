@@ -94,12 +94,12 @@ namespace SwisPowerShell
 
             if (Soap12 != null)
             {
-                infoServiceProxy = ConnectSoap12(Soap12, UserName, Password);                
+                infoServiceProxy = ConnectSoap12(Soap12, UserName, Password);
 
                 if (IgnoreSslErrors)
                 {
                     ServicePointManager.ServerCertificateValidationCallback += AllTrustingServerCertificateValidationCallback;
-                } 
+                }
                 else if (!string.IsNullOrEmpty(TrustX509Thumbprint))
                 {
                     String[] arr = TrustX509Thumbprint.Split('-', ':', ' ');
@@ -107,7 +107,7 @@ namespace SwisPowerShell
                     for (int i = 0; i < arr.Length; i++)
                         trustedThumbprint[i] = Convert.ToByte(arr[i], 16);
 
-                    ServicePointManager.ServerCertificateValidationCallback += delegate(object sender, X509Certificate certificate, X509Chain chain,
+                    ServicePointManager.ServerCertificateValidationCallback += delegate (object sender, X509Certificate certificate, X509Chain chain,
                                                                                        SslPolicyErrors errors)
                         {
                             if (errors == SslPolicyErrors.None)
@@ -160,7 +160,7 @@ namespace SwisPowerShell
 
             if (Trusted.IsPresent)
             {
-                var binding = new NetTcpBinding {MaxReceivedMessageSize = int.MaxValue, MaxBufferSize = int.MaxValue};
+                var binding = new NetTcpBinding { MaxReceivedMessageSize = int.MaxValue, MaxBufferSize = int.MaxValue };
                 binding.Security.Mode = SecurityMode.Transport;
                 binding.Security.Transport.ClientCredentialType = TcpClientCredentialType.Windows;
 
@@ -170,7 +170,7 @@ namespace SwisPowerShell
             }
             else if (Certificate.IsPresent)
             {
-                var binding = new NetTcpBinding(SecurityMode.Transport) {MaxReceivedMessageSize = int.MaxValue, MaxBufferSize = int.MaxValue};
+                var binding = new NetTcpBinding(SecurityMode.Transport) { MaxReceivedMessageSize = int.MaxValue, MaxBufferSize = int.MaxValue };
                 binding.Security.Mode = SecurityMode.Transport;
                 binding.Security.Transport.ClientCredentialType = TcpClientCredentialType.Certificate;
                 binding.ReaderQuotas.MaxArrayLength = int.MaxValue;
@@ -180,12 +180,12 @@ namespace SwisPowerShell
                 {
                     binding.TransferMode = TransferMode.Streamed;
                     binding.PortSharingEnabled = true;
-                    binding.ReceiveTimeout = new TimeSpan(15,0,0);
+                    binding.ReceiveTimeout = new TimeSpan(15, 0, 0);
                     binding.SendTimeout = new TimeSpan(15, 0, 0);
                 }
 
                 var address = (Streamed && !V2.IsPresent)
-                                  ? ((V3EndpointAddresses) addresses).streamedCertificate
+                                  ? ((V3EndpointAddresses)addresses).streamedCertificate
                                   : addresses.certificate;
 
                 var uri = new Uri(string.Format(address, Hostname ?? "localhost"));
@@ -196,7 +196,7 @@ namespace SwisPowerShell
             }
             else
             {
-                var binding = new NetTcpBinding {MaxReceivedMessageSize = int.MaxValue, MaxBufferSize = int.MaxValue};
+                var binding = new NetTcpBinding { MaxReceivedMessageSize = int.MaxValue, MaxBufferSize = int.MaxValue };
                 binding.Security.Mode = SecurityMode.TransportWithMessageCredential;
                 binding.Security.Message.ClientCredentialType = MessageCredentialType.UserName;
 

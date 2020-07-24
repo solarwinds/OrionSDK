@@ -10,7 +10,7 @@ namespace SwisPowerShell.Tests
         [Test]
         public void PropertyBagFromDictionary_Hashtable_Converted()
         {
-            var x = new Hashtable {["key"] = "value"};
+            var x = new Hashtable { ["key"] = "value" };
 
             var converted = BaseSwisCmdlet.PropertyBagFromDictionary(x);
 

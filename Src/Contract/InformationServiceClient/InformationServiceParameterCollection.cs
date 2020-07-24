@@ -24,7 +24,7 @@ namespace SolarWinds.InformationService.InformationServiceClient
 
         public void AddWithValue(string parameterName, object value)
         {
-            parameters.Add(new InformationServiceParameter {ParameterName = parameterName, Value = value});
+            parameters.Add(new InformationServiceParameter { ParameterName = parameterName, Value = value });
         }
 
         public override bool Contains(object value)
@@ -147,7 +147,7 @@ namespace SolarWinds.InformationService.InformationServiceClient
         {
             if (array == null)
                 throw new ArgumentNullException("array");
-            
+
             parameters.CopyTo((InformationServiceParameter[])array, index);
         }
 

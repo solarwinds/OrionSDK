@@ -20,7 +20,7 @@ namespace SwisPowerShell
 
         public DataTypeBuilder(string name)
         {
-            var assemblyName = new AssemblyName {Name = name};
+            var assemblyName = new AssemblyName { Name = name };
             _moduleBuilder =
                 AppDomain.CurrentDomain.DefineDynamicAssembly(
                     assemblyName, AssemblyBuilderAccess.Run).DefineDynamicModule(name);
@@ -29,8 +29,8 @@ namespace SwisPowerShell
         public Type CreateType(IEnumerable<Pair<string, Type>> properties)
         {
             TypeBuilder typeBuilder = _moduleBuilder.DefineType(GetDynamicName(), TypeAttributes.Public);
-            
-            AddProperties(typeBuilder,  properties);
+
+            AddProperties(typeBuilder, properties);
             Type type = typeBuilder.CreateType();
             return type;
         }
@@ -78,7 +78,7 @@ namespace SwisPowerShell
                     String.Format("set_{0}", propertyName),
                     getSetAttr,
                     null,
-                    new[] {type});
+                    new[] { type });
 
             ILGenerator propertyNameSetIL = custNameSetPropMthdBldr.GetILGenerator();
 
@@ -94,7 +94,7 @@ namespace SwisPowerShell
 
         private Type GetNullableType(Type underlying)
         {
-            Type nullable = typeof (Nullable<>);
+            Type nullable = typeof(Nullable<>);
             Type result = nullable.MakeGenericType(underlying);
             return result;
         }

@@ -11,7 +11,7 @@ namespace SolarWinds.InformationService.Contract2.Impersonation
             ImpersonationContext impersonationContext = ImpersonationContext.GetCurrentContext();
             if (impersonationContext != null)
             {
-                var impersonationHeader = new ImpersonationHeader {TargetUsername = impersonationContext.TargetUsername};
+                var impersonationHeader = new ImpersonationHeader { TargetUsername = impersonationContext.TargetUsername };
                 MessageHeader header = MessageHeader.CreateHeader(Constants.HeaderName, Constants.Namespace, impersonationHeader);
                 request.Headers.Add(header);
             }

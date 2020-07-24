@@ -11,7 +11,7 @@ namespace SwqlStudio
 
         internal const string BaseTypeAbstract = "BaseTypeAbstract";
         internal const string BaseType = "BaseType";
-        
+
         internal const string Indication = "Indication";
         internal const string TableAbstract = "TableAbstract";
         internal const string TableCrud = "TableCrud";
@@ -26,10 +26,10 @@ namespace SwqlStudio
         {
             if (entity.IsIndication)
                 return Indication;
-        
+
             if (entity.IsAbstract)
                 return TableAbstract;
-        
+
             if (entity.CanCreate || entity.CanDelete || entity.CanUpdate)
             {
                 return TableCrud;

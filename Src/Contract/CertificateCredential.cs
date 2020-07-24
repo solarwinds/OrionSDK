@@ -5,10 +5,10 @@ using System.ServiceModel.Security;
 
 namespace SolarWinds.InformationService.Contract2
 {
-    [DataContract(Name="Certificate", Namespace = "http://schema.solarwinds.com/2007/08/IS")]
+    [DataContract(Name = "Certificate", Namespace = "http://schema.solarwinds.com/2007/08/IS")]
     public class CertificateCredential : ServiceCredentials
     {
-        [DataMember(Name="Subject", Order=1, IsRequired = true)]
+        [DataMember(Name = "Subject", Order = 1, IsRequired = true)]
         private string _subject;
 
         [DataMember(Name = "StoreLocation", Order = 1, IsRequired = true)]
@@ -43,7 +43,7 @@ namespace SolarWinds.InformationService.Contract2
             _storeLocation = storeLocation;
             _storeName = storeName;
         }
-        
+
         public override void ApplyTo(ChannelFactory channelFactory)
         {
             channelFactory.Credentials.ClientCertificate.SetCertificate(_storeLocation, _storeName, X509FindType.FindBySubjectName, _subject);

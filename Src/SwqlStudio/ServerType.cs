@@ -10,6 +10,6 @@ namespace SwqlStudio
         public string Type { get; set; }
 
         public bool IsAuthenticationRequired { get; set; }
-        
+
     }
 }

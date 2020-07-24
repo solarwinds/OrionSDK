@@ -13,7 +13,7 @@ namespace SolarWinds.InformationService.Contract2
     public class EntityCollectionResponseParserTest
     {
         [Test]
-        [ExpectedException(typeof(ArgumentNullException), ExpectedMessage="reader", MatchType=MessageMatch.Contains)]
+        [ExpectedException(typeof(ArgumentNullException), ExpectedMessage = "reader", MatchType = MessageMatch.Contains)]
         public void ReadNextEntityNullReader()
         {
             EntityCollectionResponseParser<object> parser = new EntityCollectionResponseParser<object>();
@@ -24,7 +24,7 @@ namespace SolarWinds.InformationService.Contract2
         public void ReadNextEntityBlob()
         {
             MemoryStream input = new MemoryStream(UTF8Encoding.UTF8.GetBytes(Properties.Resources.ResponseWithBlob));
-            
+
             XmlDictionaryReader reader = XmlDictionaryReader.CreateTextReader(input, XmlDictionaryReaderQuotas.Max);
 
             EntityCollectionResponseParser<TestEntity> parser = new EntityCollectionResponseParser<TestEntity>();

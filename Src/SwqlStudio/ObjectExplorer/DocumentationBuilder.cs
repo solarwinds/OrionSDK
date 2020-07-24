@@ -121,7 +121,7 @@ namespace SwqlStudio
             builder.AppendObsoleteSection(entity);
             return builder.ToString();
         }
-        
+
         public static string ToToolTip(Verb verb)
         {
             var builder = new StringBuilder();

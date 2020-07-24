@@ -23,14 +23,14 @@ namespace SolarWinds.InformationService.Contract2.OldContract
             }
             else
             {
-				//create the serializer before locking so that other threads are not blocked here
-				
-				//Needed the element name of the root element, since we strip it out of our value stored in the database.
-				XmlReflectionImporter xmlReflectionImporter = new XmlReflectionImporter();
-				XmlTypeMapping xmlTypeMapping = xmlReflectionImporter.ImportTypeMapping(type);
+                //create the serializer before locking so that other threads are not blocked here
 
-				//Create the new serializer                
-				strippedSerializer = new OldContract.XmlStrippedSerializer(new XmlSerializer(type), xmlTypeMapping.XsdElementName, type);
+                //Needed the element name of the root element, since we strip it out of our value stored in the database.
+                XmlReflectionImporter xmlReflectionImporter = new XmlReflectionImporter();
+                XmlTypeMapping xmlTypeMapping = xmlReflectionImporter.ImportTypeMapping(type);
+
+                //Create the new serializer                
+                strippedSerializer = new OldContract.XmlStrippedSerializer(new XmlSerializer(type), xmlTypeMapping.XsdElementName, type);
                 lock (_syncLock)
                 {
                     if (cache.ContainsKey(type))

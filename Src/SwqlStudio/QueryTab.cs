@@ -28,7 +28,7 @@ namespace SwqlStudio
         {
             get { return !String.IsNullOrEmpty(subscriptionId); }
         }
-        
+
         public override bool AllowsChangeConnection => !this.HasSubscription;
 
         public override ConnectionInfo ConnectionInfo
@@ -211,7 +211,7 @@ namespace SwqlStudio
                 // if none of previous cases worked, try to find active control and copy contents of it
                 var activeControl = FindFocusedControl(this);
                 HandleCopyEventForActiveControl(activeControl);
-            }          
+            }
         }
 
         private void HandleCopyEventForActiveControl(Control activeControl)
@@ -284,7 +284,7 @@ namespace SwqlStudio
                     ConnectionInfo info = ConnectionsManager.AskForNewConnection();
                     if (info == null)
                         return;
-                    
+
                     info.Connect();
                     pbi.ConnectionInfo = info;
                     PlaybackManager.StartPlayback(pbi);

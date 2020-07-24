@@ -18,7 +18,7 @@ namespace SwqlStudio.Metadata
         public bool CanCreate { get; set; }
         public bool CanDelete { get; set; }
         public bool CanInvoke { get; set; }
-        public bool CanRead   { get; set; }
+        public bool CanRead { get; set; }
         public bool CanUpdate { get; set; }
 
         public string Summary { get; set; }

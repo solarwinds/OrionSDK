@@ -28,7 +28,7 @@ namespace SolarWinds.Logging
 
         private static HashSet<string> _configurations = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
         private static HashSet<string> _assemblies = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
-        
+
         /// <summary>
         /// SpecialFolder CommonApplicationData + Solarwinds directory
         /// </summary>
@@ -67,14 +67,14 @@ namespace SolarWinds.Logging
                 Assembly currentAssembly = typeof(Log).Assembly;
 
                 List<Assembly> asmList = new StackTrace().GetFrames()
-                    .Where(frame => 
+                    .Where(frame =>
                         {
                             MethodBase method = frame.GetMethod();
                             return method != null && method.DeclaringType != null && method.DeclaringType.Assembly != null;
                         })
                     .Select(frame => frame.GetMethod().DeclaringType.Assembly)
                     .ToList();
-                int currentAssemblyIndex = asmList.FindLastIndex(asm => 
+                int currentAssemblyIndex = asmList.FindLastIndex(asm =>
                     asm.FullName.Equals(currentAssembly.FullName, StringComparison.OrdinalIgnoreCase)) + 1;
 
                 Assembly entryAssembly = null;
@@ -140,10 +140,10 @@ namespace SolarWinds.Logging
             }
         }
 
-		[MethodImpl(MethodImplOptions.NoInlining)]
-		public Log() : this(GetCallerMethod())
-		{
-		}
+        [MethodImpl(MethodImplOptions.NoInlining)]
+        public Log() : this(GetCallerMethod())
+        {
+        }
 
         private Log(MethodBase callerMethod)
         {
@@ -264,7 +264,7 @@ namespace SolarWinds.Logging
 
             yield return AppDomain.CurrentDomain.SetupInformation.ConfigurationFile;
         }
-        
+
         #region Log Forwarding Members
 
         public void Debug(object message)
@@ -593,47 +593,47 @@ namespace SolarWinds.Logging
             get { return _log.IsTraceEnabled; }
         }
 
-		[MethodImpl(MethodImplOptions.NoInlining)]
-		public IDisposable Block()
-		{
-			return Block(new StackFrame(1, false).GetMethod().Name);
-		}
+        [MethodImpl(MethodImplOptions.NoInlining)]
+        public IDisposable Block()
+        {
+            return Block(new StackFrame(1, false).GetMethod().Name);
+        }
 
-		public IDisposable Block(string blockName)
-		{
-			return new LogBlock(this, blockName);
-		}
+        public IDisposable Block(string blockName)
+        {
+            return new LogBlock(this, blockName);
+        }
 
         #endregion
     }
 
-	class LogBlock : IDisposable
-	{
-		string _blockName;
-		Log _log;
-		IDisposable _threadContextStackPopper;
+    class LogBlock : IDisposable
+    {
+        string _blockName;
+        Log _log;
+        IDisposable _threadContextStackPopper;
 
-		public LogBlock(Log log, string blockName)
-		{
+        public LogBlock(Log log, string blockName)
+        {
             _log = log;
             _blockName = blockName;
             _threadContextStackPopper = log4net.ThreadContext.Stacks["NDC"].Push(blockName);
             _log.DebugFormat("{{ {0} entered", _blockName);
-		}
+        }
 
-		#region IDisposable Members
+        #region IDisposable Members
 
-		public void Dispose()
-		{
-			if (_threadContextStackPopper != null)
-			{
-				_log.DebugFormat("}} {0} exited", _blockName);
-				_threadContextStackPopper.Dispose();
-				_threadContextStackPopper = null;
-			}
-			//GC.SuppressFinalize(this); // no finalizer on this object, so SuppressFinalize is not needed
-		}
+        public void Dispose()
+        {
+            if (_threadContextStackPopper != null)
+            {
+                _log.DebugFormat("}} {0} exited", _blockName);
+                _threadContextStackPopper.Dispose();
+                _threadContextStackPopper = null;
+            }
+            //GC.SuppressFinalize(this); // no finalizer on this object, so SuppressFinalize is not needed
+        }
 
-		#endregion
-	}
+        #endregion
+    }
 }

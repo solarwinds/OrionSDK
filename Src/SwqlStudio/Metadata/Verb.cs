@@ -15,7 +15,7 @@ namespace SwqlStudio.Metadata
 
         public List<VerbArgument> Arguments
         {
-            get { return _arguments;}
+            get { return _arguments; }
         }
     }
 }

@@ -40,7 +40,7 @@ namespace SwisPowerShell
             {
                 using (var connection = new InformationServiceConnection((IInformationService)SwisConnection))
                 {
-                    InformationServiceXmlReader reader = new InformationServiceXmlReader(connection) {ApplicationTag = "SwisPowerShell"};
+                    InformationServiceXmlReader reader = new InformationServiceXmlReader(connection) { ApplicationTag = "SwisPowerShell" };
 
                     PropertyBag bag = new PropertyBag();
                     if (Parameters != null)
@@ -81,7 +81,7 @@ namespace SwisPowerShell
                         var enumerator = factory.GetEnumerator();
                         while (enumerator.MoveNext())
                             WriteObject(enumerator.Current);
-                        
+
                         if (reader.Errors != null)
                         {
                             StringBuilder sbWarningMessages = new StringBuilder();

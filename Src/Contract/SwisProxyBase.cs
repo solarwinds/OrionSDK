@@ -27,9 +27,9 @@ namespace SolarWinds.InformationService.Contract2
 
         public IChannel Channel
         {
-            get 
-            { 
-                return _infoService; 
+            get
+            {
+                return _infoService;
             }
         }
 
@@ -43,13 +43,13 @@ namespace SolarWinds.InformationService.Contract2
 
         public TimeSpan OperationTimeout
         {
-            get 
-            { 
-                return _operationTimeout; 
+            get
+            {
+                return _operationTimeout;
             }
-            set 
-            { 
-                _operationTimeout = value; 
+            set
+            {
+                _operationTimeout = value;
             }
         }
 

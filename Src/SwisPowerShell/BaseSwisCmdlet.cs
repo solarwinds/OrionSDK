@@ -17,7 +17,7 @@ namespace SwisPowerShell
         protected void ReportException(FaultException<InfoServiceFaultContract> faultEx)
         {
             WriteError(new ErrorRecord(faultEx, "SwisError", ErrorCategory.InvalidOperation, null)
-                           {ErrorDetails = new ErrorDetails(faultEx.Detail.Message)});
+            { ErrorDetails = new ErrorDetails(faultEx.Detail.Message) });
         }
 
         protected void CheckConnection()
@@ -38,7 +38,7 @@ namespace SwisPowerShell
 
         protected virtual IDisposable CreateSwisContext()
         {
-            return new SwisSettingsContext {ApplicationTag = "SwisPowerShell", AppendErrors = true};
+            return new SwisSettingsContext { ApplicationTag = "SwisPowerShell", AppendErrors = true };
         }
 
         protected void DoWithExceptionReporting(Action work)
@@ -70,17 +70,17 @@ namespace SwisPowerShell
                 msg = (ex.InnerException as FaultException).Message;
             else
                 msg = ex.Message;
-            WriteError(new ErrorRecord(ex, "SwisError", ErrorCategory.InvalidOperation, null) {ErrorDetails = new ErrorDetails(msg)});
+            WriteError(new ErrorRecord(ex, "SwisError", ErrorCategory.InvalidOperation, null) { ErrorDetails = new ErrorDetails(msg) });
         }
 
         protected void ReportException(FaultException ex)
         {
-            WriteError(new ErrorRecord(ex, "SwisError", ErrorCategory.InvalidOperation, null) {ErrorDetails = new ErrorDetails(ex.Reason.ToString())});
+            WriteError(new ErrorRecord(ex, "SwisError", ErrorCategory.InvalidOperation, null) { ErrorDetails = new ErrorDetails(ex.Reason.ToString()) });
         }
 
         protected void ReportException(Exception ex)
         {
-            WriteError(new ErrorRecord(ex, "SwisError", ErrorCategory.InvalidOperation, null) {ErrorDetails = new ErrorDetails(ex.Message)});
+            WriteError(new ErrorRecord(ex, "SwisError", ErrorCategory.InvalidOperation, null) { ErrorDetails = new ErrorDetails(ex.Message) });
         }
 
         protected static PropertyBag PropertyBagFromHashtable(Hashtable properties)

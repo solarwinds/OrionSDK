@@ -16,7 +16,7 @@ namespace SolarWinds.InformationService.Contract2
         {
         }
 
-        public InformationServiceQuery(InformationServiceContext context, string query, PropertyBag parameters) 
+        public InformationServiceQuery(InformationServiceContext context, string query, PropertyBag parameters)
             : base(context, query, parameters)
         {
             object[] attributes = type.GetCustomAttributes(typeof(InformationServiceEntityAttribute), false);

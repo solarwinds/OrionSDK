@@ -13,7 +13,7 @@ namespace SwisPowerShell
     public class InvokeSwisVerb : BaseSwisCmdlet
     {
         private static readonly XmlSerializer propertyBagSerializer = new XmlSerializer(typeof(PropertyBag));
-        
+
         [Parameter(Mandatory = true, Position = 1)]
         public string EntityName { get; set; }
 
@@ -42,7 +42,7 @@ namespace SwisPowerShell
                 return SerializeArgument(psobj.BaseObject);
 
             var doc = new XmlDocument();
-            
+
             using (XmlWriter writer = doc.CreateNavigator().AppendChild())
             {
                 writer.WriteStartDocument();
@@ -50,12 +50,12 @@ namespace SwisPowerShell
                 {
                     propertyBagSerializer.Serialize(writer, PropertyBagFromDictionary(arg));
                 }
-                else 
+                else
                 {
                     var dcs = new DataContractSerializer(arg?.GetType() ?? typeof(object));
-// ReSharper disable AssignNullToNotNullAttribute
+                    // ReSharper disable AssignNullToNotNullAttribute
                     dcs.WriteObject(writer, arg);
-// ReSharper restore AssignNullToNotNullAttribute
+                    // ReSharper restore AssignNullToNotNullAttribute
                 }
 
                 writer.WriteEndDocument();

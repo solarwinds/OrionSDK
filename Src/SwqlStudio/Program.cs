@@ -79,7 +79,7 @@ namespace SwqlStudio
                                                orderby dirVer.Ver descending
                                                select dir).FirstOrDefault();
 
-                        if(previousSettingsDir != null)
+                        if (previousSettingsDir != null)
                             CopyUserConfigSettings(currentVersion, userConfigFileName, currentVersionConfigFileDir, previousSettingsDir);
                     }
                 }

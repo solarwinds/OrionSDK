@@ -15,8 +15,8 @@ namespace SwqlStudio
             if (newNode != null)
             {
                 var doc = DocumentationBuilder.Build(newNode);
-                this.itemTypeLabel.Text = doc.ItemType;
-                this.docTextBox.Text = doc.Documents;
+                itemTypeLabel.Text = doc.ItemType;
+                docTextBox.Text = doc.Documents;
             }
         }
     }

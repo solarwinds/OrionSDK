@@ -6,9 +6,9 @@ namespace SolarWinds.InformationService.Contract2
     {
         public EntityInfo(string entityName, string entityType, bool dynamic)
         {
-            this.EntityName = entityName;
-            this.EntityType = entityType;
-            this.Dynamic = dynamic;
+            EntityName = entityName;
+            EntityType = entityType;
+            Dynamic = dynamic;
         }
 
         public string EntityName { get; }

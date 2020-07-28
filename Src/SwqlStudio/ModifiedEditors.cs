@@ -16,7 +16,7 @@ namespace SwqlStudio
 
         public ModifiedEditors()
         {
-            this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
+            saveFileDialog = new SaveFileDialog();
         }
 
         public bool SaveModifiedEditors(IEnumerable<QueryTab> queryTabs)

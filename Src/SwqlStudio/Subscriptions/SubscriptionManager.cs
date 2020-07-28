@@ -74,7 +74,7 @@ namespace SwqlStudio.Subscriptions
         public void OnIndication(string subscriptionId, string indicationType, PropertyBag indicationProperties,
             PropertyBag sourceInstanceProperties)
         {
-            var targetSubscribers = this.proxies.Values
+            var targetSubscribers = proxies.Values
                 .Where(p => p.HasSubScription(subscriptionId))
                 .SelectMany(p => p.CallBacks(subscriptionId))
                 .ToList();

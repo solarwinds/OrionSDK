@@ -19,8 +19,8 @@ namespace SolarWinds.InformationService.Contract2
             if (endpointName.Length == 0)
                 throw new ArgumentException("endpoint name is empty", "endpointName");
 
-            this.Proxy = new InfoServiceProxy(endpointName);
-            this.Proxy.Open();
+            Proxy = new InfoServiceProxy(endpointName);
+            Proxy.Open();
         }
 
         public InformationServiceContext(string endpointName, string remoteAddress)
@@ -32,8 +32,8 @@ namespace SolarWinds.InformationService.Contract2
             if (remoteAddress == null)
                 throw new ArgumentNullException("remoteAddress");
 
-            this.Proxy = new InfoServiceProxy(endpointName, remoteAddress);
-            this.Proxy.Open();
+            Proxy = new InfoServiceProxy(endpointName, remoteAddress);
+            Proxy.Open();
         }
 
         public InformationServiceContext(string endpointName, ServiceCredentials credentials)
@@ -45,8 +45,8 @@ namespace SolarWinds.InformationService.Contract2
             if (credentials == null)
                 throw new ArgumentNullException("credentials");
 
-            this.Proxy = new InfoServiceProxy(endpointName, credentials);
-            this.Proxy.Open();
+            Proxy = new InfoServiceProxy(endpointName, credentials);
+            Proxy.Open();
         }
 
         public InformationServiceContext(string endpointName, string remoteAddress, ServiceCredentials credentials)
@@ -60,8 +60,8 @@ namespace SolarWinds.InformationService.Contract2
             if (credentials == null)
                 throw new ArgumentNullException("credentials");
 
-            this.Proxy = new InfoServiceProxy(endpointName, remoteAddress, credentials);
-            this.Proxy.Open();
+            Proxy = new InfoServiceProxy(endpointName, remoteAddress, credentials);
+            Proxy.Open();
         }
 
         /// <summary>
@@ -105,7 +105,7 @@ namespace SolarWinds.InformationService.Contract2
         {
             get
             {
-                return this.Proxy ?? this.service;
+                return Proxy ?? service;
             }
         }
 

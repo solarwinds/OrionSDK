@@ -27,7 +27,7 @@ namespace SolarWinds.InformationService.InformationServiceClient
 
             using (new SwisSettingsContext { DataProviderTimeout = TimeSpan.FromSeconds(commandTimeout), ApplicationTag = ApplicationTag })
             {
-                message = this.connection.Service.Query(queryRequest);
+                message = connection.Service.Query(queryRequest);
             }
 
             if (message != null)

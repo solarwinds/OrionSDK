@@ -1008,12 +1008,12 @@ namespace ScintillaNET_FindReplaceDialog
 
         private void FindReplaceDialog_Activated(object sender, EventArgs e)
         {
-            this.Opacity = 1.0;
+            Opacity = 1.0;
         }
 
         private void FindReplaceDialog_Deactivate(object sender, EventArgs e)
         {
-            this.Opacity = 0.6;
+            Opacity = 0.6;
         }
 
         private void mnuRecentFindF_ItemClicked(object sender, ToolStripItemClickedEventArgs e)

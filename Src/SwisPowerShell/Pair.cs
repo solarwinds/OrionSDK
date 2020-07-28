@@ -46,8 +46,8 @@ namespace SwisPowerShell
         /// <param name="second">The second element of the pair.</param>
         public Pair(TFirst first, TSecond second)
         {
-            this.First = first;
-            this.Second = second;
+            First = first;
+            Second = second;
         }
 
         /// <summary>
@@ -57,8 +57,8 @@ namespace SwisPowerShell
         /// <param name="keyAndValue">The KeyValuePair to initialize the Pair with .</param>
         public Pair(KeyValuePair<TFirst, TSecond> keyAndValue)
         {
-            this.First = keyAndValue.Key;
-            this.Second = keyAndValue.Value;
+            First = keyAndValue.Key;
+            Second = keyAndValue.Value;
         }
 
         /// <summary>
@@ -136,12 +136,12 @@ namespace SwisPowerShell
             {
                 // Determine which type caused the problem for a better error message.
                 if (!typeof(IComparable<TFirst>).IsAssignableFrom(typeof(TFirst)) &&
-                    !typeof(System.IComparable).IsAssignableFrom(typeof(TFirst)))
+                    !typeof(IComparable).IsAssignableFrom(typeof(TFirst)))
                 {
                     throw new NotSupportedException(string.Format("Type \"{0}\" does not implement IComparable<{0}> or IComparable.", typeof(TFirst).FullName));
                 }
                 else if (!typeof(IComparable<TSecond>).IsAssignableFrom(typeof(TSecond)) &&
-                    !typeof(System.IComparable).IsAssignableFrom(typeof(TSecond)))
+                    !typeof(IComparable).IsAssignableFrom(typeof(TSecond)))
                 {
                     throw new NotSupportedException(string.Format("Type \"{0}\" does not implement IComparable<{0}> or IComparable.", typeof(TSecond).FullName));
                 }
@@ -231,7 +231,7 @@ namespace SwisPowerShell
         /// <returns>The KeyValuePair created from this Pair.</returns>
         public KeyValuePair<TFirst, TSecond> ToKeyValuePair()
         {
-            return new KeyValuePair<TFirst, TSecond>(this.First, this.Second);
+            return new KeyValuePair<TFirst, TSecond>(First, Second);
         }
 
         /// <summary>

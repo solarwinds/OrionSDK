@@ -63,7 +63,7 @@ namespace SwqlStudio.XmlRender
                     _xmlDocument.LoadXml(value);
                     string rtn = RenderXmlToHtml.Render(_xmlDocument, _xslTransformType, this);
                     if (!string.IsNullOrEmpty(rtn))
-                        this.DocumentText = rtn;
+                        DocumentText = rtn;
                 }
             }
             get
@@ -95,7 +95,7 @@ namespace SwqlStudio.XmlRender
                     _xmlDocument = value;
                     string rtn = RenderXmlToHtml.Render(_xmlDocument, _xslTransformType, this);
                     if (!string.IsNullOrEmpty(rtn))
-                        this.DocumentText = rtn;
+                        DocumentText = rtn;
                 }
             }
         }

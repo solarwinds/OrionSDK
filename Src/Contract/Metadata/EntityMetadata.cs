@@ -35,7 +35,7 @@ namespace SolarWinds.InformationService.InformationServiceClient
 
         public bool IsDescendantOf(string baseClass)
         {
-            EntityMetadata currentBaseClass = this.BaseClass;
+            EntityMetadata currentBaseClass = BaseClass;
             while (currentBaseClass != null)
             {
                 if (string.Compare(currentBaseClass.FullName, baseClass) == 0)

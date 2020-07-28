@@ -24,7 +24,7 @@ namespace SolarWinds.Logging
     {
         private const string MasterNamespace = "SolarWinds";
 
-        private readonly SolarWinds.Logging.Ext.EventID.IEventIDLog _log;
+        private readonly Ext.EventID.IEventIDLog _log;
 
         private static HashSet<string> _configurations = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
         private static HashSet<string> _assemblies = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
@@ -150,26 +150,26 @@ namespace SolarWinds.Logging
             Type callerType;
             if ((callerType = callerMethod.DeclaringType) != null)
             {
-                _log = SolarWinds.Logging.Ext.EventID.EventIDLogManager.GetLogger(callerType.Assembly, callerType);
+                _log = Ext.EventID.EventIDLogManager.GetLogger(callerType.Assembly, callerType);
 
                 LogAssemblyVersion(callerType.Assembly);
             }
             else
             {
-                _log = SolarWinds.Logging.Ext.EventID.EventIDLogManager.GetLogger(callerMethod.Name);
+                _log = Ext.EventID.EventIDLogManager.GetLogger(callerMethod.Name);
             }
         }
 
         public Log(Type callerType)
         {
-            _log = SolarWinds.Logging.Ext.EventID.EventIDLogManager.GetLogger(callerType.Assembly, callerType);
+            _log = Ext.EventID.EventIDLogManager.GetLogger(callerType.Assembly, callerType);
 
             LogAssemblyVersion(callerType.Assembly);
         }
 
         public Log(String Name)
         {
-            _log = SolarWinds.Logging.Ext.EventID.EventIDLogManager.GetLogger(Name);
+            _log = Ext.EventID.EventIDLogManager.GetLogger(Name);
         }
 
         /// <summary>
@@ -494,13 +494,13 @@ namespace SolarWinds.Logging
 
         public void Verbose(object message)
         {
-            _log.Logger.Log(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType,
+            _log.Logger.Log(MethodBase.GetCurrentMethod().DeclaringType,
                 log4net.Core.Level.Verbose, message, null);
         }
 
         public void Verbose(object message, Exception exception)
         {
-            _log.Logger.Log(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType,
+            _log.Logger.Log(MethodBase.GetCurrentMethod().DeclaringType,
                 log4net.Core.Level.Verbose, message, exception);
         }
 
@@ -511,7 +511,7 @@ namespace SolarWinds.Logging
 
         public void VerboseFormat(IFormatProvider provider, string format, params object[] args)
         {
-            _log.Logger.Log(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType,
+            _log.Logger.Log(MethodBase.GetCurrentMethod().DeclaringType,
                 log4net.Core.Level.Verbose, new SystemStringFormat(provider, format, args), null);
         }
 
@@ -527,13 +527,13 @@ namespace SolarWinds.Logging
 
         public void Trace(object message)
         {
-            _log.Logger.Log(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType,
+            _log.Logger.Log(MethodBase.GetCurrentMethod().DeclaringType,
                 log4net.Core.Level.Trace, message, null);
         }
 
         public void Trace(object message, Exception exception)
         {
-            _log.Logger.Log(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType,
+            _log.Logger.Log(MethodBase.GetCurrentMethod().DeclaringType,
                 log4net.Core.Level.Trace, message, exception);
         }
 
@@ -544,7 +544,7 @@ namespace SolarWinds.Logging
 
         public void TraceFormat(IFormatProvider provider, string format, params object[] args)
         {
-            _log.Logger.Log(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType,
+            _log.Logger.Log(MethodBase.GetCurrentMethod().DeclaringType,
                 log4net.Core.Level.Trace, new SystemStringFormat(provider, format, args), null);
         }
 

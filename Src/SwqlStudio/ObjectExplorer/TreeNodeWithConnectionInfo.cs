@@ -7,7 +7,7 @@ namespace SwqlStudio
     {
         public IMetadataProvider Provider { get; }
 
-        public ConnectionInfo Connection => this.Provider.ConnectionInfo;
+        public ConnectionInfo Connection => Provider.ConnectionInfo;
 
 
         public TreeNodeWithConnectionInfo(string text, IMetadataProvider provider) : base(text)
@@ -17,7 +17,7 @@ namespace SwqlStudio
 
         public TreeNode CloneShallow()
         {
-            var treeNode = new TreeNodeWithConnectionInfo(this.Text, this.Provider);
+            var treeNode = new TreeNodeWithConnectionInfo(Text, Provider);
             TreeNodeUtils.CopyContent(this, treeNode);
             return treeNode;
         }

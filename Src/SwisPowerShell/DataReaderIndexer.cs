@@ -19,8 +19,8 @@ namespace SwisPowerShell
 
         public DataReaderIndexer(IDataReader reader, IEnumerable<string> columns)
         {
-            this._reader = reader;
-            this._columns = columns.ToArray();
+            _reader = reader;
+            _columns = columns.ToArray();
         }
 
         public bool TryGetValue(string name, out object value, bool ignoreCase)

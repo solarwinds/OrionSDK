@@ -45,7 +45,7 @@ namespace SwqlStudio
 
             set
             {
-                if (!this.AllowSetParameters)
+                if (!AllowSetParameters)
                     return;
 
                 var ordered = value.Select(pair => new QueryVariable(pair.Key, pair.Value?.ToString()))

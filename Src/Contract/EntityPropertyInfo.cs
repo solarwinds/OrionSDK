@@ -50,8 +50,8 @@ namespace SolarWinds.InformationService.Contract2
             if (!typeMap.TryGetValue(typeName, out typeInfo))
                 throw new ArgumentException(String.Format("unsupported type name '{0}'", typeName), "typeName");
 
-            this.Name = name;
-            this.TypeName = typeName;
+            Name = name;
+            TypeName = typeName;
         }
 
         public String Name { get; }
@@ -62,7 +62,7 @@ namespace SolarWinds.InformationService.Contract2
         {
             get
             {
-                return this.typeInfo.Type;
+                return typeInfo.Type;
             }
         }
 
@@ -70,7 +70,7 @@ namespace SolarWinds.InformationService.Contract2
         {
             get
             {
-                return this.typeInfo.PropertyType;
+                return typeInfo.PropertyType;
             }
         }
 
@@ -78,7 +78,7 @@ namespace SolarWinds.InformationService.Contract2
         {
             get
             {
-                return this.typeInfo.IsArray;
+                return typeInfo.IsArray;
             }
         }
 

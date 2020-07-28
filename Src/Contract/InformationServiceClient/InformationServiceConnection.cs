@@ -38,7 +38,7 @@ namespace SolarWinds.InformationService.InformationServiceClient
 
         public InformationServiceConnection(InfoServiceProxy proxy, bool takeOwnership)
         {
-            this.Service = proxy;
+            Service = proxy;
             bProxyOwner = takeOwnership;
             if (bProxyOwner)
             {
@@ -51,7 +51,7 @@ namespace SolarWinds.InformationService.InformationServiceClient
             if (service == null)
                 throw new ArgumentNullException("service");
 
-            this.Service = service;
+            Service = service;
             bProxyOwner = false;
         }
 
@@ -87,7 +87,7 @@ namespace SolarWinds.InformationService.InformationServiceClient
             Initialize(endpointName, null, credentials);
         }
 
-        protected override DbTransaction BeginDbTransaction(System.Data.IsolationLevel isolationLevel)
+        protected override DbTransaction BeginDbTransaction(IsolationLevel isolationLevel)
         {
             throw new NotSupportedException();
         }
@@ -105,20 +105,20 @@ namespace SolarWinds.InformationService.InformationServiceClient
             {
                 try
                 {
-                    this.proxy.Dispose();
+                    proxy.Dispose();
                 }
                 catch (TimeoutException)
                 {
-                    this.proxy.Abort();
+                    proxy.Abort();
                 }
                 catch (CommunicationException)
                 {
-                    this.proxy.Abort();
+                    proxy.Abort();
                 }
             }
-            this.proxy = null;
-            this.Service = null;
-            this.open = false;
+            proxy = null;
+            Service = null;
+            open = false;
 
         }
 
@@ -135,11 +135,11 @@ namespace SolarWinds.InformationService.InformationServiceClient
         {
             get
             {
-                return this.endpointName;
+                return endpointName;
             }
             set
             {
-                Initialize(value, this.remoteAddress, this.credentials);
+                Initialize(value, remoteAddress, credentials);
             }
         }
 
@@ -147,11 +147,11 @@ namespace SolarWinds.InformationService.InformationServiceClient
         {
             get
             {
-                return this.credentials;
+                return credentials;
             }
             set
             {
-                Initialize(this.endpointName, this.remoteAddress, value);
+                Initialize(endpointName, remoteAddress, value);
             }
         }
 
@@ -183,21 +183,21 @@ namespace SolarWinds.InformationService.InformationServiceClient
 
         public override void Open()
         {
-            if (this.proxy == null && this.Service != null)
+            if (proxy == null && Service != null)
                 return; // Must be in-process. Nothing to do for Open().
 
-            if (this.proxy == null && !this.open)
+            if (proxy == null && !open)
                 CreateProxy();
 
-            if ((this.proxy.Channel != null) && (this.proxy.Channel.State != System.ServiceModel.CommunicationState.Created))
+            if ((proxy.Channel != null) && (proxy.Channel.State != CommunicationState.Created))
                 throw new InvalidOperationException("Cannot open an opened or previously closed connection");
 
-            this.proxy.Open();
+            proxy.Open();
 
-            if (this.proxy.Channel.State != System.ServiceModel.CommunicationState.Opened)
+            if (proxy.Channel.State != CommunicationState.Opened)
                 throw new InvalidOperationException("Could not open the connection");
 
-            this.open = true;
+            open = true;
         }
 
         public override string ServerVersion
@@ -208,11 +208,11 @@ namespace SolarWinds.InformationService.InformationServiceClient
             }
         }
 
-        public override System.Data.ConnectionState State
+        public override ConnectionState State
         {
             get
             {
-                if ((this.proxy != null) && (this.proxy.Channel != null) && (this.proxy.Channel.State == System.ServiceModel.CommunicationState.Opened))
+                if ((proxy != null) && (proxy.Channel != null) && (proxy.Channel.State == CommunicationState.Opened))
                     return ConnectionState.Open;
                 else
                     return ConnectionState.Closed;
@@ -221,13 +221,13 @@ namespace SolarWinds.InformationService.InformationServiceClient
 
         private void Initialize(string endpointName, string remoteAddress, ServiceCredentials credentials)
         {
-            if ((this.proxy != null) && (this.bProxyOwner != true))
+            if ((proxy != null) && (bProxyOwner != true))
                 throw new InvalidOperationException("The Proxy Connection is not owned by InformationServiceConnection object");
 
-            if ((this.proxy != null) && (this.proxy.Channel.State != CommunicationState.Created))
+            if ((proxy != null) && (proxy.Channel.State != CommunicationState.Created))
                 throw new InvalidOperationException("Cannot change the endpoint for an existing connection");
 
-            if (this.proxy != null)
+            if (proxy != null)
                 Close();
 
             this.endpointName = endpointName;
@@ -244,19 +244,19 @@ namespace SolarWinds.InformationService.InformationServiceClient
                 if (remoteAddress != null)
                 {
                     if (credentials != null)
-                        this.proxy = new InfoServiceProxy(endpointName, remoteAddress, credentials);
+                        proxy = new InfoServiceProxy(endpointName, remoteAddress, credentials);
                     else
-                        this.proxy = new InfoServiceProxy(endpointName, remoteAddress);
+                        proxy = new InfoServiceProxy(endpointName, remoteAddress);
                 }
                 else
                 {
                     if (credentials != null)
-                        this.proxy = new InfoServiceProxy(endpointName, credentials);
+                        proxy = new InfoServiceProxy(endpointName, credentials);
                     else
-                        this.proxy = new InfoServiceProxy(endpointName);
+                        proxy = new InfoServiceProxy(endpointName);
                 }
 
-                this.Service = this.proxy;
+                Service = proxy;
             }
         }
 

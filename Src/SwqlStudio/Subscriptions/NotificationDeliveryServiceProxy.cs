@@ -20,7 +20,7 @@ namespace SwqlStudio.Subscriptions
 
         private void FixBinding()
         {
-            BindingElementCollection elements = this.ChannelFactory.Endpoint.Binding.CreateBindingElements();
+            BindingElementCollection elements = ChannelFactory.Endpoint.Binding.CreateBindingElements();
             SslStreamSecurityBindingElement element = elements.Find<SslStreamSecurityBindingElement>();
             if (element != null)
             {
@@ -29,24 +29,24 @@ namespace SwqlStudio.Subscriptions
                 CustomBinding newbinding = new CustomBinding(elements);
 
                 // Transfer timeout settings from the old binding to the new
-                Binding binding = this.ChannelFactory.Endpoint.Binding;
+                Binding binding = ChannelFactory.Endpoint.Binding;
                 newbinding.CloseTimeout = binding.CloseTimeout;
                 newbinding.OpenTimeout = binding.OpenTimeout;
                 newbinding.ReceiveTimeout = binding.ReceiveTimeout;
                 newbinding.SendTimeout = binding.SendTimeout;
 
-                this.ChannelFactory.Endpoint.Binding = newbinding;
+                ChannelFactory.Endpoint.Binding = newbinding;
             }
         }
 
         public void ReceiveIndications(string address)
         {
-            base.Channel.ReceiveIndications(address);
+            Channel.ReceiveIndications(address);
         }
 
         public void Disconnect(string address)
         {
-            base.Channel.Disconnect(address);
+            Channel.Disconnect(address);
         }
 
         class SWIdentityVerifier : IdentityVerifier

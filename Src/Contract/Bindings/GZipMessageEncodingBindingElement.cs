@@ -18,13 +18,13 @@ namespace SolarWinds.InformationService.Contract2.Bindings
         public GZipMessageEncodingBindingElement()
             : this(new TextMessageEncodingBindingElement())
         {
-            var textMessageEncodingBindingElement = this.InnerMessageEncodingBindingElement as TextMessageEncodingBindingElement;
+            var textMessageEncodingBindingElement = InnerMessageEncodingBindingElement as TextMessageEncodingBindingElement;
             ReaderQuotaHelper.SetReaderQuotas(textMessageEncodingBindingElement.ReaderQuotas);
         }
 
         public GZipMessageEncodingBindingElement(MessageEncodingBindingElement messageEncoderBindingElement)
         {
-            this.InnerMessageEncodingBindingElement = messageEncoderBindingElement;
+            InnerMessageEncodingBindingElement = messageEncoderBindingElement;
         }
 
         public MessageEncodingBindingElement InnerMessageEncodingBindingElement { get; set; }
@@ -44,7 +44,7 @@ namespace SolarWinds.InformationService.Contract2.Bindings
 
         public override BindingElement Clone()
         {
-            return new GZipMessageEncodingBindingElement(this.InnerMessageEncodingBindingElement);
+            return new GZipMessageEncodingBindingElement(InnerMessageEncodingBindingElement);
         }
 
         public override T GetProperty<T>(BindingContext context)

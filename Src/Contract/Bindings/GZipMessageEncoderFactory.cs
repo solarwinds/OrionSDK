@@ -158,13 +158,13 @@ namespace SolarWinds.InformationService.Contract2.Bindings
                 return CompressBuffer(buffer, bufferManager, messageOffset);
             }
 
-            public override Message ReadMessage(System.IO.Stream stream, int maxSizeOfHeaders, string contentType)
+            public override Message ReadMessage(Stream stream, int maxSizeOfHeaders, string contentType)
             {
                 GZipStream gzStream = new GZipStream(stream, CompressionMode.Decompress, true);
                 return innerEncoder.ReadMessage(gzStream, maxSizeOfHeaders);
             }
 
-            public override void WriteMessage(Message message, System.IO.Stream stream)
+            public override void WriteMessage(Message message, Stream stream)
             {
                 using (GZipStream gzStream = new GZipStream(stream, CompressionMode.Compress, true))
                 {

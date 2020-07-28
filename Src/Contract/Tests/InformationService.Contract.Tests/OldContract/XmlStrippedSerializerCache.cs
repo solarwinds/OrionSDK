@@ -12,14 +12,14 @@ namespace SolarWinds.InformationService.Contract2.OldContract
         private readonly Hashtable cache = new Hashtable();
         private object _syncLock = new object();
 
-        public OldContract.XmlStrippedSerializer GetSerializer(Type type)
+        public XmlStrippedSerializer GetSerializer(Type type)
         {
-            OldContract.XmlStrippedSerializer strippedSerializer;
+            XmlStrippedSerializer strippedSerializer;
             //Hashtable is thread safe for use by multiple reader threads and a single writing thread,
             //so the ContainsKey call is safe here
             if (cache.ContainsKey(type))
             {
-                strippedSerializer = cache[type] as OldContract.XmlStrippedSerializer;
+                strippedSerializer = cache[type] as XmlStrippedSerializer;
             }
             else
             {
@@ -30,12 +30,12 @@ namespace SolarWinds.InformationService.Contract2.OldContract
                 XmlTypeMapping xmlTypeMapping = xmlReflectionImporter.ImportTypeMapping(type);
 
                 //Create the new serializer                
-                strippedSerializer = new OldContract.XmlStrippedSerializer(new XmlSerializer(type), xmlTypeMapping.XsdElementName, type);
+                strippedSerializer = new XmlStrippedSerializer(new XmlSerializer(type), xmlTypeMapping.XsdElementName, type);
                 lock (_syncLock)
                 {
                     if (cache.ContainsKey(type))
                     {
-                        strippedSerializer = cache[type] as OldContract.XmlStrippedSerializer;
+                        strippedSerializer = cache[type] as XmlStrippedSerializer;
                     }
                     else
                     {

@@ -102,40 +102,40 @@ namespace SwqlStudio
 
         private void InitializeCustomContextMenu()
         {
-            this.editorContextMenu = new ContextMenuStrip();
-            this.editorContextMenu.SuspendLayout();
+            editorContextMenu = new ContextMenuStrip();
+            editorContextMenu.SuspendLayout();
 
             ToolStripMenuItem undoMenuItem = new ToolStripMenuItem();
             undoMenuItem.Text = "Undo";
             undoMenuItem.Image = Resources.Undo_16x;
             undoMenuItem.ShortcutKeys = Keys.Control | Keys.Z;
-            undoMenuItem.Click += new EventHandler(this.UndoMenuClick);
+            undoMenuItem.Click += new EventHandler(UndoMenuClick);
 
             ToolStripMenuItem redoMenuItem = new ToolStripMenuItem();
             redoMenuItem.Text = "Redo";
             redoMenuItem.Image = Resources.Redo_16x;
             redoMenuItem.ShortcutKeys = Keys.Control | Keys.Y;
-            redoMenuItem.Click += new EventHandler(this.RedodoMenuClick);
+            redoMenuItem.Click += new EventHandler(RedodoMenuClick);
 
             ToolStripMenuItem cutMenuItem = new ToolStripMenuItem();
             cutMenuItem.Text = "Cut";
             cutMenuItem.Image = Resources.Cut_16x;
             cutMenuItem.ShortcutKeys = Keys.Control | Keys.X;
-            cutMenuItem.Click += new EventHandler(this.CutMenuClick);
+            cutMenuItem.Click += new EventHandler(CutMenuClick);
 
             ToolStripMenuItem copyMenuItem = new ToolStripMenuItem();
             copyMenuItem.Text = "Copy";
             copyMenuItem.Image = Resources.ASX_Copy_blue_16x;
             copyMenuItem.ShortcutKeys = Keys.Control | Keys.C;
-            copyMenuItem.Click += new EventHandler(this.CopyMenuClick);
+            copyMenuItem.Click += new EventHandler(CopyMenuClick);
 
             ToolStripMenuItem pasteMenuItem = new ToolStripMenuItem();
             pasteMenuItem.Text = "Paste";
             pasteMenuItem.Image = Resources.ASX_Paste_blue_16x;
             pasteMenuItem.ShortcutKeys = Keys.Control | Keys.V;
-            pasteMenuItem.Click += new EventHandler(this.PasteMenuClick);
+            pasteMenuItem.Click += new EventHandler(PasteMenuClick);
 
-            this.editorContextMenu.Items.AddRange(new ToolStripItem[]
+            editorContextMenu.Items.AddRange(new ToolStripItem[]
             {
                 undoMenuItem,
                 redoMenuItem,
@@ -143,33 +143,33 @@ namespace SwqlStudio
                 copyMenuItem,
                 pasteMenuItem
             });
-            this.ContextMenuStrip = this.editorContextMenu;
-            this.editorContextMenu.ResumeLayout(false);
+            ContextMenuStrip = editorContextMenu;
+            editorContextMenu.ResumeLayout(false);
         }
 
         private void PasteMenuClick(object sender, EventArgs e)
         {
-            this.Paste();
+            Paste();
         }
 
         private void CopyMenuClick(object sender, EventArgs e)
         {
-            this.Copy();
+            Copy();
         }
 
         private void CutMenuClick(object sender, EventArgs e)
         {
-            this.Cut();
+            Cut();
         }
 
         private void RedodoMenuClick(object sender, EventArgs e)
         {
-            this.Redo();
+            Redo();
         }
 
         private void UndoMenuClick(object sender, EventArgs e)
         {
-            this.Undo();
+            Undo();
         }
 
         public void SetMetadata(IMetadataProvider provider)
@@ -212,23 +212,23 @@ namespace SwqlStudio
                 return;
 
             // Find the word start
-            var currentPos = this.CurrentPosition;
-            var wordStartPos = this.WordStartPosition(currentPos, true);
+            var currentPos = CurrentPosition;
+            var wordStartPos = WordStartPosition(currentPos, true);
 
             var lenEntered = currentPos - wordStartPos;
             if (lenEntered <= 0 && e.Char != '.')
                 return;
 
-            var currentWord = this.GetWordFromPosition(wordStartPos) ?? "";
+            var currentWord = GetWordFromPosition(wordStartPos) ?? "";
 
 
             // Display the autocompletion list
             var keywords = string.Join(" ", LexerService.GetAutoCompletionKeywords(currentPos).
                 Where(x => x.StartsWith(currentWord, StringComparison.OrdinalIgnoreCase)).OrderBy(x => x));
-            this.AutoCShow(lenEntered, keywords);
+            AutoCShow(lenEntered, keywords);
         }
 
-        string ILexerDataSource.Text => this.Text;
+        string ILexerDataSource.Text => Text;
 
         protected override void Dispose(bool disposing)
         {

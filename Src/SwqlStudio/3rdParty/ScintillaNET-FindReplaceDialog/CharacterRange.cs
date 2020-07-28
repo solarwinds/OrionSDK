@@ -31,8 +31,8 @@ namespace ScintillaNET_FindReplaceDialog
         /// <param name="Max">The maximum, or end position.</param>
         public CharacterRange(int Min, int Max)
         {
-            this.cpMin = Min;
-            this.cpMax = Max;
+            cpMin = Min;
+            cpMax = Max;
         }
     }
 }

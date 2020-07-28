@@ -16,7 +16,7 @@ namespace SwqlStudio
 
         internal void Put(PropertyBag toPreserve)
         {
-            this.current = toPreserve;
+            current = toPreserve;
             MarkLastKnownValues(toPreserve);
         }
 
@@ -24,7 +24,7 @@ namespace SwqlStudio
         {
             var parsed = ParseText(query);
             UpdateFromCachedValues(parsed);
-            this.Put(parsed);
+            Put(parsed);
             return parsed;
         }
 
@@ -45,7 +45,7 @@ namespace SwqlStudio
         private void UpdateFromCachedValues(PropertyBag toUpdate)
         {
             UpdateFrom(toUpdate, lastKnownValues);
-            UpdateFrom(toUpdate, this.current);
+            UpdateFrom(toUpdate, current);
             MarkLastKnownValues(toUpdate);
             QuessRenamedParameter(toUpdate);
         }
@@ -55,7 +55,7 @@ namespace SwqlStudio
             foreach (var key in source.Keys.Where(toUpdate.ContainsKey))
             {
                 // update from cache only in case value wasn't fetched from query already
-                if (object.ReferenceEquals(toUpdate[key], unknownValue))
+                if (ReferenceEquals(toUpdate[key], unknownValue))
                 {
                     toUpdate[key] = source[key];
                 }
@@ -76,11 +76,11 @@ namespace SwqlStudio
         private void QuessRenamedParameter(PropertyBag toUpdate)
         {
             // we are able to identify only one renamed parameter using this simple concept
-            var added = toUpdate.Keys.Except(this.current.Keys).ToList();
-            var removed = this.current.Keys.Except(toUpdate.Keys).ToList();
+            var added = toUpdate.Keys.Except(current.Keys).ToList();
+            var removed = current.Keys.Except(toUpdate.Keys).ToList();
             if (added.Count == 1 && removed.Count == 1)
             {
-                toUpdate[added.First()] = this.current[removed.First()];
+                toUpdate[added.First()] = current[removed.First()];
             }
         }
     }

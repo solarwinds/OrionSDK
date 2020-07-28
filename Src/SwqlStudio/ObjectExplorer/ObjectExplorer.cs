@@ -110,12 +110,12 @@ namespace SwqlStudio.ObjectExplorer
 
             _tree.NodeMouseDoubleClick += _tree_NodeMouseDoubleClick;
             _tree.AfterSelect += OnTreeOnAfterSelect;
-            _tree.ImageList = this.objectExplorerImageList;
+            _tree.ImageList = objectExplorerImageList;
         }
 
         private void OnTreeOnAfterSelect(object sender, TreeViewEventArgs args)
         {
-            this.SelectionChanged?.Invoke(this, args);
+            SelectionChanged?.Invoke(this, args);
         }
 
         public void FocusSearch()
@@ -284,7 +284,7 @@ namespace SwqlStudio.ObjectExplorer
                                                                  {
                                                                      var treeNodeWithConnectionInfo = node as TreeNodeWithConnectionInfo;
                                                                      if (treeNodeWithConnectionInfo != null)
-                                                                         this.treeNodesBuilder.RebuildDatabaseNode(node, provider);
+                                                                         treeNodesBuilder.RebuildDatabaseNode(node, provider);
                                                                      else
                                                                          node.Nodes.Clear();
 
@@ -537,36 +537,36 @@ namespace SwqlStudio.ObjectExplorer
 
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
+            components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ObjectExplorerResources));
-            this.objectExplorerImageList = new System.Windows.Forms.ImageList(this.components);
-            this.SuspendLayout();
+            objectExplorerImageList = new ImageList(components);
+            SuspendLayout();
             // 
             // objectExplorerImageList
             // 
-            this.objectExplorerImageList.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("objectExplorerImageList.ImageStream")));
-            this.objectExplorerImageList.TransparentColor = System.Drawing.Color.Transparent;
-            this.objectExplorerImageList.Images.SetKeyName(0, ImageKeys.Column);
-            this.objectExplorerImageList.Images.SetKeyName(1, ImageKeys.Database);
-            this.objectExplorerImageList.Images.SetKeyName(2, ImageKeys.Link);
-            this.objectExplorerImageList.Images.SetKeyName(3, ImageKeys.Table);
-            this.objectExplorerImageList.Images.SetKeyName(4, ImageKeys.InheritedColumn);
-            this.objectExplorerImageList.Images.SetKeyName(5, ImageKeys.KeyColumn);
-            this.objectExplorerImageList.Images.SetKeyName(6, ImageKeys.Verb);
-            this.objectExplorerImageList.Images.SetKeyName(7, ImageKeys.Argument);
-            this.objectExplorerImageList.Images.SetKeyName(8, ImageKeys.Indication);
-            this.objectExplorerImageList.Images.SetKeyName(9, ImageKeys.Namespace);
-            this.objectExplorerImageList.Images.SetKeyName(10, ImageKeys.BaseType);
-            this.objectExplorerImageList.Images.SetKeyName(11, ImageKeys.BaseTypeAbstract);
-            this.objectExplorerImageList.Images.SetKeyName(12, ImageKeys.TableAbstract);
-            this.objectExplorerImageList.Images.SetKeyName(13, ImageKeys.TableCrud);
-            this.ResumeLayout(false);
+            objectExplorerImageList.ImageStream = ((ImageListStreamer)(resources.GetObject("objectExplorerImageList.ImageStream")));
+            objectExplorerImageList.TransparentColor = Color.Transparent;
+            objectExplorerImageList.Images.SetKeyName(0, ImageKeys.Column);
+            objectExplorerImageList.Images.SetKeyName(1, ImageKeys.Database);
+            objectExplorerImageList.Images.SetKeyName(2, ImageKeys.Link);
+            objectExplorerImageList.Images.SetKeyName(3, ImageKeys.Table);
+            objectExplorerImageList.Images.SetKeyName(4, ImageKeys.InheritedColumn);
+            objectExplorerImageList.Images.SetKeyName(5, ImageKeys.KeyColumn);
+            objectExplorerImageList.Images.SetKeyName(6, ImageKeys.Verb);
+            objectExplorerImageList.Images.SetKeyName(7, ImageKeys.Argument);
+            objectExplorerImageList.Images.SetKeyName(8, ImageKeys.Indication);
+            objectExplorerImageList.Images.SetKeyName(9, ImageKeys.Namespace);
+            objectExplorerImageList.Images.SetKeyName(10, ImageKeys.BaseType);
+            objectExplorerImageList.Images.SetKeyName(11, ImageKeys.BaseTypeAbstract);
+            objectExplorerImageList.Images.SetKeyName(12, ImageKeys.TableAbstract);
+            objectExplorerImageList.Images.SetKeyName(13, ImageKeys.TableCrud);
+            ResumeLayout(false);
 
         }
 
         public void SetGroupingMode(EntityGroupingMode mode)
         {
-            this.treeNodesBuilder.EntityGroupingMode = mode;
+            treeNodesBuilder.EntityGroupingMode = mode;
         }
     }
 }

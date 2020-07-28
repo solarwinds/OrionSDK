@@ -32,7 +32,7 @@ namespace SwqlStudio
 
         private ConnectionInfo EnsureExistingConnection()
         {
-            var selectedConnection = this.applicationService.SelectedConnection;
+            var selectedConnection = applicationService.SelectedConnection;
             if (selectedConnection != null)
                 return selectedConnection;
 

@@ -224,7 +224,7 @@ namespace ScintillaNET_FindReplaceDialog
             if (_scintilla == null)
                 return;
 
-            ScintillaNET_FindReplaceDialog.CharacterRange r = _findReplace.FindNext(txtFind.Text, true, _findReplace.Window.GetSearchFlags());
+            CharacterRange r = _findReplace.FindNext(txtFind.Text, true, _findReplace.Window.GetSearchFlags());
             if (r.cpMin != r.cpMax)
                 _scintilla.SetSel(r.cpMin, r.cpMax);
 
@@ -238,7 +238,7 @@ namespace ScintillaNET_FindReplaceDialog
             if (_scintilla == null)
                 return;
 
-            ScintillaNET_FindReplaceDialog.CharacterRange r = _findReplace.FindPrevious(txtFind.Text, true, _findReplace.Window.GetSearchFlags());
+            CharacterRange r = _findReplace.FindPrevious(txtFind.Text, true, _findReplace.Window.GetSearchFlags());
             if (r.cpMin != r.cpMax)
                 _scintilla.SetSel(r.cpMin, r.cpMax);
 
@@ -276,7 +276,7 @@ namespace ScintillaNET_FindReplaceDialog
                 return;
 
             int pos = Math.Min(_scintilla.CurrentPosition, _scintilla.AnchorPosition);
-            ScintillaNET_FindReplaceDialog.CharacterRange r = _findReplace.Find(pos, _scintilla.TextLength, txtFind.Text, _findReplace.Window.GetSearchFlags());
+            CharacterRange r = _findReplace.Find(pos, _scintilla.TextLength, txtFind.Text, _findReplace.Window.GetSearchFlags());
             if (r.cpMin == r.cpMax)
                 r = _findReplace.Find(0, pos, txtFind.Text, _findReplace.Window.GetSearchFlags());
 

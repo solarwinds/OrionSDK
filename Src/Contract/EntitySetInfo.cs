@@ -6,7 +6,7 @@ namespace SolarWinds.InformationService.Contract2
     {
         public EntitySetInfo(string name)
         {
-            this.Name = name;
+            Name = name;
         }
 
         public string Name { get; }

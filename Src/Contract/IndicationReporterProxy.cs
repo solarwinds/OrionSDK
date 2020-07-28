@@ -35,7 +35,7 @@ namespace SolarWinds.InformationService.Contract2
                 throw new ArgumentNullException("endpointName");
             }
 
-            this.channelFactory = new ChannelFactory<IIndicationReporter>(endpointName);
+            channelFactory = new ChannelFactory<IIndicationReporter>(endpointName);
         }
 
         /// <summary>

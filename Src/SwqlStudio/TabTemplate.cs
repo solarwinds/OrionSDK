@@ -11,7 +11,7 @@ namespace SwqlStudio
             get { return connection; }
             set
             {
-                if (this.AllowsChangeConnection)
+                if (AllowsChangeConnection)
                     connection = value;
             }
         }

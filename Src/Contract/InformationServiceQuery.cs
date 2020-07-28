@@ -27,9 +27,9 @@ namespace SolarWinds.InformationService.Contract2
         public InformationServiceQuery(InformationServiceContext context, string queryString, PropertyBag parameters)
         {
             if (context == null)
-                throw new ArgumentNullException("context");
+                throw new ArgumentNullException(nameof(context));
             if (queryString == null)
-                throw new ArgumentNullException("queryString");
+                throw new ArgumentNullException(nameof(queryString));
 
             this.context = context;
             this.queryString = queryString;

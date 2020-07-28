@@ -6,8 +6,6 @@ namespace SolarWinds.InformationService.Contract2
 {
     internal class EntityPropertyInfo
     {
-        private readonly string name;
-        private readonly string typeName;
         private TypeInfo typeInfo;
         private static Dictionary<string, TypeInfo> typeMap = new Dictionary<string, TypeInfo>(StringComparer.Ordinal);
 
@@ -53,25 +51,13 @@ namespace SolarWinds.InformationService.Contract2
             if (!typeMap.TryGetValue(typeName, out typeInfo))
                 throw new ArgumentException(String.Format("unsupported type name '{0}'", typeName), "typeName");
 
-            this.name = name;
-            this.typeName = typeName;
+            this.Name = name;
+            this.TypeName = typeName;
         }
 
-        public String Name
-        {
-            get
-            {
-                return this.name;
-            }
-        }
+        public String Name { get; }
 
-        public String TypeName
-        {
-            get
-            {
-                return typeName;
-            }
-        }
+        public String TypeName { get; }
 
         public Type Type
         {

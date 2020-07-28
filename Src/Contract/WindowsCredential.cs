@@ -14,33 +14,13 @@ namespace SolarWinds.InformationService.Contract2
     [DataContract(Name = "Windows", Namespace = "http://schema.solarwinds.com/2007/08/IS")]
     public class WindowsCredential : ServiceCredentials
     {
-        private String _domain;
-        private String _username;
-        private SecureString _password;
-        private TokenImpersonationLevel _tokenImpersonationLevel = TokenImpersonationLevel.Impersonation;
+        public string Domain { get; set; }
 
-        public string Domain
-        {
-            get { return _domain; }
-            set { _domain = value; }
-        }
+        public string Username { get; set; }
 
-        public string Username
-        {
-            get { return _username; }
-            set { _username = value; }
-        }
+        public SecureString Password { get; private set; }
 
-        public SecureString Password
-        {
-            get { return _password; }
-        }
-
-        public TokenImpersonationLevel ImpersonationLevel
-        {
-            get { return _tokenImpersonationLevel; }
-            set { _tokenImpersonationLevel = value; }
-        }
+        public TokenImpersonationLevel ImpersonationLevel { get; set; } = TokenImpersonationLevel.Impersonation;
 
         public WindowsCredential() : this(String.Empty, String.Empty, String.Empty)
         {
@@ -50,27 +30,27 @@ namespace SolarWinds.InformationService.Contract2
         public WindowsCredential(string username, string password)
         {
             SetUsername(username);
-            _password = SecurePassword(password);
+            Password = SecurePassword(password);
         }
 
         public WindowsCredential(string domain, string username, string password)
         {
-            _domain = domain;
-            _username = username;
-            _password = SecurePassword(password);
+            Domain = domain;
+            Username = username;
+            Password = SecurePassword(password);
         }
 
         public WindowsCredential(String username, SecureString password)
         {
             SetUsername(username);
-            _password = password;
+            Password = password;
         }
 
         public WindowsCredential(String domain, String username, SecureString password)
         {
-            _domain = domain;
-            _username = username;
-            _password = password;
+            Domain = domain;
+            Username = username;
+            Password = password;
         }
 
         private void SetUsername(string username)
@@ -78,12 +58,12 @@ namespace SolarWinds.InformationService.Contract2
             int index = username.IndexOf('\\');
             if (index < 0 || index == (username.Length - 1))
             {
-                _username = username;
+                Username = username;
             }
             else if (index > 0)
             {
-                _domain = username.Substring(0, index);
-                _username = username.Substring(index + 1);
+                Domain = username.Substring(0, index);
+                Username = username.Substring(index + 1);
             }
         }
 
@@ -121,10 +101,10 @@ namespace SolarWinds.InformationService.Contract2
                 channelFactory.Credentials.Windows.ClientCredential.UserName = Username;
             }
 
-            if (_password.Length > 0)
+            if (Password.Length > 0)
                 channelFactory.Credentials.Windows.ClientCredential.Password = GetPassword();
 
-            channelFactory.Credentials.Windows.AllowedImpersonationLevel = _tokenImpersonationLevel;
+            channelFactory.Credentials.Windows.AllowedImpersonationLevel = ImpersonationLevel;
             channelFactory.Credentials.ServiceCertificate.Authentication.CertificateValidationMode = X509CertificateValidationMode.Custom;
 
             X509ChainPolicy chainPolicy = new X509ChainPolicy();
@@ -139,7 +119,7 @@ namespace SolarWinds.InformationService.Contract2
 
             try
             {
-                bstr = Marshal.SecureStringToBSTR(_password);
+                bstr = Marshal.SecureStringToBSTR(Password);
                 insecureString = Marshal.PtrToStringBSTR(bstr);
             }
             catch
@@ -159,10 +139,10 @@ namespace SolarWinds.InformationService.Contract2
 
         protected override void Dispose(bool disposing)
         {
-            if (_password != null)
+            if (Password != null)
             {
-                _password.Dispose();
-                _password = null;
+                Password.Dispose();
+                Password = null;
             }
 
             base.Dispose(disposing);

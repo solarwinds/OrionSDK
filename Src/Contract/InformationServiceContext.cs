@@ -5,7 +5,6 @@ namespace SolarWinds.InformationService.Contract2
     public class InformationServiceContext : IDisposable
     {
         private bool disposed = false;
-        private InfoServiceProxy proxy = null;
         private IInformationService service = null;
 
         public InformationServiceContext(IInformationService service)
@@ -20,8 +19,8 @@ namespace SolarWinds.InformationService.Contract2
             if (endpointName.Length == 0)
                 throw new ArgumentException("endpoint name is empty", "endpointName");
 
-            this.proxy = new InfoServiceProxy(endpointName);
-            this.proxy.Open();
+            this.Proxy = new InfoServiceProxy(endpointName);
+            this.Proxy.Open();
         }
 
         public InformationServiceContext(string endpointName, string remoteAddress)
@@ -33,8 +32,8 @@ namespace SolarWinds.InformationService.Contract2
             if (remoteAddress == null)
                 throw new ArgumentNullException("remoteAddress");
 
-            this.proxy = new InfoServiceProxy(endpointName, remoteAddress);
-            this.proxy.Open();
+            this.Proxy = new InfoServiceProxy(endpointName, remoteAddress);
+            this.Proxy.Open();
         }
 
         public InformationServiceContext(string endpointName, ServiceCredentials credentials)
@@ -46,8 +45,8 @@ namespace SolarWinds.InformationService.Contract2
             if (credentials == null)
                 throw new ArgumentNullException("credentials");
 
-            this.proxy = new InfoServiceProxy(endpointName, credentials);
-            this.proxy.Open();
+            this.Proxy = new InfoServiceProxy(endpointName, credentials);
+            this.Proxy.Open();
         }
 
         public InformationServiceContext(string endpointName, string remoteAddress, ServiceCredentials credentials)
@@ -61,8 +60,8 @@ namespace SolarWinds.InformationService.Contract2
             if (credentials == null)
                 throw new ArgumentNullException("credentials");
 
-            this.proxy = new InfoServiceProxy(endpointName, remoteAddress, credentials);
-            this.proxy.Open();
+            this.Proxy = new InfoServiceProxy(endpointName, remoteAddress, credentials);
+            this.Proxy.Open();
         }
 
         /// <summary>
@@ -100,19 +99,13 @@ namespace SolarWinds.InformationService.Contract2
             return new InformationServiceQuery<T>(this, queryString, parameters);
         }
 
-        public InfoServiceProxy Proxy
-        {
-            get
-            {
-                return this.proxy;
-            }
-        }
+        public InfoServiceProxy Proxy { get; private set; } = null;
 
         public IInformationService Service
         {
             get
             {
-                return this.proxy ?? this.service;
+                return this.Proxy ?? this.service;
             }
         }
 
@@ -130,10 +123,10 @@ namespace SolarWinds.InformationService.Contract2
             {
                 if (disposing)
                 {
-                    if (proxy != null)
+                    if (Proxy != null)
                     {
-                        proxy.Dispose();
-                        proxy = null;
+                        Proxy.Dispose();
+                        Proxy = null;
                     }
                 }
 

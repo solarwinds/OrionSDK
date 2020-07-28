@@ -1103,26 +1103,18 @@ namespace SolarWinds.InformationService.InformationServiceClient
 
             private class ColumnInfo : EntityPropertyInfo
             {
-                private readonly int ordinal;
-                private readonly string elementName;
                 private readonly Dictionary<string, string> metadata = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
 
                 public ColumnInfo(string name, string typeName, int ordinal)
                     : base(name, typeName)
                 {
-                    this.ordinal = ordinal;
-                    this.elementName = "c" + ordinal.ToString(System.Globalization.CultureInfo.InvariantCulture);
+                    this.Ordinal = ordinal;
+                    this.ElementName = "c" + ordinal.ToString(System.Globalization.CultureInfo.InvariantCulture);
                 }
 
-                public int Ordinal
-                {
-                    get { return this.ordinal; }
-                }
+                public int Ordinal { get; }
 
-                public string ElementName
-                {
-                    get { return this.elementName; }
-                }
+                public string ElementName { get; }
 
                 public void AddMetadata(string key, string value)
                 {

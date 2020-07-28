@@ -13,50 +13,45 @@ namespace SolarWinds.InformationService.Contract2.Bindings
     {
 
         //We will use an inner binding element to store information required for the inner encoder
-        MessageEncodingBindingElement innerBindingElement;
 
         //By default, use the default text encoder as the inner encoder
         public GZipMessageEncodingBindingElement()
             : this(new TextMessageEncodingBindingElement())
         {
-            var textMessageEncodingBindingElement = this.innerBindingElement as TextMessageEncodingBindingElement;
+            var textMessageEncodingBindingElement = this.InnerMessageEncodingBindingElement as TextMessageEncodingBindingElement;
             ReaderQuotaHelper.SetReaderQuotas(textMessageEncodingBindingElement.ReaderQuotas);
         }
 
         public GZipMessageEncodingBindingElement(MessageEncodingBindingElement messageEncoderBindingElement)
         {
-            this.innerBindingElement = messageEncoderBindingElement;
+            this.InnerMessageEncodingBindingElement = messageEncoderBindingElement;
         }
 
-        public MessageEncodingBindingElement InnerMessageEncodingBindingElement
-        {
-            get { return innerBindingElement; }
-            set { innerBindingElement = value; }
-        }
+        public MessageEncodingBindingElement InnerMessageEncodingBindingElement { get; set; }
 
         //Main entry point into the encoder binding element. Called by WCF to get the factory that will create the
         //message encoder
         public override MessageEncoderFactory CreateMessageEncoderFactory()
         {
-            return new GZipMessageEncoderFactory(innerBindingElement.CreateMessageEncoderFactory());
+            return new GZipMessageEncoderFactory(InnerMessageEncodingBindingElement.CreateMessageEncoderFactory());
         }
 
         public override MessageVersion MessageVersion
         {
-            get { return innerBindingElement.MessageVersion; }
-            set { innerBindingElement.MessageVersion = value; }
+            get { return InnerMessageEncodingBindingElement.MessageVersion; }
+            set { InnerMessageEncodingBindingElement.MessageVersion = value; }
         }
 
         public override BindingElement Clone()
         {
-            return new GZipMessageEncodingBindingElement(this.innerBindingElement);
+            return new GZipMessageEncodingBindingElement(this.InnerMessageEncodingBindingElement);
         }
 
         public override T GetProperty<T>(BindingContext context)
         {
             if (typeof(T) == typeof(XmlDictionaryReaderQuotas))
             {
-                return innerBindingElement.GetProperty<T>(context);
+                return InnerMessageEncodingBindingElement.GetProperty<T>(context);
             }
             else
             {

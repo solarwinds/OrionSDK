@@ -18,7 +18,6 @@ namespace SolarWinds.InformationService.InformationServiceClient
         private InfoServiceProxy proxy;
         private ServiceCredentials credentials;
         private bool bProxyOwner = true;
-        private IInformationService service;
         private bool open = false;
 
         public InformationServiceConnection()
@@ -41,7 +40,7 @@ namespace SolarWinds.InformationService.InformationServiceClient
 
         public InformationServiceConnection(InfoServiceProxy proxy, bool takeOwnership)
         {
-            this.service = proxy;
+            this.Service = proxy;
             bProxyOwner = takeOwnership;
             if (bProxyOwner)
             {
@@ -54,7 +53,7 @@ namespace SolarWinds.InformationService.InformationServiceClient
             if (service == null)
                 throw new ArgumentNullException("service");
 
-            this.service = service;
+            this.Service = service;
             bProxyOwner = false;
         }
 
@@ -120,7 +119,7 @@ namespace SolarWinds.InformationService.InformationServiceClient
                 }
             }
             this.proxy = null;
-            this.service = null;
+            this.Service = null;
             this.open = false;
 
         }
@@ -186,7 +185,7 @@ namespace SolarWinds.InformationService.InformationServiceClient
 
         public override void Open()
         {
-            if (this.proxy == null && this.service != null)
+            if (this.proxy == null && this.Service != null)
                 return; // Must be in-process. Nothing to do for Open().
 
             if (this.proxy == null && !this.open)
@@ -259,16 +258,10 @@ namespace SolarWinds.InformationService.InformationServiceClient
                         this.proxy = new InfoServiceProxy(endpointName);
                 }
 
-                this.service = this.proxy;
+                this.Service = this.proxy;
             }
         }
 
-        internal IInformationService Service
-        {
-            get
-            {
-                return this.service;
-            }
-        }
+        internal IInformationService Service { get; private set; }
     }
 }

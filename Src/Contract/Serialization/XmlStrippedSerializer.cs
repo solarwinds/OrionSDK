@@ -24,58 +24,32 @@ namespace SolarWinds.InformationService.Contract2.Serialization
     /// </summary>
     class XmlStrippedSerializer
     {
-        private readonly XmlSerializer _serializer;
-        private readonly string _xsdElementName;
-        private readonly string _ns;
-        private readonly Type _type;
-
         public XmlStrippedSerializer(XmlSerializer serializer, string xsdElementName, string ns, Type type)
         {
-            _serializer = serializer;
-            _xsdElementName = xsdElementName;
-            _ns = ns;
-            _type = type;
+            Serializer = serializer;
+            XsdElementName = xsdElementName;
+            Namespace = ns;
+            Type = type;
         }
 
-        public XmlSerializer Serializer
-        {
-            get
-            {
-                return _serializer;
-            }
-        }
+        public XmlSerializer Serializer { get; }
 
         //XML element name of the mapped object
-        public string XsdElementName
-        {
-            get
-            {
-                return _xsdElementName;
-            }
-        }
+        public string XsdElementName { get; }
 
-        public string Namespace
-        {
-            get { return _ns; }
-        }
+        public string Namespace { get; }
 
         /// <summary>
         /// The System.Type that this serializer knows how to serialize.
         /// </summary>
-        public Type Type
-        {
-            get
-            {
-                return _type;
-            }
-        }
+        public Type Type { get; }
 
         public string SerializeToStrippedXml(object value)
         {
             if (value == null)
                 throw new ArgumentNullException("value");
 
-            if (value.GetType() != _type)
+            if (value.GetType() != Type)
                 throw new ArgumentException("The value argument must be of the System.Type that the serializer knows how to serialize");
 
             XmlDocument xmlDocument = new XmlDocument();

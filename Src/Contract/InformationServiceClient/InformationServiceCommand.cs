@@ -21,8 +21,6 @@ namespace SolarWinds.InformationService.InformationServiceClient
         private InformationServiceConnection connection;
         private bool designTimeVisible = true;
         private CommandType commandType = CommandType.Text;
-        private int commandTimeout = 30;
-        private InformationServiceParameterCollection parameters = new InformationServiceParameterCollection();
 
         internal InformationServiceCommand(InformationServiceConnection connection)
             : this(string.Empty, connection)
@@ -61,17 +59,7 @@ namespace SolarWinds.InformationService.InformationServiceClient
             }
         }
 
-        public override int CommandTimeout
-        {
-            get
-            {
-                return this.commandTimeout;
-            }
-            set
-            {
-                this.commandTimeout = value;
-            }
-        }
+        public override int CommandTimeout { get; set; } = 30;
 
         public override System.Data.CommandType CommandType
         {
@@ -106,13 +94,10 @@ namespace SolarWinds.InformationService.InformationServiceClient
 
         protected override DbParameterCollection DbParameterCollection
         {
-            get { return parameters; }
+            get { return Parameters; }
         }
 
-        public new InformationServiceParameterCollection Parameters
-        {
-            get { return parameters; }
-        }
+        public new InformationServiceParameterCollection Parameters { get; } = new InformationServiceParameterCollection();
 
         protected override DbTransaction DbTransaction
         {
@@ -189,14 +174,14 @@ namespace SolarWinds.InformationService.InformationServiceClient
             string query = statement + " RETURN XML RAW";
 
             var bag = new PropertyBag();
-            foreach (InformationServiceParameter parameter in parameters)
+            foreach (InformationServiceParameter parameter in Parameters)
                 bag.Add(parameter.ParameterName, parameter.Value);
 
             QueryXmlRequest queryRequest = new QueryXmlRequest(query, bag);
 
             Message message = null;
 
-            using (new SwisSettingsContext { DataProviderTimeout = TimeSpan.FromSeconds(commandTimeout), ApplicationTag = ApplicationTag, AppendErrors = true })
+            using (new SwisSettingsContext { DataProviderTimeout = TimeSpan.FromSeconds(CommandTimeout), ApplicationTag = ApplicationTag, AppendErrors = true })
             {
                 message = this.connection.Service.Query(queryRequest);
             }

@@ -15,9 +15,9 @@ namespace SolarWinds.InformationService.Contract2
         public InformationServiceContext(string endpointName)
         {
             if (endpointName == null)
-                throw new ArgumentNullException("endpointName");
+                throw new ArgumentNullException(nameof(endpointName));
             if (endpointName.Length == 0)
-                throw new ArgumentException("endpoint name is empty", "endpointName");
+                throw new ArgumentException("endpoint name is empty", nameof(endpointName));
 
             Proxy = new InfoServiceProxy(endpointName);
             Proxy.Open();
@@ -26,11 +26,11 @@ namespace SolarWinds.InformationService.Contract2
         public InformationServiceContext(string endpointName, string remoteAddress)
         {
             if (endpointName == null)
-                throw new ArgumentNullException("endpointName");
+                throw new ArgumentNullException(nameof(endpointName));
             if (endpointName.Length == 0)
-                throw new ArgumentException("endpoint name is empty", "endpointName");
+                throw new ArgumentException("endpoint name is empty", nameof(endpointName));
             if (remoteAddress == null)
-                throw new ArgumentNullException("remoteAddress");
+                throw new ArgumentNullException(nameof(remoteAddress));
 
             Proxy = new InfoServiceProxy(endpointName, remoteAddress);
             Proxy.Open();
@@ -39,11 +39,11 @@ namespace SolarWinds.InformationService.Contract2
         public InformationServiceContext(string endpointName, ServiceCredentials credentials)
         {
             if (endpointName == null)
-                throw new ArgumentNullException("endpointName");
+                throw new ArgumentNullException(nameof(endpointName));
             if (endpointName.Length == 0)
-                throw new ArgumentException("endpoint name is empty", "endpointName");
+                throw new ArgumentException("endpoint name is empty", nameof(endpointName));
             if (credentials == null)
-                throw new ArgumentNullException("credentials");
+                throw new ArgumentNullException(nameof(credentials));
 
             Proxy = new InfoServiceProxy(endpointName, credentials);
             Proxy.Open();
@@ -52,13 +52,13 @@ namespace SolarWinds.InformationService.Contract2
         public InformationServiceContext(string endpointName, string remoteAddress, ServiceCredentials credentials)
         {
             if (endpointName == null)
-                throw new ArgumentNullException("endpointName");
+                throw new ArgumentNullException(nameof(endpointName));
             if (endpointName.Length == 0)
-                throw new ArgumentException("endpoint name is empty", "endpointName");
+                throw new ArgumentException("endpoint name is empty", nameof(endpointName));
             if (remoteAddress == null)
-                throw new ArgumentNullException("remoteAddress");
+                throw new ArgumentNullException(nameof(remoteAddress));
             if (credentials == null)
-                throw new ArgumentNullException("credentials");
+                throw new ArgumentNullException(nameof(credentials));
 
             Proxy = new InfoServiceProxy(endpointName, remoteAddress, credentials);
             Proxy.Open();
@@ -74,7 +74,7 @@ namespace SolarWinds.InformationService.Contract2
         public InformationServiceQuery<T> CreateQuery<T>(string queryString) where T : new()
         {
             if (queryString == null)
-                throw new ArgumentNullException("queryString");
+                throw new ArgumentNullException(nameof(queryString));
             if (disposed)
                 throw new InvalidOperationException("context disposed");
 
@@ -92,7 +92,7 @@ namespace SolarWinds.InformationService.Contract2
         public InformationServiceQuery<T> CreateQuery<T>(string queryString, PropertyBag parameters) where T : new()
         {
             if (queryString == null)
-                throw new ArgumentNullException("queryString");
+                throw new ArgumentNullException(nameof(queryString));
             if (disposed)
                 throw new InvalidOperationException("context disposed");
 

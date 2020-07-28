@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Security.Cryptography.X509Certificates;
 using System.ServiceModel;
-using System.ServiceModel.Channels;
 using System.ServiceModel.Security;
-using System.Threading;
 using SolarWinds.Logging;
 using SolarWinds.InformationService.Contract2.PubSub;
 

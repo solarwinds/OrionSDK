@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace SolarWinds.InformationService.Contract2
+﻿namespace SolarWinds.InformationService.Contract2
 {
     internal enum EntityPropertyType
     {

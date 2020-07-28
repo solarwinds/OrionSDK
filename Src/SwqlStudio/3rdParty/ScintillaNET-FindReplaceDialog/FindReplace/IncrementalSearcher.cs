@@ -1,7 +1,6 @@
 namespace ScintillaNET_FindReplaceDialog
 {
     using ScintillaNET;
-    using ScintillaNET_FindReplaceDialog;
     using System;
     using System.ComponentModel;
     using System.Drawing;

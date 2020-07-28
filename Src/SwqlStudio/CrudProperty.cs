@@ -1,5 +1,4 @@
-﻿using System.Drawing;
-using SwqlStudio.Metadata;
+﻿using SwqlStudio.Metadata;
 
 namespace SwqlStudio
 {

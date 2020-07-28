@@ -6,7 +6,6 @@ using System.Web.UI;
 using System.Windows.Forms;
 using System.Xml;
 using SwqlStudio.Metadata;
-using UserControl = System.Windows.Forms.UserControl;
 
 namespace SwqlStudio
 {

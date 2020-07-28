@@ -3,7 +3,6 @@ namespace ScintillaNET_FindReplaceDialog
     using ScintillaNET;
     using System;
     using System.Collections.Generic;
-    using System.Diagnostics;
     using System.Drawing;
     using System.Text.RegularExpressions;
     using System.Windows.Forms;

@@ -1,5 +1,4 @@
-﻿using System.Drawing.Design;
-using System.Windows.Forms;
+﻿using System.Windows.Forms;
 using WeifenLuo.WinFormsUI.Docking;
 
 namespace SwqlStudio

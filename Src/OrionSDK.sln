@@ -1,26 +1,19 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.26430.13
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30320.27
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SolarWinds.InformationService.Contract", "Contract\SolarWinds.InformationService.Contract.csproj", "{7AB6A2C2-AD8F-40AF-9527-B12EB4B78B0A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SolarWinds.InformationService.Contract", "Contract\SolarWinds.InformationService.Contract.csproj", "{7AB6A2C2-AD8F-40AF-9527-B12EB4B78B0A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SolarWinds.Logging", "Logging\SolarWinds.Logging.csproj", "{D6A25E78-F75D-4368-8244-BB33AAAA4AB2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SolarWinds.Logging", "Logging\SolarWinds.Logging.csproj", "{D6A25E78-F75D-4368-8244-BB33AAAA4AB2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SwisPowerShell", "SwisPowerShell\SwisPowerShell.csproj", "{CEBB636F-B1BC-4C1D-847C-B059532B4699}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SwisPowerShell", "SwisPowerShell\SwisPowerShell.csproj", "{CEBB636F-B1BC-4C1D-847C-B059532B4699}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SwqlStudio", "SwqlStudio\SwqlStudio.csproj", "{B4F89558-AE9F-4704-B210-6949EF8DD65B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SwqlStudio", "SwqlStudio\SwqlStudio.csproj", "{B4F89558-AE9F-4704-B210-6949EF8DD65B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InformationService.Contract.Tests", "Contract\Tests\InformationService.Contract.Tests\InformationService.Contract.Tests.csproj", "{C4202EEB-7DD5-4FF3-A1F7-047F163C3D23}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InformationService.Contract.Tests", "Contract\Tests\InformationService.Contract.Tests\InformationService.Contract.Tests.csproj", "{C4202EEB-7DD5-4FF3-A1F7-047F163C3D23}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{B5A3FB29-EA40-41D5-BB98-3D774D2421F1}"
-	ProjectSection(SolutionItems) = preProject
-		.nuget\NuGet.Config = .nuget\NuGet.Config
-		.nuget\NuGet.exe = .nuget\NuGet.exe
-		.nuget\NuGet.targets = .nuget\NuGet.targets
-	EndProjectSection
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SwisPowerShell.Tests", "..\Test\SwisPowerShell.Tests\SwisPowerShell.Tests.csproj", "{164BEA87-FC26-4588-99AA-2F47174AE368}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SwisPowerShell.Tests", "..\Test\SwisPowerShell.Tests\SwisPowerShell.Tests.csproj", "{164BEA87-FC26-4588-99AA-2F47174AE368}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -97,5 +90,8 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {75C44FFB-E5C4-47CC-AA3C-9C461291F7E2}
 	EndGlobalSection
 EndGlobal

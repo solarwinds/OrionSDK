@@ -186,7 +186,7 @@ namespace SwqlStudio
             }
             else if (valueType == typeof(DateTime))
             {
-                str.AppendFormat("{0:yyyy'-'MM'-'dd HH':'mm':'ss'.'FFFFFF}", value);
+                str.AppendFormat("{0:yyyy'-'MM'-'dd HH':'mm':'ss'.'FFFFFFF}", value);
             }
             else
             {

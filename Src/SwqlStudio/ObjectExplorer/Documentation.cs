@@ -9,8 +9,8 @@
 
         public Documentation(string itemType, string documents)
         {
-            this.ItemType = itemType;
-            this.Documents = documents;
+            ItemType = itemType;
+            Documents = documents;
         }
     }
 }

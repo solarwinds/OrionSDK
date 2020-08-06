@@ -59,11 +59,11 @@ namespace SwqlStudio
 
         public void OpenActivityMonitor(ConnectionInfo info)
         {
-            var activityMonitorTab = new ActivityMonitorTab(this.applicationService)
+            var activityMonitorTab = new ActivityMonitorTab(applicationService)
             {
                 ConnectionInfo = info,
                 Dock = DockStyle.Fill,
-                SubscriptionManager = this.applicationService.SubscriptionManager
+                SubscriptionManager = applicationService.SubscriptionManager
             };
 
             string title = info.Title + " Activity";
@@ -96,7 +96,7 @@ namespace SwqlStudio
 
             crudTab.CloseItself += (s, e) =>
             {
-                this.dockPanel.RemoveTab(crudTab.Parent as DockContent);
+                dockPanel.RemoveTab(crudTab.Parent as DockContent);
             };
 
             string title = entity.FullName + " - " + operation;
@@ -105,11 +105,11 @@ namespace SwqlStudio
 
         public void OpenFiles(string[] files)
         {
-            var connectionInfo = this.connectionsManager.ResolveConnection();
+            var connectionInfo = connectionsManager.ResolveConnection();
             if (connectionInfo == null)
                 return;
 
-            this.dockPanel.ColoseInitialDocument();
+            dockPanel.ColoseInitialDocument();
             connectionInfo.Connect();
 
             // Open file(s)
@@ -118,7 +118,7 @@ namespace SwqlStudio
                 QueryTab queryTab = null;
                 try
                 {
-                    queryTab = this.CreateQueryTab(string.Empty, connectionInfo);
+                    queryTab = CreateQueryTab(string.Empty, connectionInfo);
                     queryTab.QueryText = File.ReadAllText(fn);
                     queryTab.FileName = fn;
                     // Modified flag is set during loading because the document 
@@ -129,7 +129,7 @@ namespace SwqlStudio
                 {
                     MessageBox.Show(ex.Message, ex.GetType().Name);
                     if (queryTab != null)
-                        this.dockPanel.RemoveTab(queryTab.Parent as DockContent);
+                        dockPanel.RemoveTab(queryTab.Parent as DockContent);
                     return;
                 }
 
@@ -159,7 +159,7 @@ namespace SwqlStudio
             dockContent.Icon = Resources.TextFile_16x;
             dockContent.Controls.Add(childControl);
             dockContent.Text = title;
-            dockContent.Show(this.dockPanel, DockState.Document);
+            dockContent.Show(dockPanel, DockState.Document);
         }
     }
 }

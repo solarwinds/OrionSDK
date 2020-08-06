@@ -10,7 +10,7 @@ namespace SolarWinds.Logging.Ext.EventID
         /// <summary>
         /// The declaring type of the method that is the stack boundary into the logging system for this call.
         /// </summary>
-        private Type ThisDeclaringType = typeof(SolarWinds.Logging.Log);
+        private Type ThisDeclaringType = typeof(Log);
 
         public EventIDLogImpl(ILogger logger) : base(logger)
         {
@@ -38,7 +38,7 @@ namespace SolarWinds.Logging.Ext.EventID
             Info(eventId, message, null);
         }
 
-        public void Info(int eventId, object message, System.Exception t)
+        public void Info(int eventId, object message, Exception t)
         {
             if (IsInfoEnabled)
             {
@@ -53,7 +53,7 @@ namespace SolarWinds.Logging.Ext.EventID
             Warn(eventId, message, null);
         }
 
-        public void Warn(int eventId, object message, System.Exception t)
+        public void Warn(int eventId, object message, Exception t)
         {
             if (IsWarnEnabled)
             {
@@ -68,7 +68,7 @@ namespace SolarWinds.Logging.Ext.EventID
             Error(eventId, message, null);
         }
 
-        public void Error(int eventId, object message, System.Exception t)
+        public void Error(int eventId, object message, Exception t)
         {
             if (IsErrorEnabled)
             {
@@ -83,7 +83,7 @@ namespace SolarWinds.Logging.Ext.EventID
             Fatal(eventId, message, null);
         }
 
-        public void Fatal(int eventId, object message, System.Exception t)
+        public void Fatal(int eventId, object message, Exception t)
         {
             if (IsFatalEnabled)
             {
@@ -98,7 +98,7 @@ namespace SolarWinds.Logging.Ext.EventID
             Verbose(eventId, message, null);
         }
 
-        public void Verbose(int eventId, object message, System.Exception t)
+        public void Verbose(int eventId, object message, Exception t)
         {
             if (IsVerboseEnabled)
             {
@@ -118,7 +118,7 @@ namespace SolarWinds.Logging.Ext.EventID
             Trace(eventId, message, null);
         }
 
-        public void Trace(int eventId, object message, System.Exception t)
+        public void Trace(int eventId, object message, Exception t)
         {
             if (IsTraceEnabled)
             {

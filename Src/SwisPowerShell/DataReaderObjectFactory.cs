@@ -18,7 +18,7 @@ namespace SwisPowerShell
 
         public DataReaderObjectFactory(IDataReader dataReader)
         {
-            this._dataReader = dataReader;
+            _dataReader = dataReader;
         }
 
         public Type ReturnType { get; set; }

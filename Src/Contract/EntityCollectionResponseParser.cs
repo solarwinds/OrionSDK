@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
-using System.IO;
 using System.Reflection;
 using System.Xml;
 using System.Xml.Serialization;
@@ -57,14 +56,14 @@ namespace SolarWinds.InformationService.Contract2
                             case ParserState.Root:
                                 if (string.CompareOrdinal(reader.LocalName, "template") == 0)
                                 {
-                                    this.state = ParserState.Template;
+                                    state = ParserState.Template;
                                 }
                                 else if (string.CompareOrdinal(reader.LocalName, "data") == 0)
                                 {
-                                    if (this.entityInfo == null)
+                                    if (entityInfo == null)
                                         throw new InvalidOperationException("No root entity was defined in the template section");
 
-                                    this.state = ParserState.Data;
+                                    state = ParserState.Data;
                                 }
                                 else
                                 {
@@ -75,14 +74,14 @@ namespace SolarWinds.InformationService.Contract2
                             case ParserState.Template:
                                 if (string.CompareOrdinal(reader.LocalName, "entity") == 0)
                                 {
-                                    if (this.entityInfo != null)
+                                    if (entityInfo != null)
                                         throw new InvalidOperationException("Only one root entity is supported at this time");
 
                                     StackFrame state = new StackFrame();
                                     state.entity = new EntityInfo(reader["name"], reader["type"], Boolean.Parse(reader["dynamic"]));
                                     stack.Push(state);
 
-                                    this.entityInfo = state.entity;
+                                    entityInfo = state.entity;
 
                                     this.state = ParserState.EntityTemplate;
                                 }
@@ -96,7 +95,7 @@ namespace SolarWinds.InformationService.Contract2
 
                                     // Sometime empty elements come with an end element, adjust the statemachine state accordingly
                                     if (!reader.IsEmptyElement)
-                                        this.state = ParserState.PropertyTemplate;
+                                        state = ParserState.PropertyTemplate;
                                 }
                                 else if (string.CompareOrdinal(reader.LocalName, "entity") == 0)
                                 {
@@ -158,7 +157,7 @@ namespace SolarWinds.InformationService.Contract2
                             case ParserState.Errors:
                                 if (string.CompareOrdinal(reader.LocalName, "errors") == 0)
                                 {
-                                    this.state = ParserState.Error;
+                                    state = ParserState.Error;
                                     break;
                                 }
                                 return default(T);
@@ -228,10 +227,10 @@ namespace SolarWinds.InformationService.Contract2
                                 break;
 
                             case ParserState.Entity:
-                                if (string.CompareOrdinal(reader.LocalName, this.stack.Peek().elementName) != 0)
-                                    throw new InvalidOperationException(string.Format("Expecting </{0}> but encountered {1}", this.stack.Peek().elementName, reader.LocalName));
+                                if (string.CompareOrdinal(reader.LocalName, stack.Peek().elementName) != 0)
+                                    throw new InvalidOperationException(string.Format("Expecting </{0}> but encountered {1}", stack.Peek().elementName, reader.LocalName));
 
-                                if (this.stack.Count == 1)
+                                if (stack.Count == 1)
                                 {
                                     return EndRootEntity();
                                 }
@@ -281,7 +280,7 @@ namespace SolarWinds.InformationService.Contract2
 
         private void ProcessArrayPropertyItem(XmlReader reader)
         {
-            StackFrame topFrame = this.stack.Peek();
+            StackFrame topFrame = stack.Peek();
 
             EntityPropertyType itemType = topFrame.entity.Properties[topFrame.elementName].EntityPropertyType;
             Type targetType = topFrame.entity.Properties[topFrame.elementName].Type.GetElementType();
@@ -358,7 +357,7 @@ namespace SolarWinds.InformationService.Contract2
 
             if (entityPropertyInfo.IsArray)
             {
-                this.state = ParserState.ArrayProperty;
+                state = ParserState.ArrayProperty;
                 if (reader.IsEmptyElement)
                 {
                     EndArrayProperty(reader);
@@ -366,7 +365,7 @@ namespace SolarWinds.InformationService.Contract2
             }
             else
             {
-                this.state = ParserState.Property;
+                state = ParserState.Property;
                 if (reader.IsEmptyElement)
                 {
                     ProcessPropertyValue(reader);
@@ -412,14 +411,14 @@ namespace SolarWinds.InformationService.Contract2
             if (string.CompareOrdinal(elementName, expectedName) != 0)
                 throw new InvalidOperationException(string.Format("Expecting </{0}> but encountered {1}", expectedName, elementName));
 
-            this.state = targetState;
+            state = targetState;
         }
 
         private void BeginNestedEntity(XmlReader reader)
         {
             EntityInfo nestedEntity = stack.Peek().entitySet.Entities[reader.LocalName];
 
-            StackFrame topFrame = this.stack.Peek();
+            StackFrame topFrame = stack.Peek();
 
             StackFrame frame = topFrame.Clone();
             frame.entity = nestedEntity;
@@ -432,18 +431,18 @@ namespace SolarWinds.InformationService.Contract2
             {
                 frame.instance = topFrame.instance;
             }
-            frame.state = this.state;
+            frame.state = state;
             frame.dynamic = nestedEntity.Dynamic;
 
             stack.Push(frame);
 
-            this.state = ParserState.Entity;
+            state = ParserState.Entity;
         }
 
         private void EndNestedEntity()
         {
-            StackFrame nestedFrame = this.stack.Pop();
-            StackFrame topFrame = this.stack.Peek();
+            StackFrame nestedFrame = stack.Pop();
+            StackFrame topFrame = stack.Peek();
 
             // Add nested entity to the parent's entity property (of type List<nested_entity_type>)
             if (nestedFrame.property != null)
@@ -453,7 +452,7 @@ namespace SolarWinds.InformationService.Contract2
                 method.Invoke(listInstance, new object[] { nestedFrame.instance });
             }
 
-            this.state = nestedFrame.state;
+            state = nestedFrame.state;
         }
 
         private void BeginEntitySet(XmlReader reader)
@@ -462,7 +461,7 @@ namespace SolarWinds.InformationService.Contract2
 
             EntitySetInfo entitySet = stack.Peek().entity.EntitySets[localName];
 
-            StackFrame topFrame = this.stack.Peek();
+            StackFrame topFrame = stack.Peek();
 
             Type instanceType = topFrame.instance.GetType();
 
@@ -498,38 +497,38 @@ namespace SolarWinds.InformationService.Contract2
             frame.entitySet = entitySet;
             frame.elementName = localName;
             frame.property = property;
-            frame.state = this.state;
+            frame.state = state;
 
             stack.Push(frame);
 
-            this.state = ParserState.EntitySet;
+            state = ParserState.EntitySet;
         }
 
         private void EndEntiySet(XmlReader reader)
         {
-            if (string.CompareOrdinal(XmlConvert.DecodeName(reader.LocalName), this.stack.Peek().elementName) != 0)
-                throw new InvalidOperationException(string.Format("Expecting </{0}> but encountered {1}", this.stack.Peek().elementName, reader.LocalName));
+            if (string.CompareOrdinal(XmlConvert.DecodeName(reader.LocalName), stack.Peek().elementName) != 0)
+                throw new InvalidOperationException(string.Format("Expecting </{0}> but encountered {1}", stack.Peek().elementName, reader.LocalName));
 
             StackFrame frame = stack.Pop();
-            this.state = frame.state;
+            state = frame.state;
         }
 
         private void EndProperty(XmlReader reader)
         {
-            if (string.CompareOrdinal(XmlConvert.DecodeName(reader.LocalName), this.stack.Peek().elementName) != 0)
-                throw new InvalidOperationException(string.Format("Expecting </{0}> but encountered {1}", this.stack.Peek().elementName, reader.LocalName));
+            if (string.CompareOrdinal(XmlConvert.DecodeName(reader.LocalName), stack.Peek().elementName) != 0)
+                throw new InvalidOperationException(string.Format("Expecting </{0}> but encountered {1}", stack.Peek().elementName, reader.LocalName));
 
-            StackFrame frame = this.stack.Pop();
+            StackFrame frame = stack.Pop();
 
-            this.state = frame.state;
+            state = frame.state;
         }
 
         private void EndArrayProperty(XmlReader reader)
         {
-            if (string.CompareOrdinal(XmlConvert.DecodeName(reader.LocalName), this.stack.Peek().elementName) != 0)
-                throw new InvalidOperationException(string.Format("Expecting </{0}> but encountered {1}", this.stack.Peek().elementName, reader.LocalName));
+            if (string.CompareOrdinal(XmlConvert.DecodeName(reader.LocalName), stack.Peek().elementName) != 0)
+                throw new InvalidOperationException(string.Format("Expecting </{0}> but encountered {1}", stack.Peek().elementName, reader.LocalName));
 
-            StackFrame frame = this.stack.Pop();
+            StackFrame frame = stack.Pop();
 
             Type itemType = frame.entity.Properties[frame.elementName].Type.GetElementType();
 
@@ -555,14 +554,14 @@ namespace SolarWinds.InformationService.Contract2
 
             arrayItems.Clear();
 
-            this.state = frame.state;
+            state = frame.state;
         }
 
         private T EndRootEntity()
         {
-            StackFrame topFrame = this.stack.Pop();
+            StackFrame topFrame = stack.Pop();
 
-            this.state = topFrame.state;
+            state = topFrame.state;
 
             return (T)topFrame.instance;
         }

@@ -29,7 +29,7 @@ namespace SwqlStudio
             get { return !String.IsNullOrEmpty(subscriptionId); }
         }
 
-        public override bool AllowsChangeConnection => !this.HasSubscription;
+        public override bool AllowsChangeConnection => !HasSubscription;
 
         public override ConnectionInfo ConnectionInfo
         {
@@ -81,13 +81,13 @@ namespace SwqlStudio
             runMenuItem.Text = "Execute";
             runMenuItem.Image = Resources.Run_16x;
             runMenuItem.ShortcutKeys = Keys.F5;
-            runMenuItem.Click += new EventHandler(this.RunQueryClick);
-            this.Editor.ContextMenuStrip.Items.Insert(0, runMenuItem);
+            runMenuItem.Click += new EventHandler(RunQueryClick);
+            Editor.ContextMenuStrip.Items.Insert(0, runMenuItem);
         }
 
         private void RunQueryClick(object sender, EventArgs e)
         {
-            this.RunQuery();
+            RunQuery();
         }
 
         void QueryTabDisposed(object sender, EventArgs e)
@@ -104,8 +104,8 @@ namespace SwqlStudio
         {
             if (HasSubscription)
             {
-                this.SubscriptionManager.Unsubscribe(ConnectionInfo, subscriptionId, SubscriptionIndicationReceived);
-                this.subscriptionId = string.Empty;
+                SubscriptionManager.Unsubscribe(ConnectionInfo, subscriptionId, SubscriptionIndicationReceived);
+                subscriptionId = string.Empty;
             }
         }
 
@@ -136,7 +136,7 @@ namespace SwqlStudio
 
         internal void MarkSaved()
         {
-            this.sciTextEditorControl1.SetSavePoint();
+            sciTextEditorControl1.SetSavePoint();
         }
 
 
@@ -233,7 +233,7 @@ namespace SwqlStudio
             return control;
         }
 
-        private void toolStripMenuItem2_Click(object sender, System.EventArgs e)
+        private void toolStripMenuItem2_Click(object sender, EventArgs e)
         {
             var visibleDataGridView =
                     tabControl1.SelectedTab == queryStatsTab ? dataGridView2 : dataGridView1;
@@ -249,7 +249,7 @@ namespace SwqlStudio
             }
         }
 
-        private void saveResultsAsToolStripMenuItem_Click(object sender, System.EventArgs e)
+        private void saveResultsAsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             var dlg = new SaveFileDialog { Filter = "CSV Files (*.csv)|*.csv|All Files (*.*)|*.*", DefaultExt = "csv" };
 
@@ -325,7 +325,7 @@ namespace SwqlStudio
             if (connection == null)
                 return; // should we try to connect?
 
-            connection.QueryParameters = this.ApplicationService.QueryParameters;
+            connection.QueryParameters = ApplicationService.QueryParameters;
 
             if (queryWorker.IsBusy)
                 return;
@@ -344,7 +344,7 @@ namespace SwqlStudio
                 queryWorker.RunWorkerAsync(new QueryArguments(connection, query));
             }
 
-            this.ApplicationService.RefreshSelectedConnections();
+            ApplicationService.RefreshSelectedConnections();
         }
 
         void SubscriptionIndicationReceived(IndicationEventArgs e)
@@ -681,18 +681,18 @@ namespace SwqlStudio
 
         internal string FileName
         {
-            get { return this.sciTextEditorControl1.FileName; }
+            get { return sciTextEditorControl1.FileName; }
             set
             {
-                this.sciTextEditorControl1.FileName = value;
-                if (this.Parent != null)
-                    this.Parent.Text = Path.GetFileName(value);
+                sciTextEditorControl1.FileName = value;
+                if (Parent != null)
+                    Parent.Text = Path.GetFileName(value);
             }
         }
 
         public bool Modified
         {
-            get { return this.sciTextEditorControl1.Modified; }
+            get { return sciTextEditorControl1.Modified; }
         }
 
         private class QueryArguments
@@ -731,9 +731,9 @@ namespace SwqlStudio
 
             try
             {
-                subscriptionId = this.SubscriptionManager
+                subscriptionId = SubscriptionManager
                     .CreateSubscription(ConnectionInfo, arg.Query, SubscriptionIndicationReceived);
-                this.Invoke(new Action(() => this.ApplicationService.RefreshSelectedConnections()));
+                Invoke(new Action(() => ApplicationService.RefreshSelectedConnections()));
                 subscriptionWorker.ReportProgress(0, "Waiting for notifications");
             }
             catch (Exception ex)
@@ -804,51 +804,51 @@ namespace SwqlStudio
 
         private void sciTextEditorControl1_TextChanged(object sender, EventArgs e)
         {
-            this.delayTimer.Start();
+            delayTimer.Start();
         }
 
         private void delayTimer_Tick(object sender, EventArgs e)
         {
-            this.delayTimer.Stop();
+            delayTimer.Stop();
 
-            if (this.Parent != null && this.Modified &&
-                !string.IsNullOrEmpty(this.FileName) && !this.Parent.Text.EndsWith("*"))
-                this.Parent.Text = this.Parent.Text + "*";
+            if (Parent != null && Modified &&
+                !string.IsNullOrEmpty(FileName) && !Parent.Text.EndsWith("*"))
+                Parent.Text = Parent.Text + "*";
 
-            this.PutParameters();
-            this.ParseParameters();
+            PutParameters();
+            ParseParameters();
         }
 
         internal void ParseParameters()
         {
-            PropertyBag parsed = preserved.Get(this.QueryText);
-            this.ApplicationService.QueryParameters = parsed;
+            PropertyBag parsed = preserved.Get(QueryText);
+            ApplicationService.QueryParameters = parsed;
         }
 
         internal void PutParameters()
         {
-            PropertyBag current = this.ApplicationService.QueryParameters;
+            PropertyBag current = ApplicationService.QueryParameters;
             preserved.Put(current);
         }
 
         internal void Paste()
         {
-            this.sciTextEditorControl1.Paste();
+            sciTextEditorControl1.Paste();
         }
 
         internal void Cut()
         {
-            this.sciTextEditorControl1.Cut();
+            sciTextEditorControl1.Cut();
         }
 
         internal void Undo()
         {
-            this.sciTextEditorControl1.Undo();
+            sciTextEditorControl1.Undo();
         }
 
         internal void Redo()
         {
-            this.sciTextEditorControl1.Redo();
+            sciTextEditorControl1.Redo();
         }
 
         private void logTextbox_KeyDown(object sender, KeyEventArgs e)

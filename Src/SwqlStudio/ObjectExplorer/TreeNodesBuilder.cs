@@ -88,7 +88,7 @@ namespace SwqlStudio
         {
             databaseNode.Nodes.Clear();
 
-            switch (this.EntityGroupingMode)
+            switch (EntityGroupingMode)
             {
                 case EntityGroupingMode.Flat:
                     databaseNode.Nodes.AddRange(MakeEntityTreeNodes(provider, provider.Tables.OrderBy(e => e.FullName)));

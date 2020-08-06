@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Diagnostics;
 using System.IO;
 using System.ServiceModel;
 using System.ServiceModel.Channels;
@@ -392,7 +391,7 @@ namespace SwqlStudio
         {
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
-            if (obj.GetType() != this.GetType()) return false;
+            if (obj.GetType() != GetType()) return false;
             return Equals((ConnectionInfo)obj);
         }
 
@@ -409,7 +408,7 @@ namespace SwqlStudio
 
         public override string ToString()
         {
-            return this.Title;
+            return Title;
         }
     }
 }

@@ -20,7 +20,7 @@ namespace SolarWinds.InformationService.Contract2
         [Test]
         public void ReadNextEntityBlob()
         {
-            MemoryStream input = new MemoryStream(UTF8Encoding.UTF8.GetBytes(Properties.Resources.ResponseWithBlob));
+            MemoryStream input = new MemoryStream(Encoding.UTF8.GetBytes(Properties.Resources.ResponseWithBlob));
 
             XmlDictionaryReader reader = XmlDictionaryReader.CreateTextReader(input, XmlDictionaryReaderQuotas.Max);
 
@@ -35,7 +35,7 @@ namespace SolarWinds.InformationService.Contract2
         [Test]
         public void ReaderNextEntityWithRootEntityAttribute()
         {
-            MemoryStream input = new MemoryStream(UTF8Encoding.UTF8.GetBytes(Properties.Resources.ResponseWithBlob));
+            MemoryStream input = new MemoryStream(Encoding.UTF8.GetBytes(Properties.Resources.ResponseWithBlob));
 
             XmlDictionaryReader reader = XmlDictionaryReader.CreateTextReader(input, XmlDictionaryReaderQuotas.Max);
 
@@ -47,7 +47,7 @@ namespace SolarWinds.InformationService.Contract2
         [ExpectedException(typeof(InvalidOperationException), ExpectedMessage = "Don't know how to handle element MapStudioFiles")]
         public void ReaderNextEntityWithRootEntityWrongName()
         {
-            MemoryStream input = new MemoryStream(UTF8Encoding.UTF8.GetBytes(Properties.Resources.ResponseWithBlob));
+            MemoryStream input = new MemoryStream(Encoding.UTF8.GetBytes(Properties.Resources.ResponseWithBlob));
 
             XmlDictionaryReader reader = XmlDictionaryReader.CreateTextReader(input, XmlDictionaryReaderQuotas.Max);
 

@@ -24,11 +24,11 @@ namespace SolarWinds.InformationService.Contract2
             if (attributes.Length > 0)
             {
                 InformationServiceEntityAttribute entityAttribute = attributes[0] as InformationServiceEntityAttribute;
-                this.parser = entityAttribute != null ? this.ChooseResponseParser(entityAttribute.ParserType) : new ResponseParser<T>();
+                parser = entityAttribute != null ? ChooseResponseParser(entityAttribute.ParserType) : new ResponseParser<T>();
             }
             else
             {
-                this.parser = new ResponseParser<T>();
+                parser = new ResponseParser<T>();
             }
         }
 

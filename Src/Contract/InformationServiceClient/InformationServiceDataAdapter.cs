@@ -1,6 +1,5 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
 using System.Data;
 using System.Data.Common;
@@ -23,7 +22,7 @@ namespace SolarWinds.InformationService.InformationServiceClient
             if (command == null)
                 throw new ArgumentNullException("command");
 
-            base.SelectCommand = command;
+            SelectCommand = command;
         }
 
         public XmlDocument QueryPlan { get; private set; }
@@ -45,7 +44,7 @@ namespace SolarWinds.InformationService.InformationServiceClient
         {
             currentSchema = dataReader.GetSchemaTable();
 
-            return this.Fill(dataTable, dataReader);
+            return Fill(dataTable, dataReader);
         }
 
         protected override int Fill(DataTable dataTable, IDataReader dataReader)

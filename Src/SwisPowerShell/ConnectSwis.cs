@@ -207,8 +207,8 @@ namespace SwisPowerShell
 
                 if (IsUserNamePresent)
                 {
-                    SecureString securePassword = StringToSecureString(this.Password);
-                    this.Credential = new PSCredential(this.UserName, securePassword);
+                    SecureString securePassword = StringToSecureString(Password);
+                    Credential = new PSCredential(UserName, securePassword);
                 }
 
                 // the credential dialog adds a slash at the beginning, need to strip

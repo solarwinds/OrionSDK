@@ -1,9 +1,7 @@
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Data.Common;
-using System.IO;
 using System.Runtime.Serialization;
 using System.ServiceModel;
 using System.ServiceModel.Channels;
@@ -21,8 +19,6 @@ namespace SolarWinds.InformationService.InformationServiceClient
         private InformationServiceConnection connection;
         private bool designTimeVisible = true;
         private CommandType commandType = CommandType.Text;
-        private int commandTimeout = 30;
-        private InformationServiceParameterCollection parameters = new InformationServiceParameterCollection();
 
         internal InformationServiceCommand(InformationServiceConnection connection)
             : this(string.Empty, connection)
@@ -53,37 +49,27 @@ namespace SolarWinds.InformationService.InformationServiceClient
         {
             get
             {
-                return (this.statement ?? string.Empty);
+                return (statement ?? string.Empty);
             }
             set
             {
-                this.statement = value;
+                statement = value;
             }
         }
 
-        public override int CommandTimeout
-        {
-            get
-            {
-                return this.commandTimeout;
-            }
-            set
-            {
-                this.commandTimeout = value;
-            }
-        }
+        public override int CommandTimeout { get; set; } = 30;
 
-        public override System.Data.CommandType CommandType
+        public override CommandType CommandType
         {
             get
             {
-                return this.commandType;
+                return commandType;
             }
             set
             {
                 if (value != CommandType.Text)
                     throw new NotSupportedException("InformationServiceCommand only support commands of type Text");
-                this.commandType = value;
+                commandType = value;
             }
         }
 
@@ -96,23 +82,20 @@ namespace SolarWinds.InformationService.InformationServiceClient
         {
             get
             {
-                return this.connection;
+                return connection;
             }
             set
             {
-                this.connection = (InformationServiceConnection)value;
+                connection = (InformationServiceConnection)value;
             }
         }
 
         protected override DbParameterCollection DbParameterCollection
         {
-            get { return parameters; }
+            get { return Parameters; }
         }
 
-        public new InformationServiceParameterCollection Parameters
-        {
-            get { return parameters; }
-        }
+        public new InformationServiceParameterCollection Parameters { get; } = new InformationServiceParameterCollection();
 
         protected override DbTransaction DbTransaction
         {
@@ -130,18 +113,18 @@ namespace SolarWinds.InformationService.InformationServiceClient
         {
             get
             {
-                return this.designTimeVisible;
+                return designTimeVisible;
             }
             set
             {
-                this.designTimeVisible = value;
+                designTimeVisible = value;
                 TypeDescriptor.Refresh(this);
             }
         }
 
-        protected override DbDataReader ExecuteDbDataReader(System.Data.CommandBehavior behavior)
+        protected override DbDataReader ExecuteDbDataReader(CommandBehavior behavior)
         {
-            return this.ExecuteReader(behavior);
+            return ExecuteReader(behavior);
         }
 
         public override int ExecuteNonQuery()
@@ -189,16 +172,16 @@ namespace SolarWinds.InformationService.InformationServiceClient
             string query = statement + " RETURN XML RAW";
 
             var bag = new PropertyBag();
-            foreach (InformationServiceParameter parameter in parameters)
+            foreach (InformationServiceParameter parameter in Parameters)
                 bag.Add(parameter.ParameterName, parameter.Value);
 
             QueryXmlRequest queryRequest = new QueryXmlRequest(query, bag);
 
             Message message = null;
 
-            using (new SwisSettingsContext { DataProviderTimeout = TimeSpan.FromSeconds(commandTimeout), ApplicationTag = ApplicationTag, AppendErrors = true })
+            using (new SwisSettingsContext { DataProviderTimeout = TimeSpan.FromSeconds(CommandTimeout), ApplicationTag = ApplicationTag, AppendErrors = true })
             {
-                message = this.connection.Service.Query(queryRequest);
+                message = connection.Service.Query(queryRequest);
             }
 
             if (message != null)
@@ -206,7 +189,7 @@ namespace SolarWinds.InformationService.InformationServiceClient
                 if (message.IsFault)
                     CreateFaultException(message);
 
-                return new InformationServiceDataReader(this, message.GetReaderAtBodyContents(), this.DateTimeMode);
+                return new InformationServiceDataReader(this, message.GetReaderAtBodyContents(), DateTimeMode);
             }
             return null;
         }

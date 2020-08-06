@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using SolarWinds.Logging;
 using System.ServiceModel;
 using System.ServiceModel.Channels;
@@ -15,7 +12,6 @@ namespace SolarWinds.InformationService.Contract2
 
         private ChannelFactory<T> _channelFactory;
         private T _infoService;
-        private TimeSpan _operationTimeout = TimeSpan.FromMinutes(60);
 
         public T InfoService
         {
@@ -41,17 +37,7 @@ namespace SolarWinds.InformationService.Contract2
             }
         }
 
-        public TimeSpan OperationTimeout
-        {
-            get
-            {
-                return _operationTimeout;
-            }
-            set
-            {
-                _operationTimeout = value;
-            }
-        }
+        public TimeSpan OperationTimeout { get; set; } = TimeSpan.FromMinutes(60);
 
         public SwisProxyBase(string endpointConfiguration)
         {
@@ -181,7 +167,7 @@ namespace SolarWinds.InformationService.Contract2
                 {
                     _infoService = _channelFactory.CreateChannel();
 
-                    _infoService.OperationTimeout = _operationTimeout;
+                    _infoService.OperationTimeout = OperationTimeout;
                     _infoService.Open();
                 }
             }

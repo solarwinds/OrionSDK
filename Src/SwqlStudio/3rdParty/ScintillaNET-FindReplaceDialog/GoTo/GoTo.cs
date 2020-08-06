@@ -1,8 +1,6 @@
 ﻿#region Using Directives
 
 using ScintillaNET;
-using System;
-using System.Windows.Forms;
 
 #endregion Using Directives
 

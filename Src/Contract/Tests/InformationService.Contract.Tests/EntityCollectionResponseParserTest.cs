@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using NUnit.Framework;
 using System.Xml;
 using System.IO;
-using SolarWinds.InformationService.Contract2.Properties;
 
 namespace SolarWinds.InformationService.Contract2
 {
@@ -23,7 +21,7 @@ namespace SolarWinds.InformationService.Contract2
         [Test]
         public void ReadNextEntityBlob()
         {
-            MemoryStream input = new MemoryStream(UTF8Encoding.UTF8.GetBytes(Properties.Resources.ResponseWithBlob));
+            MemoryStream input = new MemoryStream(Encoding.UTF8.GetBytes(Properties.Resources.ResponseWithBlob));
 
             XmlDictionaryReader reader = XmlDictionaryReader.CreateTextReader(input, XmlDictionaryReaderQuotas.Max);
 
@@ -45,7 +43,7 @@ namespace SolarWinds.InformationService.Contract2
         [Test]
         public void ReaderNextEntityWithRootEntityAttribute()
         {
-            MemoryStream input = new MemoryStream(UTF8Encoding.UTF8.GetBytes(Properties.Resources.ResponseWithBlob));
+            MemoryStream input = new MemoryStream(Encoding.UTF8.GetBytes(Properties.Resources.ResponseWithBlob));
 
             XmlDictionaryReader reader = XmlDictionaryReader.CreateTextReader(input, XmlDictionaryReaderQuotas.Max);
 

@@ -13,18 +13,11 @@ namespace SolarWinds.InformationService.Contract2
         private readonly static Log _log = new Log();
         private static readonly TimeSpan longRunningQueryTime = TimeSpan.FromSeconds(15);
 
-        private ChannelFactory<IStreamInformationServiceChannel> _channelFactory;
         private IStreamInformationServiceChannel _infoService;
-        private TimeSpan _operationTimeout = TimeSpan.FromMinutes(60);
 
         private InfoServiceActivityMonitor _activityMonitor = null;
 
-        public TimeSpan OperationTimeout
-        {
-            get { return _operationTimeout; }
-
-            set { _operationTimeout = value; }
-        }
+        public TimeSpan OperationTimeout { get; set; } = TimeSpan.FromMinutes(60);
 
         public IChannel Channel
         {
@@ -39,10 +32,7 @@ namespace SolarWinds.InformationService.Contract2
             }
         }
 
-        public ChannelFactory<IStreamInformationServiceChannel> ChannelFactory
-        {
-            get { return _channelFactory; }
-        }
+        public ChannelFactory<IStreamInformationServiceChannel> ChannelFactory { get; private set; }
 
         #region Constructors
 
@@ -51,7 +41,7 @@ namespace SolarWinds.InformationService.Contract2
             if (endpointConfiguration == null)
                 throw new ArgumentNullException("endpointConfiguration");
 
-            _channelFactory = CreateChannelFactory(endpointConfiguration);
+            ChannelFactory = CreateChannelFactory(endpointConfiguration);
 
             FixBinding();
         }
@@ -62,7 +52,7 @@ namespace SolarWinds.InformationService.Contract2
             if (credentials == null)
                 throw new ArgumentNullException("credentials");
 
-            credentials.ApplyTo(_channelFactory);
+            credentials.ApplyTo(ChannelFactory);
         }
 
         public InfoServiceProxy(string endpointConfiguration, string remoteAddress)
@@ -73,7 +63,7 @@ namespace SolarWinds.InformationService.Contract2
             if (remoteAddress == null)
                 throw new ArgumentNullException("remoteAddress");
 
-            _channelFactory = CreateChannelFactory(endpointConfiguration, new EndpointAddress(remoteAddress));
+            ChannelFactory = CreateChannelFactory(endpointConfiguration, new EndpointAddress(remoteAddress));
 
             FixBinding();
         }
@@ -84,7 +74,7 @@ namespace SolarWinds.InformationService.Contract2
             if (credentials == null)
                 throw new ArgumentNullException("credentials");
 
-            credentials.ApplyTo(_channelFactory);
+            credentials.ApplyTo(ChannelFactory);
         }
 
         public InfoServiceProxy(Uri address)
@@ -116,7 +106,7 @@ namespace SolarWinds.InformationService.Contract2
 
         private void FixBinding()
         {
-            BindingElementCollection elements = _channelFactory.Endpoint.Binding.CreateBindingElements();
+            BindingElementCollection elements = ChannelFactory.Endpoint.Binding.CreateBindingElements();
             SslStreamSecurityBindingElement element = elements.Find<SslStreamSecurityBindingElement>();
             if (element != null)
             {
@@ -125,13 +115,13 @@ namespace SolarWinds.InformationService.Contract2
                 CustomBinding newbinding = new CustomBinding(elements);
 
                 // Transfer timeout settings from the old binding to the new
-                Binding binding = _channelFactory.Endpoint.Binding;
+                Binding binding = ChannelFactory.Endpoint.Binding;
                 newbinding.CloseTimeout = binding.CloseTimeout;
                 newbinding.OpenTimeout = binding.OpenTimeout;
                 newbinding.ReceiveTimeout = binding.ReceiveTimeout;
                 newbinding.SendTimeout = binding.SendTimeout;
 
-                _channelFactory.Endpoint.Binding = newbinding;
+                ChannelFactory.Endpoint.Binding = newbinding;
             }
 
             CorrectChannelFactory();
@@ -165,8 +155,8 @@ namespace SolarWinds.InformationService.Contract2
                 binding = newbinding;
             }
 
-            _channelFactory = CreateChannelFactory(binding, address);
-            credentials.ApplyTo(_channelFactory);
+            ChannelFactory = CreateChannelFactory(binding, address);
+            credentials.ApplyTo(ChannelFactory);
 
             CorrectChannelFactory();
         }
@@ -176,8 +166,8 @@ namespace SolarWinds.InformationService.Contract2
             // ???: how can I detect that channel binding is securited            
 
             _activityMonitor = new InfoServiceActivityMonitor();
-            _channelFactory.Endpoint.Behaviors.Add(new InfoServiceDefaultBehaviour());
-            _channelFactory.Endpoint.Behaviors.Add(_activityMonitor);
+            ChannelFactory.Endpoint.Behaviors.Add(new InfoServiceDefaultBehaviour());
+            ChannelFactory.Endpoint.Behaviors.Add(_activityMonitor);
         }
 
         #region IInfoService Members
@@ -454,9 +444,9 @@ namespace SolarWinds.InformationService.Contract2
                     if (_activityMonitor != null)
                         _activityMonitor.Reset();
 
-                    _infoService = _channelFactory.CreateChannel();
+                    _infoService = ChannelFactory.CreateChannel();
 
-                    _infoService.OperationTimeout = _operationTimeout;
+                    _infoService.OperationTimeout = OperationTimeout;
                     _infoService.Open();
                 }
             }
@@ -475,7 +465,7 @@ namespace SolarWinds.InformationService.Contract2
             ValidateUsedConnection();
 
             _infoService.Abort();
-            _channelFactory.Abort();
+            ChannelFactory.Abort();
         }
 
         public void Close()
@@ -566,15 +556,15 @@ namespace SolarWinds.InformationService.Contract2
 
                 try
                 {
-                    _channelFactory.Close();
+                    ChannelFactory.Close();
                 }
                 catch (TimeoutException)
                 {
-                    _channelFactory.Abort();
+                    ChannelFactory.Abort();
                 }
                 catch (CommunicationException)
                 {
-                    _channelFactory.Abort();
+                    ChannelFactory.Abort();
                 }
             }
         }

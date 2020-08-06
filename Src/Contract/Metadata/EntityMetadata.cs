@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace SolarWinds.InformationService.InformationServiceClient
 {
@@ -38,7 +35,7 @@ namespace SolarWinds.InformationService.InformationServiceClient
 
         public bool IsDescendantOf(string baseClass)
         {
-            EntityMetadata currentBaseClass = this.BaseClass;
+            EntityMetadata currentBaseClass = BaseClass;
             while (currentBaseClass != null)
             {
                 if (string.Compare(currentBaseClass.FullName, baseClass) == 0)

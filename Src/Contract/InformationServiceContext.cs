@@ -5,7 +5,6 @@ namespace SolarWinds.InformationService.Contract2
     public class InformationServiceContext : IDisposable
     {
         private bool disposed = false;
-        private InfoServiceProxy proxy = null;
         private IInformationService service = null;
 
         public InformationServiceContext(IInformationService service)
@@ -16,53 +15,53 @@ namespace SolarWinds.InformationService.Contract2
         public InformationServiceContext(string endpointName)
         {
             if (endpointName == null)
-                throw new ArgumentNullException("endpointName");
+                throw new ArgumentNullException(nameof(endpointName));
             if (endpointName.Length == 0)
-                throw new ArgumentException("endpoint name is empty", "endpointName");
+                throw new ArgumentException("endpoint name is empty", nameof(endpointName));
 
-            this.proxy = new InfoServiceProxy(endpointName);
-            this.proxy.Open();
+            Proxy = new InfoServiceProxy(endpointName);
+            Proxy.Open();
         }
 
         public InformationServiceContext(string endpointName, string remoteAddress)
         {
             if (endpointName == null)
-                throw new ArgumentNullException("endpointName");
+                throw new ArgumentNullException(nameof(endpointName));
             if (endpointName.Length == 0)
-                throw new ArgumentException("endpoint name is empty", "endpointName");
+                throw new ArgumentException("endpoint name is empty", nameof(endpointName));
             if (remoteAddress == null)
-                throw new ArgumentNullException("remoteAddress");
+                throw new ArgumentNullException(nameof(remoteAddress));
 
-            this.proxy = new InfoServiceProxy(endpointName, remoteAddress);
-            this.proxy.Open();
+            Proxy = new InfoServiceProxy(endpointName, remoteAddress);
+            Proxy.Open();
         }
 
         public InformationServiceContext(string endpointName, ServiceCredentials credentials)
         {
             if (endpointName == null)
-                throw new ArgumentNullException("endpointName");
+                throw new ArgumentNullException(nameof(endpointName));
             if (endpointName.Length == 0)
-                throw new ArgumentException("endpoint name is empty", "endpointName");
+                throw new ArgumentException("endpoint name is empty", nameof(endpointName));
             if (credentials == null)
-                throw new ArgumentNullException("credentials");
+                throw new ArgumentNullException(nameof(credentials));
 
-            this.proxy = new InfoServiceProxy(endpointName, credentials);
-            this.proxy.Open();
+            Proxy = new InfoServiceProxy(endpointName, credentials);
+            Proxy.Open();
         }
 
         public InformationServiceContext(string endpointName, string remoteAddress, ServiceCredentials credentials)
         {
             if (endpointName == null)
-                throw new ArgumentNullException("endpointName");
+                throw new ArgumentNullException(nameof(endpointName));
             if (endpointName.Length == 0)
-                throw new ArgumentException("endpoint name is empty", "endpointName");
+                throw new ArgumentException("endpoint name is empty", nameof(endpointName));
             if (remoteAddress == null)
-                throw new ArgumentNullException("remoteAddress");
+                throw new ArgumentNullException(nameof(remoteAddress));
             if (credentials == null)
-                throw new ArgumentNullException("credentials");
+                throw new ArgumentNullException(nameof(credentials));
 
-            this.proxy = new InfoServiceProxy(endpointName, remoteAddress, credentials);
-            this.proxy.Open();
+            Proxy = new InfoServiceProxy(endpointName, remoteAddress, credentials);
+            Proxy.Open();
         }
 
         /// <summary>
@@ -75,7 +74,7 @@ namespace SolarWinds.InformationService.Contract2
         public InformationServiceQuery<T> CreateQuery<T>(string queryString) where T : new()
         {
             if (queryString == null)
-                throw new ArgumentNullException("queryString");
+                throw new ArgumentNullException(nameof(queryString));
             if (disposed)
                 throw new InvalidOperationException("context disposed");
 
@@ -93,26 +92,20 @@ namespace SolarWinds.InformationService.Contract2
         public InformationServiceQuery<T> CreateQuery<T>(string queryString, PropertyBag parameters) where T : new()
         {
             if (queryString == null)
-                throw new ArgumentNullException("queryString");
+                throw new ArgumentNullException(nameof(queryString));
             if (disposed)
                 throw new InvalidOperationException("context disposed");
 
             return new InformationServiceQuery<T>(this, queryString, parameters);
         }
 
-        public InfoServiceProxy Proxy
-        {
-            get
-            {
-                return this.proxy;
-            }
-        }
+        public InfoServiceProxy Proxy { get; private set; } = null;
 
         public IInformationService Service
         {
             get
             {
-                return this.proxy ?? this.service;
+                return Proxy ?? service;
             }
         }
 
@@ -130,10 +123,10 @@ namespace SolarWinds.InformationService.Contract2
             {
                 if (disposing)
                 {
-                    if (proxy != null)
+                    if (Proxy != null)
                     {
-                        proxy.Dispose();
-                        proxy = null;
+                        Proxy.Dispose();
+                        Proxy = null;
                     }
                 }
 

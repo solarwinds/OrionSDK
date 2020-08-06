@@ -9,7 +9,6 @@ namespace SolarWinds.InformationService.InformationServiceClient
     public class InformationServiceParameterCollection : DbParameterCollection, IEnumerable<InformationServiceParameter>
     {
         private readonly List<InformationServiceParameter> parameters = new List<InformationServiceParameter>();
-        private readonly object syncRoot = new object();
 
         public override int Add(object value)
         {
@@ -87,10 +86,7 @@ namespace SolarWinds.InformationService.InformationServiceClient
             get { return parameters.Count; }
         }
 
-        public override object SyncRoot
-        {
-            get { return syncRoot; }
-        }
+        public override object SyncRoot { get; } = new object();
 
         public override bool IsFixedSize
         {

@@ -8,7 +8,7 @@ namespace ScintillaNET_FindReplaceDialog
     using System.Drawing;
     using System.Windows.Forms;
 
-    [TypeConverterAttribute(typeof(System.ComponentModel.ExpandableObjectConverter))]
+    [TypeConverterAttribute(typeof(ExpandableObjectConverter))]
     public class FindReplace : Component
     {
         #region Fields
@@ -103,7 +103,7 @@ namespace ScintillaNET_FindReplaceDialog
         /// <param name="e">The key info of the key(s) pressed.</param>
         public delegate void KeyPressedHandler(object sender, KeyEventArgs e);
 
-        private void _window_KeyPressed(object sender, System.Windows.Forms.KeyEventArgs e)
+        private void _window_KeyPressed(object sender, KeyEventArgs e)
         {
             if (KeyPressed != null)
                 KeyPressed(this, e);

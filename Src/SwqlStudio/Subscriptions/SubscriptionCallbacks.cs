@@ -16,9 +16,9 @@ namespace SwqlStudio.Subscriptions
         {
             get
             {
-                lock (this.itemsLock)
+                lock (itemsLock)
                 {
-                    return new List<SubscriberCallback>(this.callbacks);
+                    return new List<SubscriberCallback>(callbacks);
                 }
             }
         }
@@ -27,9 +27,9 @@ namespace SwqlStudio.Subscriptions
         {
             get
             {
-                lock (this.itemsLock)
+                lock (itemsLock)
                 {
-                    return !this.callbacks.Any();
+                    return !callbacks.Any();
                 }
             }
         }
@@ -38,37 +38,37 @@ namespace SwqlStudio.Subscriptions
 
         public SubscriptionCallbacks(string uri, NotificationDeliveryServiceProxy proxy, string activeSubscriberAddress)
         {
-            this.Uri = uri;
-            this.Id = uri.Substring(uri.LastIndexOf("=") + 1);
+            Uri = uri;
+            Id = uri.Substring(uri.LastIndexOf("=") + 1);
             this.proxy = proxy;
             this.activeSubscriberAddress = activeSubscriberAddress;
         }
 
         internal void Add(SubscriberCallback callback)
         {
-            lock (this.itemsLock)
+            lock (itemsLock)
             {
-                if (!this.callbacks.Contains(callback))
-                    this.callbacks.Add(callback);
+                if (!callbacks.Contains(callback))
+                    callbacks.Add(callback);
             }
         }
 
         internal void Remove(SubscriberCallback callback)
         {
-            lock (this.itemsLock)
+            lock (itemsLock)
             {
-                this.callbacks.Remove(callback);
+                callbacks.Remove(callback);
             }
         }
 
         internal void CloseProxy()
         {
-            lock (this.itemsLock)
+            lock (itemsLock)
             {
-                if (this.proxy != null)
+                if (proxy != null)
                 {
-                    this.proxy.Disconnect(this.activeSubscriberAddress);
-                    this.proxy.Close();
+                    proxy.Disconnect(activeSubscriberAddress);
+                    proxy.Close();
                 }
             }
         }

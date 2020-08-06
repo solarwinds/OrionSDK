@@ -34,7 +34,7 @@ namespace ScintillaNET_FindReplaceDialog
                 {
                     _scintilla.Lines[_gotoLineNumber].Goto();
                     //Line(GotoLineNumber);
-                    this.Hide();
+                    Hide();
                     //DialogResult = DialogResult.OK;
                 }
             }

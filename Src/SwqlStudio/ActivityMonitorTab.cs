@@ -15,16 +15,16 @@ namespace SwqlStudio
         private bool pause;
         public SubscriptionManager SubscriptionManager { get; set; }
 
-        public override bool AllowsChangeConnection => !this.connectionSet;
+        public override bool AllowsChangeConnection => !connectionSet;
 
         public override ConnectionInfo ConnectionInfo
         {
             set
             {
                 base.ConnectionInfo = value;
-                this.connectionSet = true;
+                connectionSet = true;
 
-                this.RefreshSelectedItem();
+                RefreshSelectedItem();
             }
         }
 
@@ -40,13 +40,13 @@ namespace SwqlStudio
         {
             if (!String.IsNullOrEmpty(subscriptionId) && ConnectionInfo.IsConnected)
             {
-                this.SubscriptionManager.Unsubscribe(ConnectionInfo, subscriptionId, SubscriptionIndicationReceived);
+                SubscriptionManager.Unsubscribe(ConnectionInfo, subscriptionId, SubscriptionIndicationReceived);
             }
         }
 
         private void SubscriptionIndicationReceived(IndicationEventArgs e)
         {
-            if (this.IsDisposed)
+            if (IsDisposed)
                 return;
 
             BeginInvoke(new Action<IndicationEventArgs>(AddIndication), e);
@@ -84,7 +84,7 @@ namespace SwqlStudio
             backgroundWorker1.ReportProgress(0, "Starting subscription...");
             try
             {
-                subscriptionId = this.SubscriptionManager
+                subscriptionId = SubscriptionManager
                     .CreateSubscription(ConnectionInfo, "SUBSCRIBE System.QueryExecuted", SubscriptionIndicationReceived);
                 backgroundWorker1.ReportProgress(0, "Waiting for notifications");
             }
@@ -131,28 +131,28 @@ namespace SwqlStudio
 
         private void Pause(object sender, EventArgs e)
         {
-            this.pause = !pause;
-            this.toolStripButtonPause.Image = this.pause ? Properties.Resources.Run_16x : Properties.Resources.Pause_16x;
-            this.toolStripButtonPause.Text = this.pause ? "Run" : "Pause";
+            pause = !pause;
+            toolStripButtonPause.Image = pause ? Properties.Resources.Run_16x : Properties.Resources.Pause_16x;
+            toolStripButtonPause.Text = pause ? "Run" : "Pause";
         }
 
         private void listView1_ItemSelectionChanged(object sender, ListViewItemSelectionChangedEventArgs e)
         {
-            this.RefreshSelectedItem();
+            RefreshSelectedItem();
         }
 
         private void RefreshSelectedItem()
         {
-            var selected = this.listView1.SelectedItems.Cast<ListViewItem>().FirstOrDefault();
+            var selected = listView1.SelectedItems.Cast<ListViewItem>().FirstOrDefault();
             if (selected == null)
             {
-                this.applicationService.QueryParameters = new PropertyBag();
+                applicationService.QueryParameters = new PropertyBag();
             }
             else
             {
                 var indication = (IndicationEventArgs)selected.Tag;
 
-                this.applicationService.QueryParameters = indication?.IndicationProperties ?? new PropertyBag();
+                applicationService.QueryParameters = indication?.IndicationProperties ?? new PropertyBag();
 
             }
         }

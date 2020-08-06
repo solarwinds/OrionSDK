@@ -32,10 +32,10 @@ namespace SolarWinds.InformationService.Contract2.Bindings
         public override void ApplyConfiguration(BindingElement bindingElement)
         {
             GZipMessageEncodingBindingElement binding = (GZipMessageEncodingBindingElement)bindingElement;
-            PropertyInformationCollection propertyInfo = this.ElementInformation.Properties;
+            PropertyInformationCollection propertyInfo = ElementInformation.Properties;
             if (propertyInfo["innerMessageEncoding"].ValueOrigin != PropertyValueOrigin.Default)
             {
-                switch (this.InnerMessageEncoding)
+                switch (InnerMessageEncoding)
                 {
                     case "textMessageEncoding":
                         var innerMessageEncodingBindingElement = new TextMessageEncodingBindingElement();
@@ -56,7 +56,7 @@ namespace SolarWinds.InformationService.Contract2.Bindings
         protected override BindingElement CreateBindingElement()
         {
             GZipMessageEncodingBindingElement bindingElement = new GZipMessageEncodingBindingElement();
-            this.ApplyConfiguration(bindingElement);
+            ApplyConfiguration(bindingElement);
             return bindingElement;
         }
     }

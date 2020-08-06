@@ -1,5 +1,4 @@
-﻿using System;
-using System.ServiceModel;
+﻿using System.ServiceModel;
 using SolarWinds.InformationService.Contract2;
 using SwqlStudio.Properties;
 

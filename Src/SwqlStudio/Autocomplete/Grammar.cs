@@ -115,7 +115,8 @@ namespace SwqlStudio.Autocomplete
                 "addsecond",
                 "addmillisecond",
                 "arraylength",
-                "arrayvalueat"
+                "arrayvalueat",
+                "filter"   // new in 2020.4
             };
 
         public static readonly string[] AggregateFunctions =

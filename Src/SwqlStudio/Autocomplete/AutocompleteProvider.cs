@@ -7,17 +7,12 @@ namespace SwqlStudio.Autocomplete
     // we are not reusing full swis grammar, we can do more 'educated guess' here.
     internal class AutocompleteProvider
     {
-        private static readonly HashSet<string> _keyWords;
+        private static readonly HashSet<string> _keyWords = new HashSet<string>(Grammar.General);
         private readonly string _text;
 
         public AutocompleteProvider(string text)
         {
             _text = text;
-        }
-
-        static AutocompleteProvider()
-        {
-            _keyWords = new HashSet<string>(Grammar.General);
         }
 
         private enum LastInterestingElement

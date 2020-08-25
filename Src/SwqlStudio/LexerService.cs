@@ -28,7 +28,13 @@ namespace SwqlStudio
         }
 
         private readonly ILexerDataSource _lexerDataSource;
-        private static List<string> BasicAutoCompletionKeywords { get; }
+
+        public static readonly Tuple<int, IEnumerable<string>>[] LexerKeywords =
+        {
+            new Tuple<int, IEnumerable<string>>(0, Grammar.General),
+            new Tuple<int, IEnumerable<string>>(4, Grammar.Functions),
+            new Tuple<int, IEnumerable<string>>(5, Grammar.AggregateFunctions)
+        };
 
         private readonly Dictionary<string, SwisEntity> _swisEntities = new Dictionary<string, SwisEntity>(StringComparer.OrdinalIgnoreCase);
 
@@ -138,25 +144,9 @@ namespace SwqlStudio
             RefreshMetadata(provider);
         }
 
-        static LexerService()
-        {
-            BasicAutoCompletionKeywords =
-                LexerKeywords.SelectMany(x => x.Item2).Select(x => x.ToUpper()).OrderBy(x => x).ToList();
-        }
-
         public LexerService(ILexerDataSource lexerDataSource)
         {
             _lexerDataSource = lexerDataSource;
-        }
-
-        public static IEnumerable<Tuple<int, IEnumerable<string>>> LexerKeywords
-        {
-            get
-            {
-                yield return new Tuple<int, IEnumerable<string>>(0, Grammar.General);
-                yield return new Tuple<int, IEnumerable<string>>(4, Grammar.Functions);
-                yield return new Tuple<int, IEnumerable<string>>(5, Grammar.AggregateFunctions);
-            }
         }
 
         public IEnumerable<string> GetAutoCompletionKeywords(int textPos)
@@ -168,14 +158,14 @@ namespace SwqlStudio
             {
                 lock (((ICollection)_swisEntities).SyncRoot)
                 {
-                    foreach (var v in FollowNavigationProperties(state.ProposedEntity ?? ""))
-                        yield return v;
+                    return FollowNavigationProperties(state.ProposedEntity ?? "");
                 }
             }
 
             if (state.Type.HasFlag(ExpectedCaretPositionType.Keyword))
-                foreach (var k in BasicAutoCompletionKeywords)
-                    yield return k;
+                return Grammar.All;
+
+            return new string[0];
         }
 
         /// <summary>

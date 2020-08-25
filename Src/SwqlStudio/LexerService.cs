@@ -153,17 +153,9 @@ namespace SwqlStudio
         {
             get
             {
-                yield return new Tuple<int, IEnumerable<string>>(0,
-                    @"all any and as asc between class desc distinct exists false full group having in inner into is isa from join left like not null or outer right select set some true union where end when then else case on top return xml raw auto with limitation rows to order by desc totalrows noplancache queryplan querystats"
-                        .Split(new char[] { ' ', ',' }, StringSplitOptions.RemoveEmptyEntries));
-                // User Keywords 1 - scalar functions
-                yield return new Tuple<int, IEnumerable<string>>(4,
-                    @"toutc tolocal getdate getutcdate datetime isnull tostring escapeswisurivalue splitstringtoarray floor round ceiling yeardiff monthdiff weekdiff daydiff hourdiff minutediff seconddiff milliseconddiff year quarterofyear dayofyear month week day hour minute second millisecond uriequals arraycontains datetrunc changetimezone toupper tolower concat substring adddate addyear addmonth addweek addday addhour addminute addsecond addmillisecond arraylength arrayvalueat"
-                        .Split(new char[] { ' ', ',' }, StringSplitOptions.RemoveEmptyEntries));
-                // User Keywords 2 - aggregate functions
-                yield return new Tuple<int, IEnumerable<string>>(5,
-                    @"min max avg count sum"
-                        .Split(new char[] { ' ', ',' }, StringSplitOptions.RemoveEmptyEntries));
+                yield return new Tuple<int, IEnumerable<string>>(0, Grammar.General);
+                yield return new Tuple<int, IEnumerable<string>>(4, Grammar.Functions);
+                yield return new Tuple<int, IEnumerable<string>>(5, Grammar.AggregateFunctions);
             }
         }
 

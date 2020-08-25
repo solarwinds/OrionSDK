@@ -17,7 +17,7 @@ namespace SwqlStudio.Autocomplete
 
         static AutocompleteProvider()
         {
-            _keyWords = new HashSet<string>("all any and as asc between class desc distinct exists false full group having in inner into is isa from join left like not null or outer right select set some true union where end when then else case on top return xml raw auto with limitation rows to order by desc totalrows noplancache queryplan querystats".Split(' '), StringComparer.OrdinalIgnoreCase);
+            _keyWords = new HashSet<string>(Grammar.General);
         }
 
         private enum LastInterestingElement

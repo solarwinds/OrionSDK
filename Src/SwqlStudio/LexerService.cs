@@ -157,20 +157,24 @@ namespace SwqlStudio
         public IEnumerable<string> GetAutoCompletionKeywords(int textPos)
         {
             var state = DetectAutoCompletion(_lexerDataSource.Text, textPos);
+            var result = new List<string>();
 
             if (state.Type.HasFlag(ExpectedCaretPositionType.Column) ||
                 state.Type.HasFlag(ExpectedCaretPositionType.Entity))
             {
                 lock (((ICollection)_swisEntities).SyncRoot)
                 {
-                    return FollowNavigationProperties(state.ProposedEntity ?? "");
+                    var proposedEntity = state.ProposedEntity ?? string.Empty;
+                    var candidates = FollowNavigationProperties(proposedEntity);
+                    result.AddRange(candidates);
                 }
             }
 
             if (state.Type.HasFlag(ExpectedCaretPositionType.Keyword))
-                return Grammar.All;
+                result.AddRange(Grammar.All);
 
-            return new string[0];
+            result.Sort();
+            return result;
         }
 
         /// <summary>

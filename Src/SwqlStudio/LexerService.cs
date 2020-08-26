@@ -29,11 +29,16 @@ namespace SwqlStudio
 
         private readonly ILexerDataSource _lexerDataSource;
 
+        // available keyword sets are obtained from: Scintilla.DescribeKeywordSets();
+        private const int Keywords = 0;
+        private const int UserKeywords1 = 4;
+        private const int UserKeywords2 = 5;
+
         public static readonly Tuple<int, IEnumerable<string>>[] LexerKeywords =
         {
-            new Tuple<int, IEnumerable<string>>(0, Grammar.General),
-            new Tuple<int, IEnumerable<string>>(4, Grammar.Functions),
-            new Tuple<int, IEnumerable<string>>(5, Grammar.AggregateFunctions)
+            new Tuple<int, IEnumerable<string>>(Keywords, Grammar.General),
+            new Tuple<int, IEnumerable<string>>(UserKeywords1, Grammar.Functions),
+            new Tuple<int, IEnumerable<string>>(UserKeywords2, Grammar.AggregateFunctions)
         };
 
         private readonly Dictionary<string, SwisEntity> _swisEntities = new Dictionary<string, SwisEntity>(StringComparer.OrdinalIgnoreCase);

@@ -28,7 +28,18 @@ namespace SwqlStudio
         }
 
         private readonly ILexerDataSource _lexerDataSource;
-        private static List<string> BasicAutoCompletionKeywords { get; }
+
+        // available keyword sets are obtained from: Scintilla.DescribeKeywordSets();
+        private const int Keywords = 0;
+        private const int UserKeywords1 = 4;
+        private const int UserKeywords2 = 5;
+
+        public static readonly Tuple<int, IEnumerable<string>>[] LexerKeywords =
+        {
+            new Tuple<int, IEnumerable<string>>(Keywords, Grammar.General),
+            new Tuple<int, IEnumerable<string>>(UserKeywords1, Grammar.Functions),
+            new Tuple<int, IEnumerable<string>>(UserKeywords2, Grammar.AggregateFunctions)
+        };
 
         private readonly Dictionary<string, SwisEntity> _swisEntities = new Dictionary<string, SwisEntity>(StringComparer.OrdinalIgnoreCase);
 
@@ -138,52 +149,32 @@ namespace SwqlStudio
             RefreshMetadata(provider);
         }
 
-        static LexerService()
-        {
-            BasicAutoCompletionKeywords =
-                LexerKeywords.SelectMany(x => x.Item2).Select(x => x.ToUpper()).OrderBy(x => x).ToList();
-        }
-
         public LexerService(ILexerDataSource lexerDataSource)
         {
             _lexerDataSource = lexerDataSource;
         }
 
-        public static IEnumerable<Tuple<int, IEnumerable<string>>> LexerKeywords
-        {
-            get
-            {
-                yield return new Tuple<int, IEnumerable<string>>(0,
-                    @"all any and as asc between class desc distinct exists false full group having in inner into is isa from join left like not null or outer right select set some true union where end when then else case on top return xml raw auto with limitation rows to order by desc totalrows noplancache queryplan querystats"
-                        .Split(new char[] { ' ', ',' }, StringSplitOptions.RemoveEmptyEntries));
-                // User Keywords 1 - scalar functions
-                yield return new Tuple<int, IEnumerable<string>>(4,
-                    @"toutc tolocal getdate getutcdate datetime isnull tostring escapeswisurivalue splitstringtoarray floor round ceiling yeardiff monthdiff weekdiff daydiff hourdiff minutediff seconddiff milliseconddiff year quarterofyear dayofyear month week day hour minute second millisecond uriequals arraycontains datetrunc changetimezone toupper tolower concat substring adddate addyear addmonth addweek addday addhour addminute addsecond addmillisecond arraylength arrayvalueat"
-                        .Split(new char[] { ' ', ',' }, StringSplitOptions.RemoveEmptyEntries));
-                // User Keywords 2 - aggregate functions
-                yield return new Tuple<int, IEnumerable<string>>(5,
-                    @"min max avg count sum"
-                        .Split(new char[] { ' ', ',' }, StringSplitOptions.RemoveEmptyEntries));
-            }
-        }
-
         public IEnumerable<string> GetAutoCompletionKeywords(int textPos)
         {
             var state = DetectAutoCompletion(_lexerDataSource.Text, textPos);
+            var result = new List<string>();
 
             if (state.Type.HasFlag(ExpectedCaretPositionType.Column) ||
                 state.Type.HasFlag(ExpectedCaretPositionType.Entity))
             {
                 lock (((ICollection)_swisEntities).SyncRoot)
                 {
-                    foreach (var v in FollowNavigationProperties(state.ProposedEntity ?? ""))
-                        yield return v;
+                    var proposedEntity = state.ProposedEntity ?? string.Empty;
+                    var candidates = FollowNavigationProperties(proposedEntity);
+                    result.AddRange(candidates);
                 }
             }
 
             if (state.Type.HasFlag(ExpectedCaretPositionType.Keyword))
-                foreach (var k in BasicAutoCompletionKeywords)
-                    yield return k;
+                result.AddRange(Grammar.All);
+
+            result.Sort();
+            return result;
         }
 
         /// <summary>

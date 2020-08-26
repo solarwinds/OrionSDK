@@ -7,17 +7,12 @@ namespace SwqlStudio.Autocomplete
     // we are not reusing full swis grammar, we can do more 'educated guess' here.
     internal class AutocompleteProvider
     {
-        private static readonly HashSet<string> _keyWords;
+        private static readonly HashSet<string> _keyWords = new HashSet<string>(Grammar.General);
         private readonly string _text;
 
         public AutocompleteProvider(string text)
         {
             _text = text;
-        }
-
-        static AutocompleteProvider()
-        {
-            _keyWords = new HashSet<string>("all any and as asc between class desc distinct exists false full group having in inner into is isa from join left like not null or outer right select set some true union where end when then else case on top return xml raw auto with limitation rows to order by desc totalrows noplancache queryplan querystats".Split(' '), StringComparer.OrdinalIgnoreCase);
         }
 
         private enum LastInterestingElement

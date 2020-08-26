@@ -12,6 +12,10 @@ namespace SwqlStudio
     {
         private ContextMenuStrip editorContextMenu;
 
+        string ILexerDataSource.Text => Text;
+        public string FileName { get; set; }
+        public LexerService LexerService { get; }
+
         public SciTextEditorControl()
         {
             Lexer = Lexer.Sql;
@@ -188,21 +192,17 @@ namespace SwqlStudio
 
         protected override void OnKeyPress(KeyPressEventArgs e)
         {
-            if (e.KeyChar == 5)
+            if (Control.ModifierKeys == Keys.Control && e.KeyChar == (char)Keys.Space)
             {
+                var currentPos = CurrentPosition;
+                var wordStartPos = WordStartPosition(currentPos, true);
+                var lenEntered = currentPos - wordStartPos;
+                this.DisplayAutocomplete(currentPos, lenEntered);
                 e.Handled = true;
-                if (Execute != null)
-                    Execute();
             }
-            else
-                base.OnKeyPress(e);
+
+            base.OnKeyPress(e);
         }
-
-        public string FileName { get; set; }
-
-        public LexerService LexerService { get; }
-
-        public event Action Execute;
 
         protected override void OnCharAdded(CharAddedEventArgs e)
         {
@@ -211,7 +211,6 @@ namespace SwqlStudio
             if (!Settings.Default.AutocompleteEnabled)
                 return;
 
-            // Find the word start
             var currentPos = CurrentPosition;
             var wordStartPos = WordStartPosition(currentPos, true);
 
@@ -219,16 +218,21 @@ namespace SwqlStudio
             if (lenEntered <= 0 && e.Char != '.')
                 return;
 
-            var currentWord = GetWordFromPosition(wordStartPos) ?? "";
-
-
-            // Display the autocompletion list
-            var keywords = string.Join(" ", LexerService.GetAutoCompletionKeywords(currentPos).
-                Where(x => x.StartsWith(currentWord, StringComparison.OrdinalIgnoreCase)).OrderBy(x => x));
-            AutoCShow(lenEntered, keywords);
+            this.DisplayAutocomplete(currentPos, lenEntered);
         }
 
-        string ILexerDataSource.Text => Text;
+        private void DisplayAutocomplete(int currentPos, int lenEntered)
+        {
+            var wordStartPos = WordStartPosition(currentPos, true);
+            var currentWord = GetWordFromPosition(wordStartPos) ?? string.Empty;
+
+            var source = LexerService.GetAutoCompletionKeywords(currentPos)
+                .Where(x => x.StartsWith(currentWord, StringComparison.OrdinalIgnoreCase))
+                .OrderBy(x => x);
+
+            var keywords = string.Join(" ", source);
+            this.AutoCShow(lenEntered, keywords);
+        }
 
         protected override void Dispose(bool disposing)
         {

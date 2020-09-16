@@ -5,7 +5,7 @@ namespace SolarWinds.InformationService.Contract2
     public class InformationServiceContext : IDisposable
     {
         private bool disposed = false;
-        private IInformationService service = null;
+        private readonly IInformationService service = null;
 
         public InformationServiceContext(IInformationService service)
         {

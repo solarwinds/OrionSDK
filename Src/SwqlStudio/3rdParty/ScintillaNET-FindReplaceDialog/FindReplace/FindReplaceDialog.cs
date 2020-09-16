@@ -12,8 +12,8 @@ namespace ScintillaNET_FindReplaceDialog
         #region Fields
 
         private bool _autoPosition;
-        private BindingSource _bindingSourceFind = new BindingSource();
-        private BindingSource _bindingSourceReplace = new BindingSource();
+        private readonly BindingSource _bindingSourceFind = new BindingSource();
+        private readonly BindingSource _bindingSourceReplace = new BindingSource();
         private List<string> _mruFind;
         private int _mruMaxCount = 10;
         private List<string> _mruReplace;

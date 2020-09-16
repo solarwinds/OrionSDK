@@ -9,8 +9,8 @@ namespace SolarWinds.InformationService.InformationServiceClient
 {
     public class InformationServiceXmlReader
     {
-        private InformationServiceConnection connection;
-        private int commandTimeout = 30;
+        private readonly InformationServiceConnection connection;
+        private readonly int commandTimeout = 30;
 
         public InformationServiceXmlReader(InformationServiceConnection connection)
         {

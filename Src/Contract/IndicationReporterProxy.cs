@@ -11,7 +11,7 @@ namespace SolarWinds.InformationService.Contract2
     {
         private readonly static Log log = new Log();
 
-        private ChannelFactory<IIndicationReporter> channelFactory;
+        private readonly ChannelFactory<IIndicationReporter> channelFactory;
 
         private IIndicationReporter reporter;
 

@@ -74,7 +74,7 @@ namespace SolarWinds.InformationService.Contract2
 
         };
 
-        private static XmlStrippedSerializerCache serializerCache;
+        private static readonly XmlStrippedSerializerCache serializerCache;
 
         static SerializationHelper()
         {

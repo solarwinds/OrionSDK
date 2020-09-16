@@ -18,7 +18,7 @@ namespace SolarWinds.Logging
 
         class SimpleLayout : ILayout
         {
-            private PatternLayout _layout = new PatternLayout("%message%newline");
+            private readonly PatternLayout _layout = new PatternLayout("%message%newline");
 
             public string ContentType { get { return "text/plain"; } }
 

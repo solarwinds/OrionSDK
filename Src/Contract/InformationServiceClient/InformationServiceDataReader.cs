@@ -343,15 +343,15 @@ namespace SolarWinds.InformationService.InformationServiceClient
             }
 
 
-            private XmlDictionaryReader reader;
+            private readonly XmlDictionaryReader reader;
             private ParserState state;
             private List<ColumnInfo> columns;
             private int currentColumnOrdinal;
             private bool currentColumnDBNull;
             private bool currentColumnEncoded;
             private string currentColumnEncodingType;
-            private object[] values;
-            private List<object> arrayColumnValues = new List<object>();
+            private readonly object[] values;
+            private readonly List<object> arrayColumnValues = new List<object>();
             private bool closed = false;
             private DataTable schemaTable = null;
             private bool hasRows = false;

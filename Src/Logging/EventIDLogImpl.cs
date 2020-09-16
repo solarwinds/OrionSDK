@@ -10,7 +10,7 @@ namespace SolarWinds.Logging.Ext.EventID
         /// <summary>
         /// The declaring type of the method that is the stack boundary into the logging system for this call.
         /// </summary>
-        private Type ThisDeclaringType = typeof(Log);
+        private readonly Type ThisDeclaringType = typeof(Log);
 
         public EventIDLogImpl(ILogger logger) : base(logger)
         {

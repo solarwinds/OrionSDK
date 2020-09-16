@@ -27,8 +27,8 @@ namespace SolarWinds.Logging
 
         private readonly Ext.EventID.IEventIDLog _log;
 
-        private static HashSet<string> _configurations = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
-        private static HashSet<string> _assemblies = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+        private static readonly HashSet<string> _configurations = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+        private static readonly HashSet<string> _assemblies = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
 
         /// <summary>
         /// SpecialFolder CommonApplicationData + Solarwinds directory
@@ -612,8 +612,8 @@ namespace SolarWinds.Logging
 
     class LogBlock : IDisposable
     {
-        string _blockName;
-        Log _log;
+        readonly string _blockName;
+        readonly Log _log;
         IDisposable _threadContextStackPopper;
 
         public LogBlock(Log log, string blockName)

@@ -37,7 +37,7 @@ namespace SolarWinds.InformationService.Contract2.Bindings
         //This is the actual GZip encoder
         class GZipMessageEncoder : MessageEncoder
         {
-            static string GZipContentType = "application/x-gzip";
+            static readonly string GZipContentType = "application/x-gzip";
 
             //This implementation wraps an inner encoder that actually converts a WCF Message
             //into textual XML, binary XML or some other format. This implementation then compresses the results.

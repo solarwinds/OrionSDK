@@ -77,7 +77,7 @@ namespace SwisPowerShell
 
         private class V3EndpointAddresses : EndpointAddresses
         {
-            public string streamedCertificate = "net.tcp://{0}:17777/SolarWinds/InformationService/v3/Orion/Streamed/Certificate";
+            public readonly string streamedCertificate = "net.tcp://{0}:17777/SolarWinds/InformationService/v3/Orion/Streamed/Certificate";
             public V3EndpointAddresses()
             {
                 activeDirectory = "net.tcp://{0}:17777/SolarWinds/InformationService/v3/Orion/ad";

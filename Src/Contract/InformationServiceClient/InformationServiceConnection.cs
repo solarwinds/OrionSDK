@@ -15,7 +15,7 @@ namespace SolarWinds.InformationService.InformationServiceClient
         private string remoteAddress;
         private InfoServiceProxy proxy;
         private ServiceCredentials credentials;
-        private bool bProxyOwner = true;
+        private readonly bool bProxyOwner = true;
         private bool open = false;
 
         public InformationServiceConnection()

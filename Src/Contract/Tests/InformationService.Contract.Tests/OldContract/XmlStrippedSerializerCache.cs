@@ -10,7 +10,7 @@ namespace SolarWinds.InformationService.Contract2.OldContract
     class XmlStrippedSerializerCache
     {
         private readonly Hashtable cache = new Hashtable();
-        private object _syncLock = new object();
+        private readonly object _syncLock = new object();
 
         public XmlStrippedSerializer GetSerializer(Type type)
         {

@@ -53,7 +53,7 @@ namespace SolarWinds.InformationService.Contract2
 
         class TestEntity
         {
-            private Dictionary<string, object> properties = new Dictionary<string, object>();
+            private readonly Dictionary<string, object> properties = new Dictionary<string, object>();
             public Dictionary<string, object> Properties
             {
                 get

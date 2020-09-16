@@ -4,7 +4,7 @@ namespace SolarWinds.InformationService.InformationServiceClient
 {
     public class EntityMetadata
     {
-        private List<EntityMetadata> _DerivedClasses = new List<EntityMetadata>();
+        private readonly List<EntityMetadata> _DerivedClasses = new List<EntityMetadata>();
 
         public EntityMetadata(string fullName)
         {

@@ -5,8 +5,8 @@ namespace SolarWinds.InformationService.Contract2
 {
     internal class EntityPropertyInfo
     {
-        private TypeInfo typeInfo;
-        private static Dictionary<string, TypeInfo> typeMap = new Dictionary<string, TypeInfo>(StringComparer.Ordinal);
+        private readonly TypeInfo typeInfo;
+        private static readonly Dictionary<string, TypeInfo> typeMap = new Dictionary<string, TypeInfo>(StringComparer.Ordinal);
 
         static EntityPropertyInfo()
         {

@@ -47,7 +47,7 @@ namespace SolarWinds.InformationService.Contract2.Serialization
         public string SerializeToStrippedXml(object value)
         {
             if (value == null)
-                throw new ArgumentNullException("value");
+                throw new ArgumentNullException(nameof(value));
 
             if (value.GetType() != Type)
                 throw new ArgumentException("The value argument must be of the System.Type that the serializer knows how to serialize");
@@ -70,7 +70,7 @@ namespace SolarWinds.InformationService.Contract2.Serialization
         {
             //Deserializing an empty string is okay, but not a null string
             if (strippedXml == null)
-                throw new ArgumentNullException("strippedXml");
+                throw new ArgumentNullException(nameof(strippedXml));
 
             string xml = string.Format("<{0} xmlns='{1}'>{2}</{0}>", XsdElementName, Namespace, strippedXml);
 

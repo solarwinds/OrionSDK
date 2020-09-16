@@ -26,7 +26,7 @@ namespace SolarWinds.InformationService.InformationServiceClient
         public InformationServiceConnection(string endpointName)
         {
             if (endpointName == null)
-                throw new ArgumentNullException("endpointName");
+                throw new ArgumentNullException(nameof(endpointName));
 
             Initialize(endpointName, null, null);
         }
@@ -49,7 +49,7 @@ namespace SolarWinds.InformationService.InformationServiceClient
         public InformationServiceConnection(IInformationService service)
         {
             if (service == null)
-                throw new ArgumentNullException("service");
+                throw new ArgumentNullException(nameof(service));
 
             Service = service;
             bProxyOwner = false;
@@ -58,9 +58,9 @@ namespace SolarWinds.InformationService.InformationServiceClient
         public InformationServiceConnection(string endpointName, string remoteAddress)
         {
             if (endpointName == null)
-                throw new ArgumentNullException("endpointName");
+                throw new ArgumentNullException(nameof(endpointName));
             if (remoteAddress == null)
-                throw new ArgumentNullException("remoteAddress");
+                throw new ArgumentNullException(nameof(remoteAddress));
 
             Initialize(endpointName, remoteAddress, null);
         }
@@ -68,11 +68,11 @@ namespace SolarWinds.InformationService.InformationServiceClient
         public InformationServiceConnection(string endpointName, string remoteAddress, ServiceCredentials credentials)
         {
             if (endpointName == null)
-                throw new ArgumentNullException("endpointName");
+                throw new ArgumentNullException(nameof(endpointName));
             if (remoteAddress == null)
-                throw new ArgumentNullException("remoteAddress");
+                throw new ArgumentNullException(nameof(remoteAddress));
             if (credentials == null)
-                throw new ArgumentNullException("credentials");
+                throw new ArgumentNullException(nameof(credentials));
 
             Initialize(endpointName, remoteAddress, credentials);
         }
@@ -80,9 +80,9 @@ namespace SolarWinds.InformationService.InformationServiceClient
         public InformationServiceConnection(string endpointName, ServiceCredentials credentials)
         {
             if (endpointName == null)
-                throw new ArgumentNullException("endpointName");
+                throw new ArgumentNullException(nameof(endpointName));
             if (credentials == null)
-                throw new ArgumentNullException("credentials");
+                throw new ArgumentNullException(nameof(credentials));
 
             Initialize(endpointName, null, credentials);
         }

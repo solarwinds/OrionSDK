@@ -20,7 +20,7 @@ namespace SolarWinds.InformationService.InformationServiceClient
         public InformationServiceDataAdapter(InformationServiceCommand command)
         {
             if (command == null)
-                throw new ArgumentNullException("command");
+                throw new ArgumentNullException(nameof(command));
 
             SelectCommand = command;
         }

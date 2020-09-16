@@ -48,7 +48,7 @@ namespace SolarWinds.InformationService.Contract2
         {
 
             if (!typeMap.TryGetValue(typeName, out typeInfo))
-                throw new ArgumentException(String.Format("unsupported type name '{0}'", typeName), "typeName");
+                throw new ArgumentException(String.Format("unsupported type name '{0}'", typeName), nameof(typeName));
 
             Name = name;
             TypeName = typeName;

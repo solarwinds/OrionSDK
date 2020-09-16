@@ -29,7 +29,7 @@ namespace SolarWinds.InformationService.InformationServiceClient
         public InformationServiceCommand(string statement)
         {
             if (statement == null)
-                throw new ArgumentNullException("statement");
+                throw new ArgumentNullException(nameof(statement));
 
             this.statement = statement;
         }

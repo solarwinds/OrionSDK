@@ -14,7 +14,7 @@ namespace SolarWinds.InformationService.Contract2.Impersonation
         public ImpersonationContext(string targetUsername)
         {
             if (targetUsername == null)
-                throw new ArgumentNullException("targetUsername");
+                throw new ArgumentNullException(nameof(targetUsername));
 
             TargetUsername = targetUsername;
             current = this;

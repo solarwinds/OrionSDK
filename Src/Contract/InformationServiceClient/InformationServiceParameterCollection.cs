@@ -13,7 +13,7 @@ namespace SolarWinds.InformationService.InformationServiceClient
         public override int Add(object value)
         {
             if (value == null)
-                throw new ArgumentNullException("value");
+                throw new ArgumentNullException(nameof(value));
             if (!(value is InformationServiceParameter))
                 throw new InvalidOperationException("value is not InformationServiceParameter");
 
@@ -44,7 +44,7 @@ namespace SolarWinds.InformationService.InformationServiceClient
         public override void Insert(int index, object value)
         {
             if (value == null)
-                throw new ArgumentNullException("value");
+                throw new ArgumentNullException(nameof(value));
             if (!(value is InformationServiceParameter))
                 throw new InvalidOperationException("value is not InformationServiceParameter");
 
@@ -69,7 +69,7 @@ namespace SolarWinds.InformationService.InformationServiceClient
         protected override void SetParameter(int index, DbParameter value)
         {
             if (value == null)
-                throw new ArgumentNullException("value");
+                throw new ArgumentNullException(nameof(value));
             if (!(value is InformationServiceParameter))
                 throw new InvalidOperationException("value is not InformationServiceParameter");
 
@@ -106,7 +106,7 @@ namespace SolarWinds.InformationService.InformationServiceClient
         public override int IndexOf(string parameterName)
         {
             if (parameterName == null)
-                throw new ArgumentNullException("parameterName");
+                throw new ArgumentNullException(nameof(parameterName));
 
             return parameters.FindIndex(p => p.ParameterName.Equals(parameterName));
         }
@@ -134,7 +134,7 @@ namespace SolarWinds.InformationService.InformationServiceClient
         public override bool Contains(string value)
         {
             if (value == null)
-                throw new ArgumentNullException("value");
+                throw new ArgumentNullException(nameof(value));
 
             return parameters.Any(p => p.ParameterName.Equals(value));
         }
@@ -142,7 +142,7 @@ namespace SolarWinds.InformationService.InformationServiceClient
         public override void CopyTo(Array array, int index)
         {
             if (array == null)
-                throw new ArgumentNullException("array");
+                throw new ArgumentNullException(nameof(array));
 
             parameters.CopyTo((InformationServiceParameter[])array, index);
         }

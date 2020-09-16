@@ -31,7 +31,7 @@ namespace SolarWinds.InformationService.Contract2
         public T ReadNextEntity(XmlReader reader)
         {
             if (reader == null)
-                throw new ArgumentNullException("reader");
+                throw new ArgumentNullException(nameof(reader));
 
             while (reader.Read())
             {

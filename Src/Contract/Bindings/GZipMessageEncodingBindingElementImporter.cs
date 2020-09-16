@@ -16,12 +16,12 @@ namespace SolarWinds.InformationService.Contract2.Bindings
         {
             if (importer == null)
             {
-                throw new ArgumentNullException("importer");
+                throw new ArgumentNullException(nameof(importer));
             }
 
             if (context == null)
             {
-                throw new ArgumentNullException("context");
+                throw new ArgumentNullException(nameof(context));
             }
 
             ICollection<XmlElement> assertions = context.GetBindingAssertions();

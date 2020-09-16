@@ -18,7 +18,7 @@ namespace SolarWinds.InformationService.Contract2.Bindings
         public GZipMessageEncoderFactory(MessageEncoderFactory messageEncoderFactory)
         {
             if (messageEncoderFactory == null)
-                throw new ArgumentNullException("messageEncoderFactory", "A valid message encoder factory must be passed to the GZipEncoder");
+                throw new ArgumentNullException(nameof(messageEncoderFactory), "A valid message encoder factory must be passed to the GZipEncoder");
             encoder = new GZipMessageEncoder(messageEncoderFactory.Encoder);
 
         }
@@ -50,7 +50,7 @@ namespace SolarWinds.InformationService.Contract2.Bindings
                 : base()
             {
                 if (messageEncoder == null)
-                    throw new ArgumentNullException("messageEncoder", "A valid message encoder must be passed to the GZipEncoder");
+                    throw new ArgumentNullException(nameof(messageEncoder), "A valid message encoder must be passed to the GZipEncoder");
                 innerEncoder = messageEncoder;
             }
 

@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
-using NUnit.Framework;
-using System.Xml;
 using System.IO;
+using System.Text;
+using System.Xml;
+using NUnit.Framework;
 
 namespace SolarWinds.InformationService.Contract2
 {

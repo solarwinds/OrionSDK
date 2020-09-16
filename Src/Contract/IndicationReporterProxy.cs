@@ -2,8 +2,8 @@
 using System.Security.Cryptography.X509Certificates;
 using System.ServiceModel;
 using System.ServiceModel.Security;
-using SolarWinds.Logging;
 using SolarWinds.InformationService.Contract2.PubSub;
+using SolarWinds.Logging;
 
 namespace SolarWinds.InformationService.Contract2
 {

@@ -1,11 +1,11 @@
-﻿using log4net;
+﻿using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using log4net;
 using log4net.Appender;
 using log4net.Core;
 using log4net.Layout;
 using log4net.Repository.Hierarchy;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 
 namespace SolarWinds.Logging
 {

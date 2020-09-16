@@ -1,10 +1,10 @@
-using System.IO;
-using System.Runtime.Serialization;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
+using System.IO;
+using System.Runtime.Serialization;
 using System.Xml;
 using SolarWinds.InformationService.Contract2.Serialization;
-using System.Globalization;
 
 namespace SolarWinds.InformationService.Contract2
 {

@@ -1,14 +1,14 @@
 using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Runtime.CompilerServices;
+using System.Configuration;
 using System.Diagnostics;
+using System.Globalization;
+using System.IO;
+using System.Linq;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 using System.Xml;
 using log4net.Util;
-using System.Globalization;
-using System.Linq;
-using System.Configuration;
 
 namespace SolarWinds.Logging
 {

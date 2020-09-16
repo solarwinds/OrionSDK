@@ -1,8 +1,8 @@
 using System;
-using System.Data.Common;
-using SolarWinds.InformationService.Contract2;
 using System.Data;
+using System.Data.Common;
 using System.ServiceModel;
+using SolarWinds.InformationService.Contract2;
 
 namespace SolarWinds.InformationService.InformationServiceClient
 {

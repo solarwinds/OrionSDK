@@ -1,8 +1,8 @@
 ﻿using System;
-using SolarWinds.Logging;
 using System.ServiceModel;
 using System.ServiceModel.Channels;
 using SolarWinds.InformationService.Contract2.Bindings;
+using SolarWinds.Logging;
 
 namespace SolarWinds.InformationService.Contract2
 {

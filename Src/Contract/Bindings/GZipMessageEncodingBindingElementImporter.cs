@@ -1,8 +1,8 @@
 
 using System;
-using System.Xml;
-using System.ServiceModel.Description;
 using System.Collections.Generic;
+using System.ServiceModel.Description;
+using System.Xml;
 
 namespace SolarWinds.InformationService.Contract2.Bindings
 {

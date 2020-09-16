@@ -1,9 +1,9 @@
 ﻿using System;
+using System.Configuration;
+using System.IO;
+using System.Linq;
 using System.Windows.Forms;
 using SwqlStudio.Properties;
-using System.IO;
-using System.Configuration;
-using System.Linq;
 
 namespace SwqlStudio
 {

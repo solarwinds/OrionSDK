@@ -1,9 +1,9 @@
-﻿using SolarWinds.InformationService.Contract2;
-using System;
+﻿using System;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Web;
+using SolarWinds.InformationService.Contract2;
 
 namespace SwqlStudio.Utils
 {

@@ -1,7 +1,7 @@
 using System;
+using System.Globalization;
 using log4net.Core;
 using log4net.Util;
-using System.Globalization;
 
 namespace SolarWinds.Logging.Ext.EventID
 {

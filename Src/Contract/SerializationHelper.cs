@@ -8,7 +8,7 @@ using SolarWinds.InformationService.Contract2.Serialization;
 
 namespace SolarWinds.InformationService.Contract2
 {
-    class SerializerInfo
+    internal class SerializerInfo
     {
         public readonly Type ObjectType;
         public readonly Func<object, Type, string> Serializer;

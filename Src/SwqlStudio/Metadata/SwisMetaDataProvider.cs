@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace SwqlStudio.Metadata
 {
-    class SwisMetaDataProvider : IMetadataProvider
+    internal class SwisMetaDataProvider : IMetadataProvider
     {
         private readonly ConnectionInfo info;
 

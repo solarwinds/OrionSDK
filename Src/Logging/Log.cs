@@ -129,7 +129,7 @@ namespace SolarWinds.Logging
             Configure(configuration.FilePath);
         }
 
-        static void CurrentDomain_AssemblyLoad(object sender, AssemblyLoadEventArgs args)
+        private static void CurrentDomain_AssemblyLoad(object sender, AssemblyLoadEventArgs args)
         {
             try
             {
@@ -610,11 +610,11 @@ namespace SolarWinds.Logging
         #endregion
     }
 
-    class LogBlock : IDisposable
+    internal class LogBlock : IDisposable
     {
-        readonly string _blockName;
-        readonly Log _log;
-        IDisposable _threadContextStackPopper;
+        private readonly string _blockName;
+        private readonly Log _log;
+        private IDisposable _threadContextStackPopper;
 
         public LogBlock(Log log, string blockName)
         {

@@ -82,7 +82,7 @@ namespace SolarWinds.InformationService.Contract2
             }
         }
 
-        class TypeInfo
+        private class TypeInfo
         {
             public Type Type;
             public EntityPropertyType PropertyType;

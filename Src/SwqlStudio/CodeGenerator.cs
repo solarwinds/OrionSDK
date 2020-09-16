@@ -9,7 +9,7 @@ using SwqlStudio.Metadata;
 
 namespace SwqlStudio
 {
-    static class CodeGenerator
+    internal static class CodeGenerator
     {
         public static void GenerateCSharpCode(IEnumerable<Entity> entities, string path)
         {

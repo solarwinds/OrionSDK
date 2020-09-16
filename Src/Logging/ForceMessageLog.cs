@@ -16,7 +16,7 @@ namespace SolarWinds.Logging
     {
         private static readonly SimpleLayout _simpleLayout = new SimpleLayout();
 
-        class SimpleLayout : ILayout
+        private class SimpleLayout : ILayout
         {
             private readonly PatternLayout _layout = new PatternLayout("%message%newline");
 

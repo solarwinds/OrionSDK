@@ -8,7 +8,7 @@ using SwqlStudio.Properties;
 
 namespace SwqlStudio
 {
-    class OrionHttpsInfoService : InfoServiceBase
+    internal class OrionHttpsInfoService : InfoServiceBase
     {
         static OrionHttpsInfoService()
         {

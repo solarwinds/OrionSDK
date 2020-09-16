@@ -7,7 +7,7 @@ namespace SolarWinds.InformationService.Contract2.OldContract
     /// <summary>
     /// Since it is so expensive to construct serializers, this object caches them.
     /// </summary>
-    class XmlStrippedSerializerCache
+    internal class XmlStrippedSerializerCache
     {
         private readonly Hashtable cache = new Hashtable();
         private readonly object _syncLock = new object();

@@ -4,7 +4,7 @@ using System.ServiceModel.Dispatcher;
 
 namespace SolarWinds.InformationService.Contract2
 {
-    class InfoServiceActivityMonitor : IEndpointBehavior, IClientMessageInspector
+    internal class InfoServiceActivityMonitor : IEndpointBehavior, IClientMessageInspector
     {
         public bool RequestSent
         {

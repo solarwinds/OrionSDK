@@ -2,7 +2,7 @@
 
 namespace SwqlStudio
 {
-    static class Utility
+    internal static class Utility
     {
         public static string GetFqdn()
         {

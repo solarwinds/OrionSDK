@@ -51,7 +51,7 @@ namespace SolarWinds.InformationService.Contract2
             M mapStudioFile = parser.ReadNextEntity(reader);
         }
 
-        class TestEntity
+        private class TestEntity
         {
             private readonly Dictionary<string, object> properties = new Dictionary<string, object>();
             public Dictionary<string, object> Properties
@@ -75,6 +75,6 @@ namespace SolarWinds.InformationService.Contract2
             }
         }
 
-        class M : TestEntity { }
+        private class M : TestEntity { }
     }
 }

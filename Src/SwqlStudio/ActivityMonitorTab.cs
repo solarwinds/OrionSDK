@@ -36,7 +36,7 @@ namespace SwqlStudio
             Disposed += ActivityMonitorTabDisposed;
         }
 
-        void ActivityMonitorTabDisposed(object sender, EventArgs e)
+        private void ActivityMonitorTabDisposed(object sender, EventArgs e)
         {
             if (!string.IsNullOrEmpty(subscriptionId) && ConnectionInfo.IsConnected)
             {

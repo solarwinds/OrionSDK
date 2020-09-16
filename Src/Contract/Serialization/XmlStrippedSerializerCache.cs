@@ -11,7 +11,7 @@ namespace SolarWinds.InformationService.Contract2.Serialization
     /// <summary>
     /// Since it is so expensive to construct serializers, this object caches them.
     /// </summary>
-    class XmlStrippedSerializerCache
+    internal class XmlStrippedSerializerCache
     {
         private readonly Dictionary<string, XmlStrippedSerializer> cache = new Dictionary<string, XmlStrippedSerializer>();
 

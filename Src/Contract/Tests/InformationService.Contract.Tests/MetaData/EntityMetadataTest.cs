@@ -6,7 +6,7 @@ using SolarWinds.InformationService.InformationServiceClient;
 namespace SolarWinds.InformationService.Contract2
 {
     [TestFixture]
-    class EntityMetadataTest
+    internal class EntityMetadataTest
     {
         [Test]
         public void EntityMetadata_ctor()

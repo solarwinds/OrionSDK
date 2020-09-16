@@ -4,7 +4,7 @@ using SwqlStudio.Properties;
 
 namespace SwqlStudio
 {
-    class NCMInfoService : InfoServiceBase
+    internal class NCMInfoService : InfoServiceBase
     {
         public NCMInfoService(string username, string password)
         {

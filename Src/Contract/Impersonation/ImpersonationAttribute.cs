@@ -5,7 +5,7 @@ using System.ServiceModel.Dispatcher;
 
 namespace SolarWinds.InformationService.Contract2.Impersonation
 {
-    class ImpersonationAttribute : Attribute, IContractBehavior
+    internal class ImpersonationAttribute : Attribute, IContractBehavior
     {
         public void AddBindingParameters(ContractDescription contractDescription, ServiceEndpoint endpoint, BindingParameterCollection bindingParameters)
         {

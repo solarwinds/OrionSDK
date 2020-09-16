@@ -4,7 +4,7 @@ using System.ServiceModel.Security;
 
 namespace SolarWinds.InformationService.Contract2.Bindings
 {
-    class SWIdentityVerifier : IdentityVerifier
+    internal class SWIdentityVerifier : IdentityVerifier
     {
         public override bool CheckAccess(EndpointIdentity identity, AuthorizationContext authContext)
         {

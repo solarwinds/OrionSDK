@@ -18,7 +18,7 @@ namespace SolarWinds.InformationService.Contract2.OldContract
     ///         <string>Karen</string><string>Caleb</string><string>Rachel</string><string>Morgen</string><string>Katy</string>
     /// 
     /// </summary>
-    class XmlStrippedSerializer
+    internal class XmlStrippedSerializer
     {
         private readonly XmlSerializer _serializer;
         private readonly string _xsdElementName;

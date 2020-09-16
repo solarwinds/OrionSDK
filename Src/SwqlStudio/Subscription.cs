@@ -3,7 +3,7 @@ using SolarWinds.InformationService.Contract2;
 
 namespace SwqlStudio
 {
-    class Subscription : IDisposable
+    internal class Subscription : IDisposable
     {
         private const string systemSubscription = "System.Subscription";
 

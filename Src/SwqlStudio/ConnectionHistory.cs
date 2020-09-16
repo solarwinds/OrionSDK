@@ -4,7 +4,7 @@ using SwqlStudio.Properties;
 
 namespace SwqlStudio
 {
-    class ConnectionHistory
+    internal class ConnectionHistory
     {
         private static List<string> _previousServers;
         private static List<string> _previousUsers;

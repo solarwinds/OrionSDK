@@ -42,7 +42,7 @@ namespace SwqlStudio
         }
 
         [Flags]
-        enum Tabs
+        private enum Tabs
         {
             Results = 1,
             QueryPlan = 2,
@@ -90,7 +90,7 @@ namespace SwqlStudio
             RunQuery();
         }
 
-        void QueryTabDisposed(object sender, EventArgs e)
+        private void QueryTabDisposed(object sender, EventArgs e)
         {
             if (nullFont != null)
             {
@@ -347,7 +347,7 @@ namespace SwqlStudio
             ApplicationService.RefreshSelectedConnections();
         }
 
-        void SubscriptionIndicationReceived(IndicationEventArgs e)
+        private void SubscriptionIndicationReceived(IndicationEventArgs e)
         {
             if (!subscriptionTab1.IsDisposed)
                 subscriptionTab1.BeginInvoke(new Action<IndicationEventArgs>(subscriptionTab1.AddIndication), e);

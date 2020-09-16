@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace SwqlStudio.Metadata
 {
-    interface IMetadataProvider
+    internal interface IMetadataProvider
     {
         event EventHandler EntitiesRefreshed;
         string Name { get; }

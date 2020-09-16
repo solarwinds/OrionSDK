@@ -5,7 +5,7 @@ using System.Threading;
 
 namespace SolarWinds.InformationService.Contract2.Internationalization
 {
-    class I18nMessageInspector : IClientMessageInspector, IDispatchMessageInspector
+    internal class I18nMessageInspector : IClientMessageInspector, IDispatchMessageInspector
     {
         public object BeforeSendRequest(ref Message request, IClientChannel channel)
         {

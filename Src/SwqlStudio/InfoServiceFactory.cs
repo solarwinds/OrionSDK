@@ -1,6 +1,6 @@
 ﻿namespace SwqlStudio
 {
-    class InfoServiceFactory
+    internal class InfoServiceFactory
     {
         public static InfoServiceBase Create(string serverType, string username, string password)
         {

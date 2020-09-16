@@ -6,7 +6,7 @@ using SolarWinds.InformationService.Contract2.PubSub;
 
 namespace SwqlStudio.Subscriptions
 {
-    class NotificationDeliveryServiceProxy : DuplexClientBase<INotificationDeliveryService>
+    internal class NotificationDeliveryServiceProxy : DuplexClientBase<INotificationDeliveryService>
     {
         public NotificationDeliveryServiceProxy(string endpointConfig, string address) : base(endpointConfig, address)
         {
@@ -49,7 +49,7 @@ namespace SwqlStudio.Subscriptions
             Channel.Disconnect(address);
         }
 
-        class SWIdentityVerifier : IdentityVerifier
+        private class SWIdentityVerifier : IdentityVerifier
         {
             public override bool CheckAccess(EndpointIdentity identity, AuthorizationContext authContext)
             {

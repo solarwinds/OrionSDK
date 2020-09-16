@@ -55,7 +55,7 @@ namespace SolarWinds.InformationService.Contract2
             Z mapStudioFile = parser.ReadNextEntity(reader);
         }
 
-        class MapStudioFiles
+        private class MapStudioFiles
         {
             public Guid FileId { get; set; }
             public string FileName { get; set; }
@@ -72,11 +72,11 @@ namespace SolarWinds.InformationService.Contract2
         }
 
         [InformationServiceEntity(EntityType = "Orion.MapStudioFiles")]
-        class M : MapStudioFiles
+        private class M : MapStudioFiles
         {
         }
 
-        class Z : MapStudioFiles
+        private class Z : MapStudioFiles
         {
         }
     }

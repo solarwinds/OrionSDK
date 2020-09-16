@@ -22,7 +22,7 @@ namespace SolarWinds.InformationService.Contract2.Serialization
     ///         <string>Karen</string><string>Caleb</string><string>Rachel</string><string>Morgen</string><string>Katy</string>
     /// 
     /// </summary>
-    class XmlStrippedSerializer
+    internal class XmlStrippedSerializer
     {
         public XmlStrippedSerializer(XmlSerializer serializer, string xsdElementName, string ns, Type type)
         {

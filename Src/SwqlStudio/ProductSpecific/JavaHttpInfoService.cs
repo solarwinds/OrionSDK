@@ -6,7 +6,7 @@ using SwqlStudio.Properties;
 
 namespace SwqlStudio
 {
-    class JavaHttpInfoService : InfoServiceBase
+    internal class JavaHttpInfoService : InfoServiceBase
     {
         public JavaHttpInfoService(string username, string password)
         {

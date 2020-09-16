@@ -10,8 +10,7 @@ namespace SolarWinds.InformationService.Contract2.Bindings
     internal class GZipMessageEncoderFactory : MessageEncoderFactory
     {
         private static readonly Log _log = new Log();
-
-        readonly MessageEncoder encoder;
+        private readonly MessageEncoder encoder;
 
         //The GZip encoder wraps an inner encoder
         //We require a factory to be passed in that will create this inner encoder
@@ -35,15 +34,15 @@ namespace SolarWinds.InformationService.Contract2.Bindings
         }
 
         //This is the actual GZip encoder
-        class GZipMessageEncoder : MessageEncoder
+        private class GZipMessageEncoder : MessageEncoder
         {
-            static readonly string GZipContentType = "application/x-gzip";
+            private static readonly string GZipContentType = "application/x-gzip";
 
             //This implementation wraps an inner encoder that actually converts a WCF Message
             //into textual XML, binary XML or some other format. This implementation then compresses the results.
             //The opposite happens when reading messages.
             //This member stores this inner encoder.
-            readonly MessageEncoder innerEncoder;
+            private readonly MessageEncoder innerEncoder;
 
             //We require an inner encoder to be supplied (see comment above)
             internal GZipMessageEncoder(MessageEncoder messageEncoder)
@@ -76,7 +75,7 @@ namespace SolarWinds.InformationService.Contract2.Bindings
             }
 
             //Helper method to compress an array of bytes
-            static ArraySegment<byte> CompressBuffer(ArraySegment<byte> buffer, BufferManager bufferManager, int messageOffset)
+            private static ArraySegment<byte> CompressBuffer(ArraySegment<byte> buffer, BufferManager bufferManager, int messageOffset)
             {
                 MemoryStream memoryStream = new MemoryStream();
 
@@ -100,7 +99,7 @@ namespace SolarWinds.InformationService.Contract2.Bindings
             }
 
             //Helper method to decompress an array of bytes
-            static ArraySegment<byte> DecompressBuffer(ArraySegment<byte> buffer, BufferManager bufferManager)
+            private static ArraySegment<byte> DecompressBuffer(ArraySegment<byte> buffer, BufferManager bufferManager)
             {
                 MemoryStream memoryStream = new MemoryStream(buffer.Array, buffer.Offset, buffer.Count);
                 MemoryStream decompressedStream = new MemoryStream();

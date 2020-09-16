@@ -4,7 +4,7 @@ using SwqlStudio.Properties;
 
 namespace SwqlStudio
 {
-    class OrionInfoServiceWindowsCompressed : InfoServiceBase
+    internal class OrionInfoServiceWindowsCompressed : InfoServiceBase
     {
         public OrionInfoServiceWindowsCompressed(string username, string password, bool v3 = false)
         {

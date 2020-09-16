@@ -280,7 +280,7 @@ namespace SwqlStudio
 
                 if (openFileDialog1.ShowDialog() == DialogResult.OK)
                 {
-                    var pbi = new PlaybackItem() { FileName = openFileDialog1.FileName, MultiThread = false, QueryTab = this };
+                    var pbi = new PlaybackItem { FileName = openFileDialog1.FileName, MultiThread = false, QueryTab = this };
                     ConnectionInfo info = ConnectionsManager.AskForNewConnection();
                     if (info == null)
                         return;

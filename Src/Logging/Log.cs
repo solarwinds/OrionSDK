@@ -8,6 +8,7 @@ using System.Xml;
 using log4net.Util;
 using System.Globalization;
 using System.Linq;
+using System.Configuration;
 
 namespace SolarWinds.Logging
 {
@@ -124,7 +125,8 @@ namespace SolarWinds.Logging
 
             // Configure log4net within application configuration file
             // For web apps, this will work if the config info is in web.config:
-            Configure(AppDomain.CurrentDomain.SetupInformation.ConfigurationFile);
+            var configuration = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+            Configure(configuration.FilePath);
         }
 
         static void CurrentDomain_AssemblyLoad(object sender, AssemblyLoadEventArgs args)
@@ -262,7 +264,8 @@ namespace SolarWinds.Logging
                     yield return Path.Combine(Path.GetDirectoryName(entryAssembly.Location), Path.GetFileName(fileName));
             }
 
-            yield return AppDomain.CurrentDomain.SetupInformation.ConfigurationFile;
+            var configuration = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+            yield return configuration.FilePath;
         }
 
         #region Log Forwarding Members

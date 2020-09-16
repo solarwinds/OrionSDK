@@ -169,7 +169,7 @@ namespace SolarWinds.Logging
             LogAssemblyVersion(callerType.Assembly);
         }
 
-        public Log(String Name)
+        public Log(string Name)
         {
             _log = Ext.EventID.EventIDLogManager.GetLogger(Name);
         }

@@ -138,7 +138,7 @@ namespace SwqlStudio
 
         private static string ChildrenText(int childrenCount)
         {
-            var countSuffix = childrenCount > 1 ? "s" : String.Empty;
+            var countSuffix = childrenCount > 1 ? "s" : string.Empty;
             return $"{childrenCount} item{countSuffix}";
         }
 

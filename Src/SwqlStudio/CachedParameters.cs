@@ -68,7 +68,7 @@ namespace SwqlStudio
             {
                 string lastKnownValue = variable.Value?.ToString();
 
-                if (!String.IsNullOrEmpty(lastKnownValue))
+                if (!string.IsNullOrEmpty(lastKnownValue))
                     lastKnownValues[variable.Key] = lastKnownValue;
             }
         }

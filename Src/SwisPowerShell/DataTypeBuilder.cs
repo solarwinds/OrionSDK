@@ -46,7 +46,7 @@ namespace SwisPowerShell
 
         private void AddProperty(TypeBuilder builder, string propertyName, Type propertyType)
         {
-            string fieldName = String.Format("_{0}", propertyName);
+            string fieldName = string.Format("_{0}", propertyName);
             Type type = propertyType;
             if (type.IsValueType)
             {
@@ -62,7 +62,7 @@ namespace SwisPowerShell
 
             MethodBuilder getPropertyMethodBuilder =
                 builder.DefineMethod(
-                    String.Format("get_{0}", propertyName),
+                    string.Format("get_{0}", propertyName),
                     getSetAttr,
                     type,
                     Type.EmptyTypes);
@@ -75,7 +75,7 @@ namespace SwisPowerShell
 
             MethodBuilder custNameSetPropMthdBldr =
                 builder.DefineMethod(
-                    String.Format("set_{0}", propertyName),
+                    string.Format("set_{0}", propertyName),
                     getSetAttr,
                     null,
                     new[] { type });
@@ -103,7 +103,7 @@ namespace SwisPowerShell
         {
             lock (_createdTypesLock)
             {
-                return String.Format("PscxDynamicType{0}", _createdTypes++);
+                return string.Format("PscxDynamicType{0}", _createdTypes++);
             }
         }
     }

@@ -62,7 +62,7 @@ namespace SolarWinds.InformationService.Contract2
                 }
             }
 
-            public void Add(String propertyName, Object propertyValue)
+            public void Add(string propertyName, object propertyValue)
             {
                 if (Properties.ContainsKey(propertyName))
                 {

@@ -335,7 +335,7 @@ namespace SolarWinds.InformationService.Contract2
             }
             catch (FaultException<InfoServiceFaultContract> ex)
             {
-                _log.Error("Error executing bulk update operation: " + ex.Detail.Message + Environment.NewLine + String.Join(Environment.NewLine, uris) + Environment.NewLine + propertiesToUpdate);
+                _log.Error("Error executing bulk update operation: " + ex.Detail.Message + Environment.NewLine + string.Join(Environment.NewLine, uris) + Environment.NewLine + propertiesToUpdate);
                 throw;
             }
             finally
@@ -389,7 +389,7 @@ namespace SolarWinds.InformationService.Contract2
             }
             catch (FaultException<InfoServiceFaultContract> ex)
             {
-                _log.Error("Error executing bulk delete operation: " + ex.Detail.Message + Environment.NewLine + String.Join(Environment.NewLine, uris));
+                _log.Error("Error executing bulk delete operation: " + ex.Detail.Message + Environment.NewLine + string.Join(Environment.NewLine, uris));
                 throw;
             }
             finally

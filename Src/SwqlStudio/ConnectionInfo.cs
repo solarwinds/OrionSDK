@@ -73,7 +73,7 @@ namespace SwqlStudio
         {
             get
             {
-                return String.Format("{0} : {1}{2}", Server, ServerType, FormattedUserName);
+                return string.Format("{0} : {1}{2}", Server, ServerType, FormattedUserName);
             }
         }
 

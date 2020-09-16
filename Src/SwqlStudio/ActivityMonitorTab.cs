@@ -38,7 +38,7 @@ namespace SwqlStudio
 
         void ActivityMonitorTabDisposed(object sender, EventArgs e)
         {
-            if (!String.IsNullOrEmpty(subscriptionId) && ConnectionInfo.IsConnected)
+            if (!string.IsNullOrEmpty(subscriptionId) && ConnectionInfo.IsConnected)
             {
                 SubscriptionManager.Unsubscribe(ConnectionInfo, subscriptionId, SubscriptionIndicationReceived);
             }

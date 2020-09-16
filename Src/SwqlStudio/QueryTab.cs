@@ -26,7 +26,7 @@ namespace SwqlStudio
 
         private bool HasSubscription
         {
-            get { return !String.IsNullOrEmpty(subscriptionId); }
+            get { return !string.IsNullOrEmpty(subscriptionId); }
         }
 
         public override bool AllowsChangeConnection => !HasSubscription;
@@ -318,7 +318,7 @@ namespace SwqlStudio
                 return;
 
             string query = editor.GetSelectedOrAllText();
-            if (String.IsNullOrEmpty(query) || query.Trim().Length == 0)
+            if (string.IsNullOrEmpty(query) || query.Trim().Length == 0)
                 return;
 
             ConnectionInfo connection = ConnectionInfo;

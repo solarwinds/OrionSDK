@@ -116,7 +116,7 @@ namespace SolarWinds.InformationService.Contract2
         [Test]
         public void SerializationHelper_Serialize_StringArray()
         {
-            var typeName = typeof(System.String).MakeArrayType().FullName;
+            var typeName = typeof(string).MakeArrayType().FullName;
             var serialzedXml = SerializationHelper.Serialize(stringArray, typeName);
             Assert.That(serialzedXml, Is.EqualTo("<string>CustomerID</string><string>PollInterval</string><string>InstanceType</string><string>NodeId</string>"));
         }

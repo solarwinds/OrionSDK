@@ -63,9 +63,9 @@ namespace SolarWinds.InformationService.Contract2
             public DateTime Timestamp { get; set; }
             public string Owner { get; set; }
             public string UpdateUser { get; set; }
-            public Boolean IsDeleted { get; set; }
+            public bool IsDeleted { get; set; }
             public string LockUser { get; set; }
-            public Int32 FileType { get; set; }
+            public int FileType { get; set; }
             public DateTime LockDate { get; set; }
             public string ComputerName { get; set; }
             public string[] SomeStringArray { get; set; }

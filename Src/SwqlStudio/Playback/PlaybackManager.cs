@@ -31,7 +31,7 @@ namespace SwqlStudio.Playback
                         var sb = new StringBuilder();
                         using (var sr = new StreamReader(playbackItem.FileName))
                         {
-                            String line;
+                            string line;
                             // Read and display lines from the file until the end of 
                             // the file is reached.
                             while ((line = sr.ReadLine()) != null)

@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>net35</TargetFramework>
+    <TargetFramework>net48</TargetFramework>
     <RootNamespace>SolarWinds.InformationService.Contract2</RootNamespace>
     <AssemblyName>InformationService.Contract.Tests</AssemblyName>
   </PropertyGroup>

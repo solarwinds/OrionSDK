@@ -343,15 +343,15 @@ namespace SolarWinds.InformationService.InformationServiceClient
             }
 
 
-            private XmlDictionaryReader reader;
+            private readonly XmlDictionaryReader reader;
             private ParserState state;
             private List<ColumnInfo> columns;
             private int currentColumnOrdinal;
             private bool currentColumnDBNull;
             private bool currentColumnEncoded;
             private string currentColumnEncodingType;
-            private object[] values;
-            private List<object> arrayColumnValues = new List<object>();
+            private readonly object[] values;
+            private readonly List<object> arrayColumnValues = new List<object>();
             private bool closed = false;
             private DataTable schemaTable = null;
             private bool hasRows = false;
@@ -453,7 +453,7 @@ namespace SolarWinds.InformationService.InformationServiceClient
                 if (IsDBNull(ordinal))
                     throw new SqlNullValueException(string.Format("Column contains {0} DBNull", ordinal));
 
-                return (Decimal)values[ordinal];
+                return (decimal)values[ordinal];
             }
 
             public override double GetDouble(int ordinal)
@@ -461,7 +461,7 @@ namespace SolarWinds.InformationService.InformationServiceClient
                 if (IsDBNull(ordinal))
                     throw new SqlNullValueException(string.Format("Column contains {0} DBNull", ordinal));
 
-                return (Double)values[ordinal];
+                return (double)values[ordinal];
             }
 
             public override System.Collections.IEnumerator GetEnumerator()
@@ -495,7 +495,7 @@ namespace SolarWinds.InformationService.InformationServiceClient
                 if (IsDBNull(ordinal))
                     throw new SqlNullValueException(string.Format("Column contains {0} DBNull", ordinal));
 
-                return (Int16)values[ordinal];
+                return (short)values[ordinal];
             }
 
             public override int GetInt32(int ordinal)
@@ -503,7 +503,7 @@ namespace SolarWinds.InformationService.InformationServiceClient
                 if (IsDBNull(ordinal))
                     throw new SqlNullValueException(string.Format("Column contains {0} DBNull", ordinal));
 
-                return (Int32)values[ordinal];
+                return (int)values[ordinal];
             }
 
             public override long GetInt64(int ordinal)
@@ -511,7 +511,7 @@ namespace SolarWinds.InformationService.InformationServiceClient
                 if (IsDBNull(ordinal))
                     throw new SqlNullValueException(string.Format("Column contains {0} DBNull", ordinal));
 
-                return (Int64)values[ordinal];
+                return (long)values[ordinal];
             }
 
             public override string GetName(int ordinal)
@@ -692,7 +692,7 @@ namespace SolarWinds.InformationService.InformationServiceClient
                                     }
 
                                     ColumnInfo columnInfo = new ColumnInfo(reader["name"], reader["type"],
-                                        Int32.Parse(reader["ordinal"], CultureInfo.InvariantCulture));
+                                        int.Parse(reader["ordinal"], CultureInfo.InvariantCulture));
 
                                     // TODO: this should be define in column definition
                                     columnInfo.DateTimeMode = DateTimeMode;
@@ -909,7 +909,7 @@ namespace SolarWinds.InformationService.InformationServiceClient
                 // - name must match exactly between the XML element and the type name
                 // - not handling simple scalar results at this point, only classes/structs with properties
                 // - not handling fields
-                if (String.CompareOrdinal("row", reader.LocalName) != 0)
+                if (string.CompareOrdinal("row", reader.LocalName) != 0)
                     throw new InvalidOperationException("Expecting <row> element but found " + reader.LocalName);
 
                 state = ParserState.Row;
@@ -959,7 +959,7 @@ namespace SolarWinds.InformationService.InformationServiceClient
 
             private void BeginArrayItem(XmlDictionaryReader reader)
             {
-                if (String.CompareOrdinal("item", reader.LocalName) != 0)
+                if (string.CompareOrdinal("item", reader.LocalName) != 0)
                     throw new InvalidOperationException("Expecting <item> element but found " + reader.LocalName);
 
                 state = ParserState.ArrayItem;

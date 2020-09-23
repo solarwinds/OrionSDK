@@ -39,7 +39,7 @@ namespace SolarWinds.InformationService.Contract2
         public InfoServiceProxy(string endpointConfiguration)
         {
             if (endpointConfiguration == null)
-                throw new ArgumentNullException("endpointConfiguration");
+                throw new ArgumentNullException(nameof(endpointConfiguration));
 
             ChannelFactory = CreateChannelFactory(endpointConfiguration);
 
@@ -50,7 +50,7 @@ namespace SolarWinds.InformationService.Contract2
             : this(endpointConfiguration)
         {
             if (credentials == null)
-                throw new ArgumentNullException("credentials");
+                throw new ArgumentNullException(nameof(credentials));
 
             credentials.ApplyTo(ChannelFactory);
         }
@@ -58,10 +58,10 @@ namespace SolarWinds.InformationService.Contract2
         public InfoServiceProxy(string endpointConfiguration, string remoteAddress)
         {
             if (endpointConfiguration == null)
-                throw new ArgumentNullException("endpointConfiguration");
+                throw new ArgumentNullException(nameof(endpointConfiguration));
 
             if (remoteAddress == null)
-                throw new ArgumentNullException("remoteAddress");
+                throw new ArgumentNullException(nameof(remoteAddress));
 
             ChannelFactory = CreateChannelFactory(endpointConfiguration, new EndpointAddress(remoteAddress));
 
@@ -72,7 +72,7 @@ namespace SolarWinds.InformationService.Contract2
             : this(endpointConfiguration, remoteAddress)
         {
             if (credentials == null)
-                throw new ArgumentNullException("credentials");
+                throw new ArgumentNullException(nameof(credentials));
 
             credentials.ApplyTo(ChannelFactory);
         }
@@ -80,7 +80,7 @@ namespace SolarWinds.InformationService.Contract2
         public InfoServiceProxy(Uri address)
         {
             if (address == null)
-                throw new ArgumentNullException("address");
+                throw new ArgumentNullException(nameof(address));
 
             NetTcpBinding binding = new NetTcpBinding(SecurityMode.Transport);
             binding.Security.Mode = SecurityMode.Transport;
@@ -92,7 +92,7 @@ namespace SolarWinds.InformationService.Contract2
         public InfoServiceProxy(Uri address, Binding binding, ServiceCredentials credentials)
         {
             if (address == null)
-                throw new ArgumentNullException("address");
+                throw new ArgumentNullException(nameof(address));
 
             Initialize(new EndpointAddress(address), binding, credentials);
         }
@@ -130,13 +130,13 @@ namespace SolarWinds.InformationService.Contract2
         private void Initialize(EndpointAddress address, Binding binding, ServiceCredentials credentials)
         {
             if (address == null)
-                throw new ArgumentNullException("address");
+                throw new ArgumentNullException(nameof(address));
 
             if (credentials == null)
-                throw new ArgumentNullException("credentials");
+                throw new ArgumentNullException(nameof(credentials));
 
             if (binding == null)
-                throw new ArgumentNullException("binding");
+                throw new ArgumentNullException(nameof(binding));
 
 
             BindingElementCollection elements = binding.CreateBindingElements();
@@ -335,7 +335,7 @@ namespace SolarWinds.InformationService.Contract2
             }
             catch (FaultException<InfoServiceFaultContract> ex)
             {
-                _log.Error("Error executing bulk update operation: " + ex.Detail.Message + Environment.NewLine + String.Join(Environment.NewLine, uris) + Environment.NewLine + propertiesToUpdate);
+                _log.Error("Error executing bulk update operation: " + ex.Detail.Message + Environment.NewLine + string.Join(Environment.NewLine, uris) + Environment.NewLine + propertiesToUpdate);
                 throw;
             }
             finally
@@ -389,7 +389,7 @@ namespace SolarWinds.InformationService.Contract2
             }
             catch (FaultException<InfoServiceFaultContract> ex)
             {
-                _log.Error("Error executing bulk delete operation: " + ex.Detail.Message + Environment.NewLine + String.Join(Environment.NewLine, uris));
+                _log.Error("Error executing bulk delete operation: " + ex.Detail.Message + Environment.NewLine + string.Join(Environment.NewLine, uris));
                 throw;
             }
             finally

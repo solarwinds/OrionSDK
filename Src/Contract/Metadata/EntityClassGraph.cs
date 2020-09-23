@@ -42,7 +42,7 @@ namespace SolarWinds.InformationService.InformationServiceClient
             EntityMetadata entity;
             if (!TryGetEntity(fullName, out entity))
             {
-                throw new ArgumentException("There is no entity with a full name of " + fullName, "fullName");
+                throw new ArgumentException("There is no entity with a full name of " + fullName, nameof(fullName));
             }
 
             return entity.Descendants;

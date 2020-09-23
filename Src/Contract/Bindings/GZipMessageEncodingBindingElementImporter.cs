@@ -1,8 +1,8 @@
 
 using System;
-using System.Xml;
-using System.ServiceModel.Description;
 using System.Collections.Generic;
+using System.ServiceModel.Description;
+using System.Xml;
 
 namespace SolarWinds.InformationService.Contract2.Bindings
 {
@@ -16,12 +16,12 @@ namespace SolarWinds.InformationService.Contract2.Bindings
         {
             if (importer == null)
             {
-                throw new ArgumentNullException("importer");
+                throw new ArgumentNullException(nameof(importer));
             }
 
             if (context == null)
             {
-                throw new ArgumentNullException("context");
+                throw new ArgumentNullException(nameof(context));
             }
 
             ICollection<XmlElement> assertions = context.GetBindingAssertions();

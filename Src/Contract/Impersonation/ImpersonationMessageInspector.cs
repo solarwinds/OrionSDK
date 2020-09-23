@@ -4,7 +4,7 @@ using System.ServiceModel.Dispatcher;
 
 namespace SolarWinds.InformationService.Contract2.Impersonation
 {
-    class ImpersonationMessageInspector : IClientMessageInspector, IDispatchMessageInspector
+    internal class ImpersonationMessageInspector : IClientMessageInspector, IDispatchMessageInspector
     {
         public object BeforeSendRequest(ref Message request, IClientChannel channel)
         {

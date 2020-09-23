@@ -2,7 +2,7 @@
 
 namespace SolarWinds.InformationService.Contract2.Bindings
 {
-    class ReaderQuotaHelper
+    internal class ReaderQuotaHelper
     {
         public static void SetReaderQuotas(XmlDictionaryReaderQuotas readerQuotas)
         {

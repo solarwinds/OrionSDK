@@ -26,7 +26,7 @@ namespace SwqlStudio
 
         private bool HasSubscription
         {
-            get { return !String.IsNullOrEmpty(subscriptionId); }
+            get { return !string.IsNullOrEmpty(subscriptionId); }
         }
 
         public override bool AllowsChangeConnection => !HasSubscription;
@@ -42,7 +42,7 @@ namespace SwqlStudio
         }
 
         [Flags]
-        enum Tabs
+        private enum Tabs
         {
             Results = 1,
             QueryPlan = 2,
@@ -90,7 +90,7 @@ namespace SwqlStudio
             RunQuery();
         }
 
-        void QueryTabDisposed(object sender, EventArgs e)
+        private void QueryTabDisposed(object sender, EventArgs e)
         {
             if (nullFont != null)
             {
@@ -280,7 +280,7 @@ namespace SwqlStudio
 
                 if (openFileDialog1.ShowDialog() == DialogResult.OK)
                 {
-                    var pbi = new PlaybackItem() { FileName = openFileDialog1.FileName, MultiThread = false, QueryTab = this };
+                    var pbi = new PlaybackItem { FileName = openFileDialog1.FileName, MultiThread = false, QueryTab = this };
                     ConnectionInfo info = ConnectionsManager.AskForNewConnection();
                     if (info == null)
                         return;
@@ -318,7 +318,7 @@ namespace SwqlStudio
                 return;
 
             string query = editor.GetSelectedOrAllText();
-            if (String.IsNullOrEmpty(query) || query.Trim().Length == 0)
+            if (string.IsNullOrEmpty(query) || query.Trim().Length == 0)
                 return;
 
             ConnectionInfo connection = ConnectionInfo;
@@ -347,7 +347,7 @@ namespace SwqlStudio
             ApplicationService.RefreshSelectedConnections();
         }
 
-        void SubscriptionIndicationReceived(IndicationEventArgs e)
+        private void SubscriptionIndicationReceived(IndicationEventArgs e)
         {
             if (!subscriptionTab1.IsDisposed)
                 subscriptionTab1.BeginInvoke(new Action<IndicationEventArgs>(subscriptionTab1.AddIndication), e);

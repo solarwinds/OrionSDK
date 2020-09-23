@@ -204,7 +204,7 @@ namespace SwqlStudio.ObjectExplorer
             }
         }
 
-        void _tree_BeforeExpand(object sender, TreeViewCancelEventArgs e)
+        private void _tree_BeforeExpand(object sender, TreeViewCancelEventArgs e)
         {
             var verbNode = e.Node;
             if (verbNode.Tag is Verb)
@@ -214,8 +214,7 @@ namespace SwqlStudio.ObjectExplorer
             }
         }
 
-
-        void _tree_NodeMouseDoubleClick(object sender, TreeNodeMouseClickEventArgs e)
+        private void _tree_NodeMouseDoubleClick(object sender, TreeNodeMouseClickEventArgs e)
         {
             if (e.Node.Tag != null)
             {
@@ -337,7 +336,7 @@ namespace SwqlStudio.ObjectExplorer
             }
         }
 
-        void _tree_MouseUp(object sender, MouseEventArgs e)
+        private void _tree_MouseUp(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Right)
             {
@@ -394,7 +393,7 @@ namespace SwqlStudio.ObjectExplorer
                 queryProperties = queryProperties.Where(c => c.IsInherited == false);
 
             sb.Append("SELECT TOP 1000 ");
-            sb.AppendLine(String.Join(", ", queryProperties.Select(c => c.Name).Distinct().ToArray()));
+            sb.AppendLine(string.Join(", ", queryProperties.Select(c => c.Name).Distinct().ToArray()));
             sb.AppendFormat("FROM {0}", table.FullName);
             sb.AppendLine();
 

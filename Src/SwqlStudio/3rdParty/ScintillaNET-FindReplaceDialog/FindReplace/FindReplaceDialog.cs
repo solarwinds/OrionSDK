@@ -1,19 +1,19 @@
 namespace ScintillaNET_FindReplaceDialog
 {
-    using ScintillaNET;
     using System;
     using System.Collections.Generic;
     using System.Drawing;
     using System.Text.RegularExpressions;
     using System.Windows.Forms;
+    using ScintillaNET;
 
     public partial class FindReplaceDialog : Form
     {
         #region Fields
 
         private bool _autoPosition;
-        private BindingSource _bindingSourceFind = new BindingSource();
-        private BindingSource _bindingSourceReplace = new BindingSource();
+        private readonly BindingSource _bindingSourceFind = new BindingSource();
+        private readonly BindingSource _bindingSourceReplace = new BindingSource();
         private List<string> _mruFind;
         private int _mruMaxCount = 10;
         private List<string> _mruReplace;

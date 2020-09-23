@@ -1,13 +1,13 @@
 ﻿using System;
+using System.Configuration;
+using System.IO;
+using System.Linq;
 using System.Windows.Forms;
 using SwqlStudio.Properties;
-using System.IO;
-using System.Configuration;
-using System.Linq;
 
 namespace SwqlStudio
 {
-    static class Program
+    internal static class Program
     {
         private static readonly SolarWinds.Logging.Log log = new SolarWinds.Logging.Log();
 
@@ -15,7 +15,7 @@ namespace SwqlStudio
         /// The main entry point for the application.
         /// </summary>
         [STAThread]
-        static void Main()
+        private static void Main()
         {
             SolarWinds.Logging.Log.Configure(string.Empty);
 
@@ -38,7 +38,7 @@ namespace SwqlStudio
             Application.Run(new MainForm());
         }
 
-        static void CurrentDomainUnhandledException(object sender, UnhandledExceptionEventArgs e)
+        private static void CurrentDomainUnhandledException(object sender, UnhandledExceptionEventArgs e)
         {
             if (e.ExceptionObject is Exception)
                 log.Error("Unhandled exception", (Exception)e.ExceptionObject);

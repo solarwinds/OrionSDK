@@ -6,9 +6,9 @@ using System.ServiceModel.Dispatcher;
 
 namespace SolarWinds.InformationService.Contract2
 {
-    class InfoServiceDefaultBehaviour : IEndpointBehavior, IClientMessageInspector
+    internal class InfoServiceDefaultBehaviour : IEndpointBehavior, IClientMessageInspector
     {
-        private static readonly IDictionary<string, object> _defaultHeaderValue = new Dictionary<string, object>()
+        private static readonly IDictionary<string, object> _defaultHeaderValue = new Dictionary<string, object>
         {
             { "IsBase64EncodingAccepted", true }
         };

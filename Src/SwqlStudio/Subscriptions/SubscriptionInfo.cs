@@ -52,7 +52,7 @@ namespace SwqlStudio.Subscriptions
                     .Select(kv => kv.Key)
                     .FirstOrDefault();
 
-                if (String.IsNullOrEmpty(query))
+                if (string.IsNullOrEmpty(query))
                     return;
 
                 var subscription = subscriptions[query];

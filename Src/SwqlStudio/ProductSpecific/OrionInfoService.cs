@@ -6,7 +6,7 @@ using SwqlStudio.Subscriptions;
 
 namespace SwqlStudio
 {
-    class OrionInfoService : InfoServiceBase
+    internal class OrionInfoService : InfoServiceBase
     {
         private readonly bool _isSwisV3;
 

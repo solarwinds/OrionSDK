@@ -2,8 +2,8 @@
 using System.Security.Cryptography.X509Certificates;
 using System.ServiceModel;
 using System.ServiceModel.Security;
-using SolarWinds.Logging;
 using SolarWinds.InformationService.Contract2.PubSub;
+using SolarWinds.Logging;
 
 namespace SolarWinds.InformationService.Contract2
 {
@@ -11,7 +11,7 @@ namespace SolarWinds.InformationService.Contract2
     {
         private readonly static Log log = new Log();
 
-        private ChannelFactory<IIndicationReporter> channelFactory;
+        private readonly ChannelFactory<IIndicationReporter> channelFactory;
 
         private IIndicationReporter reporter;
 
@@ -32,7 +32,7 @@ namespace SolarWinds.InformationService.Contract2
         {
             if (endpointName == null)
             {
-                throw new ArgumentNullException("endpointName");
+                throw new ArgumentNullException(nameof(endpointName));
             }
 
             channelFactory = new ChannelFactory<IIndicationReporter>(endpointName);
@@ -57,12 +57,12 @@ namespace SolarWinds.InformationService.Contract2
         {
             if (address == null)
             {
-                throw new ArgumentNullException("address");
+                throw new ArgumentNullException(nameof(address));
             }
 
             if (cert == null)
             {
-                throw new ArgumentNullException("cert");
+                throw new ArgumentNullException(nameof(cert));
             }
 
             var binding = new NetMsmqBinding(NetMsmqSecurityMode.Message);
@@ -80,7 +80,7 @@ namespace SolarWinds.InformationService.Contract2
         public IndicationReporterProxy(Uri address)
         {
             if (address == null)
-                throw new ArgumentNullException("address");
+                throw new ArgumentNullException(nameof(address));
 
             NetMsmqBinding binding = new NetMsmqBinding(NetMsmqSecurityMode.None);
             //TODO set security mode, provide other constructors like InfoServiceProxy has

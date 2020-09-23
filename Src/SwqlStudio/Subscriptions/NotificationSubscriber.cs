@@ -8,7 +8,7 @@ namespace SwqlStudio.Subscriptions
     [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single,
         ConcurrencyMode = ConcurrencyMode.Multiple,
         UseSynchronizationContext = false)]
-    class NotificationSubscriber : INotificationSubscriber
+    internal class NotificationSubscriber : INotificationSubscriber
     {
         public event Action<string, string, PropertyBag, PropertyBag> IndicationReceived;
 

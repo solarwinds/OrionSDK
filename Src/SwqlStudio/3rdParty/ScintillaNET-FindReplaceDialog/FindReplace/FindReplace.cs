@@ -3,10 +3,10 @@ namespace ScintillaNET_FindReplaceDialog
     using System;
     using System.Collections.Generic;
     using System.ComponentModel;
-    using System.Text.RegularExpressions;
-    using ScintillaNET;
     using System.Drawing;
+    using System.Text.RegularExpressions;
     using System.Windows.Forms;
+    using ScintillaNET;
 
     [TypeConverterAttribute(typeof(ExpandableObjectConverter))]
     public class FindReplace : Component

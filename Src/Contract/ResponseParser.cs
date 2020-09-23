@@ -27,7 +27,7 @@ namespace SolarWinds.InformationService.Contract2
         public T ReadNextEntity(XmlReader reader)
         {
             if (reader == null)
-                throw new ArgumentNullException("reader");
+                throw new ArgumentNullException(nameof(reader));
 
             while (reader.Read())
             {
@@ -74,7 +74,7 @@ namespace SolarWinds.InformationService.Contract2
                                         throw new InvalidOperationException("Only one root entity is supported at this time");
 
                                     StackFrame state = new StackFrame();
-                                    state.entity = new EntityInfo(reader["name"], reader["type"], Boolean.Parse(reader["dynamic"]));
+                                    state.entity = new EntityInfo(reader["name"], reader["type"], bool.Parse(reader["dynamic"]));
                                     stack.Push(state);
 
                                     entityInfo = state.entity;
@@ -98,7 +98,7 @@ namespace SolarWinds.InformationService.Contract2
                                 else if (string.CompareOrdinal(reader.LocalName, "entity") == 0)
                                 {
                                     StackFrame state = new StackFrame();
-                                    state.entity = new EntityInfo(reader["name"], reader["type"], Boolean.Parse(reader["dynamic"]));
+                                    state.entity = new EntityInfo(reader["name"], reader["type"], bool.Parse(reader["dynamic"]));
 
                                     stack.Peek().entitySet.Entities.Add(state.entity.EntityName, state.entity);
 
@@ -301,7 +301,7 @@ namespace SolarWinds.InformationService.Contract2
             // - name must match exactly between the XML element and the type name
             // - not handling simple scalar results at this point, only classes/structs with properties
             // - not handling fields
-            if (String.CompareOrdinal(rootType.Name, reader.LocalName) != 0)
+            if (string.CompareOrdinal(rootType.Name, reader.LocalName) != 0)
             {
                 bool matchEntityName = false;
 

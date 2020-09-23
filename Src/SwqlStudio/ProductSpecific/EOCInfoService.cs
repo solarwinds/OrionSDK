@@ -4,7 +4,7 @@ using SwqlStudio.Properties;
 
 namespace SwqlStudio
 {
-    class EOCInfoService : InfoServiceBase
+    internal class EOCInfoService : InfoServiceBase
     {
         public EOCInfoService(string username, string password)
         {

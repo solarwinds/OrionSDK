@@ -22,7 +22,7 @@ namespace SolarWinds.InformationService.Contract2
 
         public TokenImpersonationLevel ImpersonationLevel { get; set; } = TokenImpersonationLevel.Impersonation;
 
-        public WindowsCredential() : this(String.Empty, String.Empty, String.Empty)
+        public WindowsCredential() : this(string.Empty, string.Empty, string.Empty)
         {
 
         }
@@ -40,13 +40,13 @@ namespace SolarWinds.InformationService.Contract2
             Password = SecurePassword(password);
         }
 
-        public WindowsCredential(String username, SecureString password)
+        public WindowsCredential(string username, SecureString password)
         {
             SetUsername(username);
             Password = password;
         }
 
-        public WindowsCredential(String domain, String username, SecureString password)
+        public WindowsCredential(string domain, string username, SecureString password)
         {
             Domain = domain;
             Username = username;
@@ -72,7 +72,7 @@ namespace SolarWinds.InformationService.Contract2
             get { return CredentialType.Windows; }
         }
 
-        private static SecureString SecurePassword(String password)
+        private static SecureString SecurePassword(string password)
         {
             SecureString pass = new SecureString();
             foreach (char c in password)
@@ -85,18 +85,18 @@ namespace SolarWinds.InformationService.Contract2
 
         public override void ApplyTo(ChannelFactory channelFactory)
         {
-            if (!String.IsNullOrEmpty(Domain))
+            if (!string.IsNullOrEmpty(Domain))
             {
                 channelFactory.Credentials.Windows.ClientCredential.Domain = Domain;
                 string host = channelFactory.Endpoint.Address.Uri.Host;
-                if (String.IsNullOrEmpty(host) || host.Equals("localhost", StringComparison.OrdinalIgnoreCase))
+                if (string.IsNullOrEmpty(host) || host.Equals("localhost", StringComparison.OrdinalIgnoreCase))
                     host = Environment.MachineName;
 
                 channelFactory.Endpoint.Address = new EndpointAddress(channelFactory.Endpoint.Address.Uri,
                                                                       EndpointIdentity.CreateSpnIdentity("HOST/" + host));
             }
 
-            if (!String.IsNullOrEmpty(Username))
+            if (!string.IsNullOrEmpty(Username))
             {
                 channelFactory.Credentials.Windows.ClientCredential.UserName = Username;
             }
@@ -124,7 +124,7 @@ namespace SolarWinds.InformationService.Contract2
             }
             catch
             {
-                insecureString = String.Empty;
+                insecureString = string.Empty;
             }
             finally
             {

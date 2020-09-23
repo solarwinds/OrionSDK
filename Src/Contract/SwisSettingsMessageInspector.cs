@@ -4,7 +4,7 @@ using System.ServiceModel.Dispatcher;
 
 namespace SolarWinds.InformationService.Contract2
 {
-    class SwisSettingsMessageInspector : IClientMessageInspector
+    internal class SwisSettingsMessageInspector : IClientMessageInspector
     {
         public object BeforeSendRequest(ref Message request, IClientChannel channel)
         {

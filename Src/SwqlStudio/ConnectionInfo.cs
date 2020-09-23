@@ -73,7 +73,7 @@ namespace SwqlStudio
         {
             get
             {
-                return String.Format("{0} : {1}{2}", Server, ServerType, FormattedUserName);
+                return string.Format("{0} : {1}{2}", Server, ServerType, FormattedUserName);
             }
         }
 
@@ -101,29 +101,29 @@ namespace SwqlStudio
             {
                 List<ServerType> serverTypes = new List<ServerType>
                 {
-                    new ServerType() { Type = "Orion (v3)", IsAuthenticationRequired = true },
-                    new ServerType() { Type = "Orion (v3) AD", IsAuthenticationRequired = false },
-                    new ServerType() { Type = "Orion (v3) Certificate", IsAuthenticationRequired = false },
-                    new ServerType() { Type = "Orion (v3) over HTTPS", IsAuthenticationRequired = true },
-                    new ServerType() { Type = "Orion (v2)", IsAuthenticationRequired = true },
-                    new ServerType() { Type = "Orion (v2) AD", IsAuthenticationRequired = false },
-                    new ServerType() { Type = "Orion (v2) Certificate", IsAuthenticationRequired = false },
-                    new ServerType() { Type = "Orion (v2) over HTTPS", IsAuthenticationRequired = true },
-                    new ServerType() { Type = "EOC", IsAuthenticationRequired = true },
-                    new ServerType() { Type = "NCM", IsAuthenticationRequired = true },
-                    new ServerType() { Type = "NCM (Windows Authentication)", IsAuthenticationRequired = false },
-                    new ServerType() { Type = "NCM Integration", IsAuthenticationRequired = true },
-                    new ServerType() { Type = "Java over HTTP", IsAuthenticationRequired = true }
+                    new ServerType { Type = "Orion (v3)", IsAuthenticationRequired = true },
+                    new ServerType { Type = "Orion (v3) AD", IsAuthenticationRequired = false },
+                    new ServerType { Type = "Orion (v3) Certificate", IsAuthenticationRequired = false },
+                    new ServerType { Type = "Orion (v3) over HTTPS", IsAuthenticationRequired = true },
+                    new ServerType { Type = "Orion (v2)", IsAuthenticationRequired = true },
+                    new ServerType { Type = "Orion (v2) AD", IsAuthenticationRequired = false },
+                    new ServerType { Type = "Orion (v2) Certificate", IsAuthenticationRequired = false },
+                    new ServerType { Type = "Orion (v2) over HTTPS", IsAuthenticationRequired = true },
+                    new ServerType { Type = "EOC", IsAuthenticationRequired = true },
+                    new ServerType { Type = "NCM", IsAuthenticationRequired = true },
+                    new ServerType { Type = "NCM (Windows Authentication)", IsAuthenticationRequired = false },
+                    new ServerType { Type = "NCM Integration", IsAuthenticationRequired = true },
+                    new ServerType { Type = "Java over HTTP", IsAuthenticationRequired = true }
                 };
 
                 if (Settings.Default.ShowCompressedModes)
                 {
                     serverTypes.AddRange(new[]
                                         {
-                                            new ServerType() { Type = "Orion (v2) Compressed", IsAuthenticationRequired = true },
-                                            new ServerType() { Type = "Orion (v2) AD Compressed", IsAuthenticationRequired = false },
-                                            new ServerType() { Type = "Orion (v3) Compressed", IsAuthenticationRequired = true },
-                                            new ServerType() { Type = "Orion (v3) AD Compressed", IsAuthenticationRequired = false },
+                                            new ServerType { Type = "Orion (v2) Compressed", IsAuthenticationRequired = true },
+                                            new ServerType { Type = "Orion (v2) AD Compressed", IsAuthenticationRequired = false },
+                                            new ServerType { Type = "Orion (v3) Compressed", IsAuthenticationRequired = true },
+                                            new ServerType { Type = "Orion (v3) AD Compressed", IsAuthenticationRequired = false },
                                         });
 
                 }

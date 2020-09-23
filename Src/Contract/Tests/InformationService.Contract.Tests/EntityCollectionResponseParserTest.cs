@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
-using NUnit.Framework;
-using System.Xml;
 using System.IO;
+using System.Text;
+using System.Xml;
+using NUnit.Framework;
 
 namespace SolarWinds.InformationService.Contract2
 {
@@ -51,9 +51,9 @@ namespace SolarWinds.InformationService.Contract2
             M mapStudioFile = parser.ReadNextEntity(reader);
         }
 
-        class TestEntity
+        private class TestEntity
         {
-            private Dictionary<string, object> properties = new Dictionary<string, object>();
+            private readonly Dictionary<string, object> properties = new Dictionary<string, object>();
             public Dictionary<string, object> Properties
             {
                 get
@@ -62,7 +62,7 @@ namespace SolarWinds.InformationService.Contract2
                 }
             }
 
-            public void Add(String propertyName, Object propertyValue)
+            public void Add(string propertyName, object propertyValue)
             {
                 if (Properties.ContainsKey(propertyName))
                 {
@@ -75,6 +75,6 @@ namespace SolarWinds.InformationService.Contract2
             }
         }
 
-        class M : TestEntity { }
+        private class M : TestEntity { }
     }
 }

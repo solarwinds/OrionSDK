@@ -1,8 +1,8 @@
 
 using System;
-using System.Xml;
 using System.ServiceModel.Channels;
 using System.ServiceModel.Description;
+using System.Xml;
 
 namespace SolarWinds.InformationService.Contract2.Bindings
 {
@@ -62,7 +62,7 @@ namespace SolarWinds.InformationService.Contract2.Bindings
         public override IChannelFactory<TChannel> BuildChannelFactory<TChannel>(BindingContext context)
         {
             if (context == null)
-                throw new ArgumentNullException("context");
+                throw new ArgumentNullException(nameof(context));
 
             context.BindingParameters.Add(this);
             return context.BuildInnerChannelFactory<TChannel>();
@@ -71,7 +71,7 @@ namespace SolarWinds.InformationService.Contract2.Bindings
         public override IChannelListener<TChannel> BuildChannelListener<TChannel>(BindingContext context)
         {
             if (context == null)
-                throw new ArgumentNullException("context");
+                throw new ArgumentNullException(nameof(context));
 
             context.BindingParameters.Add(this);
             return context.BuildInnerChannelListener<TChannel>();
@@ -80,7 +80,7 @@ namespace SolarWinds.InformationService.Contract2.Bindings
         public override bool CanBuildChannelListener<TChannel>(BindingContext context)
         {
             if (context == null)
-                throw new ArgumentNullException("context");
+                throw new ArgumentNullException(nameof(context));
 
             context.BindingParameters.Add(this);
             return context.CanBuildInnerChannelListener<TChannel>();
@@ -90,7 +90,7 @@ namespace SolarWinds.InformationService.Contract2.Bindings
         {
             if (policyContext == null)
             {
-                throw new ArgumentNullException("policyContext");
+                throw new ArgumentNullException(nameof(policyContext));
             }
             XmlDocument document = new XmlDocument();
             policyContext.GetBindingAssertions().Add(document.CreateElement(

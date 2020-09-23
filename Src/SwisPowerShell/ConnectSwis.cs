@@ -77,7 +77,7 @@ namespace SwisPowerShell
 
         private class V3EndpointAddresses : EndpointAddresses
         {
-            public string streamedCertificate = "net.tcp://{0}:17777/SolarWinds/InformationService/v3/Orion/Streamed/Certificate";
+            public readonly string streamedCertificate = "net.tcp://{0}:17777/SolarWinds/InformationService/v3/Orion/Streamed/Certificate";
             public V3EndpointAddresses()
             {
                 activeDirectory = "net.tcp://{0}:17777/SolarWinds/InformationService/v3/Orion/ad";
@@ -102,7 +102,7 @@ namespace SwisPowerShell
                 }
                 else if (!string.IsNullOrEmpty(TrustX509Thumbprint))
                 {
-                    String[] arr = TrustX509Thumbprint.Split('-', ':', ' ');
+                    string[] arr = TrustX509Thumbprint.Split('-', ':', ' ');
                     var trustedThumbprint = new byte[arr.Length];
                     for (int i = 0; i < arr.Length; i++)
                         trustedThumbprint[i] = Convert.ToByte(arr[i], 16);
@@ -222,7 +222,7 @@ namespace SwisPowerShell
             return infoServiceProxy;
         }
 
-        private static String SecureStringToString(SecureString input)
+        private static string SecureStringToString(SecureString input)
         {
             IntPtr ptr = SecureStringToBSTR(input);
             return PtrToStringBSTR(ptr);

@@ -8,8 +8,8 @@ namespace ScintillaNET_FindReplaceDialog
 {
     public class GoTo
     {
-        private Scintilla _scintilla;
-        private GoToDialog _window;
+        private readonly Scintilla _scintilla;
+        private readonly GoToDialog _window;
 
         #region Methods
 

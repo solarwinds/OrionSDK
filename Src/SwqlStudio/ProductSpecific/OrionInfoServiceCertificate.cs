@@ -9,7 +9,7 @@ using SwqlStudio.Subscriptions;
 
 namespace SwqlStudio
 {
-    class OrionInfoServiceCertificate : InfoServiceBase
+    internal class OrionInfoServiceCertificate : InfoServiceBase
     {
         public OrionInfoServiceCertificate(bool v3 = false)
         {

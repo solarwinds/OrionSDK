@@ -1,14 +1,14 @@
-using System.IO;
-using System.Runtime.Serialization;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
+using System.IO;
+using System.Runtime.Serialization;
 using System.Xml;
 using SolarWinds.InformationService.Contract2.Serialization;
-using System.Globalization;
 
 namespace SolarWinds.InformationService.Contract2
 {
-    class SerializerInfo
+    internal class SerializerInfo
     {
         public readonly Type ObjectType;
         public readonly Func<object, Type, string> Serializer;
@@ -49,32 +49,32 @@ namespace SolarWinds.InformationService.Contract2
 
         private static readonly Dictionary<string, SerializerInfo> cachedObjectTypes = new Dictionary<string, SerializerInfo>(StringComparer.OrdinalIgnoreCase)
         {
-            {"System.String", new SerializerInfo(typeof(String),SerializeValue,DeserializeValue)},
+            {"System.String", new SerializerInfo(typeof(string),SerializeValue,DeserializeValue)},
             {"System.Guid", new SerializerInfo(typeof(Guid),SerializeValue,DeserializeGuid)},
-            {"System.Int16",new SerializerInfo(typeof(Int16),SerializeValue,DeserializeValue)},
-            {"System.Int32",new SerializerInfo(typeof(Int32),SerializeValue,DeserializeValue)},
-            {"System.Int64",new SerializerInfo(typeof(Int64),SerializeValue,DeserializeValue)},
+            {"System.Int16",new SerializerInfo(typeof(short),SerializeValue,DeserializeValue)},
+            {"System.Int32",new SerializerInfo(typeof(int),SerializeValue,DeserializeValue)},
+            {"System.Int64",new SerializerInfo(typeof(long),SerializeValue,DeserializeValue)},
             {"System.DateTime",new SerializerInfo(typeof(DateTime),SerializeDateTime,DeserializeDateTime)},
-            {"System.Boolean",new SerializerInfo(typeof(Boolean),SerializeBoolean,DeserializeBoolean)},
-            {"System.Char",new SerializerInfo(typeof(Char),SerializeChar,DeserializeChar)},
-            {"System.Decimal",new SerializerInfo(typeof(Decimal),SerializeValue,DeserializeValue)},
-            {"System.Double",new SerializerInfo(typeof(Double),SerializeValue,DeserializeValue)},
+            {"System.Boolean",new SerializerInfo(typeof(bool),SerializeBoolean,DeserializeBoolean)},
+            {"System.Char",new SerializerInfo(typeof(char),SerializeChar,DeserializeChar)},
+            {"System.Decimal",new SerializerInfo(typeof(decimal),SerializeValue,DeserializeValue)},
+            {"System.Double",new SerializerInfo(typeof(double),SerializeValue,DeserializeValue)},
             {"System.DBNull",new SerializerInfo(typeof(DBNull),SerializeToStrippedXml,DeserializeDBNull)},
             {"System.TimeSpan",new SerializerInfo(typeof(TimeSpan),SerializeTimeSpan,DeserializeTimeSpan)},
-            {"System.Byte", new SerializerInfo(typeof(Byte),SerializeValue,DeserializeValue)},
-            {"System.String[]", new SerializerInfo(typeof(String).MakeArrayType(),SerializeToStrippedXml,DeserializeFromStrippedXml)},
-            {"System.Byte[]", new SerializerInfo(typeof(Byte).MakeArrayType(),SerializeToStrippedXml,DeserializeFromStrippedXml)},
-            {"System.Int32[]", new SerializerInfo(typeof(Int32).MakeArrayType(),SerializeToStrippedXml,DeserializeFromStrippedXml)},
-            {"System.Int16[]", new SerializerInfo(typeof(Int16).MakeArrayType(),SerializeToStrippedXml,DeserializeFromStrippedXml)},
-            {"System.Int64[]", new SerializerInfo(typeof(Int64).MakeArrayType(),SerializeToStrippedXml,DeserializeFromStrippedXml)},
+            {"System.Byte", new SerializerInfo(typeof(byte),SerializeValue,DeserializeValue)},
+            {"System.String[]", new SerializerInfo(typeof(string).MakeArrayType(),SerializeToStrippedXml,DeserializeFromStrippedXml)},
+            {"System.Byte[]", new SerializerInfo(typeof(byte).MakeArrayType(),SerializeToStrippedXml,DeserializeFromStrippedXml)},
+            {"System.Int32[]", new SerializerInfo(typeof(int).MakeArrayType(),SerializeToStrippedXml,DeserializeFromStrippedXml)},
+            {"System.Int16[]", new SerializerInfo(typeof(short).MakeArrayType(),SerializeToStrippedXml,DeserializeFromStrippedXml)},
+            {"System.Int64[]", new SerializerInfo(typeof(long).MakeArrayType(),SerializeToStrippedXml,DeserializeFromStrippedXml)},
             {"System.DateTime[]", new SerializerInfo(typeof(DateTime).MakeArrayType(),SerializeToStrippedXml,DeserializeFromStrippedXml)},
-            {"System.Boolean[]", new SerializerInfo(typeof(Boolean).MakeArrayType(),SerializeToStrippedXml,DeserializeFromStrippedXml)},
-            {"System.Double[]", new SerializerInfo(typeof(Double).MakeArrayType(),SerializeToStrippedXml,DeserializeFromStrippedXml)},
+            {"System.Boolean[]", new SerializerInfo(typeof(bool).MakeArrayType(),SerializeToStrippedXml,DeserializeFromStrippedXml)},
+            {"System.Double[]", new SerializerInfo(typeof(double).MakeArrayType(),SerializeToStrippedXml,DeserializeFromStrippedXml)},
             {"SolarWinds.InformationService.PropertyBag",new SerializerInfo(typeof(PropertyBag),SerializeToStrippedXml,DeserializeFromStrippedXml)},
 
         };
 
-        private static XmlStrippedSerializerCache serializerCache;
+        private static readonly XmlStrippedSerializerCache serializerCache;
 
         static SerializationHelper()
         {

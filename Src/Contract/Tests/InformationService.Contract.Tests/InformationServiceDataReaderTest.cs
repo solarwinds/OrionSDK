@@ -170,7 +170,7 @@ xmlns:" + InformationServiceDataReader.DBNullPrefix + "='" + InformationServiceD
             Assert.IsTrue(reader.Read());
 
             Assert.IsNull(reader.GetString(0));                  //Should be null string.
-            Assert.AreEqual(String.Empty, reader.GetString(1));  //Should be empty string
+            Assert.AreEqual(string.Empty, reader.GetString(1));  //Should be empty string
 
         }
 
@@ -200,7 +200,7 @@ xmlns:" + InformationServiceDataReader.DBNullPrefix + "='" + InformationServiceD
 
             Assert.IsTrue(reader.Read());
 
-            Assert.AreEqual(String.Empty, reader.GetString(0));  //Should be empty string
+            Assert.AreEqual(string.Empty, reader.GetString(0));  //Should be empty string
 
         }
 

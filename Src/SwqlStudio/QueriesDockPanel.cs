@@ -200,7 +200,7 @@ namespace SwqlStudio
         internal void ColoseInitialDocument()
         {
             if (Contents.Count == 3 &&
-                ActiveQueryTab != null && ActiveQueryTab.QueryText.Trim() == String.Empty)
+                ActiveQueryTab != null && ActiveQueryTab.QueryText.Trim() == string.Empty)
                 RemoveTab(lastActiveContent);
         }
 

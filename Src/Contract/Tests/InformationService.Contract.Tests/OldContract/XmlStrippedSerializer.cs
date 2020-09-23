@@ -1,7 +1,7 @@
 ﻿using System;
-using System.Xml.Serialization;
-using System.Xml;
 using System.IO;
+using System.Xml;
+using System.Xml.Serialization;
 using System.Xml.XPath;
 
 namespace SolarWinds.InformationService.Contract2.OldContract
@@ -18,7 +18,7 @@ namespace SolarWinds.InformationService.Contract2.OldContract
     ///         <string>Karen</string><string>Caleb</string><string>Rachel</string><string>Morgen</string><string>Katy</string>
     /// 
     /// </summary>
-    class XmlStrippedSerializer
+    internal class XmlStrippedSerializer
     {
         private readonly XmlSerializer _serializer;
         private readonly string _xsdElementName;

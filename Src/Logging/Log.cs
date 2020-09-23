@@ -1,14 +1,14 @@
 using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Runtime.CompilerServices;
+using System.Configuration;
 using System.Diagnostics;
+using System.Globalization;
+using System.IO;
+using System.Linq;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 using System.Xml;
 using log4net.Util;
-using System.Globalization;
-using System.Linq;
-using System.Configuration;
 
 namespace SolarWinds.Logging
 {
@@ -27,8 +27,8 @@ namespace SolarWinds.Logging
 
         private readonly Ext.EventID.IEventIDLog _log;
 
-        private static HashSet<string> _configurations = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
-        private static HashSet<string> _assemblies = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+        private static readonly HashSet<string> _configurations = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+        private static readonly HashSet<string> _assemblies = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
 
         /// <summary>
         /// SpecialFolder CommonApplicationData + Solarwinds directory
@@ -129,7 +129,7 @@ namespace SolarWinds.Logging
             Configure(configuration.FilePath);
         }
 
-        static void CurrentDomain_AssemblyLoad(object sender, AssemblyLoadEventArgs args)
+        private static void CurrentDomain_AssemblyLoad(object sender, AssemblyLoadEventArgs args)
         {
             try
             {
@@ -169,7 +169,7 @@ namespace SolarWinds.Logging
             LogAssemblyVersion(callerType.Assembly);
         }
 
-        public Log(String Name)
+        public Log(string Name)
         {
             _log = Ext.EventID.EventIDLogManager.GetLogger(Name);
         }
@@ -610,11 +610,11 @@ namespace SolarWinds.Logging
         #endregion
     }
 
-    class LogBlock : IDisposable
+    internal class LogBlock : IDisposable
     {
-        string _blockName;
-        Log _log;
-        IDisposable _threadContextStackPopper;
+        private readonly string _blockName;
+        private readonly Log _log;
+        private IDisposable _threadContextStackPopper;
 
         public LogBlock(Log log, string blockName)
         {

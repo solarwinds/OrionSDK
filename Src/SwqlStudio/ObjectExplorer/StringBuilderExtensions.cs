@@ -24,7 +24,7 @@ namespace SwqlStudio
 
         public static void AppendSummary(this StringBuilder builder, string summary)
         {
-            if (String.IsNullOrEmpty(summary))
+            if (string.IsNullOrEmpty(summary))
                 return;
 
             var trimmed = summary.Trim();

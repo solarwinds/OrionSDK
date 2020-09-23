@@ -12,7 +12,7 @@ namespace SwqlStudio
         private static readonly Dictionary<string, object> lastKnownValues = new Dictionary<string, object>();
         private PropertyBag current = new PropertyBag();
 
-        private static string unknownValue = string.Empty;
+        private static readonly string unknownValue = string.Empty;
 
         internal void Put(PropertyBag toPreserve)
         {
@@ -68,7 +68,7 @@ namespace SwqlStudio
             {
                 string lastKnownValue = variable.Value?.ToString();
 
-                if (!String.IsNullOrEmpty(lastKnownValue))
+                if (!string.IsNullOrEmpty(lastKnownValue))
                     lastKnownValues[variable.Key] = lastKnownValue;
             }
         }

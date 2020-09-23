@@ -5,7 +5,7 @@ using System.ServiceModel.Dispatcher;
 
 namespace SolarWinds.InformationService.Contract2.Internationalization
 {
-    class I18nHeaderAttribute : Attribute, IContractBehavior
+    internal class I18nHeaderAttribute : Attribute, IContractBehavior
     {
         public void AddBindingParameters(ContractDescription contractDescription, ServiceEndpoint endpoint, BindingParameterCollection bindingParameters)
         {

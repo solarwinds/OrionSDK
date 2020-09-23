@@ -171,7 +171,7 @@ namespace SwisPowerShell
             if (obj is Pair<TFirst, TSecond>)
                 return CompareTo((Pair<TFirst, TSecond>)obj);
             else
-                throw new ArgumentException("Comparand is not of the correct type.", "obj");
+                throw new ArgumentException("Comparand is not of the correct type.", nameof(obj));
         }
 
         /// <summary>

@@ -4,7 +4,7 @@ using SwqlStudio.Properties;
 
 namespace SwqlStudio
 {
-    class ConnectionHistory
+    internal class ConnectionHistory
     {
         private static List<string> _previousServers;
         private static List<string> _previousUsers;
@@ -46,14 +46,14 @@ namespace SwqlStudio
         public static void AddServer(string server)
         {
             AddToList(_previousServers, server);
-            Settings.Default.PreviousServers = String.Join(";", _previousServers.ToArray());
+            Settings.Default.PreviousServers = string.Join(";", _previousServers.ToArray());
             Settings.Default.Save();
         }
 
         public static void AddUser(string user)
         {
             AddToList(_previousUsers, user);
-            Settings.Default.PreviousUsers = String.Join(";", _previousUsers.ToArray());
+            Settings.Default.PreviousUsers = string.Join(";", _previousUsers.ToArray());
             Settings.Default.Save();
         }
 

@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>net48</TargetFramework>
+    <TargetFramework>netstandard2.0</TargetFramework>
     <RootNamespace>SolarWinds.InformationService.Contract2</RootNamespace>
     <AssemblyName>SolarWinds.SDK.Swis.Contract</AssemblyName>
     <GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
@@ -13,21 +13,22 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="System.ServiceModel.Duplex" Version="4.7.0" />
+    <PackageReference Include="System.ServiceModel.Http" Version="4.7.0" />
+    <PackageReference Include="System.ServiceModel.Primitives" Version="4.7.0" />
+    <PackageReference Include="System.ServiceModel.Security" Version="4.7.0" />
+  </ItemGroup>
+
+  <!--<ItemGroup>
     <Reference Include="System.configuration" />
     <Reference Include="System.IdentityModel" />
     <Reference Include="System.ServiceModel" />
-  </ItemGroup>
+  </ItemGroup>-->
 
   <ItemGroup>
-    <Compile Update="InformationServiceClient\InformationServiceCommand.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Update="InformationServiceClient\InformationServiceConnection.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Update="InformationServiceClient\InformationServiceDataAdapter.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Update="InformationServiceClient\InformationServiceCommand.cs" />
+    <Compile Update="InformationServiceClient\InformationServiceConnection.cs" />
+    <Compile Update="InformationServiceClient\InformationServiceDataAdapter.cs" />
   </ItemGroup>
 
   <ItemGroup>

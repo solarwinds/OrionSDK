@@ -110,7 +110,7 @@ namespace SolarWinds.InformationService.Contract2
             SslStreamSecurityBindingElement element = elements.Find<SslStreamSecurityBindingElement>();
             if (element != null)
             {
-                element.IdentityVerifier = new SWIdentityVerifier();
+                //element.IdentityVerifier = new SWIdentityVerifier();
 
                 CustomBinding newbinding = new CustomBinding(elements);
 
@@ -143,7 +143,7 @@ namespace SolarWinds.InformationService.Contract2
             SslStreamSecurityBindingElement element = elements.Find<SslStreamSecurityBindingElement>();
             if (element != null)
             {
-                element.IdentityVerifier = new SWIdentityVerifier();
+                //element.IdentityVerifier = new SWIdentityVerifier();
 
                 CustomBinding newbinding = new CustomBinding(elements);
 
@@ -166,8 +166,8 @@ namespace SolarWinds.InformationService.Contract2
             // ???: how can I detect that channel binding is securited            
 
             _activityMonitor = new InfoServiceActivityMonitor();
-            ChannelFactory.Endpoint.Behaviors.Add(new InfoServiceDefaultBehaviour());
-            ChannelFactory.Endpoint.Behaviors.Add(_activityMonitor);
+            ChannelFactory.Endpoint.EndpointBehaviors.Add(new InfoServiceDefaultBehaviour());
+            ChannelFactory.Endpoint.EndpointBehaviors.Add(_activityMonitor);
         }
 
         #region IInfoService Members

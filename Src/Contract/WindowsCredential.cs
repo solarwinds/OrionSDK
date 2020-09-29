@@ -93,7 +93,7 @@ namespace SolarWinds.InformationService.Contract2
                     host = Environment.MachineName;
 
                 channelFactory.Endpoint.Address = new EndpointAddress(channelFactory.Endpoint.Address.Uri,
-                                                                      EndpointIdentity.CreateSpnIdentity("HOST/" + host));
+                                                                      new SpnEndpointIdentity("HOST/" + host));
             }
 
             if (!string.IsNullOrEmpty(Username))
@@ -109,7 +109,8 @@ namespace SolarWinds.InformationService.Contract2
 
             X509ChainPolicy chainPolicy = new X509ChainPolicy();
             chainPolicy.VerificationFlags = X509VerificationFlags.AllowUnknownCertificateAuthority | X509VerificationFlags.IgnoreNotTimeValid;
-            channelFactory.Credentials.ServiceCertificate.Authentication.CustomCertificateValidator = X509CertificateValidator.CreateChainTrustValidator(true, chainPolicy);
+            // TODO - this is missing from .net standard, but it may not be possible to do Windows auth safely without it
+            //channelFactory.Credentials.ServiceCertificate.Authentication.CustomCertificateValidator = X509CertificateValidator.CreateChainTrustValidator(true, chainPolicy);
         }
 
         public string GetPassword()

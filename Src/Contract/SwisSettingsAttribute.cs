@@ -22,7 +22,7 @@ namespace SolarWinds.InformationService.Contract2
 
         public void ApplyClientBehavior(ContractDescription contractDescription, ServiceEndpoint endpoint, ClientRuntime clientRuntime)
         {
-            clientRuntime.MessageInspectors.Add(messageInspector);
+            clientRuntime.ClientMessageInspectors.Add(messageInspector);
         }
 
         public void AddBindingParameters(ContractDescription contractDescription, ServiceEndpoint endpoint,

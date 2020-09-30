@@ -77,29 +77,14 @@ namespace SolarWinds.InformationService.Contract2
             credentials.ApplyTo(ChannelFactory);
         }
 
-        public InfoServiceProxy(Uri address)
-        {
-            if (address == null)
-                throw new ArgumentNullException(nameof(address));
-
-            NetTcpBinding binding = new NetTcpBinding(SecurityMode.Transport);
-            binding.Security.Mode = SecurityMode.Transport;
-            binding.Security.Transport.ClientCredentialType = TcpClientCredentialType.Windows;
-
-            Initialize(new EndpointAddress(address), binding, new WindowsCredential());
-        }
-
         public InfoServiceProxy(Uri address, Binding binding, ServiceCredentials credentials)
         {
             if (address == null)
                 throw new ArgumentNullException(nameof(address));
 
-            Initialize(new EndpointAddress(address), binding, credentials);
-        }
-
-        public InfoServiceProxy(EndpointAddress address, Binding binding, ServiceCredentials credentials)
-        {
-            Initialize(address, binding, credentials);
+            var endpoint = new EndpointAddress(address, new DnsEndpointIdentity("SolarWinds-Orion"));
+            Initialize(endpoint, binding, credentials);
+            ChannelFactory.Endpoint.Address = endpoint; // for some reason this gets lost and needs to be set again after creation
         }
 
         #endregion
@@ -110,8 +95,6 @@ namespace SolarWinds.InformationService.Contract2
             SslStreamSecurityBindingElement element = elements.Find<SslStreamSecurityBindingElement>();
             if (element != null)
             {
-                //element.IdentityVerifier = new SWIdentityVerifier();
-
                 CustomBinding newbinding = new CustomBinding(elements);
 
                 // Transfer timeout settings from the old binding to the new
@@ -143,8 +126,6 @@ namespace SolarWinds.InformationService.Contract2
             SslStreamSecurityBindingElement element = elements.Find<SslStreamSecurityBindingElement>();
             if (element != null)
             {
-                //element.IdentityVerifier = new SWIdentityVerifier();
-
                 CustomBinding newbinding = new CustomBinding(elements);
 
                 // Transfer timeout settings from the old binding to the new

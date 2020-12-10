@@ -11,11 +11,11 @@ namespace SolarWinds.InformationService.Contract2
     public class EntityCollectionResponseParserTest
     {
         [Test]
-        [ExpectedException(typeof(ArgumentNullException), ExpectedMessage = "reader", MatchType = MessageMatch.Contains)]
         public void ReadNextEntityNullReader()
         {
             EntityCollectionResponseParser<object> parser = new EntityCollectionResponseParser<object>();
-            parser.ReadNextEntity(null);
+            var ex = Assert.Throws<ArgumentNullException>(() => parser.ReadNextEntity(null));
+            Assert.True(ex.Message.Contains("reader"));
         }
 
         [Test]

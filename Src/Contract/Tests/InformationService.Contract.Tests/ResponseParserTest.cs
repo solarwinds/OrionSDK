@@ -10,11 +10,11 @@ namespace SolarWinds.InformationService.Contract2
     public class ResponseParserTest
     {
         [Test]
-        [ExpectedException(typeof(ArgumentNullException), ExpectedMessage = "reader", MatchType = MessageMatch.Contains)]
         public void ReadNextEntityNullReader()
         {
             ResponseParser<object> parser = new ResponseParser<object>();
-            parser.ReadNextEntity(null);
+            var ex = Assert.Throws<ArgumentNullException>(() => parser.ReadNextEntity(null));
+            Assert.True(ex.Message.Contains("reader"));
         }
 
         [Test]
@@ -44,7 +44,6 @@ namespace SolarWinds.InformationService.Contract2
         }
 
         [Test]
-        [ExpectedException(typeof(InvalidOperationException), ExpectedMessage = "Don't know how to handle element MapStudioFiles")]
         public void ReaderNextEntityWithRootEntityWrongName()
         {
             MemoryStream input = new MemoryStream(Encoding.UTF8.GetBytes(Properties.Resources.ResponseWithBlob));
@@ -52,7 +51,8 @@ namespace SolarWinds.InformationService.Contract2
             XmlDictionaryReader reader = XmlDictionaryReader.CreateTextReader(input, XmlDictionaryReaderQuotas.Max);
 
             ResponseParser<Z> parser = new ResponseParser<Z>();
-            Z mapStudioFile = parser.ReadNextEntity(reader);
+            var ex = Assert.Throws<InvalidOperationException>(() => parser.ReadNextEntity(reader));
+            Assert.AreEqual("Don't know how to handle element MapStudioFiles", ex.Message);
         }
 
         private class MapStudioFiles

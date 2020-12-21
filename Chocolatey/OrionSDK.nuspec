@@ -5,7 +5,7 @@
     <!-- Read this before publishing packages to chocolatey.org: https://github.com/chocolatey/chocolatey/wiki/CreatePackages -->
     <id>orionsdk</id>
     <title>SolarWinds Orion SDK</title>
-    <version>2.5.0.214</version>
+    <version>3.0.0.290</version>
     <authors>SolarWinds</authors>
     <owners>Tim Danner</owners>
     <summary>Software development kit for the SolarWinds Orion platform.</summary>
@@ -26,20 +26,20 @@
       <dependency id="" />
     </dependencies>-->
     <releaseNotes><![CDATA[
-# v2.5.0.214
+# v3.0.0.290
 
-This release contains new features and upgrades from @tdanner, @nothrow, and others:
+This release includes several enhancements and bug fixes.  Note that this release now requires .NET Framework 4.8.
 
-* Added a Find/Replace dialog to SWQL Studio
-* Install SwisPowerShell module from OrionSDK.msi (fixes #155)
-* New UI for CRUD tab
-* SWQL Studio updated to .NET Framework 4.5
-
-And bugfixes:
-
-* Fixed issue in SWQL studio with disappearing subscriptions
-* Fixed a CRUD UI bug
-* Fixed a few other minor bugs
+- Added support for reading documentation from metadata - by @jirkapok
+- Added support for filtering, based on obsolescence - by @gglogowski
+- Added support for pause button for activity monitor - by @etichy 
+- Fixed parameter copy-paste - by @jirkapok
+- Fixed annoying save dialog to display just once - @jirkapok 
+- Enabled high DPI support - @tdanner 
+- SQL's DateTime now shows full precision - @martin-lacina-swi 
+- Fixed intellisense, added Ctrl+Space shortcut to show intellisense - @jirkapok 
+- Migrated to .NET48 - @danjagnow 
+- Copy text from query window formatted - @nothrow 
 ]]></releaseNotes>
     <!--<provides></provides>-->
   </metadata>

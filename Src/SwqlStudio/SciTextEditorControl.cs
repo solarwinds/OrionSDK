@@ -156,9 +156,9 @@ namespace SwqlStudio
             Paste();
         }
 
-        private void CopyMenuClick(object sender, EventArgs e)
+        public void CopyMenuClick(object sender, EventArgs e)
         {
-            Copy(CopyFormat.Rtf);
+            Copy(CopyFormat.Text | CopyFormat.Rtf | CopyFormat.Html);
         }
 
         private void CutMenuClick(object sender, EventArgs e)

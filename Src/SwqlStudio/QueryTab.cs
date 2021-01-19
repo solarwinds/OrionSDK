@@ -200,7 +200,7 @@ namespace SwqlStudio
         {
             if (sciTextEditorControl1.Focused)
             {
-                sciTextEditorControl1.Copy();
+                sciTextEditorControl1.CopyMenuClick(this, EventArgs.Empty);
             }
             else if (dataGridView1.Focused)
             {

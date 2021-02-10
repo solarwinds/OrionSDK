@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Diagnostics;
-using System.IdentityModel.Selectors;
 using System.Linq;
 using System.Management.Automation;
 using System.Net;
@@ -269,13 +268,6 @@ namespace SwisPowerShell
                     channelFactory.Credentials.ServiceCertificate.Authentication.CertificateValidationMode = X509CertificateValidationMode.Custom;
                     channelFactory.Credentials.ServiceCertificate.Authentication.CustomCertificateValidator = new CustomCertificateValidator();
                 }
-            }
-        }
-
-        private class CustomCertificateValidator : X509CertificateValidator
-        {
-            public override void Validate(X509Certificate2 certificate)
-            {
             }
         }
     }

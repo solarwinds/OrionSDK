@@ -1,7 +1,7 @@
 ﻿using System.IdentityModel.Selectors;
 using System.Security.Cryptography.X509Certificates;
 
-namespace SwqlStudio
+namespace SwqlStudio.ProductSpecific
 {
     public class CustomCertificateValidator : X509CertificateValidator
     {

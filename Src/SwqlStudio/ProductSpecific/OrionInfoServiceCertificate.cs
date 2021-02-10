@@ -4,6 +4,7 @@ using System.ServiceModel;
 using System.ServiceModel.Security;
 using SolarWinds.InformationService.Contract2;
 using SolarWinds.InformationService.Contract2.PubSub;
+using SwqlStudio.ProductSpecific;
 using SwqlStudio.Properties;
 using SwqlStudio.Subscriptions;
 

@@ -3,6 +3,7 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Linq;
 using SolarWinds.InformationService.Contract2;
+using SwqlStudio.Utils;
 using WeifenLuo.WinFormsUI.Docking;
 
 namespace SwqlStudio
@@ -27,7 +28,9 @@ namespace SwqlStudio
 
         public QueryParameters()
         {
+            DpiHelper.FixFont(this);
             InitializeComponent();
+            DpiHelper.FixRowHeight(parametersGrid);
             parametersGrid.DataSource = new BindingList<QueryVariable>();
             AllowSetParameters = true;
         }

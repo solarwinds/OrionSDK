@@ -15,6 +15,7 @@ using SwqlStudio.Metadata;
 using SwqlStudio.Playback;
 using SwqlStudio.Properties;
 using SwqlStudio.Subscriptions;
+using SwqlStudio.Utils;
 
 namespace SwqlStudio
 {
@@ -62,6 +63,8 @@ namespace SwqlStudio
         {
             InitializeComponent();
             nullFont = new Font(dataGridView1.DefaultCellStyle.Font, dataGridView1.DefaultCellStyle.Font.Style | FontStyle.Italic);
+            DpiHelper.FixRowHeight(dataGridView1);
+            DpiHelper.FixRowHeight(dataGridView2);
             ShowTabs(Tabs.Results);
             Disposed += QueryTabDisposed;
             AddRunContextMenu();
@@ -476,9 +479,9 @@ namespace SwqlStudio
             }
         }
 
-        private static void AutoResizeColumns(DataGridView grid)
+        private void AutoResizeColumns(DataGridView grid)
         {
-            const int maxSize = 200;
+            int maxSize = base.LogicalToDeviceUnits(200);
             const int widthFudgeFactor = 25;
 
             int[] preferredSizes = new int[grid.ColumnCount];

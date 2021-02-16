@@ -1,4 +1,5 @@
 ﻿using System.Windows.Forms;
+using SwqlStudio.Utils;
 using WeifenLuo.WinFormsUI.Docking;
 
 namespace SwqlStudio
@@ -7,6 +8,7 @@ namespace SwqlStudio
     {
         public DocumentationContent()
         {
+            DpiHelper.FixFont(this);
             InitializeComponent();
         }
 

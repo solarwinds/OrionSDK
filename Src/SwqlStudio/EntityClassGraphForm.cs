@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Windows.Forms;
 using SolarWinds.InformationService.InformationServiceClient;
+using SwqlStudio.Utils;
 
 namespace SwqlStudio
 {
@@ -8,6 +9,7 @@ namespace SwqlStudio
     {
         public EntityClassGraphForm(EntityClassGraph entityClassGraph)
         {
+            DpiHelper.FixFont(this);
             InitializeComponent();
 
             LoadTree(entityClassGraph);

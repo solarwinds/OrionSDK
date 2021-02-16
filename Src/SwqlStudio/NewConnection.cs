@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows.Forms;
+using SwqlStudio.Utils;
 
 namespace SwqlStudio
 {
@@ -7,6 +8,7 @@ namespace SwqlStudio
     {
         public NewConnection()
         {
+            DpiHelper.FixFont(this);
             InitializeComponent();
 
             cmbServer.Items.AddRange(ConnectionHistory.PreviousServers);

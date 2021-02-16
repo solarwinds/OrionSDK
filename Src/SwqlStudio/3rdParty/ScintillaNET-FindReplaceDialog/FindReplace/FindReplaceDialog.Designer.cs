@@ -1614,7 +1614,6 @@ namespace ScintillaNET_FindReplaceDialog
             this.ClientSize = new System.Drawing.Size(488, 292);
             this.Controls.Add(this.tabAll);
             this.Controls.Add(this.statusStrip);
-            this.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
             this.KeyPreview = true;
             this.MaximizeBox = false;

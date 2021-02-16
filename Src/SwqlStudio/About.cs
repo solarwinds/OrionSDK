@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using System.Reflection;
 using System.Windows.Forms;
+using SwqlStudio.Utils;
 
 namespace SwqlStudio
 {
@@ -8,6 +9,7 @@ namespace SwqlStudio
     {
         public About()
         {
+            DpiHelper.FixFont(this);
             InitializeComponent();
 
             var assembly = Assembly.GetEntryAssembly();

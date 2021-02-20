@@ -1,4 +1,6 @@
-﻿namespace SwqlStudio
+﻿using SwqlStudio.Utils;
+
+namespace SwqlStudio
 {
     partial class DocumentationContent
     {
@@ -36,7 +38,7 @@
             // 
             this.itemTypeLabel.AutoSize = true;
             this.itemTypeLabel.Dock = System.Windows.Forms.DockStyle.Top;
-            this.itemTypeLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.itemTypeLabel.Font = new System.Drawing.Font(DpiHelper.DefaultFont, System.Drawing.FontStyle.Bold);
             this.itemTypeLabel.Location = new System.Drawing.Point(0, 0);
             this.itemTypeLabel.Name = "itemTypeLabel";
             this.itemTypeLabel.Padding = new System.Windows.Forms.Padding(3);

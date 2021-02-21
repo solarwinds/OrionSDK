@@ -30,7 +30,7 @@ namespace ScintillaNET_FindReplaceDialog
 
         public FindReplaceDialog()
         {
-            SwqlStudio.Utils.DpiHelper.FixFont(this);
+            this.Font = new Font("Tahoma", 8.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
             InitializeComponent();
 
             _autoPosition = true;

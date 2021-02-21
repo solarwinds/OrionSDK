@@ -18,9 +18,9 @@ namespace SwqlStudio.Utils
         /// <summary>
         /// The default font used in SWQL Studio dialogs
         /// </summary>
-        /// <remarks>Returns the default font used by the OS.</remarks>
-        /// <value><see cref="SystemFonts.MessageBoxFont"/></value>
-        public static readonly Font DefaultFont = SystemFonts.MessageBoxFont;
+        /// <remarks>Returns the default .Net font.</remarks>
+        /// <value>Microsoft Sans Serif, 8.25F</value>
+        public static readonly Font DefaultFont = new Font("Microsoft Sans Serif", 8.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
 
         /// <summary>
         /// Sets the <see cref="DefaultFont"/> as the default font for the <paramref name="control"/>

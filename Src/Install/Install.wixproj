@@ -56,11 +56,9 @@
     <Content Include="GlobalVariables.wxi" />
     <Content Include="packages.config" />
   </ItemGroup>
-  <PropertyGroup>
-    <WixToolPath>$(SolutionDir)packages\WiX.Toolset.3.9.1006.0\tools\wix\</WixToolPath>
-    <WixTargetsPath>$(WixToolPath)wix.targets</WixTargetsPath>
-    <WixTasksPath>$(WixToolPath)WixTasks.dll</WixTasksPath>
-  </PropertyGroup>
+<Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+<Import Project="$(WixCATargetsPath)" Condition=" '$(WixCATargetsPath)' != '' " />
+<Import Project="$(MSBuildExtensionsPath32)\Microsoft\WiX\v3.x\Wix.CA.targets" Condition=" '$(WixCATargetsPath)' == '' AND Exists('$(MSBuildExtensionsPath32)\Microsoft\WiX\v3.x\Wix.CA.targets') " />
   <Import Project="$(WixTargetsPath)" />
   <!--
 	To modify your build process, add your task inside one of the targets below and uncomment it.

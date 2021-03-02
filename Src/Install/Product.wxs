@@ -124,6 +124,15 @@
                 <File Source="$(var.OutputDir)\SolarWinds.SDK.Swis.Contract.dll" />
                 <File Source="$(var.OutputDir)\SolarWinds.Logging.dll" />
                 <File Source="$(var.OutputDir)\Security.Cryptography.dll" />
+                <File Source="$(var.OutputDir)\System.Configuration.ConfigurationManager.dll" />
+                <File Source="$(var.OutputDir)\System.Security.AccessControl.dll" />
+                <File Source="$(var.OutputDir)\System.Security.Permissions.dll" />
+                <File Source="$(var.OutputDir)\System.Security.Principal.Windows.dll" />
+                <File Source="$(var.OutputDir)\System.ServiceModel.Duplex.dll" />
+                <File Source="$(var.OutputDir)\System.ServiceModel.Http.dll" />
+                <File Source="$(var.OutputDir)\System.ServiceModel.NetTcp.dll" />
+                <File Source="$(var.OutputDir)\System.ServiceModel.Primitives.dll" />
+                <File Source="$(var.OutputDir)\System.ServiceModel.Security.dll" />
                 <File Source="$(var.OutputDir)\WeifenLuo.WinFormsUI.Docking.dll" />
                 <File Source="$(var.OutputDir)\WeifenLuo.WinFormsUI.Docking.ThemeVS2015.dll" />
               </Component>
@@ -148,6 +157,14 @@
                   <File Id="psm_SolarWinds.SDK.Swis.Contract.dll" Source="$(var.OutputDir)\SolarWinds.SDK.Swis.Contract.dll" />
                   <File Id="psm_log4net.dll" Source="$(var.OutputDir)\log4net.dll" />
                   <File Id="psm_SolarWinds.Logging.dll" Source="$(var.OutputDir)\SolarWinds.Logging.dll" />
+                  <File Id="psm_System.Security.AccessControl.dll" Source="$(var.OutputDir)\System.Security.AccessControl.dll" />
+                  <File Id="psm_System.Security.Permissions.dll" Source="$(var.OutputDir)\System.Security.Permissions.dll" />
+                  <File Id="psm_System.Security.Principal.Windows.dll" Source="$(var.OutputDir)\System.Security.Principal.Windows.dll" />
+                  <File Id="psm_System.ServiceModel.Duplex.dll" Source="$(var.OutputDir)\System.ServiceModel.Duplex.dll" />
+                  <File Id="psm_System.ServiceModel.Http.dll" Source="$(var.OutputDir)\System.ServiceModel.Http.dll" />
+                  <File Id="psm_System.ServiceModel.NetTcp.dll" Source="$(var.OutputDir)\System.ServiceModel.NetTcp.dll" />
+                  <File Id="psm_System.ServiceModel.Primitives.dll" Source="$(var.OutputDir)\System.ServiceModel.Primitives.dll" />
+                  <File Id="psm_System.ServiceModel.Security.dll" Source="$(var.OutputDir)\System.ServiceModel.Security.dll" />
                 </Component>
               </Directory>
             </Directory>
@@ -166,6 +183,14 @@
                   <File Id="psm64_SolarWinds.SDK.Swis.Contract.dll" Source="$(var.OutputDir)\SolarWinds.SDK.Swis.Contract.dll" />
                   <File Id="psm64_log4net.dll" Source="$(var.OutputDir)\log4net.dll" />
                   <File Id="psm64_SolarWinds.Logging.dll" Source="$(var.OutputDir)\SolarWinds.Logging.dll" />
+                  <File Id="psm64_System.Security.AccessControl.dll" Source="$(var.OutputDir)\System.Security.AccessControl.dll" />
+                  <File Id="psm64_System.Security.Permissions.dll" Source="$(var.OutputDir)\System.Security.Permissions.dll" />
+                  <File Id="psm64_System.Security.Principal.Windows.dll" Source="$(var.OutputDir)\System.Security.Principal.Windows.dll" />
+                  <File Id="psm64_System.ServiceModel.Duplex.dll" Source="$(var.OutputDir)\System.ServiceModel.Duplex.dll" />
+                  <File Id="psm64_System.ServiceModel.Http.dll" Source="$(var.OutputDir)\System.ServiceModel.Http.dll" />
+                  <File Id="psm64_System.ServiceModel.NetTcp.dll" Source="$(var.OutputDir)\System.ServiceModel.NetTcp.dll" />
+                  <File Id="psm64_System.ServiceModel.Primitives.dll" Source="$(var.OutputDir)\System.ServiceModel.Primitives.dll" />
+                  <File Id="psm64_System.ServiceModel.Security.dll" Source="$(var.OutputDir)\System.ServiceModel.Security.dll" />
                 </Component>
               </Directory>
             </Directory>

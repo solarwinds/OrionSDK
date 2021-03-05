@@ -18,14 +18,8 @@
                 case "ORION (V2) CERTIFICATE":
                     return new OrionInfoServiceCertificate();
 
-                case "ORION (V2) AD COMPRESSED":
-                    return new OrionInfoServiceWindowsCompressed(username, password);
-
                 case "ORION (V2) OVER HTTPS":
                     return new OrionHttpsInfoService(username, password);
-
-                case "ORION (V2) COMPRESSED":
-                    return new OrionInfoServiceCompressed(username, password);
 
                 case "ORION (V3)":
                     return new OrionInfoService(username, password, isSwisV3: true);
@@ -36,14 +30,8 @@
                 case "ORION (V3) CERTIFICATE":
                     return new OrionInfoServiceCertificate(v3: true);
 
-                case "ORION (V3) AD COMPRESSED":
-                    return new OrionInfoServiceWindowsCompressed(username, password, v3: true);
-
                 case "ORION (V3) OVER HTTPS":
                     return new OrionHttpsInfoService(username, password, v3: true);
-
-                case "ORION (V3) COMPRESSED":
-                    return new OrionInfoServiceCompressed(username, password, v3: true);
 
                 case "NCM":
                     return new NCMInfoService(username, password);

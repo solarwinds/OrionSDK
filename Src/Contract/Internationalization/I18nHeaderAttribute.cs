@@ -13,7 +13,7 @@ namespace SolarWinds.InformationService.Contract2.Internationalization
 
         public void ApplyClientBehavior(ContractDescription contractDescription, ServiceEndpoint endpoint, ClientRuntime clientRuntime)
         {
-            clientRuntime.MessageInspectors.Add(new I18nMessageInspector());
+            clientRuntime.ClientMessageInspectors.Add(new I18nMessageInspector());
         }
 
         public void ApplyDispatchBehavior(ContractDescription contractDescription, ServiceEndpoint endpoint, DispatchRuntime dispatchRuntime)

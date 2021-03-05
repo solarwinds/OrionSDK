@@ -1,13 +1,11 @@
 using System.IO;
 using System.ServiceModel;
 using System.Xml;
-using SolarWinds.InformationService.Contract2.Impersonation;
 using SolarWinds.InformationService.Contract2.Internationalization;
 
 namespace SolarWinds.InformationService.Contract2
 {
     [ServiceContract(Name = "InformationService", Namespace = "http://schemas.solarwinds.com/2007/08/informationservice")]
-    [Impersonation]
     [I18nHeader]
     [SwisSettings]
     [SwisProtocolVersion]

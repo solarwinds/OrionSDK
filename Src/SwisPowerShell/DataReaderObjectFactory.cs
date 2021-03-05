@@ -1,14 +1,8 @@
-//---------------------------------------------------------------------
-// Author: Harley Green
-//
-// Description: Cmdlet to get data from Sql Server databases
-//
-// Creation Date: 2008/8/20
-//---------------------------------------------------------------------
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Data;
+using System.Management.Automation;
 
 namespace SwisPowerShell
 {
@@ -21,10 +15,6 @@ namespace SwisPowerShell
             _dataReader = dataReader;
         }
 
-        public Type ReturnType { get; set; }
-
-        public bool IgnoreCase { get; set; }
-
         public IEnumerator GetEnumerator()
         {
             if (_dataReader.FieldCount == 1)
@@ -34,12 +24,10 @@ namespace SwisPowerShell
                     yield return _dataReader[0];
                 }
             }
-
             else
             {
                 int fieldCount = _dataReader.FieldCount;
 
-                var properties = new List<Pair<string, Type>>();
                 var columns = new List<string>();
                 for (int i = 0; i < fieldCount; i++)
                 {
@@ -47,14 +35,16 @@ namespace SwisPowerShell
                     if (string.IsNullOrEmpty(name)) // Workaround for FB258920
                         name = "_Field" + i;
 
-                    properties.Add(new Pair<string, Type>(name, _dataReader.GetFieldType(i)));
                     columns.Add(name);
                 }
-                var t = ReturnType ?? new DataTypeBuilder("Pscx").CreateType(properties);
+
                 while (_dataReader.Read())
                 {
-                    var target = Activator.CreateInstance(t);
-                    new PropertySetter(t).SetValues(target, new DataReaderIndexer(_dataReader, columns), IgnoreCase);
+                    var target = new PSObject();
+                    for (int i = 0; i < fieldCount; i++)
+                    {
+                        target.Properties.Add(new PSNoteProperty(columns[i], _dataReader[i]));
+                    }
                     yield return target;
                 }
             }

@@ -178,7 +178,6 @@ namespace SwisPowerShell
                 if (Streamed.IsPresent)
                 {
                     binding.TransferMode = TransferMode.Streamed;
-                    binding.PortSharingEnabled = true;
                     binding.ReceiveTimeout = new TimeSpan(15, 0, 0);
                     binding.SendTimeout = new TimeSpan(15, 0, 0);
                 }

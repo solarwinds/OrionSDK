@@ -112,8 +112,6 @@ namespace SolarWinds.InformationService.Contract2
             SslStreamSecurityBindingElement element = elements.Find<SslStreamSecurityBindingElement>();
             if (element != null)
             {
-                element.IdentityVerifier = new SWIdentityVerifier();
-
                 CustomBinding newbinding = new CustomBinding(elements);
 
                 // Transfer timeout settings from the old binding to the new
@@ -143,7 +141,7 @@ namespace SolarWinds.InformationService.Contract2
             SslStreamSecurityBindingElement element = elements.Find<SslStreamSecurityBindingElement>();
             if (element != null)
             {
-                element.IdentityVerifier = new SWIdentityVerifier();
+                //element.IdentityVerifier = new SWIdentityVerifier();
 
                 CustomBinding newbinding = new CustomBinding(elements);
 

@@ -38,7 +38,7 @@ namespace SwqlStudio.ObjectExplorer
         private ImageList objectExplorerImageList;
         private System.ComponentModel.IContainer components;
         private TreeNode _dragNode;
-        private readonly TreeNodesBuilder treeNodesBuilder = new TreeNodesBuilder(DefaultFont);
+        private readonly TreeNodesBuilder treeNodesBuilder = new TreeNodesBuilder(DpiHelper.DefaultFont);
         public event TreeViewEventHandler SelectionChanged;
         public ITabsFactory TabsFactory { get; set; }
 

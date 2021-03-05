@@ -39,6 +39,7 @@ namespace SwqlStudio
 
         public MainForm()
         {
+            DpiHelper.FixFont(this);
             InitializeComponent();
 
             InitializeDockPanel();

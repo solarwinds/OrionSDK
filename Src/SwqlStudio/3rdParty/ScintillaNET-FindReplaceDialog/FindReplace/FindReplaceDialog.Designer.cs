@@ -962,6 +962,7 @@ namespace ScintillaNET_FindReplaceDialog
             // 
             // statusStrip
             // 
+            this.statusStrip.AutoSize = false;
             this.statusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.lblStatus});
             this.statusStrip.Location = new System.Drawing.Point(0, 270);

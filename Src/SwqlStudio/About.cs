@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Drawing;
+using System.Linq;
 using System.Reflection;
 using System.Windows.Forms;
 
@@ -8,6 +9,7 @@ namespace SwqlStudio
     {
         public About()
         {
+            this.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point, ((byte)(0)));
             InitializeComponent();
 
             var assembly = Assembly.GetEntryAssembly();

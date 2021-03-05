@@ -8,6 +8,7 @@ packages
 paket.dependencies
 paket.dependencies.locked
 .vs
+_ReSharper.Caches
 UpgradeLog.htm
 
 Samples/Java/swis-client/\.settings/

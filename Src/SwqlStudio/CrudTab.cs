@@ -3,6 +3,7 @@ using System.Linq;
 using System.Windows.Forms;
 using SolarWinds.InformationService.Contract2;
 using SwqlStudio.Metadata;
+using SwqlStudio.Utils;
 
 namespace SwqlStudio
 {
@@ -18,6 +19,7 @@ namespace SwqlStudio
         {
             _operation = operation;
             InitializeComponent();
+            DpiHelper.FixRowHeight(propertiesDataGridView);
         }
 
         public Entity Entity

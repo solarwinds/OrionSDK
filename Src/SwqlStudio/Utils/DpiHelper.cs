@@ -31,7 +31,9 @@ namespace SwqlStudio.Utils
         /// <para>This should be called in the <paramref name="control"/>'s constructor.</para></remarks>
         public static void FixFont(Control control)
         {
+            control.SuspendLayout();
             control.Font = DefaultFont;
+            control.ResumeLayout();
         }
 
         /// <summary>

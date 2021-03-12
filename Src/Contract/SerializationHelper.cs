@@ -1,8 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Globalization;
-using System.IO;
-using System.Runtime.Serialization;
 using System.Xml;
 using SolarWinds.InformationService.Contract2.Serialization;
 
@@ -26,27 +24,6 @@ namespace SolarWinds.InformationService.Contract2
 
     public static class SerializationHelper
     {
-        public static T Deserialize<T>(byte[] data)
-        {
-            T result;
-            using (MemoryStream stream = new MemoryStream(data))
-            {
-                DataContractSerializer serializer = new DataContractSerializer(typeof(T));
-                result = (T)serializer.ReadObject(stream);
-            }
-
-            return result;
-        }
-
-        public static string GetString(byte[] data)
-        {
-            using (MemoryStream stream = new MemoryStream(data))
-            using (StreamReader reader = new StreamReader(stream))
-            {
-                return reader.ReadToEnd();
-            }
-        }
-
         private static readonly Dictionary<string, SerializerInfo> cachedObjectTypes = new Dictionary<string, SerializerInfo>(StringComparer.OrdinalIgnoreCase)
         {
             {"System.String", new SerializerInfo(typeof(string),SerializeValue,DeserializeValue)},

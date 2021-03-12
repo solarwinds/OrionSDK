@@ -3,7 +3,6 @@ using System.Diagnostics;
 using System.ServiceModel;
 using System.ServiceModel.Channels;
 using System.Xml;
-using SolarWinds.InformationService.Contract2.Bindings;
 using SolarWinds.Logging;
 
 namespace SolarWinds.InformationService.Contract2

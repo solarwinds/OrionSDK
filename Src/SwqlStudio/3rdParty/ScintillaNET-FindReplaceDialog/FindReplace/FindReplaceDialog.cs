@@ -433,7 +433,7 @@ namespace ScintillaNET_FindReplaceDialog
 
         private void rdoStandardF_CheckedChanged(object sender, EventArgs e)
         {
-            if (rdoStandardF.Checked)
+            if (rdoStandardF.Checked || rdoExtendedF.Checked)
                 pnlStandardOptionsF.BringToFront();
             else
                 pnlRegexpOptionsF.BringToFront();
@@ -443,7 +443,7 @@ namespace ScintillaNET_FindReplaceDialog
 
         private void rdoStandardR_CheckedChanged(object sender, EventArgs e)
         {
-            if (rdoStandardR.Checked)
+            if (rdoStandardR.Checked || rdoExtendedR.Checked)
                 pnlStandardOptionsR.BringToFront();
             else
                 pnlRegexpOptionsR.BringToFront();

@@ -1066,7 +1066,7 @@ namespace ScintillaNET_FindReplaceDialog
                 if (rdoRegexR.Checked)
                 {
                     rr = new Regex(txtFindR.Text, GetRegexOptions());
-                    string selRangeText = Scintilla.GetTextRange(selRange.cpMin, selRange.cpMax - selRange.cpMin + 1);
+                    string selRangeText = Scintilla.GetTextRange(selRange.cpMin, selRange.cpMax - selRange.cpMin);
 
                     if (selRange.Equals(FindReplace.Find(selRange, rr, false)))
                     {

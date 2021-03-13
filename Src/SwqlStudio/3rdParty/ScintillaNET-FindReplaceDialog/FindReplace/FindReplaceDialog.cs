@@ -514,6 +514,13 @@ namespace ScintillaNET_FindReplaceDialog
 
         #region Methods
 
+        private CharacterRange FindNext(bool searchUp)
+        {
+            return tabAll.SelectedTab == tpgFind
+                ? FindNextF(searchUp)
+                : FindNextR(searchUp, null);
+        }
+
         public void FindNext()
         {
             SyncSearchText();
@@ -528,7 +535,7 @@ namespace ScintillaNET_FindReplaceDialog
 
             try
             {
-                foundRange = FindNextF(false);
+                foundRange = FindNext(false);
             }
             catch (ArgumentException ex)
             {
@@ -567,7 +574,7 @@ namespace ScintillaNET_FindReplaceDialog
             CharacterRange foundRange;
             try
             {
-                foundRange = FindNextF(true);
+                foundRange = FindNext(true);
             }
             catch (ArgumentException ex)
             {
@@ -942,7 +949,7 @@ namespace ScintillaNET_FindReplaceDialog
             return foundRange;
         }
 
-        private CharacterRange FindNextR(bool searchUp, ref Regex rr)
+        private CharacterRange FindNextR(bool searchUp, Regex rr)
         {
             CharacterRange foundRange;
 
@@ -972,7 +979,7 @@ namespace ScintillaNET_FindReplaceDialog
             }
             else
             {
-                if (chkSearchSelectionF.Checked)
+                if (chkSearchSelectionR.Checked)
                 {
                     if (_searchRange.cpMin == _searchRange.cpMax)
                         _searchRange = new CharacterRange(_scintilla.Selections[0].Start, _scintilla.Selections[0].End);
@@ -994,12 +1001,12 @@ namespace ScintillaNET_FindReplaceDialog
                     if (searchUp)
                     {
                         string textToFind = rdoExtendedR.Checked ? FindReplace.Transform(txtFindR.Text) : txtFindR.Text;
-                        foundRange = FindReplace.FindPrevious(textToFind, chkWrapF.Checked, GetSearchFlags());
+                        foundRange = FindReplace.FindPrevious(textToFind, chkWrapR.Checked, GetSearchFlags());
                     }
                     else
                     {
                         string textToFind = rdoExtendedR.Checked ? FindReplace.Transform(txtFindR.Text) : txtFindR.Text;
-                        foundRange = FindReplace.FindNext(textToFind, chkWrapF.Checked, GetSearchFlags());
+                        foundRange = FindReplace.FindNext(textToFind, chkWrapR.Checked, GetSearchFlags());
                     }
                 }
             }
@@ -1117,7 +1124,7 @@ namespace ScintillaNET_FindReplaceDialog
                     }
                 }
             }
-            return FindNextR(searchUp, ref rr);
+            return FindNextR(searchUp, rr);
         }
 
         #endregion Methods

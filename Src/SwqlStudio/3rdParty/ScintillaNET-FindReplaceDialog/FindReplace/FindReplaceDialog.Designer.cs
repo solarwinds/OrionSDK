@@ -1586,7 +1586,8 @@ namespace ScintillaNET_FindReplaceDialog
             // 
             this.nameToolStripMenuItem.Name = "nameToolStripMenuItem";
             this.nameToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
-            this.nameToolStripMenuItem.Text = "$(Name) Named Group";
+            this.nameToolStripMenuItem.Tag = "${Name}";
+            this.nameToolStripMenuItem.Text = "${Name} Named Group";
             // 
             // btnFindPreviousR
             // 

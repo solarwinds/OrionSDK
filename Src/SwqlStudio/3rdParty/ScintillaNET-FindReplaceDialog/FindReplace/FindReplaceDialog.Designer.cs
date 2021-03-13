@@ -1169,6 +1169,7 @@ namespace ScintillaNET_FindReplaceDialog
             this.mnuRegExCharFindF.Name = "contextMenuStrip1";
             this.mnuRegExCharFindF.ShowImageMargin = false;
             this.mnuRegExCharFindF.Size = new System.Drawing.Size(261, 424);
+            this.mnuRegExCharFindF.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.mnuRegExCharFindF_ItemClicked);
             // 
             // toolStripMenuItem9
             // 
@@ -1344,6 +1345,7 @@ namespace ScintillaNET_FindReplaceDialog
             this.mnuRegExCharFindR.Name = "contextMenuStrip1";
             this.mnuRegExCharFindR.ShowImageMargin = false;
             this.mnuRegExCharFindR.Size = new System.Drawing.Size(261, 424);
+            this.mnuRegExCharFindR.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.mnuRegExCharFindR_ItemClicked);
             // 
             // toolStripMenuItem30
             // 
@@ -1508,6 +1510,7 @@ namespace ScintillaNET_FindReplaceDialog
             this.mnuRegExCharReplace.Name = "contextMenuStrip1";
             this.mnuRegExCharReplace.ShowImageMargin = false;
             this.mnuRegExCharReplace.Size = new System.Drawing.Size(174, 246);
+            this.mnuRegExCharReplace.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.mnuRegExCharReplace_ItemClicked);
             // 
             // toolStripMenuItem48
             // 

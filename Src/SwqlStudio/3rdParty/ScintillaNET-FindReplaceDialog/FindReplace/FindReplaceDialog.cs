@@ -876,8 +876,7 @@ namespace ScintillaNET_FindReplaceDialog
 
         private void contextMenuStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
         {
-            //Insert the string value held in the menu items Tag field (\t, \n, etc.)
-            txtFindF.SelectedText = e.ClickedItem.Tag.ToString();
+            AddSearchReplaceMacro(txtFindF, e);
         }
 
         private CharacterRange FindNextF(bool searchUp)
@@ -1019,53 +1018,40 @@ namespace ScintillaNET_FindReplaceDialog
 
         private void mnuRecentFindF_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
         {
-            //Insert the string value held in the menu items Tag field (\t, \n, etc.)
-            if (e.ClickedItem.Text == "Clear History")
-            {
-                MruFind.Clear();
-            }
-            else
-            {
-                txtFindF.Text = e.ClickedItem.Tag.ToString();
-            }
+            SetSearchReplaceTerm(txtFindF, MruFind, e);
         }
 
         private void mnuRecentFindR_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
         {
-            //Insert the string value held in the menu items Tag field (\t, \n, etc.)
-            if (e.ClickedItem.Text == "Clear History")
-            {
-                MruFind.Clear();
-            }
-            else
-            {
-                txtFindR.Text = e.ClickedItem.Tag.ToString();
-            }
+            SetSearchReplaceTerm(txtFindR, MruFind, e);
         }
 
         private void mnuRecentReplace_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
         {
+            SetSearchReplaceTerm(txtReplace, MruReplace, e);
+        }
+
+        private static void SetSearchReplaceTerm(TextBox targetTextBox, List<string> mru, ToolStripItemClickedEventArgs e)
+        {
             //Insert the string value held in the menu items Tag field (\t, \n, etc.)
             if (e.ClickedItem.Text == "Clear History")
             {
-                MruReplace.Clear();
+                mru.Clear();
             }
             else
             {
-                txtReplace.Text = e.ClickedItem.Tag.ToString();
+                targetTextBox.Text = e.ClickedItem.Tag.ToString();
             }
         }
 
         private void mnuExtendedCharFindR_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
         {
-            //Insert the string value held in the menu items Tag field (\t, \n, etc.)
-            txtFindR.SelectedText = e.ClickedItem.Tag.ToString();
+            AddSearchReplaceMacro(txtFindR, e);
         }
 
         private void mnuExtendedCharReplace_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
         {
-            //Insert the string value held in the menu items Tag field (\t, \n, etc.)
-            txtReplace.SelectedText = e.ClickedItem.Tag.ToString();
+            AddSearchReplaceMacro(txtReplace, e);
         }
 
         private CharacterRange ReplaceNext(bool searchUp)
@@ -1135,5 +1121,26 @@ namespace ScintillaNET_FindReplaceDialog
         }
 
         #endregion Methods
+
+        private void mnuRegExCharFindF_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+            AddSearchReplaceMacro(txtFindF, e);
+        }
+
+        private void mnuRegExCharFindR_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+            AddSearchReplaceMacro(txtFindR, e);
+        }
+
+        private void mnuRegExCharReplace_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+            AddSearchReplaceMacro(txtReplace, e);
+        }
+
+        private static void AddSearchReplaceMacro(TextBox targetTextBox, ToolStripItemClickedEventArgs e)
+        {
+            //Insert the string value held in the menu items Tag field (\t, \n, etc.)
+            targetTextBox.SelectedText = e.ClickedItem.Tag.ToString();
+        }
     }
 }

@@ -312,9 +312,9 @@ namespace ScintillaNET_FindReplaceDialog
                 if (nextRange.cpMin > _scintilla.AnchorPosition)
                 {
                     if (chkSearchSelectionR.Checked)
-                        lblStatus.Text = "Search match wrapped to the beginning of the selection";
+                        lblStatus.Text = "Search match wrapped to the end of the selection";
                     else
-                        lblStatus.Text = "Search match wrapped to the beginning of the document";
+                        lblStatus.Text = "Search match wrapped to the end of the document";
                 }
 
                 _scintilla.SetSel(nextRange.cpMin, nextRange.cpMax);
@@ -591,9 +591,9 @@ namespace ScintillaNET_FindReplaceDialog
                 if (foundRange.cpMin > Scintilla.CurrentPosition)
                 {
                     if (chkSearchSelectionF.Checked)
-                        lblStatus.Text = "Search match wrapped to the _end of the selection";
+                        lblStatus.Text = "Search match wrapped to the end of the selection";
                     else
-                        lblStatus.Text = "Search match wrapped to the _end of the document";
+                        lblStatus.Text = "Search match wrapped to the end of the document";
                 }
 
                 Scintilla.SetSel(foundRange.cpMin, foundRange.cpMax);

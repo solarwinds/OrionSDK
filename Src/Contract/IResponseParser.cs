@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using System.Reflection;
 using System.Xml;
 
@@ -8,7 +7,6 @@ namespace SolarWinds.InformationService.Contract2
     internal interface IResponseParser<T> where T : new()
     {
         T ReadNextEntity(XmlReader reader);
-        IEnumerable<ErrorMessage> ErrorMessages { get; }
     }
 
     internal enum ParserState

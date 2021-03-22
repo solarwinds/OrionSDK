@@ -88,10 +88,6 @@ namespace SolarWinds.InformationService.Contract2
         void BulkDelete(string[] uris);
     }
 
-    public interface IInformationServiceChannel : IInformationService, IClientChannel
-    {
-    }
-
     [System.Diagnostics.DebuggerStepThrough]
     [MessageContract(WrapperName = "QueryXml", WrapperNamespace = "http://schemas.solarwinds.com/2007/08/informationservice", IsWrapped = true)]
     public partial class QueryXmlRequest

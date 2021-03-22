@@ -21,11 +21,6 @@ namespace SolarWinds.InformationService.Contract2
 
         private List<ErrorMessage> errorMessages;
 
-        public IEnumerable<ErrorMessage> ErrorMessages
-        {
-            get { return errorMessages; }
-        }
-
         private readonly bool hasAddMethod = typeof(IEntityPropertySetter).IsAssignableFrom(typeof(T));
 
         public T ReadNextEntity(XmlReader reader)

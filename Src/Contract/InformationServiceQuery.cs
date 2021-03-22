@@ -19,11 +19,6 @@ namespace SolarWinds.InformationService.Contract2
 
         protected bool disposed = false;
 
-        public InformationServiceQuery(InformationServiceContext context, string queryString)
-            : this(context, queryString, null)
-        {
-        }
-
         public InformationServiceQuery(InformationServiceContext context, string queryString, PropertyBag parameters)
         {
             if (context == null)

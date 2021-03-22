@@ -6,8 +6,6 @@ namespace SolarWinds.InformationService.Contract2
 {
     public class InformationServiceQuery<T> : InformationServiceQuery, IEnumerable<T> where T : new()
     {
-        public const string EntityCollectionResponseParserType = "EntityCollectionResponseParser";
-
         private readonly Type type = typeof(T);
         private readonly IResponseParser<T> parser;
 

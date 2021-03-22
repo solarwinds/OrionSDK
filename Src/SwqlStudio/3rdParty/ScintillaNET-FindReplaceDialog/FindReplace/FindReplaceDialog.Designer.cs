@@ -239,7 +239,7 @@ namespace ScintillaNET_FindReplaceDialog
             // 
             this.cmdRecentFindF.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdRecentFindF.BackgroundImage = global::ScintillaNET_FindReplaceDialog.Properties.Resources.Clock;
-            this.cmdRecentFindF.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.cmdRecentFindF.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.cmdRecentFindF.Location = new System.Drawing.Point(430, 5);
             this.cmdRecentFindF.Name = "cmdRecentFindF";
             this.cmdRecentFindF.Size = new System.Drawing.Size(23, 23);
@@ -634,7 +634,7 @@ namespace ScintillaNET_FindReplaceDialog
             // 
             this.cmdRecentReplace.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdRecentReplace.BackgroundImage = global::ScintillaNET_FindReplaceDialog.Properties.Resources.Clock;
-            this.cmdRecentReplace.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.cmdRecentReplace.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.cmdRecentReplace.Location = new System.Drawing.Point(430, 27);
             this.cmdRecentReplace.Name = "cmdRecentReplace";
             this.cmdRecentReplace.Size = new System.Drawing.Size(23, 23);
@@ -660,7 +660,7 @@ namespace ScintillaNET_FindReplaceDialog
             // 
             this.cmdRecentFindR.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdRecentFindR.BackgroundImage = global::ScintillaNET_FindReplaceDialog.Properties.Resources.Clock;
-            this.cmdRecentFindR.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.cmdRecentFindR.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.cmdRecentFindR.Location = new System.Drawing.Point(430, 5);
             this.cmdRecentFindR.Name = "cmdRecentFindR";
             this.cmdRecentFindR.Size = new System.Drawing.Size(23, 23);
@@ -1169,6 +1169,7 @@ namespace ScintillaNET_FindReplaceDialog
             this.mnuRegExCharFindF.Name = "contextMenuStrip1";
             this.mnuRegExCharFindF.ShowImageMargin = false;
             this.mnuRegExCharFindF.Size = new System.Drawing.Size(261, 424);
+            this.mnuRegExCharFindF.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.mnuRegExCharFindF_ItemClicked);
             // 
             // toolStripMenuItem9
             // 
@@ -1344,6 +1345,7 @@ namespace ScintillaNET_FindReplaceDialog
             this.mnuRegExCharFindR.Name = "contextMenuStrip1";
             this.mnuRegExCharFindR.ShowImageMargin = false;
             this.mnuRegExCharFindR.Size = new System.Drawing.Size(261, 424);
+            this.mnuRegExCharFindR.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.mnuRegExCharFindR_ItemClicked);
             // 
             // toolStripMenuItem30
             // 
@@ -1508,6 +1510,7 @@ namespace ScintillaNET_FindReplaceDialog
             this.mnuRegExCharReplace.Name = "contextMenuStrip1";
             this.mnuRegExCharReplace.ShowImageMargin = false;
             this.mnuRegExCharReplace.Size = new System.Drawing.Size(174, 246);
+            this.mnuRegExCharReplace.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.mnuRegExCharReplace_ItemClicked);
             // 
             // toolStripMenuItem48
             // 
@@ -1583,7 +1586,8 @@ namespace ScintillaNET_FindReplaceDialog
             // 
             this.nameToolStripMenuItem.Name = "nameToolStripMenuItem";
             this.nameToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
-            this.nameToolStripMenuItem.Text = "$(Name) Named Group";
+            this.nameToolStripMenuItem.Tag = "${Name}";
+            this.nameToolStripMenuItem.Text = "${Name} Named Group";
             // 
             // btnFindPreviousR
             // 

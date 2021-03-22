@@ -494,10 +494,6 @@
             this.aboutSWQLStudioToolStripMenuItem.Text = "About SWQL Studio";
             this.aboutSWQLStudioToolStripMenuItem.Click += new System.EventHandler(this.aboutSWQLStudioToolStripMenuItem_Click);
             // 
-            // openFileDialog
-            // 
-            this.openFileDialog.FileName = "openFileDialog1";
-            // 
             // filesDock
             // 
             this.filesDock.Dock = System.Windows.Forms.DockStyle.Fill;

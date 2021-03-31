@@ -4,9 +4,9 @@ using System.Diagnostics;
 using System.Linq;
 using System.ServiceModel;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
 using SolarWinds.InformationService.Contract2;
 using SolarWinds.InformationService.Contract2.PubSub;
-using SolarWinds.Logging;
 
 namespace SwqlStudio.Subscriptions
 {
@@ -14,7 +14,7 @@ namespace SwqlStudio.Subscriptions
 
     public class SubscriptionManager : INotificationSubscriber
     {
-        private readonly static Log log = new Log();
+        private readonly static ILogger<SubscriptionManager> log = Program.LoggerFactory.CreateLogger<SubscriptionManager>();
         private readonly ConcurrentDictionary<ConnectionInfo, SubscriptionInfo> proxies = new ConcurrentDictionary<ConnectionInfo, SubscriptionInfo>();
 
         private readonly SubscriptionServiceHost _subscriptionListener;
@@ -39,12 +39,12 @@ namespace SwqlStudio.Subscriptions
             }
             catch (FaultException<InfoServiceFaultContract> ex)
             {
-                log.Debug($"Unable to unsubscribe {subscriptionUri}.  Must have been deleted already", ex);
+                log.LogDebug(ex, $"Unable to unsubscribe {subscriptionUri}.  Must have been deleted already");
             }
             catch (CommunicationException ex)
             {
                 // also in case connection already disposed
-                log.Debug("Unable to unsubscribe due to communication error.", ex);
+                log.LogDebug(ex, "Unable to unsubscribe due to communication error.");
             }
         }
 

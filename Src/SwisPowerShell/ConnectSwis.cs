@@ -9,6 +9,8 @@ using System.Security;
 using System.Security.Cryptography.X509Certificates;
 using System.ServiceModel;
 using System.ServiceModel.Security;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Abstractions;
 using SolarWinds.InformationService.Contract2;
 
 namespace SwisPowerShell
@@ -16,6 +18,8 @@ namespace SwisPowerShell
     [Cmdlet(VerbsCommunications.Connect, "Swis", DefaultParameterSetName = "Credential")]
     public class ConnectSwis : Cmdlet
     {
+        private static ILogger<InfoServiceProxy> _infoServiceLogger = new NullLogger<InfoServiceProxy>();
+
         [Parameter(ParameterSetName = "UserName", Mandatory = false, Position = 0, HelpMessage = "UserName for connecting to Orion.")]
         public string UserName { get; set; }
 
@@ -149,7 +153,7 @@ namespace SwisPowerShell
 
             var credentials = new UsernameCredentials(username, password);
 
-            return new InfoServiceProxy(address, binding, credentials);
+            return new InfoServiceProxy(_infoServiceLogger, address, binding, credentials);
         }
 
         private InfoServiceProxy ConnectNetTcp()
@@ -165,7 +169,7 @@ namespace SwisPowerShell
 
                 var uri = new Uri(string.Format(addresses.activeDirectory, Hostname ?? "localhost"));
 
-                infoServiceProxy = new InfoServiceProxy(uri, binding, new WindowsCredential());
+                infoServiceProxy = new InfoServiceProxy(_infoServiceLogger, uri, binding, new WindowsCredential());
             }
             else if (Certificate.IsPresent)
             {
@@ -190,7 +194,7 @@ namespace SwisPowerShell
 
                 ServiceCredentials credentials = new MyCertificateCredential("SolarWinds-Orion", StoreLocation.LocalMachine, StoreName.My);
 
-                infoServiceProxy = new InfoServiceProxy(uri, binding, credentials);
+                infoServiceProxy = new InfoServiceProxy(_infoServiceLogger, uri, binding, credentials);
             }
             else
             {
@@ -215,7 +219,7 @@ namespace SwisPowerShell
 
                 var credentials = new UsernameCredentials(username, password);
 
-                infoServiceProxy = new InfoServiceProxy(uri, binding, credentials);
+                infoServiceProxy = new InfoServiceProxy(_infoServiceLogger, uri, binding, credentials);
             }
             return infoServiceProxy;
         }

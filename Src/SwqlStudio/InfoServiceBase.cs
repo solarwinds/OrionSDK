@@ -1,6 +1,7 @@
 using System;
 using System.Globalization;
 using System.ServiceModel.Channels;
+using Microsoft.Extensions.Logging;
 using SolarWinds.InformationService.Contract2;
 using SolarWinds.InformationService.Contract2.PubSub;
 using SwqlStudio.Properties;
@@ -61,7 +62,8 @@ namespace SwqlStudio
 
         public virtual InfoServiceProxy CreateProxy(string server)
         {
-            return new InfoServiceProxy(Uri(server), Binding, Credentials);
+            ILogger<InfoServiceProxy> logger = Program.LoggerFactory.CreateLogger<InfoServiceProxy>();
+            return new InfoServiceProxy(logger, Uri(server), Binding, Credentials);
         }
 
         public virtual bool SupportsActiveSubscriber { get { return false; } }

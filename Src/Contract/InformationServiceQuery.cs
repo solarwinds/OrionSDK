@@ -3,13 +3,13 @@ using System.Runtime.Serialization;
 using System.ServiceModel;
 using System.ServiceModel.Channels;
 using System.Xml;
-using SolarWinds.Logging;
+using Microsoft.Extensions.Logging;
 
 namespace SolarWinds.InformationService.Contract2
 {
     public class InformationServiceQuery : IDisposable
     {
-        private static readonly Log log = new Log();
+        private readonly ILogger<InformationServiceQuery> log;
 
         private readonly InformationServiceContext context;
         private readonly string queryString;
@@ -19,8 +19,10 @@ namespace SolarWinds.InformationService.Contract2
 
         protected bool disposed = false;
 
-        public InformationServiceQuery(InformationServiceContext context, string queryString, PropertyBag parameters)
+        public InformationServiceQuery(ILogger<InformationServiceQuery> logger, InformationServiceContext context, string queryString, PropertyBag parameters)
         {
+            log = logger ?? throw new ArgumentNullException(nameof(logger));
+
             if (context == null)
                 throw new ArgumentNullException(nameof(context));
             if (queryString == null)
@@ -47,7 +49,7 @@ namespace SolarWinds.InformationService.Contract2
 
             Message response = context.Service.Query(request);
 
-            log.Debug(response);
+            log.LogDebug(response.ToString());
 
             if (response.IsFault)
             {

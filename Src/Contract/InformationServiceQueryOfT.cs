@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Xml;
+using Microsoft.Extensions.Logging;
 
 namespace SolarWinds.InformationService.Contract2
 {
@@ -9,13 +10,13 @@ namespace SolarWinds.InformationService.Contract2
         private readonly Type type = typeof(T);
         private readonly IResponseParser<T> parser;
 
-        public InformationServiceQuery(InformationServiceContext context, string queryString)
-            : this(context, queryString, null)
+        public InformationServiceQuery(ILogger<InformationServiceQuery<T>> logger, InformationServiceContext context, string queryString)
+            : this(logger, context, queryString, null)
         {
         }
 
-        public InformationServiceQuery(InformationServiceContext context, string query, PropertyBag parameters)
-            : base(context, query, parameters)
+        public InformationServiceQuery(ILogger<InformationServiceQuery<T>> logger, InformationServiceContext context, string query, PropertyBag parameters)
+            : base(logger, context, query, parameters)
         {
             object[] attributes = type.GetCustomAttributes(typeof(InformationServiceEntityAttribute), false);
 

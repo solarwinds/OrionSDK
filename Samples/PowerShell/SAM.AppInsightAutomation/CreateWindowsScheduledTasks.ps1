@@ -22,7 +22,6 @@ if (!$applicationTemplateId) {
 	exit 1
 }
 
-
 Write-Host "Creating application on node '$nodeId' using template '$applicationTemplateId' and credential '$credentialSetId'."
 
 $applicationId = (Invoke-SwisVerb $swis "Orion.APM.Application" "CreateApplication" @(

@@ -27,7 +27,6 @@ if (!$applicationTemplateId) {
 	exit 1
 }
 
-
 Write-Host "Creating application on node '$nodeId' using template '$applicationTemplateId' and credential '$credentialSetId'."
 
 $applicationId = (Invoke-SwisVerb $swis "Orion.APM.Application" "CreateApplication" @(
@@ -37,7 +36,6 @@ $applicationId = (Invoke-SwisVerb $swis "Orion.APM.Application" "CreateApplicati
     "true",
 	$appSettings
 )).InnerText
-
 
 # Check if the application was created
 if ($applicationId -eq -1) {

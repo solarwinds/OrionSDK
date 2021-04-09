@@ -15,7 +15,6 @@ $nodeIp = 'nodeIp'
 $nodeId = 1
 $credentialSetId = 1
 
-#$template = "AppInsight for Exchange"
 $template = "AppInsight for IIS"
 $applicationTemplateId = Get-SwisData $swis "SELECT ApplicationTemplateID FROM Orion.APM.ApplicationTemplate WHERE Name=@template" @{ template = $template }
 

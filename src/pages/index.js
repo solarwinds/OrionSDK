@@ -9,7 +9,7 @@ import styles from './styles.module.css';
 const features = [
   {
     title: 'Query and Script',
-    imageUrl: 'img/undraw_docusaurus_mountain.svg',
+    imageUrl: 'img/query-script.svg',
     description: (
       <>
         Use the Orion platform API to gather information, automate changes, and integrate Orion with other products.
@@ -18,7 +18,7 @@ const features = [
   },
   {
     title: 'Discover SWQL Studio',
-    imageUrl: 'img/undraw_docusaurus_tree.svg',
+    imageUrl: 'img/discover-studio.svg',
     description: (
       <>
         Leverage the power of SWQL Studio to explore hundreds of capabilities available through the SolarWinds Information Service (SWIS).
@@ -27,7 +27,7 @@ const features = [
   },
   {
     title: 'PowerShell, Python, and REST',
-    imageUrl: 'img/undraw_docusaurus_react.svg',
+    imageUrl: 'img/modules.svg',
     description: (
       <>
         Explore your options for interacting with the Orion platform API via a PowerShell module, Python package, or the REST endpoint for SWIS.

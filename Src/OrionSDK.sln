@@ -15,6 +15,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InformationService.Contract
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SwisPowerShell.Tests", "..\Test\SwisPowerShell.Tests\SwisPowerShell.Tests.csproj", "{164BEA87-FC26-4588-99AA-2F47174AE368}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SwqlStudio.Tests", "..\Test\SwqlStudio.Tests\SwqlStudio.Tests.csproj", "{763D0053-96D4-44C8-B68C-C3EE1D9D406F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -87,6 +89,18 @@ Global
 		{164BEA87-FC26-4588-99AA-2F47174AE368}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{164BEA87-FC26-4588-99AA-2F47174AE368}.Release|x86.ActiveCfg = Release|Any CPU
 		{164BEA87-FC26-4588-99AA-2F47174AE368}.Release|x86.Build.0 = Release|Any CPU
+		{763D0053-96D4-44C8-B68C-C3EE1D9D406F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{763D0053-96D4-44C8-B68C-C3EE1D9D406F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{763D0053-96D4-44C8-B68C-C3EE1D9D406F}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{763D0053-96D4-44C8-B68C-C3EE1D9D406F}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{763D0053-96D4-44C8-B68C-C3EE1D9D406F}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{763D0053-96D4-44C8-B68C-C3EE1D9D406F}.Debug|x86.Build.0 = Debug|Any CPU
+		{763D0053-96D4-44C8-B68C-C3EE1D9D406F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{763D0053-96D4-44C8-B68C-C3EE1D9D406F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{763D0053-96D4-44C8-B68C-C3EE1D9D406F}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{763D0053-96D4-44C8-B68C-C3EE1D9D406F}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{763D0053-96D4-44C8-B68C-C3EE1D9D406F}.Release|x86.ActiveCfg = Release|Any CPU
+		{763D0053-96D4-44C8-B68C-C3EE1D9D406F}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -15,7 +15,7 @@ namespace SwqlStudio.Autocomplete
             _text = text;
         }
 
-        private enum LastInterestingElement
+        internal enum LastInterestingElement
         {
             Nothing, // nothing interesting
             Dot, // last thing was dot, so when we find identifier, we append
@@ -69,7 +69,7 @@ namespace SwqlStudio.Autocomplete
             }
         }
 
-        private (string CurrentIdentifier, LastInterestingElement LastElement) DoTheParsing(int caretPosition,
+        internal (string CurrentIdentifier, LastInterestingElement LastElement) DoTheParsing(int caretPosition,
             IDictionary<string, string> aliasList)
         {
             string lastIdentifier = "";

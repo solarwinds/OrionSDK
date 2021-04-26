@@ -7,7 +7,7 @@ namespace SwqlStudio.Autocomplete
     // we are not reusing full swis grammar, we can do more 'educated guess' here.
     internal class AutocompleteProvider
     {
-        private static readonly HashSet<string> _keyWords = new HashSet<string>(Grammar.General);
+        private static readonly HashSet<string> _keyWords = new HashSet<string>(Grammar.General, StringComparer.OrdinalIgnoreCase);
         private readonly string _text;
 
         public AutocompleteProvider(string text)
@@ -106,7 +106,7 @@ namespace SwqlStudio.Autocomplete
                 {
                     case AutocompleteTokenizer.Token.Identifier:
                         var value = _text.Substring(position, length);
-                        if (value == "as")
+                        if (string.Equals(value, "as", StringComparison.OrdinalIgnoreCase))
                         // alias. only interesting keyword for us. however, ignore, since Table X and Table as X are equivalent.
                         // this may mean someone writing SELECT A B FROM D - A B are aliases - but, whatever. Full scan would be much worse.
                         {

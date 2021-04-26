@@ -29,30 +29,30 @@ namespace SwqlStudio.Autocomplete
             var rv = DoTheParsing(caretPosition, aliasList);
             string possibleAlias;
 
-            switch (rv.Item2)
+            switch (rv.LastElement)
             {
                 case LastInterestingElement.Nothing:
                     return new ExpectedCaretPosition(ExpectedCaretPositionType.Entity | ExpectedCaretPositionType.Keyword, null);
                 case LastInterestingElement.Dot:
-                    if (!aliasList.TryGetValue(rv.Item1, out possibleAlias))
+                    if (!aliasList.TryGetValue(rv.CurrentIdentifier, out possibleAlias))
                     {
                         // expand alias for navigation property
                         // n.blahblah becomes node.blahblah (if we have alias node n)
-                        if (rv.Item1.Contains('.'))
+                        if (rv.CurrentIdentifier.Contains('.'))
                         {
-                            var firstPortion = rv.Item1.Substring(0, rv.Item1.IndexOf('.'));
+                            var firstPortion = rv.CurrentIdentifier.Substring(0, rv.CurrentIdentifier.IndexOf('.'));
                             if (aliasList.TryGetValue(firstPortion, out possibleAlias))
                             {
-                                possibleAlias = possibleAlias + rv.Item1.Substring(rv.Item1.IndexOf('.'));
+                                possibleAlias = possibleAlias + rv.CurrentIdentifier.Substring(rv.CurrentIdentifier.IndexOf('.'));
                             }
                             else
                             {
-                                possibleAlias = rv.Item1;
+                                possibleAlias = rv.CurrentIdentifier;
                             }
                         }
                         else
                         {
-                            possibleAlias = rv.Item1;
+                            possibleAlias = rv.CurrentIdentifier;
                         }
                     }
 
@@ -60,8 +60,8 @@ namespace SwqlStudio.Autocomplete
                     return new ExpectedCaretPosition(ExpectedCaretPositionType.Column, possibleAlias);
                 case LastInterestingElement.As:
 
-                    if (!aliasList.TryGetValue(rv.Item1, out possibleAlias))
-                        possibleAlias = rv.Item1;
+                    if (!aliasList.TryGetValue(rv.CurrentIdentifier, out possibleAlias))
+                        possibleAlias = rv.CurrentIdentifier;
 
                     return new ExpectedCaretPosition(ExpectedCaretPositionType.Keyword | ExpectedCaretPositionType.Column, possibleAlias);
                 default:
@@ -69,7 +69,7 @@ namespace SwqlStudio.Autocomplete
             }
         }
 
-        private Tuple<string, LastInterestingElement> DoTheParsing(int caretPosition,
+        private (string CurrentIdentifier, LastInterestingElement LastElement) DoTheParsing(int caretPosition,
             IDictionary<string, string> aliasList)
         {
             string lastIdentifier = "";
@@ -80,11 +80,11 @@ namespace SwqlStudio.Autocomplete
 
             bool detected = false;
 
-            foreach (var tok in new AutocompleteTokenizer(_text))
+            foreach ((int position, int length, var token) in new AutocompleteTokenizer(_text))
             {
-                if (tok.Item3 == AutocompleteTokenizer.Token.Special)
+                if (token == AutocompleteTokenizer.Token.Special)
                 {
-                    if (_text[tok.Item1] == '.')
+                    if (_text[position] == '.')
                     {
                         lastInterestingElement = LastInterestingElement.Dot;
                     }
@@ -94,7 +94,7 @@ namespace SwqlStudio.Autocomplete
                     }
                 }
 
-                if (!detected && tok.Item1 <= caretPosition && (tok.Item1 + tok.Item2) >= caretPosition)
+                if (!detected && position <= caretPosition && (position + length) >= caretPosition)
                 {
                     // here we are. what do we see right now?
                     detected = true;
@@ -102,10 +102,10 @@ namespace SwqlStudio.Autocomplete
                     underCaretInterestingElement = lastInterestingElement;
                 }
 
-                switch (tok.Item3)
+                switch (token)
                 {
                     case AutocompleteTokenizer.Token.Identifier:
-                        var value = _text.Substring(tok.Item1, tok.Item2);
+                        var value = _text.Substring(position, length);
                         if (value == "as")
                         // alias. only interesting keyword for us. however, ignore, since Table X and Table as X are equivalent.
                         // this may mean someone writing SELECT A B FROM D - A B are aliases - but, whatever. Full scan would be much worse.
@@ -149,7 +149,7 @@ namespace SwqlStudio.Autocomplete
             }
 
 
-            return Tuple.Create(underCaretIdentifier, underCaretInterestingElement);
+            return (underCaretIdentifier, underCaretInterestingElement);
         }
     }
 }

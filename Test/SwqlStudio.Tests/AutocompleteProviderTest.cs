@@ -15,9 +15,9 @@ namespace SwqlStudio.Tests
         [MemberData(nameof(DoTheParsing_TestCases))]
         public void DoTheParsing_IdentifiesAliases(string query, Dictionary<string, string> expected)
         {
-            var p = new AutocompleteProvider(query);
+            var provider = new AutocompleteProvider(query);
             var aliases = new Dictionary<string, string>();
-            p.DoTheParsing(9, aliases);
+            provider.DoTheParsing(9, aliases);
 
             aliases.Should().BeEquivalentTo(expected);
         }

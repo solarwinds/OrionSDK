@@ -14,12 +14,12 @@ namespace SwqlStudio.Tests
         [Fact]
         public void TokenizerTestSuite()
         {
-            var tok = new AutocompleteTokenizer(
+            var tokenizer = new AutocompleteTokenizer(
                 "SELECT n. Orion.Nodes 123 \"abc\"");
 
             IEnumerable<(int Position, int Length, AutocompleteTokenizer.Token Token)> Enumerate()
             {
-                foreach(var t in tok)
+                foreach(var t in tokenizer)
                     yield return t;
             }
 

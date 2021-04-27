@@ -18,6 +18,7 @@ namespace SwqlStudio.Autocomplete
         private readonly string _input;
         private static readonly IEnumerable<Regex> _ignoredRegexes;
         private static readonly IEnumerable<Tuple<Regex, Token>> _regexes;
+
         static AutocompleteTokenizer()
         {
             _ignoredRegexes = new[]
@@ -41,7 +42,7 @@ namespace SwqlStudio.Autocomplete
             _input = input;
         }
 
-        public IEnumerator<Tuple<int, int, Token>> GetEnumerator()
+        public IEnumerator<(int Position, int Length, Token Token)> GetEnumerator()
         {
             int position = 0;
             while (position < _input.Length)
@@ -61,18 +62,18 @@ namespace SwqlStudio.Autocomplete
                     var m = rx.Item1.Match(_input, position);
                     if (m.Success)
                     {
-                        yield return Tuple.Create(position, m.Groups[0].Length, rx.Item2);
+                        yield return (position, m.Groups[0].Length, rx.Item2);
                         position += m.Groups[0].Length;
                         goto end;
                     }
                 }
-                yield return Tuple.Create(position, 1, Token.Special);
+                yield return (position, 1, Token.Special);
                 position++;
             end:
                 ;
             }
 
-            yield return Tuple.Create(position, 0, Token.EOF);
+            yield return (position, 0, Token.EOF);
         }
     }
 }

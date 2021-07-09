@@ -3,13 +3,17 @@ using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
+using Microsoft.Extensions.Logging;
+using Serilog;
 using SwqlStudio.Properties;
 
 namespace SwqlStudio
 {
     internal static class Program
     {
-        private static readonly SolarWinds.Logging.Log log = new SolarWinds.Logging.Log();
+        private static Microsoft.Extensions.Logging.ILogger log;
+
+        internal static ILoggerFactory LoggerFactory { get; } = new LoggerFactory();
 
         /// <summary>
         /// The main entry point for the application.
@@ -17,7 +21,13 @@ namespace SwqlStudio
         [STAThread]
         private static void Main()
         {
-            SolarWinds.Logging.Log.Configure(string.Empty);
+            // Configure Serilog logging.
+            string logFilePath = Environment.ExpandEnvironmentVariables(@"%ALLUSERSPROFILE%\Application Data\SolarWinds\Logs\SwqlStudio.log");
+            var loggerConfig = new LoggerConfiguration()
+                .WriteTo.File(logFilePath, rollingInterval: RollingInterval.Day)
+                .CreateLogger();
+            LoggerFactory.AddSerilog(loggerConfig);
+            log = LoggerFactory.CreateLogger("Program");
 
             AppDomain.CurrentDomain.UnhandledException += CurrentDomainUnhandledException;
             if (Settings.Default.UpdateRequired)
@@ -41,7 +51,7 @@ namespace SwqlStudio
         private static void CurrentDomainUnhandledException(object sender, UnhandledExceptionEventArgs e)
         {
             if (e.ExceptionObject is Exception)
-                log.Error("Unhandled exception", (Exception)e.ExceptionObject);
+                log.LogError((Exception)e.ExceptionObject, "Unhandled exception");
         }
 
         private static void SearchAndCopyLastUserConfig(Version currentVersion)
@@ -86,7 +96,7 @@ namespace SwqlStudio
             }
             catch (Exception ex)
             {
-                log.Error("An error occurred while trying to upgrade user specific settings for the new version.", ex);
+                log.LogError(ex, "An error occurred while trying to upgrade user specific settings for the new version.");
             }
         }
 

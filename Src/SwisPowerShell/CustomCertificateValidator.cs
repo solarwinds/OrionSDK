@@ -1,18 +1,15 @@
 ﻿using System;
 using System.IdentityModel.Selectors;
 using System.Security.Cryptography.X509Certificates;
-using SolarWinds.Logging;
 
 namespace SwisPowerShell
 {
     public class CustomCertificateValidator : X509CertificateValidator
     {
         private const string subjectName = "SolarWinds-Orion";
-        private static readonly Log log = new Log();
 
         public override void Validate(X509Certificate2 certificate)
         {
-            log.InfoFormat("Allowing certificate {0}", certificate);
             X509Certificate2Collection certs = LoadCertificates();
             ValidateCertPresent(certs);
             X509Certificate2 cert = certs[0];

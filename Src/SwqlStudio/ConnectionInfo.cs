@@ -148,7 +148,7 @@ namespace SwqlStudio
                 _proxy.Open();
             }
 
-            Connection = new InformationServiceConnection((IInformationService)_proxy);
+            Connection = new InformationServiceConnection(Program.LoggerFactory, _proxy);
             Connection.Open();
         }
 
@@ -175,7 +175,7 @@ namespace SwqlStudio
         {
             EnsureConnection();
 
-            using (var context = new InformationServiceContext(_proxy))
+            using (var context = new InformationServiceContext(Program.LoggerFactory, _proxy))
             using (var serviceQuery = context.CreateQuery<T>(swql))
             {
                 var enumerator = serviceQuery.GetEnumerator();

@@ -3,6 +3,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.ServiceModel;
 using System.Windows.Forms;
+using Microsoft.Extensions.Logging;
 using SolarWinds.InformationService.Contract2;
 using SolarWinds.InformationService.InformationServiceClient;
 using SwqlStudio.Metadata;
@@ -17,7 +18,7 @@ namespace SwqlStudio
         UseSynchronizationContext = false)]
     internal partial class MainForm : Form, IApplicationService
     {
-        private static readonly SolarWinds.Logging.Log log = new SolarWinds.Logging.Log();
+        private static readonly ILogger<MainForm> log = Program.LoggerFactory.CreateLogger<MainForm>();
         private ServerList serverList;
         private readonly BindingList<ConnectionInfo> connectionsDataSource = new BindingList<ConnectionInfo>();
         private ConnectionsManager connectionsManager;
@@ -137,7 +138,7 @@ namespace SwqlStudio
             }
             catch (Exception ex)
             {
-                log.Error("Failed to connect", ex);
+                log.LogError(ex, "Failed to connect");
                 var msg = $"Unable to connect to Information Service.\n{ex.Message}";
                 MessageBox.Show(msg, "Connection Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
@@ -296,7 +297,7 @@ namespace SwqlStudio
             }
             catch (FaultException<InfoServiceFaultContract> ex)
             {
-                log.Error("Failed to connect", ex);
+                log.LogError(ex, "Failed to connect");
                 errorMsg = ex.Detail.Message;
             }
             catch (Exception ex)

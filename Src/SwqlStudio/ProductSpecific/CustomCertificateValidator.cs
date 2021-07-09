@@ -1,18 +1,18 @@
 ﻿using System;
 using System.IdentityModel.Selectors;
 using System.Security.Cryptography.X509Certificates;
-using SolarWinds.Logging;
+using Microsoft.Extensions.Logging;
 using SwqlStudio.Properties;
 
 namespace SwqlStudio.ProductSpecific
 {
     public class CustomCertificateValidator : X509CertificateValidator
     {
-        private static readonly Log log = new Log();
+        private static readonly ILogger<CustomCertificateValidator> log = Program.LoggerFactory.CreateLogger<CustomCertificateValidator>();
 
         public override void Validate(X509Certificate2 certificate)
         {
-            log.InfoFormat("Allowing certificate {0}", certificate);
+            log.LogInformation("Allowing certificate {certificate}", certificate);
             X509Certificate2Collection certs = LoadCertificates();
             ValidateCertPresent(certs);
             X509Certificate2 cert = certs[0];

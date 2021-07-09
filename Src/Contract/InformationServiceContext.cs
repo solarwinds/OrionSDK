@@ -1,14 +1,17 @@
 using System;
+using Microsoft.Extensions.Logging;
 
 namespace SolarWinds.InformationService.Contract2
 {
     public class InformationServiceContext : IDisposable
     {
         private bool disposed = false;
+        private readonly ILoggerFactory _loggerFactory;
         private readonly IInformationService service = null;
 
-        public InformationServiceContext(IInformationService service)
+        public InformationServiceContext(ILoggerFactory loggerFactory, IInformationService service)
         {
+            _loggerFactory = loggerFactory ?? throw new ArgumentNullException(nameof(loggerFactory));
             this.service = service;
         }
 
@@ -26,7 +29,7 @@ namespace SolarWinds.InformationService.Contract2
             if (disposed)
                 throw new InvalidOperationException("context disposed");
 
-            return new InformationServiceQuery<T>(this, queryString);
+            return new InformationServiceQuery<T>(_loggerFactory.CreateLogger<InformationServiceQuery<T>>(), this, queryString);
         }
 
         public InfoServiceProxy Proxy { get; private set; } = null;

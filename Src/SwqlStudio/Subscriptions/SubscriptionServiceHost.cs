@@ -9,17 +9,17 @@ using System.Security.Cryptography.X509Certificates;
 using System.ServiceModel;
 using System.ServiceModel.Channels;
 using System.ServiceModel.Dispatcher;
+using Microsoft.Extensions.Logging;
 using Security.Cryptography;
 using Security.Cryptography.X509Certificates;
 using SolarWinds.InformationService.Contract2;
 using SolarWinds.InformationService.Contract2.PubSub;
-using SolarWinds.Logging;
 
 namespace SwqlStudio.Subscriptions
 {
     internal class SubscriptionServiceHost
     {
-        private readonly static Log log = new Log();
+        private readonly static ILogger<SubscriptionServiceHost> log = Program.LoggerFactory.CreateLogger<SubscriptionServiceHost>();
         private readonly List<ServiceHost> subscriberHosts = new List<ServiceHost>();
         private readonly INotificationSubscriber subscriber;
         private readonly string httpAddress;
@@ -98,9 +98,9 @@ namespace SwqlStudio.Subscriptions
                 if (IsListening())
                     return;
 
-                log.InfoFormat("Opening subscriber endpoint at {0}", netTcpAddress);
+                log.LogInformation("Opening subscriber endpoint at {netTcpAddress}", netTcpAddress);
 
-                log.InfoFormat("Opening http subscriber endpoint at {0}", httpAddress);
+                log.LogInformation("Opening http subscriber endpoint at {httpAddress}", httpAddress);
 
                 NotificationSubscriber notificationSubscriber = new NotificationSubscriber();
                 notificationSubscriber.IndicationReceived += OnIndication;
@@ -123,18 +123,18 @@ namespace SwqlStudio.Subscriptions
                     subscriberHosts.Add(host);
                 }
 
-                log.Info("Http Subscriber endpoint opened");
+                log.LogInformation("Http Subscriber endpoint opened");
             }
             catch (Exception ex)
             {
-                log.ErrorFormat("Exception opening subscriber host with address {0}.\n{1}", httpAddress, ex);
+                log.LogError(ex, $"Exception opening subscriber host with address {httpAddress}.", httpAddress);
             }
 
             foreach (ServiceHost serviceHost in subscriberHosts)
             {
                 foreach (ChannelDispatcherBase channelDispatcher in serviceHost.ChannelDispatchers)
                 {
-                    log.InfoFormat("Listening on {0}", channelDispatcher.Listener.Uri.AbsoluteUri);
+                    log.LogInformation("Listening on {uri}", channelDispatcher.Listener.Uri.AbsoluteUri);
                 }
             }
 
@@ -148,7 +148,7 @@ namespace SwqlStudio.Subscriptions
 
         public void CloseSubscriber()
         {
-            using (log.Block())
+            using (log.BeginScope(nameof(CloseSubscriber)))
             {
                 subscriberHosts.ForEach(host => host.Close());
                 subscriberHosts.Clear();

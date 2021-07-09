@@ -5,12 +5,13 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
+using Microsoft.Extensions.Logging;
 
 namespace SwqlStudio.Playback
 {
     internal class PlaybackManager
     {
-        private static readonly SolarWinds.Logging.Log log = new SolarWinds.Logging.Log();
+        private static readonly ILogger<PlaybackManager> log = Program.LoggerFactory.CreateLogger<PlaybackManager>();
 
         public static void StartPlayback(PlaybackItem file)
         {
@@ -27,7 +28,7 @@ namespace SwqlStudio.Playback
                     var playbackItem = f as PlaybackItem;
                     if (playbackItem != null)
                     {
-                        log.DebugFormat("Playing back file: {0}", playbackItem.FileName);
+                        log.LogDebug("Playing back file: {fileName}", playbackItem.FileName);
                         var sb = new StringBuilder();
                         using (var sr = new StreamReader(playbackItem.FileName))
                         {
@@ -53,7 +54,7 @@ namespace SwqlStudio.Playback
             }
             catch (Exception e)
             {
-                log.Error(e);
+                log.LogError(e, "Error while running playback file.");
             }
         }
 

@@ -3,13 +3,13 @@ using System.Diagnostics;
 using System.ServiceModel;
 using System.ServiceModel.Channels;
 using System.Xml;
-using SolarWinds.Logging;
+using Microsoft.Extensions.Logging;
 
 namespace SolarWinds.InformationService.Contract2
 {
     public class InfoServiceProxy : IStreamInformationService, IDisposable
     {
-        private readonly static Log _log = new Log();
+        private readonly ILogger<InfoServiceProxy> _log;
         private static readonly TimeSpan longRunningQueryTime = TimeSpan.FromSeconds(15);
 
         private IStreamInformationServiceChannel _infoService;
@@ -35,8 +35,10 @@ namespace SolarWinds.InformationService.Contract2
 
         #region Constructors
 
-        public InfoServiceProxy(string endpointConfiguration)
+        public InfoServiceProxy(ILogger<InfoServiceProxy> logger, string endpointConfiguration)
         {
+            _log = logger ?? throw new ArgumentNullException(nameof(logger));
+
             if (endpointConfiguration == null)
                 throw new ArgumentNullException(nameof(endpointConfiguration));
 
@@ -45,8 +47,8 @@ namespace SolarWinds.InformationService.Contract2
             FixBinding();
         }
 
-        public InfoServiceProxy(string endpointConfiguration, ServiceCredentials credentials)
-            : this(endpointConfiguration)
+        public InfoServiceProxy(ILogger<InfoServiceProxy> logger, string endpointConfiguration, ServiceCredentials credentials)
+            : this(logger, endpointConfiguration)
         {
             if (credentials == null)
                 throw new ArgumentNullException(nameof(credentials));
@@ -54,8 +56,10 @@ namespace SolarWinds.InformationService.Contract2
             credentials.ApplyTo(ChannelFactory);
         }
 
-        public InfoServiceProxy(string endpointConfiguration, string remoteAddress)
+        public InfoServiceProxy(ILogger<InfoServiceProxy> logger, string endpointConfiguration, string remoteAddress)
         {
+            _log = logger ?? throw new ArgumentNullException(nameof(logger));
+
             if (endpointConfiguration == null)
                 throw new ArgumentNullException(nameof(endpointConfiguration));
 
@@ -67,8 +71,8 @@ namespace SolarWinds.InformationService.Contract2
             FixBinding();
         }
 
-        public InfoServiceProxy(string endpointConfiguration, string remoteAddress, ServiceCredentials credentials)
-            : this(endpointConfiguration, remoteAddress)
+        public InfoServiceProxy(ILogger<InfoServiceProxy> logger, string endpointConfiguration, string remoteAddress, ServiceCredentials credentials)
+            : this(logger, endpointConfiguration, remoteAddress)
         {
             if (credentials == null)
                 throw new ArgumentNullException(nameof(credentials));
@@ -76,8 +80,10 @@ namespace SolarWinds.InformationService.Contract2
             credentials.ApplyTo(ChannelFactory);
         }
 
-        public InfoServiceProxy(Uri address, Binding binding, ServiceCredentials credentials)
+        public InfoServiceProxy(ILogger<InfoServiceProxy> logger, Uri address, Binding binding, ServiceCredentials credentials)
         {
+            _log = logger ?? throw new ArgumentNullException(nameof(logger));
+
             if (address == null)
                 throw new ArgumentNullException(nameof(address));
 
@@ -166,7 +172,7 @@ namespace SolarWinds.InformationService.Contract2
             }
             catch (FaultException<InfoServiceFaultContract> ex)
             {
-                _log.Error("Error executing invoke: " + ex.Detail.Message + Environment.NewLine + entity + "." + verb);
+                _log.LogError(ex, "Error executing invoke on {entity}.{verb}", entity, verb);
                 throw;
             }
             finally
@@ -174,19 +180,19 @@ namespace SolarWinds.InformationService.Contract2
                 stopwatch.Stop();
                 if (stopwatch.Elapsed > longRunningQueryTime)
                 {
-                    _log.WarnFormat("Support! -- LONG RUNNING INVOKE: {0} ms: {1}:{2}", stopwatch.Elapsed.TotalMilliseconds, verb, entity);
+                    _log.LogWarning("Support! -- LONG RUNNING INVOKE: {elapsed} ms: {verb}:{entity}", stopwatch.Elapsed.TotalMilliseconds, verb, entity);
                 }
             }
         }
 
         public virtual Message Query(QueryXmlRequest query)
         {
-            _log.DebugFormat("Query: {0}", query.query);
-            if (_log.IsDebugEnabled && query.parameters.Count > 0)
+            _log.LogDebug("Query: {query}", query.query);
+            if (_log.IsEnabled(LogLevel.Debug) && query.parameters.Count > 0)
             {
-                _log.Debug("Parameters: ");
+                _log.LogDebug("Parameters: ");
                 foreach (var parameter in query.parameters)
-                    _log.DebugFormat("\t{0}={1}", parameter.Key, parameter.Value);
+                    _log.LogDebug("\t{parameter}={value}", parameter.Key, parameter.Value);
             }
             var stopwatch = new Stopwatch();
             try
@@ -200,14 +206,14 @@ namespace SolarWinds.InformationService.Contract2
             }
             catch (FaultException<InfoServiceFaultContract> ex)
             {
-                _log.Error("Error executing query: " + ex.Detail.Message + Environment.NewLine + query.query);
+                _log.LogError(ex, "Error executing query:" + Environment.NewLine + "{query}", query.query);
                 throw;
             }
             catch (Exception ex)
             {
-                _log.ErrorFormat("Error executing query: {0} {1} {2}", ex, Environment.NewLine, query.query);
+                _log.LogError(ex, "Error executing query:" + Environment.NewLine + "{query}", query.query);
                 foreach (var parameter in query.parameters)
-                    _log.ErrorFormat("\t{0}={1}", parameter.Key, parameter.Value);
+                    _log.LogError("\t{parameter}={value}", parameter.Key, parameter.Value);
                 throw;
             }
             finally
@@ -215,7 +221,7 @@ namespace SolarWinds.InformationService.Contract2
                 stopwatch.Stop();
                 if (stopwatch.Elapsed > longRunningQueryTime)
                 {
-                    _log.WarnFormat("Support! -- LONG RUNNING QUERY: {0} ms: {1}", stopwatch.Elapsed.TotalMilliseconds, query.query);
+                    _log.LogWarning("Support! -- LONG RUNNING QUERY: {elapsed} ms: {query}", stopwatch.Elapsed.TotalMilliseconds, query.query);
                 }
             }
         }
@@ -234,7 +240,7 @@ namespace SolarWinds.InformationService.Contract2
             }
             catch (FaultException<InfoServiceFaultContract> ex)
             {
-                _log.Error("Error executing create operation: " + ex.Detail.Message + Environment.NewLine + entityType + Environment.NewLine + properties);
+                _log.LogError(ex, "Error executing create operation: " + Environment.NewLine + entityType + Environment.NewLine + properties);
                 throw;
             }
             finally
@@ -242,7 +248,7 @@ namespace SolarWinds.InformationService.Contract2
                 stopwatch.Stop();
                 if (stopwatch.Elapsed > longRunningQueryTime)
                 {
-                    _log.WarnFormat("Support! -- LONG RUNNING CREATE: {0} ms: {1}", stopwatch.Elapsed.TotalMilliseconds, entityType);
+                    _log.LogWarning("Support! -- LONG RUNNING CREATE: {elapsed} ms: {entityType}", stopwatch.Elapsed.TotalMilliseconds, entityType);
                 }
             }
         }
@@ -261,7 +267,7 @@ namespace SolarWinds.InformationService.Contract2
             }
             catch (FaultException<InfoServiceFaultContract> ex)
             {
-                _log.Error("Error executing read operation: " + ex.Detail.Message + Environment.NewLine + uri);
+                _log.LogError(ex, "Error executing read operation: {uri}", uri);
                 throw;
             }
             finally
@@ -269,7 +275,7 @@ namespace SolarWinds.InformationService.Contract2
                 stopwatch.Stop();
                 if (stopwatch.Elapsed > longRunningQueryTime)
                 {
-                    _log.WarnFormat("Support! -- LONG RUNNING READ: {0} ms: {1}", stopwatch.Elapsed.TotalMilliseconds, uri);
+                    _log.LogWarning("Support! -- LONG RUNNING READ: {elapsed} ms: {uri}", stopwatch.Elapsed.TotalMilliseconds, uri);
                 }
             }
         }
@@ -288,7 +294,7 @@ namespace SolarWinds.InformationService.Contract2
             }
             catch (FaultException<InfoServiceFaultContract> ex)
             {
-                _log.Error("Error executing update operation: " + ex.Detail.Message + Environment.NewLine + uri + Environment.NewLine + propertiesToUpdate);
+                _log.LogError(ex, "Error executing update operation: " + uri + Environment.NewLine + propertiesToUpdate);
                 throw;
             }
             finally
@@ -296,7 +302,7 @@ namespace SolarWinds.InformationService.Contract2
                 stopwatch.Stop();
                 if (stopwatch.Elapsed > longRunningQueryTime)
                 {
-                    _log.WarnFormat("Support! -- LONG RUNNING UPDATE: {0} ms: {1}", stopwatch.Elapsed.TotalMilliseconds, uri);
+                    _log.LogWarning("Support! -- LONG RUNNING UPDATE: {elapsed} ms: {uri}", stopwatch.Elapsed.TotalMilliseconds, uri);
                 }
             }
         }
@@ -315,7 +321,7 @@ namespace SolarWinds.InformationService.Contract2
             }
             catch (FaultException<InfoServiceFaultContract> ex)
             {
-                _log.Error("Error executing bulk update operation: " + ex.Detail.Message + Environment.NewLine + string.Join(Environment.NewLine, uris) + Environment.NewLine + propertiesToUpdate);
+                _log.LogError(ex, "Error executing bulk update operation:" + Environment.NewLine + string.Join(Environment.NewLine, uris) + Environment.NewLine + propertiesToUpdate);
                 throw;
             }
             finally
@@ -323,7 +329,7 @@ namespace SolarWinds.InformationService.Contract2
                 stopwatch.Stop();
                 if (stopwatch.Elapsed > longRunningQueryTime)
                 {
-                    _log.WarnFormat("Support! -- LONG RUNNING BULK UPDATE: {0} ms", stopwatch.Elapsed.TotalMilliseconds);
+                    _log.LogWarning("Support! -- LONG RUNNING BULK UPDATE: {elapsed} ms", stopwatch.Elapsed.TotalMilliseconds);
                 }
             }
         }
@@ -342,7 +348,7 @@ namespace SolarWinds.InformationService.Contract2
             }
             catch (FaultException<InfoServiceFaultContract> ex)
             {
-                _log.Error("Error executing delete operation: " + ex.Detail.Message + Environment.NewLine + uri);
+                _log.LogError(ex, "Error executing delete operation: {uri}", uri);
                 throw;
             }
             finally
@@ -350,7 +356,7 @@ namespace SolarWinds.InformationService.Contract2
                 stopwatch.Stop();
                 if (stopwatch.Elapsed > longRunningQueryTime)
                 {
-                    _log.WarnFormat("Support! -- LONG RUNNING DELETE: {0} ms: {1}", stopwatch.Elapsed.TotalMilliseconds, uri);
+                    _log.LogWarning("Support! -- LONG RUNNING DELETE: {elapsed} ms: {uri}", stopwatch.Elapsed.TotalMilliseconds, uri);
                 }
             }
         }
@@ -369,7 +375,7 @@ namespace SolarWinds.InformationService.Contract2
             }
             catch (FaultException<InfoServiceFaultContract> ex)
             {
-                _log.Error("Error executing bulk delete operation: " + ex.Detail.Message + Environment.NewLine + string.Join(Environment.NewLine, uris));
+                _log.LogError(ex, "Error executing bulk delete operation: " + Environment.NewLine + string.Join(Environment.NewLine, uris));
                 throw;
             }
             finally
@@ -377,7 +383,7 @@ namespace SolarWinds.InformationService.Contract2
                 stopwatch.Stop();
                 if (stopwatch.Elapsed > longRunningQueryTime)
                 {
-                    _log.WarnFormat("Support! -- LONG RUNNING BULK DELETE: {0} ms", stopwatch.Elapsed.TotalMilliseconds);
+                    _log.LogWarning("Support! -- LONG RUNNING BULK DELETE: {elapsed} ms", stopwatch.Elapsed.TotalMilliseconds);
                 }
             }
         }
@@ -400,7 +406,7 @@ namespace SolarWinds.InformationService.Contract2
             }
             catch (FaultException<InfoServiceFaultContract> ex)
             {
-                _log.Error("Error executing invoke: " + ex.Detail.Message + Environment.NewLine + parameter.Entity + "." + parameter.Verb);
+                _log.LogError(ex, "Error executing invoke: {entity}.{verb}", parameter.Entity, parameter.Verb);
                 throw;
             }
             finally
@@ -408,7 +414,7 @@ namespace SolarWinds.InformationService.Contract2
                 stopwatch.Stop();
                 if (stopwatch.Elapsed > longRunningQueryTime)
                 {
-                    _log.WarnFormat("Support! -- LONG RUNNING INVOKE: {0} ms: {1}:{2}", stopwatch.Elapsed.TotalMilliseconds, parameter.Verb, parameter.Entity);
+                    _log.LogWarning("Support! -- LONG RUNNING INVOKE: {elapsed} ms: {verb}:{entity}", stopwatch.Elapsed.TotalMilliseconds, parameter.Verb, parameter.Entity);
                 }
             }
         }
@@ -432,7 +438,7 @@ namespace SolarWinds.InformationService.Contract2
             }
             catch (Exception ex)
             {
-                _log.Error("An error occured opening a connection to the orion communication service.", ex);
+                _log.LogError(ex, "An error occurred opening a connection to the Orion communication service.");
                 throw;
             }
         }
@@ -462,12 +468,12 @@ namespace SolarWinds.InformationService.Contract2
             catch (TimeoutException exception)
             {
                 _infoService.Abort();
-                _log.Error("Error closing exception.", exception);
+                _log.LogError(exception, "Error closing exception.");
             }
             catch (CommunicationException exception)
             {
                 _infoService.Abort();
-                _log.Error("Error closing exception.", exception);
+                _log.LogError(exception, "Error closing exception.");
             }
 
             _infoService = null;
@@ -475,26 +481,26 @@ namespace SolarWinds.InformationService.Contract2
 
         #region Create Channel Factory
 
-        private static ChannelFactory<IStreamInformationServiceChannel> CreateChannelFactory(Binding binding, EndpointAddress address)
+        private ChannelFactory<IStreamInformationServiceChannel> CreateChannelFactory(Binding binding, EndpointAddress address)
         {
-            if (_log.IsDebugEnabled)
-                _log.DebugFormat("Creating channel factory for Information Service @ {0}", address.Uri);
+            if (_log.IsEnabled(LogLevel.Debug))
+                _log.LogDebug("Creating channel factory for Information Service @ {uri}", address.Uri);
 
             return new ChannelFactory<IStreamInformationServiceChannel>(binding, address);
         }
 
-        private static ChannelFactory<IStreamInformationServiceChannel> CreateChannelFactory(string endpointConfiguration)
+        private ChannelFactory<IStreamInformationServiceChannel> CreateChannelFactory(string endpointConfiguration)
         {
-            if (_log.IsDebugEnabled)
-                _log.DebugFormat("Creating channel factory for Information Service using endpoint configuration '{0}'", endpointConfiguration);
+            if (_log.IsEnabled(LogLevel.Debug))
+                _log.LogDebug($"Creating channel factory for Information Service using endpoint configuration '{endpointConfiguration}'", endpointConfiguration);
 
             return new ChannelFactory<IStreamInformationServiceChannel>(endpointConfiguration);
         }
 
-        private static ChannelFactory<IStreamInformationServiceChannel> CreateChannelFactory(string endpointConfiguration, EndpointAddress remoteAddress)
+        private ChannelFactory<IStreamInformationServiceChannel> CreateChannelFactory(string endpointConfiguration, EndpointAddress remoteAddress)
         {
-            if (_log.IsDebugEnabled)
-                _log.DebugFormat("Creating channel factory for Information Service using endpoint configuration '{0}' and remote address '{1}'", endpointConfiguration, remoteAddress.ToString());
+            if (_log.IsEnabled(LogLevel.Debug))
+                _log.LogDebug("Creating channel factory for Information Service using endpoint configuration '{endpointConfiguration}' and remote address '{remoteAddress}'", endpointConfiguration, remoteAddress.ToString());
 
             return new ChannelFactory<IStreamInformationServiceChannel>(endpointConfiguration, remoteAddress);
         }
@@ -509,8 +515,8 @@ namespace SolarWinds.InformationService.Contract2
             if (_activityMonitor == null || _activityMonitor.RequestSent)
                 return;
 
-            _log.Info("Non-used connection was opened. Information for developers. No impact on product functionality. See verbose log for more details.");
-            _log.VerboseFormat("StackTrace: {0}", Environment.StackTrace);
+            _log.LogInformation("Non-used connection was opened. Information for developers. No impact on product functionality. See verbose log for more details.");
+            _log.LogTrace("StackTrace: {stackTrace}", Environment.StackTrace);
 
             try
             {

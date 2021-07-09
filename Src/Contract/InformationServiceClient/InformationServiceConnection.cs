@@ -2,6 +2,7 @@ using System;
 using System.Data;
 using System.Data.Common;
 using System.ServiceModel;
+using Microsoft.Extensions.Logging;
 using SolarWinds.InformationService.Contract2;
 
 namespace SolarWinds.InformationService.InformationServiceClient
@@ -15,76 +16,15 @@ namespace SolarWinds.InformationService.InformationServiceClient
         private string remoteAddress;
         private InfoServiceProxy proxy;
         private ServiceCredentials credentials;
+        private readonly ILoggerFactory _loggerFactory;
         private readonly bool bProxyOwner = true;
         private bool open = false;
 
-        public InformationServiceConnection()
-            : this(string.Empty)
+        public InformationServiceConnection(ILoggerFactory loggerFactory, IInformationService service)
         {
-        }
-
-        public InformationServiceConnection(string endpointName)
-        {
-            if (endpointName == null)
-                throw new ArgumentNullException(nameof(endpointName));
-
-            Initialize(endpointName, null, null);
-        }
-
-        //This is required by NCM. NCM provide it's own proxy object
-        public InformationServiceConnection(InfoServiceProxy proxy) : this(proxy, false)
-        {
-        }
-
-        public InformationServiceConnection(InfoServiceProxy proxy, bool takeOwnership)
-        {
-            Service = proxy;
-            bProxyOwner = takeOwnership;
-            if (bProxyOwner)
-            {
-                this.proxy = proxy;
-            }
-        }
-
-        public InformationServiceConnection(IInformationService service)
-        {
-            if (service == null)
-                throw new ArgumentNullException(nameof(service));
-
-            Service = service;
+            _loggerFactory = loggerFactory ?? throw new ArgumentNullException(nameof(loggerFactory));
+            Service = service ?? throw new ArgumentNullException(nameof(service));
             bProxyOwner = false;
-        }
-
-        public InformationServiceConnection(string endpointName, string remoteAddress)
-        {
-            if (endpointName == null)
-                throw new ArgumentNullException(nameof(endpointName));
-            if (remoteAddress == null)
-                throw new ArgumentNullException(nameof(remoteAddress));
-
-            Initialize(endpointName, remoteAddress, null);
-        }
-
-        public InformationServiceConnection(string endpointName, string remoteAddress, ServiceCredentials credentials)
-        {
-            if (endpointName == null)
-                throw new ArgumentNullException(nameof(endpointName));
-            if (remoteAddress == null)
-                throw new ArgumentNullException(nameof(remoteAddress));
-            if (credentials == null)
-                throw new ArgumentNullException(nameof(credentials));
-
-            Initialize(endpointName, remoteAddress, credentials);
-        }
-
-        public InformationServiceConnection(string endpointName, ServiceCredentials credentials)
-        {
-            if (endpointName == null)
-                throw new ArgumentNullException(nameof(endpointName));
-            if (credentials == null)
-                throw new ArgumentNullException(nameof(credentials));
-
-            Initialize(endpointName, null, credentials);
         }
 
         protected override DbTransaction BeginDbTransaction(IsolationLevel isolationLevel)
@@ -241,19 +181,21 @@ namespace SolarWinds.InformationService.InformationServiceClient
         {
             if (endpointName.Length != 0)
             {
+                ILogger<InfoServiceProxy> logger = _loggerFactory.CreateLogger<InfoServiceProxy>();
+
                 if (remoteAddress != null)
                 {
                     if (credentials != null)
-                        proxy = new InfoServiceProxy(endpointName, remoteAddress, credentials);
+                        proxy = new InfoServiceProxy(logger, endpointName, remoteAddress, credentials);
                     else
-                        proxy = new InfoServiceProxy(endpointName, remoteAddress);
+                        proxy = new InfoServiceProxy(logger, endpointName, remoteAddress);
                 }
                 else
                 {
                     if (credentials != null)
-                        proxy = new InfoServiceProxy(endpointName, credentials);
+                        proxy = new InfoServiceProxy(logger, endpointName, credentials);
                     else
-                        proxy = new InfoServiceProxy(endpointName);
+                        proxy = new InfoServiceProxy(logger, endpointName);
                 }
 
                 Service = proxy;

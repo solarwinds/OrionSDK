@@ -5,7 +5,7 @@
     <!-- Read this before publishing packages to chocolatey.org: https://github.com/chocolatey/chocolatey/wiki/CreatePackages -->
     <id>orionsdk</id>
     <title>SolarWinds Orion SDK</title>
-    <version>3.0.0.290</version>
+    <version>3.0.336</version>
     <authors>SolarWinds</authors>
     <owners>Tim Danner</owners>
     <summary>Software development kit for the SolarWinds Orion platform.</summary>
@@ -14,7 +14,7 @@
     <packageSourceUrl>https://github.com/solarwinds/OrionSDK/blob/master/Chocolatey/OrionSDK.nuspec</packageSourceUrl>
     <!-- <projectSourceUrl>https://github.com/solarwinds/OrionSDK</projectSourceUrl> -->
     <docsUrl>https://github.com/solarwinds/OrionSDK/wiki</docsUrl>
-    <mailingListUrl>https://thwack.solarwinds.com/community/labs_tht/orion-sdk</mailingListUrl>
+    <mailingListUrl>https://thwack.solarwinds.com/product-forums/the-orion-platform/f/orion-sdk</mailingListUrl>
     <bugTrackerUrl>https://github.com/solarwinds/OrionSDK/issues</bugTrackerUrl>
     <tags>orionsdk admin solarwinds</tags>
     <copyright>Copyright © SolarWinds Worldwide, LLC.  All rights reserved.</copyright>
@@ -26,20 +26,12 @@
       <dependency id="" />
     </dependencies>-->
     <releaseNotes><![CDATA[
-# v3.0.0.290
+# v3.0.336
 
-This release includes several enhancements and bug fixes.  Note that this release now requires .NET Framework 4.8.
+This release includes two bug fixes since the v3.0.0.309-beta release and some minor code cleanup changes:
 
-- Added support for reading documentation from metadata - by @jirkapok
-- Added support for filtering, based on obsolescence - by @gglogowski
-- Added support for pause button for activity monitor - by @etichy 
-- Fixed parameter copy-paste - by @jirkapok
-- Fixed annoying save dialog to display just once - @jirkapok 
-- Enabled high DPI support - @tdanner 
-- SQL's DateTime now shows full precision - @martin-lacina-swi 
-- Fixed intellisense, added Ctrl+Space shortcut to show intellisense - @jirkapok 
-- Migrated to .NET48 - @danjagnow 
-- Copy text from query window formatted - @nothrow 
+* Find and Replace dialog fixes #274
+* Fixing autocomplete #278 
 ]]></releaseNotes>
     <!--<provides></provides>-->
   </metadata>

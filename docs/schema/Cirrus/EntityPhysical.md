@@ -1,0 +1,41 @@
+---
+id: EntityPhysical
+slug: EntityPhysical
+---
+
+# Cirrus.EntityPhysical
+
+SolarWinds Information Service 2020.2 Schema Documentation Index
+
+## Inheritance
+
+↳ [System.Entity](./../System/Entity)
+
+## Access control
+
+everyone
+
+## Properties
+
+| Name | Type | Summary | Access Control |
+| ------ | ------ | ------ | ------ |
+| NodeID | [System.Guid](https://docs.microsoft.com/en-us/dotnet/api/system.guid) |  | everyone |
+| LastDiscovery | [System.DateTime](https://docs.microsoft.com/en-us/dotnet/api/system.datetime) |  | everyone |
+| FirstDiscovery | [System.DateTime](https://docs.microsoft.com/en-us/dotnet/api/system.datetime) |  | everyone |
+| Missing | [System.Boolean](https://docs.microsoft.com/en-us/dotnet/api/system.boolean) |  | everyone |
+| Name | [System.String](https://docs.microsoft.com/en-us/dotnet/api/system.string) |  | everyone |
+| Description | [System.String](https://docs.microsoft.com/en-us/dotnet/api/system.string) |  | everyone |
+| Type | [System.String](https://docs.microsoft.com/en-us/dotnet/api/system.string) |  | everyone |
+| ContainedIn | [System.String](https://docs.microsoft.com/en-us/dotnet/api/system.string) |  | everyone |
+| EntityClass | [System.String](https://docs.microsoft.com/en-us/dotnet/api/system.string) |  | everyone |
+| Position | [System.Int32](https://docs.microsoft.com/en-us/dotnet/api/system.int32) |  | everyone |
+| HardwareRevision | [System.String](https://docs.microsoft.com/en-us/dotnet/api/system.string) |  | everyone |
+| FirmwareRevision | [System.String](https://docs.microsoft.com/en-us/dotnet/api/system.string) |  | everyone |
+| SoftwareRevision | [System.String](https://docs.microsoft.com/en-us/dotnet/api/system.string) |  | everyone |
+| Serial | [System.String](https://docs.microsoft.com/en-us/dotnet/api/system.string) |  | everyone |
+| Manufacturer | [System.String](https://docs.microsoft.com/en-us/dotnet/api/system.string) |  | everyone |
+| Model | [System.String](https://docs.microsoft.com/en-us/dotnet/api/system.string) |  | everyone |
+| Alias | [System.String](https://docs.microsoft.com/en-us/dotnet/api/system.string) |  | everyone |
+| AssetID | [System.String](https://docs.microsoft.com/en-us/dotnet/api/system.string) |  | everyone |
+| FieldReplaceable | [System.String](https://docs.microsoft.com/en-us/dotnet/api/system.string) |  | everyone |
+

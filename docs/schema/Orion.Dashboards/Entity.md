@@ -1,0 +1,26 @@
+---
+id: Entity
+slug: Entity
+---
+
+# Orion.Dashboards.Entity
+
+SolarWinds Information Service 2020.2 Schema Documentation Index
+
+## Inheritance
+
+↳ [System.Entity](./../System/Entity)
+
+## Access control
+
+everyone
+
+## Properties
+
+| Name | Type | Summary | Access Control |
+| ------ | ------ | ------ | ------ |
+| Owner | [System.String](https://docs.microsoft.com/en-us/dotnet/api/system.string) |  | everyone |
+| LastUpdate | [System.DateTime](https://docs.microsoft.com/en-us/dotnet/api/system.datetime) |  | everyone |
+| Private | [System.Boolean](https://docs.microsoft.com/en-us/dotnet/api/system.boolean) |  | everyone |
+| IsSystem | [System.Boolean](https://docs.microsoft.com/en-us/dotnet/api/system.boolean) |  | everyone |
+

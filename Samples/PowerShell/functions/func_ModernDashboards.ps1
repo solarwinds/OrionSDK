@@ -1,4 +1,8 @@
-﻿#Requires -Module @{ ModuleName = 'SwisPowerShell'; ModuleVersion = '3.0.0' }
+﻿# Requirements:
+# * PowerShell v7.0+
+# * SwisPowerShell Module v3.0+
+#Requires -Module @{ ModuleName = 'SwisPowerShell'; ModuleVersion = '3.0.0' }
+#Requires -Version 7
 
 <#
 .Synopsis
@@ -345,7 +349,6 @@ function Import-ModernDashboard {
     about_Operators
 #>
 
-#Requires -Version 2.0
 function Remove-InvalidFileNameChars {
 
     [CmdletBinding(

@@ -6,6 +6,134 @@
 
 <#
 .Synopsis
+    List Modern Dashboards from SolarWinds Orion system
+.DESCRIPTION
+    Connects to SolarWinds Information Service and enumerates the user-defined Modern Dashboards
+.EXAMPLE
+    $SwisConnection = Connect-Swis -Hostname "192.168.11.165" -Username "admin" -Password "MyComplexPassword"
+    PS C:\Exports> Get-SwisModernDashboard -SwisConnection $SwisConnection
+
+    This command list all of the Modern Dashboards
+.EXAMPLE
+    $SwisConnection = Connect-Swis -Hostname "192.168.11.165" -Username "admin" -Password "MyComplexPassword"
+    PS C:\> Get-ModernDashboard -SwisConnection $SwisConnection -DashboardId 9 
+
+    Lists Modern Dashboard with ID 9
+.EXAMPLE
+    $SwisConnection = Connect-Swis -Hostname "192.168.11.165" -Username "admin" -Password "MyComplexPassword"
+    PS C:\> Get-ModernDashboard -SwisConnection $SwisConnection -DashboardId 1 
+
+    PS C:\> Get-ModernDashboard -SwisConnection $SwisConnection -DashboardId 1 -IncludeSystem
+
+    The first command will (most likely) return nothing as DashboardId 1 is a "system" dashboard
+    The second command will return the details of Dashboard ID 1
+
+.NOTES
+    Author:  Kevin M. Sparenberg (https://thwack.solarwinds.com/members/kmsigma)
+    Version: 0.9
+    Last Updated: 2021-09-30
+    Validated: Orion Platform 2020.2.5
+
+    TBD List:
+        * Validate that the script works on non-Windows
+#>
+function Get-SwisModernDashboard {
+    [CmdletBinding(
+        DefaultParameterSetName = 'Normal', 
+        PositionalBinding = $false,
+        HelpUri = 'https://documentation.solarwinds.com/en/success_center/orionplatform/content/core-fusion-dashboard-import-export.htm',
+        ConfirmImpact = 'Low')]
+    [Alias('Get-ModernDashboard')]
+    [OutputType()]
+    Param
+    (
+        # The connection to the SolarWinds Information Service
+        [Parameter(
+            Mandatory = $false, 
+            ValueFromPipeline = $true,
+            ValueFromPipelineByPropertyName = $true, 
+            ValueFromRemainingArguments = $false)]
+        [ValidateNotNull()]
+        [ValidateNotNullOrEmpty()]
+        [Alias("Swis")] 
+        [SolarWinds.InformationService.Contract2.InfoServiceProxy]$SwisConnection = $Global:SwisConnection,
+
+        # The dashboard Id we'll display
+        [AllowNull()]
+        [Alias("Id")] 
+        [int32[]]$DashboardId,
+
+        # Filter for specific owners?
+        [AllowNull()]
+        [string[]]$Owner,
+
+        # Should we include system Dashboards?
+        [AllowNull()]
+        [switch]$IncludeSystem,
+
+        # Omits white space and indented formatting in the output string.
+        [AllowNull()]
+        [switch]$IncludeJson
+
+    )
+
+    Begin {
+        # Define the Property List
+        $PropertyList = "DashboardID", "DisplayName", "UniqueKey", "Owner", "LastUpdate", "Private"
+
+        # Define default Query
+        $Swql = "SELECT DashboardID, ParentID, Owner, UniqueKey, LastUpdate, Private, IsSystem, DisplayName FROM Orion.Dashboards.Instances WHERE ParentID IS NULL"
+
+    }
+    Process {
+        
+        #region Filter for DashboardIds
+        # Add Dashboards if we are sent IDs
+        if ( $DashboardId ) {
+            # Add an = to the WHERE clause
+            $Swql += " AND DashboardID = $( $DashboardId )"
+        }
+        #endregion Filter for DashboardIds
+        
+        #region Filter for Owners
+        # If the Owner parameter is passed, we need to filter for that as well
+        # Same logic as above, but for the array, we need to be sure to include the single quotes as wrappers
+        if ( $Owner ) {
+            $Swql += " AND Owner = '$( $DashboardId )'"
+        }
+        #endregion Filter for Owners
+
+        # If we want to skip System Views, then we filter for 'IsSystem' is False
+        if ( -not $IncludeSystem ) {
+            $Swql += " AND IsSystem = 'FALSE'"
+            $PropertyList += "IsSystem"
+        }
+
+        if ( $IncludeJson ) {
+            $PropertyList += "JSON"
+        }
+
+        Write-Verbose -Message "SWQL Query: $Swql"
+        $Dashboards = Get-SwisData -SwisConnection $SwisConnection -Query $Swql
+        if ( $Dashboards -and $IncludeJson ) {
+            $Dashboards | Add-Member -MemberType ScriptProperty -Name "JSON" -Value { Export-SwisModernDashboard -SwisConnection $SwisConnection -DashboardId $this.DashboardID -PassThru } -Force
+            $Dashboards | Select-Object -Property $PropertyList
+        }
+        elseif ( $Dashboards ) {
+            $Dashboards | Select-Object -Property $PropertyList
+        }
+        else {
+            Write-Warning -Message "No matching dashboards found"
+        }
+        
+    }
+    End {
+        # nothing to do here
+    }
+}
+
+<#
+.Synopsis
     Export Modern Dashboards from SolarWinds Orion system
 .DESCRIPTION
     Connects to SolarWinds Information Service, extracts the JSON content of a Modern Dashboard and exports it to the file system
@@ -32,69 +160,80 @@
     Validated: Orion Platform 2020.2.5
 
     TBD List:
-        * -PassThru [switch]
+        * -JsonOnly [switch] (Completed)
             Mimic a -PassThru parameter that just returns the JSON data to the pipeline
-            -AsPsObject [switch] (child of -PassThru)
+            -AsPsObject [switch] (child of -JsonOnly) (Completed)
                 Allows for the raw Json to be returned as a PowerShell object
-        * Validate that the script works on non-Windows
+        * Validate that the script works on non-Windows [Validated]
 #>
-function Export-ModernDashboard {
+function Export-SwisModernDashboard {
     [CmdletBinding(
-        DefaultParameterSetName = 'Normal', 
+        DefaultParameterSetName = 'File Export', 
         SupportsShouldProcess = $true, 
         PositionalBinding = $false,
         HelpUri = 'https://documentation.solarwinds.com/en/success_center/orionplatform/content/core-fusion-dashboard-import-export.htm',
         ConfirmImpact = 'Medium')]
-    [Alias()]
+    [Alias('Export-ModernDashboard')]
     [OutputType([String])]
     Param
     (
         # The connection to the SolarWinds Information Service
         [Parameter(
-            Mandatory = $true, 
+            Mandatory = $false, 
             ValueFromPipeline = $true,
             ValueFromPipelineByPropertyName = $true, 
             ValueFromRemainingArguments = $false, 
-            Position = 0,
-            ParameterSetName = 'Normal')]
+            Position = 0)]
         [ValidateNotNull()]
         [ValidateNotNullOrEmpty()]
         [Alias("Swis")] 
-        [SolarWinds.InformationService.Contract2.InfoServiceProxy]$SwisConnection,
+        [SolarWinds.InformationService.Contract2.InfoServiceProxy]$SwisConnection = $Global:SwisConnection,
 
         # The dashboard Id we'll export
         [Parameter(
-            ValueFromPipeline = $true,
-            ValueFromPipelineByPropertyName = $true,
             Position = 1,
-            ParameterSetName = 'Normal')]
+            ParameterSetName = 'File Export')]
+        [Parameter(ParameterSetName = 'JsonOnly')]
         [AllowNull()]
+        [Alias("Id")]
         [int32[]]$DashboardId,
 
         # Specifies the path to the output file.
-        [Parameter(ParameterSetName = 'Normal')]
+        [Parameter(ParameterSetName = 'File Export')]
         [AllowNull()]
         [string]$OutputFolder = ( Get-Location ),
 
         # Should we include system Dashboards?
-        [Parameter(ParameterSetName = 'Normal')]
+        [Parameter(ParameterSetName = 'File Export')]
+        [Parameter(ParameterSetName = 'JsonOnly')]
         [AllowNull()]
         [switch]$IncludeSystem,
 
         # Should we include the Dashboard ID number in the name.
-        [Parameter(ParameterSetName = 'Normal')]
+        [Parameter(ParameterSetName = 'File Export')]
         [AllowNull()]
         [switch]$IncludeId,
 
         # Omits white space and indented formatting in the output string.
-        [Parameter(ParameterSetName = 'Normal')]
+        [Parameter(ParameterSetName = 'File Export')]
+        [Parameter(ParameterSetName = 'JsonOnly')]
         [AllowNull()]
         [switch]$Compress,
 
         # Overrides the read-only attribute and overwrites an existing read-only file. The Force parameter does not override security restrictions.
-        [Parameter(ParameterSetName = 'Normal')]
+        [Parameter(ParameterSetName = 'File Export')]
         [AllowNull()]
-        [switch]$Force
+        [switch]$Force,
+
+        # Export JSON directly to the pipeline
+        [Parameter(ParameterSetName = 'JsonOnly')]
+        [AllowNull()]
+        [switch]$JsonOnly,
+
+        # Convert the JSON to a PowerShell Object
+        [Parameter(ParameterSetName = 'JsonOnly')]
+        [AllowNull()]
+        [switch]$AsPsObject
 
     )
 
@@ -104,7 +243,8 @@ function Export-ModernDashboard {
             Write-Verbose -Message "EXPORT ALL: No DashboardIds Provided - exporting all (including system dashboards)"
             $Swql = "SELECT DashboardID FROM Orion.Dashboards.Instances WHERE ParentID IS NULL"
             $DashboardId = Get-SwisData -SwisConnection $SwisConnection -Query $Swql
-        } elseif ( -not $DashboardId ) {
+        }
+        elseif ( -not $DashboardId ) {
             Write-Verbose -Message "EXPORT ALL: No DashboardIds Provided - exporting all (excluding system dashboards)"
             $Swql = "SELECT DashboardID FROM Orion.Dashboards.Instances WHERE ParentID IS NULL AND IsSystem = 'FALSE'"
             $DashboardId = Get-SwisData -SwisConnection $SwisConnection -Query $Swql
@@ -115,37 +255,52 @@ function Export-ModernDashboard {
     }
     Process {
         ForEach ( $d in $DashboardId ) {
-            $DashboardText = Invoke-SwisVerb -SwisConnection $SwisConnection -EntityName Orion.Dashboards.Instances -Verb Export -Arguments $d
+            $DashboardText = Invoke-SwisVerb -SwisConnection $SwisConnection -EntityName Orion.Dashboards.Instances -Verb Export -Arguments $d -ErrorAction SilentlyContinue
             
-            # The name is stored within the Json file, so we need to load it as Json and interpret it.
-            $DashboardObject = $DashboardText.'#text' | ConvertFrom-Json
-            $DashboardName = $DashboardObject.dashboards.name
-            if ( $DashboardObject.dashboards.unique_key -notmatch '[a-f,0-9]{8}-[a-f,0-9]{4}-[a-f,0-9]{4}-[a-f,0-9]{4}-[a-f,0-9]{12}' ) {
-                # This is a system dashboard, so add "SYSTEM" to the name
-                $DashboardName = "SYSTEM_$( $DashboardName )"
-            }
+            if ( $DashboardText -and -not $JsonOnly ) {
+                # The name is stored within the Json file, so we need to load it as Json and interpret it.
+                $DashboardObject = $DashboardText.'#text' | ConvertFrom-Json
+                $DashboardName = $DashboardObject.dashboards.name
+                if ( $DashboardObject.dashboards.unique_key -notmatch '[a-f,0-9]{8}-[a-f,0-9]{4}-[a-f,0-9]{4}-[a-f,0-9]{4}-[a-f,0-9]{12}' ) {
+                    # This is a system dashboard, so add "SYSTEM" to the name
+                    $DashboardName = "SYSTEM_$( $DashboardName )"
+                }
 
-            $ExportFileName = "$( Remove-InvalidFileNameChars -Name $DashboardName -Replacement "-" ).json"
-            if ( $IncludeId ) {
-                $ExportFileName = "$( $d )_$ExportFileName"
-            }
+                $ExportFileName = "$( Remove-InvalidFileNameChars -Name $DashboardName -Replacement "-" ).json"
+                if ( $IncludeId ) {
+                    $ExportFileName = "$( $d )_$ExportFileName"
+                }
 
-            $ExportFilePath = Join-Path -Path $OutputFolder -ChildPath $ExportFileName
+                $ExportFilePath = Join-Path -Path $OutputFolder -ChildPath $ExportFileName
             
-            # Check to see if the export file already exists and we are not forcing overwrite
-            if ( ( -not ( Test-Path -Path $ExportFilePath -ErrorAction SilentlyContinue ) ) -or ( $Force ) ) {
-                # Ask if we want to export - skip this check by passing '-Confirm:$false'
-                if ( $pscmdlet.ShouldProcess("to '$OutputFolder'", "Export '$DashboardName'") ) {
-                    # Actually do the export
-                    Write-Verbose -Message "Exporting '$DashboardName'"
-                    $DashboardObject | ConvertTo-Json -Depth $JsonDepth -Compress:$Compress | Out-File -FilePath $ExportFilePath -Force:$Force
+
+                # Check to see if the export file already exists and we are not forcing overwrite
+                if ( ( -not ( Test-Path -Path $ExportFilePath -ErrorAction SilentlyContinue ) ) -or ( $Force ) ) {
+                    # Ask if we want to export - skip this check by passing '-Confirm:$false'
+                    if ( $pscmdlet.ShouldProcess("to '$OutputFolder'", "Export '$DashboardName'") ) {
+                        # Actually do the export
+                        Write-Verbose -Message "Exporting '$DashboardName'"
+                        $DashboardObject | ConvertTo-Json -Depth $JsonDepth -Compress:$Compress | Out-File -FilePath $ExportFilePath -Force:$Force
+                    }
+                }
+                else {
+                    Write-Warning -Message "Skipping export of '$DashboardName' because '$ExportFilePath' already exists.  If you wish to overwrite, use the '-Force' parameter."
+                }
+            }
+            elseif ( $DashboardText -and $JsonOnly ) {
+                if ( $AsPsObject ) {
+                    $DashboardText.'#text' | ConvertFrom-Json -Depth $JsonDepth
+                }
+                else {
+                    $DashboardText.'#text' | ConvertFrom-Json -Depth $JsonDepth | ConvertTo-Json -Depth $JsonDepth -Compress:$Compress
                 }
             }
             else {
-                Write-Warning -Message "Skipping export of '$DashboardName' because '$ExportFilePath' already exists.  If you wish to overwrite, use the '-Force' parameter."
+                Write-Warning -Message "No matching dashboard found"
             }
         }
     }
+
     End {
         # nothing to do here
     }
@@ -181,29 +336,28 @@ function Export-ModernDashboard {
     Validated: Orion Platform 2020.2.5
 
     TBD List:
-        * Validate that the script works on non-Windows
+        * Validate that the script works on non-Windows [Validated]
 #>
-function Import-ModernDashboard {
+function Import-SwisModernDashboard {
     [CmdletBinding(DefaultParameterSetName = 'Normal', 
         SupportsShouldProcess = $true, 
         PositionalBinding = $false,
         HelpUri = 'https://documentation.solarwinds.com/en/success_center/orionplatform/content/core-fusion-dashboard-import-export.htm',
         ConfirmImpact = 'High')]
-    [Alias()]
+    [Alias("Import-ModernDashboard")]
     [OutputType([String])]
     Param
     (
         # The connection to the SolarWinds Information Service
-        [Parameter(Mandatory = $true, 
+        [Parameter(
+            Mandatory = $false, 
             ValueFromPipeline = $true,
             ValueFromPipelineByPropertyName = $true, 
-            ValueFromRemainingArguments = $false, 
-            Position = 0,
-            ParameterSetName = 'Normal')]
+            ValueFromRemainingArguments = $false)]
         [ValidateNotNull()]
         [ValidateNotNullOrEmpty()]
         [Alias("Swis")] 
-        [SolarWinds.InformationService.Contract2.InfoServiceProxy]$SwisConnection,
+        [SolarWinds.InformationService.Contract2.InfoServiceProxy]$SwisConnection = $Global:SwisConnection,
 
         # If a pre-existing dashboard name matches, use a different name
         [Parameter(Position = 1,
@@ -234,7 +388,8 @@ function Import-ModernDashboard {
             if ( $P.PSIsContainer ) {
                 Write-Verbose -Message "PATH DETECTION: Directory Detected"
                 $FileList += Get-ChildItem -Path $P
-            } else {
+            }
+            else {
                 Write-Verbose -Message "PATH DETECTION: Single File"
                 $FileList += $P
             }
@@ -260,7 +415,8 @@ function Import-ModernDashboard {
                         catch {
                             Write-Error -Message "Error importing '$( $File.Fullname )'" -RecommendedAction "Validate that this is a proper JSON file"
                         }
-                    } else {
+                    }
+                    else {
                         Write-Error -Message "SKIPPED: Dashboard with name '$( $TemplateObject.dashboards.Name )' or key [$( $TemplateObject.dashboards.unique_key )] already exists." -RecommendedAction "Use '-Force' to forcibly import (destructive)."
                     }
                 }
@@ -275,6 +431,8 @@ function Import-ModernDashboard {
         # nothing to do here
     }
 }
+
+
 
 
 <#
@@ -348,7 +506,6 @@ function Import-ModernDashboard {
 .Link
     about_Operators
 #>
-
 function Remove-InvalidFileNameChars {
 
     [CmdletBinding(

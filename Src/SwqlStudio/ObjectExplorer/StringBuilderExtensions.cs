@@ -8,49 +8,89 @@ namespace SwqlStudio
     {
         public static void AppendName(this StringBuilder builder, string name)
         {
-            builder.AppendFormat("Name: {0}\r\n", name);
+            if (builder == null)
+            {
+                throw new ArgumentNullException(nameof(builder));
+            }
+
+            builder.AppendFormat("Name: {0}{1}", name, Environment.NewLine);
         }
 
         public static void AppendType(this StringBuilder builder, string metadataType)
         {
-            builder.AppendFormat("Type: {0}\r\n", metadataType);
+            if (builder == null)
+            {
+                throw new ArgumentNullException(nameof(builder));
+            }
+
+            builder.AppendFormat("Type: {0}{1}", metadataType, Environment.NewLine);
         }
 
         public static void AppendSummaryParagraph(this StringBuilder builder, string summary)
         {
-            builder.Append("\r\n\r\n");
+            if (builder == null)
+            {
+                throw new ArgumentNullException(nameof(builder));
+            }
+
+            builder.AppendLine();
+            builder.AppendLine();
             builder.AppendSummary(summary);
         }
 
         public static void AppendSummary(this StringBuilder builder, string summary)
         {
-            if (string.IsNullOrEmpty(summary))
-                return;
+            if (builder == null)
+            {
+                throw new ArgumentNullException(nameof(builder));
+            }
 
-            var trimmed = summary.Trim();
-            builder.AppendFormat(trimmed);
+            if (string.IsNullOrEmpty(summary))
+            {
+                return;
+            }
+
+            string trimmed = summary.Trim();
+            builder.Append(trimmed);
         }
 
         public static void AppendAccessControl(this StringBuilder builder, ConnectionInfo connection, Entity entity)
         {
+            if (entity == null)
+            {
+                throw new ArgumentNullException(nameof(entity));
+            }
+
+            if (connection == null)
+            {
+                throw new ArgumentNullException(nameof(connection));
+            }
+
+
             if (entity.IsIndication)
             {
+
                 builder.Append($@"Can Subscribe: {connection.CanCreateSubscription}");
             }
             else
             {
-                builder.Append($"Can Read: {entity.CanRead}\r\n");
-                builder.Append($"Can Create: {entity.CanCreate}\r\n");
-                builder.Append($"Can Update: {entity.CanUpdate}\r\n");
-                builder.Append($"Can Delete: {entity.CanDelete}\r\n");
+                builder.AppendLine($"Can Read: {entity.CanRead}");
+                builder.AppendLine($"Can Create: {entity.CanCreate}");
+                builder.AppendLine($"Can Update: {entity.CanUpdate}");
+                builder.AppendLine($"Can Delete: {entity.CanDelete}");
             }
         }
 
         public static void AppendObsoleteSection(this StringBuilder builder, IObsoleteMetadata entity)
         {
+            if (builder == null)
+            {
+                throw new ArgumentNullException(nameof(builder));
+            }
+
             if (entity != null && entity.IsObsolete)
             {
-                builder.Append($"Obsolete: {entity.ObsolescenceReason}{Environment.NewLine}");
+                builder.AppendLine($"Obsolete: {entity.ObsolescenceReason}");
             }
         }
     }

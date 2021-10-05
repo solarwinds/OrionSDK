@@ -32,11 +32,16 @@
     Author:  Kevin M. Sparenberg (https://thwack.solarwinds.com/members/kmsigma)
     Version: 0.9
     Last Updated: 2021-09-30
-    Validated: Orion Platform 2020.2.5
+    Validated: Orion Platform 2020.2.6 HF1
 
     TBD List:
-        * Validate that the script works on non-Windows
+        * Validate on macOS (validated on Windows and Linux)
+        * ***Refactor entirely*** - not taking advantage of the inline processing.
 #>
+<#
+# Removed from code because it needs to be refactored with ParameterSets to work correctly.
+# Leaving it commented out to keep desired parameter set
+
 function Get-SwisModernDashboard {
     [CmdletBinding(
         DefaultParameterSetName = 'Normal', 
@@ -79,7 +84,7 @@ function Get-SwisModernDashboard {
 
     Begin {
         # Define the Property List
-        $PropertyList = "DashboardID", "DisplayName", "UniqueKey", "Owner", "LastUpdate", "Private"
+        $PropertyList = "DashboardID", "DisplayName", "UniqueKey", "Owner", "LastUpdate", "Private", "IsSystem"
 
         # Define default Query
         $Swql = "SELECT DashboardID, ParentID, Owner, UniqueKey, LastUpdate, Private, IsSystem, DisplayName FROM Orion.Dashboards.Instances WHERE ParentID IS NULL"
@@ -87,50 +92,9 @@ function Get-SwisModernDashboard {
     }
     Process {
         
-        #region Filter for DashboardIds
-        # Add Dashboards if we are sent IDs
-        if ( $DashboardId ) {
-            # Add an = to the WHERE clause
-            $Swql += " AND DashboardID = $( $DashboardId )"
-        }
-        #endregion Filter for DashboardIds
-        
-        #region Filter for Owners
-        # If the Owner parameter is passed, we need to filter for that as well
-        # Same logic as above, but for the array, we need to be sure to include the single quotes as wrappers
-        if ( $Owner ) {
-            $Swql += " AND Owner = '$( $DashboardId )'"
-        }
-        #endregion Filter for Owners
-
-        # If we want to skip System Views, then we filter for 'IsSystem' is False
-        if ( -not $IncludeSystem ) {
-            $Swql += " AND IsSystem = 'FALSE'"
-            $PropertyList += "IsSystem"
-        }
-
-        if ( $IncludeJson ) {
-            $PropertyList += "JSON"
-        }
-
-        Write-Verbose -Message "SWQL Query: $Swql"
-        $Dashboards = Get-SwisData -SwisConnection $SwisConnection -Query $Swql
-        if ( $Dashboards -and $IncludeJson ) {
-            $Dashboards | Add-Member -MemberType ScriptProperty -Name "JSON" -Value { Export-SwisModernDashboard -SwisConnection $SwisConnection -DashboardId $this.DashboardID -PassThru } -Force
-            $Dashboards | Select-Object -Property $PropertyList
-        }
-        elseif ( $Dashboards ) {
-            $Dashboards | Select-Object -Property $PropertyList
-        }
-        else {
-            Write-Warning -Message "No matching dashboards found"
-        }
-        
-    }
-    End {
-        # nothing to do here
     }
 }
+#>
 
 <#
 .Synopsis
@@ -140,31 +104,27 @@ function Get-SwisModernDashboard {
 .EXAMPLE
     $SwisConnection = Connect-Swis -Hostname "192.168.11.165" -Username "admin" -Password "MyComplexPassword"
     PS C:\> Set-Location -Path "C:\Exports"
-    PS C:\Exports> Export-ModernDashboard -SwisConnection $SwisConnection
+    PS C:\Exports> Export-SwisModernDashboard -SwisConnection $SwisConnection
 
     This exports all of the Modern Dashboards to the 'C:\Exports' folder
 .EXAMPLE
     $SwisConnection = Connect-Swis -Hostname "192.168.11.165" -Username "admin" -Password "MyComplexPassword"
-    PS C:\> Export-ModernDashboard -SwisConnection $SwisConnection -DashboardId 9 -OutputFolder "D:\OrionServer\Modern Dashboards\"
+    PS C:\> Export-SwisModernDashboard -SwisConnection $SwisConnection -DashboardId 9 -OutputFolder "D:\OrionServer\Modern Dashboards\"
 
     This exports the Modern Dashboard with ID 9 to the 'D:\OrionServer\Modern Dashboards\' folder
 .EXAMPLE
     $SwisConnection = Connect-Swis -Hostname "192.168.11.165" -Username "admin" -Password "MyComplexPassword"
-    PS C:\> Export-ModernDashboard -SwisConnection $SwisConnection -DashboardId 9 -IncludeId
+    PS C:\> Export-SwisModernDashboard -SwisConnection $SwisConnection -DashboardId 9 -IncludeId
 
     This exports the Modern Dashboard with ID 9 to the current folder with the naming format "9_<Dashboard Name>.json"
 .NOTES
     Author:  Kevin M. Sparenberg (https://thwack.solarwinds.com/members/kmsigma)
     Version: 0.9
-    Last Updated: 2021-06-28
-    Validated: Orion Platform 2020.2.5
+    Last Updated: 2021-10-05
+    Validated: Orion Platform 2020.2.6 HF1
 
     TBD List:
-        * -JsonOnly [switch] (Completed)
-            Mimic a -PassThru parameter that just returns the JSON data to the pipeline
-            -AsPsObject [switch] (child of -JsonOnly) (Completed)
-                Allows for the raw Json to be returned as a PowerShell object
-        * Validate that the script works on non-Windows [Validated]
+        * Validate on macOS (validated on Windows and Linux)
 #>
 function Export-SwisModernDashboard {
     [CmdletBinding(
@@ -314,29 +274,29 @@ function Export-SwisModernDashboard {
 .EXAMPLE
     $SwisConnection = Connect-Swis -Hostname "192.168.11.165" -Username "admin" -Password "MyComplexPassword"
     PS C:\> Set-Location -Path "C:\Exports"
-    PS C:\Exports> Import-ModernDashboard -SwisConnection $SwisConnection
+    PS C:\Exports> Import-SwisModernDashboard -SwisConnection $SwisConnection
 
     This imports all of the Modern Dashboards files in the 'C:\Exports' folder to the server running on 192.168.11.165
 .EXAMPLE
     $SwisConnection = Connect-Swis -Hostname "192.168.11.165" -Username "admin" -Password "MyComplexPassword"
-    PS C:\> Import-ModernDashboard -SwisConnection $SwisConnection -Path "C:\Imports\KevinsDashboard.json"
+    PS C:\> Import-SwisModernDashboard -SwisConnection $SwisConnection -Path "C:\Imports\KevinsDashboard.json"
 
     This imports a single dashboard from the "C:\Imports\KevinsDashboard.json" file
 .EXAMPLE
     $SwisConnection = Connect-Swis -Hostname "192.168.11.165" -Username "admin" -Password "MyComplexPassword"
-    PS C:\> Import-ModernDashboard -SwisConnection $SwisConnection -Path "C:\Imports\KevinsDashboard.json"
+    PS C:\> Import-SwisModernDashboard -SwisConnection $SwisConnection -Path "C:\Imports\KevinsDashboard.json"
 
-    PS C:\> Import-ModernDashboard -SwisConnection $SwisConnection -Path "C:\Imports\KevinsDashboard.json"
+    PS C:\> Import-SwisModernDashboard -SwisConnection $SwisConnection -Path "C:\Imports\KevinsDashboard.json"
     This will fail with an error because there already exists this import.  To forcibly import (destructive):
-    PS C:\> Import-ModernDashboard -SwisConnection $SwisConnection -Path "C:\Imports\KevinsDashboard.json" -Force
+    PS C:\> Import-SwisModernDashboard -SwisConnection $SwisConnection -Path "C:\Imports\KevinsDashboard.json" -Force
 .NOTES
     Author:  Kevin M. Sparenberg (https://thwack.solarwinds.com/members/kmsigma)
     Version: 0.9
-    Last Updated: 2021-06-28
-    Validated: Orion Platform 2020.2.5
+    Last Updated: 2021-10-05
+    Validated: Orion Platform 2020.2.6 HF1
 
     TBD List:
-        * Validate that the script works on non-Windows [Validated]
+        * Validate on macOS (validated on Windows and Linux)
 #>
 function Import-SwisModernDashboard {
     [CmdletBinding(DefaultParameterSetName = 'Normal', 

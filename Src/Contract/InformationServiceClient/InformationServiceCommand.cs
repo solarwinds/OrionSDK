@@ -179,9 +179,41 @@ namespace SolarWinds.InformationService.InformationServiceClient
 
             Message message = null;
 
-            using (new SwisSettingsContext { DataProviderTimeout = TimeSpan.FromSeconds(CommandTimeout), ApplicationTag = ApplicationTag, AppendErrors = true })
+            var swisSettingsContext = SwisSettingsContext.Current;
+            if (swisSettingsContext != null)
             {
-                message = connection.Service.Query(queryRequest);
+                var originalContextApplicationTag = swisSettingsContext.ApplicationTag;
+                swisSettingsContext.AppendErrors = true; // we always want to add errors 
+
+                // only set its value if the ApplicationTag is not set.
+                // If it is set in SwisSettingsContext, just use it
+                if (string.IsNullOrEmpty(swisSettingsContext.ApplicationTag))
+                {
+                    swisSettingsContext.ApplicationTag = ApplicationTag;
+                }
+
+                try
+                {
+                    // SwisSettingsContext.ApplicationTag is sent in request to SWIS server
+                    message = Query(queryRequest);
+                }
+                finally
+                {
+                    // make sure we don't change the value by calling this function
+                    swisSettingsContext.ApplicationTag = originalContextApplicationTag;
+                }
+            }
+            else
+            {
+                using (new SwisSettingsContext
+                {
+                    DataProviderTimeout = TimeSpan.FromSeconds(CommandTimeout),
+                    ApplicationTag = ApplicationTag,
+                    AppendErrors = true
+                })
+                {
+                    message = Query(queryRequest);
+                }
             }
 
             if (message != null)
@@ -192,6 +224,11 @@ namespace SolarWinds.InformationService.InformationServiceClient
                 return new InformationServiceDataReader(this, message.GetReaderAtBodyContents(), DateTimeMode);
             }
             return null;
+        }
+
+        private Message Query(QueryXmlRequest queryRequest)
+        {
+            return connection.Service.Query(queryRequest);
         }
 
         //TODO: Need to refactor with the code already present in InformationServiceQuery

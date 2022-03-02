@@ -61,9 +61,9 @@ namespace SwqlStudio.XmlRender
                 {
                     _xmlDocument = new XmlDocument();
                     _xmlDocument.LoadXml(value);
-                    string rtn = RenderXmlToHtml.Render(_xmlDocument,_xslTransformType,this);
+                    string rtn = RenderXmlToHtml.Render(_xmlDocument, _xslTransformType, this);
                     if (!string.IsNullOrEmpty(rtn))
-                        this.DocumentText = rtn;
+                        DocumentText = rtn;
                 }
             }
             get
@@ -95,7 +95,7 @@ namespace SwqlStudio.XmlRender
                     _xmlDocument = value;
                     string rtn = RenderXmlToHtml.Render(_xmlDocument, _xslTransformType, this);
                     if (!string.IsNullOrEmpty(rtn))
-                        this.DocumentText = rtn;
+                        DocumentText = rtn;
                 }
             }
         }
@@ -106,7 +106,7 @@ namespace SwqlStudio.XmlRender
         /// Change this to determine which transform type to use
         /// </summary>
         [Category("XmlData")]
-        [Description("Use this property to specify to use either the XSL or XSLT 1.0 compliant stylesheet for rendering.")] 
+        [Description("Use this property to specify to use either the XSL or XSLT 1.0 compliant stylesheet for rendering.")]
         public XslTransformType XmlDocumentTransformType
         {
             get

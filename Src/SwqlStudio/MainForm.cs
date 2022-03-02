@@ -1,8 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
-using System.IO;
 using System.Linq;
-using System.Runtime.InteropServices;
 using System.ServiceModel;
 using System.Windows.Forms;
 using SolarWinds.InformationService.Contract2;
@@ -27,58 +25,61 @@ namespace SwqlStudio
 
         public PropertyBag QueryParameters
         {
-            get { return this.filesDock.QueryParameters; }
-            set { this.filesDock.QueryParameters = value; }
+            get { return filesDock.QueryParameters; }
+            set { filesDock.QueryParameters = value; }
         }
-        
+
         public SubscriptionManager SubscriptionManager { get; } = new SubscriptionManager();
 
         public ConnectionInfo SelectedConnection
         {
-            get { return this.connectionsCombobox.SelectedItem as ConnectionInfo; }
-            set { this.connectionsCombobox.SelectedItem = value; }
+            get { return connectionsCombobox.SelectedItem as ConnectionInfo; }
+            set { connectionsCombobox.SelectedItem = value; }
         }
 
         public MainForm()
         {
+            DpiHelper.FixFont(this);
             InitializeComponent();
 
             InitializeDockPanel();
-            SetEntityGroupingMode((EntityGroupingMode)Enum.Parse(typeof(EntityGroupingMode), Settings.Default.EntityGroupingMode));
+            SetEntityGroupingMode((EntityGroupingMode)Enum.Parse(typeof(EntityGroupingMode),
+                Settings.Default.EntityGroupingMode));
 
             startTimer.Enabled = true;
 
             SubscriptionManager = new SubscriptionManager();
             AssignConnectionsDataSource();
+            modifiedEditors1.Parent = this;
         }
 
         private void InitializeDockPanel()
         {
-            this.serverList = new ServerList();
-            this.serverList.ConnectionAdded += ServerListOnConnectionAdded;
-            this.serverList.ConnectionRemoved += ServerListOnConnectionRemoved;
-            this.connectionsManager = new ConnectionsManager(this, this.serverList);
-            var tabsFactory = new TabsFactory(this.filesDock, this, this.serverList, this.connectionsManager);
-            this.filesDock.SetAplicationService(tabsFactory);
-            this.filesDock.ActiveContentChanged += FilesDock_ActiveContentChanged;
+            serverList = new ServerList();
+            serverList.ConnectionAdded += ServerListOnConnectionAdded;
+            serverList.ConnectionRemoved += ServerListOnConnectionRemoved;
+            connectionsManager = new ConnectionsManager(this, serverList);
+            var tabsFactory = new TabsFactory(filesDock, this, serverList, connectionsManager);
+            filesDock.SetAplicationService(tabsFactory);
+            filesDock.ActiveContentChanged += FilesDock_ActiveContentChanged;
 
         }
 
         private void AssignConnectionsDataSource()
         {
-            var connectionsDropDown = this.connectionsCombobox.ComboBox;
+            var connectionsDropDown = connectionsCombobox.ComboBox;
             connectionsDropDown.DisplayMember = "Title";
-            connectionsDropDown.DataSource = this.connectionsDataSource;
+            connectionsDropDown.DataSource = connectionsDataSource;
         }
 
         private void FilesDock_ActiveContentChanged(object sender, EventArgs e)
         {
-            this.RefreshSelectedConnections();
+            RefreshSelectedConnections();
 
-            IConnectionTab activeConnectionTab = this.filesDock.ActiveConnectionTab;
+            IConnectionTab activeConnectionTab = filesDock.ActiveConnectionTab;
             if (activeConnectionTab != null)
             {
-                this.SelectedConnection = activeConnectionTab.ConnectionInfo;
+                SelectedConnection = activeConnectionTab.ConnectionInfo;
             }
 
 
@@ -93,36 +94,37 @@ namespace SwqlStudio
 
         public void RefreshSelectedConnections()
         {
-            IConnectionTab activeConnectionTab = this.filesDock.ActiveConnectionTab;
-            this.connectionsCombobox.Enabled = activeConnectionTab == null || activeConnectionTab.AllowsChangeConnection;
+            IConnectionTab activeConnectionTab = filesDock.ActiveConnectionTab;
+            connectionsCombobox.Enabled =
+                activeConnectionTab == null || activeConnectionTab.AllowsChangeConnection;
         }
 
         private void ServerListOnConnectionAdded(object sender, ConnectionsEventArgs e)
         {
             ConnectionInfo addedConnection = e.Connection;
-            this.connectionsDataSource.Add(addedConnection);
-            this.serverList.TryGetProvider(addedConnection, out IMetadataProvider provider);
-            this.filesDock.AddServer(provider, addedConnection);
-            this.SelectedConnection = addedConnection;
+            connectionsDataSource.Add(addedConnection);
+            serverList.TryGetProvider(addedConnection, out IMetadataProvider provider);
+            filesDock.AddServer(provider, addedConnection);
+            SelectedConnection = addedConnection;
 
-            if (this.connectionsDataSource.Count == 1)
-                this.filesDock.ReplaceConnection(null, addedConnection);
+            if (connectionsDataSource.Count == 1)
+                filesDock.ReplaceConnection(null, addedConnection);
         }
 
         private void ServerListOnConnectionRemoved(object sender, ConnectionsEventArgs e)
         {
-            this.connectionsDataSource.Remove(e.Connection);
+            connectionsDataSource.Remove(e.Connection);
 
-            if(connectionsDataSource.Any())
-                this.SelectedConnection = connectionsDataSource.First();
+            if (connectionsDataSource.Any())
+                SelectedConnection = connectionsDataSource.First();
 
-            this.filesDock.CloseServer(e.Connection, this.SelectedConnection);
+            filesDock.CloseServer(e.Connection, SelectedConnection);
         }
 
         private void startTimer_Tick(object sender, EventArgs e)
         {
             startTimer.Enabled = false;
-            this.filesDock.AddNewQueryTab();
+            filesDock.AddNewQueryTab();
         }
 
         #region Code related to File menu
@@ -144,65 +146,26 @@ namespace SwqlStudio
         private void menuFileOpen_Click(object sender, EventArgs e)
         {
             if (openFileDialog.ShowDialog() == DialogResult.OK)
-                this.filesDock.OpenFiles(openFileDialog.FileNames);
+                filesDock.OpenFiles(openFileDialog.FileNames);
         }
 
-        
         private void menuFileClose_Click(object sender, EventArgs e)
         {
-            this.filesDock.CloseActiveContent();
+            filesDock.CloseActiveContent();
         }
 
         private void menuFileSave_Click(object sender, EventArgs e)
         {
-            var editor = this.filesDock.ActiveQueryTab;
+            var editor = filesDock.ActiveQueryTab;
             if (editor != null)
-                DoSave(editor);
-        }
-
-        private bool DoSave(QueryTab editor)
-        {
-            if (string.IsNullOrEmpty(editor.FileName))
-                return DoSaveAs(editor);
-                
-            return SaveEditor(editor, editor.FileName);
+                modifiedEditors1.DoSave(editor);
         }
 
         private void menuFileSaveAs_Click(object sender, EventArgs e)
         {
-            var editor = this.filesDock.ActiveQueryTab;
+            var editor = filesDock.ActiveQueryTab;
             if (editor != null)
-                DoSaveAs(editor);
-        }
-
-        private bool DoSaveAs(QueryTab editor)
-        {
-            saveFileDialog.FileName = editor.FileName;
-            if (saveFileDialog.ShowDialog() != DialogResult.OK)
-                return false;
-
-            return SaveEditor(editor, saveFileDialog.FileName);
-        }
-
-        private bool SaveEditor(QueryTab editor, string fileName)
-        {
-            try
-            {
-                File.WriteAllText(fileName, editor.QueryText);
-                editor.FileName = fileName;
-                editor.MarkSaved();
-
-                // The syntax highlighting strategy doesn't change
-                // automatically, so do it manually.
-                //editor.Document.HighlightingStrategy = 
-                //    HighlightingStrategyFactory.CreateHighlightingStrategyForFile(editor.FileName);
-                return true;
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(this, ex.Message, ex.GetType().Name);
-                return false;
-            }
+                modifiedEditors1.DoSaveAs(editor);
         }
 
         private void menuNotificationListenerActive_Click(object sender, EventArgs e)
@@ -218,7 +181,7 @@ namespace SwqlStudio
                 else
                 {
                     Action x = () => menuNotificationListenerActive.Checked = true;
-                    SubscriptionManager.StartListening(() => this.BeginInvoke(x));
+                    SubscriptionManager.StartListening(() => BeginInvoke(x));
                 }
             }
             finally
@@ -238,27 +201,27 @@ namespace SwqlStudio
 
         private void undoToolStripMenuItem_Click(object sender, EventArgs e)
         {
-                this.filesDock.ActiveQueryTab?.Undo();
+            filesDock.ActiveQueryTab?.Undo();
         }
 
         private void redoToolStripMenuItem_Click(object sender, EventArgs e)
         {
-                this.filesDock.ActiveQueryTab?.Redo();
+            filesDock.ActiveQueryTab?.Redo();
         }
 
         private void menuEditCut_Click(object sender, EventArgs e)
         {
-                this.filesDock.ActiveQueryTab?.Cut();
+            filesDock.ActiveQueryTab?.Cut();
         }
 
         private void menuEditCopy_Click(object sender, EventArgs e)
         {
-            this.filesDock.ActiveQueryTab?.CopySelectionToClipboard();
+            filesDock.ActiveQueryTab?.CopySelectionToClipboard();
         }
 
         private void menuEditPaste_Click(object sender, EventArgs e)
         {
-            this.filesDock.ActiveQueryTab?.Paste();
+            filesDock.ActiveQueryTab?.Paste();
         }
 
         #endregion
@@ -267,20 +230,21 @@ namespace SwqlStudio
 
         private void TextEditor_FormClosing(object sender, FormClosingEventArgs e)
         {
-            // Ask user to save changes
-            foreach (var editor in this.filesDock.QueryTabs)
-            {
-                if (editor.Modified && Settings.Default.PromptToSaveOnClose)
-                {
-                    var r = MessageBox.Show(this, $"Save changes to {editor.FileName ?? "new file"}?",
-                        "Save?", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
-                    if (r == DialogResult.Cancel)
-                        e.Cancel = true;
-                    else if (r == DialogResult.Yes)
-                        if (!DoSave(editor))
-                            e.Cancel = true;
-                }
+            bool canceled = !modifiedEditors1.SaveModifiedEditors(filesDock.QueryTabs);
 
+            if (canceled)
+            {
+                e.Cancel = true;
+                return;
+            }
+
+            CloseEditorConnections();
+        }
+
+        private void CloseEditorConnections()
+        {
+            foreach (var editor in filesDock.QueryTabs)
+            {
                 if (editor.Tag is ConnectionInfo info)
                 {
                     info.Dispose();
@@ -299,25 +263,24 @@ namespace SwqlStudio
         {
             string[] list = e.Data.GetData(DataFormats.FileDrop) as string[];
             if (list != null)
-                this.filesDock.OpenFiles(list);
+                filesDock.OpenFiles(list);
         }
 
         #endregion
 
         private void menuQueryExecute_Click(object sender, EventArgs e)
         {
-            if (this.filesDock.ActiveQueryTab != null)
-                this.filesDock.ActiveQueryTab.RunQuery();
+            filesDock.ActiveQueryTab?.RunQuery();
         }
 
         private void parametersToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            this.filesDock.ShowParametersToolbox();
+            filesDock.ShowParametersToolbox();
         }
 
         private void enumEntitiesToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            ConnectionInfo connection = this.SelectedConnection;
+            ConnectionInfo connection = SelectedConnection;
             if (connection == null)
                 return; // should we try to connect?
 
@@ -350,8 +313,7 @@ namespace SwqlStudio
 
         private void playbackToolStripMenuItem_Click_1(object sender, EventArgs e)
         {
-            if (this.filesDock.ActiveQueryTab != null)
-                this.filesDock.ActiveQueryTab.RunPlayback();
+            filesDock.ActiveQueryTab?.RunPlayback();
         }
 
         private void aboutSWQLStudioToolStripMenuItem_Click(object sender, EventArgs e)
@@ -379,7 +341,7 @@ namespace SwqlStudio
             Settings.Default.EntityGroupingMode = mode.ToString();
             Settings.Default.Save();
 
-            this.filesDock.SetEntityGroupingMode(mode);
+            filesDock.SetEntityGroupingMode(mode);
         }
 
         private void byBaseTypeToolStripMenuItem_Click(object sender, EventArgs e)
@@ -405,7 +367,7 @@ namespace SwqlStudio
 
         private void menuFileTabPage_Click(object sender, EventArgs e)
         {
-            this.filesDock.CreateTabFromPrevious();
+            filesDock.CreateTabFromPrevious();
         }
 
         private void enableAutocompleteToolStripMenuItem_CheckedChanged(object sender, EventArgs e)
@@ -423,33 +385,33 @@ namespace SwqlStudio
 
         private void searchInTreeHotKeyToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            this.filesDock.FocusSearch();
+            filesDock.FocusSearch();
         }
 
         private void discoverQueryParametersToolStripMenuItem_CheckedChanged(object sender, EventArgs e)
         {
-            this.filesDock.AllowSetParameters(this.discoverQueryParametersMenuItem.Checked);
+            filesDock.AllowSetParameters(discoverQueryParametersMenuItem.Checked);
         }
 
         private void connectionsCombobox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            IConnectionTab activeConnectionTab = this.filesDock.ActiveConnectionTab;
-            if (activeConnectionTab != null && this.SelectedConnection != null)
+            IConnectionTab activeConnectionTab = filesDock.ActiveConnectionTab;
+            if (activeConnectionTab != null && SelectedConnection != null)
             {
-                activeConnectionTab.ConnectionInfo = this.SelectedConnection;
+                activeConnectionTab.ConnectionInfo = SelectedConnection;
             }
         }
 
         private void disconnectToolButton_Click(object sender, EventArgs e)
         {
-            this.SelectedConnection?.Close();
+            SelectedConnection?.Close();
         }
 
         private void refreshToolButton_Click(object sender, EventArgs e)
         {
-            var connection = this.SelectedConnection;
+            var connection = SelectedConnection;
             if (connection != null)
-                this.filesDock.RefreshServer(connection);
+                filesDock.RefreshServer(connection);
         }
 
         private void editToolStripMenuItem_DropDownOpening(object sender, EventArgs e)
@@ -492,20 +454,12 @@ namespace SwqlStudio
 
         private void findToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var activeTab = filesDock.ActiveQueryTab;
-            if (activeTab == null)
-                return;
-
-            activeTab.FindDialog();
+            filesDock.ActiveQueryTab?.FindDialog();
         }
 
         private void replaceToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var activeTab = filesDock.ActiveQueryTab;
-            if (activeTab == null)
-                return;
-
-            activeTab.ReplaceDialog();
+            filesDock.ActiveQueryTab?.ReplaceDialog();
         }
 
         private void showObsoleteToolStripMenuItem_Click(object sender, EventArgs e)

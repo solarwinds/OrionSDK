@@ -32,16 +32,16 @@ namespace SwqlStudio.XmlRender
         /// <param name="xslTransformType"><see cref="XmlBrowser.XslTransformType"/></param>
         /// <returns>HTML string</returns>
         /// <seealso cref="XmlBrowser.XslTransformType"/>
-        internal static string Render(XmlDocument xmlToRender, XmlBrowser.XslTransformType xslTransformType,XmlBrowser xmlBrowser)
+        internal static string Render(XmlDocument xmlToRender, XmlBrowser.XslTransformType xslTransformType, XmlBrowser xmlBrowser)
         {
             if (xslTransformType == XmlBrowser.XslTransformType.XSL)
                 return Render(xmlToRender.OuterXml);
             else if (xslTransformType == XmlBrowser.XslTransformType.XSLT10)
-                return Render(xmlToRender, XmlRender.XmlToHtml10,false);
+                return Render(xmlToRender, XmlRender.XmlToHtml10, false);
             else if (xslTransformType == XmlBrowser.XslTransformType.XSLT10RegExp)
-                return Render(xmlToRender, XmlRender.XmlToHtml10Plus,false);
+                return Render(xmlToRender, XmlRender.XmlToHtml10Plus, false);
             else if (xslTransformType == XmlBrowser.XslTransformType.XSLT10Basic)
-                return Render(xmlToRender, XmlRender.XmlToHtml10Basic,true);
+                return Render(xmlToRender, XmlRender.XmlToHtml10Basic, true);
             else if (xslTransformType == XmlBrowser.XslTransformType.XSLT10Cdata)
                 return Render(xmlToRender, XmlRender.XmlToHtml10Cdata, false);
 
@@ -113,7 +113,7 @@ namespace SwqlStudio.XmlRender
         /// <param name="xsltDocument">XSLT Document to use for transformation</param>
         /// <returns>HTML string</returns>
         /// <seealso cref="System.Xml.XmlDocument"/>
-        internal static string Render(XmlDocument xmlToRender,string xsltDocument, bool escapeCdata)
+        internal static string Render(XmlDocument xmlToRender, string xsltDocument, bool escapeCdata)
         {
             XslCompiledTransform xslCompiledTransform;
             XmlReader xmlReader = null;
@@ -137,7 +137,7 @@ namespace SwqlStudio.XmlRender
                 if (escapeCdata)
                 {
                     string xml = xmlToRender.OuterXml.Replace("<![CDATA[", "&lt;![CDATA[").Replace("]]>", "]]&gt;");
-                    xml = Regex.Replace(xml,@"(&lt;!\[CDATA\[[^\]]*)(<)([^\]]*\]\]&gt;)","$1&lt;$3");
+                    xml = Regex.Replace(xml, @"(&lt;!\[CDATA\[[^\]]*)(<)([^\]]*\]\]&gt;)", "$1&lt;$3");
                     xml = Regex.Replace(xml, @"(&lt;!\[CDATA\[[^\]]*)(>)([^\]]*\]\]&gt;)", "$1&gt;$3");
                     xmlToRender.LoadXml(xml);
                 }

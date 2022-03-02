@@ -1,44 +1,52 @@
 ﻿using System;
+using System.Linq;
 using System.Windows.Forms;
+using SolarWinds.InformationService.Contract2;
 using SwqlStudio.Subscriptions;
 
 namespace SwqlStudio
 {
     public partial class ActivityMonitorTab : TabTemplate, IConnectionTab
     {
+        private readonly IApplicationService applicationService;
+
         private string subscriptionId;
         private bool connectionSet;
-
+        private bool pause;
         public SubscriptionManager SubscriptionManager { get; set; }
 
-        public override bool AllowsChangeConnection => !this.connectionSet;
+        public override bool AllowsChangeConnection => !connectionSet;
 
         public override ConnectionInfo ConnectionInfo
         {
             set
             {
                 base.ConnectionInfo = value;
-                this.connectionSet = true;
+                connectionSet = true;
+
+                RefreshSelectedItem();
             }
         }
 
-        public ActivityMonitorTab()
+        public ActivityMonitorTab(IApplicationService applicationService)
         {
+            this.applicationService = applicationService ?? throw new ArgumentNullException(nameof(applicationService));
+
             InitializeComponent();
             Disposed += ActivityMonitorTabDisposed;
         }
 
-        void ActivityMonitorTabDisposed(object sender, EventArgs e)
+        private void ActivityMonitorTabDisposed(object sender, EventArgs e)
         {
-            if (!String.IsNullOrEmpty(subscriptionId) && ConnectionInfo.IsConnected)
+            if (!string.IsNullOrEmpty(subscriptionId) && ConnectionInfo.IsConnected)
             {
-                this.SubscriptionManager.Unsubscribe(ConnectionInfo, subscriptionId, SubscriptionIndicationReceived);
+                SubscriptionManager.Unsubscribe(ConnectionInfo, subscriptionId, SubscriptionIndicationReceived);
             }
         }
 
         private void SubscriptionIndicationReceived(IndicationEventArgs e)
         {
-            if (this.IsDisposed)
+            if (IsDisposed)
                 return;
 
             BeginInvoke(new Action<IndicationEventArgs>(AddIndication), e);
@@ -46,6 +54,10 @@ namespace SwqlStudio
 
         private void AddIndication(IndicationEventArgs obj)
         {
+            if (pause)
+                return;
+
+
             var item = new ListViewItem(new[]
                                             {
                                                 ((DateTime)obj.IndicationProperties["IndicationTime"]).ToLongTimeString(),
@@ -53,8 +65,11 @@ namespace SwqlStudio
                                                 (string)obj.IndicationProperties["Parameters"],
                                                 string.Format("{0} ms", obj.IndicationProperties["ExecutionTimeMS"])
                                             });
+            item.Tag = obj;
+
             listView1.Items.Add(item);
             item.EnsureVisible();
+
         }
 
         public void Start()
@@ -69,7 +84,7 @@ namespace SwqlStudio
             backgroundWorker1.ReportProgress(0, "Starting subscription...");
             try
             {
-                subscriptionId = this.SubscriptionManager
+                subscriptionId = SubscriptionManager
                     .CreateSubscription(ConnectionInfo, "SUBSCRIBE System.QueryExecuted", SubscriptionIndicationReceived);
                 backgroundWorker1.ReportProgress(0, "Waiting for notifications");
             }
@@ -111,6 +126,35 @@ namespace SwqlStudio
         private void ClearContent(object sender, EventArgs e)
         {
             listView1.Items.Clear();
+            RefreshSelectedItem();
+        }
+
+        private void Pause(object sender, EventArgs e)
+        {
+            pause = !pause;
+            toolStripButtonPause.Image = pause ? Properties.Resources.Run_16x : Properties.Resources.Pause_16x;
+            toolStripButtonPause.Text = pause ? "Run" : "Pause";
+        }
+
+        private void listView1_ItemSelectionChanged(object sender, ListViewItemSelectionChangedEventArgs e)
+        {
+            RefreshSelectedItem();
+        }
+
+        private void RefreshSelectedItem()
+        {
+            var selected = listView1.SelectedItems.Cast<ListViewItem>().FirstOrDefault();
+            if (selected == null)
+            {
+                applicationService.QueryParameters = new PropertyBag();
+            }
+            else
+            {
+                var indication = (IndicationEventArgs)selected.Tag;
+
+                applicationService.QueryParameters = indication?.IndicationProperties ?? new PropertyBag();
+
+            }
         }
     }
 }

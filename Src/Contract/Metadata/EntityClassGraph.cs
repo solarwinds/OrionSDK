@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
+﻿using System.Collections.Generic;
 using System.Data.Common;
 using System.Linq;
-using System.Text;
 
 namespace SolarWinds.InformationService.InformationServiceClient
 {
@@ -21,33 +18,6 @@ namespace SolarWinds.InformationService.InformationServiceClient
                 //Enumerate the rows.
                 LoadRows(dataReader);
             }
-        }
-
-        /// <summary>
-        /// Added for unit tests.
-        /// </summary>
-        /// <param name="dbDataReader"></param>
-        internal EntityClassGraph(DbDataReader dbDataReader)
-        {
-            LoadRows(dbDataReader);
-        }
-
-
-
-        public bool TryGetEntity(string fullName, out EntityMetadata entity)
-        {
-            return _entities.TryGetValue(fullName, out entity);
-        }
-
-        public IEnumerable<EntityMetadata> DescendantsOf(string fullName)
-        {
-            EntityMetadata entity;
-            if (!TryGetEntity(fullName, out entity))
-            {
-                throw new ArgumentException("There is no entity with a full name of " + fullName, "fullName");
-            }
-
-            return entity.Descendants;
         }
 
         /// <summary>

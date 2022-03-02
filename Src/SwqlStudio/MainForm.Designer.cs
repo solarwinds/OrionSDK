@@ -72,10 +72,10 @@
             this.enableAutocompleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.discoverQueryParametersMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.promptToSaveOnCloseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.showObsoleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutSWQLStudioToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
-            this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
             this.fontDialog = new System.Windows.Forms.FontDialog();
             this.filesDock = new SwqlStudio.QueriesDockPanel();
             this.startTimer = new System.Windows.Forms.Timer(this.components);
@@ -93,7 +93,7 @@
             this.newFileToolButton = new System.Windows.Forms.ToolStripButton();
             this.openFileButton = new System.Windows.Forms.ToolStripButton();
             this.saveToolButton = new System.Windows.Forms.ToolStripButton();
-            this.showObsoleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.modifiedEditors1 = new SwqlStudio.ModifiedEditors();
             toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.menu.SuspendLayout();
             this.mainToolbar.SuspendLayout();
@@ -102,12 +102,12 @@
             // toolStripSeparator1
             // 
             toolStripSeparator1.Name = "toolStripSeparator1";
-            toolStripSeparator1.Size = new System.Drawing.Size(216, 6);
+            toolStripSeparator1.Size = new System.Drawing.Size(215, 6);
             // 
             // separatorAboveNotificationListenerActive
             // 
             this.separatorAboveNotificationListenerActive.Name = "separatorAboveNotificationListenerActive";
-            this.separatorAboveNotificationListenerActive.Size = new System.Drawing.Size(216, 6);
+            this.separatorAboveNotificationListenerActive.Size = new System.Drawing.Size(215, 6);
             // 
             // menu
             // 
@@ -148,7 +148,7 @@
             this.menuFileNew.Image = global::SwqlStudio.Properties.Resources.ConnectFilled_16x;
             this.menuFileNew.Name = "menuFileNew";
             this.menuFileNew.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.N)));
-            this.menuFileNew.Size = new System.Drawing.Size(219, 22);
+            this.menuFileNew.Size = new System.Drawing.Size(218, 22);
             this.menuFileNew.Text = "&New Connection...";
             this.menuFileNew.Click += new System.EventHandler(this.menuFileNew_Click);
             // 
@@ -157,7 +157,7 @@
             this.menuFileTabPage.Image = global::SwqlStudio.Properties.Resources.NewFile_16x;
             this.menuFileTabPage.Name = "menuFileTabPage";
             this.menuFileTabPage.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.T)));
-            this.menuFileTabPage.Size = new System.Drawing.Size(219, 22);
+            this.menuFileTabPage.Size = new System.Drawing.Size(218, 22);
             this.menuFileTabPage.Text = "New Query &Tab";
             this.menuFileTabPage.Click += new System.EventHandler(this.menuFileTabPage_Click);
             // 
@@ -166,7 +166,7 @@
             this.menuFileOpen.Image = global::SwqlStudio.Properties.Resources.OpenFolder_16x;
             this.menuFileOpen.Name = "menuFileOpen";
             this.menuFileOpen.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
-            this.menuFileOpen.Size = new System.Drawing.Size(219, 22);
+            this.menuFileOpen.Size = new System.Drawing.Size(218, 22);
             this.menuFileOpen.Text = "&Open File...";
             this.menuFileOpen.Click += new System.EventHandler(this.menuFileOpen_Click);
             // 
@@ -175,7 +175,7 @@
             this.menuFileSave.Image = global::SwqlStudio.Properties.Resources.Save_16x;
             this.menuFileSave.Name = "menuFileSave";
             this.menuFileSave.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
-            this.menuFileSave.Size = new System.Drawing.Size(219, 22);
+            this.menuFileSave.Size = new System.Drawing.Size(218, 22);
             this.menuFileSave.Text = "&Save";
             this.menuFileSave.Click += new System.EventHandler(this.menuFileSave_Click);
             // 
@@ -183,7 +183,7 @@
             // 
             this.menuFileSaveAs.Name = "menuFileSaveAs";
             this.menuFileSaveAs.ShortcutKeys = System.Windows.Forms.Keys.F12;
-            this.menuFileSaveAs.Size = new System.Drawing.Size(219, 22);
+            this.menuFileSaveAs.Size = new System.Drawing.Size(218, 22);
             this.menuFileSaveAs.Text = "Save &As...";
             this.menuFileSaveAs.Click += new System.EventHandler(this.menuFileSaveAs_Click);
             // 
@@ -192,7 +192,7 @@
             this.menuFileClose.Name = "menuFileClose";
             this.menuFileClose.ShortcutKeyDisplayString = "Ctrl+W, Ctrl+F4";
             this.menuFileClose.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.W)));
-            this.menuFileClose.Size = new System.Drawing.Size(219, 22);
+            this.menuFileClose.Size = new System.Drawing.Size(218, 22);
             this.menuFileClose.Text = "&Close";
             this.menuFileClose.Click += new System.EventHandler(this.menuFileClose_Click);
             // 
@@ -200,7 +200,7 @@
             // 
             this.menuFileClose2.Name = "menuFileClose2";
             this.menuFileClose2.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.F4)));
-            this.menuFileClose2.Size = new System.Drawing.Size(219, 22);
+            this.menuFileClose2.Size = new System.Drawing.Size(218, 22);
             this.menuFileClose2.Text = "Close";
             this.menuFileClose2.Visible = false;
             this.menuFileClose2.Click += new System.EventHandler(this.menuFileClose_Click);
@@ -210,14 +210,14 @@
             this.menuNotificationListenerActive.Checked = true;
             this.menuNotificationListenerActive.CheckState = System.Windows.Forms.CheckState.Checked;
             this.menuNotificationListenerActive.Name = "menuNotificationListenerActive";
-            this.menuNotificationListenerActive.Size = new System.Drawing.Size(219, 22);
+            this.menuNotificationListenerActive.Size = new System.Drawing.Size(218, 22);
             this.menuNotificationListenerActive.Text = "Notification Listener Active";
             this.menuNotificationListenerActive.Click += new System.EventHandler(this.menuNotificationListenerActive_Click);
             // 
             // menuFileExit
             // 
             this.menuFileExit.Name = "menuFileExit";
-            this.menuFileExit.Size = new System.Drawing.Size(219, 22);
+            this.menuFileExit.Size = new System.Drawing.Size(218, 22);
             this.menuFileExit.Text = "&Exit";
             this.menuFileExit.Click += new System.EventHandler(this.menuFileExit_Click);
             // 
@@ -226,7 +226,7 @@
             this.searchInTreeHotKeyToolStripMenuItem.Name = "searchInTreeHotKeyToolStripMenuItem";
             this.searchInTreeHotKeyToolStripMenuItem.ShortcutKeyDisplayString = "Ctrl+\\";
             this.searchInTreeHotKeyToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Oem5)));
-            this.searchInTreeHotKeyToolStripMenuItem.Size = new System.Drawing.Size(219, 22);
+            this.searchInTreeHotKeyToolStripMenuItem.Size = new System.Drawing.Size(218, 22);
             this.searchInTreeHotKeyToolStripMenuItem.Text = "SearchInTreeHotKey";
             this.searchInTreeHotKeyToolStripMenuItem.Visible = false;
             this.searchInTreeHotKeyToolStripMenuItem.Click += new System.EventHandler(this.searchInTreeHotKeyToolStripMenuItem_Click);
@@ -297,7 +297,7 @@
             // 
             this.menuEditCut.Image = ((System.Drawing.Image)(resources.GetObject("menuEditCut.Image")));
             this.menuEditCut.Name = "menuEditCut";
-            this.menuEditCut.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.X)));
+            this.menuEditCut.ShortcutKeyDisplayString = "Ctrl+X";
             this.menuEditCut.Size = new System.Drawing.Size(158, 22);
             this.menuEditCut.Text = "Cu&t";
             this.menuEditCut.Click += new System.EventHandler(this.menuEditCut_Click);
@@ -306,7 +306,7 @@
             // 
             this.menuEditCopy.Image = global::SwqlStudio.Properties.Resources.ASX_Copy_blue_16x;
             this.menuEditCopy.Name = "menuEditCopy";
-            this.menuEditCopy.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.C)));
+            this.menuEditCopy.ShortcutKeyDisplayString = "Ctrl+C";
             this.menuEditCopy.Size = new System.Drawing.Size(158, 22);
             this.menuEditCopy.Text = "&Copy";
             this.menuEditCopy.Click += new System.EventHandler(this.menuEditCopy_Click);
@@ -315,7 +315,7 @@
             // 
             this.menuEditPaste.Image = global::SwqlStudio.Properties.Resources.ASX_Paste_blue_16x;
             this.menuEditPaste.Name = "menuEditPaste";
-            this.menuEditPaste.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.V)));
+            this.menuEditPaste.ShortcutKeyDisplayString = "Ctrl+V";
             this.menuEditPaste.Size = new System.Drawing.Size(158, 22);
             this.menuEditPaste.Text = "&Paste";
             this.menuEditPaste.Click += new System.EventHandler(this.menuEditPaste_Click);
@@ -472,6 +472,13 @@
             this.promptToSaveOnCloseToolStripMenuItem.Text = "Prompt to save on close";
             this.promptToSaveOnCloseToolStripMenuItem.Click += new System.EventHandler(this.promptToSaveOnCloseToolStripMenuItem_Click);
             // 
+            // showObsoleteToolStripMenuItem
+            // 
+            this.showObsoleteToolStripMenuItem.Name = "showObsoleteToolStripMenuItem";
+            this.showObsoleteToolStripMenuItem.Size = new System.Drawing.Size(214, 22);
+            this.showObsoleteToolStripMenuItem.Text = "Show Obsolete";
+            this.showObsoleteToolStripMenuItem.Click += new System.EventHandler(this.showObsoleteToolStripMenuItem_Click);
+            // 
             // helpToolStripMenuItem
             // 
             this.helpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -486,10 +493,6 @@
             this.aboutSWQLStudioToolStripMenuItem.Size = new System.Drawing.Size(179, 22);
             this.aboutSWQLStudioToolStripMenuItem.Text = "About SWQL Studio";
             this.aboutSWQLStudioToolStripMenuItem.Click += new System.EventHandler(this.aboutSWQLStudioToolStripMenuItem_Click);
-            // 
-            // openFileDialog
-            // 
-            this.openFileDialog.FileName = "openFileDialog1";
             // 
             // filesDock
             // 
@@ -642,21 +645,14 @@
             this.saveToolButton.ToolTipText = "Save (Ctrl+S)";
             this.saveToolButton.Click += new System.EventHandler(this.menuFileSave_Click);
             // 
-            // showObsoleteToolStripMenuItem
-            // 
-            this.showObsoleteToolStripMenuItem.Name = "showObsoleteToolStripMenuItem";
-            this.showObsoleteToolStripMenuItem.Size = new System.Drawing.Size(214, 22);
-            this.showObsoleteToolStripMenuItem.Text = "Show Obsolete";
-            this.showObsoleteToolStripMenuItem.Click += new System.EventHandler(this.showObsoleteToolStripMenuItem_Click);
-            // 
             // MainForm
             // 
             this.AllowDrop = true;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(827, 595);
-            this.Controls.Add(this.mainToolbar);
             this.Controls.Add(this.filesDock);
+            this.Controls.Add(this.mainToolbar);
             this.Controls.Add(this.menu);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.IsMdiContainer = true;
@@ -686,7 +682,6 @@
         private System.Windows.Forms.ToolStripMenuItem menuFileSaveAs;
         private System.Windows.Forms.ToolStripMenuItem menuFileClose;
         private System.Windows.Forms.OpenFileDialog openFileDialog;
-        private System.Windows.Forms.SaveFileDialog saveFileDialog;
         private System.Windows.Forms.FontDialog fontDialog;
         private System.Windows.Forms.ToolStripMenuItem editToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem menuEditCut;
@@ -740,6 +735,7 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator6;
         private System.Windows.Forms.ToolStripMenuItem replaceToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem showObsoleteToolStripMenuItem;
+        private ModifiedEditors modifiedEditors1;
     }
 }
 

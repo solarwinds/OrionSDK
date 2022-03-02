@@ -1,13 +1,11 @@
 using System.ServiceModel;
 using System.ServiceModel.Channels;
 using System.Xml;
-using SolarWinds.InformationService.Contract2.Impersonation;
 using SolarWinds.InformationService.Contract2.Internationalization;
 
 namespace SolarWinds.InformationService.Contract2
 {
     [ServiceContract(Name = "InformationService", Namespace = "http://schemas.solarwinds.com/2007/08/informationservice")]
-    [Impersonation]
     [I18nHeader]
     [SwisSettings]
     [SwisProtocolVersion]
@@ -15,11 +13,11 @@ namespace SolarWinds.InformationService.Contract2
     {
         [OperationContract(
             Name = "Invoke",
-            Action = "http://schemas.solarwinds.com/2007/08/informationservice/InformationService/Invoke", 
+            Action = "http://schemas.solarwinds.com/2007/08/informationservice/InformationService/Invoke",
             ReplyAction = "http://schemas.solarwinds.com/2007/08/informationservice/InformationService/InvokeResponse")]
         [FaultContract(
-            typeof(InfoServiceFaultContract), 
-            Action = "http://schemas.solarwinds.com/2007/08/informationservice/InformationService/InvokeInfoServiceFaultContractFault", 
+            typeof(InfoServiceFaultContract),
+            Action = "http://schemas.solarwinds.com/2007/08/informationservice/InformationService/InvokeInfoServiceFaultContractFault",
             Name = "InformationServiceFaultContract")]
         XmlElement Invoke(string entity, string verb, params XmlElement[] parameters);
 
@@ -88,10 +86,6 @@ namespace SolarWinds.InformationService.Contract2
             Action = "http://schemas.solarwinds.com/2007/08/informationservice/InformationService/BulkDeleteInfoServiceFaultContractFault",
             Name = "InformationServiceFaultContract")]
         void BulkDelete(string[] uris);
-    }
-
-    public interface IInformationServiceChannel : IInformationService, IClientChannel
-    {
     }
 
     [System.Diagnostics.DebuggerStepThrough]

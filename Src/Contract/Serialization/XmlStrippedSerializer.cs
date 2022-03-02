@@ -3,9 +3,9 @@
 //   //depot/Dev/Main/Platform/InformationService/Src/InformationService/Core/Serialization/XmlStrippedSerializer.cs
 
 using System;
-using System.Xml.Serialization;
-using System.Xml;
 using System.IO;
+using System.Xml;
+using System.Xml.Serialization;
 using System.Xml.XPath;
 
 namespace SolarWinds.InformationService.Contract2.Serialization
@@ -22,60 +22,34 @@ namespace SolarWinds.InformationService.Contract2.Serialization
     ///         <string>Karen</string><string>Caleb</string><string>Rachel</string><string>Morgen</string><string>Katy</string>
     /// 
     /// </summary>
-    class XmlStrippedSerializer
+    internal class XmlStrippedSerializer
     {
-        private readonly XmlSerializer _serializer;
-        private readonly string _xsdElementName;
-        private readonly string _ns;
-        private readonly Type _type;
-
         public XmlStrippedSerializer(XmlSerializer serializer, string xsdElementName, string ns, Type type)
         {
-            _serializer = serializer;
-            _xsdElementName = xsdElementName;
-            _ns = ns;
-            _type = type;
+            Serializer = serializer;
+            XsdElementName = xsdElementName;
+            Namespace = ns;
+            Type = type;
         }
 
-        public XmlSerializer Serializer
-        {
-            get
-            {
-                return _serializer;
-            }
-        }
+        public XmlSerializer Serializer { get; }
 
         //XML element name of the mapped object
-        public string XsdElementName
-        {
-            get
-            {
-                return _xsdElementName;
-            }
-        }
+        public string XsdElementName { get; }
 
-        public string Namespace
-        {
-            get { return _ns; }
-        }
+        public string Namespace { get; }
 
         /// <summary>
         /// The System.Type that this serializer knows how to serialize.
         /// </summary>
-        public Type Type
-        {
-            get
-            {
-                return _type;
-            }
-        }
+        public Type Type { get; }
 
         public string SerializeToStrippedXml(object value)
         {
             if (value == null)
-                throw new ArgumentNullException("value");
+                throw new ArgumentNullException(nameof(value));
 
-            if (value.GetType() != _type)
+            if (value.GetType() != Type)
                 throw new ArgumentException("The value argument must be of the System.Type that the serializer knows how to serialize");
 
             XmlDocument xmlDocument = new XmlDocument();
@@ -96,7 +70,7 @@ namespace SolarWinds.InformationService.Contract2.Serialization
         {
             //Deserializing an empty string is okay, but not a null string
             if (strippedXml == null)
-                throw new ArgumentNullException("strippedXml");
+                throw new ArgumentNullException(nameof(strippedXml));
 
             string xml = string.Format("<{0} xmlns='{1}'>{2}</{0}>", XsdElementName, Namespace, strippedXml);
 

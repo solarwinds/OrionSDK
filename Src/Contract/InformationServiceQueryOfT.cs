@@ -6,8 +6,6 @@ namespace SolarWinds.InformationService.Contract2
 {
     public class InformationServiceQuery<T> : InformationServiceQuery, IEnumerable<T> where T : new()
     {
-        public const string EntityCollectionResponseParserType = "EntityCollectionResponseParser";
-
         private readonly Type type = typeof(T);
         private readonly IResponseParser<T> parser;
 
@@ -16,7 +14,7 @@ namespace SolarWinds.InformationService.Contract2
         {
         }
 
-        public InformationServiceQuery(InformationServiceContext context, string query, PropertyBag parameters) 
+        public InformationServiceQuery(InformationServiceContext context, string query, PropertyBag parameters)
             : base(context, query, parameters)
         {
             object[] attributes = type.GetCustomAttributes(typeof(InformationServiceEntityAttribute), false);
@@ -24,11 +22,11 @@ namespace SolarWinds.InformationService.Contract2
             if (attributes.Length > 0)
             {
                 InformationServiceEntityAttribute entityAttribute = attributes[0] as InformationServiceEntityAttribute;
-                this.parser = entityAttribute != null ? this.ChooseResponseParser(entityAttribute.ParserType) : new ResponseParser<T>();
+                parser = entityAttribute != null ? ChooseResponseParser(entityAttribute.ParserType) : new ResponseParser<T>();
             }
             else
             {
-                this.parser = new ResponseParser<T>();
+                parser = new ResponseParser<T>();
             }
         }
 

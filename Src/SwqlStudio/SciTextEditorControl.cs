@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Drawing;
+using System.Linq;
 using System.Windows.Forms;
 using ScintillaNET;
-using System.Linq;
 using SwqlStudio.Metadata;
 using SwqlStudio.Properties;
 
@@ -12,6 +12,10 @@ namespace SwqlStudio
     {
         private ContextMenuStrip editorContextMenu;
 
+        string ILexerDataSource.Text => Text;
+        public string FileName { get; set; }
+        public LexerService LexerService { get; }
+
         public SciTextEditorControl()
         {
             Lexer = Lexer.Sql;
@@ -20,7 +24,7 @@ namespace SwqlStudio
             StyleResetDefault();
             Styles[Style.Default].Font = "Consolas";
             Styles[Style.Default].Size = 10;
-            
+
             StyleClearAll(); // Propagates the settings from Style.Default to all language-specific lexer styles
 
             // TODO: wait for newest nuget package, it will ocntains this method!!!
@@ -81,7 +85,7 @@ namespace SwqlStudio
 
             // Keyword user-list 1 style index. (scalar functions)
             Styles[Style.Sql.User1].ForeColor = Color.Fuchsia;
-            
+
             // Keyword user-list 2 style index. (aggregate functions)
             Styles[Style.Sql.User2].ForeColor = Color.Salmon;
 
@@ -102,40 +106,40 @@ namespace SwqlStudio
 
         private void InitializeCustomContextMenu()
         {
-            this.editorContextMenu = new ContextMenuStrip();
-            this.editorContextMenu.SuspendLayout();
-            
+            editorContextMenu = new ContextMenuStrip();
+            editorContextMenu.SuspendLayout();
+
             ToolStripMenuItem undoMenuItem = new ToolStripMenuItem();
             undoMenuItem.Text = "Undo";
             undoMenuItem.Image = Resources.Undo_16x;
             undoMenuItem.ShortcutKeys = Keys.Control | Keys.Z;
-            undoMenuItem.Click += new EventHandler(this.UndoMenuClick);
-            
+            undoMenuItem.Click += new EventHandler(UndoMenuClick);
+
             ToolStripMenuItem redoMenuItem = new ToolStripMenuItem();
             redoMenuItem.Text = "Redo";
             redoMenuItem.Image = Resources.Redo_16x;
             redoMenuItem.ShortcutKeys = Keys.Control | Keys.Y;
-            redoMenuItem.Click += new EventHandler(this.RedodoMenuClick);
-            
+            redoMenuItem.Click += new EventHandler(RedodoMenuClick);
+
             ToolStripMenuItem cutMenuItem = new ToolStripMenuItem();
             cutMenuItem.Text = "Cut";
             cutMenuItem.Image = Resources.Cut_16x;
             cutMenuItem.ShortcutKeys = Keys.Control | Keys.X;
-            cutMenuItem.Click += new EventHandler(this.CutMenuClick);
-            
+            cutMenuItem.Click += new EventHandler(CutMenuClick);
+
             ToolStripMenuItem copyMenuItem = new ToolStripMenuItem();
             copyMenuItem.Text = "Copy";
             copyMenuItem.Image = Resources.ASX_Copy_blue_16x;
             copyMenuItem.ShortcutKeys = Keys.Control | Keys.C;
-            copyMenuItem.Click += new EventHandler(this.CopyMenuClick);
-            
+            copyMenuItem.Click += new EventHandler(CopyMenuClick);
+
             ToolStripMenuItem pasteMenuItem = new ToolStripMenuItem();
             pasteMenuItem.Text = "Paste";
             pasteMenuItem.Image = Resources.ASX_Paste_blue_16x;
             pasteMenuItem.ShortcutKeys = Keys.Control | Keys.V;
-            pasteMenuItem.Click += new EventHandler(this.PasteMenuClick);
+            pasteMenuItem.Click += new EventHandler(PasteMenuClick);
 
-            this.editorContextMenu.Items.AddRange(new ToolStripItem[]
+            editorContextMenu.Items.AddRange(new ToolStripItem[]
             {
                 undoMenuItem,
                 redoMenuItem,
@@ -143,33 +147,33 @@ namespace SwqlStudio
                 copyMenuItem,
                 pasteMenuItem
             });
-            this.ContextMenuStrip = this.editorContextMenu;
-            this.editorContextMenu.ResumeLayout(false);
+            ContextMenuStrip = editorContextMenu;
+            editorContextMenu.ResumeLayout(false);
         }
 
         private void PasteMenuClick(object sender, EventArgs e)
         {
-            this.Paste();
+            Paste();
         }
 
-        private void CopyMenuClick(object sender, EventArgs e)
+        public void CopyMenuClick(object sender, EventArgs e)
         {
-            this.Copy();
+            Copy(CopyFormat.Text | CopyFormat.Rtf | CopyFormat.Html);
         }
 
         private void CutMenuClick(object sender, EventArgs e)
         {
-            this.Cut();
+            Cut();
         }
 
         private void RedodoMenuClick(object sender, EventArgs e)
         {
-            this.Redo();
+            Redo();
         }
 
         private void UndoMenuClick(object sender, EventArgs e)
         {
-            this.Undo();
+            Undo();
         }
 
         public void SetMetadata(IMetadataProvider provider)
@@ -188,21 +192,17 @@ namespace SwqlStudio
 
         protected override void OnKeyPress(KeyPressEventArgs e)
         {
-            if (e.KeyChar == 5)
+            if (Control.ModifierKeys == Keys.Control && e.KeyChar == (char)Keys.Space)
             {
+                var currentPos = CurrentPosition;
+                var wordStartPos = WordStartPosition(currentPos, true);
+                var lenEntered = currentPos - wordStartPos;
+                this.DisplayAutocomplete(currentPos, lenEntered);
                 e.Handled = true;
-                if (Execute != null)
-                    Execute();
             }
-            else
-                base.OnKeyPress(e);
+
+            base.OnKeyPress(e);
         }
-
-        public string FileName { get; set; }
-
-        public LexerService LexerService { get; }
-
-        public event Action Execute;
 
         protected override void OnCharAdded(CharAddedEventArgs e)
         {
@@ -211,24 +211,28 @@ namespace SwqlStudio
             if (!Settings.Default.AutocompleteEnabled)
                 return;
 
-            // Find the word start
-            var currentPos = this.CurrentPosition;
-            var wordStartPos = this.WordStartPosition(currentPos, true);
+            var currentPos = CurrentPosition;
+            var wordStartPos = WordStartPosition(currentPos, true);
 
             var lenEntered = currentPos - wordStartPos;
             if (lenEntered <= 0 && e.Char != '.')
                 return;
 
-            var currentWord = this.GetWordFromPosition(wordStartPos) ?? "";
-            
-
-            // Display the autocompletion list
-            var keywords = string.Join(" ", LexerService.GetAutoCompletionKeywords(currentPos).
-                Where(x => x.StartsWith(currentWord, StringComparison.OrdinalIgnoreCase)).OrderBy(x => x));
-            this.AutoCShow(lenEntered, keywords);
+            this.DisplayAutocomplete(currentPos, lenEntered);
         }
 
-        string ILexerDataSource.Text => this.Text;
+        private void DisplayAutocomplete(int currentPos, int lenEntered)
+        {
+            var wordStartPos = WordStartPosition(currentPos, true);
+            var currentWord = GetWordFromPosition(wordStartPos) ?? string.Empty;
+
+            var source = LexerService.GetAutoCompletionKeywords(currentPos)
+                .Where(x => x.StartsWith(currentWord, StringComparison.OrdinalIgnoreCase))
+                .OrderBy(x => x);
+
+            var keywords = string.Join(" ", source);
+            this.AutoCShow(lenEntered, keywords);
+        }
 
         protected override void Dispose(bool disposing)
         {

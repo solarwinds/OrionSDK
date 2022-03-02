@@ -1,12 +1,8 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Text;
 using System.Windows.Forms;
-using SwqlStudio.Filtering;
-using SwqlStudio.Metadata;
 
 namespace SwqlStudio
 {
@@ -24,8 +20,8 @@ namespace SwqlStudio
         {
             var bindings = new TreeNodeBindings();
             display.Nodes.Clear();
-            CopyTree(data.Nodes, display.Nodes, bindings, 
-                filter ?? (_ => true), 
+            CopyTree(data.Nodes, display.Nodes, bindings,
+                filter ?? (_ => true),
                 updateAction ?? ((dataNode, displayNode) => { }));
             return bindings;
         }
@@ -39,12 +35,12 @@ namespace SwqlStudio
 
                 TreeNode newNode;
                 if (node is TreeNodeWithConnectionInfo)
-                    newNode = ((TreeNodeWithConnectionInfo) node).CloneShallow();
+                    newNode = ((TreeNodeWithConnectionInfo)node).CloneShallow();
                 else
                 {
                     newNode = CloneShallow(node);
                 }
-                
+
                 target.Add(newNode);
                 bindings.BindNodes(node, newNode);
                 CopyTree(node.Nodes, newNode.Nodes, bindings, filter, updateAction);
@@ -140,7 +136,7 @@ namespace SwqlStudio
 
         private static void IterateNodes(TreeNodeCollection nodes, Action<TreeNode> action)
         {
-            foreach(TreeNode node in nodes)
+            foreach (TreeNode node in nodes)
             {
                 action(node);
                 IterateNodes(node.Nodes, action);

@@ -2,7 +2,6 @@
 using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
-using SwqlStudio.Properties;
 using SwqlStudio.Utils;
 
 namespace SwqlStudio

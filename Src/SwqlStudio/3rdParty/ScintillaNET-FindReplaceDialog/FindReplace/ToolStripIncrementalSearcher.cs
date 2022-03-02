@@ -1,9 +1,7 @@
 #region Using Directives
 
-using ScintillaNET;
-using ScintillaNET_FindReplaceDialog;
-using System;
 using System.Windows.Forms;
+using ScintillaNET;
 
 #endregion Using Directives
 

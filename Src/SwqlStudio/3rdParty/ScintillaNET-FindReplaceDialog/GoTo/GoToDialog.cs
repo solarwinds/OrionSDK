@@ -1,9 +1,9 @@
 ﻿#region Using Directives
 
-using ScintillaNET;
 using System;
 using System.Drawing;
 using System.Windows.Forms;
+using ScintillaNET;
 
 #endregion Using Directives
 
@@ -34,7 +34,7 @@ namespace ScintillaNET_FindReplaceDialog
                 {
                     _scintilla.Lines[_gotoLineNumber].Goto();
                     //Line(GotoLineNumber);
-                    this.Hide();
+                    Hide();
                     //DialogResult = DialogResult.OK;
                 }
             }

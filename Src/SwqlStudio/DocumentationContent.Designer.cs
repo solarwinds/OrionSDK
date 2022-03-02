@@ -1,4 +1,6 @@
-﻿namespace SwqlStudio
+﻿using SwqlStudio.Utils;
+
+namespace SwqlStudio
 {
     partial class DocumentationContent
     {
@@ -36,8 +38,8 @@
             // 
             this.itemTypeLabel.AutoSize = true;
             this.itemTypeLabel.Dock = System.Windows.Forms.DockStyle.Top;
-            this.itemTypeLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.itemTypeLabel.Location = new System.Drawing.Point(5, 5);
+            this.itemTypeLabel.Font = new System.Drawing.Font(DpiHelper.DefaultFont, System.Drawing.FontStyle.Bold);
+            this.itemTypeLabel.Location = new System.Drawing.Point(0, 0);
             this.itemTypeLabel.Name = "itemTypeLabel";
             this.itemTypeLabel.Padding = new System.Windows.Forms.Padding(3);
             this.itemTypeLabel.Size = new System.Drawing.Size(6, 19);
@@ -47,10 +49,10 @@
             // 
             this.docTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.docTextBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.docTextBox.Location = new System.Drawing.Point(5, 24);
+            this.docTextBox.Location = new System.Drawing.Point(0, 19);
             this.docTextBox.Name = "docTextBox";
             this.docTextBox.ReadOnly = true;
-            this.docTextBox.Size = new System.Drawing.Size(274, 232);
+            this.docTextBox.Size = new System.Drawing.Size(284, 242);
             this.docTextBox.TabIndex = 3;
             this.docTextBox.Text = "";
             // 
@@ -62,7 +64,6 @@
             this.Controls.Add(this.docTextBox);
             this.Controls.Add(this.itemTypeLabel);
             this.Name = "DocumentationContent";
-            this.Padding = new System.Windows.Forms.Padding(5);
             this.Text = "Documentation";
             this.ResumeLayout(false);
             this.PerformLayout();

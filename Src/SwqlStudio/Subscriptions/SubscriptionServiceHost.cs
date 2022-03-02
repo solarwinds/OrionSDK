@@ -17,7 +17,7 @@ using SolarWinds.Logging;
 
 namespace SwqlStudio.Subscriptions
 {
-    class SubscriptionServiceHost
+    internal class SubscriptionServiceHost
     {
         private readonly static Log log = new Log();
         private readonly List<ServiceHost> subscriberHosts = new List<ServiceHost>();
@@ -46,7 +46,7 @@ namespace SwqlStudio.Subscriptions
 
         public string GetAddressForBinding(Binding binding)
         {
-            if(binding.Scheme.Equals("net.tcp", StringComparison.OrdinalIgnoreCase))
+            if (binding.Scheme.Equals("net.tcp", StringComparison.OrdinalIgnoreCase))
                 return netTcpAddress + "/Subscriber";
 
             if (binding.Scheme.Equals("http", StringComparison.OrdinalIgnoreCase))
@@ -141,7 +141,7 @@ namespace SwqlStudio.Subscriptions
             ListenerOpened?.Invoke();
         }
 
-        void OnIndication(string subscriptionId, string indicationType, PropertyBag indicationProperties, PropertyBag sourceInstanceProperties)
+        private void OnIndication(string subscriptionId, string indicationType, PropertyBag indicationProperties, PropertyBag sourceInstanceProperties)
         {
             subscriber.OnIndication(subscriptionId, indicationType, indicationProperties, sourceInstanceProperties);
         }

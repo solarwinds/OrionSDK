@@ -6,7 +6,7 @@ using SwqlStudio.Properties;
 
 namespace SwqlStudio
 {
-    class JavaHttpInfoService : InfoServiceBase
+    internal class JavaHttpInfoService : InfoServiceBase
     {
         public JavaHttpInfoService(string username, string password)
         {
@@ -25,7 +25,7 @@ namespace SwqlStudio
         {
             get { return "Java over HTTP"; }
         }
-        
+
         public override Uri Uri(string serverAddress)
         {
             Uri resultUri;

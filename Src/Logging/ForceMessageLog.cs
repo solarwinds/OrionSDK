@@ -1,11 +1,11 @@
-﻿using log4net;
+﻿using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using log4net;
 using log4net.Appender;
 using log4net.Core;
 using log4net.Layout;
 using log4net.Repository.Hierarchy;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 
 namespace SolarWinds.Logging
 {
@@ -16,9 +16,9 @@ namespace SolarWinds.Logging
     {
         private static readonly SimpleLayout _simpleLayout = new SimpleLayout();
 
-        class SimpleLayout : ILayout
+        private class SimpleLayout : ILayout
         {
-            private PatternLayout _layout = new PatternLayout("%message%newline");
+            private readonly PatternLayout _layout = new PatternLayout("%message%newline");
 
             public string ContentType { get { return "text/plain"; } }
 

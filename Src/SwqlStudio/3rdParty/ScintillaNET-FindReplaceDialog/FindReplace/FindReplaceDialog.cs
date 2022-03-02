@@ -1,20 +1,19 @@
 namespace ScintillaNET_FindReplaceDialog
 {
-    using ScintillaNET;
     using System;
     using System.Collections.Generic;
-    using System.Diagnostics;
     using System.Drawing;
     using System.Text.RegularExpressions;
     using System.Windows.Forms;
+    using ScintillaNET;
 
     public partial class FindReplaceDialog : Form
     {
         #region Fields
 
         private bool _autoPosition;
-        private BindingSource _bindingSourceFind = new BindingSource();
-        private BindingSource _bindingSourceReplace = new BindingSource();
+        private readonly BindingSource _bindingSourceFind = new BindingSource();
+        private readonly BindingSource _bindingSourceReplace = new BindingSource();
         private List<string> _mruFind;
         private int _mruMaxCount = 10;
         private List<string> _mruReplace;
@@ -31,6 +30,7 @@ namespace ScintillaNET_FindReplaceDialog
 
         public FindReplaceDialog()
         {
+            this.Font = new Font("Tahoma", 8.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
             InitializeComponent();
 
             _autoPosition = true;
@@ -312,9 +312,9 @@ namespace ScintillaNET_FindReplaceDialog
                 if (nextRange.cpMin > _scintilla.AnchorPosition)
                 {
                     if (chkSearchSelectionR.Checked)
-                        lblStatus.Text = "Search match wrapped to the beginning of the selection";
+                        lblStatus.Text = "Search match wrapped to the end of the selection";
                     else
-                        lblStatus.Text = "Search match wrapped to the beginning of the document";
+                        lblStatus.Text = "Search match wrapped to the end of the document";
                 }
 
                 _scintilla.SetSel(nextRange.cpMin, nextRange.cpMax);
@@ -433,7 +433,7 @@ namespace ScintillaNET_FindReplaceDialog
 
         private void rdoStandardF_CheckedChanged(object sender, EventArgs e)
         {
-            if (rdoStandardF.Checked)
+            if (rdoStandardF.Checked || rdoExtendedF.Checked)
                 pnlStandardOptionsF.BringToFront();
             else
                 pnlRegexpOptionsF.BringToFront();
@@ -443,7 +443,7 @@ namespace ScintillaNET_FindReplaceDialog
 
         private void rdoStandardR_CheckedChanged(object sender, EventArgs e)
         {
-            if (rdoStandardR.Checked)
+            if (rdoStandardR.Checked || rdoExtendedR.Checked)
                 pnlStandardOptionsR.BringToFront();
             else
                 pnlRegexpOptionsR.BringToFront();
@@ -514,6 +514,13 @@ namespace ScintillaNET_FindReplaceDialog
 
         #region Methods
 
+        private CharacterRange FindNext(bool searchUp)
+        {
+            return tabAll.SelectedTab == tpgFind
+                ? FindNextF(searchUp)
+                : FindNextR(searchUp, null);
+        }
+
         public void FindNext()
         {
             SyncSearchText();
@@ -528,7 +535,7 @@ namespace ScintillaNET_FindReplaceDialog
 
             try
             {
-                foundRange = FindNextF(false);
+                foundRange = FindNext(false);
             }
             catch (ArgumentException ex)
             {
@@ -567,7 +574,7 @@ namespace ScintillaNET_FindReplaceDialog
             CharacterRange foundRange;
             try
             {
-                foundRange = FindNextF(true);
+                foundRange = FindNext(true);
             }
             catch (ArgumentException ex)
             {
@@ -584,9 +591,9 @@ namespace ScintillaNET_FindReplaceDialog
                 if (foundRange.cpMin > Scintilla.CurrentPosition)
                 {
                     if (chkSearchSelectionF.Checked)
-                        lblStatus.Text = "Search match wrapped to the _end of the selection";
+                        lblStatus.Text = "Search match wrapped to the end of the selection";
                     else
-                        lblStatus.Text = "Search match wrapped to the _end of the document";
+                        lblStatus.Text = "Search match wrapped to the end of the document";
                 }
 
                 Scintilla.SetSel(foundRange.cpMin, foundRange.cpMax);
@@ -714,7 +721,7 @@ namespace ScintillaNET_FindReplaceDialog
                     int SCI_TEXTHEIGHT = 2279;
                     int lineHeight = Scintilla.DirectMessage(SCI_TEXTHEIGHT, IntPtr.Zero, IntPtr.Zero).ToInt32();
                     // int lineHeight = Scintilla.Lines[Scintilla.LineFromPosition(pos)].Height;
-                    
+
                     // Top half of the screen
                     newLocation = Scintilla.PointToClient(
                         new Point(Location.X, cursorPoint.Y + lineHeight * 2));
@@ -725,7 +732,7 @@ namespace ScintillaNET_FindReplaceDialog
                     int SCI_TEXTHEIGHT = 2279;
                     int lineHeight = Scintilla.DirectMessage(SCI_TEXTHEIGHT, IntPtr.Zero, IntPtr.Zero).ToInt32();
                     // int lineHeight = Scintilla.Lines[Scintilla.LineFromPosition(pos)].Height;
-                    
+
                     // Bottom half of the screen
                     newLocation = Scintilla.PointToClient(
                         new Point(Location.X, cursorPoint.Y - Height - (lineHeight * 2)));
@@ -876,8 +883,7 @@ namespace ScintillaNET_FindReplaceDialog
 
         private void contextMenuStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
         {
-            //Insert the string value held in the menu items Tag field (\t, \n, etc.)
-            txtFindF.SelectedText = e.ClickedItem.Tag.ToString();
+            AddSearchReplaceMacro(txtFindF, e);
         }
 
         private CharacterRange FindNextF(bool searchUp)
@@ -943,7 +949,7 @@ namespace ScintillaNET_FindReplaceDialog
             return foundRange;
         }
 
-        private CharacterRange FindNextR(bool searchUp, ref Regex rr)
+        private CharacterRange FindNextR(bool searchUp, Regex rr)
         {
             CharacterRange foundRange;
 
@@ -973,7 +979,7 @@ namespace ScintillaNET_FindReplaceDialog
             }
             else
             {
-                if (chkSearchSelectionF.Checked)
+                if (chkSearchSelectionR.Checked)
                 {
                     if (_searchRange.cpMin == _searchRange.cpMax)
                         _searchRange = new CharacterRange(_scintilla.Selections[0].Start, _scintilla.Selections[0].End);
@@ -995,12 +1001,12 @@ namespace ScintillaNET_FindReplaceDialog
                     if (searchUp)
                     {
                         string textToFind = rdoExtendedR.Checked ? FindReplace.Transform(txtFindR.Text) : txtFindR.Text;
-                        foundRange = FindReplace.FindPrevious(textToFind, chkWrapF.Checked, GetSearchFlags());
+                        foundRange = FindReplace.FindPrevious(textToFind, chkWrapR.Checked, GetSearchFlags());
                     }
                     else
                     {
                         string textToFind = rdoExtendedR.Checked ? FindReplace.Transform(txtFindR.Text) : txtFindR.Text;
-                        foundRange = FindReplace.FindNext(textToFind, chkWrapF.Checked, GetSearchFlags());
+                        foundRange = FindReplace.FindNext(textToFind, chkWrapR.Checked, GetSearchFlags());
                     }
                 }
             }
@@ -1009,63 +1015,50 @@ namespace ScintillaNET_FindReplaceDialog
 
         private void FindReplaceDialog_Activated(object sender, EventArgs e)
         {
-            this.Opacity = 1.0;
+            Opacity = 1.0;
         }
 
         private void FindReplaceDialog_Deactivate(object sender, EventArgs e)
         {
-            this.Opacity = 0.6;
+            Opacity = 0.6;
         }
 
         private void mnuRecentFindF_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
         {
-            //Insert the string value held in the menu items Tag field (\t, \n, etc.)
-            if (e.ClickedItem.Text == "Clear History")
-            {
-                MruFind.Clear();
-            }
-            else
-            {
-                txtFindF.Text = e.ClickedItem.Tag.ToString();
-            }
+            SetSearchReplaceTerm(txtFindF, MruFind, e);
         }
 
         private void mnuRecentFindR_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
         {
-            //Insert the string value held in the menu items Tag field (\t, \n, etc.)
-            if (e.ClickedItem.Text == "Clear History")
-            {
-                MruFind.Clear();
-            }
-            else
-            {
-                txtFindR.Text = e.ClickedItem.Tag.ToString();
-            }
+            SetSearchReplaceTerm(txtFindR, MruFind, e);
         }
 
         private void mnuRecentReplace_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
         {
+            SetSearchReplaceTerm(txtReplace, MruReplace, e);
+        }
+
+        private static void SetSearchReplaceTerm(TextBox targetTextBox, List<string> mru, ToolStripItemClickedEventArgs e)
+        {
             //Insert the string value held in the menu items Tag field (\t, \n, etc.)
             if (e.ClickedItem.Text == "Clear History")
             {
-                MruReplace.Clear();
+                mru.Clear();
             }
             else
             {
-                txtReplace.Text = e.ClickedItem.Tag.ToString();
+                targetTextBox.Text = e.ClickedItem.Tag.ToString();
             }
         }
 
         private void mnuExtendedCharFindR_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
         {
-            //Insert the string value held in the menu items Tag field (\t, \n, etc.)
-            txtFindR.SelectedText = e.ClickedItem.Tag.ToString();
+            AddSearchReplaceMacro(txtFindR, e);
         }
 
         private void mnuExtendedCharReplace_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
         {
-            //Insert the string value held in the menu items Tag field (\t, \n, etc.)
-            txtReplace.SelectedText = e.ClickedItem.Tag.ToString();
+            AddSearchReplaceMacro(txtReplace, e);
         }
 
         private CharacterRange ReplaceNext(bool searchUp)
@@ -1080,7 +1073,7 @@ namespace ScintillaNET_FindReplaceDialog
                 if (rdoRegexR.Checked)
                 {
                     rr = new Regex(txtFindR.Text, GetRegexOptions());
-                    string selRangeText = Scintilla.GetTextRange(selRange.cpMin, selRange.cpMax - selRange.cpMin + 1);
+                    string selRangeText = Scintilla.GetTextRange(selRange.cpMin, selRange.cpMax - selRange.cpMin);
 
                     if (selRange.Equals(FindReplace.Find(selRange, rr, false)))
                     {
@@ -1131,9 +1124,30 @@ namespace ScintillaNET_FindReplaceDialog
                     }
                 }
             }
-            return FindNextR(searchUp, ref rr);
+            return FindNextR(searchUp, rr);
         }
 
         #endregion Methods
+
+        private void mnuRegExCharFindF_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+            AddSearchReplaceMacro(txtFindF, e);
+        }
+
+        private void mnuRegExCharFindR_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+            AddSearchReplaceMacro(txtFindR, e);
+        }
+
+        private void mnuRegExCharReplace_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+            AddSearchReplaceMacro(txtReplace, e);
+        }
+
+        private static void AddSearchReplaceMacro(TextBox targetTextBox, ToolStripItemClickedEventArgs e)
+        {
+            //Insert the string value held in the menu items Tag field (\t, \n, etc.)
+            targetTextBox.SelectedText = e.ClickedItem.Tag.ToString();
+        }
     }
 }

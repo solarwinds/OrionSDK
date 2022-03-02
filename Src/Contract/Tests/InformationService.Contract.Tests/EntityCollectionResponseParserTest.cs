@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using NUnit.Framework;
-using System.Xml;
 using System.IO;
-using SolarWinds.InformationService.Contract2.Properties;
+using System.Text;
+using System.Xml;
+using NUnit.Framework;
 
 namespace SolarWinds.InformationService.Contract2
 {
@@ -13,18 +11,18 @@ namespace SolarWinds.InformationService.Contract2
     public class EntityCollectionResponseParserTest
     {
         [Test]
-        [ExpectedException(typeof(ArgumentNullException), ExpectedMessage="reader", MatchType=MessageMatch.Contains)]
         public void ReadNextEntityNullReader()
         {
             EntityCollectionResponseParser<object> parser = new EntityCollectionResponseParser<object>();
-            parser.ReadNextEntity(null);
+            var ex = Assert.Throws<ArgumentNullException>(() => parser.ReadNextEntity(null));
+            Assert.True(ex.Message.Contains("reader"));
         }
 
         [Test]
         public void ReadNextEntityBlob()
         {
-            MemoryStream input = new MemoryStream(UTF8Encoding.UTF8.GetBytes(Properties.Resources.ResponseWithBlob));
-            
+            MemoryStream input = new MemoryStream(Encoding.UTF8.GetBytes(Properties.Resources.ResponseWithBlob));
+
             XmlDictionaryReader reader = XmlDictionaryReader.CreateTextReader(input, XmlDictionaryReaderQuotas.Max);
 
             EntityCollectionResponseParser<TestEntity> parser = new EntityCollectionResponseParser<TestEntity>();
@@ -45,7 +43,7 @@ namespace SolarWinds.InformationService.Contract2
         [Test]
         public void ReaderNextEntityWithRootEntityAttribute()
         {
-            MemoryStream input = new MemoryStream(UTF8Encoding.UTF8.GetBytes(Properties.Resources.ResponseWithBlob));
+            MemoryStream input = new MemoryStream(Encoding.UTF8.GetBytes(Properties.Resources.ResponseWithBlob));
 
             XmlDictionaryReader reader = XmlDictionaryReader.CreateTextReader(input, XmlDictionaryReaderQuotas.Max);
 
@@ -53,9 +51,9 @@ namespace SolarWinds.InformationService.Contract2
             M mapStudioFile = parser.ReadNextEntity(reader);
         }
 
-        class TestEntity
+        private class TestEntity
         {
-            private Dictionary<string, object> properties = new Dictionary<string, object>();
+            private readonly Dictionary<string, object> properties = new Dictionary<string, object>();
             public Dictionary<string, object> Properties
             {
                 get
@@ -64,7 +62,7 @@ namespace SolarWinds.InformationService.Contract2
                 }
             }
 
-            public void Add(String propertyName, Object propertyValue)
+            public void Add(string propertyName, object propertyValue)
             {
                 if (Properties.ContainsKey(propertyName))
                 {
@@ -77,6 +75,6 @@ namespace SolarWinds.InformationService.Contract2
             }
         }
 
-        class M : TestEntity { }
+        private class M : TestEntity { }
     }
 }

@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 using System.Windows.Forms;
 using SolarWinds.InformationService.InformationServiceClient;
+using SwqlStudio.Utils;
 
 namespace SwqlStudio
 {
@@ -14,6 +9,7 @@ namespace SwqlStudio
     {
         public EntityClassGraphForm(EntityClassGraph entityClassGraph)
         {
+            DpiHelper.FixFont(this);
             InitializeComponent();
 
             LoadTree(entityClassGraph);
@@ -30,7 +26,7 @@ namespace SwqlStudio
                 return;
 
             Stack<KeyValuePair<EntityMetadata, TreeNode>> baseClasses = new Stack<KeyValuePair<EntityMetadata, TreeNode>>();
-            
+
             //Add the root node.
             TreeNode node = entityClassGraphTreeView.Nodes.Add(entityClassGraph.Root.FullName, entityClassGraph.Root.FullName, 3);
             baseClasses.Push(new KeyValuePair<EntityMetadata, TreeNode>(entityClassGraph.Root, node));

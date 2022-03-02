@@ -19,24 +19,19 @@ namespace SolarWinds.InformationService.Contract2
 
         protected bool disposed = false;
 
-        public InformationServiceQuery(InformationServiceContext context, string queryString)
-            : this(context, queryString, null)
-        {
-        }
-
         public InformationServiceQuery(InformationServiceContext context, string queryString, PropertyBag parameters)
         {
             if (context == null)
-                throw new ArgumentNullException("context");
+                throw new ArgumentNullException(nameof(context));
             if (queryString == null)
-                throw new ArgumentNullException("queryString");
+                throw new ArgumentNullException(nameof(queryString));
 
             this.context = context;
             this.queryString = queryString;
             this.parameters = parameters ?? new PropertyBag();
 
             if (context.Proxy != null)
-                this.operationContextScope = new OperationContextScope(context.Proxy.ClientChannel);
+                operationContextScope = new OperationContextScope(context.Proxy.ClientChannel);
         }
 
         public XmlReader Execute()
@@ -48,9 +43,9 @@ namespace SolarWinds.InformationService.Contract2
         {
             string returnClause = hierarchical ? " RETURN XML AUTO" : " RETURN XML RAW";
 
-            QueryXmlRequest request = new QueryXmlRequest(this.queryString + returnClause, parameters);
+            QueryXmlRequest request = new QueryXmlRequest(queryString + returnClause, parameters);
 
-            Message response = this.context.Service.Query(request);
+            Message response = context.Service.Query(request);
 
             log.Debug(response);
 
@@ -84,18 +79,18 @@ namespace SolarWinds.InformationService.Contract2
 
         protected void Dispose(bool disposing)
         {
-            if (!this.disposed)
+            if (!disposed)
             {
                 if (disposing)
                 {
-                    if (this.operationContextScope != null)
+                    if (operationContextScope != null)
                     {
-                        this.operationContextScope.Dispose();
-                        this.operationContextScope = null;
+                        operationContextScope.Dispose();
+                        operationContextScope = null;
                     }
                 }
 
-                this.disposed = true;
+                disposed = true;
             }
         }
     }

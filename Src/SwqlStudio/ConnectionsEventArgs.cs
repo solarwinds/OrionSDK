@@ -8,7 +8,7 @@ namespace SwqlStudio
 
         public ConnectionsEventArgs(ConnectionInfo connection)
         {
-            this.Connection = connection;
+            Connection = connection;
         }
     }
 }

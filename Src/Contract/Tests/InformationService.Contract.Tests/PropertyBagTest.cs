@@ -77,7 +77,7 @@ namespace SolarWinds.InformationService.Contract2
 
         private const string xmlstringArray = "<string>CustomerID</string><string>PollInterval</string><string>InstanceType</string><string>NodeId</string>";
 
-	
+
 
         [Test]
         public void XmlSerializer_Deserialize_NoWhitespace()
@@ -116,7 +116,7 @@ namespace SolarWinds.InformationService.Contract2
         [Test]
         public void SerializationHelper_Serialize_StringArray()
         {
-            var typeName = typeof(System.String).MakeArrayType().FullName;
+            var typeName = typeof(string).MakeArrayType().FullName;
             var serialzedXml = SerializationHelper.Serialize(stringArray, typeName);
             Assert.That(serialzedXml, Is.EqualTo("<string>CustomerID</string><string>PollInterval</string><string>InstanceType</string><string>NodeId</string>"));
         }
@@ -147,7 +147,7 @@ namespace SolarWinds.InformationService.Contract2
             Assert.That(serialzedXml, Is.EqualTo("2012-09-06T01:44:51.648Z"));
         }
 
-        private readonly OldContract.XmlStrippedSerializer legacySerializer = 
+        private readonly OldContract.XmlStrippedSerializer legacySerializer =
             new OldContract.XmlStrippedSerializerCache().GetSerializer(typeof(System.DateTime));
 
         /// <summary> Legacy version of <see cref="SerializationHelper.SerializeDateTime"/>; 
@@ -187,7 +187,7 @@ namespace SolarWinds.InformationService.Contract2
             var deserialized = Legacy_SerializationHelper_DeserializeDateTime(serialized);
 
             // we need same point in tame, but not necessarily in the same format
-            var deserializedUtc = ( (System.DateTime)deserialized ).ToUniversalTime();
+            var deserializedUtc = ((System.DateTime)deserialized).ToUniversalTime();
 
             Assert.That(((System.DateTime)deserialized).Kind, Is.Not.EqualTo(System.DateTimeKind.Unspecified));
             Assert.That(deserializedUtc, Is.EqualTo(anyTime), "serialized='{0}'", serialized);
@@ -249,7 +249,7 @@ namespace SolarWinds.InformationService.Contract2
             Assert.That(((System.DateTime)deserialized).Kind, Is.Not.EqualTo(System.DateTimeKind.Unspecified));
 
             // we need same point in tame, but not necessarily in the same format
-            var deserializedUtc = ( (System.DateTime)deserialized ).ToUniversalTime();
+            var deserializedUtc = ((System.DateTime)deserialized).ToUniversalTime();
 
             Assert.That(deserializedUtc, Is.EqualTo(anyTime), "serialized='{0}'", serialized);
         }

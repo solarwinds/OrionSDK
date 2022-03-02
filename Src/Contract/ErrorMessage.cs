@@ -40,15 +40,15 @@ namespace SolarWinds.InformationService.Contract2
                             break;
 
                         case "errorType":
-                            this.ErrorType = GetElementContent(reader);
+                            ErrorType = GetElementContent(reader);
                             break;
 
                         case "context":
-                            this.Context = GetElementContent(reader);
+                            Context = GetElementContent(reader);
                             break;
 
                         case "message":
-                            this.Message = GetElementContent(reader);
+                            Message = GetElementContent(reader);
                             break;
 
                         default:

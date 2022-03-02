@@ -131,7 +131,7 @@ namespace SolarWinds.InformationService.Contract2
 
         public void WriteXml(XmlWriter writer)
         {
-            foreach (KeyValuePair<string, object> kvp in this)            
+            foreach (KeyValuePair<string, object> kvp in this)
             {
                 writer.WriteStartElement("item", Constants.PropertyBagNamespace);
 
@@ -162,7 +162,7 @@ namespace SolarWinds.InformationService.Contract2
 
                     writer.WriteString(value);
 
-                    if (kvp.Value is string && ((string)kvp.Value) == String.Empty)
+                    if (kvp.Value is string && ((string)kvp.Value) == string.Empty)
                         writer.WriteFullEndElement();
                     else
                         writer.WriteEndElement();

@@ -1,29 +1,27 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.ServiceModel.Channels;
 using System.ServiceModel.Description;
 using System.ServiceModel.Dispatcher;
-using System.Text;
 
 namespace SolarWinds.InformationService.Contract2
 {
-    class InfoServiceDefaultBehaviour : IEndpointBehavior, IClientMessageInspector
+    internal class InfoServiceDefaultBehaviour : IEndpointBehavior, IClientMessageInspector
     {
-        private static readonly IDictionary<string, object> _defaultHeaderValue = new Dictionary<string, object>()
+        private static readonly IDictionary<string, object> _defaultHeaderValue = new Dictionary<string, object>
         {
             { "IsBase64EncodingAccepted", true }
         };
 
         #region IEndpointBehavior Members
 
-        public void AddBindingParameters(ServiceEndpoint endpoint, System.ServiceModel.Channels.BindingParameterCollection bindingParameters)
+        public void AddBindingParameters(ServiceEndpoint endpoint, BindingParameterCollection bindingParameters)
         {
         }
 
         public void ApplyClientBehavior(ServiceEndpoint endpoint, ClientRuntime clientRuntime)
         {
-            clientRuntime.MessageInspectors.Add(this);
+            clientRuntime.ClientMessageInspectors.Add(this);
         }
 
         public void ApplyDispatchBehavior(ServiceEndpoint endpoint, EndpointDispatcher endpointDispatcher)
@@ -39,11 +37,11 @@ namespace SolarWinds.InformationService.Contract2
 
         #region IClientMessageInspector Members
 
-        public void AfterReceiveReply(ref System.ServiceModel.Channels.Message reply, object correlationState)
+        public void AfterReceiveReply(ref Message reply, object correlationState)
         {
         }
 
-        public object BeforeSendRequest(ref System.ServiceModel.Channels.Message request, System.ServiceModel.IClientChannel channel)
+        public object BeforeSendRequest(ref Message request, System.ServiceModel.IClientChannel channel)
         {
             foreach (var kv in _defaultHeaderValue)
             {

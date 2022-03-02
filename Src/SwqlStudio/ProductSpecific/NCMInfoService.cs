@@ -1,11 +1,10 @@
-﻿using System;
-using System.ServiceModel;
+﻿using System.ServiceModel;
 using SolarWinds.InformationService.Contract2;
 using SwqlStudio.Properties;
 
 namespace SwqlStudio
 {
-    class NCMInfoService : InfoServiceBase
+    internal class NCMInfoService : InfoServiceBase
     {
         public NCMInfoService(string username, string password)
         {

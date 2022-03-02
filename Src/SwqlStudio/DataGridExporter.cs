@@ -55,7 +55,7 @@ namespace SwqlStudio
                     csvStream.WriteLine();
                 }
             }
-            
+
         }
 
 

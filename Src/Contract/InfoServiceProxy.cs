@@ -3,28 +3,20 @@ using System.Diagnostics;
 using System.ServiceModel;
 using System.ServiceModel.Channels;
 using System.Xml;
-using SolarWinds.InformationService.Contract2.Bindings;
 using SolarWinds.Logging;
 
 namespace SolarWinds.InformationService.Contract2
 {
-    public class InfoServiceProxy : IStreamInformationService,  IDisposable
+    public class InfoServiceProxy : IStreamInformationService, IDisposable
     {
         private readonly static Log _log = new Log();
         private static readonly TimeSpan longRunningQueryTime = TimeSpan.FromSeconds(15);
 
-        private ChannelFactory<IStreamInformationServiceChannel> _channelFactory;
         private IStreamInformationServiceChannel _infoService;
-        private TimeSpan _operationTimeout = TimeSpan.FromMinutes(60);
 
         private InfoServiceActivityMonitor _activityMonitor = null;
 
-        public TimeSpan OperationTimeout
-        {
-            get { return _operationTimeout; }
-
-            set { _operationTimeout = value; }
-        }
+        public TimeSpan OperationTimeout { get; set; } = TimeSpan.FromMinutes(60);
 
         public IChannel Channel
         {
@@ -39,19 +31,16 @@ namespace SolarWinds.InformationService.Contract2
             }
         }
 
-        public ChannelFactory<IStreamInformationServiceChannel> ChannelFactory
-        {
-            get { return _channelFactory; }
-        }
+        public ChannelFactory<IStreamInformationServiceChannel> ChannelFactory { get; private set; }
 
         #region Constructors
 
         public InfoServiceProxy(string endpointConfiguration)
         {
             if (endpointConfiguration == null)
-                throw new ArgumentNullException("endpointConfiguration");
+                throw new ArgumentNullException(nameof(endpointConfiguration));
 
-            _channelFactory = CreateChannelFactory(endpointConfiguration);
+            ChannelFactory = CreateChannelFactory(endpointConfiguration);
 
             FixBinding();
         }
@@ -60,20 +49,20 @@ namespace SolarWinds.InformationService.Contract2
             : this(endpointConfiguration)
         {
             if (credentials == null)
-                throw new ArgumentNullException("credentials");
+                throw new ArgumentNullException(nameof(credentials));
 
-            credentials.ApplyTo(_channelFactory);
+            credentials.ApplyTo(ChannelFactory);
         }
 
         public InfoServiceProxy(string endpointConfiguration, string remoteAddress)
         {
             if (endpointConfiguration == null)
-                throw new ArgumentNullException("endpointConfiguration");
+                throw new ArgumentNullException(nameof(endpointConfiguration));
 
             if (remoteAddress == null)
-                throw new ArgumentNullException("remoteAddress");
+                throw new ArgumentNullException(nameof(remoteAddress));
 
-            _channelFactory = CreateChannelFactory(endpointConfiguration, new EndpointAddress(remoteAddress));
+            ChannelFactory = CreateChannelFactory(endpointConfiguration, new EndpointAddress(remoteAddress));
 
             FixBinding();
         }
@@ -82,56 +71,39 @@ namespace SolarWinds.InformationService.Contract2
             : this(endpointConfiguration, remoteAddress)
         {
             if (credentials == null)
-                throw new ArgumentNullException("credentials");
+                throw new ArgumentNullException(nameof(credentials));
 
-            credentials.ApplyTo(_channelFactory);
-        }
-
-        public InfoServiceProxy(Uri address)
-        {
-            if (address == null)
-                throw new ArgumentNullException("address");
-
-            NetTcpBinding binding = new NetTcpBinding(SecurityMode.Transport);
-            binding.Security.Mode = SecurityMode.Transport;
-            binding.Security.Transport.ClientCredentialType = TcpClientCredentialType.Windows;
-
-            Initialize(new EndpointAddress(address), binding, new WindowsCredential());
+            credentials.ApplyTo(ChannelFactory);
         }
 
         public InfoServiceProxy(Uri address, Binding binding, ServiceCredentials credentials)
         {
             if (address == null)
-                throw new ArgumentNullException("address");
+                throw new ArgumentNullException(nameof(address));
 
-            Initialize(new EndpointAddress(address), binding, credentials);
-        }
-
-        public InfoServiceProxy(EndpointAddress address, Binding binding, ServiceCredentials credentials)
-        {
-            Initialize(address, binding, credentials);
+            var endpoint = new EndpointAddress(address, new DnsEndpointIdentity("SolarWinds-Orion"));
+            Initialize(endpoint, binding, credentials);
+            ChannelFactory.Endpoint.Address = endpoint; // for some reason this gets lost and needs to be set again after creation
         }
 
         #endregion
 
         private void FixBinding()
         {
-            BindingElementCollection elements = _channelFactory.Endpoint.Binding.CreateBindingElements();
+            BindingElementCollection elements = ChannelFactory.Endpoint.Binding.CreateBindingElements();
             SslStreamSecurityBindingElement element = elements.Find<SslStreamSecurityBindingElement>();
             if (element != null)
             {
-                element.IdentityVerifier = new SWIdentityVerifier();
-
                 CustomBinding newbinding = new CustomBinding(elements);
 
                 // Transfer timeout settings from the old binding to the new
-                Binding binding = _channelFactory.Endpoint.Binding;
+                Binding binding = ChannelFactory.Endpoint.Binding;
                 newbinding.CloseTimeout = binding.CloseTimeout;
                 newbinding.OpenTimeout = binding.OpenTimeout;
                 newbinding.ReceiveTimeout = binding.ReceiveTimeout;
                 newbinding.SendTimeout = binding.SendTimeout;
 
-                _channelFactory.Endpoint.Binding = newbinding;
+                ChannelFactory.Endpoint.Binding = newbinding;
             }
 
             CorrectChannelFactory();
@@ -140,21 +112,19 @@ namespace SolarWinds.InformationService.Contract2
         private void Initialize(EndpointAddress address, Binding binding, ServiceCredentials credentials)
         {
             if (address == null)
-                throw new ArgumentNullException("address");
+                throw new ArgumentNullException(nameof(address));
 
             if (credentials == null)
-                throw new ArgumentNullException("credentials");
+                throw new ArgumentNullException(nameof(credentials));
 
             if (binding == null)
-                throw new ArgumentNullException("binding");
+                throw new ArgumentNullException(nameof(binding));
 
 
             BindingElementCollection elements = binding.CreateBindingElements();
             SslStreamSecurityBindingElement element = elements.Find<SslStreamSecurityBindingElement>();
             if (element != null)
             {
-                element.IdentityVerifier = new SWIdentityVerifier();
-
                 CustomBinding newbinding = new CustomBinding(elements);
 
                 // Transfer timeout settings from the old binding to the new
@@ -165,8 +135,8 @@ namespace SolarWinds.InformationService.Contract2
                 binding = newbinding;
             }
 
-            _channelFactory = CreateChannelFactory(binding, address);
-            credentials.ApplyTo(_channelFactory);
+            ChannelFactory = CreateChannelFactory(binding, address);
+            credentials.ApplyTo(ChannelFactory);
 
             CorrectChannelFactory();
         }
@@ -176,8 +146,8 @@ namespace SolarWinds.InformationService.Contract2
             // ???: how can I detect that channel binding is securited            
 
             _activityMonitor = new InfoServiceActivityMonitor();
-            _channelFactory.Endpoint.Behaviors.Add(new InfoServiceDefaultBehaviour());
-            _channelFactory.Endpoint.Behaviors.Add(_activityMonitor);
+            ChannelFactory.Endpoint.EndpointBehaviors.Add(new InfoServiceDefaultBehaviour());
+            ChannelFactory.Endpoint.EndpointBehaviors.Add(_activityMonitor);
         }
 
         #region IInfoService Members
@@ -345,7 +315,7 @@ namespace SolarWinds.InformationService.Contract2
             }
             catch (FaultException<InfoServiceFaultContract> ex)
             {
-                _log.Error("Error executing bulk update operation: " + ex.Detail.Message + Environment.NewLine + String.Join(Environment.NewLine, uris) + Environment.NewLine + propertiesToUpdate);
+                _log.Error("Error executing bulk update operation: " + ex.Detail.Message + Environment.NewLine + string.Join(Environment.NewLine, uris) + Environment.NewLine + propertiesToUpdate);
                 throw;
             }
             finally
@@ -399,7 +369,7 @@ namespace SolarWinds.InformationService.Contract2
             }
             catch (FaultException<InfoServiceFaultContract> ex)
             {
-                _log.Error("Error executing bulk delete operation: " + ex.Detail.Message + Environment.NewLine + String.Join(Environment.NewLine, uris));
+                _log.Error("Error executing bulk delete operation: " + ex.Detail.Message + Environment.NewLine + string.Join(Environment.NewLine, uris));
                 throw;
             }
             finally
@@ -454,9 +424,9 @@ namespace SolarWinds.InformationService.Contract2
                     if (_activityMonitor != null)
                         _activityMonitor.Reset();
 
-                    _infoService = _channelFactory.CreateChannel();
+                    _infoService = ChannelFactory.CreateChannel();
 
-                    _infoService.OperationTimeout = _operationTimeout;
+                    _infoService.OperationTimeout = OperationTimeout;
                     _infoService.Open();
                 }
             }
@@ -475,7 +445,7 @@ namespace SolarWinds.InformationService.Contract2
             ValidateUsedConnection();
 
             _infoService.Abort();
-            _channelFactory.Abort();
+            ChannelFactory.Abort();
         }
 
         public void Close()
@@ -566,15 +536,15 @@ namespace SolarWinds.InformationService.Contract2
 
                 try
                 {
-                    _channelFactory.Close();
+                    ChannelFactory.Close();
                 }
                 catch (TimeoutException)
                 {
-                    _channelFactory.Abort();
+                    ChannelFactory.Abort();
                 }
                 catch (CommunicationException)
                 {
-                    _channelFactory.Abort();
+                    ChannelFactory.Abort();
                 }
             }
         }

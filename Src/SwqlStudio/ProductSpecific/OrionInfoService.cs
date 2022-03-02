@@ -6,7 +6,7 @@ using SwqlStudio.Subscriptions;
 
 namespace SwqlStudio
 {
-    class OrionInfoService : InfoServiceBase
+    internal class OrionInfoService : InfoServiceBase
     {
         private readonly bool _isSwisV3;
 
@@ -30,7 +30,7 @@ namespace SwqlStudio
         {
             var endpointAddress = new EndpointAddress(string.Format("net.tcp://{0}:17777/SolarWinds/InformationService/v3/Orion/IndicationDelivery", server));
             var context = new InstanceContext(notificationSubscriber);
-            
+
             var proxy = new NotificationDeliveryServiceProxy(context, (NetTcpBinding)_binding, endpointAddress);
             _credentials.ApplyTo(proxy.ChannelFactory);
 

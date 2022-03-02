@@ -19,9 +19,9 @@ namespace SwqlStudio.Subscriptions
 
         internal bool HasSubScription(string subscriptionId)
         {
-            lock (this.itemsLock)
+            lock (itemsLock)
             {
-                return this.subscriptions.Values.Any(s => s.Id == subscriptionId);
+                return subscriptions.Values.Any(s => s.Id == subscriptionId);
             }
         }
 
@@ -31,12 +31,12 @@ namespace SwqlStudio.Subscriptions
             SubscriptionCallbacks subscription;
             var normalized = query.ToLower();
 
-            lock (this.itemsLock)
+            lock (itemsLock)
             {
-                if (!this.subscriptions.TryGetValue(normalized, out subscription))
+                if (!subscriptions.TryGetValue(normalized, out subscription))
                 {
-                    subscription = subscribe(this.connection, query);
-                    this.subscriptions.Add(normalized, subscription);
+                    subscription = subscribe(connection, query);
+                    subscriptions.Add(normalized, subscription);
                 }
             }
 
@@ -46,22 +46,22 @@ namespace SwqlStudio.Subscriptions
 
         internal void Remove(string subscriptionUri, SubscriberCallback callback)
         {
-            lock (this.itemsLock)
+            lock (itemsLock)
             {
-                var query = this.subscriptions.Where(kv => kv.Value.Uri == subscriptionUri)
+                var query = subscriptions.Where(kv => kv.Value.Uri == subscriptionUri)
                     .Select(kv => kv.Key)
                     .FirstOrDefault();
 
-                if (String.IsNullOrEmpty(query))
+                if (string.IsNullOrEmpty(query))
                     return;
 
-                var subscription = this.subscriptions[query];
+                var subscription = subscriptions[query];
                 subscription.Remove(callback);
 
                 if (subscription.Empty)
                 {
-                    this.subscriptions.Remove(query);
-                    this.Unsubscribe(subscriptionUri);
+                    subscriptions.Remove(query);
+                    Unsubscribe(subscriptionUri);
                     subscription.CloseProxy();
                 }
             }
@@ -69,15 +69,15 @@ namespace SwqlStudio.Subscriptions
 
         private void Unsubscribe(string subscriptionUri)
         {
-            if (this.connection.IsConnected)
-                this.connection.Proxy.Delete(subscriptionUri);
+            if (connection.IsConnected)
+                connection.Proxy.Delete(subscriptionUri);
         }
 
         internal IEnumerable<SubscriberCallback> CallBacks(string subscriptionId)
         {
-            lock (this.itemsLock)
+            lock (itemsLock)
             {
-                return this.subscriptions.Values.Where(v => v.Id == subscriptionId)
+                return subscriptions.Values.Where(v => v.Id == subscriptionId)
                     .SelectMany(kv => kv.Callbacks)
                     .ToList();
             }

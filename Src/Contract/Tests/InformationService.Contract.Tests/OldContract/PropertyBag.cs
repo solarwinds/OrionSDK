@@ -39,7 +39,7 @@ namespace SolarWinds.InformationService.Contract2.OldContract
             : base(info, context)
         {
         }
-        
+
         public override string ToString()
         {
             StringBuilder buffer = new StringBuilder();
@@ -124,7 +124,7 @@ namespace SolarWinds.InformationService.Contract2.OldContract
                     //for unknown types skip the node
                     reader.Read();
 
-                this.Add(key, value);
+                Add(key, value);
 
                 reader.MoveToContent();
 
@@ -145,7 +145,7 @@ namespace SolarWinds.InformationService.Contract2.OldContract
 
         public void WriteXml(XmlWriter writer)
         {
-            foreach (string key in this.Keys)
+            foreach (string key in Keys)
             {
                 writer.WriteStartElement("item", PropertyBagNamespace);
 

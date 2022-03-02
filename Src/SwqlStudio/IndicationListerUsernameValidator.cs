@@ -6,7 +6,7 @@ namespace SwqlStudio
     /// <summary>
     /// Right now this class accepts all user authentication
     /// </summary>
-    class IndicationListerUsernameValidator : UserNamePasswordValidator
+    internal class IndicationListerUsernameValidator : UserNamePasswordValidator
     {
         public override void Validate(string userName, string password)
         {

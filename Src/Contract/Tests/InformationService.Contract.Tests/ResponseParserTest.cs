@@ -10,18 +10,18 @@ namespace SolarWinds.InformationService.Contract2
     public class ResponseParserTest
     {
         [Test]
-        [ExpectedException(typeof(ArgumentNullException), ExpectedMessage="reader", MatchType=MessageMatch.Contains)]
         public void ReadNextEntityNullReader()
         {
             ResponseParser<object> parser = new ResponseParser<object>();
-            parser.ReadNextEntity(null);
+            var ex = Assert.Throws<ArgumentNullException>(() => parser.ReadNextEntity(null));
+            Assert.True(ex.Message.Contains("reader"));
         }
 
         [Test]
         public void ReadNextEntityBlob()
         {
-            MemoryStream input = new MemoryStream(UTF8Encoding.UTF8.GetBytes(Properties.Resources.ResponseWithBlob));
-            
+            MemoryStream input = new MemoryStream(Encoding.UTF8.GetBytes(Properties.Resources.ResponseWithBlob));
+
             XmlDictionaryReader reader = XmlDictionaryReader.CreateTextReader(input, XmlDictionaryReaderQuotas.Max);
 
             ResponseParser<MapStudioFiles> parser = new ResponseParser<MapStudioFiles>();
@@ -35,7 +35,7 @@ namespace SolarWinds.InformationService.Contract2
         [Test]
         public void ReaderNextEntityWithRootEntityAttribute()
         {
-            MemoryStream input = new MemoryStream(UTF8Encoding.UTF8.GetBytes(Properties.Resources.ResponseWithBlob));
+            MemoryStream input = new MemoryStream(Encoding.UTF8.GetBytes(Properties.Resources.ResponseWithBlob));
 
             XmlDictionaryReader reader = XmlDictionaryReader.CreateTextReader(input, XmlDictionaryReaderQuotas.Max);
 
@@ -44,18 +44,18 @@ namespace SolarWinds.InformationService.Contract2
         }
 
         [Test]
-        [ExpectedException(typeof(InvalidOperationException), ExpectedMessage="Don't know how to handle element MapStudioFiles")]
         public void ReaderNextEntityWithRootEntityWrongName()
         {
-            MemoryStream input = new MemoryStream(UTF8Encoding.UTF8.GetBytes(Properties.Resources.ResponseWithBlob));
+            MemoryStream input = new MemoryStream(Encoding.UTF8.GetBytes(Properties.Resources.ResponseWithBlob));
 
             XmlDictionaryReader reader = XmlDictionaryReader.CreateTextReader(input, XmlDictionaryReaderQuotas.Max);
 
             ResponseParser<Z> parser = new ResponseParser<Z>();
-            Z mapStudioFile = parser.ReadNextEntity(reader);
+            var ex = Assert.Throws<InvalidOperationException>(() => parser.ReadNextEntity(reader));
+            Assert.AreEqual("Don't know how to handle element MapStudioFiles", ex.Message);
         }
 
-        class MapStudioFiles
+        private class MapStudioFiles
         {
             public Guid FileId { get; set; }
             public string FileName { get; set; }
@@ -63,20 +63,20 @@ namespace SolarWinds.InformationService.Contract2
             public DateTime Timestamp { get; set; }
             public string Owner { get; set; }
             public string UpdateUser { get; set; }
-            public Boolean IsDeleted { get; set; }
+            public bool IsDeleted { get; set; }
             public string LockUser { get; set; }
-            public Int32 FileType { get; set; }
+            public int FileType { get; set; }
             public DateTime LockDate { get; set; }
             public string ComputerName { get; set; }
             public string[] SomeStringArray { get; set; }
         }
 
-        [InformationServiceEntity(EntityType="Orion.MapStudioFiles")]
-        class M : MapStudioFiles
+        [InformationServiceEntity(EntityType = "Orion.MapStudioFiles")]
+        private class M : MapStudioFiles
         {
         }
 
-        class Z : MapStudioFiles
+        private class Z : MapStudioFiles
         {
         }
     }

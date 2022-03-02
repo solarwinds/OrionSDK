@@ -1,12 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
-using System.Xml.Linq;
 
 namespace SwqlStudio.Playback
 {
@@ -23,7 +21,7 @@ namespace SwqlStudio.Playback
         {
             try
             {
-                
+
                 if (f != null)
                 {
                     var playbackItem = f as PlaybackItem;
@@ -33,7 +31,7 @@ namespace SwqlStudio.Playback
                         var sb = new StringBuilder();
                         using (var sr = new StreamReader(playbackItem.FileName))
                         {
-                            String line;
+                            string line;
                             // Read and display lines from the file until the end of 
                             // the file is reached.
                             while ((line = sr.ReadLine()) != null)

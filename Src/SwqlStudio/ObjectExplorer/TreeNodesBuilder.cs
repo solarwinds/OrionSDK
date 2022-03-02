@@ -88,7 +88,7 @@ namespace SwqlStudio
         {
             databaseNode.Nodes.Clear();
 
-            switch (this.EntityGroupingMode)
+            switch (EntityGroupingMode)
             {
                 case EntityGroupingMode.Flat:
                     databaseNode.Nodes.AddRange(MakeEntityTreeNodes(provider, provider.Tables.OrderBy(e => e.FullName)));
@@ -128,7 +128,7 @@ namespace SwqlStudio
             if (entities.Any())
             {
                 TreeNode[] childNodes = MakeEntityTreeNodes(provider, entities.OrderBy(e => e.FullName));
-                
+
                 baseNode.Nodes.AddRange(childNodes);
 
                 if (baseEntity != null)
@@ -175,7 +175,7 @@ namespace SwqlStudio
             var imageKey = !entity.IsAbstract ? ImageKeys.BaseType : ImageKeys.BaseTypeAbstract;
             var name = DocumentationBuilder.ToNodeText(entity.FullName, childNodes.Length);
             var entityNode = CreateNode(provider, name, imageKey, entity);
-            
+
             entityNode.Nodes.AddRange(childNodes);
             return entityNode;
         }

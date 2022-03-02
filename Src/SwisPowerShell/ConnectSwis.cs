@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Diagnostics;
-using System.IdentityModel.Selectors;
 using System.Linq;
 using System.Management.Automation;
 using System.Net;
@@ -77,7 +76,7 @@ namespace SwisPowerShell
 
         private class V3EndpointAddresses : EndpointAddresses
         {
-            public string streamedCertificate = "net.tcp://{0}:17777/SolarWinds/InformationService/v3/Orion/Streamed/Certificate";
+            public readonly string streamedCertificate = "net.tcp://{0}:17777/SolarWinds/InformationService/v3/Orion/Streamed/Certificate";
             public V3EndpointAddresses()
             {
                 activeDirectory = "net.tcp://{0}:17777/SolarWinds/InformationService/v3/Orion/ad";
@@ -94,20 +93,20 @@ namespace SwisPowerShell
 
             if (Soap12 != null)
             {
-                infoServiceProxy = ConnectSoap12(Soap12, UserName, Password);                
+                infoServiceProxy = ConnectSoap12(Soap12, UserName, Password);
 
                 if (IgnoreSslErrors)
                 {
                     ServicePointManager.ServerCertificateValidationCallback += AllTrustingServerCertificateValidationCallback;
-                } 
+                }
                 else if (!string.IsNullOrEmpty(TrustX509Thumbprint))
                 {
-                    String[] arr = TrustX509Thumbprint.Split('-', ':', ' ');
+                    string[] arr = TrustX509Thumbprint.Split('-', ':', ' ');
                     var trustedThumbprint = new byte[arr.Length];
                     for (int i = 0; i < arr.Length; i++)
                         trustedThumbprint[i] = Convert.ToByte(arr[i], 16);
 
-                    ServicePointManager.ServerCertificateValidationCallback += delegate(object sender, X509Certificate certificate, X509Chain chain,
+                    ServicePointManager.ServerCertificateValidationCallback += delegate (object sender, X509Certificate certificate, X509Chain chain,
                                                                                        SslPolicyErrors errors)
                         {
                             if (errors == SslPolicyErrors.None)
@@ -160,7 +159,7 @@ namespace SwisPowerShell
 
             if (Trusted.IsPresent)
             {
-                var binding = new NetTcpBinding {MaxReceivedMessageSize = int.MaxValue, MaxBufferSize = int.MaxValue};
+                var binding = new NetTcpBinding { MaxReceivedMessageSize = int.MaxValue, MaxBufferSize = int.MaxValue };
                 binding.Security.Mode = SecurityMode.Transport;
                 binding.Security.Transport.ClientCredentialType = TcpClientCredentialType.Windows;
 
@@ -170,7 +169,7 @@ namespace SwisPowerShell
             }
             else if (Certificate.IsPresent)
             {
-                var binding = new NetTcpBinding(SecurityMode.Transport) {MaxReceivedMessageSize = int.MaxValue, MaxBufferSize = int.MaxValue};
+                var binding = new NetTcpBinding(SecurityMode.Transport) { MaxReceivedMessageSize = int.MaxValue, MaxBufferSize = int.MaxValue };
                 binding.Security.Mode = SecurityMode.Transport;
                 binding.Security.Transport.ClientCredentialType = TcpClientCredentialType.Certificate;
                 binding.ReaderQuotas.MaxArrayLength = int.MaxValue;
@@ -179,13 +178,12 @@ namespace SwisPowerShell
                 if (Streamed.IsPresent)
                 {
                     binding.TransferMode = TransferMode.Streamed;
-                    binding.PortSharingEnabled = true;
-                    binding.ReceiveTimeout = new TimeSpan(15,0,0);
+                    binding.ReceiveTimeout = new TimeSpan(15, 0, 0);
                     binding.SendTimeout = new TimeSpan(15, 0, 0);
                 }
 
                 var address = (Streamed && !V2.IsPresent)
-                                  ? ((V3EndpointAddresses) addresses).streamedCertificate
+                                  ? ((V3EndpointAddresses)addresses).streamedCertificate
                                   : addresses.certificate;
 
                 var uri = new Uri(string.Format(address, Hostname ?? "localhost"));
@@ -196,7 +194,7 @@ namespace SwisPowerShell
             }
             else
             {
-                var binding = new NetTcpBinding {MaxReceivedMessageSize = int.MaxValue, MaxBufferSize = int.MaxValue};
+                var binding = new NetTcpBinding { MaxReceivedMessageSize = int.MaxValue, MaxBufferSize = int.MaxValue };
                 binding.Security.Mode = SecurityMode.TransportWithMessageCredential;
                 binding.Security.Message.ClientCredentialType = MessageCredentialType.UserName;
 
@@ -207,8 +205,8 @@ namespace SwisPowerShell
 
                 if (IsUserNamePresent)
                 {
-                    SecureString securePassword = StringToSecureString(this.Password);
-                    this.Credential = new PSCredential(this.UserName, securePassword);
+                    SecureString securePassword = StringToSecureString(Password);
+                    Credential = new PSCredential(UserName, securePassword);
                 }
 
                 // the credential dialog adds a slash at the beginning, need to strip
@@ -222,7 +220,7 @@ namespace SwisPowerShell
             return infoServiceProxy;
         }
 
-        private static String SecureStringToString(SecureString input)
+        private static string SecureStringToString(SecureString input)
         {
             IntPtr ptr = SecureStringToBSTR(input);
             return PtrToStringBSTR(ptr);
@@ -269,13 +267,6 @@ namespace SwisPowerShell
                     channelFactory.Credentials.ServiceCertificate.Authentication.CertificateValidationMode = X509CertificateValidationMode.Custom;
                     channelFactory.Credentials.ServiceCertificate.Authentication.CustomCertificateValidator = new CustomCertificateValidator();
                 }
-            }
-        }
-
-        private class CustomCertificateValidator : X509CertificateValidator
-        {
-            public override void Validate(X509Certificate2 certificate)
-            {
             }
         }
     }

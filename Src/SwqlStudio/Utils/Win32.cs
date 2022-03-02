@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Runtime.InteropServices;
-using System.Text;
 using System.Windows.Forms;
 
 namespace SwqlStudio.Utils
@@ -15,7 +12,7 @@ namespace SwqlStudio.Utils
 
         [DllImport("user32.dll", CharSet = CharSet.Unicode)]
         private static extern int SetScrollPos(IntPtr hWnd, int nBar, int nPos, bool bRedraw);
-        
+
         [DllImport("user32.dll")]
         public static extern IntPtr SendMessage(IntPtr hWnd, int msg, IntPtr wp, IntPtr lp);
         [DllImport("user32.dll")]

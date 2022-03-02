@@ -1,4 +1,5 @@
 ﻿using System.Windows.Forms;
+using SwqlStudio.Utils;
 
 namespace SwqlStudio
 {
@@ -11,7 +12,7 @@ namespace SwqlStudio
             get { return connection; }
             set
             {
-                if (this.AllowsChangeConnection)
+                if (AllowsChangeConnection)
                     connection = value;
             }
         }
@@ -19,6 +20,11 @@ namespace SwqlStudio
         public virtual bool AllowsChangeConnection
         {
             get { return true; }
+        }
+
+        public TabTemplate()
+        {
+            DpiHelper.FixFont(this);
         }
     }
 }

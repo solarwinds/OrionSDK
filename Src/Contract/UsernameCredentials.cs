@@ -1,11 +1,6 @@
-using System.IdentityModel.Selectors;
 using System.Runtime.Serialization;
-using System.Security.Cryptography.X509Certificates;
 using System.ServiceModel;
-using System.ServiceModel.Channels;
 using System.ServiceModel.Security;
-using SolarWinds.InformationService.Contract2;
-using SolarWinds.InformationService.Contract2.Bindings;
 
 namespace SolarWinds.InformationService.Contract2
 {
@@ -25,19 +20,16 @@ namespace SolarWinds.InformationService.Contract2
         {
             get { return CredentialType.Username; }
         }
-        
+
         public override void ApplyTo(ChannelFactory channelFactory)
         {
-            
             channelFactory.Endpoint.Address = new EndpointAddress(channelFactory.Endpoint.Address.Uri);
-            
+
             channelFactory.Credentials.UserName.UserName = _username;
             channelFactory.Credentials.UserName.Password = _password;
             channelFactory.Credentials.ServiceCertificate.Authentication.CertificateValidationMode = X509CertificateValidationMode.Custom;
 
-            X509ChainPolicy chainPolicy = new X509ChainPolicy();
-            chainPolicy.VerificationFlags = X509VerificationFlags.AllowUnknownCertificateAuthority | X509VerificationFlags.IgnoreNotTimeValid;
-            channelFactory.Credentials.ServiceCertificate.Authentication.CustomCertificateValidator = X509CertificateValidator.CreateChainTrustValidator(true, chainPolicy);
+            channelFactory.Credentials.ServiceCertificate.Authentication.CustomCertificateValidator = new AllTrustingCertificateValidator();
 
         }
     }

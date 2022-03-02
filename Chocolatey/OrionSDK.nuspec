@@ -5,7 +5,7 @@
     <!-- Read this before publishing packages to chocolatey.org: https://github.com/chocolatey/chocolatey/wiki/CreatePackages -->
     <id>orionsdk</id>
     <title>SolarWinds Orion SDK</title>
-    <version>2.5.0.214</version>
+    <version>3.1.343</version>
     <authors>SolarWinds</authors>
     <owners>Tim Danner</owners>
     <summary>Software development kit for the SolarWinds Orion platform.</summary>
@@ -14,7 +14,7 @@
     <packageSourceUrl>https://github.com/solarwinds/OrionSDK/blob/master/Chocolatey/OrionSDK.nuspec</packageSourceUrl>
     <!-- <projectSourceUrl>https://github.com/solarwinds/OrionSDK</projectSourceUrl> -->
     <docsUrl>https://github.com/solarwinds/OrionSDK/wiki</docsUrl>
-    <mailingListUrl>https://thwack.solarwinds.com/community/labs_tht/orion-sdk</mailingListUrl>
+    <mailingListUrl>https://thwack.solarwinds.com/product-forums/the-orion-platform/f/orion-sdk</mailingListUrl>
     <bugTrackerUrl>https://github.com/solarwinds/OrionSDK/issues</bugTrackerUrl>
     <tags>orionsdk admin solarwinds</tags>
     <copyright>Copyright © SolarWinds Worldwide, LLC.  All rights reserved.</copyright>
@@ -26,20 +26,13 @@
       <dependency id="" />
     </dependencies>-->
     <releaseNotes><![CDATA[
-# v2.5.0.214
+# v3.1.343
 
-This release contains new features and upgrades from @tdanner, @nothrow, and others:
+This release addresses the following issue:
 
-* Added a Find/Replace dialog to SWQL Studio
-* Install SwisPowerShell module from OrionSDK.msi (fixes #155)
-* New UI for CRUD tab
-* SWQL Studio updated to .NET Framework 4.5
+* Fixing AppendFormat issue + unit tests (https://github.com/solarwinds/OrionSDK/pull/300) - @Superzer0
 
-And bugfixes:
-
-* Fixed issue in SWQL studio with disappearing subscriptions
-* Fixed a CRUD UI bug
-* Fixed a few other minor bugs
+If you are using Orion 2020.2.6 HF2 or later, you will need this fix to avoid a System.FormatException that occurs when parsing the SWIS schema documentation associated with that release. See [ERROR] SWQL Studio (3.0.0.336) connecting to Orion Platform 2020.2.6 HF2 (https://thwack.solarwinds.com/product-forums/the-orion-platform/f/orion-sdk/92700/error-swql-studio-3-0-0-336-connecting-to-orion-platform-2020-2-6-hf2) for additional details.
 ]]></releaseNotes>
     <!--<provides></provides>-->
   </metadata>

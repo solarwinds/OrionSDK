@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace SolarWinds.InformationService.InformationServiceClient
 {
     public class EntityMetadata
     {
-        private List<EntityMetadata> _DerivedClasses = new List<EntityMetadata>();
+        private readonly List<EntityMetadata> _DerivedClasses = new List<EntityMetadata>();
 
         public EntityMetadata(string fullName)
         {
@@ -25,7 +22,7 @@ namespace SolarWinds.InformationService.InformationServiceClient
         {
             get
             {
-                foreach(EntityMetadata child in DerivedClasses)
+                foreach (EntityMetadata child in DerivedClasses)
                 {
                     yield return child;
                     foreach (EntityMetadata descendant in child.Descendants)
@@ -38,7 +35,7 @@ namespace SolarWinds.InformationService.InformationServiceClient
 
         public bool IsDescendantOf(string baseClass)
         {
-            EntityMetadata currentBaseClass = this.BaseClass;
+            EntityMetadata currentBaseClass = BaseClass;
             while (currentBaseClass != null)
             {
                 if (string.Compare(currentBaseClass.FullName, baseClass) == 0)

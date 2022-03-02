@@ -19,7 +19,7 @@ namespace SwqlStudio
             SizingGrip = false;
             Stretch = true;
             DockPadding.All = 0;
-            
+
             _connectionLabel = new ToolStripStatusLabel();
             _connectionLabel.Spring = true;
 
@@ -43,7 +43,7 @@ namespace SwqlStudio
         {
             get
             {
-                return new[] {_connectionLabel, _serverLabel, _userLabel, _userLabel, _queryTimeLabel, _rowCountLabel};
+                return new[] { _connectionLabel, _serverLabel, _userLabel, _userLabel, _queryTimeLabel, _rowCountLabel };
             }
         }
 
@@ -54,8 +54,8 @@ namespace SwqlStudio
             if (connection != null)
             {
                 _connectionLabel.Text = "Connected";
-                _serverLabel.Text = String.Format("Server: {0}", connection.Server);
-                _userLabel.Text = String.Format("User: {0}", connection.UserName);
+                _serverLabel.Text = string.Format("Server: {0}", connection.Server);
+                _userLabel.Text = string.Format("User: {0}", connection.UserName);
             }
             else
             {
@@ -70,10 +70,10 @@ namespace SwqlStudio
         public void UpdateValues(int rowCount, TimeSpan queryTime, long? totalRows = null)
         {
             if (totalRows.HasValue)
-                _rowCountLabel.Text = String.Format("{0} of {1} rows", rowCount, totalRows);
+                _rowCountLabel.Text = string.Format("{0} of {1} rows", rowCount, totalRows);
             else
-                _rowCountLabel.Text = String.Format("{0} rows", rowCount);
-            _queryTimeLabel.Text = String.Format("{0}", queryTime.ToString());
+                _rowCountLabel.Text = string.Format("{0} rows", rowCount);
+            _queryTimeLabel.Text = string.Format("{0}", queryTime.ToString());
         }
 
         public void UpdateStatusLabel(string text)

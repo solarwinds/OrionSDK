@@ -56,7 +56,7 @@ namespace SwqlStudio
 
         private Uri Uri(string serverAddress, string port)
         {
-            return new Uri(String.Format("{0}://{1}:{2}/" + _endpoint, _protocolName, serverAddress, port));
+            return new Uri(string.Format("{0}://{1}:{2}/" + _endpoint, _protocolName, serverAddress, port));
         }
 
         public virtual InfoServiceProxy CreateProxy(string server)

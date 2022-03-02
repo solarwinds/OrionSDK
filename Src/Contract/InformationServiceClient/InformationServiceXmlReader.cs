@@ -1,16 +1,16 @@
 ﻿using System;
+using System.Runtime.Serialization;
 using System.ServiceModel;
 using System.ServiceModel.Channels;
 using System.Xml;
 using SolarWinds.InformationService.Contract2;
-using System.Runtime.Serialization;
 
 namespace SolarWinds.InformationService.InformationServiceClient
 {
     public class InformationServiceXmlReader
     {
-        private InformationServiceConnection connection;
-        private int commandTimeout = 30;
+        private readonly InformationServiceConnection connection;
+        private readonly int commandTimeout = 30;
 
         public InformationServiceXmlReader(InformationServiceConnection connection)
         {
@@ -25,9 +25,9 @@ namespace SolarWinds.InformationService.InformationServiceClient
 
             Message message = null;
 
-            using (new SwisSettingsContext {DataProviderTimeout = TimeSpan.FromSeconds(commandTimeout), ApplicationTag = ApplicationTag})
+            using (new SwisSettingsContext { DataProviderTimeout = TimeSpan.FromSeconds(commandTimeout), ApplicationTag = ApplicationTag })
             {
-                message = this.connection.Service.Query(queryRequest);
+                message = connection.Service.Query(queryRequest);
             }
 
             if (message != null)

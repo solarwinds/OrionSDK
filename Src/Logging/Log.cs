@@ -1,13 +1,14 @@
 using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Runtime.CompilerServices;
+using System.Configuration;
 using System.Diagnostics;
+using System.Globalization;
+using System.IO;
+using System.Linq;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 using System.Xml;
 using log4net.Util;
-using System.Globalization;
-using System.Linq;
 
 namespace SolarWinds.Logging
 {
@@ -24,11 +25,11 @@ namespace SolarWinds.Logging
     {
         private const string MasterNamespace = "SolarWinds";
 
-        private readonly SolarWinds.Logging.Ext.EventID.IEventIDLog _log;
+        private readonly Ext.EventID.IEventIDLog _log;
 
-        private static HashSet<string> _configurations = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
-        private static HashSet<string> _assemblies = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
-        
+        private static readonly HashSet<string> _configurations = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+        private static readonly HashSet<string> _assemblies = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+
         /// <summary>
         /// SpecialFolder CommonApplicationData + Solarwinds directory
         /// </summary>
@@ -67,14 +68,14 @@ namespace SolarWinds.Logging
                 Assembly currentAssembly = typeof(Log).Assembly;
 
                 List<Assembly> asmList = new StackTrace().GetFrames()
-                    .Where(frame => 
+                    .Where(frame =>
                         {
                             MethodBase method = frame.GetMethod();
                             return method != null && method.DeclaringType != null && method.DeclaringType.Assembly != null;
                         })
                     .Select(frame => frame.GetMethod().DeclaringType.Assembly)
                     .ToList();
-                int currentAssemblyIndex = asmList.FindLastIndex(asm => 
+                int currentAssemblyIndex = asmList.FindLastIndex(asm =>
                     asm.FullName.Equals(currentAssembly.FullName, StringComparison.OrdinalIgnoreCase)) + 1;
 
                 Assembly entryAssembly = null;
@@ -124,10 +125,11 @@ namespace SolarWinds.Logging
 
             // Configure log4net within application configuration file
             // For web apps, this will work if the config info is in web.config:
-            Configure(AppDomain.CurrentDomain.SetupInformation.ConfigurationFile);
+            var configuration = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+            Configure(configuration.FilePath);
         }
 
-        static void CurrentDomain_AssemblyLoad(object sender, AssemblyLoadEventArgs args)
+        private static void CurrentDomain_AssemblyLoad(object sender, AssemblyLoadEventArgs args)
         {
             try
             {
@@ -140,36 +142,36 @@ namespace SolarWinds.Logging
             }
         }
 
-		[MethodImpl(MethodImplOptions.NoInlining)]
-		public Log() : this(GetCallerMethod())
-		{
-		}
+        [MethodImpl(MethodImplOptions.NoInlining)]
+        public Log() : this(GetCallerMethod())
+        {
+        }
 
         private Log(MethodBase callerMethod)
         {
             Type callerType;
             if ((callerType = callerMethod.DeclaringType) != null)
             {
-                _log = SolarWinds.Logging.Ext.EventID.EventIDLogManager.GetLogger(callerType.Assembly, callerType);
+                _log = Ext.EventID.EventIDLogManager.GetLogger(callerType.Assembly, callerType);
 
                 LogAssemblyVersion(callerType.Assembly);
             }
             else
             {
-                _log = SolarWinds.Logging.Ext.EventID.EventIDLogManager.GetLogger(callerMethod.Name);
+                _log = Ext.EventID.EventIDLogManager.GetLogger(callerMethod.Name);
             }
         }
 
         public Log(Type callerType)
         {
-            _log = SolarWinds.Logging.Ext.EventID.EventIDLogManager.GetLogger(callerType.Assembly, callerType);
+            _log = Ext.EventID.EventIDLogManager.GetLogger(callerType.Assembly, callerType);
 
             LogAssemblyVersion(callerType.Assembly);
         }
 
-        public Log(String Name)
+        public Log(string Name)
         {
-            _log = SolarWinds.Logging.Ext.EventID.EventIDLogManager.GetLogger(Name);
+            _log = Ext.EventID.EventIDLogManager.GetLogger(Name);
         }
 
         /// <summary>
@@ -262,9 +264,10 @@ namespace SolarWinds.Logging
                     yield return Path.Combine(Path.GetDirectoryName(entryAssembly.Location), Path.GetFileName(fileName));
             }
 
-            yield return AppDomain.CurrentDomain.SetupInformation.ConfigurationFile;
+            var configuration = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+            yield return configuration.FilePath;
         }
-        
+
         #region Log Forwarding Members
 
         public void Debug(object message)
@@ -494,13 +497,13 @@ namespace SolarWinds.Logging
 
         public void Verbose(object message)
         {
-            _log.Logger.Log(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType,
+            _log.Logger.Log(MethodBase.GetCurrentMethod().DeclaringType,
                 log4net.Core.Level.Verbose, message, null);
         }
 
         public void Verbose(object message, Exception exception)
         {
-            _log.Logger.Log(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType,
+            _log.Logger.Log(MethodBase.GetCurrentMethod().DeclaringType,
                 log4net.Core.Level.Verbose, message, exception);
         }
 
@@ -511,7 +514,7 @@ namespace SolarWinds.Logging
 
         public void VerboseFormat(IFormatProvider provider, string format, params object[] args)
         {
-            _log.Logger.Log(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType,
+            _log.Logger.Log(MethodBase.GetCurrentMethod().DeclaringType,
                 log4net.Core.Level.Verbose, new SystemStringFormat(provider, format, args), null);
         }
 
@@ -527,13 +530,13 @@ namespace SolarWinds.Logging
 
         public void Trace(object message)
         {
-            _log.Logger.Log(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType,
+            _log.Logger.Log(MethodBase.GetCurrentMethod().DeclaringType,
                 log4net.Core.Level.Trace, message, null);
         }
 
         public void Trace(object message, Exception exception)
         {
-            _log.Logger.Log(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType,
+            _log.Logger.Log(MethodBase.GetCurrentMethod().DeclaringType,
                 log4net.Core.Level.Trace, message, exception);
         }
 
@@ -544,7 +547,7 @@ namespace SolarWinds.Logging
 
         public void TraceFormat(IFormatProvider provider, string format, params object[] args)
         {
-            _log.Logger.Log(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType,
+            _log.Logger.Log(MethodBase.GetCurrentMethod().DeclaringType,
                 log4net.Core.Level.Trace, new SystemStringFormat(provider, format, args), null);
         }
 
@@ -593,47 +596,47 @@ namespace SolarWinds.Logging
             get { return _log.IsTraceEnabled; }
         }
 
-		[MethodImpl(MethodImplOptions.NoInlining)]
-		public IDisposable Block()
-		{
-			return Block(new StackFrame(1, false).GetMethod().Name);
-		}
+        [MethodImpl(MethodImplOptions.NoInlining)]
+        public IDisposable Block()
+        {
+            return Block(new StackFrame(1, false).GetMethod().Name);
+        }
 
-		public IDisposable Block(string blockName)
-		{
-			return new LogBlock(this, blockName);
-		}
+        public IDisposable Block(string blockName)
+        {
+            return new LogBlock(this, blockName);
+        }
 
         #endregion
     }
 
-	class LogBlock : IDisposable
-	{
-		string _blockName;
-		Log _log;
-		IDisposable _threadContextStackPopper;
+    internal class LogBlock : IDisposable
+    {
+        private readonly string _blockName;
+        private readonly Log _log;
+        private IDisposable _threadContextStackPopper;
 
-		public LogBlock(Log log, string blockName)
-		{
+        public LogBlock(Log log, string blockName)
+        {
             _log = log;
             _blockName = blockName;
             _threadContextStackPopper = log4net.ThreadContext.Stacks["NDC"].Push(blockName);
             _log.DebugFormat("{{ {0} entered", _blockName);
-		}
+        }
 
-		#region IDisposable Members
+        #region IDisposable Members
 
-		public void Dispose()
-		{
-			if (_threadContextStackPopper != null)
-			{
-				_log.DebugFormat("}} {0} exited", _blockName);
-				_threadContextStackPopper.Dispose();
-				_threadContextStackPopper = null;
-			}
-			//GC.SuppressFinalize(this); // no finalizer on this object, so SuppressFinalize is not needed
-		}
+        public void Dispose()
+        {
+            if (_threadContextStackPopper != null)
+            {
+                _log.DebugFormat("}} {0} exited", _blockName);
+                _threadContextStackPopper.Dispose();
+                _threadContextStackPopper = null;
+            }
+            //GC.SuppressFinalize(this); // no finalizer on this object, so SuppressFinalize is not needed
+        }
 
-		#endregion
-	}
+        #endregion
+    }
 }

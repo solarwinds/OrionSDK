@@ -54,7 +54,7 @@ namespace SwqlStudio
 
         private string GetKey(string serverType, string server, string username)
         {
-            return String.Format("{0},{1},{2}", serverType, server, username);
+            return string.Format("{0},{1},{2}", serverType, server, username);
         }
 
         public bool TryGetProvider(ConnectionInfo connection, out IMetadataProvider provider)

@@ -1,10 +1,8 @@
 using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Data.Common;
-using SolarWinds.InformationService.Contract2;
 using System.Data;
+using System.Data.Common;
 using System.ServiceModel;
+using SolarWinds.InformationService.Contract2;
 
 namespace SolarWinds.InformationService.InformationServiceClient
 {
@@ -17,8 +15,7 @@ namespace SolarWinds.InformationService.InformationServiceClient
         private string remoteAddress;
         private InfoServiceProxy proxy;
         private ServiceCredentials credentials;
-        private bool bProxyOwner = true;
-        private IInformationService service;
+        private readonly bool bProxyOwner = true;
         private bool open = false;
 
         public InformationServiceConnection()
@@ -29,7 +26,7 @@ namespace SolarWinds.InformationService.InformationServiceClient
         public InformationServiceConnection(string endpointName)
         {
             if (endpointName == null)
-                throw new ArgumentNullException("endpointName");
+                throw new ArgumentNullException(nameof(endpointName));
 
             Initialize(endpointName, null, null);
         }
@@ -41,7 +38,7 @@ namespace SolarWinds.InformationService.InformationServiceClient
 
         public InformationServiceConnection(InfoServiceProxy proxy, bool takeOwnership)
         {
-            this.service = proxy;
+            Service = proxy;
             bProxyOwner = takeOwnership;
             if (bProxyOwner)
             {
@@ -52,18 +49,18 @@ namespace SolarWinds.InformationService.InformationServiceClient
         public InformationServiceConnection(IInformationService service)
         {
             if (service == null)
-                throw new ArgumentNullException("service");
+                throw new ArgumentNullException(nameof(service));
 
-            this.service = service;
+            Service = service;
             bProxyOwner = false;
         }
 
         public InformationServiceConnection(string endpointName, string remoteAddress)
         {
             if (endpointName == null)
-                throw new ArgumentNullException("endpointName");
+                throw new ArgumentNullException(nameof(endpointName));
             if (remoteAddress == null)
-                throw new ArgumentNullException("remoteAddress");
+                throw new ArgumentNullException(nameof(remoteAddress));
 
             Initialize(endpointName, remoteAddress, null);
         }
@@ -71,11 +68,11 @@ namespace SolarWinds.InformationService.InformationServiceClient
         public InformationServiceConnection(string endpointName, string remoteAddress, ServiceCredentials credentials)
         {
             if (endpointName == null)
-                throw new ArgumentNullException("endpointName");
+                throw new ArgumentNullException(nameof(endpointName));
             if (remoteAddress == null)
-                throw new ArgumentNullException("remoteAddress");
+                throw new ArgumentNullException(nameof(remoteAddress));
             if (credentials == null)
-                throw new ArgumentNullException("credentials");
+                throw new ArgumentNullException(nameof(credentials));
 
             Initialize(endpointName, remoteAddress, credentials);
         }
@@ -83,14 +80,14 @@ namespace SolarWinds.InformationService.InformationServiceClient
         public InformationServiceConnection(string endpointName, ServiceCredentials credentials)
         {
             if (endpointName == null)
-                throw new ArgumentNullException("endpointName");
+                throw new ArgumentNullException(nameof(endpointName));
             if (credentials == null)
-                throw new ArgumentNullException("credentials");
+                throw new ArgumentNullException(nameof(credentials));
 
             Initialize(endpointName, null, credentials);
         }
 
-        protected override DbTransaction BeginDbTransaction(System.Data.IsolationLevel isolationLevel)
+        protected override DbTransaction BeginDbTransaction(IsolationLevel isolationLevel)
         {
             throw new NotSupportedException();
         }
@@ -108,20 +105,20 @@ namespace SolarWinds.InformationService.InformationServiceClient
             {
                 try
                 {
-                    this.proxy.Dispose();
+                    proxy.Dispose();
                 }
                 catch (TimeoutException)
                 {
-                    this.proxy.Abort();
+                    proxy.Abort();
                 }
                 catch (CommunicationException)
                 {
-                    this.proxy.Abort();
+                    proxy.Abort();
                 }
             }
-            this.proxy = null;
-            this.service = null;
-            this.open = false;
+            proxy = null;
+            Service = null;
+            open = false;
 
         }
 
@@ -138,11 +135,11 @@ namespace SolarWinds.InformationService.InformationServiceClient
         {
             get
             {
-                return this.endpointName;
+                return endpointName;
             }
             set
             {
-                Initialize(value, this.remoteAddress, this.credentials);
+                Initialize(value, remoteAddress, credentials);
             }
         }
 
@@ -150,11 +147,11 @@ namespace SolarWinds.InformationService.InformationServiceClient
         {
             get
             {
-                return this.credentials;
+                return credentials;
             }
             set
             {
-                Initialize(this.endpointName, this.remoteAddress, value);
+                Initialize(endpointName, remoteAddress, value);
             }
         }
 
@@ -186,21 +183,21 @@ namespace SolarWinds.InformationService.InformationServiceClient
 
         public override void Open()
         {
-            if (this.proxy == null && this.service != null)
+            if (proxy == null && Service != null)
                 return; // Must be in-process. Nothing to do for Open().
 
-            if (this.proxy == null && !this.open)
-                    CreateProxy();
+            if (proxy == null && !open)
+                CreateProxy();
 
-            if ((this.proxy.Channel != null) && (this.proxy.Channel.State != System.ServiceModel.CommunicationState.Created))
+            if ((proxy.Channel != null) && (proxy.Channel.State != CommunicationState.Created))
                 throw new InvalidOperationException("Cannot open an opened or previously closed connection");
 
-            this.proxy.Open();
+            proxy.Open();
 
-            if (this.proxy.Channel.State != System.ServiceModel.CommunicationState.Opened)
+            if (proxy.Channel.State != CommunicationState.Opened)
                 throw new InvalidOperationException("Could not open the connection");
 
-            this.open = true;
+            open = true;
         }
 
         public override string ServerVersion
@@ -211,11 +208,11 @@ namespace SolarWinds.InformationService.InformationServiceClient
             }
         }
 
-        public override System.Data.ConnectionState State
+        public override ConnectionState State
         {
             get
             {
-                if ((this.proxy != null) && (this.proxy.Channel != null) && (this.proxy.Channel.State == System.ServiceModel.CommunicationState.Opened))
+                if ((proxy != null) && (proxy.Channel != null) && (proxy.Channel.State == CommunicationState.Opened))
                     return ConnectionState.Open;
                 else
                     return ConnectionState.Closed;
@@ -224,13 +221,13 @@ namespace SolarWinds.InformationService.InformationServiceClient
 
         private void Initialize(string endpointName, string remoteAddress, ServiceCredentials credentials)
         {
-            if ((this.proxy != null) && (this.bProxyOwner != true))
+            if ((proxy != null) && (bProxyOwner != true))
                 throw new InvalidOperationException("The Proxy Connection is not owned by InformationServiceConnection object");
-            
-            if ((this.proxy != null) && (this.proxy.Channel.State != CommunicationState.Created))
+
+            if ((proxy != null) && (proxy.Channel.State != CommunicationState.Created))
                 throw new InvalidOperationException("Cannot change the endpoint for an existing connection");
 
-            if (this.proxy != null)
+            if (proxy != null)
                 Close();
 
             this.endpointName = endpointName;
@@ -247,28 +244,22 @@ namespace SolarWinds.InformationService.InformationServiceClient
                 if (remoteAddress != null)
                 {
                     if (credentials != null)
-                        this.proxy = new InfoServiceProxy(endpointName, remoteAddress, credentials);
+                        proxy = new InfoServiceProxy(endpointName, remoteAddress, credentials);
                     else
-                        this.proxy = new InfoServiceProxy(endpointName, remoteAddress);
+                        proxy = new InfoServiceProxy(endpointName, remoteAddress);
                 }
                 else
                 {
                     if (credentials != null)
-                        this.proxy = new InfoServiceProxy(endpointName, credentials);
+                        proxy = new InfoServiceProxy(endpointName, credentials);
                     else
-                        this.proxy = new InfoServiceProxy(endpointName);
+                        proxy = new InfoServiceProxy(endpointName);
                 }
 
-                this.service = this.proxy;
+                Service = proxy;
             }
         }
 
-        internal IInformationService Service
-        {
-            get
-            {
-                return this.service;
-            }
-        }
+        internal IInformationService Service { get; private set; }
     }
 }

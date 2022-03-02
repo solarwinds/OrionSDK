@@ -3,6 +3,7 @@ using System.Linq;
 using System.Windows.Forms;
 using SolarWinds.InformationService.Contract2;
 using SwqlStudio.Metadata;
+using SwqlStudio.Utils;
 
 namespace SwqlStudio
 {
@@ -18,6 +19,7 @@ namespace SwqlStudio
         {
             _operation = operation;
             InitializeComponent();
+            DpiHelper.FixRowHeight(propertiesDataGridView);
         }
 
         public Entity Entity
@@ -62,8 +64,8 @@ namespace SwqlStudio
             {
                 foreach (var property in _entity.Properties
                     .OrderByDescending(p => p.IsKey)
-                    .ThenBy(p=> p.IsNavigable)
-                    .ThenBy(p=> p.IsInherited)
+                    .ThenBy(p => p.IsNavigable)
+                    .ThenBy(p => p.IsInherited)
                     .ThenBy(p => p.Name))
                 {
                     crudPropertyBindingSource.Add(new CrudProperty(property));
@@ -135,7 +137,7 @@ namespace SwqlStudio
         {
             if (e.ColumnIndex == 0)
             {
-                int imageIndex = (int) propertiesDataGridView[e.ColumnIndex, e.RowIndex].Value;
+                int imageIndex = (int)propertiesDataGridView[e.ColumnIndex, e.RowIndex].Value;
                 e.Value = propertiesImageList.Images[imageIndex];
             }
         }

@@ -111,7 +111,7 @@ namespace SolarWinds.InformationService.InformationServiceClient
 
         public override char GetChar(int ordinal)
         {
-            if (this.IsDBNull(ordinal))
+            if (IsDBNull(ordinal))
                 throw new SqlNullValueException(string.Format("Column contains {0} DBNull", ordinal));
 
             return _resultsReader.GetChar(ordinal);
@@ -129,7 +129,7 @@ namespace SolarWinds.InformationService.InformationServiceClient
 
         public override DateTime GetDateTime(int ordinal)
         {
-            if (this.IsDBNull(ordinal))
+            if (IsDBNull(ordinal))
                 throw new SqlNullValueException(string.Format("Column contains {0} DBNull", ordinal));
 
             return _resultsReader.GetDateTime(ordinal);
@@ -137,7 +137,7 @@ namespace SolarWinds.InformationService.InformationServiceClient
 
         public override decimal GetDecimal(int ordinal)
         {
-            if (this.IsDBNull(ordinal))
+            if (IsDBNull(ordinal))
                 throw new SqlNullValueException(string.Format("Column contains {0} DBNull", ordinal));
 
             return _resultsReader.GetDecimal(ordinal);
@@ -145,7 +145,7 @@ namespace SolarWinds.InformationService.InformationServiceClient
 
         public override double GetDouble(int ordinal)
         {
-            if (this.IsDBNull(ordinal))
+            if (IsDBNull(ordinal))
                 throw new SqlNullValueException(string.Format("Column contains {0} DBNull", ordinal));
 
             return _resultsReader.GetDouble(ordinal);
@@ -163,7 +163,7 @@ namespace SolarWinds.InformationService.InformationServiceClient
 
         public override float GetFloat(int ordinal)
         {
-            if (this.IsDBNull(ordinal))
+            if (IsDBNull(ordinal))
                 throw new SqlNullValueException(string.Format("Column contains {0} DBNull", ordinal));
 
             return _resultsReader.GetFloat(ordinal);
@@ -171,7 +171,7 @@ namespace SolarWinds.InformationService.InformationServiceClient
 
         public override Guid GetGuid(int ordinal)
         {
-            if (this.IsDBNull(ordinal))
+            if (IsDBNull(ordinal))
                 throw new SqlNullValueException(string.Format("Column contains {0} DBNull", ordinal));
 
             return _resultsReader.GetGuid(ordinal);
@@ -179,7 +179,7 @@ namespace SolarWinds.InformationService.InformationServiceClient
 
         public override short GetInt16(int ordinal)
         {
-            if (this.IsDBNull(ordinal))
+            if (IsDBNull(ordinal))
                 throw new SqlNullValueException(string.Format("Column contains {0} DBNull", ordinal));
 
             return _resultsReader.GetInt16(ordinal);
@@ -187,7 +187,7 @@ namespace SolarWinds.InformationService.InformationServiceClient
 
         public override int GetInt32(int ordinal)
         {
-            if (this.IsDBNull(ordinal))
+            if (IsDBNull(ordinal))
                 throw new SqlNullValueException(string.Format("Column contains {0} DBNull", ordinal));
 
             return _resultsReader.GetInt32(ordinal);
@@ -195,7 +195,7 @@ namespace SolarWinds.InformationService.InformationServiceClient
 
         public override long GetInt64(int ordinal)
         {
-            if (this.IsDBNull(ordinal))
+            if (IsDBNull(ordinal))
                 throw new SqlNullValueException(string.Format("Column contains {0} DBNull", ordinal));
 
             return _resultsReader.GetInt64(ordinal);
@@ -343,15 +343,15 @@ namespace SolarWinds.InformationService.InformationServiceClient
             }
 
 
-            private XmlDictionaryReader reader;
+            private readonly XmlDictionaryReader reader;
             private ParserState state;
             private List<ColumnInfo> columns;
             private int currentColumnOrdinal;
             private bool currentColumnDBNull;
             private bool currentColumnEncoded;
             private string currentColumnEncodingType;
-            private object[] values;
-            private List<object> arrayColumnValues = new List<object>();
+            private readonly object[] values;
+            private readonly List<object> arrayColumnValues = new List<object>();
             private bool closed = false;
             private DataTable schemaTable = null;
             private bool hasRows = false;
@@ -375,20 +375,20 @@ namespace SolarWinds.InformationService.InformationServiceClient
                 if (reader == null)
                     throw new ArgumentNullException(nameof(reader));
 
-                this.DateTimeMode = dateTimeMode;
+                DateTimeMode = dateTimeMode;
                 this.reader = reader;
 
                 ReadMetadata();
 
-                this.values = new object[this.columns.Count];
+                values = new object[columns.Count];
             }
 
             public override void Close()
             {
-                if (this.closed)
+                if (closed)
                     throw new InvalidOperationException("already closed");
 
-                this.closed = true;
+                closed = true;
             }
 
             public override int Depth
@@ -398,23 +398,23 @@ namespace SolarWinds.InformationService.InformationServiceClient
 
             public override int FieldCount
             {
-                get { return this.columns.Count; }
+                get { return columns.Count; }
             }
 
             public override bool GetBoolean(int ordinal)
             {
-                if (this.IsDBNull(ordinal))
+                if (IsDBNull(ordinal))
                     throw new SqlNullValueException(string.Format("Column contains {0} DBNull", ordinal));
 
-                return (bool)this.values[ordinal];
+                return (bool)values[ordinal];
             }
 
             public override byte GetByte(int ordinal)
             {
-                if (this.IsDBNull(ordinal))
+                if (IsDBNull(ordinal))
                     throw new SqlNullValueException(string.Format("Column contains {0} DBNull", ordinal));
 
-                return (byte)this.values[ordinal];
+                return (byte)values[ordinal];
             }
 
             public override long GetBytes(int ordinal, long dataOffset, byte[] buffer, int bufferOffset, int length)
@@ -424,10 +424,10 @@ namespace SolarWinds.InformationService.InformationServiceClient
 
             public override char GetChar(int ordinal)
             {
-                if (this.IsDBNull(ordinal))
+                if (IsDBNull(ordinal))
                     throw new SqlNullValueException(string.Format("Column contains {0} DBNull", ordinal));
 
-                return (char)this.values[ordinal];
+                return (char)values[ordinal];
             }
 
             public override long GetChars(int ordinal, long dataOffset, char[] buffer, int bufferOffset, int length)
@@ -437,31 +437,31 @@ namespace SolarWinds.InformationService.InformationServiceClient
 
             public override string GetDataTypeName(int ordinal)
             {
-                return this.columns[ordinal].TypeName;
+                return columns[ordinal].TypeName;
             }
 
             public override DateTime GetDateTime(int ordinal)
             {
-                if (this.IsDBNull(ordinal))
+                if (IsDBNull(ordinal))
                     throw new SqlNullValueException(string.Format("Column contains {0} DBNull", ordinal));
 
-                return (DateTime)this.values[ordinal];
+                return (DateTime)values[ordinal];
             }
 
             public override decimal GetDecimal(int ordinal)
             {
-                if (this.IsDBNull(ordinal))
+                if (IsDBNull(ordinal))
                     throw new SqlNullValueException(string.Format("Column contains {0} DBNull", ordinal));
 
-                return (Decimal)this.values[ordinal];
+                return (decimal)values[ordinal];
             }
 
             public override double GetDouble(int ordinal)
             {
-                if (this.IsDBNull(ordinal))
+                if (IsDBNull(ordinal))
                     throw new SqlNullValueException(string.Format("Column contains {0} DBNull", ordinal));
 
-                return (Double)this.values[ordinal];
+                return (double)values[ordinal];
             }
 
             public override System.Collections.IEnumerator GetEnumerator()
@@ -471,89 +471,89 @@ namespace SolarWinds.InformationService.InformationServiceClient
 
             public override Type GetFieldType(int ordinal)
             {
-                return this.columns[ordinal].Type;
+                return columns[ordinal].Type;
             }
 
             public override float GetFloat(int ordinal)
             {
-                if (this.IsDBNull(ordinal))
+                if (IsDBNull(ordinal))
                     throw new SqlNullValueException(string.Format("Column contains {0} DBNull", ordinal));
 
-                return (float)this.values[ordinal];
+                return (float)values[ordinal];
             }
 
             public override Guid GetGuid(int ordinal)
             {
-                if (this.IsDBNull(ordinal))
+                if (IsDBNull(ordinal))
                     throw new SqlNullValueException(string.Format("Column contains {0} DBNull", ordinal));
 
-                return (Guid)this.values[ordinal];
+                return (Guid)values[ordinal];
             }
 
             public override short GetInt16(int ordinal)
             {
-                if (this.IsDBNull(ordinal))
+                if (IsDBNull(ordinal))
                     throw new SqlNullValueException(string.Format("Column contains {0} DBNull", ordinal));
 
-                return (Int16)this.values[ordinal];
+                return (short)values[ordinal];
             }
 
             public override int GetInt32(int ordinal)
             {
-                if (this.IsDBNull(ordinal))
+                if (IsDBNull(ordinal))
                     throw new SqlNullValueException(string.Format("Column contains {0} DBNull", ordinal));
 
-                return (Int32)this.values[ordinal];
+                return (int)values[ordinal];
             }
 
             public override long GetInt64(int ordinal)
             {
-                if (this.IsDBNull(ordinal))
+                if (IsDBNull(ordinal))
                     throw new SqlNullValueException(string.Format("Column contains {0} DBNull", ordinal));
 
-                return (Int64)this.values[ordinal];
+                return (long)values[ordinal];
             }
 
             public override string GetName(int ordinal)
             {
-                return this.columns[ordinal].Name;
+                return columns[ordinal].Name;
             }
 
             public override int GetOrdinal(string name)
             {
-                for (int i = 0; i < this.columns.Count; ++i)
+                for (int i = 0; i < columns.Count; ++i)
                 {
-                    if (this.columns[i].Name.Equals(name, StringComparison.Ordinal))
+                    if (columns[i].Name.Equals(name, StringComparison.Ordinal))
                         return i;
                 }
 
-                for (int i = 0; i < this.columns.Count; ++i)
+                for (int i = 0; i < columns.Count; ++i)
                 {
-                    if (this.columns[i].Name.Equals(name, StringComparison.OrdinalIgnoreCase))
+                    if (columns[i].Name.Equals(name, StringComparison.OrdinalIgnoreCase))
                         return i;
                 }
 
                 throw new IndexOutOfRangeException("The name specified is not a valid column name");
             }
 
-            public override System.Data.DataTable GetSchemaTable()
+            public override DataTable GetSchemaTable()
             {
-                if (this.schemaTable == null)
+                if (schemaTable == null)
                     BuildSchemaTable();
-                return this.schemaTable;
+                return schemaTable;
             }
 
             public override string GetString(int ordinal)
             {
-                if (this.IsDBNull(ordinal))
+                if (IsDBNull(ordinal))
                     return null;
 
-                return (string)this.values[ordinal];
+                return (string)values[ordinal];
             }
 
             public override object GetValue(int ordinal)
             {
-                return this.values[ordinal];
+                return values[ordinal];
             }
 
             public override int GetValues(object[] values)
@@ -566,21 +566,21 @@ namespace SolarWinds.InformationService.InformationServiceClient
             {
                 get
                 {
-                    if (this.closed)
+                    if (closed)
                         throw new InvalidOperationException("DataReader is closed");
 
-                    return this.hasRows;
+                    return hasRows;
                 }
             }
 
             public override bool IsClosed
             {
-                get { return this.closed; }
+                get { return closed; }
             }
 
             public override bool IsDBNull(int ordinal)
             {
-                return (this.values[ordinal] == DBNull.Value);
+                return (values[ordinal] == DBNull.Value);
             }
 
             public override bool NextResult()
@@ -590,7 +590,7 @@ namespace SolarWinds.InformationService.InformationServiceClient
 
             public override bool Read()
             {
-                if (this.closed)
+                if (closed)
                     throw new InvalidOperationException("DataReader is closed");
 
                 return ReadNextEntity();
@@ -605,12 +605,12 @@ namespace SolarWinds.InformationService.InformationServiceClient
 
             public override object this[string name]
             {
-                get { return this.values[GetOrdinal(name)]; }
+                get { return values[GetOrdinal(name)]; }
             }
 
             public override object this[int ordinal]
             {
-                get { return this.values[ordinal]; }
+                get { return values[ordinal]; }
             }
 
             public XmlDocument QueryPlan { get; private set; }
@@ -623,7 +623,7 @@ namespace SolarWinds.InformationService.InformationServiceClient
                     switch (reader.NodeType)
                     {
                         case XmlNodeType.Element:
-                            switch (this.state)
+                            switch (state)
                             {
                                 case ParserState.Start:
                                     // Assumption:
@@ -633,7 +633,7 @@ namespace SolarWinds.InformationService.InformationServiceClient
                                         continue;
 
                                     if (string.CompareOrdinal(reader.LocalName, "queryResult") == 0)
-                                        this.state = ParserState.Root;
+                                        state = ParserState.Root;
                                     else
                                         throw new InvalidOperationException(
                                             "Expecting <queryResult> element but found " + reader.LocalName);
@@ -642,23 +642,23 @@ namespace SolarWinds.InformationService.InformationServiceClient
                                 case ParserState.Root:
                                     if (string.CompareOrdinal(reader.LocalName, "queryPlan") == 0)
                                     {
-                                        this.QueryPlan = new XmlDocument();
+                                        QueryPlan = new XmlDocument();
                                         QueryPlan.Load(reader.ReadSubtree());
                                     }
                                     // obsolete since 2016.2 - the statistics was put after data
                                     else if (string.CompareOrdinal(reader.LocalName, "statistics") == 0)
                                     {
-                                        this.QueryStats = new XmlDocument();
+                                        QueryStats = new XmlDocument();
                                         QueryStats.Load(reader.ReadSubtree());
                                     }
                                     else if (string.CompareOrdinal(reader.LocalName, "template") == 0)
                                     {
-                                        this.state = ParserState.Template;
+                                        state = ParserState.Template;
                                     }
                                     else if (string.CompareOrdinal(reader.LocalName, "data") == 0)
                                     {
-                                        this.state = ParserState.Data;
-                                        this.hasRows = true;
+                                        state = ParserState.Data;
+                                        hasRows = true;
                                         string totalRowsAttr = reader.GetAttribute("totalRows");
                                         if (!string.IsNullOrEmpty(totalRowsAttr))
                                             TotalRows = Convert.ToInt64(totalRowsAttr, CultureInfo.InvariantCulture);
@@ -674,10 +674,10 @@ namespace SolarWinds.InformationService.InformationServiceClient
                                 case ParserState.Template:
                                     if (string.CompareOrdinal(reader.LocalName, "resultset") == 0)
                                     {
-                                        if (this.columns != null)
+                                        if (columns != null)
                                             throw new InvalidOperationException("Only one resultset is supported");
 
-                                        this.state = ParserState.ResultSet;
+                                        state = ParserState.ResultSet;
                                     }
                                     break;
 
@@ -686,16 +686,16 @@ namespace SolarWinds.InformationService.InformationServiceClient
                                         throw new InvalidOperationException(
                                             "Only <column> elements are expected as children of a <resultset> element");
 
-                                    if (this.columns == null)
+                                    if (columns == null)
                                     {
-                                        this.columns = new List<ColumnInfo>();
+                                        columns = new List<ColumnInfo>();
                                     }
 
                                     ColumnInfo columnInfo = new ColumnInfo(reader["name"], reader["type"],
-                                        Int32.Parse(reader["ordinal"], CultureInfo.InvariantCulture));
+                                        int.Parse(reader["ordinal"], CultureInfo.InvariantCulture));
 
                                     // TODO: this should be define in column definition
-                                    columnInfo.DateTimeMode = this.DateTimeMode;
+                                    columnInfo.DateTimeMode = DateTimeMode;
 
                                     while (reader.MoveToNextAttribute())
                                     {
@@ -705,26 +705,26 @@ namespace SolarWinds.InformationService.InformationServiceClient
                                     }
                                     reader.MoveToElement();
 
-                                    this.columns.Add(columnInfo);
+                                    columns.Add(columnInfo);
 
                                     // Sometime empty elements come with an end element, adjust the statemachine state accordingly
                                     if (!reader.IsEmptyElement)
-                                        this.state = ParserState.PropertyTemplate;
+                                        state = ParserState.PropertyTemplate;
                                     break;
 
                                 default:
-                                    throw new InvalidOperationException("Unexpected state " + this.state);
+                                    throw new InvalidOperationException("Unexpected state " + state);
                             }
                             break;
 
                         case XmlNodeType.EndElement:
-                            switch (this.state)
+                            switch (state)
                             {
                                 case ParserState.Root:
                                     if (string.CompareOrdinal(reader.LocalName, "queryResult") != 0)
                                         throw new InvalidOperationException(
                                             string.Format("Not expecting element {0} while in state {1}",
-                                                reader.LocalName, this.state));
+                                                reader.LocalName, state));
                                     return;
 
                                 case ParserState.Template:
@@ -742,7 +742,7 @@ namespace SolarWinds.InformationService.InformationServiceClient
                                 default:
                                     throw new InvalidOperationException(
                                         string.Format("Not expecting element {0} while in state {1}", reader.LocalName,
-                                            this.state));
+                                            state));
                             }
                             break;
                     }
@@ -768,7 +768,7 @@ namespace SolarWinds.InformationService.InformationServiceClient
                 {
                     if (reader.NodeType == XmlNodeType.Element)
                     {
-                        switch (this.state)
+                        switch (state)
                         {
                             case ParserState.Data:
                                 BeginRootEntity(reader);
@@ -785,7 +785,7 @@ namespace SolarWinds.InformationService.InformationServiceClient
                             case ParserState.Errors:
                                 if (reader.LocalName == "errors")
                                 {
-                                    this.state = ParserState.Error;
+                                    state = ParserState.Error;
                                 }
                                 break;
 
@@ -794,31 +794,31 @@ namespace SolarWinds.InformationService.InformationServiceClient
                                 break;
 
                             case ParserState.Root:
-                            {
-                                if (reader.LocalName == "errors")
                                 {
-                                    this.state = ParserState.Error;
-                                }
-                                else if (reader.LocalName == "statistics")
-                                {
-                                    this.QueryStats = new XmlDocument();
-                                    QueryStats.Load(reader.ReadSubtree());
-                                }
-                                else
-                                    throw new InvalidOperationException("Unexpected state " + this.state);
+                                    if (reader.LocalName == "errors")
+                                    {
+                                        state = ParserState.Error;
+                                    }
+                                    else if (reader.LocalName == "statistics")
+                                    {
+                                        QueryStats = new XmlDocument();
+                                        QueryStats.Load(reader.ReadSubtree());
+                                    }
+                                    else
+                                        throw new InvalidOperationException("Unexpected state " + state);
 
-                                break;
-                            }
+                                    break;
+                                }
 
                             default:
-                                throw new InvalidOperationException("Unexpected state " + this.state);
+                                throw new InvalidOperationException("Unexpected state " + state);
                         }
                     }
 
                     if (reader.NodeType == XmlNodeType.EndElement ||
                         (reader.NodeType == XmlNodeType.Element && reader.IsEmptyElement))
                     {
-                        switch (this.state)
+                        switch (state)
                         {
                             case ParserState.Error:
                                 if (reader.LocalName == "errors")
@@ -862,15 +862,15 @@ namespace SolarWinds.InformationService.InformationServiceClient
                             default:
                                 throw new InvalidOperationException(
                                     string.Format("Not expecting element {0} while in state {1}", reader.LocalName,
-                                        this.state));
+                                        state));
                         }
                     }
 
                     if (reader.NodeType == XmlNodeType.Text || reader.NodeType == XmlNodeType.Whitespace)
                     {
-                        if (!this.currentColumnDBNull)
+                        if (!currentColumnDBNull)
                         {
-                            switch (this.state)
+                            switch (state)
                             {
                                 case ParserState.Column:
                                     ProcessColumnValue(reader);
@@ -884,7 +884,7 @@ namespace SolarWinds.InformationService.InformationServiceClient
                                     if (reader.NodeType == XmlNodeType.Whitespace)
                                         break;
                                     throw new InvalidOperationException("Not expecting element content for state " +
-                                                                        this.state);
+                                                                        state);
                             }
                         }
                     }
@@ -899,7 +899,7 @@ namespace SolarWinds.InformationService.InformationServiceClient
                     throw new InvalidOperationException(string.Format("Expecting </{0}> but encountered {1}",
                         expectedName, elementName));
 
-                this.state = targetState;
+                state = targetState;
             }
 
             private void BeginRootEntity(XmlReader reader)
@@ -909,39 +909,39 @@ namespace SolarWinds.InformationService.InformationServiceClient
                 // - name must match exactly between the XML element and the type name
                 // - not handling simple scalar results at this point, only classes/structs with properties
                 // - not handling fields
-                if (String.CompareOrdinal("row", reader.LocalName) != 0)
+                if (string.CompareOrdinal("row", reader.LocalName) != 0)
                     throw new InvalidOperationException("Expecting <row> element but found " + reader.LocalName);
 
-                this.state = ParserState.Row;
+                state = ParserState.Row;
 
-                for (int i = 0; i < this.values.Length; ++i)
-                    this.values[i] = DBNull.Value;
+                for (int i = 0; i < values.Length; ++i)
+                    values[i] = DBNull.Value;
             }
 
             private void EndRootEntity()
             {
-                this.state = ParserState.Data;
+                state = ParserState.Data;
             }
 
             private void BeginColumn(XmlReader reader)
             {
-                this.currentColumnOrdinal = Parse(reader.LocalName, 1, reader.LocalName.Length);
+                currentColumnOrdinal = Parse(reader.LocalName, 1, reader.LocalName.Length);
 
                 string dbNullAtt = reader.GetAttribute(DBNullAttribute, DBNullNamespace);
-                this.currentColumnDBNull = (!string.IsNullOrEmpty(dbNullAtt) && dbNullAtt.CompareTo(DBNullValue) == 0);
+                currentColumnDBNull = (!string.IsNullOrEmpty(dbNullAtt) && dbNullAtt.CompareTo(DBNullValue) == 0);
 
-                bool.TryParse(reader.GetAttribute(IsEncodedAttribute), out this.currentColumnEncoded);
-                this.currentColumnEncodingType = this.currentColumnEncoded ? reader.GetAttribute(EncodingTypeAttribute) : string.Empty;
+                bool.TryParse(reader.GetAttribute(IsEncodedAttribute), out currentColumnEncoded);
+                currentColumnEncodingType = currentColumnEncoded ? reader.GetAttribute(EncodingTypeAttribute) : string.Empty;
 
-                ColumnInfo columnInfo = this.columns[this.currentColumnOrdinal];
+                ColumnInfo columnInfo = columns[currentColumnOrdinal];
                 if (columnInfo.IsArray)
-                    this.state = ParserState.ArrayColumn;
+                    state = ParserState.ArrayColumn;
                 else
                 {
-                    this.state = ParserState.Column;
+                    state = ParserState.Column;
 
                     if (columnInfo.EntityPropertyType == EntityPropertyType.String && !currentColumnDBNull)
-                        this.values[this.currentColumnOrdinal] = string.Empty;
+                        values[currentColumnOrdinal] = string.Empty;
                 }
             }
 
@@ -959,30 +959,30 @@ namespace SolarWinds.InformationService.InformationServiceClient
 
             private void BeginArrayItem(XmlDictionaryReader reader)
             {
-                if (String.CompareOrdinal("item", reader.LocalName) != 0)
+                if (string.CompareOrdinal("item", reader.LocalName) != 0)
                     throw new InvalidOperationException("Expecting <item> element but found " + reader.LocalName);
 
-                this.state = ParserState.ArrayItem;
+                state = ParserState.ArrayItem;
             }
 
             private void ProcessArrayItem(XmlDictionaryReader reader)
             {
-                ColumnInfo columnInfo = this.columns[this.currentColumnOrdinal];
-                this.arrayColumnValues.Add(
+                ColumnInfo columnInfo = columns[currentColumnOrdinal];
+                arrayColumnValues.Add(
                     DeserializeScalarValue(reader.Value, columnInfo.EntityPropertyType, columnInfo.Type.GetElementType(), columnInfo));
             }
 
             private void ProcessColumnValue(XmlDictionaryReader reader)
             {
-                ColumnInfo columnInfo = this.columns[this.currentColumnOrdinal];
+                ColumnInfo columnInfo = columns[currentColumnOrdinal];
 
                 object value = DeserializeScalarValue(reader.Value, columnInfo.EntityPropertyType, columnInfo.Type, columnInfo);
                 if (columnInfo.EntityPropertyType == EntityPropertyType.String)
                 {
-                    value = this.values[this.currentColumnOrdinal] + value.ToString();
+                    value = values[currentColumnOrdinal] + value.ToString();
                 }
 
-                this.values[this.currentColumnOrdinal] = value;
+                values[currentColumnOrdinal] = value;
             }
 
             private object DeserializeScalarValue(string value, EntityPropertyType columnType, Type targetType, ColumnInfo currentColumn)
@@ -990,9 +990,9 @@ namespace SolarWinds.InformationService.InformationServiceClient
                 switch (columnType)
                 {
                     case EntityPropertyType.String:
-                        if (this.currentColumnEncoded)
+                        if (currentColumnEncoded)
                         {
-                            if (DBBase64.Equals(this.currentColumnEncodingType, StringComparison.OrdinalIgnoreCase))
+                            if (DBBase64.Equals(currentColumnEncodingType, StringComparison.OrdinalIgnoreCase))
                                 value = System.Text.Encoding.UTF8.GetString(Convert.FromBase64String(value));
                         }
                         return Convert.ChangeType(value, targetType, CultureInfo.InvariantCulture);
@@ -1035,94 +1035,86 @@ namespace SolarWinds.InformationService.InformationServiceClient
 
             private void EndColumn(XmlReader reader)
             {
-                if (string.CompareOrdinal(reader.LocalName, this.columns[this.currentColumnOrdinal].ElementName) != 0)
+                if (string.CompareOrdinal(reader.LocalName, columns[currentColumnOrdinal].ElementName) != 0)
                     throw new InvalidOperationException(string.Format("Expecting </{0}> but encountered {1}",
-                        this.columns[this.currentColumnOrdinal].ElementName, reader.LocalName));
+                        columns[currentColumnOrdinal].ElementName, reader.LocalName));
 
-                this.currentColumnOrdinal = -1;
+                currentColumnOrdinal = -1;
 
-                this.state = ParserState.Row;
+                state = ParserState.Row;
             }
 
             private void EndArrayColumn()
             {
-                if (string.CompareOrdinal(reader.LocalName, this.columns[this.currentColumnOrdinal].ElementName) != 0)
+                if (string.CompareOrdinal(reader.LocalName, columns[currentColumnOrdinal].ElementName) != 0)
                     throw new InvalidOperationException(string.Format("Expecting </{0}> but encountered {1}",
-                        this.columns[this.currentColumnOrdinal].ElementName, reader.LocalName));
+                        columns[currentColumnOrdinal].ElementName, reader.LocalName));
 
-                ColumnInfo column = this.columns[this.currentColumnOrdinal];
-                Array values = Array.CreateInstance(column.Type.GetElementType(), this.arrayColumnValues.Count);
+                ColumnInfo column = columns[currentColumnOrdinal];
+                Array values = Array.CreateInstance(column.Type.GetElementType(), arrayColumnValues.Count);
                 for (int i = 0; i < values.Length; i++)
-                    values.SetValue(this.arrayColumnValues[i], i);
+                    values.SetValue(arrayColumnValues[i], i);
 
-                this.values[this.currentColumnOrdinal] = values;
+                this.values[currentColumnOrdinal] = values;
 
-                this.arrayColumnValues.Clear();
+                arrayColumnValues.Clear();
 
-                this.currentColumnOrdinal = -1;
+                currentColumnOrdinal = -1;
 
-                this.state = ParserState.Row;
+                state = ParserState.Row;
             }
 
             private void BuildSchemaTable()
             {
-                this.schemaTable = new DataTable("SchemaTable");
-                this.schemaTable.MinimumCapacity = this.columns.Count;
+                schemaTable = new DataTable("SchemaTable");
+                schemaTable.MinimumCapacity = columns.Count;
 
                 DataColumn nameColumn = new DataColumn("ColumnName", typeof(string));
-                this.schemaTable.Columns.Add(nameColumn);
+                schemaTable.Columns.Add(nameColumn);
                 DataColumn ordinalColumn = new DataColumn("ColumnOrdinal", typeof(int));
-                this.schemaTable.Columns.Add(ordinalColumn);
+                schemaTable.Columns.Add(ordinalColumn);
                 DataColumn typeColumn = new DataColumn("ColumnType", typeof(Type));
-                this.schemaTable.Columns.Add(typeColumn);
+                schemaTable.Columns.Add(typeColumn);
 
                 DataColumn dateTimeMode = new DataColumn("ColumnDateTimeMode", typeof(DataSetDateTime));
-                this.schemaTable.Columns.Add(dateTimeMode);
+                schemaTable.Columns.Add(dateTimeMode);
 
                 foreach (var metadataName in columns.SelectMany(c => c.MetadataNames).Distinct())
                 {
                     schemaTable.Columns.Add(metadataName, typeof(string));
                 }
 
-                foreach (ColumnInfo columnInfo in this.columns)
+                foreach (ColumnInfo columnInfo in columns)
                 {
-                    DataRow row = this.schemaTable.NewRow();
+                    DataRow row = schemaTable.NewRow();
                     row["ColumnName"] = columnInfo.Name;
                     row["ColumnOrdinal"] = columnInfo.Ordinal;
                     row["ColumnType"] = columnInfo.Type;
-                    row["ColumnDateTimeMode"] = this.DateTimeMode;
+                    row["ColumnDateTimeMode"] = DateTimeMode;
 
                     foreach (var metadataName in columnInfo.MetadataNames)
                     {
                         row[metadataName] = columnInfo[metadataName];
                     }
 
-                    this.schemaTable.Rows.Add(row);
+                    schemaTable.Rows.Add(row);
                 }
             }
 
             private class ColumnInfo : EntityPropertyInfo
             {
-                private readonly int ordinal;
-                private readonly string elementName;
                 private readonly Dictionary<string, string> metadata = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
 
                 public ColumnInfo(string name, string typeName, int ordinal)
                     : base(name, typeName)
                 {
-                    this.ordinal = ordinal;
-                    this.elementName = "c" + ordinal.ToString(System.Globalization.CultureInfo.InvariantCulture);
+                    Ordinal = ordinal;
+                    ElementName = "c" + ordinal.ToString(CultureInfo.InvariantCulture);
                 }
 
-                public int Ordinal
-                {
-                    get { return this.ordinal; }
-                }
+                public int Ordinal { get; }
 
-                public string ElementName
-                {
-                    get { return this.elementName; }
-                }
+                public string ElementName { get; }
 
                 public void AddMetadata(string key, string value)
                 {

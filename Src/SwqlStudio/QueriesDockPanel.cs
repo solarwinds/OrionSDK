@@ -13,17 +13,17 @@ namespace SwqlStudio
     {
         private DockContent lastActiveContent = null;
         private ITabsFactory tabsFactory;
-        private ObjectExplorer objectExplorer;
+        private ObjectExplorer.ObjectExplorer objectExplorer;
         private DockContent objectExplorerContent;
         private QueryParameters queryParametersContent;
         private DocumentationContent documentationContent;
 
         public PropertyBag QueryParameters
         {
-            get { return this.queryParametersContent.Parameters; }
+            get { return queryParametersContent.Parameters; }
             set
             {
-                this.queryParametersContent.Parameters = value;
+                queryParametersContent.Parameters = value;
                 ShowPropertiesContent(value);
             }
         }
@@ -49,7 +49,7 @@ namespace SwqlStudio
         {
             get { return GetAllControlsOnTabs<QueryTab>(); }
         }
-        
+
         public QueriesDockPanel()
         {
             InitializeComponent();
@@ -62,14 +62,14 @@ namespace SwqlStudio
 
         public void CreateTabFromPrevious()
         {
-            var previousTab = this.ActiveQueryTab;
+            var previousTab = ActiveQueryTab;
             if (previousTab != null)
             {
-                this.tabsFactory.OpenQueryTab(previousTab.QueryText, previousTab.ConnectionInfo);
+                tabsFactory.OpenQueryTab(previousTab.QueryText, previousTab.ConnectionInfo);
             }
             else
             {
-                this.tabsFactory.OpenQueryTab();
+                tabsFactory.OpenQueryTab();
             }
         }
 
@@ -78,12 +78,12 @@ namespace SwqlStudio
             if (!HasActiveContent())
                 return null;
 
-            return this.lastActiveContent.Controls[0];
+            return lastActiveContent.Controls[0];
         }
 
         private bool HasActiveContent()
         {
-            return this.lastActiveContent != null;
+            return lastActiveContent != null;
         }
 
         private void InitializeDockPanel()
@@ -91,47 +91,47 @@ namespace SwqlStudio
             // Workaround for crash, when form is MDI
             // https://github.com/jacobslusser/ScintillaNET/issues/85
             Scintilla.SetDestroyHandleBehavior(true);
-            this.Theme = new VS2015LightTheme();
-            this.ShowDocumentIcon = false;
-            this.ActiveContentChanged += FilesDock_ActiveContentChanged;
-            this.ContentRemoved += FilesDock_ContentRemoved;
+            Theme = new VS2015LightTheme();
+            ShowDocumentIcon = false;
+            ActiveContentChanged += FilesDock_ActiveContentChanged;
+            ContentRemoved += FilesDock_ContentRemoved;
         }
 
         private void InitializeObjectExplorer()
         {
-            this.objectExplorer = new ObjectExplorer();
-            this.objectExplorer.Dock = DockStyle.Fill;
-            this.objectExplorer.SetGroupingMode(EntityGroupingMode.Flat);
-            this.objectExplorer.Location = new System.Drawing.Point(0, 0);
-            this.objectExplorer.Name = "objectExplorer";
-            this.objectExplorer.Size = new System.Drawing.Size(191, 571);
-            this.objectExplorer.TabIndex = 0;
-            this.objectExplorerContent = new DockContent();
-            ConfigureBuildInToolbox(this.objectExplorerContent);
-            this.objectExplorerContent.Text = "Object explorer";
-            this.objectExplorerContent.Controls.Add(this.objectExplorer);
-            this.objectExplorerContent.Show(this, DockState.DockLeft);
+            objectExplorer = new ObjectExplorer.ObjectExplorer();
+            objectExplorer.Dock = DockStyle.Fill;
+            objectExplorer.SetGroupingMode(EntityGroupingMode.Flat);
+            objectExplorer.Location = new System.Drawing.Point(0, 0);
+            objectExplorer.Name = "objectExplorer";
+            objectExplorer.Size = new System.Drawing.Size(191, 571);
+            objectExplorer.TabIndex = 0;
+            objectExplorerContent = new DockContent();
+            ConfigureBuildInToolbox(objectExplorerContent);
+            objectExplorerContent.Text = "Object explorer";
+            objectExplorerContent.Controls.Add(objectExplorer);
+            objectExplorerContent.Show(this, DockState.DockLeft);
         }
 
         private void InitializeQueryParameters()
         {
-            this.queryParametersContent = new QueryParameters();
-            this.queryParametersContent.Text = "Query parameters";
-            ConfigureBuildInToolbox(this.queryParametersContent);
-            this.queryParametersContent.Show(this, DockState.DockRightAutoHide);
+            queryParametersContent = new QueryParameters();
+            queryParametersContent.Text = "Query parameters";
+            ConfigureBuildInToolbox(queryParametersContent);
+            queryParametersContent.Show(this, DockState.DockRightAutoHide);
         }
 
         private void InitializeDocumentation()
         {
-            this.documentationContent = new DocumentationContent();
-            ConfigureBuildInToolbox(this.documentationContent);
-            this.objectExplorer.SelectionChanged += ObjectExplorer_SelectionChanged;
-            this.documentationContent.Show(this.objectExplorerContent.Pane, DockAlignment.Bottom, 0.25);
+            documentationContent = new DocumentationContent();
+            ConfigureBuildInToolbox(documentationContent);
+            objectExplorer.SelectionChanged += ObjectExplorer_SelectionChanged;
+            documentationContent.Show(objectExplorerContent.Pane, DockAlignment.Bottom, 0.25);
         }
 
         private void ObjectExplorer_SelectionChanged(object sender, TreeViewEventArgs e)
         {
-            this.documentationContent.UpdateDocumentation(e.Node);
+            documentationContent.UpdateDocumentation(e.Node);
         }
 
         private void ConfigureBuildInToolbox(DockContent content)
@@ -142,40 +142,40 @@ namespace SwqlStudio
 
         private void FilesDock_ContentRemoved(object sender, DockContentEventArgs e)
         {
-            if (e.Content == this.lastActiveContent)
-                this.lastActiveContent = null;
+            if (e.Content == lastActiveContent)
+                lastActiveContent = null;
         }
 
         private void FilesDock_ActiveContentChanged(object sender, EventArgs e)
         {
-            var newContent = this.ActiveContent as DockContent;
-            if (newContent != null &&  
-                newContent != this.objectExplorerContent &&
-                newContent != this.queryParametersContent &&
-                newContent != this.documentationContent &&
-                newContent != this.lastActiveContent)
+            var newContent = ActiveContent as DockContent;
+            if (newContent != null &&
+                newContent != objectExplorerContent &&
+                newContent != queryParametersContent &&
+                newContent != documentationContent &&
+                newContent != lastActiveContent)
             {
-                this.ActiveQueryTab?.PutParameters();
-                this.lastActiveContent = newContent;
-                this.ActiveQueryTab?.ParseParameters();
+                ActiveQueryTab?.PutParameters();
+                lastActiveContent = newContent;
+                ActiveQueryTab?.ParseParameters();
             }
         }
 
         internal void AddServer(IMetadataProvider provider, ConnectionInfo info)
         {
-            this.objectExplorer.AddServer(provider, info);
+            objectExplorer.AddServer(provider, info);
         }
 
         internal void CloseActiveContent()
         {
             if (HasActiveContent())
-                RemoveTab(this.lastActiveContent);
+                RemoveTab(lastActiveContent);
         }
 
         internal void ShowParametersToolbox()
         {
-            this.queryParametersContent.DockState = DockState.DockRight;
-            this.queryParametersContent.Activate();
+            queryParametersContent.DockState = DockState.DockRight;
+            queryParametersContent.Activate();
         }
 
         internal void SetEntityGroupingMode(EntityGroupingMode mode)
@@ -199,9 +199,9 @@ namespace SwqlStudio
         /// </summary>
         internal void ColoseInitialDocument()
         {
-            if (this.Contents.Count == 3 &&
-                ActiveQueryTab != null && ActiveQueryTab.QueryText.Trim() == String.Empty)
-                RemoveTab(this.lastActiveContent);
+            if (Contents.Count == 3 &&
+                ActiveQueryTab != null && ActiveQueryTab.QueryText.Trim() == string.Empty)
+                RemoveTab(lastActiveContent);
         }
 
         internal void RemoveTab(DockContent tabPage)
@@ -212,37 +212,37 @@ namespace SwqlStudio
 
         internal void OpenFiles(string[] files)
         {
-            this.tabsFactory.OpenFiles(files);
+            tabsFactory.OpenFiles(files);
         }
 
         internal void AddNewQueryTab()
         {
-            this.tabsFactory.OpenQueryTab();
+            tabsFactory.OpenQueryTab();
         }
 
         internal void SetAplicationService(TabsFactory tabsFactory)
         {
             this.tabsFactory = tabsFactory;
-            this.objectExplorer.TabsFactory = tabsFactory;
+            objectExplorer.TabsFactory = tabsFactory;
         }
-                
+
         internal void AllowSetParameters(bool allow)
         {
-            this.queryParametersContent.AllowSetParameters = allow;
+            queryParametersContent.AllowSetParameters = allow;
         }
 
         private void ShowPropertiesContent(PropertyBag value)
         {
             if (value.Keys.Count > 0 && IsPropertiesTabAutoHiden())
             {
-                this.queryParametersContent.IsHidden = false;
-                this.queryParametersContent.DockState = ActivateHidenProperties();
+                queryParametersContent.IsHidden = false;
+                queryParametersContent.DockState = ActivateHidenProperties();
             }
         }
 
         private bool IsPropertiesTabAutoHiden()
         {
-            switch (this.queryParametersContent.DockState)
+            switch (queryParametersContent.DockState)
             {
                 case DockState.DockTopAutoHide:
                 case DockState.DockLeftAutoHide:
@@ -253,10 +253,10 @@ namespace SwqlStudio
                     return false;
             }
         }
-        
+
         private DockState ActivateHidenProperties()
         {
-            switch (this.queryParametersContent.DockState)
+            switch (queryParametersContent.DockState)
             {
                 case DockState.DockTopAutoHide:
                     return DockState.DockTop;
@@ -267,25 +267,25 @@ namespace SwqlStudio
                 case DockState.DockRightAutoHide:
                     return DockState.DockRight;
                 default:
-                    return  DockState.DockRight;
+                    return DockState.DockRight;
             }
         }
 
         internal void RefreshServer(ConnectionInfo connection)
         {
-            this.objectExplorer.RefreshServer(connection);
+            objectExplorer.RefreshServer(connection);
         }
 
         internal void CloseServer(ConnectionInfo current, ConnectionInfo replacement)
         {
-            this.objectExplorer.CloseServer(current);
-            this.CloseAllFixedConnectionTabs(current);
-            this.ReplaceConnection(current, replacement);
+            objectExplorer.CloseServer(current);
+            CloseAllFixedConnectionTabs(current);
+            ReplaceConnection(current, replacement);
         }
 
         internal void ReplaceConnection(ConnectionInfo current, ConnectionInfo replacement)
         {
-            IEnumerable<IConnectionTab> connectionTabs = this.GetAllControlsOnTabs<IConnectionTab>()
+            IEnumerable<IConnectionTab> connectionTabs = GetAllControlsOnTabs<IConnectionTab>()
                 .Where(t => t.ConnectionInfo == current && t.AllowsChangeConnection);
 
             foreach (var tab in connectionTabs)
@@ -296,7 +296,7 @@ namespace SwqlStudio
 
         private void CloseAllFixedConnectionTabs(ConnectionInfo connection)
         {
-            var toClose =this.Contents.OfType<DockContent>()
+            var toClose = Contents.OfType<DockContent>()
                 .Where(t => IsFixedConnectionTab(t, connection))
                 .ToList();
 
@@ -308,20 +308,20 @@ namespace SwqlStudio
 
         private bool IsFixedConnectionTab(DockContent tab, ConnectionInfo connection)
         {
-            if(tab.Controls.Count < 1)
+            if (tab.Controls.Count < 1)
                 return false;
 
             var connectionTab = tab.Controls[0] as IConnectionTab;
-            return connectionTab != null && 
+            return connectionTab != null &&
                    connectionTab.ConnectionInfo == connection &&
                    !connectionTab.AllowsChangeConnection;
         }
 
         private IEnumerable<TControl> GetAllControlsOnTabs<TControl>()
         {
-            return from t in this.Contents.OfType<DockContent>()
-                from c in t.Controls.OfType<TControl>()
-                select c;
+            return from t in Contents.OfType<DockContent>()
+                   from c in t.Controls.OfType<TControl>()
+                   select c;
         }
     }
 }

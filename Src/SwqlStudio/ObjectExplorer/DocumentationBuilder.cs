@@ -121,7 +121,7 @@ namespace SwqlStudio
             builder.AppendObsoleteSection(entity);
             return builder.ToString();
         }
-        
+
         public static string ToToolTip(Verb verb)
         {
             var builder = new StringBuilder();
@@ -138,7 +138,7 @@ namespace SwqlStudio
 
         private static string ChildrenText(int childrenCount)
         {
-            var countSuffix = childrenCount > 1 ? "s" : String.Empty;
+            var countSuffix = childrenCount > 1 ? "s" : string.Empty;
             return $"{childrenCount} item{countSuffix}";
         }
 

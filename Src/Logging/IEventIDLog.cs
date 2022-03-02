@@ -4,7 +4,7 @@ using log4net;
 namespace SolarWinds.Logging.Ext.EventID
 {
     public interface IEventIDLog : ILog
-	{
+    {
         void Debug(int eventId, object message);
         void Debug(int eventId, object message, Exception exception);
 
@@ -27,6 +27,6 @@ namespace SolarWinds.Logging.Ext.EventID
         void Trace(int eventId, object message);
         void Trace(int eventId, object message, Exception exception);
         bool IsTraceEnabled { get; }
-	}
+    }
 }
 

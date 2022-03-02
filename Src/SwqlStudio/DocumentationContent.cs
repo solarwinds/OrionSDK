@@ -1,5 +1,5 @@
-﻿using System.Drawing.Design;
-using System.Windows.Forms;
+﻿using System.Windows.Forms;
+using SwqlStudio.Utils;
 using WeifenLuo.WinFormsUI.Docking;
 
 namespace SwqlStudio
@@ -8,6 +8,7 @@ namespace SwqlStudio
     {
         public DocumentationContent()
         {
+            DpiHelper.FixFont(this);
             InitializeComponent();
         }
 
@@ -16,8 +17,8 @@ namespace SwqlStudio
             if (newNode != null)
             {
                 var doc = DocumentationBuilder.Build(newNode);
-                this.itemTypeLabel.Text = doc.ItemType;
-                this.docTextBox.Text = doc.Documents;
+                itemTypeLabel.Text = doc.ItemType;
+                docTextBox.Text = doc.Documents;
             }
         }
     }

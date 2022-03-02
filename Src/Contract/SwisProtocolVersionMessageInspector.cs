@@ -4,7 +4,7 @@ using System.ServiceModel.Dispatcher;
 
 namespace SolarWinds.InformationService.Contract2
 {
-    class SwisProtocolVersionMessageInspector : IClientMessageInspector
+    internal class SwisProtocolVersionMessageInspector : IClientMessageInspector
     {
         public object BeforeSendRequest(ref Message request, IClientChannel channel)
         {

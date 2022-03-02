@@ -1,16 +1,16 @@
 using System;
+using System.Globalization;
 using log4net.Core;
 using log4net.Util;
-using System.Globalization;
 
 namespace SolarWinds.Logging.Ext.EventID
 {
-	public class EventIDLogImpl : LogImpl, IEventIDLog
+    public class EventIDLogImpl : LogImpl, IEventIDLog
     {
         /// <summary>
         /// The declaring type of the method that is the stack boundary into the logging system for this call.
         /// </summary>
-        private Type ThisDeclaringType = typeof(SolarWinds.Logging.Log);
+        private readonly Type ThisDeclaringType = typeof(Log);
 
         public EventIDLogImpl(ILogger logger) : base(logger)
         {
@@ -34,71 +34,71 @@ namespace SolarWinds.Logging.Ext.EventID
         }
 
         public void Info(int eventId, object message)
-		{
-			Info(eventId, message, null);
-		}
+        {
+            Info(eventId, message, null);
+        }
 
-		public void Info(int eventId, object message, System.Exception t)
-		{
-			if (IsInfoEnabled)
-			{
-				LoggingEvent loggingEvent = new LoggingEvent(ThisDeclaringType, Logger.Repository, Logger.Name, Level.Info, message, t);
-				loggingEvent.Properties["EventID"] = eventId;
-				Logger.Log(loggingEvent);
-			}
-		}
+        public void Info(int eventId, object message, Exception t)
+        {
+            if (IsInfoEnabled)
+            {
+                LoggingEvent loggingEvent = new LoggingEvent(ThisDeclaringType, Logger.Repository, Logger.Name, Level.Info, message, t);
+                loggingEvent.Properties["EventID"] = eventId;
+                Logger.Log(loggingEvent);
+            }
+        }
 
-		public void Warn(int eventId, object message)
-		{
-			Warn(eventId, message, null);
-		}
+        public void Warn(int eventId, object message)
+        {
+            Warn(eventId, message, null);
+        }
 
-		public void Warn(int eventId, object message, System.Exception t)
-		{
-			if (IsWarnEnabled)
-			{
-				LoggingEvent loggingEvent = new LoggingEvent(ThisDeclaringType, Logger.Repository, Logger.Name, Level.Warn, message, t);
-				loggingEvent.Properties["EventID"] = eventId;
-				Logger.Log(loggingEvent);
-			}
-		}
+        public void Warn(int eventId, object message, Exception t)
+        {
+            if (IsWarnEnabled)
+            {
+                LoggingEvent loggingEvent = new LoggingEvent(ThisDeclaringType, Logger.Repository, Logger.Name, Level.Warn, message, t);
+                loggingEvent.Properties["EventID"] = eventId;
+                Logger.Log(loggingEvent);
+            }
+        }
 
-		public void Error(int eventId, object message)
-		{
-			Error(eventId, message, null);
-		}
+        public void Error(int eventId, object message)
+        {
+            Error(eventId, message, null);
+        }
 
-		public void Error(int eventId, object message, System.Exception t)
-		{
-			if (IsErrorEnabled)
-			{
-				LoggingEvent loggingEvent = new LoggingEvent(ThisDeclaringType, Logger.Repository, Logger.Name, Level.Error, message, t);
-				loggingEvent.Properties["EventID"] = eventId;
-				Logger.Log(loggingEvent);
-			}
-		}
+        public void Error(int eventId, object message, Exception t)
+        {
+            if (IsErrorEnabled)
+            {
+                LoggingEvent loggingEvent = new LoggingEvent(ThisDeclaringType, Logger.Repository, Logger.Name, Level.Error, message, t);
+                loggingEvent.Properties["EventID"] = eventId;
+                Logger.Log(loggingEvent);
+            }
+        }
 
-		public void Fatal(int eventId, object message)
-		{
-			Fatal(eventId, message, null);
-		}
+        public void Fatal(int eventId, object message)
+        {
+            Fatal(eventId, message, null);
+        }
 
-		public void Fatal(int eventId, object message, System.Exception t)
-		{
-			if (IsFatalEnabled)
-			{
+        public void Fatal(int eventId, object message, Exception t)
+        {
+            if (IsFatalEnabled)
+            {
                 LoggingEvent loggingEvent = new LoggingEvent(ThisDeclaringType, Logger.Repository, Logger.Name, Level.Fatal, message, t);
                 loggingEvent.Properties["EventID"] = eventId;
-				Logger.Log(loggingEvent);
-			}
-		}
+                Logger.Log(loggingEvent);
+            }
+        }
 
         public void Verbose(int eventId, object message)
         {
             Verbose(eventId, message, null);
         }
 
-        public void Verbose(int eventId, object message, System.Exception t)
+        public void Verbose(int eventId, object message, Exception t)
         {
             if (IsVerboseEnabled)
             {
@@ -118,7 +118,7 @@ namespace SolarWinds.Logging.Ext.EventID
             Trace(eventId, message, null);
         }
 
-        public void Trace(int eventId, object message, System.Exception t)
+        public void Trace(int eventId, object message, Exception t)
         {
             if (IsTraceEnabled)
             {
@@ -133,7 +133,7 @@ namespace SolarWinds.Logging.Ext.EventID
             get { return Logger.IsEnabledFor(Level.Trace); }
         }
 
-		#endregion Implementation of IEventIDLog
+        #endregion Implementation of IEventIDLog
 
         #region Forward Debug logs
         public override void Debug(object msg)

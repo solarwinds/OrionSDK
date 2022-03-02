@@ -6,7 +6,6 @@ using System.Web.UI;
 using System.Windows.Forms;
 using System.Xml;
 using SwqlStudio.Metadata;
-using UserControl = System.Windows.Forms.UserControl;
 
 namespace SwqlStudio
 {
@@ -231,7 +230,7 @@ namespace SwqlStudio
 
         private void MoveListener(object sender, HtmlElementEventArgs e, HtmlElement container, HtmlElement txtarea)
         {
-            
+
             /* Calculate how far the mouse moved */
             int x = e.ClientMousePosition.X - locationX;
             int y = e.ClientMousePosition.Y - locationY;

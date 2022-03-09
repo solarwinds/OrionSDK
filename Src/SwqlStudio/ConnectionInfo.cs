@@ -203,6 +203,7 @@ namespace SwqlStudio
                     {
                         EnsureConnection();
 
+                        using (var context = new SwisSettingsContext { DataProviderTimeout = Settings.Default.DataProviderTimeout })
                         using (InformationServiceCommand command = new InformationServiceCommand(swql, Connection) { ApplicationTag = "SWQL Studio" })
                         {
                             foreach (var param in QueryParameters)

@@ -1,0 +1,3 @@
+[submodule "Build"]
+	path = Build
+	url = git@github.com:solarwinds/orionsdk-build.git

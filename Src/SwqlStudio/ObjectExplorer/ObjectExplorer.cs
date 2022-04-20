@@ -8,7 +8,7 @@ using System.ServiceModel.Security;
 using System.Text;
 using System.Threading;
 using System.Windows.Forms;
-using SolarWinds.Logging;
+using Microsoft.Extensions.Logging;
 using SwqlStudio.Filtering;
 using SwqlStudio.Metadata;
 using SwqlStudio.Utils;
@@ -20,7 +20,7 @@ namespace SwqlStudio.ObjectExplorer
 {
     internal class ObjectExplorer : Control
     {
-        private static readonly Log log = new Log();
+        private static readonly ILogger<ObjectExplorer> log = Program.LoggerFactory.CreateLogger<ObjectExplorer>();
 
         private readonly SearchTextBox _treeSearch;
         private readonly TreeView _tree;
@@ -411,7 +411,7 @@ namespace SwqlStudio.ObjectExplorer
             }
             catch (ApplicationException e)
             {
-                log.Info("Exception checking if we can create subscriptions.", e);
+                log.LogInformation(e, "Exception checking if we can create subscriptions.");
             }
 
             if (dt != null && (dt.Rows.Count == 1 && dt.Columns.Count == 1))

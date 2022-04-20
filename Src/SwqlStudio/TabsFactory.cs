@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Windows.Forms;
+using Microsoft.Extensions.Logging;
 using SwqlStudio.Metadata;
 using SwqlStudio.Properties;
 using WeifenLuo.WinFormsUI.Docking;
@@ -9,7 +10,7 @@ namespace SwqlStudio
 {
     internal class TabsFactory : ITabsFactory
     {
-        private static readonly SolarWinds.Logging.Log log = new SolarWinds.Logging.Log();
+        private static readonly ILogger<TabsFactory> log = Program.LoggerFactory.CreateLogger<TabsFactory>();
 
         private readonly ServerList serverList;
         private readonly QueriesDockPanel dockPanel;
@@ -45,7 +46,7 @@ namespace SwqlStudio
             }
             catch (Exception ex)
             {
-                log.Error("Failed to connect", ex);
+                log.LogError(ex, "Failed to connect");
                 var msg = $"Unable to connect to Information Service.\n{ex.Message}";
                 MessageBox.Show(msg, "Connection Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }

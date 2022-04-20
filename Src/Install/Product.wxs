@@ -119,12 +119,25 @@
               <Component Id="SwqlStudioComponent" Guid="BC0A98E5-219C-4d5a-9A14-A10A13546DB8">
                 <File Id="SwqlStudioExe" Source="$(var.OutputDir)\SwqlStudio.exe" />
                 <File Source="$(var.OutputDir)\SwqlStudio.exe.config" />
-                <File Source="$(var.OutputDir)\log4net.dll" />
+                <File Source="$(var.OutputDir)\Microsoft.Bcl.AsyncInterfaces.dll" />
+                <File Source="$(var.OutputDir)\Microsoft.Extensions.DependencyInjection.Abstractions.dll" />
+                <File Source="$(var.OutputDir)\Microsoft.Extensions.DependencyInjection.dll" />
+                <File Source="$(var.OutputDir)\Microsoft.Extensions.Logging.Abstractions.dll" />
+                <File Source="$(var.OutputDir)\Microsoft.Extensions.Logging.dll" />
+                <File Source="$(var.OutputDir)\Microsoft.Extensions.Options.dll" />
+                <File Source="$(var.OutputDir)\Microsoft.Extensions.Primitives.dll" />
                 <File Source="$(var.OutputDir)\ScintillaNet.dll" />
+                <File Source="$(var.OutputDir)\Serilog.dll" />
+                <File Source="$(var.OutputDir)\Serilog.Extensions.Logging.dll" />
+                <File Source="$(var.OutputDir)\Serilog.Sinks.File.dll" />
                 <File Source="$(var.OutputDir)\SolarWinds.SDK.Swis.Contract.dll" />
-                <File Source="$(var.OutputDir)\SolarWinds.Logging.dll" />
+                <File Source="$(var.OutputDir)\System.Buffers.dll" />
                 <File Source="$(var.OutputDir)\Security.Cryptography.dll" />
                 <File Source="$(var.OutputDir)\System.Configuration.ConfigurationManager.dll" />
+                <File Source="$(var.OutputDir)\System.Diagnostics.DiagnosticSource.dll" />
+                <File Source="$(var.OutputDir)\System.Memory.dll" />
+                <File Source="$(var.OutputDir)\System.Numerics.Vectors.dll" />
+                <File Source="$(var.OutputDir)\System.Runtime.CompilerServices.Unsafe.dll" />
                 <File Source="$(var.OutputDir)\System.Security.AccessControl.dll" />
                 <File Source="$(var.OutputDir)\System.Security.Permissions.dll" />
                 <File Source="$(var.OutputDir)\System.Security.Principal.Windows.dll" />
@@ -133,6 +146,8 @@
                 <File Source="$(var.OutputDir)\System.ServiceModel.NetTcp.dll" />
                 <File Source="$(var.OutputDir)\System.ServiceModel.Primitives.dll" />
                 <File Source="$(var.OutputDir)\System.ServiceModel.Security.dll" />
+                <File Source="$(var.OutputDir)\System.Threading.Tasks.Extensions.dll" />
+                <File Source="$(var.OutputDir)\System.ValueTuple.dll" />
                 <File Source="$(var.OutputDir)\WeifenLuo.WinFormsUI.Docking.dll" />
                 <File Source="$(var.OutputDir)\WeifenLuo.WinFormsUI.Docking.ThemeVS2015.dll" />
               </Component>
@@ -152,11 +167,21 @@
             <Directory Id="SwisPowerShell" Name="SwisPowerShell">
               <Directory Id="psm_Version" Name="$(var.BuildNumber)">
                 <Component Id="SwisPowerShellModule" Guid="077E4881-0A55-4646-BF7A-25F1B084348B">
+                  <File Id="psm_Microsoft.Bcl.AsyncInterfaces.dll" Source="$(var.OutputDir)\Microsoft.Bcl.AsyncInterfaces.dll" />
+                  <File Id="psm_Microsoft.Extensions.DependencyInjection.Abstractions.dll" Source="$(var.OutputDir)\Microsoft.Extensions.DependencyInjection.Abstractions.dll" />
+                  <File Id="psm_Microsoft.Extensions.DependencyInjection.dll" Source="$(var.OutputDir)\Microsoft.Extensions.DependencyInjection.dll" />
+                  <File Id="psm_Microsoft.Extensions.Logging.Abstractions.dll" Source="$(var.OutputDir)\Microsoft.Extensions.Logging.Abstractions.dll" />
+                  <File Id="psm_Microsoft.Extensions.Logging.dll" Source="$(var.OutputDir)\Microsoft.Extensions.Logging.dll" />
+                  <File Id="psm_Microsoft.Extensions.Options.dll" Source="$(var.OutputDir)\Microsoft.Extensions.Options.dll" />
+                  <File Id="psm_Microsoft.Extensions.Primitives.dll" Source="$(var.OutputDir)\Microsoft.Extensions.Primitives.dll" />
                   <File Id="psm_SwisPowerShellDll" Source="..\SwisPowerShell\bin\Release\SwisPowerShell.dll" />
                   <File Id="psm_SwisPowerShell.psd1" Source="..\SwisPowerShell\bin\Release\SwisPowerShell.psd1" />
                   <File Id="psm_SolarWinds.SDK.Swis.Contract.dll" Source="$(var.OutputDir)\SolarWinds.SDK.Swis.Contract.dll" />
-                  <File Id="psm_log4net.dll" Source="$(var.OutputDir)\log4net.dll" />
-                  <File Id="psm_SolarWinds.Logging.dll" Source="$(var.OutputDir)\SolarWinds.Logging.dll" />
+                  <File Id="psm_System.Buffers.dll" Source="$(var.OutputDir)\System.Buffers.dll" />
+                  <File Id="psm_System.Diagnostics.DiagnosticSource.dll" Source="$(var.OutputDir)\System.Diagnostics.DiagnosticSource.dll" />
+                  <File Id="psm_System.Memory.dll" Source="$(var.OutputDir)\System.Memory.dll" />
+                  <File Id="psm_System.Numerics.Vectors.dll" Source="$(var.OutputDir)\System.Numerics.Vectors.dll" />
+                  <File Id="psm_System.Runtime.CompilerServices.Unsafe.dll" Source="$(var.OutputDir)\System.Runtime.CompilerServices.Unsafe.dll" />
                   <File Id="psm_System.Security.AccessControl.dll" Source="$(var.OutputDir)\System.Security.AccessControl.dll" />
                   <File Id="psm_System.Security.Permissions.dll" Source="$(var.OutputDir)\System.Security.Permissions.dll" />
                   <File Id="psm_System.Security.Principal.Windows.dll" Source="$(var.OutputDir)\System.Security.Principal.Windows.dll" />
@@ -165,6 +190,8 @@
                   <File Id="psm_System.ServiceModel.NetTcp.dll" Source="$(var.OutputDir)\System.ServiceModel.NetTcp.dll" />
                   <File Id="psm_System.ServiceModel.Primitives.dll" Source="$(var.OutputDir)\System.ServiceModel.Primitives.dll" />
                   <File Id="psm_System.ServiceModel.Security.dll" Source="$(var.OutputDir)\System.ServiceModel.Security.dll" />
+                  <File Id="psm_System.Threading.Tasks.Extensions.dll" Source="$(var.OutputDir)\System.Threading.Tasks.Extensions.dll" />
+                  <File Id="psm_System.ValueTuple.dll" Source="$(var.OutputDir)\System.ValueTuple.dll" />
                 </Component>
               </Directory>
             </Directory>
@@ -178,11 +205,21 @@
             <Directory Id="SwisPowerShell64" Name="SwisPowerShell">
               <Directory Id="psm64_Version" Name="$(var.BuildNumber)">
                 <Component Id="SwisPowerShellModule64" Win64="yes" Guid="8618CFEC-57A9-4C6D-8128-6D204B13015A">
+                  <File Id="psm64_Microsoft.Bcl.AsyncInterfaces.dll" Source="$(var.OutputDir)\Microsoft.Bcl.AsyncInterfaces.dll" />
+                  <File Id="psm64_Microsoft.Extensions.DependencyInjection.Abstractions.dll" Source="$(var.OutputDir)\Microsoft.Extensions.DependencyInjection.Abstractions.dll" />
+                  <File Id="psm64_Microsoft.Extensions.DependencyInjection.dll" Source="$(var.OutputDir)\Microsoft.Extensions.DependencyInjection.dll" />
+                  <File Id="psm64_Microsoft.Extensions.Logging.Abstractions.dll" Source="$(var.OutputDir)\Microsoft.Extensions.Logging.Abstractions.dll" />
+                  <File Id="psm64_Microsoft.Extensions.Logging.dll" Source="$(var.OutputDir)\Microsoft.Extensions.Logging.dll" />
+                  <File Id="psm64_Microsoft.Extensions.Options.dll" Source="$(var.OutputDir)\Microsoft.Extensions.Options.dll" />
+                  <File Id="psm64_Microsoft.Extensions.Primitives.dll" Source="$(var.OutputDir)\Microsoft.Extensions.Primitives.dll" />
                   <File Id="psm64_SwisPowerShellDll" Source="..\SwisPowerShell\bin\Release\SwisPowerShell.dll" />
                   <File Id="psm64_SwisPowerShell.psd1" Source="..\SwisPowerShell\bin\Release\SwisPowerShell.psd1" />
                   <File Id="psm64_SolarWinds.SDK.Swis.Contract.dll" Source="$(var.OutputDir)\SolarWinds.SDK.Swis.Contract.dll" />
-                  <File Id="psm64_log4net.dll" Source="$(var.OutputDir)\log4net.dll" />
-                  <File Id="psm64_SolarWinds.Logging.dll" Source="$(var.OutputDir)\SolarWinds.Logging.dll" />
+                  <File Id="psm64_System.Buffers.dll" Source="$(var.OutputDir)\System.Buffers.dll" />
+                  <File Id="psm64_System.Diagnostics.DiagnosticSource.dll" Source="$(var.OutputDir)\System.Diagnostics.DiagnosticSource.dll" />
+                  <File Id="psm64_System.Memory.dll" Source="$(var.OutputDir)\System.Memory.dll" />
+                  <File Id="psm64_System.Numerics.Vectors.dll" Source="$(var.OutputDir)\System.Numerics.Vectors.dll" />
+                  <File Id="psm64_System.Runtime.CompilerServices.Unsafe.dll" Source="$(var.OutputDir)\System.Runtime.CompilerServices.Unsafe.dll" />
                   <File Id="psm64_System.Security.AccessControl.dll" Source="$(var.OutputDir)\System.Security.AccessControl.dll" />
                   <File Id="psm64_System.Security.Permissions.dll" Source="$(var.OutputDir)\System.Security.Permissions.dll" />
                   <File Id="psm64_System.Security.Principal.Windows.dll" Source="$(var.OutputDir)\System.Security.Principal.Windows.dll" />
@@ -191,6 +228,8 @@
                   <File Id="psm64_System.ServiceModel.NetTcp.dll" Source="$(var.OutputDir)\System.ServiceModel.NetTcp.dll" />
                   <File Id="psm64_System.ServiceModel.Primitives.dll" Source="$(var.OutputDir)\System.ServiceModel.Primitives.dll" />
                   <File Id="psm64_System.ServiceModel.Security.dll" Source="$(var.OutputDir)\System.ServiceModel.Security.dll" />
+                  <File Id="psm64_System.Threading.Tasks.Extensions.dll" Source="$(var.OutputDir)\System.Threading.Tasks.Extensions.dll" />
+                  <File Id="psm64_System.ValueTuple.dll" Source="$(var.OutputDir)\System.ValueTuple.dll" />
                 </Component>
               </Directory>
             </Directory>

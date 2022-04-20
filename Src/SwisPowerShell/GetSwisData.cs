@@ -4,6 +4,7 @@ using System.Linq;
 using System.Management.Automation;
 using System.Text;
 using System.Xml;
+using Microsoft.Extensions.Logging.Abstractions;
 using SolarWinds.InformationService.Contract2;
 using SolarWinds.InformationService.InformationServiceClient;
 
@@ -38,7 +39,7 @@ namespace SwisPowerShell
         {
             if (returnClauses.Any(s => Query.Trim().EndsWith(s, StringComparison.OrdinalIgnoreCase)))
             {
-                using (var connection = new InformationServiceConnection((IInformationService)SwisConnection))
+                using (var connection = new InformationServiceConnection(NullLoggerFactory.Instance, SwisConnection))
                 {
                     InformationServiceXmlReader reader = new InformationServiceXmlReader(connection) { ApplicationTag = "SwisPowerShell" };
 
@@ -58,7 +59,7 @@ namespace SwisPowerShell
         private void ProcessDataReader()
         {
             CheckConnection();
-            using (var connection = new InformationServiceConnection((IInformationService)SwisConnection))
+            using (var connection = new InformationServiceConnection(NullLoggerFactory.Instance, SwisConnection))
             {
                 connection.Open();
                 using (var command = new InformationServiceCommand(Query, connection))

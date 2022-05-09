@@ -1,15 +1,16 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>net48</TargetFramework>
-    <RootNamespace>SolarWinds.InformationService.Contract2</RootNamespace>
-    <AssemblyName>InformationService.Contract.Tests</AssemblyName>
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\SolarWinds.InformationService.Contract.csproj" />
+    <ProjectReference Include="..\..\SwisPowerShell\SwisPowerShell.csproj" />
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="PowerShellStandard.Library">
+      <PrivateAssets>All</PrivateAssets>
+    </PackageReference>
     <PackageReference Include="Microsoft.NET.Test.Sdk" />
     <PackageReference Include="NUnit" />
     <PackageReference Include="NUnit3TestAdapter" />

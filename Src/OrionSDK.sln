@@ -13,9 +13,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SwqlStudio", "SwqlStudio\Sw
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InformationService.Contract.Tests", "Contract\Tests\InformationService.Contract.Tests\InformationService.Contract.Tests.csproj", "{C4202EEB-7DD5-4FF3-A1F7-047F163C3D23}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SwisPowerShell.Tests", "..\Test\SwisPowerShell.Tests\SwisPowerShell.Tests.csproj", "{164BEA87-FC26-4588-99AA-2F47174AE368}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SwisPowerShell.Tests", "Test\SwisPowerShell.Tests\SwisPowerShell.Tests.csproj", "{164BEA87-FC26-4588-99AA-2F47174AE368}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SwqlStudio.Tests", "..\Test\SwqlStudio.Tests\SwqlStudio.Tests.csproj", "{763D0053-96D4-44C8-B68C-C3EE1D9D406F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SwqlStudio.Tests", "Test\SwqlStudio.Tests\SwqlStudio.Tests.csproj", "{763D0053-96D4-44C8-B68C-C3EE1D9D406F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

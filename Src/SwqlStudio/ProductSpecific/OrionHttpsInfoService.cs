@@ -23,10 +23,10 @@ namespace SwqlStudio
                                     "SSL Certificate Issue", MessageBoxButtons.YesNo));
         }
 
-        public OrionHttpsInfoService(string username, string password, bool v3 = false)
+        public OrionHttpsInfoService(string username, string password)
         {
             _protocolName = "https";
-            _endpoint = v3 ? Settings.Default.OrionV3HttpsEndpointPath : Settings.Default.OrionHttpsEndpointPath;
+            _endpoint = Settings.Default.OrionV3HttpsEndpointPath;
             _endpointConfigName = "OrionHttpBinding_InformationServicev2";
             _binding = new BasicHttpBinding("SWIS.Over.HTTP");
             _credentials = new UsernameCredentials(username, password);

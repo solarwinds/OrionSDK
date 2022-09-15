@@ -8,22 +8,19 @@ namespace SwqlStudio
 {
     internal class OrionInfoService : InfoServiceBase
     {
-        private readonly bool _isSwisV3;
-
-        public OrionInfoService(string username, string password, bool isSwisV3 = false)
+        public OrionInfoService(string username, string password)
         {
-            _isSwisV3 = isSwisV3;
-            _endpoint = isSwisV3 ? Settings.Default.OrionV3EndpointPath : Settings.Default.OrionEndpointPath;
+            _endpoint = Settings.Default.OrionV3EndpointPath;
             _endpointConfigName = "OrionTcpBinding_InformationServicev2";
             _binding = new NetTcpBinding("TransportMessage");
             _credentials = new UsernameCredentials(username, password);
         }
 
-        public override string ServiceType => string.Format("Orion (v{0})", _isSwisV3 ? 3 : 2);
+        public override string ServiceType => "Orion (v3)";
 
         public override bool SupportsActiveSubscriber
         {
-            get { return Settings.Default.UseActiveSubscriber && _isSwisV3; }
+            get { return Settings.Default.UseActiveSubscriber; }
         }
 
         public override NotificationDeliveryServiceProxy CreateNotificationDeliveryServiceProxy(string server, INotificationSubscriber notificationSubscriber)

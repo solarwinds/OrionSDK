@@ -1,5 +1,4 @@
-﻿using System;
-using System.Security.Cryptography.X509Certificates;
+﻿using System.Security.Cryptography.X509Certificates;
 using System.ServiceModel;
 using System.ServiceModel.Security;
 using SolarWinds.InformationService.Contract2;
@@ -12,11 +11,9 @@ namespace SwqlStudio
 {
     internal class OrionInfoServiceCertificate : InfoServiceBase
     {
-        public OrionInfoServiceCertificate(bool v3 = false)
+        public OrionInfoServiceCertificate()
         {
-            _endpoint = v3
-                ? Settings.Default.OrionV3EndpointPathCertificate
-                : Settings.Default.OrionEndpointPathCertificate;
+            _endpoint = Settings.Default.OrionV3EndpointPathCertificate;
             _endpointConfigName = "OrionCertificateTcpBinding";
             _binding = new NetTcpBinding("Certificate");
             _credentials = new MyCertificateCredential(Settings.Default.CertificateSubjectName,

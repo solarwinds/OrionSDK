@@ -15,7 +15,6 @@
 
     <!-- we do want to pack only specific assemblies -->
     <IsPackable>false</IsPackable>
-    <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
   </PropertyGroup>
 
   <!-- Include Copyright information -->

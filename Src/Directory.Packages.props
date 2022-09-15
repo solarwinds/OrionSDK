@@ -1,4 +1,8 @@
 <Project>
+  <PropertyGroup>
+    <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
+  </PropertyGroup>
+
   <ItemGroup>
     <PackageVersion Include="coverlet.collector" Version="1.3.0" />
     <PackageVersion Include="DockPanelSuite" Version="3.0.6" />

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Linq;
 using System.Threading.Tasks;
 using Newtonsoft.Json.Linq;
 
@@ -17,9 +18,13 @@ namespace CSRestClient
             {
                 var swisClient = new SwisClient(Hostname, Username, Password);
 
-                var alertObjectId = GetOneAlert(swisClient);
-                var invokeResult = AcknowledgeAlert(swisClient, alertObjectId, "Ack from API");
-                Console.WriteLine(invokeResult);
+                int? alertObjectId = GetOneAlert(swisClient);
+
+                if (alertObjectId.HasValue)
+                {
+                    var invokeResult = AcknowledgeAlert(swisClient, alertObjectId.Value, "Ack from API");
+                    Console.WriteLine(invokeResult);
+                }
 
                 Console.WriteLine(AddNode(swisClient).Result);
             }
@@ -35,7 +40,7 @@ namespace CSRestClient
             }
         }
 
-        private static int GetOneAlert(ISwisClient swisClient)
+        private static int? GetOneAlert(ISwisClient swisClient)
         {
             const string query = @"SELECT TOP 1 AlertObjectID
 FROM Orion.AlertActive
@@ -45,8 +50,8 @@ ORDER BY TriggeredDateTime DESC";
             JToken queryResult = swisClient.QueryAsync(query).Result;
             Console.WriteLine(queryResult);
 
-            var alertObjectId = (int)queryResult["results"][0]["AlertObjectID"];
-            return alertObjectId;
+            JToken firstAlert = queryResult["results"].FirstOrDefault();
+            return firstAlert == null ? null : (int)firstAlert["AlertObjectID"];
         }
 
         private static JToken AcknowledgeAlert(ISwisClient swisClient, int alertObjectId, string note)

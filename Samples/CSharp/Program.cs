@@ -16,7 +16,7 @@ namespace CSRestClient
             try
             {
                 var swisClient = new SwisClient(Hostname, Username, Password);
-                
+
                 var alertObjectId = GetOneAlert(swisClient);
                 var invokeResult = AcknowledgeAlert(swisClient, alertObjectId, "Ack from API");
                 Console.WriteLine(invokeResult);
@@ -27,11 +27,11 @@ namespace CSRestClient
             {
                 Console.WriteLine(ex);
             }
-            
+
             if (Debugger.IsAttached)
             {
                 Console.WriteLine("Press enter to exit.");
-                Console.ReadLine();                
+                Console.ReadLine();
             }
         }
 
@@ -51,7 +51,7 @@ ORDER BY TriggeredDateTime DESC";
 
         private static JToken AcknowledgeAlert(ISwisClient swisClient, int alertObjectId, string note)
         {
-            JToken invokeResult = swisClient.InvokeAsync("Orion.AlertActive", "Acknowledge", new[] {alertObjectId}, note).Result;
+            JToken invokeResult = swisClient.InvokeAsync("Orion.AlertActive", "Acknowledge", new[] { alertObjectId }, note).Result;
             return invokeResult;
         }
 

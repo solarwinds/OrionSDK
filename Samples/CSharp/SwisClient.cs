@@ -20,13 +20,9 @@ namespace CSRestClient
 
         public SwisClient(string hostname, string username, string password)
         {
-            if (hostname == null) throw new ArgumentNullException("hostname");
-            if (username == null) throw new ArgumentNullException("username");
-            if (password == null) throw new ArgumentNullException("password");
-
-            _hostname = hostname;
-            _username = username;
-            _password = password;
+            _hostname = hostname ?? throw new ArgumentNullException(nameof(hostname));
+            _username = username ?? throw new ArgumentNullException(nameof(username));
+            _password = password ?? throw new ArgumentNullException(nameof(password));
         }
 
         public Task<JToken> QueryAsync(string query, object parameters = null)
@@ -68,7 +64,7 @@ namespace CSRestClient
 
         public Task UpdateAsync(IEnumerable<string> uris, object properties)
         {
-            return SwisCallAsync(client => client.PostAsync("BulkUpdate", MakeHttpContent(new {uris, properties})));
+            return SwisCallAsync(client => client.PostAsync("BulkUpdate", MakeHttpContent(new { uris, properties })));
         }
 
         public Task DeleteAsync(string uri)
@@ -78,7 +74,7 @@ namespace CSRestClient
 
         public Task DeleteAsync(IEnumerable<string> uris)
         {
-            return SwisCallAsync(client => client.PostAsync("BulkDelete", MakeHttpContent(new {uris})));
+            return SwisCallAsync(client => client.PostAsync("BulkDelete", MakeHttpContent(new { uris })));
         }
 
         private static HttpContent MakeHttpContent(object value)
@@ -89,11 +85,11 @@ namespace CSRestClient
 
         private async Task<JToken> SwisCallAsync(Func<HttpClient, Task<HttpResponseMessage>> doRequest)
         {
-            var handler = new WebRequestHandler
+            var handler = new HttpClientHandler
             {
                 Credentials = new NetworkCredential(_username, _password),
                 PreAuthenticate = true,
-                ServerCertificateValidationCallback = ValidateServerCertificate
+                ServerCertificateCustomValidationCallback = ValidateServerCertificate
             };
 
             using (var client = new HttpClient(handler))

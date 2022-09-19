@@ -12,16 +12,18 @@ $cred = New-Object -typename System.Management.Automation.PSCredential -argument
 $swis = Connect-Swis -host $hostname -cred $cred
 
 
-# Disable Flow Sources
-$nodeCaption = "My test router"
+# Disable Node and Interface Flow Sources
+$nodeCaption = "example.com"
 $nodeId = Get-SwisData -SwisConnection $swis -Query "SELECT NodeID FROM Orion.Nodes WHERE Caption = @nodeCaption" -Parameters @{nodeCaption = $nodeCaption}
-$flowSourcesIds = Get-SwisData -SwisConnection $swis -Query "SELECT NetflowSourceID FROM Orion.Netflow.Source WHERE NodeID = @nodeID" -Parameters @{nodeID = $nodeId}
-$flowSourcesIds = $flowSourcesIds | ForEach-Object {[int]$_}
-Invoke-SwisVerb -SwisConnection $swis -EntityName Orion.Netflow.Source -Verb DisableFlowSources -Arguments @(,$flowSourcesIds) | Out-Null
-$disableflowSourcesIds = Get-SwisData -SwisConnection $swis -Query "SELECT NetflowSourceID FROM Orion.Netflow.Source WHERE NodeID = @nodeID and Enabled = false" -Parameters @{nodeID = $nodeId}
-Write-Host "Disabled $($disableflowSourcesIds.Count) Flow Sources for node with ID $nodeId. Total interface count $($flowSourcesIds.Count)"
+$interfaceIds = Get-SwisData -SwisConnection $swis -Query "SELECT InterfaceID FROM Orion.NPM.Interfaces WHERE NodeID = @nodeID" -Parameters @{nodeID = $nodeId}
+$interfaceIds = $interfaceIds | ForEach-Object {[int]$_}
+Invoke-SwisVerb -SwisConnection $swis -EntityName Orion.Netflow.NodeSources -Verb DisableFlowNodeSources  -Arguments @(,@([int]$nodeId)) | Out-Null
+Invoke-SwisVerb -SwisConnection $swis -EntityName Orion.Netflow.InterfaceSources -Verb DisableFlowInterfaceSources  -Arguments @(,$interfaceIds) | Out-Null
+$disableflowSourcesIds = Get-SwisData -SwisConnection $swis -Query "SELECT EntityID FROM Orion.Netflow.InterfaceSources WHERE NodeID = @nodeID and Enabled = false" -Parameters @{nodeID = $nodeId}
+Write-Host "Disabled $($disableflowSourcesIds.Count) Flow Interface Sources for node with ID $nodeId. Total interface count $($interfaceIds.Count)"
 
-# Enable Flow Sources
-Invoke-SwisVerb -SwisConnection $swis -EntityName Orion.Netflow.Source -Verb EnableFlowSources -Arguments @(,$flowSourcesIds) | Out-Null
-$enabledflowSourcesIds = Get-SwisData -SwisConnection $swis -Query "SELECT NetflowSourceID FROM Orion.Netflow.Source WHERE NodeID = @nodeID and Enabled = true" -Parameters @{nodeID = $nodeId}
-Write-Host "Enabled $($enabledflowSourcesIds.Count) Flow Sources for Node with ID $nodeId. Total interface count $($flowSourcesIds.Count)"
+# Enable Node and Interface Flow Sources
+Invoke-SwisVerb -SwisConnection $swis -EntityName Orion.Netflow.NodeSources -Verb EnableFlowNodeSources  -Arguments @(,@([int]$nodeId)) | Out-Null
+Invoke-SwisVerb -SwisConnection $swis -EntityName Orion.Netflow.InterfaceSources -Verb EnableFlowInterfaceSources -Arguments @(,$interfaceIds) | Out-Null
+$enabledflowSourcesIds = Get-SwisData -SwisConnection $swis -Query "SELECT EntityID FROM Orion.Netflow.InterfaceSources WHERE NodeID = @nodeID and Enabled = true" -Parameters @{nodeID = $nodeId}
+Write-Host "Enabled $($enabledflowSourcesIds.Count) Flow Interface Sources for Node with ID $nodeId. Total interface count $($interfaceIds.Count)"

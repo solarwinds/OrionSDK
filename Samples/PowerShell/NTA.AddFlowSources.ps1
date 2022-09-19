@@ -42,7 +42,7 @@ $interfaceIds = Get-SwisData -SwisConnection $swis -Query "SELECT InterfaceID FR
 $interfaceIds = $interfaceIds | ForEach-Object {[int]$_}
 Write-Host "Discovered $($interfaceIds.Count) interfaces for new node with ID $nodeId" 
 
-# Enable Flow Collection on every interface of the router - Create Netflow Sources
-Invoke-SwisVerb -SwisConnection $swis -EntityName Orion.Netflow.Source -Verb EnableFlowSources -Arguments @(,$interfaceIds) | Out-Null
-$flowSourcesIds = Get-SwisData -SwisConnection $swis -Query "SELECT NetflowSourceID FROM Orion.Netflow.Source WHERE NodeID = @nodeID" -Parameters @{nodeID = $nodeId}
-Write-Host("$($flowSourcesIds.Count) Netflow Sources created")
+# Enable Flow Collection on every interface of the router - Create Netflow Interface Sources
+Invoke-SwisVerb -SwisConnection $swis -EntityName Orion.Netflow.InterfaceSources -Verb EnableFlowInterfaceSources -Arguments @(,$interfaceIds) | Out-Null
+$flowSourcesIds = Get-SwisData -SwisConnection $swis -Query "SELECT EntityID FROM Orion.Netflow.InterfaceSources WHERE Enabled = 1 AND NodeID = @nodeID" -Parameters @{nodeID = $nodeId}
+Write-Host("$($flowSourcesIds.Count) Netflow Interface Sources created")

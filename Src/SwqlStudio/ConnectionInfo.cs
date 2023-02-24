@@ -105,6 +105,7 @@ namespace SwqlStudio
                     new ServerType { Type = "Orion (v3) AD", IsAuthenticationRequired = false },
                     new ServerType { Type = "Orion (v3) Certificate", IsAuthenticationRequired = false },
                     new ServerType { Type = "Orion (v3) over HTTPS", IsAuthenticationRequired = true },
+                    new ServerType { Type = "Orion (v3) over HTTPS legacy pre-2023", IsAuthenticationRequired = true}
                 };
 
                 if (Settings.Default.ShowCompressedModes)

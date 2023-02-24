@@ -112,7 +112,7 @@ namespace SwqlStudio.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("17778")]
+        [global::System.Configuration.DefaultSettingValueAttribute("17774")]
         public int DefaultInfoServiceHttpsPort {
             get {
                 return ((int)(this["DefaultInfoServiceHttpsPort"]));

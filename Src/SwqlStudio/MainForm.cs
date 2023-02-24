@@ -429,6 +429,16 @@ namespace SwqlStudio
             CopyQueryAs(CommandLineGenerator.GetQueryForCurlBash);
         }
 
+        private void curlCmdToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            CopyQueryAs(CommandLineGenerator.GetQueryForLegacyCurlCmd);
+        }
+
+        private void curlBashToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            CopyQueryAs(CommandLineGenerator.GetQueryForLegacyCurlBash);
+        }
+
         private void getSwisDataPowerShellToolStripMenuItem_Click(object sender, EventArgs e)
         {
             CopyQueryAs(CommandLineGenerator.GetQueryForPowerShellGetSwisData);

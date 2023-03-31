@@ -9,17 +9,47 @@ namespace SwqlStudio.Utils
 {
     internal static class CommandLineGenerator
     {
+        public const int LegacyRestPort = 17778;
+        public const int RestPort = 17774;
+
         public static string GetQueryForCurlCmd(string query, ConnectionInfo connection, PropertyBag parameters)
+        {
+            return GetQueryForCurlCmdInternal(query, connection, parameters, RestPort);
+        }
+
+        public static string GetQueryForLegacyCurlCmd(string query, ConnectionInfo connection, PropertyBag parameters)
+        {
+            return GetQueryForCurlCmdInternal(query, connection, parameters, LegacyRestPort);
+        }
+
+        public static string GetQueryForCurlBash(string query, ConnectionInfo connection, PropertyBag parameters)
+        {
+            return GetQueryForCurlBashInternal(query, connection, parameters, RestPort);
+        }
+        public static string GetQueryForLegacyCurlBash(string query, ConnectionInfo connection, PropertyBag parameters)
+        {
+            return GetQueryForCurlBashInternal(query, connection, parameters, LegacyRestPort);
+        }
+
+        public static string GetQueryForPowerShellGetSwisData(string query, ConnectionInfo connection, PropertyBag parameters)
+        {
+            Func<string, string> q = QuoteForPowerShell;
+            var paramsObjectString = GetParamsObjectInPowershellFormat(parameters);
+            return $"Get-SwisData (Connect-Swis -Hostname {connection.Server} -Username {q(connection.UserName)} " +
+                   $"-Password {q(connection.Password)}) -Query {q(CollapseWhitespace(query))} -Parameters {paramsObjectString}";
+        }
+
+        private static string GetQueryForCurlCmdInternal(string query, ConnectionInfo connection, PropertyBag parameters, int port)
         {
             string creds = QuoteForCmd($"{connection.UserName}:{connection.Password}");
             if (!parameters.Any())
             {
-                return $"curl.exe -k -u {creds} {GetUrlForQuery(query, connection)}";
+                return $"curl.exe -k -u {creds} {GetUrlForQuery(query, connection, port)}";
             }
             else
             {
                 var escapedQuery = CollapseWhitespace(query);
-                var postUrl = $"https://{connection.Server}:17778/SolarWinds/InformationService/v3/Json/Query";
+                var postUrl = GetUrlForQuery(null, connection, port);
                 var parametersSerialized = string.Join(
                 ",",
                 parameters.Select(x => string.Format("\"{0}\" : \"{1}\"", x.Key, x.Value.ToString())));
@@ -30,10 +60,10 @@ namespace SwqlStudio.Utils
             }
         }
 
-        public static string GetQueryForCurlBash(string query, ConnectionInfo connection, PropertyBag parameters)
+        private static string GetQueryForCurlBashInternal(string query, ConnectionInfo connection, PropertyBag parameters, int port)
         {
             string creds = $"{connection.UserName}:{connection.Password}";
-            var url = GetUrlForQuery(query, connection);
+            var url = GetUrlForQuery(query, connection, port);
             Func<string, string> q = QuoteForBash;
             if (!parameters.Any())
             {
@@ -41,16 +71,8 @@ namespace SwqlStudio.Utils
             }
             else
             {
-                return GetQueryForCurlCmd(query, connection, parameters);
+                return GetQueryForCurlCmdInternal(query, connection, parameters, port);
             }
-        }
-
-        public static string GetQueryForPowerShellGetSwisData(string query, ConnectionInfo connection, PropertyBag parameters)
-        {
-            Func<string, string> q = QuoteForPowerShell;
-            var paramsObjectString = GetParamsObjectInPowershellFormat(parameters);
-            return $"Get-SwisData (Connect-Swis -Hostname {connection.Server} -Username {q(connection.UserName)} " +
-                   $"-Password {q(connection.Password)}) -Query {q(CollapseWhitespace(query))} -Parameters {paramsObjectString}";
         }
 
         private static string GetParamsObjectInPowershellFormat(PropertyBag parameters)
@@ -62,10 +84,15 @@ namespace SwqlStudio.Utils
             return string.Format("@{{{0}}}", parametersSerialized.ToString());
         }
 
-        private static string GetUrlForQuery(string query, ConnectionInfo connection)
+        private static string GetUrlForQuery(string query, ConnectionInfo connection, int port)
         {
+            string queryEndpoint = $"https://{connection.Server}:{port}/SolarWinds/InformationService/v3/Json/Query";
+
+            if (string.IsNullOrEmpty(query))
+                return queryEndpoint;
+
             var encodedQuery = HttpUtility.UrlEncode(CollapseWhitespace(query));
-            return $"https://{connection.Server}:17778/SolarWinds/InformationService/v3/Json/Query?query={encodedQuery}";
+            return $"{queryEndpoint}?query={encodedQuery}";
         }
 
         private static string CollapseWhitespace(string str)

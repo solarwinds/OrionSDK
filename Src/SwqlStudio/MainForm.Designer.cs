@@ -58,6 +58,9 @@
             this.curlCmdToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.curlBashToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.getSwisDataPowerShellToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.curlToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.curlCmdToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.curlBashToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.queryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuQueryExecute = new System.Windows.Forms.ToolStripMenuItem();
             this.parametersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -325,7 +328,8 @@
             this.copyQueryAsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.curlCmdToolStripMenuItem,
             this.curlBashToolStripMenuItem,
-            this.getSwisDataPowerShellToolStripMenuItem});
+            this.getSwisDataPowerShellToolStripMenuItem,
+            this.curlToolStripMenuItem});
             this.copyQueryAsToolStripMenuItem.Name = "copyQueryAsToolStripMenuItem";
             this.copyQueryAsToolStripMenuItem.Size = new System.Drawing.Size(158, 22);
             this.copyQueryAsToolStripMenuItem.Text = "Copy &Query As";
@@ -350,6 +354,29 @@
             this.getSwisDataPowerShellToolStripMenuItem.Size = new System.Drawing.Size(213, 22);
             this.getSwisDataPowerShellToolStripMenuItem.Text = "Get-SwisData (&PowerShell)";
             this.getSwisDataPowerShellToolStripMenuItem.Click += new System.EventHandler(this.getSwisDataPowerShellToolStripMenuItem_Click);
+            // 
+            // curlToolStripMenuItem
+            // 
+            this.curlToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.curlCmdToolStripMenuItem1,
+            this.curlBashToolStripMenuItem1});
+            this.curlToolStripMenuItem.Name = "curlToolStripMenuItem";
+            this.curlToolStripMenuItem.Size = new System.Drawing.Size(213, 22);
+            this.curlToolStripMenuItem.Text = "&Legacy pre-2023";
+            // 
+            // curlCmdToolStripMenuItem1
+            // 
+            this.curlCmdToolStripMenuItem1.Name = "curlCmdToolStripMenuItem1";
+            this.curlCmdToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
+            this.curlCmdToolStripMenuItem1.Text = "Curl (&Cmd)";
+            this.curlCmdToolStripMenuItem1.Click += new System.EventHandler(this.curlCmdToolStripMenuItem1_Click);
+            // 
+            // curlBashToolStripMenuItem1
+            // 
+            this.curlBashToolStripMenuItem1.Name = "curlBashToolStripMenuItem1";
+            this.curlBashToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
+            this.curlBashToolStripMenuItem1.Text = "Curl (&Bash)";
+            this.curlBashToolStripMenuItem1.Click += new System.EventHandler(this.curlBashToolStripMenuItem1_Click);
             // 
             // queryToolStripMenuItem
             // 
@@ -736,6 +763,9 @@
         private System.Windows.Forms.ToolStripMenuItem replaceToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem showObsoleteToolStripMenuItem;
         private ModifiedEditors modifiedEditors1;
+        private System.Windows.Forms.ToolStripMenuItem curlToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem curlCmdToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem curlBashToolStripMenuItem1;
     }
 }
 

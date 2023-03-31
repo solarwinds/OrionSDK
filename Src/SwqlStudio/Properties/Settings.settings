@@ -30,7 +30,7 @@
       <Value Profile="(Default)">SolarWinds/InformationService/OrionBasic</Value>
     </Setting>
     <Setting Name="DefaultInfoServiceHttpsPort" Type="System.Int32" Scope="Application">
-      <Value Profile="(Default)">17778</Value>
+      <Value Profile="(Default)">17774</Value>
     </Setting>
     <Setting Name="NCMForwarderEndpointPath" Type="System.String" Scope="Application">
       <Value Profile="(Default)">SolarWinds/InformationService/NCMIntegration/ssl</Value>

@@ -94,7 +94,7 @@ namespace CSRestClient
 
             using (var client = new HttpClient(handler))
             {
-                client.BaseAddress = new Uri(string.Format("https://{0}:17778/SolarWinds/InformationService/v3/Json/", _hostname));
+                client.BaseAddress = new Uri(string.Format("https://{0}:17774/SolarWinds/InformationService/v3/Json/", _hostname));
                 HttpResponseMessage response = await doRequest(client);
                 var result = JToken.Load(new JsonTextReader(new StreamReader(await response.Content.ReadAsStreamAsync())));
                 if (!response.IsSuccessStatusCode)

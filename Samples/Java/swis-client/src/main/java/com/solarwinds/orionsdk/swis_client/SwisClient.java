@@ -181,7 +181,7 @@ public class SwisClient implements ISwisClient {
 		Client client = Client.create(clientConfig);
 		client.addFilter(new HTTPBasicAuthFilter(username, password));
 
-		String url = "https://" + hostname + ":17778/SolarWinds/InformationService/v3/Json/" + relativeUrl;
+		String url = "https://" + hostname + ":17774/SolarWinds/InformationService/v3/Json/" + relativeUrl;
 		WebResource webResource = client.resource(url);
 		return webResource;
 	}

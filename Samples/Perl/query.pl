@@ -26,7 +26,7 @@ $client->getUseragent()->ssl_opts(verify_hostname => 0);
 $client->getUseragent()->ssl_opts(SSL_verify_mode => 'SSL_VERIFY_NONE');
  
 # add authentication header
-$client->setHost('https://' . $hostname . ':17778');
+$client->setHost('https://' . $hostname . ':17774');
 $client->addHeader('Authorization', 'Basic ' . encode_base64("$username:$password", ''));
  
 # build query string

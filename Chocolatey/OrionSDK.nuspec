@@ -5,7 +5,7 @@
     <!-- Read this before publishing packages to chocolatey.org: https://github.com/chocolatey/chocolatey/wiki/CreatePackages -->
     <id>orionsdk</id>
     <title>SolarWinds Orion SDK</title>
-    <version>3.1.343</version>
+    <version>3.2.0.50049</version>
     <authors>SolarWinds</authors>
     <owners>Tim Danner</owners>
     <summary>Software development kit for the SolarWinds Orion platform.</summary>
@@ -26,13 +26,28 @@
       <dependency id="" />
     </dependencies>-->
     <releaseNotes><![CDATA[
-# v3.1.343
+# v3.2.0.50049
 
-This release addresses the following issue:
+Change SWIS endpoints 
+- https://github.com/solarwinds/OrionSDK/pull/333 - by @petr-jancik-swi
+- https://github.com/solarwinds/OrionSDK/pull/336 - by @petr-jancik-swi
 
-* Fixing AppendFormat issue + unit tests (https://github.com/solarwinds/OrionSDK/pull/300) - @Superzer0
 
-If you are using Orion 2020.2.6 HF2 or later, you will need this fix to avoid a System.FormatException that occurs when parsing the SWIS schema documentation associated with that release. See [ERROR] SWQL Studio (3.0.0.336) connecting to Orion Platform 2020.2.6 HF2 (https://thwack.solarwinds.com/product-forums/the-orion-platform/f/orion-sdk/92700/error-swql-studio-3-0-0-336-connecting-to-orion-platform-2020-2-6-hf2) for additional details.
+Remove Support of obsolete connection types
+- https://github.com/solarwinds/OrionSDK/pull/324 - by @danjagnow 
+
+
+Removing obsolete protocols
+- https://github.com/solarwinds/OrionSDK/pull/324 - by @danjagnow
+
+
+Samples for managing NTA Sources
+- https://github.com/solarwinds/OrionSDK/pull/327 - by @jan-turon
+
+
+Fix C# samples for active alerts
+- https://github.com/solarwinds/OrionSDK/pull/326  - by @danjagnow
+
 ]]></releaseNotes>
     <!--<provides></provides>-->
   </metadata>

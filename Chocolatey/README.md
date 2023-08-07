@@ -6,9 +6,4 @@ To build a version of this package for private use, change to this directory and
 
 ## To update this package for a new Orion SDK version
 
-1. Edit `OrionSDK.nuspec` and change the `<version>` and `<releaseNotes>` elements.
-2. Find the SHA-256 hash for `OrionSDK.msi` by opening PowerShell, changing directory to the folder containing the MSI, and typing `Get-FileHash .\OrionSDK.msi`.
-3. Edit `tools\chocolateyInstall.ps1` and change the `$url` variable to point to the new version of `OrionSDK.msi`. Update the sha256 values for `OrionSDK.msi`.
-4. Run `cpack` from the `OrionSDK\Chocolatey` directory.
-5. Run `cpush .\orionsdk-1.2.3.nupkg --api-key 00000000-0000-0000-0000-000000000000`. Change the filename to the one with the correct version and replace the zeros with the actual API key, of course.
-6. Expect some automated emails from the Chocolatey.org package verification system.
+Please follow instructions here [Build ReadMe](https://github.com/solarwinds/orionsdk-build) to publish a new version of the [SolarWinds Orion SDK Chocolatey package](https://community.chocolatey.org/packages/orionsdk) for all production releases.

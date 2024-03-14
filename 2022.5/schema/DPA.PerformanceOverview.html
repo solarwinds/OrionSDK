@@ -1,0 +1,237 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>DPA.PerformanceOverview | Orion SDK Schemas </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="DPA.PerformanceOverview | Orion SDK Schemas ">
+  
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"> 
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+  
+  <meta property="docfx:rel" content="../">
+  
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src=".././images/SolarWinds.Logo.png" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="dpaperformanceoverview">DPA.PerformanceOverview</h1>
+
+<p>SolarWinds Information Service  2022.5 Schema Documentation</p>
+<p>High level overview across monitored databases</p>
+<h4 id="inheritance">Inheritance</h4>
+<p>↳ <a href="System.Entity.html">System.Entity</a></p>
+<p>↳ <a href="System.ExtensionEntity.html">System.ExtensionEntity</a></p>
+<h4 id="access-control">Access control</h4>
+<table>
+<thead>
+<tr>
+<th>Operations</th>
+<th>Right</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>read</td>
+<td>everyone</td>
+</tr>
+</tbody>
+</table>
+<h2 id="properties">Properties</h2>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Summary</th>
+<th>Access Control</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>DatabaseId</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">System.Int32</a></td>
+<td>Reference to Orion.DPA.DatabaseInstance.Id</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>GlobalDatabaseId</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">System.Int32</a></td>
+<td>Unique ID of database instance in Orion</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>CPUAlarmLevel</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">System.Int32</a></td>
+<td>CPU alarm level integer (See DPA.AlarmLevel entity for more details).</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>DiskAlarmLevel</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">System.Int32</a></td>
+<td>Disk alarm level integer (See DPA.AlarmLevel entity for more details).</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>MemoryAlarmLevel</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">System.Int32</a></td>
+<td>Memory alarm level integer (See DPA.AlarmLevel entity for more details).</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>OverallAlarmLevel</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">System.Int32</a></td>
+<td>Overall alarm level integer (See DPA.AlarmLevel entity for more details).</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>QueriesAlarmLevel</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">System.Int32</a></td>
+<td>Query Advice alarm level integer (See DPA.AlarmLevel entity for more details).</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>SessionAlarmLevel</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">System.Int32</a></td>
+<td>Sessions alarm level integer (See DPA.AlarmLevel entity for more details).</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>WaitTimeAlarmLevel</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">System.Int32</a></td>
+<td>Wait-Time category alarm level integer (Normal(2), Critical(5) or Unknown(3)). This property is calculated from WaitTimeCategory property: -1 equals to Unknown, 0-5 equals to Normal and 6-10 equals to Critical</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>WaitTimeCategory</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">System.Int32</a></td>
+<td>Type of the &quot;Wait&quot; meter. Contains numeric values -1..10, meaning DOWN(-1), IDLE(0), LOW(1), ..., HIGH(5), LOW_ABNORMAL(6), ..., HIGH_ABNORMAL(10).<br>In DPA UI, values 1-5 are shown as blue meter, abnormal values 6-10 have red meter.<br>Normal/abnormal is an intra-instance information, indicating whether wait time of this particular instance is higher than usual for this instance, based on historical data.<br>Values LOW - HIGH (normal as well as abnormal) represent inter-instance comparison, ie. how big/significant is today's wait time of this particular instance when compared to today's wait times of the other monitored instances.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>WaitTimeSecs</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">System.Double</a></td>
+<td>Total wait time today in seconds (in DPA, shows when you hover over the &quot;Wait&quot; meter).</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>WaitTimeEnd</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.datetime">System.DateTime</a></td>
+<td>This date should represent the last date/time wait time related indicators were calculated for.</td>
+<td>everyone</td>
+</tr>
+</tbody>
+</table>
+<h2 id="target-relationships">Target Relationships</h2>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>DatabaseInstance</td>
+<td><a href="Orion.DPA.DatabaseInstance.html">Orion.DPA.DatabaseInstance</a></td>
+<td>Defined by relationship Orion.DatabaseInstancePerformanceOverview (System.Reference)</td>
+</tr>
+</tbody>
+</table>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In this article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+      &copy; SolarWinds
+      
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

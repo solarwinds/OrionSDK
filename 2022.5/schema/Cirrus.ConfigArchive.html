@@ -1,0 +1,371 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Cirrus.ConfigArchive | Orion SDK Schemas </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Cirrus.ConfigArchive | Orion SDK Schemas ">
+  
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"> 
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+  
+  <meta property="docfx:rel" content="../">
+  
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src=".././images/SolarWinds.Logo.png" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="cirrusconfigarchive">Cirrus.ConfigArchive</h1>
+
+<p>SolarWinds Information Service  2022.5 Schema Documentation</p>
+<p>Data about downloaded configs.
+For valid Orion user with at least WebViewer NCM role.</p>
+<h4 id="inheritance">Inheritance</h4>
+<p>↳ <a href="System.Entity.html">System.Entity</a></p>
+<h4 id="access-control">Access control</h4>
+<p>everyone</p>
+<h2 id="properties">Properties</h2>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Summary</th>
+<th>Access Control</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ConfigID</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.guid">System.Guid</a></td>
+<td>Unique identifier of the config.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>BaseConfigID</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.guid">System.Guid</a></td>
+<td>The base config ID.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>NodeID</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.guid">System.Guid</a></td>
+<td>NCM node ID.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>ConfigTitle</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">System.String</a></td>
+<td>Config title.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>DownloadTime</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.datetime">System.DateTime</a></td>
+<td>Date and time when config was downloaded.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>AttemptedDownloadTime</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.datetime">System.DateTime</a></td>
+<td>Date and time when downloation was triggered.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>ModifiedTime</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.datetime">System.DateTime</a></td>
+<td>Date and time of the config modification.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>ConfigType</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">System.String</a></td>
+<td>Config type.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>Config</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">System.String</a></td>
+<td>Current config on device.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>Comments</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">System.String</a></td>
+<td>Comments to the config.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>Baseline</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">System.Boolean</a></td>
+<td>The baseline config of a device.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>IsIndexed</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">System.Boolean</a></td>
+<td>Is config indexed(true/false).</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>IsBinary</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">System.Boolean</a></td>
+<td>Is config a binary file(true/false).</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>Hash</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">System.String</a></td>
+<td>The hash for the config.</td>
+<td>everyone</td>
+</tr>
+</tbody>
+</table>
+<h2 id="source-relationships">Source Relationships</h2>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>TransferResults</td>
+<td><a href="NCM.TransferResults.html">NCM.TransferResults</a></td>
+<td>Defined by relationship NCM.ConfigArchiveRefTransferResults (System.Reference)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="verbs">Verbs</h2>
+<h3 id="diff">Diff</h3>
+<p>Runs the comparer.
+Valid for Orion manage node users with at least WebViewer NCM role.First config ID.Second config ID.Difference between configs. Full type: System.Data.DataTable</p>
+<h4 id="access-control-1">Access control</h4>
+<p>everyone</p>
+<h3 id="compareconfigs">CompareConfigs</h3>
+<p>Compares the configs..
+Valid for Orion manage node users with at least WebDownloader NCM role.First config ID.Second config ID.Config search term.Comparison results. Full type: SolarWinds.Orion.DiffEngine.Contract.Models.TextDocumentDiff</p>
+<h4 id="access-control-2">Access control</h4>
+<p>everyone</p>
+<h3 id="getpermissionsbyrole">GetPermissionsByRole</h3>
+<p>Gets all permissions for specified role.
+Valid for Orion manage node users with at least WebViewer NCM role.Role name.Array of permissions. Full type: array of System.String</p>
+<h4 id="access-control-3">Access control</h4>
+<p>everyone</p>
+<h3 id="deleteconfigs">DeleteConfigs</h3>
+<p>Removes the config.
+Valid for Orion manage node users with at least WebUploader NCM role.List of config IDs.Who requested the verb.</p>
+<h4 id="access-control-4">Access control</h4>
+<p>everyone</p>
+<h3 id="getconfigtypes">GetConfigTypes</h3>
+<p>Gets all available config types.
+Valid for Orion manage node users with at least WebViewer NCM role.Config types. Full type: System.String</p>
+<h4 id="access-control-5">Access control</h4>
+<p>everyone</p>
+<h3 id="canceltransfers">CancelTransfers</h3>
+<p>Cancels transfers specified in parameter.
+Valid for Orion manage node users with at least WebDownloader NCM role.Array of the transfer IDs.</p>
+<h4 id="access-control-6">Access control</h4>
+<p>everyone</p>
+<h3 id="executescript">ExecuteScript</h3>
+<p>Executes script on the particular node.
+Valid for Orion manage node users with at least WebUploader NCM role.Array of NCM node IDs.Script to execute.Should a device be rebooted after script execution(true/false).Array of transfer IDs. Full type: array of System.Guid</p>
+<h4 id="access-control-7">Access control</h4>
+<p>everyone</p>
+<h3 id="executescriptpernode">ExecuteScriptPerNode</h3>
+<p>Executes scripts per nodes.
+Valid for Orion manage node users with at least WebUploader NCM role.Array of scripts and nodes.Should a device be rebooted after script execution(true/false).Array of transfer IDs. Full type: array of System.Guid</p>
+<h4 id="access-control-8">Access control</h4>
+<p>everyone</p>
+<h3 id="reexecute">ReExecute</h3>
+<p>Re-executes script
+Valid for Orion manage node users with at least WebDownloader NCM role.Array of ticket ID.Array of transfer IDs. Full type: array of System.Guid</p>
+<h4 id="access-control-9">Access control</h4>
+<p>everyone</p>
+<h3 id="uploadconfig">UploadConfig</h3>
+<p>Uploads config.
+Valid for Orion manage node users with at least WebUploader NCM role.NCM node ID.Config type.Config.Device should be rebooted after upload(true/false).Array of transfer IDs. Full type: array of System.Guid</p>
+<h4 id="access-control-10">Access control</h4>
+<p>everyone</p>
+<h3 id="uploadconfigpernode">UploadConfigPerNode</h3>
+<p>Uploads config.
+Valid for Orion manage node users with at least WebUploader NCM role.Array of script and node.Config type.Device should be rebooted after upload(true/false).Array of transfer IDs. Full type: array of System.Guid</p>
+<h4 id="access-control-11">Access control</h4>
+<p>everyone</p>
+<h3 id="downloadconfig">DownloadConfig</h3>
+<p>Downloads config file for the particular node.
+Valid for Orion manage node users with at least WebDownloader NCM role.Array of NCM node IDs.Config type.Array of transfer IDs. Full type: array of System.Guid</p>
+<h4 id="access-control-12">Access control</h4>
+<p>everyone</p>
+<h3 id="executescriptonnodes">ExecuteScriptOnNodes</h3>
+<p>Executes script on the particular nodes.
+Valid for Orion manage node users with at least WebUploader NCM role.The list of nodes.Device template.Script to execute.Array of transfer IDs. Full type: array of System.Guid</p>
+<h4 id="access-control-13">Access control</h4>
+<p>everyone</p>
+<h3 id="downloadconfigonnodes">DownloadConfigOnNodes</h3>
+<p>Downloads config file for the particular nodes.
+Valid for Orion manage node users with at least WebDownloader NCM role.
+The list of nodes.Device template.Config type.Array of transfer IDs. Full type: array of System.Guid</p>
+<h4 id="access-control-14">Access control</h4>
+<p>everyone</p>
+<h3 id="configsearch">ConfigSearch</h3>
+<p>Searches for the config (Verb ConfigSearch will be removed. Please use the ConfigSearch2 verb instead).
+Valid for Orion manage node users with at least WebViewer NCM role.Config search term.Array of config IDs. Full type: Array of System.Guid</p>
+<h4 id="access-control-15">Access control</h4>
+<p>everyone</p>
+<h3 id="configsearch2">ConfigSearch2</h3>
+<p>Searches for the config.
+Valid for Orion manage node users with at least WebViewer NCM role.Config search term.Array of config IDs. Full type: Array of System.Guid</p>
+<h4 id="access-control-16">Access control</h4>
+<p>everyone</p>
+<h3 id="runindexoptimization">RunIndexOptimization</h3>
+<p>Runs index optimization.
+Valid for Orion manage node users with at least WebViewer NCM role.Parent Config IDConfig titleConfig comments.ConfigWho requested the verb.</p>
+<h4 id="access-control-17">Access control</h4>
+<table>
+<thead>
+<tr>
+<th>Operations</th>
+<th>Right</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>invoke</td>
+<td>system</td>
+</tr>
+</tbody>
+</table>
+<h3 id="updateconfig">UpdateConfig</h3>
+<p>Updates config.
+Valid for Orion manage node users with at least WebUploader NCM role.Config ID.Config title.Config comments.Config.Config text should be updated(true/false).Who requested the verb.</p>
+<h4 id="access-control-18">Access control</h4>
+<p>everyone</p>
+<h3 id="cloneconfig">CloneConfig</h3>
+<p>Clones the config.
+Valid for Orion manage node users with at least WebUploader NCM role.Parent Config IDConfig titleConfig comments.Config</p>
+<h4 id="access-control-19">Access control</h4>
+<p>everyone</p>
+<h3 id="importconfig">ImportConfig</h3>
+<p>Imports binary config.
+Valid for Orion manage node users with at least WebUploader NCM role.NCM node ID.The title of a config.The comments of a config.Config as text.</p>
+<h4 id="access-control-20">Access control</h4>
+<p>everyone</p>
+<h3 id="importbinaryconfig">ImportBinaryConfig</h3>
+<p>Imports binary config.
+Valid for Orion manage node users with at least WebUploader NCM role.NCM node ID.The title of a config.The comments of a config.Config as binary.</p>
+<h4 id="access-control-21">Access control</h4>
+<p>everyone</p>
+<h3 id="setclearbaseline">SetClearBaseline</h3>
+<p>Sets clear baseline.
+Valid for Orion manage node users with at least WebUploader NCM role.List of config IDs.</p>
+<h4 id="access-control-22">Access control</h4>
+<p>everyone</p>
+<h3 id="validatebinaryconfigstorage">ValidateBinaryConfigStorage</h3>
+<p>Validates binary config storage.
+Valid for Orion manage node users with at least Administrator NCM role.Path to the storage.Username to the network.Password to the network.The result of a validation. Full type: SolarWinds.NCM.Contracts.InformationService.ValidationResult</p>
+<h4 id="access-control-23">Access control</h4>
+<p>everyone</p>
+<h3 id="getinterfaceconfigsnippets">GetInterfaceConfigSnippets</h3>
+<p>Gets interface config snippets.
+Valid for Orion manage node users with at least WebViewer NCM role.The ID of the core node.Array of config snippets. Full type: array of System.String</p>
+<h4 id="access-control-24">Access control</h4>
+<p>everyone</p>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In this article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+      &copy; SolarWinds
+      
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

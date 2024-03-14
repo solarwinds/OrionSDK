@@ -1,0 +1,417 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Orion.APM.Component | Orion SDK Schemas </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Orion.APM.Component | Orion SDK Schemas ">
+  
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"> 
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+  
+  <meta property="docfx:rel" content="../">
+  
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src=".././images/SolarWinds.Logo.png" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="orionapmcomponent">Orion.APM.Component</h1>
+
+<p>SolarWinds Information Service  2022.3 Schema Documentation</p>
+<p>This entity presents component.</p>
+<h4 id="inheritance">Inheritance</h4>
+<p>↳ <a href="System.Entity.html">System.Entity</a></p>
+<p>↳ <a href="System.ManagedEntity.html">System.ManagedEntity</a></p>
+<h4 id="access-control">Access control</h4>
+<table>
+<thead>
+<tr>
+<th>Operations</th>
+<th>Right</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>read</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>read,update,delete,invoke</td>
+<td>manageNodes</td>
+</tr>
+</tbody>
+</table>
+<h2 id="properties">Properties</h2>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Summary</th>
+<th>Access Control</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ComponentID</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int64">System.Int64</a></td>
+<td>The unique integer representation of component.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>Name</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">System.String</a></td>
+<td>The string value that contains the name of component.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>ShortName</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">System.String</a></td>
+<td>The string value that contains the component short name.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>ComponentType</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">System.Int32</a></td>
+<td>The integer value that contains the component type.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>ComponentEvidenceType</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">System.Int32</a></td>
+<td>The integer value that contains the component evidence type.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>ApplicationID</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">System.Int32</a></td>
+<td>The unique integer representation of parent application.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>TemplateID</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int64">System.Int64</a></td>
+<td>The unique integer representation of parent application template.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>ComponentName</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">System.String</a></td>
+<td>The string value that contains the name of component.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>DetailsUrl</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">System.String</a></td>
+<td>URL to component details page. Used in alerting.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>FullyQualifiedName</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">System.String</a></td>
+<td>The string value that contains the fully qualified name of parent node.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>UserDescription</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">System.String</a></td>
+<td>The string value that contains the component user description.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>UserNotes</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">System.String</a></td>
+<td>The string value that contains the component user notes.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>ComponentOrder</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">System.Int32</a></td>
+<td>The integer value that contains the component position.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>ApplicationItemID</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">System.Int32</a></td>
+<td>The unique integer representation of application item.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>Description</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">System.String</a></td>
+<td>The string value that contains component description.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>UnManaged</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">System.Boolean</a></td>
+<td>The boolean value that specifies if component is unmanaged.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>UnManageFrom</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.datetime">System.DateTime</a></td>
+<td>The date and time from which component is unmanaged.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>UnManageUntil</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.datetime">System.DateTime</a></td>
+<td>The date and time until which component is unmanaged.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>Status</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">System.Int32</a></td>
+<td>The status of a component.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>StatusDescription</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">System.String</a></td>
+<td>The string value that contains component status description.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>Disabled</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">System.Boolean</a></td>
+<td>The boolean value that specifies if component is disabled.</td>
+<td>everyone</td>
+</tr>
+</tbody>
+</table>
+<h2 id="source-relationships">Source Relationships</h2>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>OutApplicationTcpConnections</td>
+<td><a href="Orion.APM.ApplicationTcpConnection.html">Orion.APM.ApplicationTcpConnection</a></td>
+<td>Defined by relationship Orion.APM.ApplicationTcpConnectionReferencesClientProcessComponent (System.Reference)</td>
+</tr>
+<tr>
+<td>InApplicationTcpConnections</td>
+<td><a href="Orion.APM.ApplicationTcpConnection.html">Orion.APM.ApplicationTcpConnection</a></td>
+<td>Defined by relationship Orion.APM.ApplicationTcpConnectionReferencesServerProcessComponent (System.Reference)</td>
+</tr>
+<tr>
+<td>InApplicationTcpConnectionsForPort</td>
+<td><a href="Orion.APM.ApplicationTcpConnection.html">Orion.APM.ApplicationTcpConnection</a></td>
+<td>Defined by relationship Orion.APM.ApplicationTcpConnectionReferencesServerPortComponent (System.Reference)</td>
+</tr>
+<tr>
+<td>WebUri</td>
+<td><a href="Orion.APM.ComponentWebUri.html">Orion.APM.ComponentWebUri</a></td>
+<td>Defined by relationship Orion.APM.ComponentHostsWebUri (System.Hosting)</td>
+</tr>
+<tr>
+<td>CurrentStatus</td>
+<td><a href="Orion.APM.CurrentComponentStatus.html">Orion.APM.CurrentComponentStatus</a></td>
+<td>Defined by relationship Orion.APM.ComponentHostsCurrentStatus (System.Hosting)</td>
+</tr>
+<tr>
+<td>CurrentStatistics</td>
+<td><a href="Orion.APM.CurrentStatistics.html">Orion.APM.CurrentStatistics</a></td>
+<td>Defined by relationship Orion.APM.ComponentCurrentStatistics (System.Hosting)</td>
+</tr>
+<tr>
+<td>ComponentStatus</td>
+<td><a href="Orion.APM.ComponentStatus.html">Orion.APM.ComponentStatus</a></td>
+<td>Defined by relationship Orion.APM.ComponentHostsStatus (System.Hosting)</td>
+</tr>
+<tr>
+<td>PortEvidenceChart</td>
+<td><a href="Orion.APM.PortEvidenceChart.html">Orion.APM.PortEvidenceChart</a></td>
+<td>Defined by relationship Orion.APM.ComponentHostsPortEvidenceChart (System.Hosting)</td>
+</tr>
+<tr>
+<td>DynamicEvidenceChart</td>
+<td><a href="Orion.APM.DynamicEvidenceChart.html">Orion.APM.DynamicEvidenceChart</a></td>
+<td>Defined by relationship Orion.APM.ComponentHostsDynamicEvidenceChart (System.Hosting)</td>
+</tr>
+<tr>
+<td>ProcessEvidenceChart</td>
+<td><a href="Orion.APM.ProcessEvidenceChart.html">Orion.APM.ProcessEvidenceChart</a></td>
+<td>Defined by relationship Orion.APM.ComponentHostsProcessEvidenceChart (System.Hosting)</td>
+</tr>
+<tr>
+<td>WindowsEvent</td>
+<td><a href="Orion.APM.WindowsEvent.html">Orion.APM.WindowsEvent</a></td>
+<td>Defined by relationship Orion.APM.ComponentHostsWindowsEvent (System.Hosting)</td>
+</tr>
+<tr>
+<td>ChartEvidence2</td>
+<td><a href="Orion.APM.ChartEvidence2.html">Orion.APM.ChartEvidence2</a></td>
+<td>Defined by relationship Orion.APM.ComponentHostsChartEvidence2 (System.Hosting)</td>
+</tr>
+<tr>
+<td>ResponseTime</td>
+<td><a href="Orion.APM.ResponseTime.html">Orion.APM.ResponseTime</a></td>
+<td>Defined by relationship Orion.APM.ComponentResponseTime (System.Hosting)</td>
+</tr>
+<tr>
+<td>HistoricalCPULoad</td>
+<td><a href="Orion.APM.HistoricalCPULoad.html">Orion.APM.HistoricalCPULoad</a></td>
+<td>Defined by relationship Orion.APM.ComponentHistoricalCPULoadHosting (System.Hosting)</td>
+</tr>
+<tr>
+<td>HistoricalMemory</td>
+<td><a href="Orion.APM.HistoricalMemory.html">Orion.APM.HistoricalMemory</a></td>
+<td>Defined by relationship Orion.APM.ComponentHistoricalMemoryHosting (System.Hosting)</td>
+</tr>
+<tr>
+<td>HistoricalIOOperations</td>
+<td><a href="Orion.APM.HistoricalIOOperations.html">Orion.APM.HistoricalIOOperations</a></td>
+<td>Defined by relationship Orion.APM.ComponentHostsHistoricalIOOperations (System.Hosting)</td>
+</tr>
+<tr>
+<td>StatisticsUsage</td>
+<td><a href="Orion.APM.StatisticsUsage.html">Orion.APM.StatisticsUsage</a></td>
+<td>Defined by relationship Orion.APM.ComponentStatisticsUsageHosting (System.Hosting)</td>
+</tr>
+<tr>
+<td>ComponentAlert</td>
+<td><a href="Orion.APM.ComponentAlert.html">Orion.APM.ComponentAlert</a></td>
+<td>Defined by relationship Orion.APM.ComponentAlertReferencesComponent (System.Reference)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="target-relationships">Target Relationships</h2>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Application</td>
+<td><a href="Orion.APM.Application.html">Orion.APM.Application</a></td>
+<td>Defined by relationship Orion.APM.ApplicationHostsComponent (System.Hosting)</td>
+</tr>
+<tr>
+<td>ComponentDefinition</td>
+<td><a href="Orion.APM.ComponentDefinition.html">Orion.APM.ComponentDefinition</a></td>
+<td>Defined by relationship Orion.APM.ComponentDefinitionReferencesComponent (System.Reference)</td>
+</tr>
+<tr>
+<td>MultipleStatisticData</td>
+<td><a href="Orion.APM.MultipleStatisticData.html">Orion.APM.MultipleStatisticData</a></td>
+<td>Defined by relationship Orion.APM.MultipleStatisticDataReferencesComponent (System.Reference)</td>
+</tr>
+<tr>
+<td>ComponentAlertThresholds</td>
+<td><a href="Orion.APM.ComponentAlertThresholds.html">Orion.APM.ComponentAlertThresholds</a></td>
+<td>Defined by relationship Orion.APM.ComponentAlertThresholdsReferencesComponent (System.Reference)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="verbs">Verbs</h2>
+<h3 id="calculatebaselinethresholds">CalculateBaselineThresholds</h3>
+<p>Calculates and sets baseline thresholds for component thresholdComponent idThreshold name, for dynamic components it can be taken from APM.DynamicEvidenceColumnSchema.Name, for non dynamic component it can be taken from Orion.APM.Threshold.ThresholdName</p>
+<h4 id="access-control-1">Access control</h4>
+<p>everyone</p>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In this article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+      &copy; SolarWinds
+      
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

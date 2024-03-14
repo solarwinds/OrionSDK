@@ -1,0 +1,840 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Cirrus.Nodes | Orion SDK Schemas </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Cirrus.Nodes | Orion SDK Schemas ">
+  
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"> 
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+  
+  <meta property="docfx:rel" content="../">
+  
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src=".././images/SolarWinds.Logo.png" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="cirrusnodes">Cirrus.Nodes</h1>
+
+<p>SolarWinds Information Service  2023.2 Schema Documentation</p>
+<p>Data about NCM nodes.
+For valid Orion user with at least WebViewer NCM role.
+Updates possible only by users with manage node permissions.</p>
+<h4 id="inheritance">Inheritance</h4>
+<p>↳ <a href="System.Entity.html">System.Entity</a></p>
+<h4 id="access-control">Access control</h4>
+<table>
+<thead>
+<tr>
+<th>Operations</th>
+<th>Right</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>read,invoke</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>read,update,invoke</td>
+<td>manageNodes</td>
+</tr>
+</tbody>
+</table>
+<h2 id="properties">Properties</h2>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Summary</th>
+<th>Access Control</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>NodeID</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.guid">System.Guid</a></td>
+<td>Unique identifier and primary key of the NCM node.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>CoreNodeID</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">System.Int32</a></td>
+<td>Orion node ID.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>EngineID</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">System.Int32</a></td>
+<td>ID of the machine where the node is assigned for polling.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>NodeCaption</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">System.String</a></td>
+<td>Name or caption of the node. The Orion.Nodes Caption value.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>NodeGroup</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">System.String</a></td>
+<td>Folder name with nodes.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>AgentIP</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">System.String</a></td>
+<td>IP v4 of the machine where the node is assigned for polling.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>AgentIPv6</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">System.String</a></td>
+<td>IP v6 of the machine where the node is assigned for polling.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>ManagedProtocol</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">System.Byte</a></td>
+<td>Indicates if IP v6 is used for polling.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>AgentIPSort</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">System.Double</a></td>
+<td>Not used.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>ReverseDNS</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">System.String</a></td>
+<td>The Orion.Nodes DNS value.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>Status</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">System.Byte</a></td>
+<td>Node status type. The Orion.Nodes Status value.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>StatusText</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">System.String</a></td>
+<td>Node status label.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>Community</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">System.String</a></td>
+<td>The Orion.Nodes Community value.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>CommunityReadWrite</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">System.String</a></td>
+<td>The Orion.Nodes CommunityRW value.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>SNMPLevel</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">System.Byte</a></td>
+<td>The Orion.Nodes SNMPVersion value.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>SysName</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">System.String</a></td>
+<td>The Orion.Nodes SysName value.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>SysDescr</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">System.String</a></td>
+<td>The Orion.Nodes Description value.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>SysContact</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">System.String</a></td>
+<td>The Orion.Nodes Contact value.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>SysLocation</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">System.String</a></td>
+<td>The Orion.Nodes Location value.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>SystemOID</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">System.String</a></td>
+<td>The Orion.Nodes SysObjectID value.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>Vendor</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">System.String</a></td>
+<td>The Orion.Nodes Vendor value.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>VendorIcon</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">System.String</a></td>
+<td>The Orion.Nodes VendorIcon value.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>MachineType</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">System.String</a></td>
+<td>The Orion.Nodes MachineType value.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>LastBoot</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.datetime">System.DateTime</a></td>
+<td>The Orion.Nodes LastBoot value.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>OSImage</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">System.String</a></td>
+<td>The Orion.Nodes IOSImage value.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>OSVersion</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">System.String</a></td>
+<td>The Orion.Nodes IOSVersion value.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>ConfigTypes</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">System.String</a></td>
+<td>All config types.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>NodeComments</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">System.String</a></td>
+<td>Description and comments about the node.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>Username</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">System.String</a></td>
+<td>Encrypted login used for CLI connection.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>Password</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">System.String</a></td>
+<td>Encrypted password used for CLI connection.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>EnableLevel</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">System.String</a></td>
+<td>Describes if and how the enable level should be processed during CLI connections.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>EnablePassword</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">System.String</a></td>
+<td>Encrypted enable password used for CLI connection.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>ExecProtocol</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">System.String</a></td>
+<td>Protocol used for executing commands.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>CommandProtocol</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">System.String</a></td>
+<td>Protocol used for requesting the configuration.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>TransferProtocol</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">System.String</a></td>
+<td>Protocol used for configuration transfer.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>EncryptionAlgorithm</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">System.Int32</a></td>
+<td>Encryption algorithm.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>LoginStatus</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">System.String</a></td>
+<td>Description about the last connection.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>UseHTTPS</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">System.Boolean</a></td>
+<td>Not used</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>UseUserDeviceCredentials</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">System.Boolean</a></td>
+<td>Indicates if user login credentials should be used for this node.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>LastInventory</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.datetime">System.DateTime</a></td>
+<td>When the inventory was ran last time for this node.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>SNMPContext</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">System.String</a></td>
+<td>SNMP v3 context.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>SNMPUsername</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">System.String</a></td>
+<td>SNMP v3 user name.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>SNMPAuthType</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">System.String</a></td>
+<td>SNMP v3 authentication type.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>SNMPAuthPass</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">System.String</a></td>
+<td>SNMP v3 encrypted password.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>SNMPEncryptType</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">System.String</a></td>
+<td>SNMP v3 encryption type.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>SNMPEncryptPass</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">System.String</a></td>
+<td>SNMP v3 encrypted encryption password.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>AllowIntermediary</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">System.Boolean</a></td>
+<td>If enabled then additional CRLF for TACACS/RADIUS validation are sent.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>LastUpdateTime</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.datetime">System.DateTime</a></td>
+<td>The Orion.Nodes LastSync value.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>LastRediscoveryTime</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.datetime">System.DateTime</a></td>
+<td>Not used.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>TelnetPort</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">System.String</a></td>
+<td>Port used for TELNET connection.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>SSHPort</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">System.String</a></td>
+<td>Port used for SSH connection.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>SNMPPort</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">System.String</a></td>
+<td>The Orion.Nodes AgentPort value.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>EnableOrionImport</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">System.Boolean</a></td>
+<td>Not used.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>UseKeybInteractiveAuth</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">System.Boolean</a></td>
+<td>Indicates if the keyboard interactive authentication is enabled.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>ResponseError</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">System.String</a></td>
+<td>Not used.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>ConnectionProfile</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">System.Int32</a></td>
+<td>Connection profile ID.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>EndOfSupport</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.datetime">System.DateTime</a></td>
+<td>End of support date.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>EndOfSales</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.datetime">System.DateTime</a></td>
+<td>End of sales date.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>EndOfSoftware</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.datetime">System.DateTime</a></td>
+<td>End of software date.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>EosEntryID</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.guid">System.Guid</a></td>
+<td>EOS entry ID.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>EosType</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">System.Int32</a></td>
+<td>EOS type. Values:<br>        * 0 - Not assigned.<br>        * 1 - User<br>        * 2 - Manual<br>        * 3 - Auto<br>        * 4 - Awaiting<br>        * 5 - Node ignored</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>EosMatchDate</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.datetime">System.DateTime</a></td>
+<td>When EOS was matched last time.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>EosVersion</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">System.Int32</a></td>
+<td>EOS version used for matching.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>EosLink</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">System.String</a></td>
+<td>Link to the description about EOS.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>EosComments</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">System.String</a></td>
+<td>Comments about the EOS.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>ReplacementPartNumber</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">System.String</a></td>
+<td>EOS replacement part number</td>
+<td>everyone</td>
+</tr>
+</tbody>
+</table>
+<h2 id="source-relationships">Source Relationships</h2>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Interfaces</td>
+<td><a href="Cirrus.Interfaces.html">Cirrus.Interfaces</a></td>
+<td>Defined by relationship Cirrus.NodeHostsInterfaces (System.Hosting)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="verbs">Verbs</h2>
+<h3 id="addnode">AddNode</h3>
+<p>Adds a node to NCM given a complete model. Not recommended - use AddNodeToNCM instead.
+Valid for Orion manage node users with at least WebViewer NCM role.An NCMNode object to add to NCM.The NCM NodeID for the new node. Full type: System.Guid</p>
+<h4 id="access-control-1">Access control</h4>
+<table>
+<thead>
+<tr>
+<th>Operations</th>
+<th>Right</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>invoke</td>
+<td>manageNodes</td>
+</tr>
+</tbody>
+</table>
+<h3 id="addnodes">AddNodes</h3>
+<p>A batch version of the Cirrus.Nodes.AddNodeToNCM verb. Enables NCM to monitor and manage the configuration of Orion nodes, assuming appropriate credentials are available.
+Valid for Orion manage node users with at least WebViewer NCM role.A collection (List<int>) of Orion NodeIDs to add to NCM.true, unless an exception is thrown. Full type: System.Boolean</int></p>
+<h4 id="access-control-2">Access control</h4>
+<table>
+<thead>
+<tr>
+<th>Operations</th>
+<th>Right</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>invoke</td>
+<td>manageNodes</td>
+</tr>
+</tbody>
+</table>
+<h3 id="addnodetoncm">AddNodeToNCM</h3>
+<p>Enables NCM to monitor and manage the configuration of an Orion node, assuming appropriate credentials are available.
+Valid for Orion manage node users with at least WebViewer NCM role.The Orion NodeID (int) for the node to add.The NCM NodeID for the node. Full type: System.Guid</p>
+<h4 id="access-control-3">Access control</h4>
+<table>
+<thead>
+<tr>
+<th>Operations</th>
+<th>Right</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>invoke</td>
+<td>manageNodes</td>
+</tr>
+</tbody>
+</table>
+<h3 id="removenode">RemoveNode</h3>
+<p>Removes a node from NCM. Does not remove it from Orion, just NCM.
+Valid for Orion manage node users with at least WebViewer NCM role.The NCM NodeID (Guid) for the node to remove.true, unless an exception is thrown. Full type: System.Boolean</p>
+<h4 id="access-control-4">Access control</h4>
+<table>
+<thead>
+<tr>
+<th>Operations</th>
+<th>Right</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>invoke</td>
+<td>manageNodes</td>
+</tr>
+</tbody>
+</table>
+<h3 id="removenodes">RemoveNodes</h3>
+<p>Removes a set of nodes from NCM. Does not remove them from Orion, just NCM. Batch version of the RemoveNode verb.
+Valid for Orion manage node users with at least WebViewer NCM role.A collection (List<guid>) of NCM NodeIDs to remove.true, unless an exception is thrown. Full type: System.Boolean</guid></p>
+<h4 id="access-control-5">Access control</h4>
+<table>
+<thead>
+<tr>
+<th>Operations</th>
+<th>Right</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>invoke</td>
+<td>manageNodes</td>
+</tr>
+</tbody>
+</table>
+<h3 id="updatenode">UpdateNode</h3>
+<p>Updates the NCM properties of a node. All properties of the node are overwritten. It does not merge. To use this verb, first call GetNode to fetch the current properties of the node, modify the properties that you want to change on that model object, then call UpdateNode to commit the changes.
+Valid for Orion manage node users with at least WebViewer NCM role.The NCMNode model object to update.true, unless an exception is thrown. Full type: System.Boolean</p>
+<h4 id="access-control-6">Access control</h4>
+<table>
+<thead>
+<tr>
+<th>Operations</th>
+<th>Right</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>invoke</td>
+<td>manageNodes</td>
+</tr>
+</tbody>
+</table>
+<h3 id="getnode">GetNode</h3>
+<p>Fetches an NCMNode model object for the given node.
+Valid for Orion manage node users with at least WebViewer NCM role.The NCM NodeID (Guid) for the node to read.The NCMNode model object. Full type: SolarWinds.NCM.Contracts.InformationService.NCMNode</p>
+<h4 id="access-control-7">Access control</h4>
+<p>everyone</p>
+<h3 id="checkaplicence">CheckAPLicence</h3>
+<p>Tests the current poller licence.
+For valid Orion user with at least WebViewer NCM role.True if the license is valid. Full type: System.Boolean</p>
+<h4 id="access-control-8">Access control</h4>
+<p>everyone</p>
+<h3 id="deleteoverlicensenodes">DeleteOverLicenseNodes</h3>
+<p>Deletes random nodes which are above the current licence.
+For valid Orion user with at least WebViewer NCM role.</p>
+<h4 id="access-control-9">Access control</h4>
+<p>everyone</p>
+<h3 id="validatelogin">ValidateLogin</h3>
+<p>Tests login credentials.
+Valid for Orion manage node users with at least WebViewer NCM role.The Orion poller ID.The NCMNode model object to test.IP address of the device.Device template data.Validation data. Full type: SolarWinds.Orion.Cli.Contracts.DataModel.DeviceTemplate</p>
+<h4 id="access-control-10">Access control</h4>
+<table>
+<thead>
+<tr>
+<th>Operations</th>
+<th>Right</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>invoke</td>
+<td>manageNodes</td>
+</tr>
+</tbody>
+</table>
+<h3 id="getconnectionprofile">GetConnectionProfile</h3>
+<p>Retrieve single connection profile.
+User needs Orion node management rights with NCM role WebViewer or higher to call this verb.Connection profile ID.ConnectionProfile object. Full type: SolarWinds.NCM.Contracts.InformationService.ConnectionProfile</p>
+<h4 id="access-control-11">Access control</h4>
+<p>everyone</p>
+<h3 id="addconnectionprofile">AddConnectionProfile</h3>
+<p>Creates a new connection profile.
+User needs Orion node management rights with NCM role WebViewer or higher to call this verb.ConnectionProfile object - profile to create.ID of newly created connection profile. Full type: System.Int32</p>
+<h4 id="access-control-12">Access control</h4>
+<table>
+<thead>
+<tr>
+<th>Operations</th>
+<th>Right</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>invoke</td>
+<td>manageNodes</td>
+</tr>
+</tbody>
+</table>
+<h3 id="updateconnectionprofile">UpdateConnectionProfile</h3>
+<p>Updates exisitng connection profile.
+User needs Orion node management rights with NCM role WebViewer or higher to call this verb.ConnectionProfile object - profile to to update with exisiting profile ID filled in.</p>
+<h4 id="access-control-13">Access control</h4>
+<table>
+<thead>
+<tr>
+<th>Operations</th>
+<th>Right</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>invoke</td>
+<td>manageNodes</td>
+</tr>
+</tbody>
+</table>
+<h3 id="deleteconnectionprofile">DeleteConnectionProfile</h3>
+<p>Deletes existing connection profile.
+User needs Orion node management rights with NCM role WebViewer or higher to call this verb.Connection profile ID.</p>
+<h4 id="access-control-14">Access control</h4>
+<table>
+<thead>
+<tr>
+<th>Operations</th>
+<th>Right</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>invoke</td>
+<td>manageNodes</td>
+</tr>
+</tbody>
+</table>
+<h3 id="getallconnectionprofiles">GetAllConnectionProfiles</h3>
+<p>Retrieve list of all connection profiles created in NCM.
+User needs Orion node management rights with NCM role WebViewer or higher to call this verb.List of all ConnectionProfile objects. Full type: array of SolarWinds.NCM.Contracts.InformationService.ConnectionProfile</p>
+<h4 id="access-control-15">Access control</h4>
+<p>everyone</p>
+<h3 id="assigneosentry">AssignEOSEntry</h3>
+<p>Assigns EOS data to provided nodes.
+For valid Orion user with at least Engineer NCM role.List of NCM node IDs.End of support date.End of sales date.End of software date.EOS entry ID.EOS type.EOS version.EOS link.EOS comments.EOS replacement part number.</p>
+<h4 id="access-control-16">Access control</h4>
+<p>everyone</p>
+<h3 id="deleteeosdata">DeleteEOSData</h3>
+<p>Deletes EOS data from NCM nodes.
+Valid for Orion manage node users with at least Engineer NCM role.List of NCM node IDs.</p>
+<h4 id="access-control-17">Access control</h4>
+<p>everyone</p>
+<h3 id="changeeostype">ChangeEOSType</h3>
+<p>Changes EOS type for provided nodes.
+Valid for Orion manage node users with at least Engineer NCM role.List of NCM node IDs.EOS type.</p>
+<h4 id="access-control-18">Access control</h4>
+<p>everyone</p>
+<h3 id="getfipsincompatibleobjects">GetFIPSIncompatibleObjects</h3>
+<p>Executes and makes config change report.
+For internal use only. Without user access.Array of FIPS incompatible objects. Full type: SolarWinds.NCM.Contracts.InformationService.NCMFIPSIncompatibleObject</p>
+<h4 id="access-control-19">Access control</h4>
+<table>
+<thead>
+<tr>
+<th>Operations</th>
+<th>Right</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>invoke</td>
+<td>system</td>
+</tr>
+</tbody>
+</table>
+<h3 id="getpageableeosdatatable">GetPageableEosDataTable</h3>
+<p>Gets paged EOS data.
+Valid for Orion manage node users with at least Engineer NCM role.List of NCM node IDs.Starting row number.Page size.Data table about EOS with nodes. Full type: System.Data.DataTable</p>
+<h4 id="access-control-20">Access control</h4>
+<p>everyone</p>
+<h3 id="getpageableeosrowcount">GetPageableEosRowCount</h3>
+<p>Gets number of EOS rows count.
+Valid for Orion manage node users with at least Engineer NCM role.List of NCM node IDs.Number of EOS rows with nodes. Full type: System.Int32</p>
+<h4 id="access-control-21">Access control</h4>
+<p>everyone</p>
+<h3 id="changevulnerabilitystatefornodes">ChangeVulnerabilityStateForNodes</h3>
+<p>Changes vulnerability states for provided nodes.
+Valid for Orion manage node users with at least Engineer NCM role.List of Orion node IDs.Vulnerabilty entry ID.Vulnerabilty state.Comments about the change.</p>
+<h4 id="access-control-22">Access control</h4>
+<p>everyone</p>
+<h3 id="changevulnerabilitystateforallnodes">ChangeVulnerabilityStateForAllNodes</h3>
+<p>Changes vulnerability states for all assigned nodes.
+Valid for Orion manage node users with at least Engineer NCM role.Vulnerabilty entry ID.Vulnerabilty state.Comments about the change.</p>
+<h4 id="access-control-23">Access control</h4>
+<p>everyone</p>
+<h3 id="deleteallvulnerabilitydata">DeleteAllVulnerabilityData</h3>
+<p>Deletes all vulnerabilities data.
+Valid for Orion manage node users with at least Engineer NCM role.</p>
+<h4 id="access-control-24">Access control</h4>
+<p>everyone</p>
+<h3 id="parsemacros">ParseMacros</h3>
+<p>Processes the provided macro.
+Valid for Orion manage node users with at least WebViewer NCM role.Optional NCM node ID.Macro to process.Resolved macro value. Full type: System.String</p>
+<h4 id="access-control-25">Access control</h4>
+<p>everyone</p>
+<h3 id="executeconfigchangereportaction">ExecuteConfigChangeReportAction</h3>
+<p>Executes and makes config change report.
+Valid for Orion manage node users with at least WebViewer NCM role.NCM node ID.Comparison type.Differences between configurations. Full type: System.String</p>
+<h4 id="access-control-26">Access control</h4>
+<p>everyone</p>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In this article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+      &copy; SolarWinds
+      
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

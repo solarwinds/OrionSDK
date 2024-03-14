@@ -1,0 +1,428 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Orion.HA.Pools | Orion SDK Schemas </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Orion.HA.Pools | Orion SDK Schemas ">
+  
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"> 
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+  
+  <meta property="docfx:rel" content="../">
+  
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src=".././images/SolarWinds.Logo.png" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="orionhapools">Orion.HA.Pools</h1>
+
+<p>SolarWinds Information Service  2023.2 Schema Documentation</p>
+<p>High Availability pools. Pool unites pool members of the same type to provide high availability of Orion servers.</p>
+<h4 id="inheritance">Inheritance</h4>
+<p>↳ <a href="System.Entity.html">System.Entity</a></p>
+<h4 id="access-control">Access control</h4>
+<table>
+<thead>
+<tr>
+<th>Operations</th>
+<th>Right</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>read</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>create,read,update,delete,invoke</td>
+<td>admin</td>
+</tr>
+</tbody>
+</table>
+<h2 id="properties">Properties</h2>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Summary</th>
+<th>Access Control</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PoolId</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">System.Int32</a></td>
+<td>ID of pool</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>PoolMasterMemberId</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">System.Int32</a></td>
+<td>ID of pool member which acts as a pool master</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>PoolType</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">System.String</a></td>
+<td>Type of pool (0 - main poller, 1 - additional poller)</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>DisplayName</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">System.String</a></td>
+<td>Name of a pool</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>Enabled</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">System.Boolean</a></td>
+<td>Pool is enabled or disabled</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>CurrentStatus</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">System.Int32</a></td>
+<td>Current status of a pool</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>CurrentStatusTimestamp</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.datetime">System.DateTime</a></td>
+<td>Timestamp of current status</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>PoolMasterChangeTimestamp</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.datetime">System.DateTime</a></td>
+<td>Timestamp of pool master role change</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>IntervalMemberDown</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">System.Int32</a></td>
+<td>Interval after which is member considered as down</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>IntervalPoolTask</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">System.Int32</a></td>
+<td>Pool task interval in seconds. In this interval HA service performs regular tasks e.g. services status monitoring</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>IntervalSuicideRule</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">System.Int32</a></td>
+<td>Interval after which member releases its resource if it cannot reach other member of a pool do database</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>VirtualHostName</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">System.String</a></td>
+<td>Virtual Host name assigned to a pool</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>VirtualIpAddress</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">System.String</a></td>
+<td>Virtual IP Address assigned to a pool</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>DnsIpAddress</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">System.String</a></td>
+<td>IP Address of DNS server hosting primary zone used by virtual host name</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>DnsZone</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">System.String</a></td>
+<td>A name of forward lookup DNS zone where virtual host name record is stored</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>DnsType</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">System.String</a></td>
+<td>Type of DNS server (Microsoft, BIND, Other)</td>
+<td>everyone</td>
+</tr>
+</tbody>
+</table>
+<h2 id="source-relationships">Source Relationships</h2>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Members</td>
+<td><a href="Orion.HA.PoolMembers.html">Orion.HA.PoolMembers</a></td>
+<td>Defined by relationship Orion.HA.PoolReferencesPoolMembers (System.Reference)</td>
+</tr>
+<tr>
+<td>ResourcesInstances</td>
+<td><a href="Orion.HA.ResourcesInstances.html">Orion.HA.ResourcesInstances</a></td>
+<td>Defined by relationship Orion.HA.PoolsResourcesInstances (System.Reference)</td>
+</tr>
+<tr>
+<td>LicenseAssignments</td>
+<td><a href="Orion.Licensing.LicenseAssignments.html">Orion.Licensing.LicenseAssignments</a></td>
+<td>Defined by relationship Orion.HAPoolsReferencesLicenseAssignments (System.Reference)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="verbs">Verbs</h2>
+<h3 id="createpool">CreatePool</h3>
+<p>Creates pool based on provided members and resource parametersName of a poolInteger array of pool member IDsAdditional properties containing resources configurations.Object which describes, whether pool was created. Property Code = 0 means that operation was successful. Property Result contains ID of created pool. Property Message contains error message in case of error.</p>
+<h4 id="access-control-1">Access control</h4>
+<table>
+<thead>
+<tr>
+<th>Operations</th>
+<th>Right</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>invoke</td>
+<td>admin</td>
+</tr>
+</tbody>
+</table>
+<h3 id="editpool">EditPool</h3>
+<p>Updates pool with a given poolIdPool IDName of a poolAdditional properties containing resources configurations.Object which describes, whether pool was edited. Property Code = 0 means that operation was successful. Property Message contains error message in case of error.</p>
+<h4 id="access-control-2">Access control</h4>
+<table>
+<thead>
+<tr>
+<th>Operations</th>
+<th>Right</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>invoke</td>
+<td>admin</td>
+</tr>
+</tbody>
+</table>
+<h3 id="validatecreatepool">ValidateCreatePool</h3>
+<p>Validates pool (without creating it) based on provided members and resource parametersName of a poolInteger array of pool member IDsAdditional properties containing resources configurations.Object which contains validation result. Property Code = 0 means that validation was successful. Property Result contains validation result data. Property Message contains error message in case of error.</p>
+<h4 id="access-control-3">Access control</h4>
+<table>
+<thead>
+<tr>
+<th>Operations</th>
+<th>Right</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>invoke</td>
+<td>admin</td>
+</tr>
+</tbody>
+</table>
+<h3 id="validateeditpool">ValidateEditPool</h3>
+<p>Validates pool with given poolId and resource parameters (without actual update)Pool IDName of a poolAdditional properties containing resources configurations.Object which contains validation result. Property Code = 0 means that validation was successful. Property Result contains validation result data. Property Message contains error message in case of error.</p>
+<h4 id="access-control-4">Access control</h4>
+<table>
+<thead>
+<tr>
+<th>Operations</th>
+<th>Right</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>invoke</td>
+<td>admin</td>
+</tr>
+</tbody>
+</table>
+<h3 id="enablepool">EnablePool</h3>
+<p>Enables pool with a given poolIdID of poolObject which describes, whether pool was enabled. Property Code = 0 means that operation was successful. Property Message contains error message in case of error.</p>
+<h4 id="access-control-5">Access control</h4>
+<table>
+<thead>
+<tr>
+<th>Operations</th>
+<th>Right</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>invoke</td>
+<td>admin</td>
+</tr>
+</tbody>
+</table>
+<h3 id="disablepool">DisablePool</h3>
+<p>Disables pool with a given poolIdID of poolObject which describes, whether pool was disabled. Property Code = 0 means that operation was successful. Property Message contains error message in case of error.</p>
+<h4 id="access-control-6">Access control</h4>
+<table>
+<thead>
+<tr>
+<th>Operations</th>
+<th>Right</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>invoke</td>
+<td>admin</td>
+</tr>
+</tbody>
+</table>
+<h3 id="deletepool">DeletePool</h3>
+<p>Delete pool with given poolId.ID of poolObject which describes, whether pool was deleted. Property Code = 0 means that operation was successful. Property Message contains error message in case of error.</p>
+<h4 id="access-control-7">Access control</h4>
+<table>
+<thead>
+<tr>
+<th>Operations</th>
+<th>Right</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>invoke</td>
+<td>admin</td>
+</tr>
+</tbody>
+</table>
+<h3 id="switchover">Switchover</h3>
+<p>Manual failover on a given pool.ID of poolObject which describes, whether manual failover was initiated. Property Code = 0 means that operation was successful. Property Message contains error message in case of error.</p>
+<h4 id="access-control-8">Access control</h4>
+<table>
+<thead>
+<tr>
+<th>Operations</th>
+<th>Right</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>invoke</td>
+<td>admin</td>
+</tr>
+</tbody>
+</table>
+<h3 id="deletestaleengine">DeleteStaleEngine</h3>
+<p>Deletes OrionServer and related pool memeber with a given hostName.hostNameObject which describes, whether stale engine was deleted. Property Code = 0 means that operation was successful. Property Message contains error message in case of error.</p>
+<h4 id="access-control-9">Access control</h4>
+<table>
+<thead>
+<tr>
+<th>Operations</th>
+<th>Right</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>invoke</td>
+<td>admin</td>
+</tr>
+</tbody>
+</table>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In this article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+      &copy; SolarWinds
+      
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

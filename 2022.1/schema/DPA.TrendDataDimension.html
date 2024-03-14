@@ -1,0 +1,237 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>DPA.TrendDataDimension | Orion SDK Schemas </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="DPA.TrendDataDimension | Orion SDK Schemas ">
+  
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"> 
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+  
+  <meta property="docfx:rel" content="../">
+  
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src=".././images/SolarWinds.Logo.png" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="dpatrenddatadimension">DPA.TrendDataDimension</h1>
+
+<p>SolarWinds Information Service  2022.1 Schema Documentation</p>
+<p>Trend data for DB instance per dimension</p>
+<h4 id="inheritance">Inheritance</h4>
+<p>↳ <a href="System.Entity.html">System.Entity</a></p>
+<p>↳ <a href="System.ExtensionEntity.html">System.ExtensionEntity</a></p>
+<h4 id="access-control">Access control</h4>
+<table>
+<thead>
+<tr>
+<th>Operations</th>
+<th>Right</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>read</td>
+<td>everyone</td>
+</tr>
+</tbody>
+</table>
+<h2 id="properties">Properties</h2>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Summary</th>
+<th>Access Control</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>DatabaseId</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">System.Int32</a></td>
+<td>Reference to Orion.DPA.DatabaseInstance.Id. This parameter is not required for data-dimensions 18, 19 and 20 (see bellow – virtual dimensions). On the other hand this parameter can be specified with WHERE Id IN (x, y, z) for these three dimensions</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>GlobalDatabaseId</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">System.Int32</a></td>
+<td>Unique ID of database instance in Orion</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>Id</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">System.Int32</a></td>
+<td>Trend data-dimension; possible values are: SQL (1), WAIT (2), PROGRAM (3), DATABASE_INSTANCE (4), MACHINE (5), DB_USER (6), OS_USER (7), FILE (8), DRIVE (9), PLAN (10), ACTION (11), MODULE (12), PARTITION (13), OBJECT (14), PROCEDURE (15) and virtual dimensions TOP_WAIT (18), TRENDING_UP_WAIT (19), TRENDING_DOWN_WAIT (20)</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>Name</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">System.String</a></td>
+<td>Data-dimension names–readable data-dimension representations: 'SQL Statement', 'Wait-time', 'Program', 'Database', 'Machine', 'Database User', 'O/S User', 'File', 'Drive', 'Plan', 'Action', 'Module', 'Partition', 'Object', 'Procedure', 'Top Wait-time', 'Trending-up Wait-time', 'Trending-down Wait-time'</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>Wait</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">System.Double</a></td>
+<td>Total wait-time in seconds for each returned record. For Trending-up (down) wait-time this value represents percent change (not time)</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>AverageWait</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">System.Double</a></td>
+<td>Average wait-time in seconds for DB instance</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>Time</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.datetime">System.DateTime</a></td>
+<td>Time-stamp of entity record (operators &lt;, &lt;=, &gt; and &gt;= can be used in WHERE clauses on this field)</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>TimeUnit</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">System.Int32</a></td>
+<td>Used for filtration of records by setting desired granularity (millis (0), seconds (1), minutes (2), hours (3), days (4), weeks (5), months (6))<br>Since this is only a prototype the only values allowed are 3 (hours) and 4 (days) and both are mutually exclusive (you cannot get records for both hours and days by a single query)</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>InstanceId</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int64">System.Int64</a></td>
+<td>IDs of an instances in DPA; for programs, machines, users, etc. these are typically generically-generated IDs in local repository table; for SQL texts these are SQL hashes</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>InstanceName</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">System.String</a></td>
+<td>Name of an instance; e.g. 'IGNITE' (for program), 'administrator-XYZ' (for user), 348A3F21 (for SQL text)</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>InstanceValue</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">System.String</a></td>
+<td>Typically set only for SQLs–this field contains full SQL text</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>MaxInstances</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">System.Int32</a></td>
+<td>Serves only to limit the maximal number of monitored database instances to be retrieved (top 5, 10, etc.)</td>
+<td>everyone</td>
+</tr>
+</tbody>
+</table>
+<h2 id="target-relationships">Target Relationships</h2>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>DatabaseInstance</td>
+<td><a href="Orion.DPA.DatabaseInstance.html">Orion.DPA.DatabaseInstance</a></td>
+<td>Defined by relationship Orion.DatabaseInstanceTrendDataDimension (System.Reference)</td>
+</tr>
+</tbody>
+</table>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In this article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+      &copy; SolarWinds
+      
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

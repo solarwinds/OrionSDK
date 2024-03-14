@@ -1,0 +1,320 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>NCM.F5System | Orion SDK Schemas </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="NCM.F5System | Orion SDK Schemas ">
+  
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"> 
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+  
+  <meta property="docfx:rel" content="../">
+  
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src=".././images/SolarWinds.Logo.png" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="ncmf5system">NCM.F5System</h1>
+
+<p>SolarWinds Information Service  2023.3 Schema Documentation</p>
+<p>F5 system data.
+For valid Orion user with at least WebViewer NCM role. Read-only.</p>
+<h4 id="inheritance">Inheritance</h4>
+<p>↳ <a href="System.Entity.html">System.Entity</a></p>
+<h4 id="access-control">Access control</h4>
+<p>everyone</p>
+<h2 id="properties">Properties</h2>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Summary</th>
+<th>Access Control</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>NodeID</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.guid">System.Guid</a></td>
+<td>The NCM node ID.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>CpuCount</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">System.Int32</a></td>
+<td>CPU count.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>ActiveCpuCount</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">System.Int32</a></td>
+<td>Active CPU count.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>AvgCpuUsageRatio</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">System.Double</a></td>
+<td>Average CPU usage ratio in percents.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>MemoryTotal</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">System.Double</a></td>
+<td>Total memory in bytes.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>MemoryUsed</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">System.Double</a></td>
+<td>Used memory in bytes.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>ClientBytesIn</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">System.Double</a></td>
+<td>Total bytes received from client.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>ClientBytesOut</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">System.Double</a></td>
+<td>Total bytes sent to client.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>ServerBytesIn</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">System.Double</a></td>
+<td>Total bytes received from server.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>ServerBytesOut</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">System.Double</a></td>
+<td>Total bytes sent to client.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>SystemUptime</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">System.String</a></td>
+<td>Verbose system uptime. (eg. '5 days, 13 hours, 21 minutes, 6 seconds').</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>SystemUptimeInSec</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">System.Int32</a></td>
+<td>System uptime in seconds.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>PlatformInfoName</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">System.String</a></td>
+<td>Platform name. It is usually a letter followed by a two- or three-digit number.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>PlatformInfoMarketingName</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">System.String</a></td>
+<td>The BIG-IP marketing name.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>GeneralChassisSerialNum</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">System.String</a></td>
+<td>Chassis serial number.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>FailoverStatusId</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">System.Int32</a></td>
+<td>ID of failover status.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>FailoverStatus</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">System.String</a></td>
+<td>Failover status. Indicates if device is able to make one of the failover connections.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>FailoverStatusColor</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">System.Int32</a></td>
+<td>Failover status color.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>FailoverStatusSummary</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">System.String</a></td>
+<td>Failover status summary.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>FailoverActiveMode</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">System.String</a></td>
+<td>Failover active mode.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>FailoverForceActive</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">System.String</a></td>
+<td>Failover force active.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>ConfigSyncState</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">System.Int32</a></td>
+<td>ConfigSync operation state.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>ProductName</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">System.String</a></td>
+<td>Product name.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>ProductVersion</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">System.String</a></td>
+<td>Product version.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>ProductBuild</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">System.String</a></td>
+<td>Product build.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>ProductEdition</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">System.String</a></td>
+<td>Product edition.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>ProductDate</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">System.String</a></td>
+<td>Product build date.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>LastDiscovery</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.datetime">System.DateTime</a></td>
+<td>Date and time NCM last discovered the device during inventory.</td>
+<td>everyone</td>
+</tr>
+</tbody>
+</table>
+<h2 id="target-relationships">Target Relationships</h2>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>NodeProperties</td>
+<td><a href="NCM.NodeProperties.html">NCM.NodeProperties</a></td>
+<td>Defined by relationship NCM.NodePropertiesRefF5System (System.Reference)</td>
+</tr>
+</tbody>
+</table>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In this article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+      &copy; SolarWinds
+      
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

@@ -1,0 +1,764 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Orion.VIM.VirtualMachines | Orion SDK Schemas </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Orion.VIM.VirtualMachines | Orion SDK Schemas ">
+  
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"> 
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+  
+  <meta property="docfx:rel" content="../">
+  
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src=".././images/SolarWinds.Logo.png" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="orionvimvirtualmachines">Orion.VIM.VirtualMachines</h1>
+
+<p>SolarWinds Information Service  2022.3 Schema Documentation</p>
+<p>Virtual Machine</p>
+<h4 id="inheritance">Inheritance</h4>
+<p>↳ <a href="System.Entity.html">System.Entity</a></p>
+<p>↳ <a href="System.ManagedEntity.html">System.ManagedEntity</a></p>
+<p>↳ <a href="Orion.Virtualization.Instance.html">Orion.Virtualization.Instance</a></p>
+<h4 id="access-control">Access control</h4>
+<p>everyone</p>
+<h2 id="properties">Properties</h2>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Summary</th>
+<th>Access Control</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ManagedObjectID</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">System.String</a></td>
+<td></td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>UUID</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.guid">System.Guid</a></td>
+<td>UUID</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>HostID</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">System.Int32</a></td>
+<td>Host ID</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>ResourcePoolID</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">System.Int32</a></td>
+<td></td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>VMConfigFile</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">System.String</a></td>
+<td>Virtual Machine Config File</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>MemoryConfigured</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int64">System.Int64</a></td>
+<td>Memory Configured</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>MemoryShares</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int64">System.Int64</a></td>
+<td>Memory Shares</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>CPUShares</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">System.Int32</a></td>
+<td>CPU Shares</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>GuestState</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">System.String</a></td>
+<td>Guest State</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>IPAddress</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">System.String</a></td>
+<td>IP Address</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>LogDirectory</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">System.String</a></td>
+<td></td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>GuestVmWareToolsVersion</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">System.String</a></td>
+<td>Guest VMware Tools Version</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>GuestVmWareToolsStatus</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">System.String</a></td>
+<td>Guest VMware Tools Status</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>GuestName</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">System.String</a></td>
+<td>Guest Name</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>GuestFamily</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">System.String</a></td>
+<td>Guest Family</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>GuestDnsName</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">System.String</a></td>
+<td>Guest DNS Name</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>NicCount</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">System.Int32</a></td>
+<td>NIC Count</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>VDisksCount</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">System.Int32</a></td>
+<td>VDisks Count</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>ProcessorCount</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">System.Int32</a></td>
+<td>Processor Count</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>PowerState</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">System.String</a></td>
+<td>Power State</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>BootTime</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.datetime">System.DateTime</a></td>
+<td>Boot Time</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>OSUptime</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int64">System.Int64</a></td>
+<td>OS Uptime</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>ConfigStatus</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">System.String</a></td>
+<td>Config Status</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>OverallStatus</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">System.String</a></td>
+<td>Overall Status</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>NodeStatus</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">System.Int32</a></td>
+<td>Node Status</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>CpuUsageMHz</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int64">System.Int64</a></td>
+<td>CPU Usage</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>MemUsage</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">System.Single</a></td>
+<td>Memory Percent Usage</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>MemUsageMB</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int64">System.Int64</a></td>
+<td>Memory Usage</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>IsLicensed</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">System.Boolean</a></td>
+<td>Is Licensed</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>PollingSource</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">System.Int32</a></td>
+<td></td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>RelativePath</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">System.String</a></td>
+<td></td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>DatastoreIdentifier</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">System.String</a></td>
+<td></td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>CpuReady</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">System.Single</a></td>
+<td>CPU Ready</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>SwappedMemoryUtilization</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">System.Single</a></td>
+<td>Swapped Memory Utilization</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>SwappedMemoryUtilizationPercent</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">System.Single</a></td>
+<td>Swapped Memory Utilization</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>BalloonMemload</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">System.Single</a></td>
+<td>Balloon Memload</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>BalloonMemloadPercent</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">System.Single</a></td>
+<td>Balloon Memory Utilization</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>IOPSTotal</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">System.Single</a></td>
+<td>IOPS Total</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>IOPSRead</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">System.Single</a></td>
+<td>IOPS Read</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>IOPSWrite</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">System.Single</a></td>
+<td>IOPS Write</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>LatencyTotal</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">System.Single</a></td>
+<td>Latency Total [ms]</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>LatencyRead</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">System.Single</a></td>
+<td>Latency Read [ms]</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>LatencyWrite</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">System.Single</a></td>
+<td>Latency Write [ms]</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>ThroughputRead</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">System.Single</a></td>
+<td>Throughput Read [kB/s]</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>ThroughputWrite</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">System.Single</a></td>
+<td>Throughput Write [kB/s]</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>ThroughputTotal</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">System.Single</a></td>
+<td>Throughput Total [kB/s]</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>SnapshotStorageSize</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int64">System.Int64</a></td>
+<td>Snapshot Storage Size</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>ConsumedMemLoad</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">System.Single</a></td>
+<td>Consumed Memory Load</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>ConsumedPercentMemLoad</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">System.Single</a></td>
+<td>Consumed Percent Memory Load</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>LastActivityDate</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.datetime">System.DateTime</a></td>
+<td>Last Activity Date</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>TotalStorageSize</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int64">System.Int64</a></td>
+<td>Total Storage Size</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>TotalStorageSizeUsed</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int64">System.Int64</a></td>
+<td>Total Used Storage Size</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>VolumeSummaryCapacity</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int64">System.Int64</a></td>
+<td>Volume Summary Capacity</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>VolumeSummaryFreeSpace</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int64">System.Int64</a></td>
+<td>Volume Summary Free Space</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>VolumeSummaryFreeSpacePercent</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">System.Single</a></td>
+<td>Volume Summary Free Space Percentage</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>VolumeSummaryCapacityDepletionDate</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.datetime">System.DateTime</a></td>
+<td>Volume Summary Capacity Depletion Date</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>TriggeredAlarmDescription</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">System.String</a></td>
+<td></td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>OrionIdPrefix</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">System.String</a></td>
+<td></td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>OrionIdColumn</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">System.String</a></td>
+<td></td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>RunTime</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int64">System.Int64</a></td>
+<td>Run Time</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>CpuCostop</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">System.Single</a></td>
+<td>CPU Co-stop counter</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>DynamicMemoryEnabled</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">System.Boolean</a></td>
+<td>Dynamic Memory Enabled</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>SnapshotSummaryCount</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">System.Int32</a></td>
+<td>Snapshot Summary Count</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>DateCreated</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.datetime">System.DateTime</a></td>
+<td>Date Created</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>OldestSnapshotDate</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.datetime">System.DateTime</a></td>
+<td>Oldest Snapshot Date Created</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>HeartBeat</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">System.Single</a></td>
+<td>Heartbeat</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>SnapshotDateModified</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.datetime">System.DateTime</a></td>
+<td>Snapshot date modified</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>MemoryAllocationLimit</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int64">System.Int64</a></td>
+<td>Memory allocation limit</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>VirtualDiskDateModified</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.datetime">System.DateTime</a></td>
+<td>Virtual disk date modified</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>DetailsUrl</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">System.String</a></td>
+<td>Details Url</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>MinimumMemory</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int64">System.Int64</a></td>
+<td>Minimum Memory</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>StartupMemory</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int64">System.Int64</a></td>
+<td>Startup Memory</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>MemoryBuffer</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int64">System.Int64</a></td>
+<td>Memory Buffer</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>InstanceUuid</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.guid">System.Guid</a></td>
+<td>Instance UUID</td>
+<td>everyone</td>
+</tr>
+</tbody>
+</table>
+<h2 id="source-relationships">Source Relationships</h2>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CortexTriggeredAlarmStates</td>
+<td><a href="Cortex.Orion.Virtualization.TriggeredAlarmState.html">Cortex.Orion.Virtualization.TriggeredAlarmState</a></td>
+<td>Defined by relationship Cortex.Orion.Virtualization.TriggeredAlarmStatesToVirtualMachine (System.Reference)</td>
+</tr>
+<tr>
+<td>RelyLUNs</td>
+<td><a href="Orion.SRM.LUNs.html">Orion.SRM.LUNs</a></td>
+<td>Defined by relationship Orion.Rely.SRM.VirtualMachinesRelyOnLUNs (System.Reliance)</td>
+</tr>
+<tr>
+<td>Platform</td>
+<td><a href="Orion.VIM.Platform.html">Orion.VIM.Platform</a></td>
+<td>Defined by relationship Orion.VIM.VirtualMachineReferencesPlatform (System.Reference)</td>
+</tr>
+<tr>
+<td>Thresholds</td>
+<td><a href="Orion.VIM.VirtualMachineThresholds.html">Orion.VIM.VirtualMachineThresholds</a></td>
+<td>Defined by relationship Orion.VIM.VirtualMachineHostsVirtualMachineThresholds (System.Hosting)</td>
+</tr>
+<tr>
+<td>CpuLoadThreshold</td>
+<td><a href="Orion.VIM.VirtualMachineCpuLoadThreshold.html">Orion.VIM.VirtualMachineCpuLoadThreshold</a></td>
+<td>Defined by relationship Orion.VIM.VirtualMachineHostsCpuLoadThreshold (System.Hosting)</td>
+</tr>
+<tr>
+<td>MemUsageThreshold</td>
+<td><a href="Orion.VIM.VirtualMachineMemUsageThreshold.html">Orion.VIM.VirtualMachineMemUsageThreshold</a></td>
+<td>Defined by relationship Orion.VIM.VirtualMachineHostsMemUsageThreshold (System.Hosting)</td>
+</tr>
+<tr>
+<td>NetworkUsageRateThreshold</td>
+<td><a href="Orion.VIM.VirtualMachineNetworkUsageRateThreshold.html">Orion.VIM.VirtualMachineNetworkUsageRateThreshold</a></td>
+<td>Defined by relationship Orion.VIM.VirtualMachineHostsNetworkUsageRateThreshold (System.Hosting)</td>
+</tr>
+<tr>
+<td>CpuReadyThreshold</td>
+<td><a href="Orion.VIM.VirtualMachineCpuReadyThreshold.html">Orion.VIM.VirtualMachineCpuReadyThreshold</a></td>
+<td>Defined by relationship Orion.VIM.VirtualMachineHostsCpuReadyThreshold (System.Hosting)</td>
+</tr>
+<tr>
+<td>LatencyTotalThreshold</td>
+<td><a href="Orion.VIM.VirtualMachineLatencyTotalThreshold.html">Orion.VIM.VirtualMachineLatencyTotalThreshold</a></td>
+<td>Defined by relationship Orion.VIM.VirtualMachineHostsLatencyTotalThreshold (System.Hosting)</td>
+</tr>
+<tr>
+<td>LatencyReadThreshold</td>
+<td><a href="Orion.VIM.VirtualMachineLatencyReadThreshold.html">Orion.VIM.VirtualMachineLatencyReadThreshold</a></td>
+<td>Defined by relationship Orion.VIM.VirtualMachineHostsLatencyReadThreshold (System.Hosting)</td>
+</tr>
+<tr>
+<td>LatencyWriteThreshold</td>
+<td><a href="Orion.VIM.VirtualMachineLatencyWriteThreshold.html">Orion.VIM.VirtualMachineLatencyWriteThreshold</a></td>
+<td>Defined by relationship Orion.VIM.VirtualMachineHostsLatencyWriteThreshold (System.Hosting)</td>
+</tr>
+<tr>
+<td>IOPSTotalThreshold</td>
+<td><a href="Orion.VIM.VirtualMachineIOPSTotalThreshold.html">Orion.VIM.VirtualMachineIOPSTotalThreshold</a></td>
+<td>Defined by relationship Orion.VIM.VirtualMachineHostsIOPSTotalThreshold (System.Hosting)</td>
+</tr>
+<tr>
+<td>IOPSReadThreshold</td>
+<td><a href="Orion.VIM.VirtualMachineIOPSReadThreshold.html">Orion.VIM.VirtualMachineIOPSReadThreshold</a></td>
+<td>Defined by relationship Orion.VIM.VirtualMachineHostsIOPSReadThreshold (System.Hosting)</td>
+</tr>
+<tr>
+<td>IOPSWriteThreshold</td>
+<td><a href="Orion.VIM.VirtualMachineIOPSWriteThreshold.html">Orion.VIM.VirtualMachineIOPSWriteThreshold</a></td>
+<td>Defined by relationship Orion.VIM.VirtualMachineHostsIOPSWriteThreshold (System.Hosting)</td>
+</tr>
+<tr>
+<td>CustomProperties</td>
+<td><a href="Orion.VIM.VirtualMachinesCustomProperties.html">Orion.VIM.VirtualMachinesCustomProperties</a></td>
+<td>Defined by relationship Orion.VIM.VirtualMachinesHostCustomProperties (System.Hosting)</td>
+</tr>
+<tr>
+<td>DataStores</td>
+<td><a href="Orion.VIM.Datastores.html">Orion.VIM.Datastores</a></td>
+<td>Defined by relationship Orion.VIM.VirtualMachineReferencesDatastore (System.Reference)</td>
+</tr>
+<tr>
+<td>VirtualDisks</td>
+<td><a href="Orion.VIM.VirtualDisks.html">Orion.VIM.VirtualDisks</a></td>
+<td>Defined by relationship Orion.VIM.VirtualMachineToVirtualDisksMappingReference (System.Reference)</td>
+</tr>
+<tr>
+<td>VirtualVolumes</td>
+<td><a href="Orion.VIM.VirtualMachineVolumes.html">Orion.VIM.VirtualMachineVolumes</a></td>
+<td>Defined by relationship Orion.VIM.VirtualMachineToVirtualVolumesMappingReference (System.Reference)</td>
+</tr>
+<tr>
+<td>VirtualMediaDevices</td>
+<td><a href="Orion.VIM.VirtualMachineMediaDevices.html">Orion.VIM.VirtualMachineMediaDevices</a></td>
+<td>Defined by relationship Orion.VIM.VirtualMachineToVirtualMediaDeviceMappingReference (System.Hosting)</td>
+</tr>
+<tr>
+<td>ResourcePool</td>
+<td><a href="Orion.VIM.ResourcePools.html">Orion.VIM.ResourcePools</a></td>
+<td>Defined by relationship Orion.VIM.VirtualMachineReferencesResourcePool (System.Reference)</td>
+</tr>
+<tr>
+<td>IPAddresses</td>
+<td><a href="Orion.VIM.VirtualMachineIPAddresses.html">Orion.VIM.VirtualMachineIPAddresses</a></td>
+<td>Defined by relationship Orion.VIM.VirtualMachinesToIPAddressesMappingReference (System.Reference)</td>
+</tr>
+<tr>
+<td>MACAddresses</td>
+<td><a href="Orion.VIM.VirtualMachineMACAddresses.html">Orion.VIM.VirtualMachineMACAddresses</a></td>
+<td>Defined by relationship Orion.VIM.VirtualMachinesToMACAddressesHosting (System.Hosting)</td>
+</tr>
+<tr>
+<td>VMStatistics</td>
+<td><a href="Orion.VIM.VMStatistics.html">Orion.VIM.VMStatistics</a></td>
+<td>Defined by relationship Orion.VIM.VMVMStatistics (System.Hosting)</td>
+</tr>
+<tr>
+<td>RelyHost</td>
+<td><a href="Orion.VIM.Hosts.html">Orion.VIM.Hosts</a></td>
+<td>Defined by relationship Orion.Rely.VIM.VirtualMachinesRelyOnHost (System.Reliance)</td>
+</tr>
+<tr>
+<td>RelyNode</td>
+<td><a href="Orion.Nodes.html">Orion.Nodes</a></td>
+<td>Defined by relationship Orion.Rely.VIM.VirtualMachineRelyOnNode (System.Reliance)</td>
+</tr>
+<tr>
+<td>RelyDatastores</td>
+<td><a href="Orion.VIM.Datastores.html">Orion.VIM.Datastores</a></td>
+<td>Defined by relationship Orion.Rely.VIM.VirtualMachinesRelyOnDatastores (System.Reliance)</td>
+</tr>
+<tr>
+<td>Tags</td>
+<td><a href="Orion.VIM.Tags.html">Orion.VIM.Tags</a></td>
+<td>Defined by relationship Orion.VIM.VirtualMachineReferencesTag (System.Reference)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="target-relationships">Target Relationships</h2>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SRMLUNs</td>
+<td><a href="Orion.SRM.LUNs.html">Orion.SRM.LUNs</a></td>
+<td>Defined by relationship Orion.SRM.LUNsReferencesVirtualMachines (System.Reference)</td>
+</tr>
+<tr>
+<td>Host</td>
+<td><a href="Orion.VIM.Hosts.html">Orion.VIM.Hosts</a></td>
+<td>Defined by relationship Orion.VIM.HostsToVirtualMachinesMappingReference (System.Reference)</td>
+</tr>
+<tr>
+<td>Node</td>
+<td><a href="Orion.Nodes.html">Orion.Nodes</a></td>
+<td>Defined by relationship Orion.VIM.NodesToVirtualMachines (System.Reference)</td>
+</tr>
+<tr>
+<td>Luns</td>
+<td><a href="Orion.VIM.Luns.html">Orion.VIM.Luns</a></td>
+<td>Defined by relationship Orion.VIM.LunReferencesVirtualMachine (System.Reference)</td>
+</tr>
+<tr>
+<td>NasShares</td>
+<td><a href="Orion.VIM.Nas.html">Orion.VIM.Nas</a></td>
+<td>Defined by relationship Orion.VIM.NasReferencesVirtualMachine (System.Reference)</td>
+</tr>
+</tbody>
+</table>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In this article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+      &copy; SolarWinds
+      
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

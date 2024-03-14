@@ -1,0 +1,407 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Orion.DPA.DatabaseInstance | Orion SDK Schemas </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Orion.DPA.DatabaseInstance | Orion SDK Schemas ">
+  
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"> 
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+  
+  <meta property="docfx:rel" content="../">
+  
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src=".././images/SolarWinds.Logo.png" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="oriondpadatabaseinstance">Orion.DPA.DatabaseInstance</h1>
+
+<p>SolarWinds Information Service  2023.1 Schema Documentation</p>
+<p>Represents single monitored database instance</p>
+<h4 id="inheritance">Inheritance</h4>
+<p>↳ <a href="System.Entity.html">System.Entity</a></p>
+<p>↳ <a href="System.ManagedEntity.html">System.ManagedEntity</a></p>
+<h4 id="access-control">Access control</h4>
+<table>
+<thead>
+<tr>
+<th>Operations</th>
+<th>Right</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>read</td>
+<td>everyone</td>
+</tr>
+</tbody>
+</table>
+<h2 id="properties">Properties</h2>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Summary</th>
+<th>Access Control</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>DatabaseInstanceID</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">System.Int32</a></td>
+<td>Unique identifier of the monitored database.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>GlobalDatabaseInstanceID</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">System.Int32</a></td>
+<td>Unique ID of database instance in Orion</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>GroupId</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">System.Int32</a></td>
+<td>Reference to DatabaseGroup.Id.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>Name</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">System.String</a></td>
+<td>Monitored database name/label.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>Host</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">System.String</a></td>
+<td>Host/machine name on which the database is running.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>IP</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">System.String</a></td>
+<td>IP address on which the database is running.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>Port</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">System.String</a></td>
+<td>Port on which the database is running.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>Type</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">System.String</a></td>
+<td>The type of database. Possible values: Unknown, Oracle, SQL Server, DB2, Sybase.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>Version</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">System.String</a></td>
+<td>The vendor version of this database or &quot;&quot; if version information has not been collected for database.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>VersionSuffix</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">System.String</a></td>
+<td>Version suffix</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>MonitorStatus</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">System.Int32</a></td>
+<td>Possible values 0..7. Reference to DPA.MonitorStatus.Id</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>MonitorStatusText</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">System.String</a></td>
+<td>Text representation of MonitorStatus</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>IsLicensed</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">System.Boolean</a></td>
+<td>Flag if DB instance is licensed</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>OverallAlarmLevel</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">System.Int32</a></td>
+<td>Overall alarm level. Max from performance overview.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>DefaultDatabase</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">System.String</a></td>
+<td>Default database</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>OracleSID</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">System.String</a></td>
+<td>SID for Oracle</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>ServiceName</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">System.String</a></td>
+<td>Service name for Oracle database</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>Status</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">System.Int32</a></td>
+<td>Numerical value of status</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>StatusDescription</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">System.String</a></td>
+<td>Description of status</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>DetailsUrl</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">System.String</a></td>
+<td>DB Instance detail url</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>UnManaged</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">System.Boolean</a></td>
+<td></td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>UnManageFrom</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.datetime">System.DateTime</a></td>
+<td></td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>UnManageUntil</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.datetime">System.DateTime</a></td>
+<td></td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>DisplayName</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">System.String</a></td>
+<td>Name of DB instance with name of DPA server monitoring this DB instance</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>Description</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">System.String</a></td>
+<td>Type of DB Instance including version</td>
+<td>everyone</td>
+</tr>
+</tbody>
+</table>
+<h2 id="source-relationships">Source Relationships</h2>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>RelyNode</td>
+<td><a href="Orion.Nodes.html">Orion.Nodes</a></td>
+<td>Defined by relationship Orion.Rely.DPA.DatabaseInstanceRelyOnNodes (System.Reliance)</td>
+</tr>
+<tr>
+<td>TimeSeriesDefinition</td>
+<td><a href="DPA.TimeSeriesDefinition.html">DPA.TimeSeriesDefinition</a></td>
+<td>Defined by relationship Orion.DatabaseInstanceTimeSeriesDefinition (System.Reference)</td>
+</tr>
+<tr>
+<td>TimeSeriesData</td>
+<td><a href="DPA.TimeSeriesData.html">DPA.TimeSeriesData</a></td>
+<td>Defined by relationship Orion.DatabaseInstanceTimeSeriesData (System.Reference)</td>
+</tr>
+<tr>
+<td>PerformanceOverview</td>
+<td><a href="DPA.PerformanceOverview.html">DPA.PerformanceOverview</a></td>
+<td>Defined by relationship Orion.DatabaseInstancePerformanceOverview (System.Reference)</td>
+</tr>
+<tr>
+<td>DpaServer</td>
+<td><a href="Orion.DPA.DpaServer.html">Orion.DPA.DpaServer</a></td>
+<td>Defined by relationship Orion.DpaServerDatabaseInstance (System.Reference)</td>
+</tr>
+<tr>
+<td>ProblemSummary</td>
+<td><a href="DPA.ProblemSummary.html">DPA.ProblemSummary</a></td>
+<td>Defined by relationship Orion.DatabaseInstanceProblemSummary (System.Reference)</td>
+</tr>
+<tr>
+<td>TrendDataDimension</td>
+<td><a href="DPA.TrendDataDimension.html">DPA.TrendDataDimension</a></td>
+<td>Defined by relationship Orion.DatabaseInstanceTrendDataDimension (System.Reference)</td>
+</tr>
+<tr>
+<td>DetailDataDimension</td>
+<td><a href="DPA.DetailDataDimension.html">DPA.DetailDataDimension</a></td>
+<td>Defined by relationship Orion.DatabaseInstanceDetailDataDimension (System.Reference)</td>
+</tr>
+<tr>
+<td>ResourceDefinition</td>
+<td><a href="DPA.ResourceDefinition.html">DPA.ResourceDefinition</a></td>
+<td>Defined by relationship Orion.ResourceDefinitionDatabaseInstance (System.Reference)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="target-relationships">Target Relationships</h2>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>RelyApplications</td>
+<td><a href="Orion.APM.Application.html">Orion.APM.Application</a></td>
+<td>Defined by relationship Orion.Rely.DPA.ApplicationsRelyOnDatabaseInstances (System.Reliance)</td>
+</tr>
+<tr>
+<td>Data</td>
+<td><a href="Orion.DPA.DatabaseInstanceData.html">Orion.DPA.DatabaseInstanceData</a></td>
+<td>Defined by relationship Orion.DatabaseInstanceDataDatabaseInstance (System.Reference)</td>
+</tr>
+<tr>
+<td>StatusInfo</td>
+<td><a href="Orion.StatusInfo.html">Orion.StatusInfo</a></td>
+<td>Defined by relationship Orion.StatusInfoDatabaseInstance (System.Reference)</td>
+</tr>
+<tr>
+<td>ApplicationReference</td>
+<td><a href="Orion.DPA.DatabaseInstanceApplication.html">Orion.DPA.DatabaseInstanceApplication</a></td>
+<td>Defined by relationship Orion.DatabaseInstanceApplicationDatabaseInstance (System.Reference)</td>
+</tr>
+<tr>
+<td>UsedByApplicationReference</td>
+<td><a href="Orion.DPA.DatabaseInstanceClientApplication.html">Orion.DPA.DatabaseInstanceClientApplication</a></td>
+<td>Defined by relationship Orion.DatabaseInstanceClientApplicationDatabaseInstance (System.Reference)</td>
+</tr>
+<tr>
+<td>ServerApplication</td>
+<td><a href="Orion.APM.Application.html">Orion.APM.Application</a></td>
+<td>Defined by relationship Orion.DatabaseInstanceServerApplication (System.Reference)</td>
+</tr>
+<tr>
+<td>LunReference</td>
+<td><a href="Orion.DPA.DatabaseInstanceLun.html">Orion.DPA.DatabaseInstanceLun</a></td>
+<td>Defined by relationship Orion.DatabaseInstanceLunDatabaseInstance (System.Reference)</td>
+</tr>
+<tr>
+<td>Lun</td>
+<td><a href="Orion.SRM.LUNs.html">Orion.SRM.LUNs</a></td>
+<td>Defined by relationship Orion.DatabaseInstanceLun (System.Reference)</td>
+</tr>
+</tbody>
+</table>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In this article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+      &copy; SolarWinds
+      
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

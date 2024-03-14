@@ -1,0 +1,326 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Cirrus.Settings | Orion SDK Schemas </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Cirrus.Settings | Orion SDK Schemas ">
+  
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"> 
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+  
+  <meta property="docfx:rel" content="../">
+  
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src=".././images/SolarWinds.Logo.png" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="cirrussettings">Cirrus.Settings</h1>
+
+<p>SolarWinds Information Service  2023.2 Schema Documentation</p>
+<p>Verbs connected with settings management.
+For valid Orion user with at least WebViewer NCM role. Read-only.</p>
+<h4 id="inheritance">Inheritance</h4>
+<p>↳ <a href="System.Entity.html">System.Entity</a></p>
+<h4 id="access-control">Access control</h4>
+<p>everyone</p>
+<h2 id="verbs">Verbs</h2>
+<h3 id="getsetting">GetSetting</h3>
+<p>Gets settings having value associated with the specified settingName. If the settingName is not found, returns the defaultValue you provide.
+For valid Orion user with at least WebViewer NCM role.The name of the settings.Default value to search in case settingName is not being found.ID of the machine where the node is assigned for polling.Setting value. Full type: System.String.</p>
+<h4 id="access-control-1">Access control</h4>
+<p>everyone</p>
+<h3 id="savesetting">SaveSetting</h3>
+<p>Saves settings.
+For valid Orion user with at least WebViewer NCM role.The name of the settings.Setting value.ID of the machine where the node is assigned for polling.</p>
+<h4 id="access-control-2">Access control</h4>
+<p>everyone</p>
+<h3 id="cryptusernames">CryptUsernames</h3>
+<p>Crypts usernames.
+For valid Orion user with at least Administrator NCM role.</p>
+<h4 id="access-control-3">Access control</h4>
+<table>
+<thead>
+<tr>
+<th>Operations</th>
+<th>Right</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>invoke</td>
+<td>admin</td>
+</tr>
+</tbody>
+</table>
+<h3 id="cryptpasswords">CryptPasswords</h3>
+<p>Crypts password.
+For valid Orion user with at least Administrator NCM role.</p>
+<h4 id="access-control-4">Access control</h4>
+<table>
+<thead>
+<tr>
+<th>Operations</th>
+<th>Right</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>invoke</td>
+<td>admin</td>
+</tr>
+</tbody>
+</table>
+<h3 id="saveregexpattern">SaveRegExPattern</h3>
+<p>Saves RegEx pattern.
+For valid Orion user with at least Administrator NCM role.RegEx id.RegEx title.Is RegEx enabled(true/false).RegEx pattern(or start of the block if isBlock is enabled).RegEx comment.Matching using blocks enabled(skips the block while comparing).The end of the block.Id of the saved RegEx. Full type: System.Guid.</p>
+<h4 id="access-control-5">Access control</h4>
+<p>everyone</p>
+<h3 id="enableordisableregexpatterns">EnableOrDisableRegExPatterns</h3>
+<p>Enables or disables RegEx patterns.
+For valid Orion user with at least Administrator NCM role.List of ReGex ids. Full type: System.Guid[].True - enables ReGex, False - disables ReGex. Full type: System.Boolean.</p>
+<h4 id="access-control-6">Access control</h4>
+<p>everyone</p>
+<h3 id="deleteregexpatterns">DeleteRegExPatterns</h3>
+<p>Removes RegEx patterns.
+For valid Orion user with at least Administrator NCM role.List of ReGex ids. Full type: System.Guid[].</p>
+<h4 id="access-control-7">Access control</h4>
+<p>everyone</p>
+<h3 id="getregexbyid">GetRegExById</h3>
+<p>Gets RegEx by id.
+For valid Orion user with at least WebViewer NCM role.Id of a RegEx.RegEx having particular id. Full type: SolarWinds.NCM.Contracts.ConfigComparison.Regex.</p>
+<h4 id="access-control-8">Access control</h4>
+<p>everyone</p>
+<h3 id="getregexes">GetRegExes</h3>
+<p>Gets all RegExes.
+For valid Orion user with at least WebViewer NCM role.All available RegExes. Full type: SolarWinds.NCM.Contracts.ConfigComparison.Regex[].</p>
+<h4 id="access-control-9">Access control</h4>
+<p>everyone</p>
+<h3 id="validateaduser">ValidateADUser</h3>
+<p>Validates adding user.
+For valid Orion user with at least WebViewer NCM role.Username.Password.True if adding a user is valid. Full type: System.Boolean.</p>
+<h4 id="access-control-10">Access control</h4>
+<table>
+<thead>
+<tr>
+<th>Operations</th>
+<th>Right</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>invoke</td>
+<td>system</td>
+</tr>
+</tbody>
+</table>
+<h3 id="validatepathwithoutimpersonation">ValidatePathWithoutImpersonation</h3>
+<p>Validates the path without impersonation.
+For valid Orion user with at least WebViewer NCM role.Path.True if path is valid. Full type: System.Boolean.</p>
+<h4 id="access-control-11">Access control</h4>
+<table>
+<thead>
+<tr>
+<th>Operations</th>
+<th>Right</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>invoke</td>
+<td>system</td>
+</tr>
+</tbody>
+</table>
+<h3 id="getdefaultpath">GetDefaultPath</h3>
+<p>Gets default path.
+For valid Orion user with at least WebViewer NCM role.Default path. Full type: System.String.</p>
+<h4 id="access-control-12">Access control</h4>
+<table>
+<thead>
+<tr>
+<th>Operations</th>
+<th>Right</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>invoke</td>
+<td>system</td>
+</tr>
+</tbody>
+</table>
+<h3 id="getcoreinstallpath">GetCoreInstallPath</h3>
+<p>Gets core installation path..
+For valid Orion user with at least WebViewer NCM role.Core installation path. Full type: System.String.</p>
+<h4 id="access-control-13">Access control</h4>
+<table>
+<thead>
+<tr>
+<th>Operations</th>
+<th>Right</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>invoke</td>
+<td>system</td>
+</tr>
+</tbody>
+</table>
+<h3 id="getappdatapath">GetAppDataPath</h3>
+<p>Gets app data path.
+For valid Orion user with at least WebViewer NCM role.App data path. Full type: System.String.</p>
+<h4 id="access-control-14">Access control</h4>
+<table>
+<thead>
+<tr>
+<th>Operations</th>
+<th>Right</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>invoke</td>
+<td>system</td>
+</tr>
+</tbody>
+</table>
+<h3 id="setcustommacros">SetCustomMacros</h3>
+<p>Sets custom macros.
+For valid Orion user with at least Administrator NCM role.Macro name.Macro value.</p>
+<h4 id="access-control-15">Access control</h4>
+<p>everyone</p>
+<h3 id="deletecustommacros">DeleteCustomMacros</h3>
+<p>Removes custom macros.
+For valid Orion user with at least Administrator NCM role.Macro name</p>
+<h4 id="access-control-16">Access control</h4>
+<p>everyone</p>
+<h3 id="setglobalmacroforallnodes">SetGlobalMacroForAllNodes</h3>
+<p>Sets global macro for all nodes.
+For valid Orion user with at least Administrator NCM role.Field name.Field value.</p>
+<h4 id="access-control-17">Access control</h4>
+<p>everyone</p>
+<h3 id="saveuserlevellogincreds">SaveUserLevelLoginCreds</h3>
+<p>Saves user level login credentials.
+For valid Orion user with at least WebDownloader NCM role.Account id.Username.Password.Enable level.Enable password.</p>
+<h4 id="access-control-18">Access control</h4>
+<p>everyone</p>
+<h3 id="decryptdata">DecryptData</h3>
+<p>Decrypts the data.
+For valid Orion user with at least Administrator NCM role.Data to decrypt. Full type: System.String.Decrypted data. Full type: System.String.</p>
+<h4 id="access-control-19">Access control</h4>
+<p>everyone</p>
+<h3 id="networkingselftest">NetworkingSelfTest</h3>
+<p>Cross tests connection between all pollers. Only for Orion administrators.Test results. Full type: Array of SolarWinds.NCM.Contracts.Diagnostics.ConnectionTestHostResults,</p>
+<h4 id="access-control-20">Access control</h4>
+<table>
+<thead>
+<tr>
+<th>Operations</th>
+<th>Right</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>invoke</td>
+<td>admin</td>
+</tr>
+</tbody>
+</table>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In this article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+      &copy; SolarWinds
+      
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

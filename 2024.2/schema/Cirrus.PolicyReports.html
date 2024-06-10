@@ -1,0 +1,354 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Cirrus.PolicyReports | Orion SDK Schemas </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Cirrus.PolicyReports | Orion SDK Schemas ">
+    
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"> 
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    
+    <meta property="docfx:rel" content="../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src=".././images/SolarWinds.Logo.png" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="cirruspolicyreports">Cirrus.PolicyReports</h1>
+
+<p>SolarWinds Information Service  2024.2 Schema Documentation</p>
+<p>Reports used in NCM compliance.
+For valid Orion user with at least WebViewer NCM role. Read-only.</p>
+<h4 id="inheritance">Inheritance</h4>
+<p>↳ <a href="System.Entity.html">System.Entity</a></p>
+<h4 id="access-control">Access control</h4>
+<p>everyone</p>
+<h2 id="properties">Properties</h2>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Summary</th>
+<th>Access Control</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PolicyReportID</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.guid">System.Guid</a></td>
+<td>Unique identifier and primary key of the report.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>Name</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">System.String</a></td>
+<td>Name of the report.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>Comment</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">System.String</a></td>
+<td>Description and comments about the report.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>Grouping</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">System.String</a></td>
+<td>Folder name with reports.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>ShowDetails</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">System.Boolean</a></td>
+<td>Indicates if rules without violation should be shown.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>ShowSummary</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">System.Boolean</a></td>
+<td>Indicates if the report summary should be included.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>LastModified</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.datetime">System.DateTime</a></td>
+<td>When the report was modified last time.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>LastUpdated</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.datetime">System.DateTime</a></td>
+<td>When the cache was updated last time.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>LastError</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">System.String</a></td>
+<td>The message of a last error, if any.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>CacheStatus</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">System.Int32</a></td>
+<td>Cache status. Values:<br>        * 0 - Not cached<br>        * 1 - Waiting in a queue<br>        * 2 - Caching now<br>        * 3 - Cached<br>        * 4 - Error<br>        * 5 - Queued. Not used.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>ReportStatus</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">System.Boolean</a></td>
+<td>Indicated if the report is enabled.</td>
+<td>everyone</td>
+</tr>
+</tbody>
+</table>
+<h2 id="verbs">Verbs</h2>
+<h3 id="testrule">TestRule</h3>
+<p>Evaluates the provided rule on the provided configuration.
+If compliance only for administrators option enabled then it's valid only for Orion admins.
+If not then valid for Orion users with at least WebDownloader NCM role.Data about the tested policy rule.Device configuration to test on. Please note - Macros parsing in test policies is unavailable for pasted configs.XML model with evaluation results. Full type: System.String</p>
+<h4 id="access-control-1">Access control</h4>
+<p>everyone</p>
+<h3 id="testruleonbackedupconfig">TestRuleOnBackedUpConfig</h3>
+<p>Evaluates the provided rule on the provided configuration.
+If the 'compliance only for administrators' option is enabled then it's valid only for Orion admins.
+If not then valid for Orion users with at least a WebDownloader NCM role.Data about the tested policy rule.Device configuration ID to test on.XML model with evaluation results. Full type: System.String</p>
+<h4 id="access-control-2">Access control</h4>
+<p>everyone</p>
+<h3 id="getpolicyreport">GetPolicyReport</h3>
+<p>Gets a policy report definition data.
+If compliance only for administrators option enabled then it's valid only for Orion admins.
+If not then valid for Orion users with at least WebDownloader NCM role.The policy report ID.If 'true' then additional data about policies and rules will be downloaded.Policy report data. Full type: SolarWinds.NCM.Contracts.InformationService.PolicyReport</p>
+<h4 id="access-control-3">Access control</h4>
+<p>everyone</p>
+<h3 id="updatepolicyreport">UpdatePolicyReport</h3>
+<p>Updates the policy report definition.
+If compliance only for administrators option enabled then it's valid only for Orion admins.
+If not then valid for Orion users with at least WebUploader NCM role.Policy report data.Number of affected rows. Full type: System.Int32</p>
+<h4 id="access-control-4">Access control</h4>
+<p>everyone</p>
+<h3 id="addpolicyreport">AddPolicyReport</h3>
+<p>Adds the policy report definition.
+If compliance only for administrators option enabled then it's valid only for Orion admins.
+If not then valid for Orion users with at least WebDownloader NCM role.Policy report data.If 'true' then additional data about policies and rules will be saved.The new ID generated by the system. Full type: System.Guid</p>
+<h4 id="access-control-5">Access control</h4>
+<p>everyone</p>
+<h3 id="deletepolicyreports">DeletePolicyReports</h3>
+<p>Deletes policy report definitions.
+If compliance only for administrators option enabled then it's valid only for Orion admins.
+If not then valid for Orion users with at least WebDownloader NCM role.Policy report IDs.If 'true' then assigned policies and rules will be deleted.Number of affected rows. Full type: System.Int32</p>
+<h4 id="access-control-6">Access control</h4>
+<p>everyone</p>
+<h3 id="getpolicy">GetPolicy</h3>
+<p>Gets a compliance policy data.
+If compliance only for administrators option enabled then it's valid only for Orion admins.
+If not then valid for Orion users with at least WebDownloader NCM role.The policy ID.If 'true' then additional data about rules will be downloaded.Policy data. Full type: SolarWinds.NCM.Contracts.InformationService.Policy</p>
+<h4 id="access-control-7">Access control</h4>
+<p>everyone</p>
+<h3 id="updatepolicy">UpdatePolicy</h3>
+<p>Updates the compliance policy.
+If compliance only for administrators option enabled then it's valid only for Orion admins.
+If not then valid for Orion users with at least WebDownloader NCM role.Policy data.Number of affected rows. Full type: System.Int32</p>
+<h4 id="access-control-8">Access control</h4>
+<p>everyone</p>
+<h3 id="addpolicy">AddPolicy</h3>
+<p>Adds the compliance policy.
+If compliance only for administrators option enabled then it's valid only for Orion admins.
+If not then valid for Orion users with at least WebDownloader NCM role.Policy data.If 'true' then additional data about rules will be saved.The new ID generated by the system. Full type: System.Guid</p>
+<h4 id="access-control-9">Access control</h4>
+<p>everyone</p>
+<h3 id="deletepolicies">DeletePolicies</h3>
+<p>Deletes compliance policies.
+If compliance only for administrators option enabled then it's valid only for Orion admins.
+If not then valid for Orion users with at least WebDownloader NCM role.Policy IDs.If 'true' then assigned rules will be deleted.Number of affected rows. Full type: System.Int32</p>
+<h4 id="access-control-10">Access control</h4>
+<p>everyone</p>
+<h3 id="getpolicyrule">GetPolicyRule</h3>
+<p>Gets a compliance policy rule data.
+If compliance only for administrators option enabled then it's valid only for Orion admins.
+If not then valid for Orion users with at least WebDownloader NCM role.The rule ID.Rule data. Full type: SolarWinds.NCM.Contracts.InformationService.PolicyRule</p>
+<h4 id="access-control-11">Access control</h4>
+<p>everyone</p>
+<h3 id="updatepolicyrule">UpdatePolicyRule</h3>
+<p>Updates the compliance policy rule.
+If compliance only for administrators option enabled then it's valid only for Orion admins.
+If not then valid for Orion users with at least WebDownloader NCM role.Rule data.Number of affected rows. Full type: System.Int32</p>
+<h4 id="access-control-12">Access control</h4>
+<p>everyone</p>
+<h3 id="addpolicyrule">AddPolicyRule</h3>
+<p>Adds the compliance policy rule.
+If compliance only for administrators option enabled then it's valid only for Orion admins.
+If not then valid for Orion users with at least WebDownloader NCM role.Rule data.The new ID generated by the system. Full type: System.Guid</p>
+<h4 id="access-control-13">Access control</h4>
+<p>everyone</p>
+<h3 id="deletepolicyrules">DeletePolicyRules</h3>
+<p>Deletes compliance policy rules.
+If compliance only for administrators option enabled then it's valid only for Orion admins.
+If not then valid for Orion users with at least WebDownloader NCM role.Rule IDs.Number of affected rows. Full type: System.Int32</p>
+<h4 id="access-control-14">Access control</h4>
+<p>everyone</p>
+<h3 id="startcaching">StartCaching</h3>
+<p>Start processing and caching policy reports.
+If compliance only for administrators option enabled then it's valid only for Orion admins.
+If not then valid for Orion users with at least WebUploader NCM role.Optional policy report IDs. If empty array or null provided then it processes every report.'True' if some reports were affected. Full type: System.Boolean</p>
+<h4 id="access-control-15">Access control</h4>
+<p>everyone</p>
+<h3 id="updatereportstatus">UpdateReportStatus</h3>
+<p>Sets status for provided report.
+If compliance only for administrators option enabled then it's valid only for Orion admins.
+If not then valid for Orion users with at least WebUploader NCM role.New status. Values: * 0 - Disabled; * 1 - EnabledRule IDs.</p>
+<h4 id="access-control-16">Access control</h4>
+<p>everyone</p>
+<h3 id="getpagablepolicieslist">GetPagablePoliciesList</h3>
+<p>Gets paged data about compliance policies.
+If compliance only for administrators option enabled then it's valid only for Orion admins.
+If not then valid for Orion users with at least WebDownloader NCM role.Page size.Starting row number.Column name to sort on.Sort direction. Values: * ASC; * DESCUsed for filtering. General formula: {groupByColumn}='{groupByValue}'.Value or macro used to filtering. Macro values: * ${IS_EMPTY} - Then {groupByColumn}=''; * ${IS_NULL} - Then {groupByColumn} IS NULLValue used for searching in policy names or folders.Data table about policies. Full type: System.Data.DataTable</p>
+<h4 id="access-control-17">Access control</h4>
+<p>everyone</p>
+<h3 id="getpoliciesrowcount">GetPoliciesRowCount</h3>
+<p>Counts all compliance policies based on provided criteria.
+If compliance only for administrators option enabled then it's valid only for Orion admins.
+If not then valid for Orion users with at least WebDownloader NCM role.Used for filtering. General formula: {groupByColumn}='{groupByValue}'.Value or macro used to filtering. Macro values: * ${IS_EMPTY} - Then {groupByColumn}=''; * ${IS_NULL} - Then {groupByColumn} IS NULLValue used for searching in policy names or folders.Number of policies. Full type: System.Int32</p>
+<h4 id="access-control-18">Access control</h4>
+<p>everyone</p>
+<h3 id="getpagablepolicyruleslist">GetPagablePolicyRulesList</h3>
+<p>Gets paged data about compliance rules.
+If compliance only for administrators option enabled then it's valid only for Orion admins.
+If not then valid for Orion users with at least WebDownloader NCM role.Page size.Starting row number.Column name to sort on.Sort direction. Values: * ASC; * DESCUsed for filtering. General formula: {groupByColumn}='{groupByValue}'.Value or macro used to filtering. Macro values: * ${IS_EMPTY} - Then {groupByColumn}=''; * ${IS_NULL} - Then {groupByColumn} IS NULLValue used for searching in rule names or folders.Data table about rules. Full type: System.Data.DataTable</p>
+<h4 id="access-control-19">Access control</h4>
+<p>everyone</p>
+<h3 id="getpolicyrulesrowcount">GetPolicyRulesRowCount</h3>
+<p>Counts all compliance rules based on provided criteria.
+If compliance only for administrators option enabled then it's valid only for Orion admins.
+If not then valid for Orion users with at least WebDownloader NCM role.Used for filtering. General formula: {groupByColumn}='{groupByValue}'.Value or macro used to filtering. Macro values: * ${IS_EMPTY} - Then {groupByColumn}=''; * ${IS_NULL} - Then {groupByColumn} IS NULLValue used for searching in rule names or folders.Number of rules. Full type: System.Int32</p>
+<h4 id="access-control-20">Access control</h4>
+<p>everyone</p>
+<h3 id="getcompliancedatatable">GetComplianceDataTable</h3>
+<p>Gets data about compliance reports.
+If compliance only for administrators option enabled then it's valid only for Orion admins.
+If not then valid for Orion users with at least WebViewer NCM role.The report ID.Indicates if data about policies should be included.Data table about the report. Full type: System.Data.DataTable</p>
+<h4 id="access-control-21">Access control</h4>
+<p>everyone</p>
+<h3 id="getcompliancecolumnsinjson">GetComplianceColumnsInJSON</h3>
+<p>Gets data about compliance reports.
+If compliance only for administrators option enabled then it's valid only for Orion admins.
+If not then valid for Orion users with at least WebViewer NCM role.The report ID.JSON formatted report data. Full type: System.String</p>
+<h4 id="access-control-22">Access control</h4>
+<p>everyone</p>
+<h3 id="getpoliciesrownumber">GetPoliciesRowNumber</h3>
+<p>Gets index of the compliance policy row based on provided criteria.
+Valid for Orion users with at least WebViewer NCM role.The policy ID.Column name to sort on.Sort direction. Values: * ASC; * DESCIndex of the row. Full type: System.Int64</p>
+<h4 id="access-control-23">Access control</h4>
+<p>everyone</p>
+<h3 id="getpolicyrulesrownumber">GetPolicyRulesRowNumber</h3>
+<p>Gets index of the compliance policy rule row based on provided criteria.
+Valid for Orion users with at least WebViewer NCM role.The policy rule ID.Column name to sort on.Sort direction. Values: * ASC; * DESCIndex of the row. Full type: System.Int64</p>
+<h4 id="access-control-24">Access control</h4>
+<p>everyone</p>
+<h3 id="getpolicyreportsrownumber">GetPolicyReportsRowNumber</h3>
+<p>Gets index of the compliance policy report row based on provided criteria.
+Valid for Orion users with at least WebViewer NCM role.The policy report ID.Column name to sort on.Sort direction. Values: * ASC; * DESCIndex of the row. Full type: System.Int64</p>
+<h4 id="access-control-25">Access control</h4>
+<p>everyone</p>
+<h3 id="generateremediationscriptfornodes">GenerateRemediationScriptForNodes</h3>
+<p>Generates remediation scripts.
+If compliance only for administrators option enabled then it's valid only for Orion admins.
+If not then valid for Orion users with at least WebViewer NCM role.NCM node IDs.Compliance policy report ID.Compliance policy ID.Compliance policy rule ID.Script template.Array of scripts and nodes data. Full type: SolarWinds.NCM.Contracts.InformationService.NetworkNode</p>
+<h4 id="access-control-26">Access control</h4>
+<p>everyone</p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In This Article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            &copy; SolarWinds
+            
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

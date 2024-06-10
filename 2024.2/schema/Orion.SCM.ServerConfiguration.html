@@ -1,0 +1,327 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Orion.SCM.ServerConfiguration | Orion SDK Schemas </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Orion.SCM.ServerConfiguration | Orion SDK Schemas ">
+    
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"> 
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    
+    <meta property="docfx:rel" content="../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src=".././images/SolarWinds.Logo.png" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="orionscmserverconfiguration">Orion.SCM.ServerConfiguration</h1>
+
+<p>SolarWinds Information Service  2024.2 Schema Documentation</p>
+<p>This entity represents nodes, which are monitored by SCM product.
+Every SCM node, can be polled for configuration changes.</p>
+<h4 id="inheritance">Inheritance</h4>
+<p>↳ <a href="System.Entity.html">System.Entity</a></p>
+<p>↳ <a href="System.ManagedEntity.html">System.ManagedEntity</a></p>
+<h4 id="access-control">Access control</h4>
+<table>
+<thead>
+<tr>
+<th>Operations</th>
+<th>Right</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>read,invoke</td>
+<td>manageNodes</td>
+</tr>
+<tr>
+<td>read</td>
+<td>everyone</td>
+</tr>
+</tbody>
+</table>
+<h2 id="properties">Properties</h2>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Summary</th>
+<th>Access Control</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>NodeID</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">System.Int32</a></td>
+<td>Identifier of node monitored.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>Enabled</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">System.Boolean</a></td>
+<td>Boolean value indicating whether given server configuration is enabled.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>PollingInterval</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">System.Int32</a></td>
+<td>Polling interval for given node in minutes (Apply only for SWIS element).</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>LastPoll</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.datetime">System.DateTime</a></td>
+<td>Datetime of last poll - which is basically anytime when some change arrives for processing.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>StatusDescription</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">System.String</a></td>
+<td>String description of status.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>StatusLED</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">System.String</a></td>
+<td>Status LED indicator.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>DetailsUrl</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">System.String</a></td>
+<td>Url to detail page of server configuration.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>Description</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">System.String</a></td>
+<td>Server configuration description.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>Image</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">System.String</a></td>
+<td>Image icon indicating server configuration status.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>BaselineStatus</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">System.Int32</a></td>
+<td>Numeric value indicating baseline status. Options are: 0 (No baseline set), 1 (Is baseline), 2 (Matches baseline), 3 (Differs from baseline)</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>LastAgentPluginHealthCheck</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.datetime">System.DateTime</a></td>
+<td>Datetime of last health check - indicating that change detection is working properly.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>LastChangeDetected</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.datetime">System.DateTime</a></td>
+<td>Datetime of last detected change, when it was polled.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>AssignedProfileList</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">System.String</a></td>
+<td>A comma-delimited list of assigned profiles.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>ErrorCount</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">System.Int32</a></td>
+<td>Count of Issues existing on node (incompatible element errors are grouped per profile).</td>
+<td>everyone</td>
+</tr>
+</tbody>
+</table>
+<h2 id="source-relationships">Source Relationships</h2>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>NodesProfiles</td>
+<td><a href="Orion.SCM.NodesProfiles.html">Orion.SCM.NodesProfiles</a></td>
+<td>Defined by relationship NodeReferencesOrion.SCM.NodesProfiles (System.Reference)</td>
+</tr>
+<tr>
+<td>Baselines</td>
+<td><a href="Orion.SCM.Baseline.html">Orion.SCM.Baseline</a></td>
+<td>Defined by relationship Orion.SCM.NodesReferencesBaseline (System.Reference)</td>
+</tr>
+<tr>
+<td>AssignedElementSettingOverrides</td>
+<td><a href="Orion.SCM.AssignedElementSettingOverride.md">Orion.SCM.AssignedElementSettingOverride</a></td>
+<td>Defined by relationship Orion.SCM.NodesReferencesAssignedElementSettingOverride (System.Reference)</td>
+</tr>
+<tr>
+<td>PolledElements</td>
+<td><a href="Orion.SCM.Results.PolledElements.html">Orion.SCM.Results.PolledElements</a></td>
+<td>Defined by relationship Orion.SCM.ServerConfigurationReferencesPolledElements (System.Reference)</td>
+</tr>
+<tr>
+<td>ElementMetadata</td>
+<td><a href="Orion.SCM.Results.ElementMetadata.html">Orion.SCM.Results.ElementMetadata</a></td>
+<td>Defined by relationship Orion.SCM.SCMNodesReferencesElementMetadata (System.Reference)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="target-relationships">Target Relationships</h2>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Node</td>
+<td><a href="Orion.Nodes.html">Orion.Nodes</a></td>
+<td>Defined by relationship Orion.NodesHostsServerConfigurations (System.Hosting)</td>
+</tr>
+<tr>
+<td>Profiles</td>
+<td><a href="Orion.SCM.Profiles.html">Orion.SCM.Profiles</a></td>
+<td>Defined by relationship Orion.SCM.NodeReferencesOrion.SCM.Profiles (System.Reference)</td>
+</tr>
+<tr>
+<td>PollEntries</td>
+<td><a href="Orion.SCM.PollEntries.html">Orion.SCM.PollEntries</a></td>
+<td>Defined by relationship Orion.SCM.SCMPollEntriesReferencesSCMNodes (System.Reference)</td>
+</tr>
+<tr>
+<td>SCMServerConfigurationChange</td>
+<td><a href="Orion.SCM.ServerConfigurationChange.html">Orion.SCM.ServerConfigurationChange</a></td>
+<td>Defined by relationship Orion.SCM.ServerConfigurationChangeRel (System.Reference)</td>
+</tr>
+<tr>
+<td>SCMServerConfigurationDiffersFromBaseline</td>
+<td><a href="Orion.SCM.ServerConfigurationDiffersFromBaseline.html">Orion.SCM.ServerConfigurationDiffersFromBaseline</a></td>
+<td>Defined by relationship Orion.SCM.ServerConfigurationDiffersFromBaselineRel (System.Reference)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="verbs">Verbs</h2>
+<h3 id="pollnow">PollNow</h3>
+<p>On target nodes triggers refreshing of watchers, polls the current results of file, registry and script elements and executes jobs for polling SWIS and database elements.</p>
+<h4 id="access-control-1">Access control</h4>
+<p>everyone</p>
+<h3 id="enablefimdriverwatching">EnableFimDriverWatching</h3>
+<p>On target node enable polling through FIM driver if it was previously disabled by DisableFimDriverWatching verb.</p>
+<h4 id="access-control-2">Access control</h4>
+<p>everyone</p>
+<h3 id="disablefimdriverwatching">DisableFimDriverWatching</h3>
+<p>On target node disable polling through FIM driver.</p>
+<h4 id="access-control-3">Access control</h4>
+<p>everyone</p>
+<h3 id="pollnowwithnotification">PollNowWithNotification</h3>
+<p>Executes PollNow and triggers Orion.SCM.OneTimePollFinished indication once all results are collected</p>
+<h4 id="access-control-4">Access control</h4>
+<p>everyone</p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In This Article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            &copy; SolarWinds
+            
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

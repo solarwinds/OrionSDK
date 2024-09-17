@@ -189,10 +189,39 @@ namespace SwqlStudio
 
                 default:
                     doc.InnerXml = text;
+                    
+                    if (arg.Type.StartsWith("System.Collections.Generic.Dictionary", StringComparison.OrdinalIgnoreCase))
+                    {
+                        var valueElements = doc.DocumentElement.GetElementsByTagName("Value");
+
+                        foreach (XmlNode valueElement in valueElements)
+                        {
+                            ReplaceTextWithCData(valueElement);
+                        }
+                    }
+                    
                     return doc.DocumentElement;
             }
         }
 
+        private void ReplaceTextWithCData(XmlNode node)
+        {
+            if (node.HasChildNodes)
+            {
+                foreach (XmlNode childNode in node.ChildNodes)
+                {
+                    if (childNode.NodeType == XmlNodeType.Text)
+                    {
+                        XmlDocument doc = node.OwnerDocument;
+                        XmlCDataSection cdata = doc.CreateCDataSection(childNode.OuterXml);
+
+                        XmlNode parent = childNode.ParentNode;
+                        parent.ReplaceChild(cdata, childNode);
+                    }
+                }
+            }
+        }
+        
         private void webBrowser1_DocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)
         {
             HtmlElementCollection divs = webBrowser1.Document.GetElementsByTagName("div");

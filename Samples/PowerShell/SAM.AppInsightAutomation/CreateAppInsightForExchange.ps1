@@ -41,3 +41,35 @@ if ($applicationId -eq -1) {
 else {
 	Write-Host "Application created with ID '$applicationId'."
 }
+
+# Default condition for configuring Exchange Server
+$shouldConfigureExchangeServer = $true
+
+# Configure Exchange if the condition is true
+if ($shouldConfigureExchangeServer) {
+	Write-Host "Scheduling Exchange configuration for Application ID '$applicationId'."
+
+$maxRetries = 5
+$retryCount = 0
+$executionKey = (Invoke-SwisVerb $swis "Orion.APM.Exchange.Application" "ScheduleConfiguration" @($applicationId, $credentialSetId)).InnerText
+
+while ($retryCount -lt $maxRetries) {
+	$configResult = (Invoke-SwisVerb $swis "Orion.APM.Exchange.Application" "GetConfigurationResult" @($executionKey)).InnerText
+	
+	Write-Host "Configuration Result: Configuration in progress, please wait..."
+    Start-Sleep -Seconds 30  # Wait for a few seconds before retrying
+	
+    if ($configResult -eq "0true") {
+        Write-Host "Configuration Result: Configuration finished."
+        break
+    } else {
+        Write-Host "Configuration not yet complete..."
+        $retryCount++
+    }
+  }
+  
+  if ($configResult -eq "false") {
+        Write-Host "Configuration Result: Configuration failed."
+        break
+    }
+}

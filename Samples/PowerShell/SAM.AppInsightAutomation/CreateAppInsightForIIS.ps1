@@ -49,15 +49,15 @@ $shouldConfigureIISServer = $true
 if ($shouldConfigureIISServer) {
 	Write-Host "Scheduling IIS configuration for Application ID '$applicationId'."
 
-$maxRetries = 5
+$maxRetries = 10
 $retryCount = 0
 $executionKey = (Invoke-SwisVerb $swis "Orion.APM.IIS.Application" "ScheduleConfiguration" @($applicationId, $credentialSetId)).InnerText
 
 while ($retryCount -lt $maxRetries) {
+    Start-Sleep -Seconds 15  # Wait for a few seconds before retrying
 	$configResult = (Invoke-SwisVerb $swis "Orion.APM.IIS.Application" "GetConfigurationResult" @($executionKey)).InnerText
 	
 	Write-Host "Configuration Result: Configuration in progress, please wait..."
-    Start-Sleep -Seconds 30  # Wait for a few seconds before retrying
 	
     if ($configResult -eq "0true") {
         Write-Host "Configuration Result: Configuration finished."

@@ -1,0 +1,506 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Orion.AgentManagement.Agent | Orion SDK Schemas </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Orion.AgentManagement.Agent | Orion SDK Schemas ">
+  
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"> 
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+  
+  <meta property="docfx:rel" content="../">
+  
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src=".././images/SolarWinds.Logo.png" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="orionagentmanagementagent">Orion.AgentManagement.Agent</h1>
+
+<p>SolarWinds Information Service  2024.4.1 Schema Documentation</p>
+<p>This entity represents an agent.</p>
+<h4 id="inheritance">Inheritance</h4>
+<p>↳ <a href="System.Entity.html">System.Entity</a></p>
+<h4 id="access-control">Access control</h4>
+<table>
+<thead>
+<tr>
+<th>Operations</th>
+<th>Right</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>read</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>create,read,update,delete</td>
+<td>admin</td>
+</tr>
+<tr>
+<td>create,read,update,delete,invoke</td>
+<td>manageNodes</td>
+</tr>
+</tbody>
+</table>
+<h2 id="properties">Properties</h2>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Summary</th>
+<th>Access Control</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>AgentId</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">System.Int32</a></td>
+<td>The unique integer representation of agent</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>AgentGuid</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.guid">System.Guid</a></td>
+<td>The globally unique identifier representation of agent</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>NodeId</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">System.Int32</a></td>
+<td>The unique integer representation of parent node.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>Name</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">System.String</a></td>
+<td>The string value that contains the name of the agent.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>Hostname</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">System.String</a></td>
+<td>Hostname of the server that this agent resides on.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>DNSName</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">System.String</a></td>
+<td>Full DNS name of the server that this agent resides on.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>IP</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">System.String</a></td>
+<td>IP Address of the server that this agent resides on.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>OSVersion</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">System.String</a></td>
+<td>Version of the operating system Linux agent binaries were built for; for a Windows Agent same as RuntimeOSVersion.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>PollingEngineId</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">System.Int32</a></td>
+<td>ID of the polling engine</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>ConnectionStatus</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">System.Int32</a></td>
+<td>An integer value which represents the current connection status of the agent to AMS</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>ConnectionStatusMessage</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">System.String</a></td>
+<td>A human readable string description of the current connection status of the agent to AMS</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>ConnectionStatusTimestamp</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.datetime">System.DateTime</a></td>
+<td>Last time that the connection status was updated</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>AgentStatus</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">System.Int32</a></td>
+<td>An integer value which represents the current agent status</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>AgentStatusMessage</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">System.String</a></td>
+<td>A human readable string description of the current agent status</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>AgentStatusTimestamp</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.datetime">System.DateTime</a></td>
+<td>Last time that the agent status was updated</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>IsActiveAgent</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">System.Boolean</a></td>
+<td>A boolean value indicating if the agent is in active mode (Agent-initiated communication) as opposed to passive (Server-initiated communication)</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>Mode</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">System.Int32</a></td>
+<td>A integer value with a value of 1 if the agent is in active mode (Agent-initiated communication), with a value of 2 if the agent is in passive (Server-initiated communication) mode or with a value of 0 if agent mode will be automatically detected during installation.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>AgentVersion</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">System.String</a></td>
+<td>Full version of the agent binaries.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>AutoUpdateEnabled</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">System.Boolean</a></td>
+<td>A boolean value that indicates if this agent can be updated without user intervention</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>OrionIdColumn</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">System.String</a></td>
+<td>Name of column/property with Agent ID. It's used internally by Orion.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>PassiveAgentHostname</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">System.String</a></td>
+<td>The hostname or IP address of the agent which AMS uses to connect to agent in passive mode.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>PassiveAgentPort</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">System.String</a></td>
+<td>The listening port of the agent which AMS uses to connect to agent in passive mode.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>ProxyId</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">System.Int32</a></td>
+<td>ID of the proxy through which Agent to AMS connection takes place through</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>RegisteredOn</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.datetime">System.DateTime</a></td>
+<td>Timestamp at which the agent was registered with AMS</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>SID</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">System.String</a></td>
+<td>The Windows security identifier of the server that the agent is installed on, or a unique-like idendifier of the server in case of Linux system.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>Is64Windows</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">System.Boolean</a></td>
+<td>A boolean value indicating if the operating system of the agent is 64 bit.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>CPUArch</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">System.String</a></td>
+<td>A string value indicating the architecture of the CPU of the agent server.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>OSArch</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">System.String</a></td>
+<td>A string value indicating the architecture of the operating system of the agent server.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>OSType</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">System.String</a></td>
+<td>A string value which is the type of the operating system</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>OSDistro</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">System.String</a></td>
+<td>A string value indicating the Linux type of distribution.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>ResponseTime</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">System.Int32</a></td>
+<td>An integer value indicating in miliseconds how long it takes for a data message to go from AMS to Agent and back</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>Type</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">System.Int32</a></td>
+<td>An integer value indicating the type. Currently not used and always 0.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>RuntimeOSDistro</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">System.String</a></td>
+<td>A string value indicating the Linux distribution, where the Agent runs.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>RuntimeOSVersion</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">System.String</a></td>
+<td>A string value indicating the OS version, where the Agent runs.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>RuntimeOSLabel</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">System.String</a></td>
+<td>A string value indicating a human readable operating system label, where the Agent runs.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>OSLabel</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">System.String</a></td>
+<td>A string value representing a human readable operating system label.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>NetFrameworkRelease</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">System.String</a></td>
+<td></td>
+<td>everyone</td>
+</tr>
+</tbody>
+</table>
+<h2 id="source-relationships">Source Relationships</h2>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Plugins</td>
+<td><a href="Orion.AgentManagement.AgentPlugin.html">Orion.AgentManagement.AgentPlugin</a></td>
+<td>Defined by relationship Orion.AgentManagement.AgentHostsPlugin (System.Hosting)</td>
+</tr>
+<tr>
+<td>Probe</td>
+<td><a href="Orion.NetPath.Probes.html">Orion.NetPath.Probes</a></td>
+<td>Defined by relationship Orion.NPM.NetPath.AgentReferencesProbes (System.Reference)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="target-relationships">Target Relationships</h2>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Engine</td>
+<td><a href="Orion.Engines.html">Orion.Engines</a></td>
+<td>Defined by relationship Orion.AgentManagement.EngineReferencesAgent (System.Reference)</td>
+</tr>
+<tr>
+<td>Node</td>
+<td><a href="Orion.Nodes.html">Orion.Nodes</a></td>
+<td>Defined by relationship Orion.AgentManagement.NodeReferencesAgent (System.Reference)</td>
+</tr>
+<tr>
+<td>LogProfiles</td>
+<td><a href="Orion.OLM.LogProfile.html">Orion.OLM.LogProfile</a></td>
+<td>Defined by relationship Orion.OLMLogProfileAgents (System.Reference)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="verbs">Verbs</h2>
+<h3 id="deploy">Deploy</h3>
+<p>Deploys an agent to a machine defined by hostname and/or IP address.</p>
+<h4 id="access-control-1">Access control</h4>
+<p>everyone</p>
+<h3 id="deploytonode">DeployToNode</h3>
+<p>Deploys an agent to an existing node using the supplied credentials.</p>
+<h4 id="access-control-2">Access control</h4>
+<p>everyone</p>
+<h3 id="deployplugin">DeployPlugin</h3>
+<p>Deploys the specified plugin to the agent</p>
+<h4 id="access-control-3">Access control</h4>
+<p>everyone</p>
+<h3 id="redeployplugin">RedeployPlugin</h3>
+<p>Redeploys the specified plugin to the agent</p>
+<h4 id="access-control-4">Access control</h4>
+<p>everyone</p>
+<h3 id="uninstallplugin">UninstallPlugin</h3>
+<p>Uninstalls the specified plugin from the agent</p>
+<h4 id="access-control-5">Access control</h4>
+<p>everyone</p>
+<h3 id="uninstall">Uninstall</h3>
+<p>Uninstalls the agent.</p>
+<h4 id="access-control-6">Access control</h4>
+<p>everyone</p>
+<h3 id="delete">Delete</h3>
+<p>Deletes the agent without uninstalling it.</p>
+<h4 id="access-control-7">Access control</h4>
+<p>everyone</p>
+<h3 id="approvereboot">ApproveReboot</h3>
+<p>Approval for an agent to reboot.</p>
+<h4 id="access-control-8">Access control</h4>
+<p>everyone</p>
+<h3 id="approveupdate">ApproveUpdate</h3>
+<p>Approval for an agent to be updated.</p>
+<h4 id="access-control-9">Access control</h4>
+<p>everyone</p>
+<h3 id="testwithengine">TestWithEngine</h3>
+<p>Tests the connection between the agent and AMS</p>
+<h4 id="access-control-10">Access control</h4>
+<p>everyone</p>
+<h3 id="assigntoengine">AssignToEngine</h3>
+<p>Assigns an agent to a polling engine.</p>
+<h4 id="access-control-11">Access control</h4>
+<p>everyone</p>
+<h3 id="validatedeploymentcredentials">ValidateDeploymentCredentials</h3>
+<p>Validates if provided credentials are valid for agent deployment. If credentials pass validation they can be safely used for deployment via Deploy verb.</p>
+<h4 id="access-control-12">Access control</h4>
+<p>everyone</p>
+<h3 id="restartagent">RestartAgent</h3>
+<p>Initiate Orion Agent service restart.</p>
+<h4 id="access-control-13">Access control</h4>
+<p>everyone</p>
+<h3 id="promoteagenttoremotecollector">PromoteAgentToRemoteCollector</h3>
+<h4 id="access-control-14">Access control</h4>
+<p>everyone</p>
+<h3 id="addagent">AddAgent</h3>
+<p>Creates Agent entry.</p>
+<h4 id="access-control-15">Access control</h4>
+<p>everyone</p>
+<h3 id="updateagent">UpdateAgent</h3>
+<p>Updates Agent entry.</p>
+<h4 id="access-control-16">Access control</h4>
+<p>everyone</p>
+<h3 id="addpassiveagent">AddPassiveAgent</h3>
+<p>Adds passive agent. This verb exists for usability convenience and uses AddAgent verb internally.</p>
+<h4 id="access-control-17">Access control</h4>
+<p>everyone</p>
+<h3 id="testpassiveagentconnection">TestPassiveAgentConnection</h3>
+<p>Verifies whether connection to passive agent is possible.</p>
+<h4 id="access-control-18">Access control</h4>
+<p>everyone</p>
+<h3 id="getlicensedagentpluginsinamsrepository">GetLicensedAgentPluginsInAMSRepository</h3>
+<p>Return list of plugin Ids, which are in AMS repository and are licensed</p>
+<h4 id="access-control-19">Access control</h4>
+<p>everyone</p>
+<h3 id="collectdiagnostics">CollectDiagnostics</h3>
+<p>Will try to collect diagnostics for agent identified by AgentId and store it to passed path waiting to complete for given minutes at maximum</p>
+<h4 id="access-control-20">Access control</h4>
+<p>everyone</p>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In this article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+      &copy; SolarWinds
+      
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

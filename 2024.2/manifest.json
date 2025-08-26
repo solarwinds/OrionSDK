@@ -1,5 +1,5 @@
 {
-  "source_base_path": "C:/Orion/src/tools/src/SwisSchemaDocGen/src/SchemaDocGen/bin/Release/net8/SiteTemplate",
+  "source_base_path": "base-path",
   "xrefmap": "xrefmap.yml",
   "files": [
     {

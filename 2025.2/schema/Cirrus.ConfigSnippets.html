@@ -1,0 +1,233 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Cirrus.ConfigSnippets | Orion SDK Schemas </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Cirrus.ConfigSnippets | Orion SDK Schemas ">
+  
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"> 
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+  
+  <meta property="docfx:rel" content="../">
+  
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src=".././images/SolarWinds.Logo.png" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="cirrusconfigsnippets">Cirrus.ConfigSnippets</h1>
+
+<p>SolarWinds Information Service  2025.2 Schema Documentation</p>
+<p>Data about config snippets.
+For valid Orion user with at least WebViewer NCM role.</p>
+<h4 id="inheritance">Inheritance</h4>
+<p>↳ <a href="System.Entity.html">System.Entity</a></p>
+<h4 id="access-control">Access control</h4>
+<p>everyone</p>
+<h2 id="properties">Properties</h2>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Summary</th>
+<th>Access Control</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ID</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">System.Int32</a></td>
+<td>Unique identifier and primary key of the interface.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>Name</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">System.String</a></td>
+<td>Snippet name.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>Description</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">System.String</a></td>
+<td>Snippet description.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>AdvancedScript</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">System.String</a></td>
+<td>Script.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>Created</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.datetime">System.DateTime</a></td>
+<td>Date and time when snippet was created.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>LastModified</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.datetime">System.DateTime</a></td>
+<td>Date and time of the last modification.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>PreserveWhiteSpace</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">System.Boolean</a></td>
+<td>Whitespaces should be preserved(true/false).</td>
+<td>everyone</td>
+</tr>
+</tbody>
+</table>
+<h2 id="verbs">Verbs</h2>
+<h3 id="addsnippet">AddSnippet</h3>
+<p>Adds snippet.
+Valid for Orion manage node users with at least WebUploader NCM role.Config snippet.ID of the added snippet. Full type: System.Int32</p>
+<h4 id="access-control-1">Access control</h4>
+<p>everyone</p>
+<h3 id="getsnippet">GetSnippet</h3>
+<p>Gets snippet.
+Valid for Orion manage node users with at least WebUploader NCM role.Snippet ID.Config snippet. Full type: SolarWinds.NCM.Contracts.InformationService.ConfigSnippet</p>
+<h4 id="access-control-2">Access control</h4>
+<p>everyone</p>
+<h3 id="updatesnippet">UpdateSnippet</h3>
+<p>Updates snippet.
+Valid for Orion manage node users with at least WebUploader NCM role.Config snippet.Number of affected records. Full type: System.Int32</p>
+<h4 id="access-control-3">Access control</h4>
+<p>everyone</p>
+<h3 id="deletesnippets">DeleteSnippets</h3>
+<p>Removes specified snippets.
+Valid for Orion manage node users with at least WebUploader NCM role.Array of the snippet IDs.Number of affected records. Full type: System.Int32</p>
+<h4 id="access-control-4">Access control</h4>
+<p>everyone</p>
+<h3 id="importsnippets">ImportSnippets</h3>
+<p>Imports snippets.
+Valid for Orion manage node users with at least WebUploader NCM role.List of config snippets.</p>
+<h4 id="access-control-5">Access control</h4>
+<p>everyone</p>
+<h3 id="copysnippets">CopySnippets</h3>
+<p>Copies list of snippets.
+Valid for Orion manage node users with at least WebUploader NCM role.Array of the snippet IDs.</p>
+<h4 id="access-control-6">Access control</h4>
+<p>everyone</p>
+<h3 id="gettagslist">GetTagsList</h3>
+<p>Gets tag list.
+Valid for Orion manage node users with at least WebUploader NCM role.Tag list. Full type: System.Collections.Generic.List<string></string></p>
+<h4 id="access-control-7">Access control</h4>
+<p>everyone</p>
+<h3 id="gettagslistforsnippets">GetTagsListForSnippets</h3>
+<p>Gets tag list for snippet.
+Valid for Orion manage node users with at least WebUploader NCM role.Array of snippet IDs.Tag list. Full type: System.Collections.Generic.List<string></string></p>
+<h4 id="access-control-8">Access control</h4>
+<p>everyone</p>
+<h3 id="addtags">AddTags</h3>
+<p>Adds tags.
+Valid for Orion manage node users with at least WebUploader NCM role.Array of the snippet IDs.List of tags.Number of affected records. Full type: System.Int32</p>
+<h4 id="access-control-9">Access control</h4>
+<p>everyone</p>
+<h3 id="deletetags">DeleteTags</h3>
+<p>Removes specified tags.
+Valid for Orion manage node users with at least WebUploader NCM role.Array of the snippet IDs.List of the tags.Number of affected records. Full type: System.Int32</p>
+<h4 id="access-control-10">Access control</h4>
+<p>everyone</p>
+<h3 id="savesnippetascopy">SaveSnippetAsCopy</h3>
+<p>Saves snippet as copy.
+Valid for Orion manage node users with at least WebUploader NCM role.Config snippet.Saved snippet ID. Full type: System.Int32</p>
+<h4 id="access-control-11">Access control</h4>
+<p>everyone</p>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In this article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+      &copy; SolarWinds
+      
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="../styles/main.css">
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"> 
     <meta property="docfx:navrel" content="../toc.html">
-    <meta property="docfx:tocrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
   
   <meta property="docfx:rel" content="../">
   
@@ -67,7 +67,14 @@
         </div>
       </div>
       <div role="main" class="container body-content hide-when-search">
-        <div class="article row grid">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
           <div class="col-md-10">
             <article class="content wrap" id="_content" data-uid="">
 <h1 id="solarwinds-information-service-schema">SolarWinds Information Service schema</h1>
@@ -75,7 +82,7 @@
 <p>This site contains SolarWinds Information Service entity API documentation available for SolarWinds Orion platform modules.</p>
 <p>See also:</p>
 <ul>
-<li><a href="http://solarwinds.github.io/OrionSDK/swagger-ui/">Swagger</a></li>
+<li><a href="http://solarwinds.github.io/OrionSDK/swagger-ui/?urls.primaryName=2025.2.1">Swagger</a></li>
 <li><a href="https://github.com/solarwinds/OrionSDK/">Orion SDK on GitHub</a></li>
 </ul>
 

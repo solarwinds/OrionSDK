@@ -11,6 +11,7 @@ window.onload = function() {
   // the following lines will be replaced by docker/configurator, when it runs in a docker-container
   window.ui = SwaggerUIBundle({
     urls: [
+      {url:"https://solarwinds.github.io/OrionSDK/2025.4/swagger.json", name:"2025.4"},
       {url:"https://solarwinds.github.io/OrionSDK/2025.2.1/swagger.json", name:"2025.2.1"},
       {url:"https://solarwinds.github.io/OrionSDK/2025.2/swagger.json", name:"2025.2"},
       {url:"https://solarwinds.github.io/OrionSDK/2025.1.1/swagger.json", name:"2025.1.1"},

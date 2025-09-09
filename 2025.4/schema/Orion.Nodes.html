@@ -1,0 +1,1866 @@
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Orion.Nodes | Orion SDK Schemas </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Orion.Nodes | Orion SDK Schemas ">
+  
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"> 
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+  
+  <meta property="docfx:rel" content="../">
+  
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src=".././images/SolarWinds.Logo.png" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first=First data-prev=Previous data-next=Next data-last=Last></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="orionnodes">Orion.Nodes</h1>
+
+<p>SolarWinds Information Service  2025.4 Schema Documentation</p>
+<p>ToDo</p>
+<h4 id="inheritance">Inheritance</h4>
+<p>↳ <a href="System.Entity.html">System.Entity</a></p>
+<p>↳ <a href="System.DashboardEntity.html">System.DashboardEntity</a></p>
+<p>↳ <a href="System.ManagedEntity.html">System.ManagedEntity</a></p>
+<h4 id="access-control">Access control</h4>
+<table>
+<thead>
+<tr>
+<th>Operations</th>
+<th>Right</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>read</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>read,invoke</td>
+<td>allowRealTimePolling</td>
+</tr>
+<tr>
+<td>create,read,update,delete,invoke</td>
+<td>manageNodes</td>
+</tr>
+</tbody>
+</table>
+<h2 id="properties">Properties</h2>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Summary</th>
+<th>Access Control</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>NodeID</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">System.Int32</a></td>
+<td></td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>ObjectSubType</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">System.String</a></td>
+<td></td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>IPAddress</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">System.String</a></td>
+<td></td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>IPAddressType</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">System.String</a></td>
+<td></td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>DynamicIP</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">System.Boolean</a></td>
+<td></td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>Caption</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">System.String</a></td>
+<td></td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>NodeDescription</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">System.String</a></td>
+<td></td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>Description</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">System.String</a></td>
+<td></td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>DNS</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">System.String</a></td>
+<td></td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>SysName</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">System.String</a></td>
+<td></td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>Vendor</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">System.String</a></td>
+<td></td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>SysObjectID</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">System.String</a></td>
+<td></td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>Location</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">System.String</a></td>
+<td></td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>Contact</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">System.String</a></td>
+<td></td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>VendorIcon</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">System.String</a></td>
+<td></td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>Icon</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">System.String</a></td>
+<td></td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>Status</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">System.Int32</a></td>
+<td></td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>PolledStatus</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">System.Int32</a></td>
+<td></td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>StatusLED</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">System.String</a></td>
+<td></td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>StatusDescription</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">System.String</a></td>
+<td></td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>NodeStatusRootCause</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">System.String</a></td>
+<td></td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>NodeStatusRootCauseWithLinks</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">System.String</a></td>
+<td></td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>NodeDependencies</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">System.String</a></td>
+<td></td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>NodeDependenciesWithLinks</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">System.String</a></td>
+<td></td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>CustomStatus</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">System.Boolean</a></td>
+<td></td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>IOSImage</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">System.String</a></td>
+<td></td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>IOSVersion</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">System.String</a></td>
+<td></td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>GroupStatus</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">System.String</a></td>
+<td></td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>StatusIcon</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">System.String</a></td>
+<td></td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>LastBoot</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.datetime">System.DateTime</a></td>
+<td></td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>SystemUpTime</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">System.Double</a></td>
+<td></td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>ResponseTime</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">System.Int32</a></td>
+<td></td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>PercentLoss</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">System.Double</a></td>
+<td></td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>AvgResponseTime</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">System.Int32</a></td>
+<td></td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>MinResponseTime</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">System.Int32</a></td>
+<td></td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>MaxResponseTime</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">System.Int32</a></td>
+<td></td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>CPUCount</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int16">System.Int16</a></td>
+<td></td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>CPULoad</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">System.Int32</a></td>
+<td></td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>MemoryUsed</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">System.Double</a></td>
+<td></td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>LoadAverage1</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">System.Double</a></td>
+<td></td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>LoadAverage5</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">System.Double</a></td>
+<td></td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>LoadAverage15</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">System.Double</a></td>
+<td></td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>MemoryAvailable</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">System.Double</a></td>
+<td></td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>PercentMemoryUsed</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">System.Int32</a></td>
+<td></td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>PercentMemoryAvailable</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">System.Int32</a></td>
+<td></td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>LastSync</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.datetime">System.DateTime</a></td>
+<td></td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>LastSystemUpTimePollUtc</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.datetime">System.DateTime</a></td>
+<td></td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>MachineType</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">System.String</a></td>
+<td></td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>IsServer</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">System.Boolean</a></td>
+<td></td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>Severity</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">System.Int32</a></td>
+<td></td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>UiSeverity</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">System.Int32</a></td>
+<td></td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>ChildStatus</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">System.Int32</a></td>
+<td></td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>Allow64BitCounters</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">System.Boolean</a></td>
+<td></td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>AgentPort</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">System.String</a></td>
+<td></td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>TotalMemory</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">System.Single</a></td>
+<td></td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>CMTS</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.char">System.Char</a></td>
+<td></td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>CustomPollerLastStatisticsPoll</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.datetime">System.DateTime</a></td>
+<td></td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>CustomPollerLastStatisticsPollSuccess</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.datetime">System.DateTime</a></td>
+<td></td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>SNMPVersion</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int16">System.Int16</a></td>
+<td></td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>PollInterval</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">System.Int32</a></td>
+<td></td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>EngineID</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">System.Int32</a></td>
+<td></td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>RediscoveryInterval</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">System.Int32</a></td>
+<td></td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>NextPoll</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.datetime">System.DateTime</a></td>
+<td></td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>NextRediscovery</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.datetime">System.DateTime</a></td>
+<td></td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>StatCollection</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">System.Int32</a></td>
+<td></td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>External</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">System.Boolean</a></td>
+<td></td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>Community</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">System.String</a></td>
+<td></td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>RWCommunity</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">System.String</a></td>
+<td></td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>IP</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">System.String</a></td>
+<td></td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>IP_Address</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">System.String</a></td>
+<td></td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>IPAddressGUID</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.guid">System.Guid</a></td>
+<td></td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>NodeName</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">System.String</a></td>
+<td></td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>BlockUntil</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.datetime">System.DateTime</a></td>
+<td></td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>BufferNoMemThisHour</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">System.Double</a></td>
+<td></td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>BufferNoMemToday</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">System.Double</a></td>
+<td></td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>BufferSmMissThisHour</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">System.Double</a></td>
+<td></td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>BufferSmMissToday</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">System.Double</a></td>
+<td></td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>BufferMdMissThisHour</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">System.Double</a></td>
+<td></td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>BufferMdMissToday</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">System.Double</a></td>
+<td></td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>BufferBgMissThisHour</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">System.Double</a></td>
+<td></td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>BufferBgMissToday</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">System.Double</a></td>
+<td></td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>BufferLgMissThisHour</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">System.Double</a></td>
+<td></td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>BufferLgMissToday</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">System.Double</a></td>
+<td></td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>BufferHgMissThisHour</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">System.Double</a></td>
+<td></td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>BufferHgMissToday</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">System.Double</a></td>
+<td></td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>OrionIdPrefix</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">System.String</a></td>
+<td></td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>OrionIdColumn</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">System.String</a></td>
+<td></td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>SkippedPollingCycles</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">System.Int32</a></td>
+<td></td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>MinutesSinceLastSync</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">System.Int32</a></td>
+<td></td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>EntityType</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">System.String</a></td>
+<td></td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>DetailsUrl</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">System.String</a></td>
+<td></td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>DisplayName</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">System.String</a></td>
+<td></td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>BiosUUID</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">System.String</a></td>
+<td></td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>MachineUUID</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">System.String</a></td>
+<td></td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>Category</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">System.Int32</a></td>
+<td></td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>IsOrionServer</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">System.Boolean</a></td>
+<td></td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>ModernIcon</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">System.String</a></td>
+<td></td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>WindowsConnectionUsed</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">System.Int32</a></td>
+<td></td>
+<td>everyone</td>
+</tr>
+</tbody>
+</table>
+<h2 id="source-relationships">Source Relationships</h2>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Inventory</td>
+<td><a href="Orion.ADM.NodeInventory.html">Orion.ADM.NodeInventory</a></td>
+<td>Defined by relationship Orion.ADM.NodeHostsNodeInventory (System.Hosting)</td>
+</tr>
+<tr>
+<td>ChildNodeToNodeLinks</td>
+<td><a href="Orion.APM.NodeToNodeLink.html">Orion.APM.NodeToNodeLink</a></td>
+<td>Defined by relationship Orion.APM.NodeToNodeLinkReferencesChildNode (System.Reference)</td>
+</tr>
+<tr>
+<td>ParentNodeToNodeLinks</td>
+<td><a href="Orion.APM.NodeToNodeLink.html">Orion.APM.NodeToNodeLink</a></td>
+<td>Defined by relationship Orion.APM.NodeToNodeLinkReferencesParentNode (System.Reference)</td>
+</tr>
+<tr>
+<td>OutApplicationTcpConnections</td>
+<td><a href="Orion.APM.ApplicationTcpConnection.html">Orion.APM.ApplicationTcpConnection</a></td>
+<td>Defined by relationship Orion.APM.ApplicationTcpConnectionReferencesClientNode (System.Reference)</td>
+</tr>
+<tr>
+<td>InApplicationTcpConnections</td>
+<td><a href="Orion.APM.ApplicationTcpConnection.html">Orion.APM.ApplicationTcpConnection</a></td>
+<td>Defined by relationship Orion.APM.ApplicationTcpConnectionReferencesServerNode (System.Reference)</td>
+</tr>
+<tr>
+<td>Agent</td>
+<td><a href="Orion.AgentManagement.Agent.html">Orion.AgentManagement.Agent</a></td>
+<td>Defined by relationship Orion.AgentManagement.NodeReferencesAgent (System.Reference)</td>
+</tr>
+<tr>
+<td>Anomalies</td>
+<td><a href="Orion.AIIM.Orion_Nodes_Anomalies.html">Orion.AIIM.Orion_Nodes_Anomalies</a></td>
+<td>Defined by relationship Orion.AIIM.Orion_Nodes_Anomalies_Relation (System.Hosting)</td>
+</tr>
+<tr>
+<td>Applications</td>
+<td><a href="Orion.APM.Application.html">Orion.APM.Application</a></td>
+<td>Defined by relationship Orion.APM.NodeHostsApplication (System.Hosting)</td>
+</tr>
+<tr>
+<td>ScheduledTasks</td>
+<td><a href="Orion.APM.Wstm.Task.html">Orion.APM.Wstm.Task</a></td>
+<td>Defined by relationship Orion.APM.NodeReferencesScheduledTasks (System.Reference)</td>
+</tr>
+<tr>
+<td>ASANode</td>
+<td><a href="Orion.ASA.Node.html">Orion.ASA.Node</a></td>
+<td>Defined by relationship Orion.NodeHostsASANode (System.Hosting)</td>
+</tr>
+<tr>
+<td>ConnectionStatistic</td>
+<td><a href="Orion.ASA.ConnectionStatistics.html">Orion.ASA.ConnectionStatistics</a></td>
+<td>Defined by relationship Orion.NodeHostsASAConnectionStatistics (System.Hosting)</td>
+</tr>
+<tr>
+<td>ASAFavoriteInterface</td>
+<td><a href="Orion.ASA.FavoriteInterfaces.html">Orion.ASA.FavoriteInterfaces</a></td>
+<td>Defined by relationship Orion.NodeHostsASAFavoriteInterface (System.Hosting)</td>
+</tr>
+<tr>
+<td>NodeWarrantyAlert</td>
+<td><a href="Orion.AssetInventory.NodeWarrantyAlert.html">Orion.AssetInventory.NodeWarrantyAlert</a></td>
+<td>Defined by relationship Orion.AssetInventory.NodeReferencesNodeWarrantyAlert (System.Reference)</td>
+</tr>
+<tr>
+<td>AssetInventory</td>
+<td><a href="Orion.AssetInventory.Polling.html">Orion.AssetInventory.Polling</a></td>
+<td>Defined by relationship Orion.AssetInventory.NodesAIPolling (System.Reference)</td>
+</tr>
+<tr>
+<td>CBQoSPolicyActions</td>
+<td><a href="Orion.Netflow.CBQoSPolicyAction.html">Orion.Netflow.CBQoSPolicyAction</a></td>
+<td>Defined by relationship Orion.Netflow.NodeReferencesCBQoSPolicyAction (System.Reference)</td>
+</tr>
+<tr>
+<td>CBQoSPolicies</td>
+<td><a href="Orion.Netflow.CBQoSPolicy.html">Orion.Netflow.CBQoSPolicy</a></td>
+<td>Defined by relationship Orion.Netflow.NodeReferencesCBQoSPolicy (System.Reference)</td>
+</tr>
+<tr>
+<td>CBQoSSource</td>
+<td><a href="Orion.Netflow.CBQoSSource.html">Orion.Netflow.CBQoSSource</a></td>
+<td>Defined by relationship Orion.Netflow.NodeReferencesCBQoSSource (System.Reference)</td>
+</tr>
+<tr>
+<td>NCMLicenseStatus</td>
+<td><a href="Cirrus.NCMNodeLicenseStatus.html">Cirrus.NCMNodeLicenseStatus</a></td>
+<td>Defined by relationship Orion.NodeHostLicensedByNCM (System.Hosting)</td>
+</tr>
+<tr>
+<td>NodeProperties</td>
+<td><a href="NCM.NodeProperties.html">NCM.NodeProperties</a></td>
+<td>Defined by relationship Orion.NodesHostsNodeProperties (System.Hosting)</td>
+</tr>
+<tr>
+<td>Apic</td>
+<td><a href="Cortex.Orion.CiscoAci.Apic.html">Cortex.Orion.CiscoAci.Apic</a></td>
+<td>Defined by relationship Cortex.Orion.OrionNodeToApic (System.Hosting)</td>
+</tr>
+<tr>
+<td>Containers</td>
+<td><a href="Orion.Cman.Container.html">Orion.Cman.Container</a></td>
+<td>Defined by relationship Orion.NodesToCmanContainer (System.Hosting)</td>
+</tr>
+<tr>
+<td>Firewall</td>
+<td><a href="Cortex.Orion.NetMan.Firewalls.Firewall.html">Cortex.Orion.NetMan.Firewalls.Firewall</a></td>
+<td>Defined by relationship Cortex.Orion.OrionNodeToFirewall (System.Hosting)</td>
+</tr>
+<tr>
+<td>CortexFirewall</td>
+<td><a href="Cortex.Orion.NetMan.Firewalls.Firewall.html">Cortex.Orion.NetMan.Firewalls.Firewall</a></td>
+<td>Defined by relationship Cortex.Orion.NetMan.Firewalls.NodeToFirewall (System.Reference)</td>
+</tr>
+<tr>
+<td>CortexInterfaces</td>
+<td><a href="Cortex.Orion.Interface.html">Cortex.Orion.Interface</a></td>
+<td>Defined by relationship Cortex.Orion.NodeToInterfaces (System.Hosting)</td>
+</tr>
+<tr>
+<td>CortexCPUs</td>
+<td><a href="Cortex.Orion.Cpu.html">Cortex.Orion.Cpu</a></td>
+<td>Defined by relationship Cortex.Orion.NodeToCpus (System.Hosting)</td>
+</tr>
+<tr>
+<td>CortexVolumes</td>
+<td><a href="Cortex.Orion.Volume.html">Cortex.Orion.Volume</a></td>
+<td>Defined by relationship Cortex.Orion.NodeToVolumes (System.Hosting)</td>
+</tr>
+<tr>
+<td>DatabaseInstanceData</td>
+<td><a href="Orion.DPA.DatabaseInstanceData.html">Orion.DPA.DatabaseInstanceData</a></td>
+<td>Defined by relationship Orion.NodesDatabaseInstanceData (System.Reference)</td>
+</tr>
+<tr>
+<td>DPIApplicationAssignment</td>
+<td><a href="Orion.DPI.ApplicationAssignments.html">Orion.DPI.ApplicationAssignments</a></td>
+<td>Defined by relationship Orion.DPI.NodeToApplicationAssignment (System.Hosting)</td>
+</tr>
+<tr>
+<td>DPIProbeAssignment</td>
+<td><a href="Orion.DPI.ProbeAssignments.html">Orion.DPI.ProbeAssignments</a></td>
+<td>Defined by relationship Orion.DPI.NodeToProbeAssignment (System.Hosting)</td>
+</tr>
+<tr>
+<td>EnergyWiseDevice</td>
+<td><a href="Orion.NPM.EW.Device.html">Orion.NPM.EW.Device</a></td>
+<td>Defined by relationship Orion.NodeHostsEWDevice (System.Hosting)</td>
+</tr>
+<tr>
+<td>DeviceStats</td>
+<td><a href="Orion.NPM.EW.DeviceStats.html">Orion.NPM.EW.DeviceStats</a></td>
+<td>Defined by relationship Orion.NodeHostsEWDeviceStats (System.Hosting)</td>
+</tr>
+<tr>
+<td>F5Devices</td>
+<td><a href="Orion.F5.System.Device.html">Orion.F5.System.Device</a></td>
+<td>Defined by relationship Orion.NodeHostsF5Device (System.Hosting)</td>
+</tr>
+<tr>
+<td>FCUnits</td>
+<td><a href="Orion.NPM.FCUnits.html">Orion.NPM.FCUnits</a></td>
+<td>Defined by relationship Orion.NodesHostsFCUnits (System.Hosting)</td>
+</tr>
+<tr>
+<td>L2LTunnel</td>
+<td><a href="Orion.Firewall.L2LTunnel.html">Orion.Firewall.L2LTunnel</a></td>
+<td>Defined by relationship Orion.NodeReferencesL2LTunnel (System.Reference)</td>
+</tr>
+<tr>
+<td>RemoteAccessTunnel</td>
+<td><a href="Orion.Firewall.RemoteAccessTunnel.html">Orion.Firewall.RemoteAccessTunnel</a></td>
+<td>Defined by relationship Orion.NodesReferencesRemoteAccessTunnel (System.Reference)</td>
+</tr>
+<tr>
+<td>FortigateHighAvailabilityClusterMember</td>
+<td><a href="Orion.Fortigate.HighAvailability.html">Orion.Fortigate.HighAvailability</a></td>
+<td>Defined by relationship Orion.NodesReferencesHighAvailabilityCurrentNode (System.Reference)</td>
+</tr>
+<tr>
+<td>FortigateHighAvailabilityPrimaryMember</td>
+<td><a href="Orion.Fortigate.HighAvailability.html">Orion.Fortigate.HighAvailability</a></td>
+<td>Defined by relationship Orion.NodesReferencesHighAvailabilityPrimaryNode (System.Reference)</td>
+</tr>
+<tr>
+<td>FortigateVirtualDomain</td>
+<td><a href="Orion.Fortigate.VirtualDomain.html">Orion.Fortigate.VirtualDomain</a></td>
+<td>Defined by relationship Orion.NodesReferenceFortigateVirtualDomain (System.Reference)</td>
+</tr>
+<tr>
+<td>HardwareHealthInfos</td>
+<td><a href="Orion.HardwareHealth.HardwareInfo.html">Orion.HardwareHealth.HardwareInfo</a></td>
+<td>Defined by relationship Orion.HardwareHealth.NodeHostsHardwareInfo (System.Hosting)</td>
+</tr>
+<tr>
+<td>HardwareCategoryStatus</td>
+<td><a href="Orion.HardwareHealth.HardwareCategoryStatus.html">Orion.HardwareHealth.HardwareCategoryStatus</a></td>
+<td>Defined by relationship Orion.HardwareHealth.NodeReferenceHardwareCategoryStatus (System.Reference)</td>
+</tr>
+<tr>
+<td>HardwareItems</td>
+<td><a href="Orion.HardwareHealth.HardwareItem.html">Orion.HardwareHealth.HardwareItem</a></td>
+<td>Defined by relationship Orion.HardwareHealth.NodeReferencesHardwareItem (System.Reference)</td>
+</tr>
+<tr>
+<td>Interfaces</td>
+<td><a href="Orion.NPM.Interfaces.html">Orion.NPM.Interfaces</a></td>
+<td>Defined by relationship Orion.NodeHostsInterfaces (System.Hosting)</td>
+</tr>
+<tr>
+<td>GroupReport</td>
+<td><a href="IPAM.GroupReport.html">IPAM.GroupReport</a></td>
+<td>Defined by relationship IPAM.GroupReportNodes (System.Reference)</td>
+</tr>
+<tr>
+<td>ScopeOverLapping</td>
+<td><a href="IPAM.DHCPScopeOverlapping.html">IPAM.DHCPScopeOverlapping</a></td>
+<td>Defined by relationship Orion.NodesReferDHCPScopeOverlapping (System.Reference)</td>
+</tr>
+<tr>
+<td>CCMMonitoring</td>
+<td><a href="Orion.IpSla.CCMMonitoring.html">Orion.IpSla.CCMMonitoring</a></td>
+<td>Defined by relationship Orion.NodesHostsCCMMonitoring (System.Hosting)</td>
+</tr>
+<tr>
+<td>VoIPInfrastructure</td>
+<td><a href="Orion.IpSla.InfrastructureNodes.html">Orion.IpSla.InfrastructureNodes</a></td>
+<td>Defined by relationship Orion.Ipsla.NodeHostsInfrastructureNodes (System.Hosting)</td>
+</tr>
+<tr>
+<td>IpSlaOperations</td>
+<td><a href="Orion.IpSla.Operations.html">Orion.IpSla.Operations</a></td>
+<td>Defined by relationship Orion.IpSla.NodeHostsIpSlaOperations (System.Hosting)</td>
+</tr>
+<tr>
+<td>IpSlaOperationsAsTarget</td>
+<td><a href="Orion.IpSla.Operations.html">Orion.IpSla.Operations</a></td>
+<td>Defined by relationship Orion.IpSla.IpSlaOperationsReferencesTargetNode (System.Reference)</td>
+</tr>
+<tr>
+<td>IpSlaSite</td>
+<td><a href="Orion.IpSla.Sites.html">Orion.IpSla.Sites</a></td>
+<td>Defined by relationship Orion.NodesHostsSites (System.Hosting)</td>
+</tr>
+<tr>
+<td>VoipGateways</td>
+<td><a href="Orion.IpSla.VoipGateways.html">Orion.IpSla.VoipGateways</a></td>
+<td>Defined by relationship Orion.NodesHostsVoipGateways (System.Hosting)</td>
+</tr>
+<tr>
+<td>GroupNodes</td>
+<td><a href="Orion.NPM.MulticastRouting.GroupNodes.html">Orion.NPM.MulticastRouting.GroupNodes</a></td>
+<td>Defined by relationship Orion.NPM.MulticastRouting.NodesHostsGroupNodes (System.Hosting)</td>
+</tr>
+<tr>
+<td>Flows</td>
+<td><a href="Orion.Netflow.Flows.html">Orion.Netflow.Flows</a></td>
+<td>Defined by relationship Orion.Netflow.NodesReferencesFlows (System.Reference)</td>
+</tr>
+<tr>
+<td>FlowsByAdvancedApplication</td>
+<td><a href="Orion.Netflow.FlowsByAdvancedApplication.html">Orion.Netflow.FlowsByAdvancedApplication</a></td>
+<td>Defined by relationship Orion.Netflow.NodesReferencesFlowsByAdvancedApplication (System.Reference)</td>
+</tr>
+<tr>
+<td>Flows</td>
+<td><a href="Orion.Netflow.FlowsByApplication.html">Orion.Netflow.FlowsByApplication</a></td>
+<td>Defined by relationship Orion.Netflow.NodesReferencesFlowsByApplication (System.Reference)</td>
+</tr>
+<tr>
+<td>FlowsWLC</td>
+<td><a href="Orion.Netflow.FlowsWLC.html">Orion.Netflow.FlowsWLC</a></td>
+<td>Defined by relationship Orion.Netflow.NodesReferencesFlowsWLC (System.Reference)</td>
+</tr>
+<tr>
+<td>FlowsByIP</td>
+<td><a href="Orion.Netflow.FlowsByIP.html">Orion.Netflow.FlowsByIP</a></td>
+<td>Defined by relationship Orion.Netflow.NodesReferencesFlowsByIP (System.Reference)</td>
+</tr>
+<tr>
+<td>FlowsByHostname</td>
+<td><a href="Orion.Netflow.FlowsByHostname.html">Orion.Netflow.FlowsByHostname</a></td>
+<td>Defined by relationship Orion.Netflow.NodesReferencesFlowsByHostname (System.Reference)</td>
+</tr>
+<tr>
+<td>FlowsByAS</td>
+<td><a href="Orion.Netflow.FlowsByAS.html">Orion.Netflow.FlowsByAS</a></td>
+<td>Defined by relationship Orion.Netflow.NodesReferencesFlowsByAS (System.Reference)</td>
+</tr>
+<tr>
+<td>FlowsByInterface</td>
+<td><a href="Orion.Netflow.FlowsByInterface.html">Orion.Netflow.FlowsByInterface</a></td>
+<td>Defined by relationship Orion.Netflow.NodesReferencesFlowsByInterface (System.Reference)</td>
+</tr>
+<tr>
+<td>FlowsByDomain</td>
+<td><a href="Orion.Netflow.FlowsByDomain.html">Orion.Netflow.FlowsByDomain</a></td>
+<td>Defined by relationship Orion.Netflow.NodesReferencesFlowsByDomain (System.Reference)</td>
+</tr>
+<tr>
+<td>FlowsByCountryCode</td>
+<td><a href="Orion.Netflow.FlowsByCountryCode.html">Orion.Netflow.FlowsByCountryCode</a></td>
+<td>Defined by relationship Orion.Netflow.NodesReferencesFlowsByCountryCode (System.Reference)</td>
+</tr>
+<tr>
+<td>FlowsByConversation</td>
+<td><a href="Orion.Netflow.FlowsByConversation.html">Orion.Netflow.FlowsByConversation</a></td>
+<td>Defined by relationship Orion.Netflow.NodesReferencesFlowsByConversation (System.Reference)</td>
+</tr>
+<tr>
+<td>NetflowSources</td>
+<td><a href="Orion.Netflow.Source.html">Orion.Netflow.Source</a></td>
+<td>Defined by relationship Orion.Netflow.NodeReferencesSource (System.Reference)</td>
+</tr>
+<tr>
+<td>NetflowNodeSources</td>
+<td><a href="Orion.Netflow.NodeSources.html">Orion.Netflow.NodeSources</a></td>
+<td>Defined by relationship Orion.Netflow.NodeReferencesNodeSources (System.Reference)</td>
+</tr>
+<tr>
+<td>VirtualPortChannels</td>
+<td><a href="Orion.Nexus.VirtualPortChannel.html">Orion.Nexus.VirtualPortChannel</a></td>
+<td>Defined by relationship Orion.NodeHostsVirtualPortChannels (System.Hosting)</td>
+</tr>
+<tr>
+<td>CustomPollerAssignmentOnNode</td>
+<td><a href="Orion.NPM.CustomPollerAssignmentOnNode.html">Orion.NPM.CustomPollerAssignmentOnNode</a></td>
+<td>Defined by relationship Orion.NodesHostsCustomPollerAssignmentOnNode (System.Hosting)</td>
+</tr>
+<tr>
+<td>SwitchStack</td>
+<td><a href="Orion.NPM.SwitchStack.html">Orion.NPM.SwitchStack</a></td>
+<td>Defined by relationship Orion.NodesHostsSwitchStack (System.Hosting)</td>
+</tr>
+<tr>
+<td>NPMNode</td>
+<td><a href="Orion.NPM.Nodes.html">Orion.NPM.Nodes</a></td>
+<td>Defined by relationship Orion.OrionNodeHostsNPMNode (System.Hosting)</td>
+</tr>
+<tr>
+<td>LogNode</td>
+<td><a href="Orion.OLM.Nodes.html">Orion.OLM.Nodes</a></td>
+<td>Defined by relationship Orion.OLMNodesOrionNodes (System.Reference)</td>
+</tr>
+<tr>
+<td>DiscoveryLog</td>
+<td><a href="Orion.DiscoveryLogNodes.html">Orion.DiscoveryLogNodes</a></td>
+<td>Defined by relationship Orion.NodesHostsDiscoveryLogNodes (System.Reference)</td>
+</tr>
+<tr>
+<td>OrionHwHBMCRacks</td>
+<td><a href="Orion.HardwareHealth.BMC.Racks.html">Orion.HardwareHealth.BMC.Racks</a></td>
+<td>Defined by relationship Orion.HardwareHealth.BMC.NodesReferenceOrionHWHBMCRacks (System.Reference)</td>
+</tr>
+<tr>
+<td>BMCControllerNodeForRack</td>
+<td><a href="Orion.Nodes.html">Orion.Nodes</a></td>
+<td>Defined by relationship Orion.HardwareHealth.BMC.RackNodesRelianceControllerNode (System.Reliance)</td>
+</tr>
+<tr>
+<td>CpuLoadThreshold</td>
+<td><a href="Orion.CpuLoadThreshold.html">Orion.CpuLoadThreshold</a></td>
+<td>Defined by relationship Orion.NodesHostsCpuLoadThreshold (System.Hosting)</td>
+</tr>
+<tr>
+<td>PercentMemoryUsedThreshold</td>
+<td><a href="Orion.PercentMemoryUsedThreshold.html">Orion.PercentMemoryUsedThreshold</a></td>
+<td>Defined by relationship Orion.NodesHostsPercentMemoryUsedThreshold (System.Hosting)</td>
+</tr>
+<tr>
+<td>ResponseTimeThreshold</td>
+<td><a href="Orion.ResponseTimeThreshold.html">Orion.ResponseTimeThreshold</a></td>
+<td>Defined by relationship Orion.NodesHostsResponseTimeThreshold (System.Hosting)</td>
+</tr>
+<tr>
+<td>PercentLossThreshold</td>
+<td><a href="Orion.PercentLossThreshold.html">Orion.PercentLossThreshold</a></td>
+<td>Defined by relationship Orion.NodesHostsPercentLossThreshold (System.Hosting)</td>
+</tr>
+<tr>
+<td>CiscoBuffersHistory</td>
+<td><a href="Orion.CiscoBuffers.html">Orion.CiscoBuffers</a></td>
+<td>Defined by relationship Orion.NodesHostsCiscoBuffers (System.Hosting)</td>
+</tr>
+<tr>
+<td>CPULoadHistory</td>
+<td><a href="Orion.CPULoad.html">Orion.CPULoad</a></td>
+<td>Defined by relationship Orion.NodesHostsCPULoad (System.Hosting)</td>
+</tr>
+<tr>
+<td>CPUMultiLoadHistory</td>
+<td><a href="Orion.CPUMultiLoad.html">Orion.CPUMultiLoad</a></td>
+<td>Defined by relationship Orion.NodesHostsCPUMultiLoad (System.Hosting)</td>
+</tr>
+<tr>
+<td>MemoryMultiLoadHistory</td>
+<td><a href="Orion.MemoryMultiLoad.html">Orion.MemoryMultiLoad</a></td>
+<td>Defined by relationship Orion.NodesHostsMemoryMultiLoad (System.Hosting)</td>
+</tr>
+<tr>
+<td>LoadAverageHistory</td>
+<td><a href="Orion.LoadAverage.html">Orion.LoadAverage</a></td>
+<td>Defined by relationship Orion.NodesHostsLoadAverage (System.Hosting)</td>
+</tr>
+<tr>
+<td>Events</td>
+<td><a href="Orion.Events.html">Orion.Events</a></td>
+<td>Defined by relationship Orion.NodesHostsEvents (System.Reference)</td>
+</tr>
+<tr>
+<td>AlertObjects</td>
+<td><a href="Orion.AlertObjects.html">Orion.AlertObjects</a></td>
+<td>Defined by relationship Orion.NodesReferencesAlertObjects (System.Reference)</td>
+</tr>
+<tr>
+<td>ActiveAlerts</td>
+<td><a href="Orion.ActiveAlerts.html">Orion.ActiveAlerts</a></td>
+<td>Defined by relationship Orion.NodesHostsActiveAlerts (System.Reference)</td>
+</tr>
+<tr>
+<td>SNMPv3Credentials</td>
+<td><a href="Orion.SNMPv3Credentials.html">Orion.SNMPv3Credentials</a></td>
+<td>Defined by relationship Orion.NodesHostsSNMPv3Credentials (System.Hosting)</td>
+</tr>
+<tr>
+<td>CustomProperties</td>
+<td><a href="Orion.NodesCustomProperties.html">Orion.NodesCustomProperties</a></td>
+<td>Defined by relationship Orion.NodesHostsCustomProperties (System.Hosting)</td>
+</tr>
+<tr>
+<td>WebCommunityString</td>
+<td><a href="Orion.NodesWebCommunityStrings.html">Orion.NodesWebCommunityStrings</a></td>
+<td>Defined by relationship Orion.NodeHostsWebCommunityStrings (System.Hosting)</td>
+</tr>
+<tr>
+<td>Stats</td>
+<td><a href="Orion.NodesStats.html">Orion.NodesStats</a></td>
+<td>Defined by relationship Orion.NodesHostsNodesStats (System.Hosting)</td>
+</tr>
+<tr>
+<td>WebUri</td>
+<td><a href="Orion.NodeWebUri.html">Orion.NodeWebUri</a></td>
+<td>Defined by relationship Orion.NodesHostsWebUri (System.Hosting)</td>
+</tr>
+<tr>
+<td>ResponseTimeHistory</td>
+<td><a href="Orion.ResponseTime.html">Orion.ResponseTime</a></td>
+<td>Defined by relationship Orion.NodesHostsResponseTime (System.Hosting)</td>
+</tr>
+<tr>
+<td>Volumes</td>
+<td><a href="Orion.Volumes.html">Orion.Volumes</a></td>
+<td>Defined by relationship Orion.NodeHostsVolumes (System.Hosting)</td>
+</tr>
+<tr>
+<td>WorldMapPoint</td>
+<td><a href="Orion.WorldMap.Point.html">Orion.WorldMap.Point</a></td>
+<td>Defined by relationship Orion.NodesToWorldMapPoint (System.Reference)</td>
+</tr>
+<tr>
+<td>TechnologyPollingAssignments</td>
+<td><a href="Orion.TechnologyPollingAssignments.html">Orion.TechnologyPollingAssignments</a></td>
+<td>Defined by relationship Orion.NodesReferenceTechnologyPollingAssignments (System.Reference)</td>
+</tr>
+<tr>
+<td>NodeDowntimeHistory</td>
+<td><a href="Orion.NetObjectDowntime.html">Orion.NetObjectDowntime</a></td>
+<td>Defined by relationship Orion.NodesHostsNetObjectDowntime (System.Hosting)</td>
+</tr>
+<tr>
+<td>ForecastCapacity</td>
+<td><a href="Orion.NodesForecastCapacity.html">Orion.NodesForecastCapacity</a></td>
+<td>Defined by relationship Orion.NodesHostsForecastCapacity (System.Hosting)</td>
+</tr>
+<tr>
+<td>NodeIPAddresses</td>
+<td><a href="Orion.NodeIPAddresses.html">Orion.NodeIPAddresses</a></td>
+<td>Defined by relationship Orion.NodesRefersIPAddresses (System.Reference)</td>
+</tr>
+<tr>
+<td>OrionServer</td>
+<td><a href="Orion.OrionServers.html">Orion.OrionServers</a></td>
+<td>Defined by relationship Orion.NodeHostsOrionServers (System.Reference)</td>
+</tr>
+<tr>
+<td>UCSChassisViaBlades</td>
+<td><a href="Orion.UCS.Chassis.html">Orion.UCS.Chassis</a></td>
+<td>Defined by relationship Orion.UCS.BladeNodesRelianceChassis (System.Reliance)</td>
+</tr>
+<tr>
+<td>OrionUCSFans</td>
+<td><a href="Orion.HardwareHealth.BMC.Fans.html">Orion.HardwareHealth.BMC.Fans</a></td>
+<td>Defined by relationship Orion.NodeReferencesOrionUCSFans (System.Reference)</td>
+</tr>
+<tr>
+<td>OrionUCSPSUs</td>
+<td><a href="Orion.HardwareHealth.BMC.PSUs.html">Orion.HardwareHealth.BMC.PSUs</a></td>
+<td>Defined by relationship Orion.NodeReferencesOrionUCSPSUs (System.Reference)</td>
+</tr>
+<tr>
+<td>AssignedPolicies</td>
+<td><a href="Orion.PolicyEngine.AssignedPolicy.html">Orion.PolicyEngine.AssignedPolicy</a></td>
+<td>Defined by relationship Orion.PolicyEngine.NodesHostsAssignedPolicy (System.Hosting)</td>
+</tr>
+<tr>
+<td>AssignedRules</td>
+<td><a href="Orion.PolicyEngine.AssignedRule.html">Orion.PolicyEngine.AssignedRule</a></td>
+<td>Defined by relationship Orion.PolicyEngine.NodesHostsAssignedRules (System.Hosting)</td>
+</tr>
+<tr>
+<td>PCUs</td>
+<td><a href="Cortex.Orion.PowerControlUnit.html">Cortex.Orion.PowerControlUnit</a></td>
+<td>Defined by relationship Cortex.Orion.OrionNodeToPCUs (System.Hosting)</td>
+</tr>
+<tr>
+<td>CortexPCUs</td>
+<td><a href="Cortex.Orion.PowerControlUnit.html">Cortex.Orion.PowerControlUnit</a></td>
+<td>Defined by relationship Cortex.Orion.NodeToPCUs (System.Reference)</td>
+</tr>
+<tr>
+<td>Router</td>
+<td><a href="Orion.Routing.Router.html">Orion.Routing.Router</a></td>
+<td>Defined by relationship Orion.NodesHostsRouter (System.Hosting)</td>
+</tr>
+<tr>
+<td>VRFs</td>
+<td><a href="Orion.Routing.VRF.html">Orion.Routing.VRF</a></td>
+<td>Defined by relationship Orion.NodeHostsVRFs (System.Hosting)</td>
+</tr>
+<tr>
+<td>SCMNode</td>
+<td><a href="Orion.SCM.ServerConfiguration.html">Orion.SCM.ServerConfiguration</a></td>
+<td>Defined by relationship Orion.NodesHostsServerConfigurations (System.Hosting)</td>
+</tr>
+<tr>
+<td>SCMFimDisabledNode</td>
+<td><a href="Orion.SCM.FimDisabledNodes.html">Orion.SCM.FimDisabledNodes</a></td>
+<td>Defined by relationship Orion.NodesReferenceFimDisabledNodes (System.Reference)</td>
+</tr>
+<tr>
+<td>SdWanNodeRelyOrchestratorInfo</td>
+<td><a href="Orion.Nodes.html">Orion.Nodes</a></td>
+<td>Defined by relationship Orion.Rely.SdWan.NodeRelyOrchestratorInfo (System.Reliance)</td>
+</tr>
+<tr>
+<td>NodeScores</td>
+<td><a href="Orion.SecObs.Vulnerabilities.LastMatching.NodeScores.html">Orion.SecObs.Vulnerabilities.LastMatching.NodeScores</a></td>
+<td>Defined by relationship Orion.NodesHostsNodeScores (System.Hosting)</td>
+</tr>
+<tr>
+<td>NodeVlans</td>
+<td><a href="Orion.NodeVlans.html">Orion.NodeVlans</a></td>
+<td>Defined by relationship Orion.NodesHostsNodeVlans (System.Hosting)</td>
+</tr>
+<tr>
+<td>IPAddresses</td>
+<td><a href="Orion.UDT.IPAddressCurrent.html">Orion.UDT.IPAddressCurrent</a></td>
+<td>Defined by relationship Orion.NodesReferencesIPAddresses (System.Reference)</td>
+</tr>
+<tr>
+<td>IPAddressesHistory</td>
+<td><a href="Orion.UDT.IPAddressHistory.html">Orion.UDT.IPAddressHistory</a></td>
+<td>Defined by relationship Orion.NodesReferencesIPAddressesHistory (System.Reference)</td>
+</tr>
+<tr>
+<td>MACAddressInfo</td>
+<td><a href="Orion.UDT.MACAddressInfo.html">Orion.UDT.MACAddressInfo</a></td>
+<td>Defined by relationship Orion.NodesReferencesMACAddressInfo (System.Reference)</td>
+</tr>
+<tr>
+<td>UDTCapabilities</td>
+<td><a href="Orion.UDT.NodeCapability.html">Orion.UDT.NodeCapability</a></td>
+<td>Defined by relationship Orion.UDT.NodeHostsCapability (System.Hosting)</td>
+</tr>
+<tr>
+<td>MACCurrentInfo</td>
+<td><a href="Orion.UDT.MACCurrentInfo.html">Orion.UDT.MACCurrentInfo</a></td>
+<td>Defined by relationship Orion.NodesReferencesMACCurrentInfo (System.Reference)</td>
+</tr>
+<tr>
+<td>MACCurrentInformation</td>
+<td><a href="Orion.UDT.MACCurrentInformation.html">Orion.UDT.MACCurrentInformation</a></td>
+<td>Defined by relationship Orion.NodesReferencesMACCurrentInformation (System.Reference)</td>
+</tr>
+<tr>
+<td>Ports</td>
+<td><a href="Orion.UDT.Port.html">Orion.UDT.Port</a></td>
+<td>Defined by relationship Orion.UDT.NodeHostsPorts (System.Hosting)</td>
+</tr>
+<tr>
+<td>ConnectedMACsAndIPs</td>
+<td><a href="Orion.UDT.ConnectedMACsAndIPs.html">Orion.UDT.ConnectedMACsAndIPs</a></td>
+<td>Defined by relationship Orion.UDT.NodeConnectedMACsAndIPs (System.Reference)</td>
+</tr>
+<tr>
+<td>UnusedPorts</td>
+<td><a href="Orion.UDT.UnusedPorts.html">Orion.UDT.UnusedPorts</a></td>
+<td>Defined by relationship Orion.UDT.NodeUnusedPorts (System.Reference)</td>
+</tr>
+<tr>
+<td>NodeAllEndpoints</td>
+<td><a href="Orion.UDT.AllEndpoints.html">Orion.UDT.AllEndpoints</a></td>
+<td>Defined by relationship Orion.UDT.NodeReferencesAllEndpoints (System.Reference)</td>
+</tr>
+<tr>
+<td>NodeAllWirelessEndpoints</td>
+<td><a href="Orion.UDT.AllWirelessEndpoints.html">Orion.UDT.AllWirelessEndpoints</a></td>
+<td>Defined by relationship Orion.UDT.NodesReferencesAllWirelessEndpoints (System.Reference)</td>
+</tr>
+<tr>
+<td>NodeDeviceInventory</td>
+<td><a href="Orion.UDT.DeviceInventory.html">Orion.UDT.DeviceInventory</a></td>
+<td>Defined by relationship Orion.UDT.NodesReferencesDeviceInventory (System.Reference)</td>
+</tr>
+<tr>
+<td>CloudInstance</td>
+<td><a href="Orion.Cloud.Instances.html">Orion.Cloud.Instances</a></td>
+<td>Defined by relationship Orion.Cloud.NodesToInstances (System.Reliance)</td>
+</tr>
+<tr>
+<td>VCenter</td>
+<td><a href="Orion.VIM.VCenters.html">Orion.VIM.VCenters</a></td>
+<td>Defined by relationship Orion.VIM.NodesToVCenters (System.Reference)</td>
+</tr>
+<tr>
+<td>Host</td>
+<td><a href="Orion.VIM.Hosts.html">Orion.VIM.Hosts</a></td>
+<td>Defined by relationship Orion.VIM.NodesToHosts (System.Reference)</td>
+</tr>
+<tr>
+<td>VirtualMachine</td>
+<td><a href="Orion.VIM.VirtualMachines.html">Orion.VIM.VirtualMachines</a></td>
+<td>Defined by relationship Orion.VIM.NodesToVirtualMachines (System.Reference)</td>
+</tr>
+<tr>
+<td>VPNL2LTunnel</td>
+<td><a href="Orion.VPN.L2LTunnel.html">Orion.VPN.L2LTunnel</a></td>
+<td>Defined by relationship Orion.NodeReferencesVPNL2LTunnel (System.Reference)</td>
+</tr>
+<tr>
+<td>ASARemoteAccessDetail</td>
+<td><a href="Orion.ASA.RemoteAccessDetail.html">Orion.ASA.RemoteAccessDetail</a></td>
+<td>Defined by relationship Orion.NodeReferencesASARemoteAccessDetail (System.Reference)</td>
+</tr>
+<tr>
+<td>ASARemoteAccessSessions</td>
+<td><a href="Orion.ASA.RemoteAccessSessions.html">Orion.ASA.RemoteAccessSessions</a></td>
+<td>Defined by relationship Orion.NodeReferencesASARemoteAccessSessions (System.Reference)</td>
+</tr>
+<tr>
+<td>AccessPointsForWLHM</td>
+<td><a href="Orion.WirelessHeatMap.AccessPoints.html">Orion.WirelessHeatMap.AccessPoints</a></td>
+<td>Defined by relationship Orion.NodeHostsWirelessHeatMap.AccessPoints (System.Hosting)</td>
+</tr>
+<tr>
+<td>Controller</td>
+<td><a href="Orion.Packages.Wireless.Controllers.html">Orion.Packages.Wireless.Controllers</a></td>
+<td>Defined by relationship Orion.NodeHostsWirelessController (System.Hosting)</td>
+</tr>
+<tr>
+<td>AccessPoints</td>
+<td><a href="Orion.Packages.Wireless.AccessPoints.html">Orion.Packages.Wireless.AccessPoints</a></td>
+<td>Defined by relationship Orion.NodeHostsWirelessAccessPoints (System.Hosting)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="target-relationships">Target Relationships</h2>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ReplicationSource</td>
+<td><a href="Orion.APM.ActiveDirectory.Replication.html">Orion.APM.ActiveDirectory.Replication</a></td>
+<td>Defined by relationship Orion.APM.ActiveDirectory.ReplicationSourceNode (System.Reference)</td>
+</tr>
+<tr>
+<td>ReplicationDestination</td>
+<td><a href="Orion.APM.ActiveDirectory.Replication.html">Orion.APM.ActiveDirectory.Replication</a></td>
+<td>Defined by relationship Orion.APM.ActiveDirectory.ReplicationDestinationNode (System.Reference)</td>
+</tr>
+<tr>
+<td>RelyApplications</td>
+<td><a href="Orion.APM.Application.html">Orion.APM.Application</a></td>
+<td>Defined by relationship Orion.Rely.APM.ApplicationRelyOnNodes (System.Reliance)</td>
+</tr>
+<tr>
+<td>RelyVolumes</td>
+<td><a href="Orion.Volumes.html">Orion.Volumes</a></td>
+<td>Defined by relationship Orion.Rely.Core.VolumesRelyOnNodes (System.Reliance)</td>
+</tr>
+<tr>
+<td>RelyContainers</td>
+<td><a href="Orion.Cman.Container.html">Orion.Cman.Container</a></td>
+<td>Defined by relationship Orion.Rely.Cman.ContainersRelyOnNodes (System.Reliance)</td>
+</tr>
+<tr>
+<td>RelyDatabaseInstances</td>
+<td><a href="Orion.DPA.DatabaseInstance.html">Orion.DPA.DatabaseInstance</a></td>
+<td>Defined by relationship Orion.Rely.DPA.DatabaseInstanceRelyOnNodes (System.Reliance)</td>
+</tr>
+<tr>
+<td>SwitchPortEntriesAsSource</td>
+<td><a href="Orion.NPM.OrionSwitchPortMapping.html">Orion.NPM.OrionSwitchPortMapping</a></td>
+<td>Defined by relationship Orion.SwitchPortMappingReferencesSourceNode (System.Reference)</td>
+</tr>
+<tr>
+<td>SwitchPortEntriesAsMapped</td>
+<td><a href="Orion.NPM.OrionSwitchPortMapping.html">Orion.NPM.OrionSwitchPortMapping</a></td>
+<td>Defined by relationship Orion.SwitchPortMappingReferencesMappedNode (System.Reference)</td>
+</tr>
+<tr>
+<td>LogMessageSource</td>
+<td><a href="Orion.OLM.MessageSources.html">Orion.OLM.MessageSources</a></td>
+<td>Defined by relationship Orion.OLMMessageSourceOrionNodes (System.Reference)</td>
+</tr>
+<tr>
+<td>OLMAlertMessage</td>
+<td><a href="Orion.OLM.AlertMessage.html">Orion.OLM.AlertMessage</a></td>
+<td>Defined by relationship Orion.OLMAlertMessageNode (System.Reference)</td>
+</tr>
+<tr>
+<td>OrchestratorNode</td>
+<td><a href="Orion.Orchestrators.Nodes.html">Orion.Orchestrators.Nodes</a></td>
+<td>Defined by relationship Orion.Rely.Orchestrators.OrchestratorNodeRelyOnNode (System.Reliance)</td>
+</tr>
+<tr>
+<td>NodeRelyOrchestratorInfo</td>
+<td><a href="Orion.Orchestrators.Info.html">Orion.Orchestrators.Info</a></td>
+<td>Defined by relationship Orion.Rely.Orion.Orchestrators.InfoRelyOnNode (System.Reliance)</td>
+</tr>
+<tr>
+<td>ApiPollers</td>
+<td><a href="Orion.APIPoller.ApiPoller.html">Orion.APIPoller.ApiPoller</a></td>
+<td>Defined by relationship Orion.APIPoller.ApiPollerToNode (System.Reliance)</td>
+</tr>
+<tr>
+<td>OrionHwHBMCBlades</td>
+<td><a href="Orion.HardwareHealth.BMC.Blades.html">Orion.HardwareHealth.BMC.Blades</a></td>
+<td>Defined by relationship Orion.HardwareHealth.BMC.BladeReferenceNode (System.Reference)</td>
+</tr>
+<tr>
+<td>RackNodes</td>
+<td><a href="Orion.Nodes.html">Orion.Nodes</a></td>
+<td>Defined by relationship Orion.HardwareHealth.BMC.RackNodesRelianceControllerNode (System.Reliance)</td>
+</tr>
+<tr>
+<td>HwHBMCControllers</td>
+<td><a href="Orion.HardwareHealth.BMC.Controllers.html">Orion.HardwareHealth.BMC.Controllers</a></td>
+<td>Defined by relationship Orion.OrionHwhBMCControllersReferencesNodes (System.Reference)</td>
+</tr>
+<tr>
+<td>Engine</td>
+<td><a href="Orion.Engines.html">Orion.Engines</a></td>
+<td>Defined by relationship Orion.EngineHostsNodes (System.Reference)</td>
+</tr>
+<tr>
+<td>VendorInfo</td>
+<td><a href="Orion.Vendors.html">Orion.Vendors</a></td>
+<td>Defined by relationship Orion.VendorsHostsNodes (System.Reference)</td>
+</tr>
+<tr>
+<td>UCSChassisViaController</td>
+<td><a href="Orion.UCS.Chassis.html">Orion.UCS.Chassis</a></td>
+<td>Defined by relationship Orion.UCS.ChassisRelianceControllerNode (System.Reliance)</td>
+</tr>
+<tr>
+<td>OrionUCSFabric</td>
+<td><a href="Orion.UCS.Fabrics.html">Orion.UCS.Fabrics</a></td>
+<td>Defined by relationship Orion.UCS.FabricReferencesNode (System.Reference)</td>
+</tr>
+<tr>
+<td>NodeRelySdWanNodes</td>
+<td><a href="Orion.SdWan.Nodes.html">Orion.SdWan.Nodes</a></td>
+<td>Defined by relationship Orion.Rely.SdWan.NodeRelyOnNode (System.Reliance)</td>
+</tr>
+<tr>
+<td>OrchestratorInfoRelySdWanNode</td>
+<td><a href="Orion.Nodes.html">Orion.Nodes</a></td>
+<td>Defined by relationship Orion.Rely.SdWan.NodeRelyOrchestratorInfo (System.Reliance)</td>
+</tr>
+<tr>
+<td>NodeSpecAssignment</td>
+<td><a href="Orion.Stencil.NodeSpecAssignments.html">Orion.Stencil.NodeSpecAssignments</a></td>
+<td>Defined by relationship Orion.NodeSpecAssignmentsNode (System.Reference)</td>
+</tr>
+<tr>
+<td>RelyVCenter</td>
+<td><a href="Orion.VIM.VCenters.html">Orion.VIM.VCenters</a></td>
+<td>Defined by relationship Orion.Rely.VIM.VCenterRelyOnNode (System.Reliance)</td>
+</tr>
+<tr>
+<td>RelyHost</td>
+<td><a href="Orion.VIM.Hosts.html">Orion.VIM.Hosts</a></td>
+<td>Defined by relationship Orion.Rely.VIM.HostRelyOnNode (System.Reliance)</td>
+</tr>
+<tr>
+<td>RelyVirtualMachine</td>
+<td><a href="Orion.VIM.VirtualMachines.html">Orion.VIM.VirtualMachines</a></td>
+<td>Defined by relationship Orion.Rely.VIM.VirtualMachineRelyOnNode (System.Reliance)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="verbs">Verbs</h2>
+<h3 id="unmanage">Unmanage</h3>
+<p>Set the given node into maintenance mode so the node polling is disabled</p>
+<h4 id="access-control-1">Access control</h4>
+<table>
+<thead>
+<tr>
+<th>Operations</th>
+<th>Right</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>invoke</td>
+<td>allowUnmanage</td>
+</tr>
+</tbody>
+</table>
+<h3 id="remanage">Remanage</h3>
+<p>Enables polling on node if it was unmanaged before</p>
+<h4 id="access-control-2">Access control</h4>
+<table>
+<thead>
+<tr>
+<th>Operations</th>
+<th>Right</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>invoke</td>
+<td>allowUnmanage</td>
+</tr>
+</tbody>
+</table>
+<h3 id="pollnow">PollNow</h3>
+<p>It will poll node instance and update its information</p>
+<h4 id="access-control-3">Access control</h4>
+<table>
+<thead>
+<tr>
+<th>Operations</th>
+<th>Right</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>invoke</td>
+<td>manageNodes</td>
+</tr>
+</tbody>
+</table>
+<h3 id="pollstatusnow">PollStatusNow</h3>
+<p>It will poll node status and update it</p>
+<h4 id="access-control-4">Access control</h4>
+<table>
+<thead>
+<tr>
+<th>Operations</th>
+<th>Right</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>invoke</td>
+<td>manageNodes</td>
+</tr>
+</tbody>
+</table>
+<h3 id="rediscovernow">RediscoverNow</h3>
+<p>It will rediscover node instance and update its information</p>
+<h4 id="access-control-5">Access control</h4>
+<table>
+<thead>
+<tr>
+<th>Operations</th>
+<th>Right</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>invoke</td>
+<td>manageNodes</td>
+</tr>
+</tbody>
+</table>
+<h3 id="getsupportedmetrics">GetSupportedMetrics</h3>
+<p>Returns list of metrics to poll on Node entityNodeID of a target node</p>
+<h4 id="access-control-6">Access control</h4>
+<table>
+<thead>
+<tr>
+<th>Operations</th>
+<th>Right</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>invoke</td>
+<td>allowRealTimePolling</td>
+</tr>
+<tr>
+<td>invoke</td>
+<td>admin</td>
+</tr>
+</tbody>
+</table>
+<h3 id="startrealtimepolling">StartRealTimePolling</h3>
+<p>Starts realtime polling on Node entityNodeID of target NodeOwner identifier that owns this pollingProperties to poll on Node entityHow long until polling expires and stopsHow often should polling occur</p>
+<h4 id="access-control-7">Access control</h4>
+<table>
+<thead>
+<tr>
+<th>Operations</th>
+<th>Right</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>invoke</td>
+<td>allowRealTimePolling</td>
+</tr>
+<tr>
+<td>invoke</td>
+<td>admin</td>
+</tr>
+</tbody>
+</table>
+<h3 id="stoprealtimepolling">StopRealTimePolling</h3>
+<p>Stops realtime polling on Node entityNodeID of target nodeOwner identifier of existing pollingProperties to stop from polling on Node entity</p>
+<h4 id="access-control-8">Access control</h4>
+<table>
+<thead>
+<tr>
+<th>Operations</th>
+<th>Right</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>invoke</td>
+<td>allowRealTimePolling</td>
+</tr>
+<tr>
+<td>invoke</td>
+<td>admin</td>
+</tr>
+</tbody>
+</table>
+<h3 id="getcountofelementsperengineforlicensing">GetCountOfElementsPerEngineForLicensing</h3>
+<p>Returns count of used elements (per engine) for licensing</p>
+<h4 id="access-control-9">Access control</h4>
+<table>
+<thead>
+<tr>
+<th>Operations</th>
+<th>Right</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>invoke</td>
+<td>manageNodes</td>
+</tr>
+</tbody>
+</table>
+<h3 id="schedulelistresources">ScheduleListResources</h3>
+<p>Schedule one time List Resources discovery for given NodeId</p>
+<h4 id="access-control-10">Access control</h4>
+<table>
+<thead>
+<tr>
+<th>Operations</th>
+<th>Right</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>invoke</td>
+<td>manageNodes</td>
+</tr>
+</tbody>
+</table>
+<h3 id="schedulelistresourcesforaddress">ScheduleListResourcesForAddress</h3>
+<p>Schedule one time List Resources discovery for given ip addressIP address of a target device to list resources forPortCredentials typeCredentials propertiesDefine engine to be used for the discoverySpecify what snmp protocol version should be used</p>
+<h4 id="access-control-11">Access control</h4>
+<table>
+<thead>
+<tr>
+<th>Operations</th>
+<th>Right</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>invoke</td>
+<td>manageNodes</td>
+</tr>
+</tbody>
+</table>
+<h3 id="getscheduledlistresourcesstatus">GetScheduledListResourcesStatus</h3>
+<p>Get current result of discovery jobJob identifier to get status forProvide node id to identify engine running the discovery</p>
+<h4 id="access-control-12">Access control</h4>
+<table>
+<thead>
+<tr>
+<th>Operations</th>
+<th>Right</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>invoke</td>
+<td>manageNodes</td>
+</tr>
+</tbody>
+</table>
+<h3 id="getscheduledlistresourcesstatusbyengine">GetScheduledListResourcesStatusByEngine</h3>
+<p>Get current result of discovery jobJob identifier to get status forEngine id used to execute given discovery job</p>
+<h4 id="access-control-13">Access control</h4>
+<table>
+<thead>
+<tr>
+<th>Operations</th>
+<th>Right</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>invoke</td>
+<td>manageNodes</td>
+</tr>
+</tbody>
+</table>
+<h3 id="getlistresourcesresult">GetListResourcesResult</h3>
+<p>Get the result of List Resources discoveryJob identifier to get status forProvide node id to identify engine running the discovery</p>
+<h4 id="access-control-14">Access control</h4>
+<table>
+<thead>
+<tr>
+<th>Operations</th>
+<th>Right</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>invoke</td>
+<td>manageNodes</td>
+</tr>
+</tbody>
+</table>
+<h3 id="getlistresourcesresultbyengine">GetListResourcesResultByEngine</h3>
+<p>Get the result of List Resources discoveryJob identifier to get status forEngine id used to execute given discovery job</p>
+<h4 id="access-control-15">Access control</h4>
+<table>
+<thead>
+<tr>
+<th>Operations</th>
+<th>Right</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>invoke</td>
+<td>manageNodes</td>
+</tr>
+</tbody>
+</table>
+<h3 id="importselectedlistresourcesresult">ImportSelectedListResourcesResult</h3>
+<p>Import selected result of discovery</p>
+<h4 id="access-control-16">Access control</h4>
+<table>
+<thead>
+<tr>
+<th>Operations</th>
+<th>Right</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>invoke</td>
+<td>manageNodes</td>
+</tr>
+</tbody>
+</table>
+<h3 id="importlistresourcesresult">ImportListResourcesResult</h3>
+<p>Import all results found during discovery</p>
+<h4 id="access-control-17">Access control</h4>
+<table>
+<thead>
+<tr>
+<th>Operations</th>
+<th>Right</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>invoke</td>
+<td>manageNodes</td>
+</tr>
+</tbody>
+</table>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In this article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+      &copy; SolarWinds
+      
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

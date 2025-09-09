@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>NCM.RouteTable | Orion SDK Schemas </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="NCM.RouteTable | Orion SDK Schemas ">
+  
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"> 
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+  
+  <meta property="docfx:rel" content="../">
+  
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src=".././images/SolarWinds.Logo.png" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first=First data-prev=Previous data-next=Next data-last=Last></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="ncmroutetable">NCM.RouteTable</h1>
+
+<p>SolarWinds Information Service  2025.4 Schema Documentation</p>
+<p>Route tables inventory data.
+For valid Orion user with at least WebViewer NCM role. Read-only.</p>
+<h4 id="inheritance">Inheritance</h4>
+<p>↳ <a href="System.Entity.html">System.Entity</a></p>
+<h4 id="access-control">Access control</h4>
+<p>everyone</p>
+<h2 id="properties">Properties</h2>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Summary</th>
+<th>Access Control</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>EntityID</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">System.Int32</a></td>
+<td>The primary key and unique identifier of the record.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>InterfaceIndex</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">System.Int32</a></td>
+<td>The index value that uniquely identifies the local interface through which the next hop of this route should be reached. The interface identified by a particular value of this index is the same interface as identified by the same value of ifIndex.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>Destination</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">System.String</a></td>
+<td>The type of route. Note that the values direct(3) and indirect(4) refer to the notion of direct and indirect routing in the IP architecture. Setting this object to the value invalid(2) has the effect of invalidating the corresponding entry in the ipRouteTable object. That is, it effectively disassociates the destination identified with said entry from the route identified with said entry. It is an implementation-specific matter as to whether the agent removes an invalidated entry from the table.<br>Accordingly, management stations must be prepared to receive tabular information from agents that corresponds to entries not currently in use. Proper interpretation of such entries requires examination of the relevant ipRouteType object.<br>Possible Values:<br>* other(1)<br>* invalid(2)<br>* direct(3)<br>* indirect(4)</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>Mask</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">System.String</a></td>
+<td>The routing mechanism through which this route was learned. Inclusion of values for gateway routing protocols is not intended to imply that hosts should support those protocols.<br>Possible Values:<br>* other(1)<br>* local(2)<br>* netmgmt(3)<br>* icmp(4)<br>* egp(5)<br>* ggp(6)<br>* hello(7)<br>* rip(8)<br>* is-is(9)<br>* es-is(10)<br>* ciscoIgrp(11)<br>* bbnSpfIgp(12)<br>* ospf(13)<br>* bgp(14)</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>NextHop</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">System.String</a></td>
+<td>The number of seconds since this route was last updated or otherwise determined to be correct. Note that no semantics of 'too old' can be implied except through knowledge of the routing protocol by which the route was learned.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>RouteType</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">System.String</a></td>
+<td>The IP address of the next hop of this route. (In the case of a route bound to an interface that is realized via a broadcast media, the value of this field is the agent's IP address on that interface.)</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>RouteProtocol</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">System.String</a></td>
+<td>The primary routing metric for this route. The semantics of this metric are determined by the routing-protocol specified in the route's ipRouteProto value. If this metric is not used, its value should be set to -1.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>RouteAge</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">System.Int32</a></td>
+<td>An alternate routing metric for this route. The semantics of this metric are determined by the routing-protocol specified in the route's ipRouteProto value. If this metric is not used, its value should be set to -1.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>NextHopAS</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">System.Int32</a></td>
+<td>An alternate routing metric for this route. The semantics of this metric are determined by the routing-protocol specified in the route's ipRouteProto value. If this metric is not used, its value should be set to -1.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>Metric1</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">System.Int32</a></td>
+<td>An alternate routing metric for this route. The semantics of this metric are determined by the routing-protocol specified in the route's ipRouteProto value. If this metric is not used, its value should be set to -1.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>Metric2</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">System.Int32</a></td>
+<td>An alternate routing metric for this route. The semantics of this metric are determined by the routing-protocol specified in the route's ipRouteProto value. If this metric is not used, its value should be set to -1.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>Metric3</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">System.Int32</a></td>
+<td>The index value that uniquely identifies the local interface through which the next hop of this route should be reached. The interface identified by a particular value of this index is the same interface as identified by the same value of ifIndex.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>Metric4</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">System.Int32</a></td>
+<td>Indicate the mask to be logical-ANDed with the destination address before being compared to the value in the ipRouteDest field. For those systems that do not support arbitrary subnet masks, an agent constructs the value of the ipRouteMask by determining whether the value of the correspondent ipRouteDest field belong to a class-A, B, or C network, and then using one of:<br>* mask network<br>* 255.0.0.0 class-A<br>* 255.255.0.0 class-B<br>* 255.255.255.0 class-C<br>If the value of the ipRouteDest is 0.0.0.0 (a default route) , then the mask value is also 0.0.0.0. Note that all IP routing subsystems implicitly use this mechanism.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>Metric5</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">System.Int32</a></td>
+<td>The type of route. Note that the values direct(3) and indirect(4) refer to the notion of direct and indirect routing in the IP architecture.<br>Setting this object to the value invalid(2) has the effect of invalidating the corresponding entry in the ipRouteTable object. That is, it effectively disassociates the destination identified with said entry from the route identified with said entry. It is an implementation-specific matter as to whether the agent removes an invalidated entry from the table. Accordingly, management stations must be prepared to receive tabular information from agents that corresponds to entries not currently in use. Proper interpretation of such entries requires examination of the relevant ipRouteType object.<br>Possible Values:<br>* other(1)<br>* invalid(2)<br>* direct(3)<br>* indirect(4)</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>InterfaceID</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.guid">System.Guid</a></td>
+<td>Indicate the mask to be logical-ANDed with the destination address before being compared to the value in the ipRouteDest field.<br>For those systems that do not support arbitrary subnet masks, an agent constructs the value of the ipRouteMask by determining whether the value of the correspondent ipRouteDest field belong to a class-A , B , or C network , and then using one of:<br>* mask network<br>* 255.0.0.0 class-A<br>* 255.255.0.0 class-B<br>* 255.255.255.0 class-C<br>If the value of the ipRouteDest is 0.0.0.0 (a default route), then the mask value is also 0.0.0.0. Note that all IP routing subsystems implicitly use this mechanism.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>NodeID</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.guid">System.Guid</a></td>
+<td>The unique identifier of a network node subject to configuration actions.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>LastDiscovery</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.datetime">System.DateTime</a></td>
+<td>Date and time NCM last discovered the device during inventory.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>FirstDiscovery</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.datetime">System.DateTime</a></td>
+<td>Date and time NCM first discovered the device during inventory.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>Missing</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">System.Boolean</a></td>
+<td>Deprecated. Not used.</td>
+<td>everyone</td>
+</tr>
+</tbody>
+</table>
+<h2 id="target-relationships">Target Relationships</h2>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Interfaces</td>
+<td><a href="NCM.Interfaces.html">NCM.Interfaces</a></td>
+<td>Defined by relationship NCM.InterfacesRefRouteTable (System.Reference)</td>
+</tr>
+<tr>
+<td>NodeProperties</td>
+<td><a href="NCM.NodeProperties.html">NCM.NodeProperties</a></td>
+<td>Defined by relationship NCM.NodePropertiesRefRouteTable (System.Reference)</td>
+</tr>
+<tr>
+<td>Node</td>
+<td><a href="NCM.Nodes.html">NCM.Nodes</a></td>
+<td>Defined by relationship NCM.NodeHostsRouteTable (System.Hosting)</td>
+</tr>
+</tbody>
+</table>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In this article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+      &copy; SolarWinds
+      
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

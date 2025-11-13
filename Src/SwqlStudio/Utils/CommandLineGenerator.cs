@@ -11,6 +11,8 @@ namespace SwqlStudio.Utils
     {
         public const int LegacyRestPort = 17778;
         public const int RestPort = 17774;
+        
+        private const string CredentialsPlaceholder = "YOUR_USERNAME:YOUR_PASSWORD";
 
         public static string GetQueryForCurlCmd(string query, ConnectionInfo connection, PropertyBag parameters)
         {
@@ -35,13 +37,14 @@ namespace SwqlStudio.Utils
         {
             Func<string, string> q = QuoteForPowerShell;
             var paramsObjectString = GetParamsObjectInPowershellFormat(parameters);
-            return $"Get-SwisData (Connect-Swis -Hostname {connection.Server} -Username {q(connection.UserName)} " +
-                   $"-Password {q(connection.Password)}) -Query {q(CollapseWhitespace(query))} -Parameters {paramsObjectString}";
+            var credsParts = CredentialsPlaceholder.Split(':');
+            return $"Get-SwisData (Connect-Swis -Hostname {connection.Server} -Username {q(credsParts[0])} " +
+                   $"-Password {q(credsParts[1])}) -Query {q(CollapseWhitespace(query))} -Parameters {paramsObjectString}";
         }
 
         private static string GetQueryForCurlCmdInternal(string query, ConnectionInfo connection, PropertyBag parameters, int port)
         {
-            string creds = QuoteForCmd($"{connection.UserName}:{connection.Password}");
+            string creds = QuoteForCmd(CredentialsPlaceholder);
             if (!parameters.Any())
             {
                 return $"curl.exe -k -u {creds} {GetUrlForQuery(query, connection, port)}";
@@ -62,12 +65,11 @@ namespace SwqlStudio.Utils
 
         private static string GetQueryForCurlBashInternal(string query, ConnectionInfo connection, PropertyBag parameters, int port)
         {
-            string creds = $"{connection.UserName}:{connection.Password}";
             var url = GetUrlForQuery(query, connection, port);
             Func<string, string> q = QuoteForBash;
             if (!parameters.Any())
             {
-                return $"curl -k -u {QuoteForBash(creds)} {QuoteForBash(url)}";
+                return $"curl -k -u {QuoteForBash(CredentialsPlaceholder)} {QuoteForBash(url)}";
             }
             else
             {

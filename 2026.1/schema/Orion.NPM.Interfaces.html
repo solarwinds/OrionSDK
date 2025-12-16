@@ -1,0 +1,1189 @@
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Orion.NPM.Interfaces | Orion SDK Schemas </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Orion.NPM.Interfaces | Orion SDK Schemas ">
+  
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"> 
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+  
+  <meta property="docfx:rel" content="../">
+  
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src=".././images/SolarWinds.Logo.png" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first=First data-prev=Previous data-next=Next data-last=Last></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="orionnpminterfaces">Orion.NPM.Interfaces</h1>
+
+<p>SolarWinds Information Service  2026.1 Schema Documentation</p>
+<p>This entity presents information about Node interfaces</p>
+<h4 id="inheritance">Inheritance</h4>
+<p>↳ <a href="System.Entity.html">System.Entity</a></p>
+<p>↳ <a href="System.DashboardEntity.html">System.DashboardEntity</a></p>
+<p>↳ <a href="System.ManagedEntity.html">System.ManagedEntity</a></p>
+<h4 id="access-control">Access control</h4>
+<table>
+<thead>
+<tr>
+<th>Operations</th>
+<th>Right</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>read</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>read,invoke</td>
+<td>allowRealTimePolling</td>
+</tr>
+<tr>
+<td>create,read,update,delete,invoke</td>
+<td>manageNodes</td>
+</tr>
+</tbody>
+</table>
+<h2 id="properties">Properties</h2>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Summary</th>
+<th>Access Control</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>NodeID</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">System.Int32</a></td>
+<td>ID of parent node.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>InterfaceID</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">System.Int32</a></td>
+<td>Interface ID. Primary key.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>ObjectSubType</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">System.String</a></td>
+<td>String representation of object sub type: None, SNMP, WMI, ICMP, Agent.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>Name</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">System.String</a></td>
+<td>String value that contains the name of the agent.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>Index</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">System.Int32</a></td>
+<td>Number value that uniquely identifies the interface.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>Icon</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">System.String</a></td>
+<td>String value containing a file name of interface Icon. Example:6.gif.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>Type</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">System.Int32</a></td>
+<td>Integer value indicating interface type, stored in system in table InterfaceTypes.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>TypeName</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">System.String</a></td>
+<td>String value indicating interface type name. Example:ethernetCsmacd.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>TypeDescription</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">System.String</a></td>
+<td>String value indicating interface type description. Example:Ethernet.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>Speed</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">System.Double</a></td>
+<td>Interface's current bandwidth in bits per second.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>MTU</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">System.Int32</a></td>
+<td>The size of the largest packet that can be sent or received on the interface, specified in octets.<br>      For interfaces that are used for transmitting network datagrams,<br>      this is the size of the largest network datagram that can be sent on the interface.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>LastChange</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.datetime">System.DateTime</a></td>
+<td>Timestamp when interface state changed last time.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>PhysicalAddress</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">System.String</a></td>
+<td>String value of physical (MAC) address of interface.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>AdminStatus</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int16">System.Int16</a></td>
+<td>Integer value indicating the desired state of the interface.<br>      The testing(3) state indicates that no operational packets can be passed.<br>      When a managed system initializes, all interfaces start with AdminStatus in the down(2) state.<br>      As a result of either explicit management action or per configuration information retained by the managed system,<br>      AdminStatus is then changed to either the up (1) or testing (3) states (or remains in the down (2) state).<br>      Possible Values:<br>      * Unknown = 0<br>      * Up = 1<br>      * Down = 2<br>      * Testing = 3.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>OperStatus</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int16">System.Int16</a></td>
+<td>The current operational state of the interface.<br>      The testing (3) state indicates that no operational packets can be passed.<br>      If AdminStatus is down (2) then OperStatus should be down (2).<br>      If AdminStatus is changed to up (1) then OperStatus should change to up (1) if the interface is ready to transmit and receive network traffic;<br>      it should change to dormant(5) if the interface is waiting for external actions (such as a serial line waiting for an incoming connection);<br>      it should remain in the down (2) state if and only if there is a fault that prevents it from going to the up (1) state.<br>      Possible Values:<br>      * Up = 1<br>      * Down = 2<br>      * Testing = 3<br>      * Unknown = 4<br>      * Dormant = 5<br>      * NotPresent = 6<br>      * LowerLayerDown = 7</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>StatusIcon</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">System.String</a></td>
+<td>String value containing a file name of interface status Icon. Example:Unknown.gif.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>InBandwidth</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">System.Double</a></td>
+<td>Interface's current IN bandwidth in bits per second that can be set manually.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>OutBandwidth</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">System.Double</a></td>
+<td>Interface's current Out bandwidth in bits per second that can be set manually.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>Caption</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">System.String</a></td>
+<td>The string value that contains interface caption. Example:Local Netflow Source.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>FullName</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">System.String</a></td>
+<td>The string value that contains interface full name.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>Outbps</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">System.Single</a></td>
+<td>Current Outbound traffic, bits per second.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>Inbps</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">System.Single</a></td>
+<td>Current Inbound traffic, bits per second.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>Bps</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">System.Double</a></td>
+<td>Current traffic, bits per second.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>OutPercentUtil</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">System.Single</a></td>
+<td>Outbound interface utilization in percents.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>InPercentUtil</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">System.Single</a></td>
+<td>Inbound interface utilization in percents.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>PercentUtil</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">System.Double</a></td>
+<td>Interface utilization in percents.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>OutPps</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">System.Single</a></td>
+<td>Current Outbound traffic, packets per second.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>InPps</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">System.Single</a></td>
+<td>Current Inbound traffic, packets per second.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>InPktSize</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int16">System.Int16</a></td>
+<td>Inbound packet size in bytes.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>OutPktSize</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int16">System.Int16</a></td>
+<td>Outbound packet size in bytes.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>OutUcastPps</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">System.Single</a></td>
+<td>Current outbound unicast traffic, packets per second.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>OutMcastPps</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">System.Single</a></td>
+<td>Current outbound multicast traffic, packets per second.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>InUcastPps</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">System.Single</a></td>
+<td>Current inbound unicast traffic, packets per second.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>InMcastPps</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">System.Single</a></td>
+<td>Current inbound multicast traffic, packets per second.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>InDiscardsThisHour</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">System.Single</a></td>
+<td>Count of discarded inbound packets for this hour.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>InDiscardsToday</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">System.Single</a></td>
+<td>Count of discarded inbound packets for today.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>InErrorsThisHour</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">System.Single</a></td>
+<td>Count of inbound packets with errors for this hour.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>InErrorsToday</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">System.Single</a></td>
+<td>Count of inbound packets with errors for today.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>OutDiscardsThisHour</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">System.Single</a></td>
+<td>Count of discarded outbound packets for this hour.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>OutDiscardsToday</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">System.Single</a></td>
+<td>Count of discarded outbound packets for today.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>OutErrorsThisHour</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">System.Single</a></td>
+<td>Count of outbound packets with errors for this hour.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>OutErrorsToday</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">System.Single</a></td>
+<td>Count of outbound packets with errors for today.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>CRCAlignErrorsThisHour</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">System.Single</a></td>
+<td>Count of CRCAlignErrors (Cyclic Redundancy Check) on interface for this hour.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>CRCAlignErrorsToday</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">System.Single</a></td>
+<td>Count of CRCAlignError (Cyclic Redundancy Check) on interface for today.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>LateCollisionsThisHour</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">System.Single</a></td>
+<td>Count of LateCollisions on interface for this hour..</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>LateCollisionsToday</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">System.Single</a></td>
+<td>Count of LateCollisions on interface for today..</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>MaxInBpsToday</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">System.Single</a></td>
+<td>Max value of Inbound traffic for interface for today, bits per second..</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>MaxInBpsTime</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.datetime">System.DateTime</a></td>
+<td>Max value of Inbound traffic for interface, bits per second..</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>MaxOutBpsToday</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">System.Single</a></td>
+<td>Max value of Outbound traffic for today, bits per second.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>MaxOutBpsTime</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.datetime">System.DateTime</a></td>
+<td>Timestamp when maximum value of Outbound traffic was reached.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>Counter64</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.char">System.Char</a></td>
+<td>Char value that indicates if interface supports 64-bit counters. Example:'Y','N'.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>LastSync</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.datetime">System.DateTime</a></td>
+<td>Timestamp when interface data was sync.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>Alias</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">System.String</a></td>
+<td>This object is an 'alias' name for the interface as specified by a network manager, and provides a non-volatile 'handle' for the interface.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>IfName</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">System.String</a></td>
+<td>The textual name of the interface. The value of this object should be the name of the interface as assigned by the local<br>      device and should be suitable for use in commands entered at the device's 'console'.<br>      This might be a text name, such as 'le0' or a simple port number, such as '1', depending on the interface naming syntax of the device.<br>      If several entries in the ifTable together represent a single interface as named by the device, then each entry has the same value of ifName.<br>      If there is no local name, or this object is otherwise not applicable, then this object contains a 0-length string..</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>Severity</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">System.Int32</a></td>
+<td>Severity of Interface. When the Status property is changed on the Interface,<br>      Severity is also affected. If status is Down, Severity is 1000 (Down),<br>      when status is Unknows or Warning, Severity is 1 (Warning),<br>      everything else Severity is 0.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>CustomBandwidth</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">System.Boolean</a></td>
+<td>Indicates if interface is configured to use custom bandwidth value.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>CustomPollerLastStatisticsPoll</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.datetime">System.DateTime</a></td>
+<td>Timestamp when interface statistics was polled last time by custom poller.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>PollInterval</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">System.Int32</a></td>
+<td>Interval of polling interface in seconds.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>NextPoll</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.datetime">System.DateTime</a></td>
+<td>Timestamp when interface will be polled next time.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>RediscoveryInterval</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">System.Int32</a></td>
+<td>Interval of rediscovery interface in minutes.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>NextRediscovery</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.datetime">System.DateTime</a></td>
+<td>Timestamp when interface will be rediscovered next time.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>StatCollection</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">System.Int32</a></td>
+<td>Interval of collecting statistics for interface in minutes.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>UnPluggable</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">System.Boolean</a></td>
+<td>Indicates if interface is unpluggable.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>InterfaceSpeed</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">System.Double</a></td>
+<td>Interface's current bandwidth in bits per second.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>InterfaceCaption</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">System.String</a></td>
+<td>The string value that contains interface caption.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>InterfaceType</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">System.Int32</a></td>
+<td>Integer value indicating interface type, stored in system in table InterfaceTypes.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>InterfaceSubType</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">System.Int32</a></td>
+<td>Integer value indicating interface SUB type, stored in system in table InterfaceTypes.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>MAC</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">System.String</a></td>
+<td>MAC address of interface.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>InterfaceName</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">System.String</a></td>
+<td>Name of interface.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>InterfaceIcon</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">System.String</a></td>
+<td>String value containing a file name of interface Icon. Example:6.gif.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>InterfaceTypeName</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">System.String</a></td>
+<td>String value indicating interface type name.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>AdminStatusLED</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">System.String</a></td>
+<td>String value containing a file name of interface Admin status Icon. Example:'Up.gif'.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>OperStatusLED</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">System.String</a></td>
+<td>String value containing a file name of interface Oper status Icon. Example:'Up.gif'.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>InterfaceAlias</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">System.String</a></td>
+<td>This object is an 'alias' name for the interface as specified by a network manager, and provides a non-volatile<br>      'handle' for the interface. Aligns with Alias field.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>InterfaceIndex</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">System.Int32</a></td>
+<td>Number value that uniquely identifies the interface. Aligns with Index field.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>InterfaceLastChange</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.datetime">System.DateTime</a></td>
+<td>Timestamp when interface state changed last time by Collector.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>InterfaceMTU</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">System.Int32</a></td>
+<td>The size of the largest packet that can be sent or received on the interface, specified in octets.<br>      For interfaces that are used for transmitting network datagrams,<br>      this is the size of the largest network datagram that can be sent on the interface.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>InterfaceTypeDescription</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">System.String</a></td>
+<td>String value indicating interface type description.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>OrionIdPrefix</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">System.String</a></td>
+<td>Orion id prefix. Example:'I:'.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>OrionIdColumn</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">System.String</a></td>
+<td>Column name that contains Orion object ID InterfaceID.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>DuplexMode</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">System.Int32</a></td>
+<td>Specifies if interface supports duplex mode.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>SkippedPollingCycles</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">System.Int32</a></td>
+<td>Number of skipped polling cycles.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>MinutesSinceLastSync</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">System.Int32</a></td>
+<td>Number of minutes since last sync.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>Status</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">System.Int32</a></td>
+<td>Status of interface. Status is calculated from the AdminStatus and OperStatus properties.<br>      Possible Values:<br>      * Unknown = 0<br>      * Up = 1<br>      * Down = 2<br>      * Warning = 3<br>      * Shutdown = 4<br>      * Unmanaged = 9<br>      * Unplugged = 10<br>      * Unreachable = 12.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>InterfaceResponding</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">System.Boolean</a></td>
+<td>States if interface is responding. If status is Unknown, then 0 else 1.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>Description</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">System.String</a></td>
+<td>Description of interface.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>DetailsUrl</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">System.String</a></td>
+<td>Url of interface details page.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>ObsoleteDataCurrentSettingValue</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">System.Int32</a></td>
+<td>Number of polling intervals before Interfaces data is considered obsolete. Default value is 3.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>ObsoleteDataFeatureStatus</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">System.Int32</a></td>
+<td>Enables to turn the feature Obsolete Interface data on or off. Default value is 1 (on).</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>HasObsoleteData</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">System.Boolean</a></td>
+<td>Indicator that states if interface data is obsolete: 1 if interfase data is obsolete, otherwise 0.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>ModernIcon</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">System.String</a></td>
+<td>Nova icon name for the entity.</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>StatusDescription</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">System.String</a></td>
+<td></td>
+<td>everyone</td>
+</tr>
+</tbody>
+</table>
+<h2 id="source-relationships">Source Relationships</h2>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>OutApplicationTcpConnections</td>
+<td><a href="Orion.APM.ApplicationTcpConnection.html">Orion.APM.ApplicationTcpConnection</a></td>
+<td>Defined by relationship Orion.APM.ApplicationTcpConnectionReferencesClientInterface (System.Reference)</td>
+</tr>
+<tr>
+<td>InApplicationTcpConnections</td>
+<td><a href="Orion.APM.ApplicationTcpConnection.html">Orion.APM.ApplicationTcpConnection</a></td>
+<td>Defined by relationship Orion.APM.ApplicationTcpConnectionReferencesServerInterface (System.Reference)</td>
+</tr>
+<tr>
+<td>Anomalies</td>
+<td><a href="Orion.AIIM.Orion_NPM_Interfaces_Anomalies.html">Orion.AIIM.Orion_NPM_Interfaces_Anomalies</a></td>
+<td>Defined by relationship Orion.AIIM.Orion_NPM_Interfaces_Anomalies_Relation (System.Hosting)</td>
+</tr>
+<tr>
+<td>ASAInterface</td>
+<td><a href="Orion.ASA.Interfaces.html">Orion.ASA.Interfaces</a></td>
+<td>Defined by relationship Orion.InterfaceHostsASAInterface (System.Hosting)</td>
+</tr>
+<tr>
+<td>CBQoSPolicies</td>
+<td><a href="Orion.Netflow.CBQoSPolicy.html">Orion.Netflow.CBQoSPolicy</a></td>
+<td>Defined by relationship Orion.Netflow.InterfaceReferencesCBQoSPolicy (System.Reference)</td>
+</tr>
+<tr>
+<td>CBQoSSource</td>
+<td><a href="Orion.Netflow.CBQoSSource.html">Orion.Netflow.CBQoSSource</a></td>
+<td>Defined by relationship Orion.Netflow.InterfaceReferencesCBQoSSource (System.Reference)</td>
+</tr>
+<tr>
+<td>StatusInfo</td>
+<td><a href="Orion.StatusInfo.html">Orion.StatusInfo</a></td>
+<td>Defined by relationship Orion.NPM.InterfaceToStatusInfo (System.Reference)</td>
+</tr>
+<tr>
+<td>CustomProperties</td>
+<td><a href="Orion.NPM.InterfacesCustomProperties.html">Orion.NPM.InterfacesCustomProperties</a></td>
+<td>Defined by relationship Orion.NPM.InterfaceHostsCustomProperties (System.Hosting)</td>
+</tr>
+<tr>
+<td>InErrorsDiscardsThreshold</td>
+<td><a href="Orion.NPM.InErrorsDiscardsThreshold.html">Orion.NPM.InErrorsDiscardsThreshold</a></td>
+<td>Defined by relationship Orion.NPM.InErrorsDiscardsThreshold (System.Hosting)</td>
+</tr>
+<tr>
+<td>OutErrorsDiscardsThreshold</td>
+<td><a href="Orion.NPM.OutErrorsDiscardsThreshold.html">Orion.NPM.OutErrorsDiscardsThreshold</a></td>
+<td>Defined by relationship Orion.NPM.OutErrorsDiscardsThreshold (System.Hosting)</td>
+</tr>
+<tr>
+<td>InPercentUtilizationThreshold</td>
+<td><a href="Orion.NPM.InPercentUtilizationThreshold.html">Orion.NPM.InPercentUtilizationThreshold</a></td>
+<td>Defined by relationship Orion.NPM.InPercentUtilizationThreshold (System.Hosting)</td>
+</tr>
+<tr>
+<td>OutPercentUtilizationThreshold</td>
+<td><a href="Orion.NPM.OutPercentUtilizationThreshold.html">Orion.NPM.OutPercentUtilizationThreshold</a></td>
+<td>Defined by relationship Orion.NPM.OutPercentUtilizationThreshold (System.Hosting)</td>
+</tr>
+<tr>
+<td>InterfaceDowntimeHistory</td>
+<td><a href="Orion.NPM.InterfaceNetObjectDowntime.html">Orion.NPM.InterfaceNetObjectDowntime</a></td>
+<td>Defined by relationship Orion.NPM.InterfaceHostsNetObjectDowntime (System.Hosting)</td>
+</tr>
+<tr>
+<td>Errors</td>
+<td><a href="Orion.NPM.InterfaceErrors.html">Orion.NPM.InterfaceErrors</a></td>
+<td>Defined by relationship Orion.NPM.InterfacesHostsInterfaceErrors (System.Hosting)</td>
+</tr>
+<tr>
+<td>Traffic</td>
+<td><a href="Orion.NPM.InterfaceTraffic.html">Orion.NPM.InterfaceTraffic</a></td>
+<td>Defined by relationship Orion.NPM.InterfacesHostsInterfaceTraffic (System.Hosting)</td>
+</tr>
+<tr>
+<td>WebUri</td>
+<td><a href="Orion.NPM.InterfaceWebUri.html">Orion.NPM.InterfaceWebUri</a></td>
+<td>Defined by relationship Orion.NPM.InterfacesHostsWebUri (System.Hosting)</td>
+</tr>
+<tr>
+<td>Availability</td>
+<td><a href="Orion.NPM.InterfaceAvailability.html">Orion.NPM.InterfaceAvailability</a></td>
+<td>Defined by relationship Orion.NPM.InterfacesHostsInterfaceAvailability (System.Reference)</td>
+</tr>
+<tr>
+<td>InterfacePortMaps</td>
+<td><a href="Orion.NodePortInterfaceMap.html">Orion.NodePortInterfaceMap</a></td>
+<td>Defined by relationship Orion.NPM.InterfacesReferencesNodePortInterfaceMaps (System.Reference)</td>
+</tr>
+<tr>
+<td>IPAddress</td>
+<td><a href="Orion.NodeIPAddresses.html">Orion.NodeIPAddresses</a></td>
+<td>Defined by relationship Orion.NPM.InterfaceIPAddress (System.Reference)</td>
+</tr>
+<tr>
+<td>ForecastCapacity</td>
+<td><a href="Orion.NPM.InterfacesForecastCapacity.html">Orion.NPM.InterfacesForecastCapacity</a></td>
+<td>Defined by relationship Orion.NPM.InterfacesHostsForecastCapacity (System.Hosting)</td>
+</tr>
+<tr>
+<td>VoIPCallManager</td>
+<td><a href="Orion.IpSla.CCMMonitoring.html">Orion.IpSla.CCMMonitoring</a></td>
+<td>Defined by relationship Orion.Ipsla.CCMMonitoringReferencesInterfaces (System.Reference)</td>
+</tr>
+<tr>
+<td>VoIPInterface</td>
+<td><a href="Orion.IpSla.InfrastructureNodes.html">Orion.IpSla.InfrastructureNodes</a></td>
+<td>Defined by relationship Orion.Ipsla.InfrastructureNodesReferencesInterfaces (System.Reference)</td>
+</tr>
+<tr>
+<td>MulticastInterface</td>
+<td><a href="Orion.NPM.MulticastRouting.Interfaces.html">Orion.NPM.MulticastRouting.Interfaces</a></td>
+<td>Defined by relationship Orion.NPM.MulticastRouting.InterfaceHostsMulticastInterface (System.Hosting)</td>
+</tr>
+<tr>
+<td>IngressFlows</td>
+<td><a href="Orion.Netflow.Flows.html">Orion.Netflow.Flows</a></td>
+<td>Defined by relationship Orion.Netflow.IngressInterfacesReferencesFlows (System.Reference)</td>
+</tr>
+<tr>
+<td>EgressFlows</td>
+<td><a href="Orion.Netflow.Flows.html">Orion.Netflow.Flows</a></td>
+<td>Defined by relationship Orion.Netflow.EgressInterfacesReferencesFlows (System.Reference)</td>
+</tr>
+<tr>
+<td>IngressFlowsByAdvancedApplication</td>
+<td><a href="Orion.Netflow.FlowsByAdvancedApplication.html">Orion.Netflow.FlowsByAdvancedApplication</a></td>
+<td>Defined by relationship Orion.Netflow.IngressInterfacesReferencesFlowsByAdvancedApplication (System.Reference)</td>
+</tr>
+<tr>
+<td>EgressFlowsByAdvancedApplication</td>
+<td><a href="Orion.Netflow.FlowsByAdvancedApplication.html">Orion.Netflow.FlowsByAdvancedApplication</a></td>
+<td>Defined by relationship Orion.Netflow.EgressInterfacesReferencesFlowsByAdvancedApplication (System.Reference)</td>
+</tr>
+<tr>
+<td>IngressFlows</td>
+<td><a href="Orion.Netflow.FlowsByApplication.html">Orion.Netflow.FlowsByApplication</a></td>
+<td>Defined by relationship Orion.Netflow.IngressInterfacesReferencesFlowsByApplication (System.Reference)</td>
+</tr>
+<tr>
+<td>EgressFlows</td>
+<td><a href="Orion.Netflow.FlowsByApplication.html">Orion.Netflow.FlowsByApplication</a></td>
+<td>Defined by relationship Orion.Netflow.EgressInterfacesReferencesFlowsByApplication (System.Reference)</td>
+</tr>
+<tr>
+<td>IngressFlowsByIP</td>
+<td><a href="Orion.Netflow.FlowsByIP.html">Orion.Netflow.FlowsByIP</a></td>
+<td>Defined by relationship Orion.Netflow.IngressInterfacesReferencesFlowsByIP (System.Reference)</td>
+</tr>
+<tr>
+<td>EgressFlowsByIP</td>
+<td><a href="Orion.Netflow.FlowsByIP.html">Orion.Netflow.FlowsByIP</a></td>
+<td>Defined by relationship Orion.Netflow.EgressInterfacesReferencesFlowsByIP (System.Reference)</td>
+</tr>
+<tr>
+<td>IngressFlowsByHostname</td>
+<td><a href="Orion.Netflow.FlowsByHostname.html">Orion.Netflow.FlowsByHostname</a></td>
+<td>Defined by relationship Orion.Netflow.IngressInterfacesReferencesFlowsByHostname (System.Reference)</td>
+</tr>
+<tr>
+<td>EgressFlowsByHostname</td>
+<td><a href="Orion.Netflow.FlowsByHostname.html">Orion.Netflow.FlowsByHostname</a></td>
+<td>Defined by relationship Orion.Netflow.EgressInterfacesReferencesFlowsByHostname (System.Reference)</td>
+</tr>
+<tr>
+<td>IngressFlowsByAS</td>
+<td><a href="Orion.Netflow.FlowsByAS.html">Orion.Netflow.FlowsByAS</a></td>
+<td>Defined by relationship Orion.Netflow.IngressInterfacesReferencesFlowsByAS (System.Reference)</td>
+</tr>
+<tr>
+<td>EgressFlowsByAS</td>
+<td><a href="Orion.Netflow.FlowsByAS.html">Orion.Netflow.FlowsByAS</a></td>
+<td>Defined by relationship Orion.Netflow.EgressInterfacesReferencesFlowsByAS (System.Reference)</td>
+</tr>
+<tr>
+<td>IngressFlowsByInterface</td>
+<td><a href="Orion.Netflow.FlowsByInterface.html">Orion.Netflow.FlowsByInterface</a></td>
+<td>Defined by relationship Orion.Netflow.IngressInterfacesReferencesFlowsByInterface (System.Reference)</td>
+</tr>
+<tr>
+<td>EgressFlowsByInterface</td>
+<td><a href="Orion.Netflow.FlowsByInterface.html">Orion.Netflow.FlowsByInterface</a></td>
+<td>Defined by relationship Orion.Netflow.EgressInterfacesReferencesFlowsByInterface (System.Reference)</td>
+</tr>
+<tr>
+<td>IngressFlowsByDomain</td>
+<td><a href="Orion.Netflow.FlowsByDomain.html">Orion.Netflow.FlowsByDomain</a></td>
+<td>Defined by relationship Orion.Netflow.IngressInterfacesReferencesFlowsByDomain (System.Reference)</td>
+</tr>
+<tr>
+<td>EgressFlowsByDomain</td>
+<td><a href="Orion.Netflow.FlowsByDomain.html">Orion.Netflow.FlowsByDomain</a></td>
+<td>Defined by relationship Orion.Netflow.EgressInterfacesReferencesFlowsByDomain (System.Reference)</td>
+</tr>
+<tr>
+<td>IngressFlowsByCountryCode</td>
+<td><a href="Orion.Netflow.FlowsByCountryCode.html">Orion.Netflow.FlowsByCountryCode</a></td>
+<td>Defined by relationship Orion.Netflow.IngressInterfacesReferencesFlowsByCountryCode (System.Reference)</td>
+</tr>
+<tr>
+<td>EgressFlowsByCountryCode</td>
+<td><a href="Orion.Netflow.FlowsByCountryCode.html">Orion.Netflow.FlowsByCountryCode</a></td>
+<td>Defined by relationship Orion.Netflow.EgressInterfacesReferencesFlowsByCountryCode (System.Reference)</td>
+</tr>
+<tr>
+<td>IngressFlowsByConversation</td>
+<td><a href="Orion.Netflow.FlowsByConversation.html">Orion.Netflow.FlowsByConversation</a></td>
+<td>Defined by relationship Orion.Netflow.IngressInterfacesReferencesFlowsByConversation (System.Reference)</td>
+</tr>
+<tr>
+<td>EgressFlowsByConversation</td>
+<td><a href="Orion.Netflow.FlowsByConversation.html">Orion.Netflow.FlowsByConversation</a></td>
+<td>Defined by relationship Orion.Netflow.EgressInterfacesReferencesFlowsByConversation (System.Reference)</td>
+</tr>
+<tr>
+<td>Flows</td>
+<td><a href="Orion.Netflow.FlowsByInterface.html">Orion.Netflow.FlowsByInterface</a></td>
+<td>Defined by relationship Orion.Netflow.FlowsByInterfaceReferencesInterface (System.Reference)</td>
+</tr>
+<tr>
+<td>NetFlowSource</td>
+<td><a href="Orion.Netflow.Source.html">Orion.Netflow.Source</a></td>
+<td>Defined by relationship Orion.Netflow.InterfaceReferencesSource (System.Reference)</td>
+</tr>
+<tr>
+<td>CustomPollerAssignmentOnInterface</td>
+<td><a href="Orion.NPM.CustomPollerAssignmentOnInterface.html">Orion.NPM.CustomPollerAssignmentOnInterface</a></td>
+<td>Defined by relationship Orion.NPM.InterfacesHostsCustomPollerAssignmentOnInterface (System.Hosting)</td>
+</tr>
+<tr>
+<td>VRFInterfaces</td>
+<td><a href="Orion.Routing.VRFInterface.html">Orion.Routing.VRFInterface</a></td>
+<td>Defined by relationship Orion.NPM.InterfacesReferencesVRFInterfaces (System.Reference)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="target-relationships">Target Relationships</h2>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>EWEntity</td>
+<td><a href="Orion.NPM.EW.Entity.html">Orion.NPM.EW.Entity</a></td>
+<td>Defined by relationship Orion.EWEntityReferencesInterface (System.Reference)</td>
+</tr>
+<tr>
+<td>FCPort</td>
+<td><a href="Orion.NPM.FCPorts.html">Orion.NPM.FCPorts</a></td>
+<td>Defined by relationship Orion.NPM.PortsReferenceInterfaces (System.Reference)</td>
+</tr>
+<tr>
+<td>Node</td>
+<td><a href="Orion.Nodes.html">Orion.Nodes</a></td>
+<td>Defined by relationship Orion.NodeHostsInterfaces (System.Hosting)</td>
+</tr>
+<tr>
+<td>SwitchPortAsSource</td>
+<td><a href="Orion.NPM.OrionSwitchPortMapping.html">Orion.NPM.OrionSwitchPortMapping</a></td>
+<td>Defined by relationship Orion.SwitchPortMappingReferencesSourceInterface (System.Reference)</td>
+</tr>
+<tr>
+<td>SwitchPortAsMapping</td>
+<td><a href="Orion.NPM.OrionSwitchPortMapping.html">Orion.NPM.OrionSwitchPortMapping</a></td>
+<td>Defined by relationship Orion.SwitchPortMappingReferencesMappedInterface (System.Reference)</td>
+</tr>
+<tr>
+<td>ChildInterfaceRelationship</td>
+<td><a href="Orion.NPM.InterfacesRelationship.html">Orion.NPM.InterfacesRelationship</a></td>
+<td>Defined by relationship Orion.NPM.InterfacesRelationshipReferencesParentInterface (System.Reference)</td>
+</tr>
+<tr>
+<td>ParentInterfaceRelationship</td>
+<td><a href="Orion.NPM.InterfacesRelationship.html">Orion.NPM.InterfacesRelationship</a></td>
+<td>Defined by relationship Orion.NPM.InterfacesRelationshipReferencesChildInterface (System.Reference)</td>
+</tr>
+<tr>
+<td>VirtualPortChannel</td>
+<td><a href="Orion.Nexus.VirtualPortChannel.html">Orion.Nexus.VirtualPortChannel</a></td>
+<td>Defined by relationship Orion.VirtualPortChannelReferencesInterface (System.Reference)</td>
+</tr>
+<tr>
+<td>VirtualPortChannelInterface</td>
+<td><a href="Orion.Nexus.VirtualPortChannelInterfaces.html">Orion.Nexus.VirtualPortChannelInterfaces</a></td>
+<td>Defined by relationship Orion.VirtualPortChannelInterfaceReferencesInterface (System.Reference)</td>
+</tr>
+<tr>
+<td>RoutingTable</td>
+<td><a href="Orion.Routing.RoutingTable.html">Orion.Routing.RoutingTable</a></td>
+<td>Defined by relationship Orion.Routing.RoutingTableReferencesInterface (System.Reference)</td>
+</tr>
+<tr>
+<td>RoutingNeighbor</td>
+<td><a href="Orion.Routing.Neighbors.html">Orion.Routing.Neighbors</a></td>
+<td>Defined by relationship Orion.Routing.RoutingNeighborReferencesInterface (System.Reference)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="verbs">Verbs</h2>
+<h3 id="setpowerlevel">SetPowerLevel</h3>
+<p>Set interface power level.Id of Interface to update.Power level to set for interface.</p>
+<h4 id="access-control-1">Access control</h4>
+<table>
+<thead>
+<tr>
+<th>Operations</th>
+<th>Right</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>invoke</td>
+<td>manageNodes</td>
+</tr>
+</tbody>
+</table>
+<h3 id="unmanage">Unmanage</h3>
+<p>Unmanage interface for specified time.Id of net object (interface) to unmanage. Example:'I:1'.TimeStamp value to unmanage interface from.TimeStamp value to manage interface from.If is true that remanageTime will be unmanageTime + remanageTime.TimeOfDay.</p>
+<h4 id="access-control-2">Access control</h4>
+<table>
+<thead>
+<tr>
+<th>Operations</th>
+<th>Right</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>invoke</td>
+<td>allowUnmanage</td>
+</tr>
+</tbody>
+</table>
+<h3 id="remanage">Remanage</h3>
+<p>Manage interface immediately.Id of net object (interface) to unmanage. Example:'I:1'.</p>
+<h4 id="access-control-3">Access control</h4>
+<table>
+<thead>
+<tr>
+<th>Operations</th>
+<th>Right</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>invoke</td>
+<td>allowUnmanage</td>
+</tr>
+</tbody>
+</table>
+<h3 id="discoverinterfacesonnode">DiscoverInterfacesOnNode</h3>
+<p>Run lite discovery process for search interfaces on node and returns list of interfaces.Id of node to run discovery on.Discovery results that contains status and discovered interfaces. Full type: SolarWinds.Interfaces.Common.Models.Discovery.LiteDiscoveryResult.</p>
+<h4 id="access-control-4">Access control</h4>
+<table>
+<thead>
+<tr>
+<th>Operations</th>
+<th>Right</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>invoke</td>
+<td>manageNodes</td>
+</tr>
+</tbody>
+</table>
+<h3 id="addinterfacesonnode">AddInterfacesOnNode</h3>
+<p>Add provided interface to node.Id of node to add interfaces for.Array of interfaces to add. Full type: SolarWinds.Interfaces.Common.Models.Discovery.DiscoveredLiteInterfaceDiscovery results that contains status and discovered interfaces. Full type: SolarWinds.Interfaces.Common.Models.Discovery.LiteDiscoveryResult.</p>
+<h4 id="access-control-5">Access control</h4>
+<table>
+<thead>
+<tr>
+<th>Operations</th>
+<th>Right</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>invoke</td>
+<td>manageNodes</td>
+</tr>
+</tbody>
+</table>
+<h3 id="createinterfacespluginconfiguration">CreateInterfacesPluginConfiguration</h3>
+<p>Create interface plugin configuration based on provided input data.Interfaces discovery plugin context. Full type: SolarWinds.Data.Providers.Interfaces.Verbs.InterfacesDiscoveryPluginContext.String with interface plugin configuration in XML format. Full type: SolarWinds.Data.Providers.Interfaces.Verbs.InterfacesDiscoveryPluginContext</p>
+<h4 id="access-control-6">Access control</h4>
+<table>
+<thead>
+<tr>
+<th>Operations</th>
+<th>Right</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>invoke</td>
+<td>manageNodes</td>
+</tr>
+</tbody>
+</table>
+<h3 id="getsupportedmetrics">GetSupportedMetrics</h3>
+<p>Returns list of metrics to poll on Interface entityInterfaceID of a target Interface</p>
+<h4 id="access-control-7">Access control</h4>
+<table>
+<thead>
+<tr>
+<th>Operations</th>
+<th>Right</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>invoke</td>
+<td>allowRealTimePolling</td>
+</tr>
+<tr>
+<td>invoke</td>
+<td>admin</td>
+</tr>
+</tbody>
+</table>
+<h3 id="startrealtimepolling">StartRealTimePolling</h3>
+<p>Starts realtime polling on Interface entityInterfaceID of target InterfaceOwner identifier that owns this pollingProperties to poll on Interface entityHow long until polling expires and stopsHow often should polling occur</p>
+<h4 id="access-control-8">Access control</h4>
+<table>
+<thead>
+<tr>
+<th>Operations</th>
+<th>Right</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>invoke</td>
+<td>allowRealTimePolling</td>
+</tr>
+<tr>
+<td>invoke</td>
+<td>admin</td>
+</tr>
+</tbody>
+</table>
+<h3 id="stoprealtimepolling">StopRealTimePolling</h3>
+<p>Stops realtime polling on Interface entityInterfaceID of target InterfaceOwner identifier of existing pollingProperties to stop from polling on Interface entity</p>
+<h4 id="access-control-9">Access control</h4>
+<table>
+<thead>
+<tr>
+<th>Operations</th>
+<th>Right</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>invoke</td>
+<td>allowRealTimePolling</td>
+</tr>
+<tr>
+<td>invoke</td>
+<td>admin</td>
+</tr>
+</tbody>
+</table>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In this article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+      &copy; SolarWinds
+      
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

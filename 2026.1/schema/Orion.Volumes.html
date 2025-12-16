@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Orion.Volumes | Orion SDK Schemas </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Orion.Volumes | Orion SDK Schemas ">
+  
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"> 
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+  
+  <meta property="docfx:rel" content="../">
+  
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src=".././images/SolarWinds.Logo.png" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first=First data-prev=Previous data-next=Next data-last=Last></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="orionvolumes">Orion.Volumes</h1>
+
+<p>SolarWinds Information Service  2026.1 Schema Documentation</p>
+<p>ToDo</p>
+<h4 id="inheritance">Inheritance</h4>
+<p>↳ <a href="System.Entity.html">System.Entity</a></p>
+<p>↳ <a href="System.DashboardEntity.html">System.DashboardEntity</a></p>
+<p>↳ <a href="System.ManagedEntity.html">System.ManagedEntity</a></p>
+<h4 id="access-control">Access control</h4>
+<table>
+<thead>
+<tr>
+<th>Operations</th>
+<th>Right</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>read</td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>read,invoke</td>
+<td>allowRealTimePolling</td>
+</tr>
+<tr>
+<td>create,read,update,delete,invoke</td>
+<td>manageNodes</td>
+</tr>
+</tbody>
+</table>
+<h2 id="properties">Properties</h2>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Summary</th>
+<th>Access Control</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>NodeID</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">System.Int32</a></td>
+<td></td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>Status</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">System.Int32</a></td>
+<td></td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>StatusLED</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">System.String</a></td>
+<td></td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>StatusDescription</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">System.String</a></td>
+<td></td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>VolumeID</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">System.Int32</a></td>
+<td></td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>Icon</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">System.String</a></td>
+<td></td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>Index</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">System.Int32</a></td>
+<td></td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>Caption</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">System.String</a></td>
+<td></td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>PollInterval</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">System.Int32</a></td>
+<td></td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>StatCollection</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">System.Int32</a></td>
+<td></td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>RediscoveryInterval</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">System.Int32</a></td>
+<td></td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>StatusIcon</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">System.String</a></td>
+<td></td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>Type</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">System.String</a></td>
+<td></td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>Size</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">System.Double</a></td>
+<td></td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>Responding</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.char">System.Char</a></td>
+<td></td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>FullName</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">System.String</a></td>
+<td></td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>LastSync</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.datetime">System.DateTime</a></td>
+<td></td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>VolumePercentUsed</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">System.Single</a></td>
+<td></td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>VolumeAllocationFailuresThisHour</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">System.Int32</a></td>
+<td></td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>VolumeIndex</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">System.Int32</a></td>
+<td></td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>VolumeTypeID</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">System.Int32</a></td>
+<td></td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>VolumeType</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">System.String</a></td>
+<td></td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>VolumeDescription</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">System.String</a></td>
+<td></td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>VolumeSize</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">System.Double</a></td>
+<td></td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>VolumeSpaceUsed</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">System.Double</a></td>
+<td></td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>VolumeAllocationFailuresToday</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">System.Int32</a></td>
+<td></td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>VolumeResponding</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.char">System.Char</a></td>
+<td></td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>VolumeSpaceAvailable</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">System.Double</a></td>
+<td></td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>VolumeTypeIcon</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">System.String</a></td>
+<td></td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>OrionIdPrefix</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">System.String</a></td>
+<td></td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>OrionIdColumn</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">System.String</a></td>
+<td></td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>DiskQueueLength</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">System.Double</a></td>
+<td></td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>DiskTransfer</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">System.Double</a></td>
+<td></td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>DiskReads</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">System.Double</a></td>
+<td></td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>DiskWrites</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">System.Double</a></td>
+<td></td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>DisplayName</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">System.String</a></td>
+<td></td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>TotalDiskIOPS</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">System.Double</a></td>
+<td></td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>VolumePercentAvailable</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">System.Double</a></td>
+<td></td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>MinutesSinceLastSync</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">System.Int32</a></td>
+<td></td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>DetailsUrl</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">System.String</a></td>
+<td></td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>SkippedPollingCycles</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">System.Int32</a></td>
+<td></td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>VolumeSpaceAvailableExp</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">System.Double</a></td>
+<td></td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>NextPoll</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.datetime">System.DateTime</a></td>
+<td></td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>NextRediscovery</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.datetime">System.DateTime</a></td>
+<td></td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>DeviceId</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">System.String</a></td>
+<td></td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>DiskSerialNumber</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">System.String</a></td>
+<td></td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>InterfaceType</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">System.String</a></td>
+<td></td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>SCSITargetId</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">System.Int32</a></td>
+<td></td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>SCSILunId</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">System.Int32</a></td>
+<td></td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>SCSIPortId</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">System.Int32</a></td>
+<td></td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>SCSIControllerId</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">System.String</a></td>
+<td></td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>SCSIPortOffset</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">System.Int32</a></td>
+<td></td>
+<td>everyone</td>
+</tr>
+<tr>
+<td>ModernIcon</td>
+<td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">System.String</a></td>
+<td></td>
+<td>everyone</td>
+</tr>
+</tbody>
+</table>
+<h2 id="source-relationships">Source Relationships</h2>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Anomalies</td>
+<td><a href="Orion.AIIM.Orion_Volumes_Anomalies.html">Orion.AIIM.Orion_Volumes_Anomalies</a></td>
+<td>Defined by relationship Orion.AIIM.Orion_Volumes_Anomalies_Relation (System.Hosting)</td>
+</tr>
+<tr>
+<td>RelyNode</td>
+<td><a href="Orion.Nodes.html">Orion.Nodes</a></td>
+<td>Defined by relationship Orion.Rely.Core.VolumesRelyOnNodes (System.Reliance)</td>
+</tr>
+<tr>
+<td>PercentDiskUsedThreshold</td>
+<td><a href="Orion.PercentDiskUsedThreshold.html">Orion.PercentDiskUsedThreshold</a></td>
+<td>Defined by relationship Orion.VolumesHostsPercentDiskUsedThreshold (System.Hosting)</td>
+</tr>
+<tr>
+<td>StatusInfo</td>
+<td><a href="Orion.StatusInfo.html">Orion.StatusInfo</a></td>
+<td>Defined by relationship Orion.VolumesToStatus (System.Reference)</td>
+</tr>
+<tr>
+<td>Stats</td>
+<td><a href="Orion.VolumesStats.html">Orion.VolumesStats</a></td>
+<td>Defined by relationship Orion.VolumesHostsVolumesStats (System.Hosting)</td>
+</tr>
+<tr>
+<td>VolumeUsageHistory</td>
+<td><a href="Orion.VolumeUsageHistory.html">Orion.VolumeUsageHistory</a></td>
+<td>Defined by relationship Orion.VolumeUsageHistory (System.Hosting)</td>
+</tr>
+<tr>
+<td>VolumePerformanceHistory</td>
+<td><a href="Orion.VolumePerformanceHistory.html">Orion.VolumePerformanceHistory</a></td>
+<td>Defined by relationship Orion.VolumePerformanceHistory (System.Hosting)</td>
+</tr>
+<tr>
+<td>CustomProperties</td>
+<td><a href="Orion.VolumesCustomProperties.html">Orion.VolumesCustomProperties</a></td>
+<td>Defined by relationship Orion.VolumesHostsCustomProperties (System.Hosting)</td>
+</tr>
+<tr>
+<td>WebUri</td>
+<td><a href="Orion.VolumeWebUri.html">Orion.VolumeWebUri</a></td>
+<td>Defined by relationship Orion.VolumesHostsWebUri (System.Hosting)</td>
+</tr>
+<tr>
+<td>TechnologyPollingAssignments</td>
+<td><a href="Orion.TechnologyPollingAssignments.html">Orion.TechnologyPollingAssignments</a></td>
+<td>Defined by relationship Orion.VolumesReferenceTechnologyPollingAssignments (System.Reference)</td>
+</tr>
+<tr>
+<td>ForecastCapacity</td>
+<td><a href="Orion.VolumesForecastCapacity.html">Orion.VolumesForecastCapacity</a></td>
+<td>Defined by relationship Orion.VolumesHostsForecastCapacity (System.Hosting)</td>
+</tr>
+<tr>
+<td>RelyLUN</td>
+<td><a href="Orion.SRM.LUNs.html">Orion.SRM.LUNs</a></td>
+<td>Defined by relationship Orion.Rely.SRM.ServerVolumesRelyOnLUNs (System.Reliance)</td>
+</tr>
+<tr>
+<td>RelyFileShare</td>
+<td><a href="Orion.SRM.FileShares.html">Orion.SRM.FileShares</a></td>
+<td>Defined by relationship Orion.Rely.SRM.ServerVolumesRelyOnFileShares (System.Reliance)</td>
+</tr>
+<tr>
+<td>RelyStorageArray</td>
+<td><a href="Orion.SRM.StorageArrays.html">Orion.SRM.StorageArrays</a></td>
+<td>Defined by relationship Orion.Rely.SRM.ServerVolumesRelyOnStorageArrays (System.Reliance)</td>
+</tr>
+<tr>
+<td>RelyPool</td>
+<td><a href="Orion.SRM.Pools.html">Orion.SRM.Pools</a></td>
+<td>Defined by relationship Orion.Rely.SRM.ServerVolumesRelyOnPools (System.Reliance)</td>
+</tr>
+<tr>
+<td>RelyNasVolume</td>
+<td><a href="Orion.SRM.Volumes.html">Orion.SRM.Volumes</a></td>
+<td>Defined by relationship Orion.Rely.SRM.ServerVolumesRelyOnNasVolumes (System.Reliance)</td>
+</tr>
+<tr>
+<td>RelyVserver</td>
+<td><a href="Orion.SRM.VServers.html">Orion.SRM.VServers</a></td>
+<td>Defined by relationship Orion.Rely.SRM.ServerVolumesRelyOnVservers (System.Reliance)</td>
+</tr>
+<tr>
+<td>SRMTopologies</td>
+<td><a href="Orion.SRM.Topology.html">Orion.SRM.Topology</a></td>
+<td>Defined by relationship Orion.VolumesReferencesTopology (System.Reference)</td>
+</tr>
+<tr>
+<td>RelyDatastores</td>
+<td><a href="Orion.VIM.Datastores.html">Orion.VIM.Datastores</a></td>
+<td>Defined by relationship Orion.Rely.VIM.VolumesRelyOnDatastores (System.Reliance)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="target-relationships">Target Relationships</h2>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Node</td>
+<td><a href="Orion.Nodes.html">Orion.Nodes</a></td>
+<td>Defined by relationship Orion.NodeHostsVolumes (System.Hosting)</td>
+</tr>
+<tr>
+<td>LUN</td>
+<td><a href="Orion.SRM.LUNs.html">Orion.SRM.LUNs</a></td>
+<td>Defined by relationship Orion.SRM.LUNsReferencesServerVolumes (System.Reference)</td>
+</tr>
+<tr>
+<td>FileShare</td>
+<td><a href="Orion.SRM.FileShares.html">Orion.SRM.FileShares</a></td>
+<td>Defined by relationship Orion.SRM.FileSharesReferencesServerVolumes (System.Reference)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="verbs">Verbs</h2>
+<h3 id="unmanage">Unmanage</h3>
+<p>Unmanages specified volume in the specified time range</p>
+<h4 id="access-control-1">Access control</h4>
+<table>
+<thead>
+<tr>
+<th>Operations</th>
+<th>Right</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>invoke</td>
+<td>allowUnmanage</td>
+</tr>
+</tbody>
+</table>
+<h3 id="remanage">Remanage</h3>
+<p>Remanages specified volume</p>
+<h4 id="access-control-2">Access control</h4>
+<table>
+<thead>
+<tr>
+<th>Operations</th>
+<th>Right</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>invoke</td>
+<td>allowUnmanage</td>
+</tr>
+</tbody>
+</table>
+<h3 id="getsupportedmetrics">GetSupportedMetrics</h3>
+<p>Returns list of metrics to poll on Volume entityVolumeID of a target Volume</p>
+<h4 id="access-control-3">Access control</h4>
+<table>
+<thead>
+<tr>
+<th>Operations</th>
+<th>Right</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>invoke</td>
+<td>allowRealTimePolling</td>
+</tr>
+<tr>
+<td>invoke</td>
+<td>admin</td>
+</tr>
+</tbody>
+</table>
+<h3 id="startrealtimepolling">StartRealTimePolling</h3>
+<p>Starts realtime polling on Volume entityVolumeID of target volumeOwner identifier that owns this pollingProperties to poll on Volume entityHow long until polling expires and stopsHow often should polling occur</p>
+<h4 id="access-control-4">Access control</h4>
+<table>
+<thead>
+<tr>
+<th>Operations</th>
+<th>Right</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>invoke</td>
+<td>allowRealTimePolling</td>
+</tr>
+<tr>
+<td>invoke</td>
+<td>admin</td>
+</tr>
+</tbody>
+</table>
+<h3 id="stoprealtimepolling">StopRealTimePolling</h3>
+<p>Stops realtime polling on Volume entityVolumeID of target VolumeOwner identifier of existing pollingProperties to stop from polling on Volume entity</p>
+<h4 id="access-control-5">Access control</h4>
+<table>
+<thead>
+<tr>
+<th>Operations</th>
+<th>Right</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>invoke</td>
+<td>allowRealTimePolling</td>
+</tr>
+<tr>
+<td>invoke</td>
+<td>admin</td>
+</tr>
+</tbody>
+</table>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In this article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+      &copy; SolarWinds
+      
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

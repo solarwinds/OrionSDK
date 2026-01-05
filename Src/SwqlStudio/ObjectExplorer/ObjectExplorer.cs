@@ -22,6 +22,9 @@ namespace SwqlStudio.ObjectExplorer
     {
         private static readonly Log log = new Log();
 
+        private Panel _searchPanel;
+        private FontSizeToolbar _fontToolbar;
+
         private readonly SearchTextBox _treeSearch;
         private readonly TreeView _tree;
         private TreeView _treeData;
@@ -46,11 +49,24 @@ namespace SwqlStudio.ObjectExplorer
         {
             InitializeComponent();
 
-            _treeSearch = new SearchTextBox
+            _searchPanel = new Panel
             {
-                Dock = DockStyle.Top
+                Dock = DockStyle.Top,
+                Height = 26,
+                Padding = new Padding(0, 0, 6, 0)
             };
 
+            _treeSearch = new SearchTextBox
+            {
+                Dock = DockStyle.None, 
+                Height = 26
+            };
+
+            _fontToolbar = new FontSizeToolbar
+            {
+                Dock = DockStyle.Right,
+               // Margin = new Padding(0, 0, 4, 0)
+            };
 
             _tree = new TreeView
             {
@@ -71,8 +87,22 @@ namespace SwqlStudio.ObjectExplorer
             _verbContextMenu = new ContextMenu();
             _verbContextMenu.MenuItems.Add("Invoke...", (s, e) => OpenInvokeTab());
 
+            _fontToolbar.Target = this._tree;           
+
+            _searchPanel.Controls.Add(_treeSearch);
+            _searchPanel.Controls.Add(_fontToolbar);
+            
             Controls.Add(_tree);
-            Controls.Add(_treeSearch);
+            Controls.Add(_searchPanel);
+
+            _searchPanel.Resize += (s, e) =>
+            {
+                _treeSearch.Left = 0;
+                _treeSearch.Width = _searchPanel.Width - _fontToolbar.Width;
+
+                // Vertical centering
+                _treeSearch.Top = (_searchPanel.Height - _treeSearch.Height) / 2;
+            };
         }
 
         private void InitializeTreeview()

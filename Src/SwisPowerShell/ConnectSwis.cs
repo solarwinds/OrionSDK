@@ -43,7 +43,9 @@ namespace SwisPowerShell
         [Parameter(ParameterSetName = "UserName", Mandatory = false, HelpMessage = "Url for a SOAP 1.2 SWIS endpoint.")]
         public Uri Soap12 { get; set; }
 
-        [Parameter(ParameterSetName = "UserName", Mandatory = false, HelpMessage = "Ignore SSL/TLS errors with certificate validation when connecting to a SOAP endpoint.")]
+        // MODIFIED: Removed ParameterSetName to make this parameter available to all sets.
+        // Also updated the help message to be more generic.
+        [Parameter(Mandatory = false, HelpMessage = "Ignore SSL/TLS certificate validation errors.")]
         public SwitchParameter IgnoreSslErrors { get; set; }
 
         [Parameter(ParameterSetName = "UserName", Mandatory = false, HelpMessage = "Trust an SSL/TLS X509 certificate with a specific, known thumbprint.")]
@@ -216,6 +218,16 @@ namespace SwisPowerShell
                 var credentials = new UsernameCredentials(username, password);
 
                 infoServiceProxy = new InfoServiceProxy(uri, binding, credentials);
+            }
+
+            // NEW: Added logic to handle -IgnoreSslErrors for all Net.Tcp connection types.
+            if (IgnoreSslErrors.IsPresent)
+            {
+                // For Net.Tcp connections, this disables the server's certificate validation.
+                if (infoServiceProxy.ClientCredentials != null)
+                {
+                    infoServiceProxy.ClientCredentials.ServiceCertificate.Authentication.CertificateValidationMode = X509CertificateValidationMode.None;
+                }
             }
             return infoServiceProxy;
         }

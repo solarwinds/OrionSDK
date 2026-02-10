@@ -1,4 +1,4 @@
-# This sample script shows how to use the Orion Discovery API to discover and import one node using SNMPv3 credentials.
+# This sample script shows how to use the Orion Discovery API to discover and import one node using WMI credentials.
 
 # Load SwisPowerShell
 Import-Module SwisPowerShell

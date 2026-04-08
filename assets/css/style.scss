@@ -37,15 +37,15 @@ header .button {
   display: inline-block;
   margin-top: 10px;
   padding: 6px 14px;
-  background: rgba(255,255,255,0.15);
-  border: 1px solid rgba(255,255,255,0.3);
+  background: #267CB9;
+  border: 1px solid #1a5a8a;
   border-radius: 4px;
-  color: #fff;
+  color: #fff !important;
   font-size: 0.8em;
-  text-decoration: none;
+  text-decoration: none !important;
 }
-header .button:hover { background: rgba(255,255,255,0.25); }
-header .button small { display: block; font-size: 0.85em; opacity: 0.75; }
+header .button:hover { background: #1a5a8a; }
+header .button small { display: block; font-size: 0.85em; opacity: 0.85; }
 
 section {
   width: auto !important;

@@ -158,13 +158,13 @@
         <a href="{{ '/' | relative_url }}">
           <h1>{{ site.title | default: site.github.repository_name }}</h1>
         </a>
-        <h2>{{ site.description | default: site.github.project_tagline }}</h2>
-        {% if site.github.is_project_page %}
-          <a href="{{ site.github.repository_url }}" class="button"><small>View project on</small> GitHub</a>
-        {% endif %}
-        {% if site.github.is_user_page %}
-          <a href="{{ site.github.owner_url }}" class="button"><small>Follow me on</small> GitHub</a>
-        {% endif %}
+        <div class="header-meta">
+          <h2>{{ site.description | default: site.github.project_tagline }}</h2>
+          {% assign repo_url = site.github_repo | default: site.github.repository_url %}
+          {% if repo_url %}
+            <a href="{{ repo_url }}" class="button button-sm" target="_blank" rel="noopener">View on GitHub</a>
+          {% endif %}
+        </div>
       </div>
     </header>
 

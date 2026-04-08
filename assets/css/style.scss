@@ -33,9 +33,16 @@ header a { color: #fff; text-decoration: none; }
 header a:hover { color: #eee; }
 header h1 { margin: 0 0 4px; font-size: 1.6em; }
 header h2 { margin: 0; font-size: 0.95em; font-weight: normal; opacity: 0.8; }
+.header-meta {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.header-meta h2 { margin: 0; }
+
 header .button {
   display: inline-block;
-  margin-top: 10px;
   padding: 6px 14px;
   background: #267CB9;
   border: 1px solid #1a5a8a;
@@ -45,7 +52,13 @@ header .button {
   text-decoration: none !important;
 }
 header .button:hover { background: #1a5a8a; }
-header .button small { display: block; font-size: 0.85em; opacity: 0.85; }
+
+header .button-sm {
+  padding: 3px 10px;
+  font-size: 0.75em;
+  border-radius: 3px;
+  white-space: nowrap;
+}
 
 section {
   width: auto !important;

@@ -1,5 +1,6 @@
 title: Orion SDK
 description: SolarWinds Orion SDK Documentation
+github_repo: https://github.com/solarwinds/OrionSDK
 theme: jekyll-theme-minimal
 baseurl: "/OrionSDK"
 

@@ -1,3 +1,8 @@
+---
+layout: default
+title: Documentation
+---
+
 The [SolarWinds Orion Platform](https://www.solarwinds.com/orion) is a unified suite of network and system management products. Orion is installed on one or more servers in your organization's intranet. IT professionals in your organization interact with Orion primarily through the Orion website, which provides a single pane of glass for monitoring your IT infrastructure.
 
 The [SolarWinds Information Service (SWIS)](about-swis/) is a data access layer for Orion. It has its own SQL-like language called SolarWinds Query Language (SWQL). SWIS provides a kind of application programming interface (API) for the Orion platform.

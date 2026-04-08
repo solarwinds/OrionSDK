@@ -1,3 +1,8 @@
+---
+layout: default
+title: "IPAM API"
+---
+
 SolarWinds [IP Address Manager (IPAM)](https://www.solarwinds.com/ip-address-manager) provides automated IP address tracking, alerting, troubleshooting, and reporting.
 
 The IPAM API is documented separately by version:

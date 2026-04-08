@@ -1,3 +1,8 @@
+---
+layout: default
+title: "NPM Universal Device Pollers"
+---
+
 # Universal Device Pollers
 
 SolarWinds Network Performance Monitor (NPM) has a feature called Universal Device Pollers (UnDP) for polling arbitrary SNMP values, counters, and tables from network devices and anything else that supports SNMP. These are also called "custom pollers".

@@ -1,3 +1,8 @@
+---
+layout: default
+title: "Agents"
+---
+
 # Agents
 
 Agents on the Orion Platform are managed through the `Orion.AgentManagement.Agent` entity. Each instance of `Orion.AgentManagement.Agent` represents one agent. 

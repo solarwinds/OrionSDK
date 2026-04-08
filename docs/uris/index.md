@@ -1,3 +1,8 @@
+---
+layout: default
+title: "URIs"
+---
+
 # SWIS Uris
 
 SWIS uses a Uri format to identify entities. Various features in Orion use SWIS Uris to reference entities, including Alerts, Reports, and Groups.

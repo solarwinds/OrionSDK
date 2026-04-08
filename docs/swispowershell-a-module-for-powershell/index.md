@@ -1,3 +1,8 @@
+---
+layout: default
+title: "SwisPowerShell Module"
+---
+
 # What is it?
 
 SwisPowerShell is a PowerShell Module, based on the Orion SDK. Essentially it is an attempt to take some of the sample scripts included in the SDK, and to convert those to PowerShell Cmdlets 

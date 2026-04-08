@@ -1,3 +1,8 @@
+---
+layout: default
+title: "IPAM Observability 2022.2"
+---
+
 # Add PTR record
 We can use this method in order to add PTR record to DNS zone without adding A record. 
 

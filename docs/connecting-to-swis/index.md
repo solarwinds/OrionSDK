@@ -1,3 +1,8 @@
+---
+layout: default
+title: "Connecting to SWIS"
+---
+
 ## Connecting to SWIS with SWQL Studio
 
 When you open SWQL Studio, the **Connect to Information Service** dialog appears.

@@ -1,3 +1,8 @@
+---
+layout: default
+title: "SWQL Functions"
+---
+
 # SWQL Functions
 
 SolarWinds Query Language supports a number of built-in functions that can be used in queries.

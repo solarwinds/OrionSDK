@@ -1,0 +1,83 @@
+# Navigation sidebar entries
+# Each entry has a title and url. Nested items use children.
+- title: About SWIS
+  url: /docs/about-swis/
+
+- title: Connecting to SWIS
+  url: /docs/connecting-to-swis/
+
+- title: SWQL Functions
+  url: /docs/swql-functions/
+  children:
+    - title: Possible issues
+      url: /docs/swql-functions/possible-issues/
+
+- title: REST
+  url: /docs/rest/
+
+- title: PowerShell
+  url: /docs/powershell/
+  children:
+    - title: PowerOrion - A Module for PowerShell
+      url: /docs/powershell/powerorion-a-module-for-powershell/
+
+- title: Alerts
+  url: /docs/alerts/
+
+- title: Groups
+  url: /docs/groups/
+
+- title: Creating custom properties
+  url: /docs/creating-custom-properties/
+
+- title: Poller Types
+  url: /docs/poller-types/
+
+- title: Network Performance Monitor
+  children:
+    - title: NPM Universal Device Pollers
+      url: /docs/network-performance-monitor/npm-universal-device-pollers/
+    - title: How to assign specific poller to a node
+      url: /docs/network-performance-monitor/how-to-assign-specific-poller-to-a-node/
+    - title: How to distribute load between pollers
+      url: /docs/network-performance-monitor/how-to-distribute-load-between-pollers/
+    - title: How to set polling parameters on a Node
+      url: /docs/network-performance-monitor/how-to-set-polling-parameters-on-a-node/
+    - title: How to specify interfaces, volumes, hw sensors, applications, components to be monitored on a Node
+      url: /docs/network-performance-monitor/how-to-specify-interfaces-volumes-hw-sensors-applications-components-to-be-monitored-on-a-node/
+    - title: How to specify (SNMP) OIDs to be monitored on a Node
+      url: /docs/network-performance-monitor/how-to-specify-snmp-oids-to-be-monitored-on-a-node/
+
+- title: NetFlow Traffic Analyzer
+  children:
+    - title: NTA 4.0 Entity Model
+      url: /docs/netflow-traffic-analyzer/nta-4-0-entity-model/
+
+- title: Network Configuration Manager
+  children:
+    - title: NCM Config Transfer
+      url: /docs/network-configuration-manager/ncm-config-transfer/
+    - title: NCM Connection Profiles
+      url: /docs/network-configuration-manager/ncm-connection-profiles/
+    - title: NCM Config Search
+      url: /docs/network-configuration-manager/ncm-config-search/
+
+- title: IP Address Manager
+  children:
+    - title: IPAM API
+      url: /docs/ip-address-manager/ipam-api/
+
+- title: Server & Application Monitor
+  children:
+    - title: SAM Application Monitoring Templates
+      url: /docs/server-and-application-monitor/sam-application-monitoring-templates/
+    - title: SAM AppInsight Applications
+      url: /docs/sam-appinsight-applications/
+
+- title: Log Analyzer
+  children:
+    - title: Exporting log events
+      url: /docs/log-analyzer/exporting-log-events/
+
+- title: Schema reference
+  url: https://solarwinds.github.io/OrionSDK/

@@ -1,3 +1,8 @@
+---
+layout: default
+title: "How To Specify Interfaces Volumes Hw Sensors Applications Components To Be Monitored On A Node"
+---
+
 
 ## How to discover Interfaces on Node?
 To discover Interfaces on Node an INVOKE of the ``DiscoverInterfacesOnNode`` verb on ``Orion.NPM.Interfaces`` entity can be used.

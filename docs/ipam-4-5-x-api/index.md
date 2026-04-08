@@ -1,3 +1,8 @@
+---
+layout: default
+title: "Ipam 4 5 X Api"
+---
+
 Starting with IPAM 4.5, an API is available for managing IP addresses.
 
 # Add PTR record

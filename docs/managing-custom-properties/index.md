@@ -1,3 +1,8 @@
+---
+layout: default
+title: "Managing Custom Properties"
+---
+
 # Creating Custom Properties
 
 To create a custom property for nodes, call the `Orion.NodesCustomProperties.CreateCustomProperty` verb. It has these parameters:

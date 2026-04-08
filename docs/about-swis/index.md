@@ -1,3 +1,8 @@
+---
+layout: default
+title: "About SWIS"
+---
+
 # About the SolarWinds Information Service
 
 The SolarWinds Information Service (SWIS) is a data access layer for the Orion product family that provides a hybrid of object-oriented and relational features. It has its own SQL-like language called SolarWinds Query Language (SWQL).

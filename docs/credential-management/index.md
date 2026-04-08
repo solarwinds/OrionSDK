@@ -1,3 +1,8 @@
+---
+layout: default
+title: "Credential Management"
+---
+
 Various Orion processes ([discovery](../discovery/), polling) work with credentials that are stored in Orion. This page describes how to manage credentials using Orion SDK. 
 
 ## Verbs

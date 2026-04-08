@@ -1,3 +1,8 @@
+---
+layout: default
+title: "REST API"
+---
+
 # SWIS REST/JSON Endpoint
 
 The easiest way to explain the formats of the requests and responses for various operations with the REST endpoint is by illustration.

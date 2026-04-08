@@ -1,3 +1,8 @@
+---
+layout: default
+title: "NCM Connection Profiles"
+---
+
 # Connection Profiles
 The Network Configuration Manager connection profiles can be managed through the API using verbs on the `Cirrus.Nodes` entity.
 

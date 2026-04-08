@@ -1,3 +1,8 @@
+---
+layout: default
+title: "PowerShell"
+---
+
 # Using the SolarWinds Information Service from PowerShell
 
 SolarWinds provides a Windows PowerShell module called [SwisPowerShell](https://www.powershellgallery.com/packages/SwisPowerShell) for working with the SolarWinds Information Service. To install this module from the PowerShell Gallery, use `Install-Module -Name SwisPowerShell`.  You'll need to be running PowerShell as an administrator.

@@ -1,3 +1,8 @@
+---
+layout: default
+title: "Groups"
+---
+
 Orion Groups allow you to create arbitrary collections of managed entities. Once created, a group tracks the aggregate status of its members. A group is itself a managed entity, which means that groups can be nested.
 
 Entities can be added to a group either statically or dynamically. A static group rule is a reference to a specific entity. A dynamic group rule is a pattern that is continuously reevaluated to determine which entities match and are therefore considered group members.

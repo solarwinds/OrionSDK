@@ -1,3 +1,8 @@
+---
+layout: default
+title: "NCM Config Transfer"
+---
+
 # Config Transfers
 
 Network Configuration Manager 7.4 (released in 2015) introduced a new API for managing configuration transfer operations, including downloading device configs, uploading device configs, and executing scripts on devices. This API consists of a set of verbs on the existing `Cirrus.ConfigArchive` entity type and a new `NCM.TransferResults` entity type you can query to check on the status of config transfer operations.

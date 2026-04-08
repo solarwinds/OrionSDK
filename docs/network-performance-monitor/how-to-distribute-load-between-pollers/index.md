@@ -1,3 +1,8 @@
+---
+layout: default
+title: "How To Distribute Load Between Pollers"
+---
+
 HCO provides ability to distribute load between Polling engines. Node polling is assigned to a specific Poller Engine and can be moved between Poller Engines later via SDK.  
 
 ## Get all Polling engines

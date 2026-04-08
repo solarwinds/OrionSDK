@@ -1,3 +1,8 @@
+---
+layout: default
+title: "Alerts"
+---
+
 # Alert Entities
 
 Orion Alerts are reported by a collection of related SWIS entities. All of these are new in Orion Platform 2015.1, which is the basis of NPM 11.5, SAM 6.2, and other early 2015 releases, except for Orion.AlertSuppression which was introduced in Orion Platform 2017.1 (NPM 12.1, SAM 6.4 and other early 2017 releases).

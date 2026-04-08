@@ -1,3 +1,8 @@
+---
+layout: default
+title: "NTA 4.0 Entity Model"
+---
+
 A new entity model for querying flow related information was introduced with NetFlow Traffic Analyzer version 4.0. The new schema uses a set of entity types that each provide a different persective on your data and help you to build effective queries. The new schema is supported by SWISv3 only.
 
 The basic entity type is `Orion.Netflow.Flows`, and it exposes all flows as they are received by NTA. This entity type contains flows at the finest granularity available. You can use this entity type to query specific flows in a specific time period, or, more typically, you can query for a summary of the most used applications, protocols, etc. An example of such a query is as follows:

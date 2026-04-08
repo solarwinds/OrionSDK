@@ -1,3 +1,8 @@
+---
+layout: default
+title: "Poller Types"
+---
+
 <table>
 <tr>
 <th>Class // DBName</th>

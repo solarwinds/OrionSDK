@@ -1,5 +1,8 @@
 # Navigation sidebar entries
 # Each entry has a title and url. Nested items use children.
+- title: Home
+  url: /
+
 - title: About SWIS
   url: /docs/about-swis/
 

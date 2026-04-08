@@ -4,6 +4,9 @@ github_repo: https://github.com/solarwinds/OrionSDK
 theme: jekyll-theme-minimal
 baseurl: "/OrionSDK"
 
+plugins:
+  - jemoji
+
 # Build settings
 markdown: kramdown
 permalink: pretty

@@ -3,6 +3,8 @@ layout: default
 title: "Hardware Health"
 ---
 
+# Hardware Health
+
 Hardware health information can be queried using various entities in the `Orion.HardwareHealth` namespace.
 
 # Enabling Hardware Health Polling

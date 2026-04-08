@@ -3,11 +3,13 @@ layout: default
 title: "SwisPowerShell Module"
 ---
 
-# What is it?
+# PowerOrion - A Module for PowerShell
+
+## What is it?
 
 SwisPowerShell is a PowerShell Module, based on the Orion SDK. Essentially it is an attempt to take some of the sample scripts included in the SDK, and to convert those to PowerShell Cmdlets 
 
-# Why A Module?
+## Why A Module?
 
 Converting this code into a module has several benefits:
 
@@ -26,7 +28,7 @@ Converting this code into a module has several benefits:
 
 4.	Built-in documentation. By using native functionality in PowerShell help and examples can be included with the modules. 
 
-# Installing the Module
+## Installing the Module
 
 To install SwisPowerShell, follow these steps:
 

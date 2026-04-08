@@ -3,6 +3,7 @@ layout: default
 title: "SAM Application Monitoring Templates"
 ---
 
+# SAM Application Monitoring Templates
 
 In [Server and Application Monitor (SAM)](https://www.solarwinds.com/server-application-monitor), an application is a collection of component monitors inherited from a template when you assign the template to a node. SAM includes over 250 out-of-the-box application monitor templates and access to a rich repository of templates shared by other SAM customers in our online IT community, [THWACK](https://thwack.solarwinds.com/community/systems-management/server-and-application-monitor-sam/content?filterID=contentstatus%5Bpublished%5D~objecttype~objecttype%5Bdocument%5D). 
 A template can be [customized](https://documentation.solarwinds.com/en/Success_Center/SAM/Content/SAM-Custom-Template-Guide-intro.htm), exported and imported to/from a file. To learn more about the application/template relationship, see [Manage SAM templates and component monitors](https://documentation.solarwinds.com/en/Success_Center/SAM/Content/SAM-Using-Application-Monitor-Templates-sw1115.htm). For details about individual templates, see the [SAM Template reference](https://documentation.solarwinds.com/en/Success_Center/SAM/Content/SAM-Template-Reference-intro.htm)

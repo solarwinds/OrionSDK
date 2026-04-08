@@ -186,7 +186,7 @@
                 {% for item in site.data.navigation %}
                   {% assign ext = false %}{% if item.url contains 'http' %}{% assign ext = true %}{% endif %}
                   {% assign act = false %}{% if page.url == item.url %}{% assign act = true %}{% endif %}
-                  <li class="nav-item{% if act %} active{% endif %}"
+                  <li class="nav-item{% if act %} active{% endif %}{% if item.children %} open{% endif %}"
                       {% if item.url and ext == false %}data-page-url="{{ item.url | prepend: site.baseurl }}"{% endif %}>
                     <div class="nav-row">
                       {% if item.url %}
@@ -202,7 +202,7 @@
                       {% for child in item.children %}
                         {% assign cext = false %}{% if child.url contains 'http' %}{% assign cext = true %}{% endif %}
                         {% assign cact = false %}{% if page.url == child.url %}{% assign cact = true %}{% endif %}
-                        <li class="nav-child{% if cact %} active{% endif %}"
+                        <li class="nav-child{% if cact %} active{% endif %}{% if child.children %} open{% endif %}"
                             {% unless cext %}data-page-url="{{ child.url | prepend: site.baseurl }}"{% endunless %}>
                           <div class="nav-row">
                             <a href="{{ child.url | relative_url }}" class="nav-link{% if cact %} active{% endif %}"

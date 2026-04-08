@@ -3,6 +3,8 @@ layout: default
 title: "SAM AppInsight Applications"
 ---
 
+# SAM AppInsight Applications
+
 Applnsight applications provide a level of detail and expert knowledge far beyond what a simple template can provide, allowing you to monitor virtually every aspect of the assigned application.
 
 Like any unassigned application in SAM, Appinsight applications are considered templates until applied. Therefore, it is a member of the Application Monitor Templates collection.

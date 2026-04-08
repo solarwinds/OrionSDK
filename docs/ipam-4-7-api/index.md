@@ -3,6 +3,8 @@ layout: default
 title: "Ipam 4 7 Api"
 ---
 
+# IPAM 4.7 API
+
 Starting with IPAM 4.6, an API is available for managing IP addresses.
 
 # Add PTR record

@@ -3,6 +3,8 @@ layout: default
 title: "NCM Config Search"
 ---
 
+# NCM Config Search
+
 The Network Configuration Manager search interface can be called through the API using the `ConfigSearch` verb on `Cirrus.ConfigArchive`.
 
 ## Cirrus.ConfigArchive

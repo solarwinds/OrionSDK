@@ -3,6 +3,8 @@ layout: default
 title: "Poller Types"
 ---
 
+# Poller Types
+
 <table>
 <tr>
 <th>Class // DBName</th>

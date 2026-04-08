@@ -2,7 +2,7 @@
 layout: default
 title: "How To Set Polling Parameters On A Node"
 ---
-
+# How To Set Polling Parameters On A Node
 Node is created with default parameters and can be configured later via SDK.
 
 ## Basic polling parameters on a Node

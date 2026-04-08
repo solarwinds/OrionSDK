@@ -3,6 +3,8 @@ layout: default
 title: "Discovery"
 ---
 
+# Discovery
+
 Orion's Network Sonar Discovery feature can be scripted to discover and add nodes. Using the Discovery API involves a few phases:
 
 1. Constructing the discovery context

@@ -3,6 +3,8 @@ layout: default
 title: "Unmanaging Entities"
 ---
 
+# Unmanaging Entities
+
 You can tell the  Orion platform to pause monitoring for entities for a period of time. This can be useful for maintenance windows or other periods of time where you know the device or application will be offline. During this period no data will be collected for that entity - no up/down status, no response time, etc. There will be a gap in charts for this time.
 
 If you want to collect data but just mute alerts for an entity, use the [Alert Suppression feature](../alerts/#orionalertsuppression) instead.

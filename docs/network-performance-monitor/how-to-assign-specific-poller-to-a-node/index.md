@@ -3,6 +3,8 @@ layout: default
 title: "How To Assign Specific Poller To A Node"
 ---
 
+# How To Assign Specific Poller To A Node
+
 The assignment is done automatically based on OID support by that specific Node. Specific Poller can be assigned to the Node via SDK using its name.
 
 ## Assigning specific poller to a node

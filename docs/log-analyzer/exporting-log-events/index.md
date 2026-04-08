@@ -3,6 +3,8 @@ layout: default
 title: "Exporting Log Events"
 ---
 
+# Exporting Log Events
+
 Using a SWQL query it is possible to query for Log Manager events and export them to a CSV file. 
 
 The following example queries for all events during the last 12 hours:

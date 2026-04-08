@@ -3,6 +3,8 @@ layout: default
 title: "Possible Issues"
 ---
 
+# Possible issues
+
 ## Date/time Functions
 
 When using `GETUTCDATE()` function, please note that you will see an incorrect time offset if your SQL Server is in a different timezone than you.

@@ -3,6 +3,8 @@ layout: default
 title: "Polling Engine Load Balancing"
 ---
 
+# Polling Engine Load Balancing
+
 Orion polling can be scaled out by adding Additional Polling Engines. Nodes are statically assigned to polling engines and all related monitoring jobs such as Interfaces, Applications, and Configs are run from the node's assigned polling engine. The Orion admin is responsible for balancing the load between polling engines by reassigning nodes.
 
 # Caution

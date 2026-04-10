@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="{{ '/assets/css/style.css?v=' | append: site.github.build_revision | relative_url }}" media="screen" type="text/css">
+    <title>{{ page.title | default: site.title }}</title>
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <![endif]-->
+    <style>
+      /* ── Two-column layout ── */
+      .inner { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+      .page-layout { display: flex; gap: 40px; align-items: flex-start; }
+      .page-layout > section { flex: 1; min-width: 0; }
+      .page-layout > aside {
+        flex: 0 0 280px;
+        position: sticky;
+        top: 20px;
+        max-height: calc(100vh - 40px);
+        overflow-y: auto;
+        padding-right: 4px;
+      }
+
+      /* ── Search box ── */
+      #nav-search-box { margin-bottom: 10px; }
+      #nav-search {
+        width: 100%;
+        box-sizing: border-box;
+        padding: 6px 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        font-size: 0.82em;
+        outline: none;
+      }
+      #nav-search:focus { border-color: #267CB9; }
+
+      /* ── Nav root list ── */
+      .sidebar-nav { margin: 0; padding: 0; list-style: none; }
+
+      /* ── Nav item (top level) ── */
+      .nav-item { margin-bottom: 1px; }
+
+      /* ── Row: link + expand button ── */
+      .nav-row {
+        display: flex;
+        align-items: center;
+        gap: 2px;
+        border-radius: 3px;
+      }
+      .nav-row:hover { background: #f5f5f5; }
+
+      .nav-link {
+        flex: 1;
+        font-size: 0.83em;
+        color: #267CB9;
+        text-decoration: none;
+        padding: 3px 4px;
+        min-width: 0;
+        word-break: break-word;
+      }
+      .nav-link:hover { text-decoration: underline; }
+      .nav-link.active { font-weight: bold; color: #111; }
+
+      .nav-group {
+        flex: 1;
+        font-size: 0.75em;
+        color: #555;
+        font-weight: bold;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        padding: 4px 4px 2px;
+      }
+
+      /* ── Expand toggle button ── */
+      .expand-btn {
+        flex-shrink: 0;
+        background: none;
+        border: none;
+        cursor: pointer;
+        padding: 3px 5px;
+        color: #aaa;
+        font-size: 0.7em;
+        line-height: 1;
+        user-select: none;
+        transition: transform 0.15s ease, color 0.1s;
+      }
+      .expand-btn::before { content: '›'; display: inline-block; transition: transform 0.15s ease; }
+      .expand-btn:hover { color: #555; }
+      .nav-item.open > .nav-row > .expand-btn::before,
+      .nav-child.open > .nav-row > .expand-btn::before { transform: rotate(90deg); color: #267CB9; }
+
+      /* ── Children list (sub-pages from YAML) ── */
+      .nav-children {
+        list-style: none;
+        margin: 0;
+        padding: 0 0 0 10px;
+        border-left: 2px solid #e4e4e4;
+        display: none;
+      }
+      .nav-item.open > .nav-children { display: block; }
+
+      /* ── Nav child (second level) ── */
+      .nav-child { margin-bottom: 1px; }
+      .nav-child .nav-link { font-size: 0.8em; }
+
+      /* ── In-page heading list ── */
+      .nav-headings {
+        list-style: none;
+        margin: 0;
+        padding: 0 0 4px 10px;
+        border-left: 2px solid #efefef;
+        display: none;
+      }
+      .nav-item.open > .nav-headings,
+      .nav-child.open > .nav-headings { display: block; }
+
+      .nav-heading-link {
+        display: block;
+        font-size: 0.75em;
+        color: #555;
+        text-decoration: none;
+        padding: 2px 4px;
+        border-radius: 2px;
+        word-break: break-word;
+      }
+      .nav-heading-link:hover { color: #267CB9; background: #f5f5f5; }
+      .nav-heading-h3 { padding-left: 14px; color: #777; }
+      .nav-heading-h3:hover { color: #267CB9; }
+
+      .nav-loading {
+        font-size: 0.72em;
+        color: #aaa;
+        font-style: italic;
+        padding: 3px 4px;
+        display: block;
+      }
+
+      /* ── Responsive ── */
+      @media (max-width: 768px) {
+        .page-layout { flex-direction: column; }
+        .page-layout > aside {
+          flex: none; width: 100%;
+          position: static; max-height: none;
+          border-top: 1px solid #e0e0e0;
+          padding-top: 16px; margin-top: 24px;
+        }
+      }
+    </style>
+
+    {% seo %}
+  </head>
+
+  <body>
+    <header>
+      <div class="inner">
+        <a href="{{ '/' | relative_url }}">
+          <h1>{{ site.title | default: site.github.repository_name }}</h1>
+        </a>
+        <div class="header-meta">
+          <h2>{{ site.description | default: site.github.project_tagline }}</h2>
+          {% assign repo_url = site.github_repo | default: site.github.repository_url %}
+          {% if repo_url %}
+            <a href="{{ repo_url }}" class="button button-sm" target="_blank" rel="noopener">View on GitHub</a>
+          {% endif %}
+        </div>
+      </div>
+    </header>
+
+    <div id="content-wrapper">
+      <div class="inner clearfix">
+        <div class="page-layout">
+
+          <section id="main-content">
+            {{ content }}
+          </section>
+
+          {% if site.data.navigation %}
+          <aside id="sidebar">
+            <div id="nav-search-box">
+              <input type="search" id="nav-search" placeholder="Search topics…" autocomplete="off" spellcheck="false" />
+            </div>
+            <nav>
+              <ul class="sidebar-nav" id="sidebar-nav">
+                {% for item in site.data.navigation %}
+                  {% assign ext = false %}{% if item.url contains 'http' %}{% assign ext = true %}{% endif %}
+                  {% assign act = false %}{% if page.url == item.url %}{% assign act = true %}{% endif %}
+                  <li class="nav-item{% if act %} active{% endif %}{% if item.children %} open{% endif %}"
+                      {% if item.url and ext == false %}data-page-url="{{ item.url | prepend: site.baseurl }}"{% endif %}>
+                    <div class="nav-row">
+                      {% if item.url %}
+                        <a href="{{ item.url | relative_url }}" class="nav-link{% if act %} active{% endif %}"
+                           {% if ext %}target="_blank" rel="noopener"{% endif %}>{{ item.title }}</a>
+                      {% else %}
+                        <span class="nav-group">{{ item.title }}</span>
+                      {% endif %}
+                      {% unless ext %}<button class="expand-btn" aria-label="Toggle sections"></button>{% endunless %}
+                    </div>
+                    {% if item.children %}
+                    <ul class="nav-children">
+                      {% for child in item.children %}
+                        {% assign cext = false %}{% if child.url contains 'http' %}{% assign cext = true %}{% endif %}
+                        {% assign cact = false %}{% if page.url == child.url %}{% assign cact = true %}{% endif %}
+                        <li class="nav-child{% if cact %} active{% endif %}{% if child.children %} open{% endif %}"
+                            {% unless cext %}data-page-url="{{ child.url | prepend: site.baseurl }}"{% endunless %}>
+                          <div class="nav-row">
+                            <a href="{{ child.url | relative_url }}" class="nav-link{% if cact %} active{% endif %}"
+                               {% if cext %}target="_blank" rel="noopener"{% endif %}>{{ child.title }}</a>
+                            {% unless cext %}<button class="expand-btn" aria-label="Toggle sections"></button>{% endunless %}
+                          </div>
+                          <ul class="nav-headings"></ul>
+                        </li>
+                      {% endfor %}
+                    </ul>
+                    {% endif %}
+                    <ul class="nav-headings"></ul>
+                  </li>
+                {% endfor %}
+              </ul>
+            </nav>
+          </aside>
+          {% endif %}
+
+        </div>
+      </div>
+    </div>
+
+    <script>
+    (function () {
+      var baseurl = '{{ site.baseurl }}';
+      var cache = {};
+
+      function normPath(p) { return p ? p.replace(/\/?$/, '/') : '/'; }
+
+      function currentPath() { return normPath(window.location.pathname); }
+
+      /* ── Extract h2/h3 headings from a parsed document ── */
+      function extractHeadings(doc, pageUrl) {
+        var main = doc.querySelector('#main-content');
+        if (!main) return [];
+        var out = [];
+        main.querySelectorAll('h2, h3').forEach(function (h) {
+          if (h.id) out.push({ tag: h.tagName.toLowerCase(), text: h.textContent.trim(), anchor: pageUrl + '#' + h.id });
+        });
+        return out;
+      }
+
+      /* ── Render heading list into a <ul> container ── */
+      function renderHeadings(headings, ul) {
+        ul.innerHTML = '';
+        if (!headings.length) return;
+        headings.forEach(function (h) {
+          var li = document.createElement('li');
+          var a = document.createElement('a');
+          a.href = h.anchor;
+          a.textContent = h.text;
+          a.className = 'nav-heading-link nav-heading-' + h.tag;
+          li.appendChild(a);
+          ul.appendChild(li);
+        });
+      }
+
+      /* ── Fetch a page and populate its heading list ── */
+      function loadHeadings(pageUrl, ul) {
+        if (ul.dataset.loaded) return;
+        ul.dataset.loaded = '1';
+        var norm = normPath(pageUrl);
+
+        /* Current page: read from DOM directly */
+        if (norm === currentPath()) {
+          var hs = [];
+          document.querySelectorAll('#main-content h2, #main-content h3').forEach(function (h) {
+            if (h.id) hs.push({ tag: h.tagName.toLowerCase(), text: h.textContent.trim(), anchor: '#' + h.id });
+          });
+          cache[norm] = hs;
+          renderHeadings(hs, ul);
+          return;
+        }
+
+        if (cache[norm]) { renderHeadings(cache[norm], ul); return; }
+
+        ul.innerHTML = '<li><span class="nav-loading">Loading…</span></li>';
+        fetch(pageUrl)
+          .then(function (r) { return r.text(); })
+          .then(function (html) {
+            var doc = new DOMParser().parseFromString(html, 'text/html');
+            var hs = extractHeadings(doc, pageUrl);
+            cache[norm] = hs;
+            renderHeadings(hs, ul);
+          })
+          .catch(function () {
+            ul.innerHTML = '';
+            ul.dataset.loaded = '';
+          });
+      }
+
+      /* ── Toggle open/close on a nav-item or nav-child ── */
+      function toggle(li) {
+        var wasOpen = li.classList.contains('open');
+        li.classList.toggle('open');
+        if (!wasOpen) {
+          var pageUrl = li.dataset.pageUrl;
+          var headingsUl = li.querySelector(':scope > .nav-headings');
+          if (pageUrl && headingsUl) loadHeadings(pageUrl, headingsUl);
+        }
+      }
+
+      /* ── Wire up expand buttons ── */
+      document.querySelectorAll('.expand-btn').forEach(function (btn) {
+        btn.addEventListener('click', function (e) {
+          e.preventDefault();
+          e.stopPropagation();
+          var li = btn.closest('.nav-item, .nav-child');
+          if (li) toggle(li);
+        });
+      });
+
+      /* ── Auto-expand the active item on page load ── */
+      (function autoExpand() {
+        var activeChild = document.querySelector('.nav-child.active');
+        if (activeChild) {
+          var parent = activeChild.closest('.nav-item');
+          if (parent) parent.classList.add('open');
+          activeChild.classList.add('open');
+          var ul = activeChild.querySelector(':scope > .nav-headings');
+          if (ul && activeChild.dataset.pageUrl) loadHeadings(activeChild.dataset.pageUrl, ul);
+          return;
+        }
+        var activeItem = document.querySelector('.nav-item.active');
+        if (activeItem) {
+          activeItem.classList.add('open');
+          var ul2 = activeItem.querySelector(':scope > .nav-headings');
+          if (ul2 && activeItem.dataset.pageUrl) loadHeadings(activeItem.dataset.pageUrl, ul2);
+        }
+      })();
+
+      /* ── Search ── */
+      var searchInput = document.getElementById('nav-search');
+      if (searchInput) {
+        searchInput.addEventListener('input', function () {
+          var q = searchInput.value.toLowerCase().trim();
+
+          if (!q) {
+            document.querySelectorAll('.nav-item, .nav-child').forEach(function (el) {
+              el.style.display = '';
+            });
+            return;
+          }
+
+          document.querySelectorAll('.nav-item').forEach(function (item) {
+            var topEl = item.querySelector(':scope > .nav-row > .nav-link, :scope > .nav-row > .nav-group');
+            var topText = topEl ? topEl.textContent.toLowerCase() : '';
+            var topMatch = topText.includes(q);
+
+            var anyChild = false;
+            item.querySelectorAll('.nav-child').forEach(function (child) {
+              var childLink = child.querySelector('.nav-link');
+              var childMatch = childLink && childLink.textContent.toLowerCase().includes(q);
+              child.style.display = (topMatch || childMatch) ? '' : 'none';
+              if (childMatch) anyChild = true;
+            });
+
+            item.style.display = (topMatch || anyChild) ? '' : 'none';
+
+            /* Open children list so matches are visible */
+            if (anyChild && !topMatch) {
+              var children = item.querySelector(':scope > .nav-children');
+              if (children) children.style.display = '';
+            }
+          });
+        });
+
+        searchInput.addEventListener('keydown', function (e) {
+          if (e.key === 'Escape') { searchInput.value = ''; searchInput.dispatchEvent(new Event('input')); }
+        });
+      }
+    })();
+    </script>
+  </body>
+</html>

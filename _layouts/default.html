@@ -24,7 +24,7 @@
       }
 
       /* ── Search box ── */
-      #nav-search-box { margin-bottom: 10px; }
+      #nav-search-box { margin-bottom: 10px; position: relative; }
       #nav-search {
         width: 100%;
         box-sizing: border-box;
@@ -35,6 +35,42 @@
         outline: none;
       }
       #nav-search:focus { border-color: #267CB9; }
+
+      #search-results {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0; right: 0;
+        background: #fff;
+        border: 1px solid #ccc;
+        border-top: none;
+        border-radius: 0 0 4px 4px;
+        max-height: 320px;
+        overflow-y: auto;
+        z-index: 999;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      }
+      #search-results.visible { display: block; }
+      .search-result-item {
+        display: block;
+        padding: 6px 10px;
+        font-size: 0.8em;
+        color: #267CB9;
+        text-decoration: none;
+        border-bottom: 1px solid #f0f0f0;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      .search-result-item:hover { background: #f5f5f5; }
+      .search-result-item.active { background: #e8f0f8; }
+      .search-no-results {
+        display: block;
+        padding: 6px 10px;
+        font-size: 0.8em;
+        color: #999;
+        font-style: italic;
+      }
 
       /* ── Nav root list ── */
       .sidebar-nav { margin: 0; padding: 0; list-style: none; }
@@ -177,9 +213,10 @@
           </section>
 
           {% if site.data.navigation %}
-          <aside id="sidebar">
+          <aside id="sidebar" data-search-url="{{ '/search.json' | relative_url }}">
             <div id="nav-search-box">
-              <input type="search" id="nav-search" placeholder="Search topics…" autocomplete="off" spellcheck="false" />
+              <input type="search" id="nav-search" placeholder="Search all pages…" autocomplete="off" spellcheck="false" />
+              <div id="search-results"></div>
             </div>
             <nav>
               <ul class="sidebar-nav" id="sidebar-nav">
@@ -337,44 +374,71 @@
 
       /* ── Search ── */
       var searchInput = document.getElementById('nav-search');
-      if (searchInput) {
-        searchInput.addEventListener('input', function () {
-          var q = searchInput.value.toLowerCase().trim();
+      var searchResults = document.getElementById('search-results');
+      if (!searchInput || !searchResults) return;
 
-          if (!q) {
-            document.querySelectorAll('.nav-item, .nav-child').forEach(function (el) {
-              el.style.display = '';
-            });
-            return;
-          }
+      var searchIndex = null;
+      var activeIdx = -1;
+      var searchUrl = document.getElementById('sidebar').dataset.searchUrl;
 
-          document.querySelectorAll('.nav-item').forEach(function (item) {
-            var topEl = item.querySelector(':scope > .nav-row > .nav-link, :scope > .nav-row > .nav-group');
-            var topText = topEl ? topEl.textContent.toLowerCase() : '';
-            var topMatch = topText.includes(q);
-
-            var anyChild = false;
-            item.querySelectorAll('.nav-child').forEach(function (child) {
-              var childLink = child.querySelector('.nav-link');
-              var childMatch = childLink && childLink.textContent.toLowerCase().includes(q);
-              child.style.display = (topMatch || childMatch) ? '' : 'none';
-              if (childMatch) anyChild = true;
-            });
-
-            item.style.display = (topMatch || anyChild) ? '' : 'none';
-
-            /* Open children list so matches are visible */
-            if (anyChild && !topMatch) {
-              var children = item.querySelector(':scope > .nav-children');
-              if (children) children.style.display = '';
-            }
-          });
-        });
-
-        searchInput.addEventListener('keydown', function (e) {
-          if (e.key === 'Escape') { searchInput.value = ''; searchInput.dispatchEvent(new Event('input')); }
-        });
+      function fetchIndex() {
+        if (searchIndex) return Promise.resolve(searchIndex);
+        return fetch(searchUrl)
+          .then(function (r) { return r.json(); })
+          .then(function (data) { searchIndex = data; return data; });
       }
+
+      function renderResults(results, q) {
+        activeIdx = -1;
+        if (!results.length) {
+          searchResults.innerHTML = '<span class="search-no-results">No pages found</span>';
+        } else {
+          var escaped = q.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+          searchResults.innerHTML = results.slice(0, 20).map(function (p) {
+            var hi = p.title.replace(new RegExp('(' + escaped + ')', 'gi'), '<strong>$1</strong>');
+            return '<a class="search-result-item" href="' + p.url + '">' + hi + '</a>';
+          }).join('');
+        }
+        searchResults.classList.add('visible');
+      }
+
+      function closeResults() {
+        searchResults.classList.remove('visible');
+        activeIdx = -1;
+      }
+
+      searchInput.addEventListener('input', function () {
+        var q = searchInput.value.trim();
+        if (!q) { closeResults(); return; }
+        fetchIndex().then(function (idx) {
+          var ql = q.toLowerCase();
+          renderResults(idx.filter(function (p) { return p.title && p.title.toLowerCase().includes(ql); }), q);
+        });
+      });
+
+      searchInput.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape') { searchInput.value = ''; closeResults(); return; }
+        var items = searchResults.querySelectorAll('.search-result-item');
+        if (!items.length) return;
+        if (e.key === 'ArrowDown') {
+          e.preventDefault();
+          if (activeIdx >= 0) items[activeIdx].classList.remove('active');
+          activeIdx = Math.min(activeIdx + 1, items.length - 1);
+          items[activeIdx].classList.add('active');
+        } else if (e.key === 'ArrowUp') {
+          e.preventDefault();
+          if (activeIdx >= 0) items[activeIdx].classList.remove('active');
+          activeIdx = Math.max(activeIdx - 1, 0);
+          items[activeIdx].classList.add('active');
+        } else if (e.key === 'Enter' && activeIdx >= 0) {
+          e.preventDefault();
+          window.location.href = items[activeIdx].href;
+        }
+      });
+
+      document.addEventListener('click', function (e) {
+        if (!document.getElementById('nav-search-box').contains(e.target)) closeResults();
+      });
     })();
     </script>
   </body>

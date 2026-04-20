@@ -43,6 +43,7 @@ The **Orion SDK** is open source software that makes it easier for system admini
 
 ## SolarWinds Information Service v3.0 Schema Documentation
 
+* [2026.2](2026.2/index.html)
 * [2026.1](2026.1/index.html)
 * [2025.4](2025.4/index.html)
 * [2025.2.1](2025.2.1/index.html)

@@ -1,6 +1,6 @@
 ---
 layout: default
-title: "Ipam 4 6 Api"
+title: "Ipam 4.6 Api"
 ---
 
 # IPAM 4.6 API

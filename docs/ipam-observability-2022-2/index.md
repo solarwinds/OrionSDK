@@ -1051,16 +1051,16 @@ Sample CISCO ASA IPv4
 ```powershell
 Invoke-SwisVerb $swis IPAM.DhcpDnsManagement AddDhcpScope @(
     331,
-    "10.199.192.0", 24,
+    "1.1.1.0", 24,
     "ipamtest",
     "Full allowed range",
     "false", "true",
-    "10.199.192.1",
-    "10.199.192.20",
+    "1.1.1.1",
+    "1.1.1.20",
     $null, $null, $null,
     $null, $null, $null,
     $null,
-    '[{"code":"3","value":"10.199.192.1"},{"code":"6","value":"8.8.8.8"}]',
+    '[{"code":"3","value":"1.1.1.1"},{"code":"6","value":"8.8.8.8"}]',
     $null, $null, $null, $null,
     "VLAN-ASA-1", "Perimeter Zone"
 )
@@ -1283,11 +1283,11 @@ Sample CISCO ASA — update range
 Invoke-SwisVerb $swis IPAM.DhcpDnsManagement EditDhcpScope @(
     508,
     $null,
-    "10.199.192.5",
-    "10.199.192.30",
+    "1.1.1.5",
+    "1.1.1.30",
     $null, $null, $null,
     $null, $null, $null, $null,
-    '[{"code":"3","value":"10.199.192.1"},{"code":"6","value":"8.8.8.8"}]',
+    '[{"code":"3","value":"1.1.1.1"},{"code":"6","value":"8.8.8.8"}]',
     $null, $null,
     "VLAN-ASA-1",
     "Perimeter Zone"

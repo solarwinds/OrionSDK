@@ -14,24 +14,32 @@ namespace SwqlStudio.ObjectExplorer
     internal sealed class FontSizeToolbar : UserControl
     {
         private Control _target;
-        private  float _defaultFontSize;
-        private float _currentFontSize;       
-
         private readonly ToolStripButton _btnReset;
         private readonly ToolStripButton _btnDecrease;
         private readonly ToolStripButton _btnIncrease;
 
-        public FontSizeToolbar()
-        {
-            Height = 26;
-            Width = 81;
+        private float? _initialFontSize;
+        private float _minFontSize;
+        private float _maxFontSize;
 
-            var strip = new ToolStrip
+        private readonly float _step;
+
+        public FontSizeToolbar(float scaleFactor)
+        {
+            AutoScaleMode = AutoScaleMode.Dpi;
+
+            _step = scaleFactor;
+            _minFontSize = 2f * scaleFactor;
+            _maxFontSize = 20f * scaleFactor;
+
+            ToolStrip strip = new ToolStrip
             {
-                Dock = DockStyle.Fill,
                 GripStyle = ToolStripGripStyle.Hidden,
                 RenderMode = ToolStripRenderMode.System,
-                Padding = new Padding(10, 0, 0, 0)
+                LayoutStyle = ToolStripLayoutStyle.HorizontalStackWithOverflow,
+                AutoSize = true,
+                Padding = Padding.Empty,
+                CanOverflow = false
             };
 
             _btnReset = CreateButton(Properties.Resources.Refresh_16x, "Reset font");
@@ -48,64 +56,61 @@ namespace SwqlStudio.ObjectExplorer
             strip.Items.Add(_btnIncrease);
 
             Controls.Add(strip);
-        }
 
-        private const float MinFontSize = 7f;
-        private const float MaxFontSize = 20f;
-        private const float Step = 1f;
+            Size = strip.PreferredSize;
+        }
 
         public Control Target
         {
-            get => _target;
-            set
-            {
-                _target = value;
-                if (_target != null)
-                {
-                    _defaultFontSize = _target.Font.Size;
-                    _currentFontSize = _defaultFontSize;
-                }
-            }
+            get => _target; set => _target = value;
         }
+
         private void ChangeFont(int delta)
         {
             if (Target == null)
                 return;
 
-            float newSize = Clamp(
-                _currentFontSize + delta * Step,
-                MinFontSize,
-                MaxFontSize);
+            SaveInitialFontSize();
 
-            if (Math.Abs(newSize - _currentFontSize) < 0.01f)
+            float newSize = Clamp(
+                _target.Font.Size + delta * _step,
+                _minFontSize,
+                _maxFontSize);
+
+            if (Math.Abs(newSize - _target.Font.Size) < 0.01f)
                 return;
 
-            _currentFontSize = newSize;
-            
             var oldFont = Target.Font;
-            Target.Font = new Font(oldFont.FontFamily, _currentFontSize, oldFont.Style);
+            Target.Font = new Font(oldFont.FontFamily, newSize, oldFont.Style, oldFont.Unit);
+            oldFont.Dispose();
 
             UpdateResetButton();
+
+            void SaveInitialFontSize()
+            {
+                if (_initialFontSize.HasValue)
+                    return;
+                _initialFontSize = Target.Font.Size;
+            }
         }
 
         private void ResetFontSize()
         {
-            if (Target == null)
+            if (Target == null || !_initialFontSize.HasValue)
                 return;
 
-            _currentFontSize = _defaultFontSize;
-
             var oldFont = Target.Font;
-            Target.Font = new Font(oldFont.FontFamily, _defaultFontSize, oldFont.Style);
+            Target.Font = new Font(oldFont.FontFamily, _initialFontSize.Value, oldFont.Style, oldFont.Unit);
+            oldFont.Dispose();
 
             UpdateResetButton();
         }
 
         private void UpdateResetButton()
         {
-            bool isDirty = Math.Abs(_currentFontSize - _defaultFontSize) > 0.01f;
+            bool isDirty = _initialFontSize.HasValue && Math.Abs( Target.Font.Size - _initialFontSize.Value) > _step*0.01f;
 
-            _btnReset.Enabled = isDirty;           
+            _btnReset.Enabled = isDirty;
         }
 
         private static float Clamp(float value, float min, float max)
@@ -122,8 +127,7 @@ namespace SwqlStudio.ObjectExplorer
                 Image = image,
                 ImageTransparentColor = Color.Magenta,
                 ToolTipText = tooltip,
-                AutoSize = false,
-                Width = 23
+                AutoSize = true
             };
     }
 }

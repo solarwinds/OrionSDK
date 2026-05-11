@@ -22,10 +22,10 @@ namespace SwqlStudio.ObjectExplorer
     {
         private static readonly Log log = new Log();
 
-        private Panel _searchPanel;
+        private FlowLayoutPanel _searchPanel;
         private FontSizeToolbar _fontToolbar;
 
-        private readonly SearchTextBox _treeSearch;
+        private readonly SearchTextBox _treeSearch = new SearchTextBox();
         private readonly TreeView _tree;
         private TreeView _treeData;
         private TreeNodeUtils.TreeNodeBindings _treeBindings = new TreeNodeUtils.TreeNodeBindings(); // default value, so this field is never null
@@ -45,27 +45,23 @@ namespace SwqlStudio.ObjectExplorer
         public event TreeViewEventHandler SelectionChanged;
         public ITabsFactory TabsFactory { get; set; }
 
+        private const float StandardDpi = 96f; // dots per inch, standard value for 100% scaling
+
         public ObjectExplorer()
         {
-            InitializeComponent();
+            float scaleFactor = DeviceDpi / StandardDpi;
 
-            _searchPanel = new Panel
+            _fontToolbar = new FontSizeToolbar(scaleFactor);
+
+            int panelHeight = Math.Max((int)(26 * scaleFactor), _fontToolbar.Height);
+
+            _searchPanel = new FlowLayoutPanel
             {
                 Dock = DockStyle.Top,
-                Height = 26,
-                Padding = new Padding(0, 0, 6, 0)
-            };
-
-            _treeSearch = new SearchTextBox
-            {
-                Dock = DockStyle.None, 
-                Height = 26
-            };
-
-            _fontToolbar = new FontSizeToolbar
-            {
-                Dock = DockStyle.Right,
-               // Margin = new Padding(0, 0, 4, 0)
+                Height = panelHeight,
+                Padding = new Padding(0, 0, (int)(6 * scaleFactor), 0),
+                FlowDirection = FlowDirection.LeftToRight,
+                WrapContents = false
             };
 
             _tree = new TreeView
@@ -87,22 +83,13 @@ namespace SwqlStudio.ObjectExplorer
             _verbContextMenu = new ContextMenu();
             _verbContextMenu.MenuItems.Add("Invoke...", (s, e) => OpenInvokeTab());
 
-            _fontToolbar.Target = this._tree;           
+            _fontToolbar.Target = this._tree;
 
             _searchPanel.Controls.Add(_treeSearch);
             _searchPanel.Controls.Add(_fontToolbar);
             
             Controls.Add(_tree);
             Controls.Add(_searchPanel);
-
-            _searchPanel.Resize += (s, e) =>
-            {
-                _treeSearch.Left = 0;
-                _treeSearch.Width = _searchPanel.Width - _fontToolbar.Width;
-
-                // Vertical centering
-                _treeSearch.Top = (_searchPanel.Height - _treeSearch.Height) / 2;
-            };
         }
 
         private void InitializeTreeview()

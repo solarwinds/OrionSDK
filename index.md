@@ -39,8 +39,6 @@ The **Orion SDK** is open source software that makes it easier for system admini
 * Log Analyzer 
   * [Exporting log events](docs/log-analyzer/exporting-log-events/)
 
-[More information about the SWIS query language and important entity types](https://thwack.solarwinds.com/docs/DOC-186990)
-
 ## SolarWinds Information Service v3.0 Schema Documentation
 
 * [2026.2](2026.2/index.html)

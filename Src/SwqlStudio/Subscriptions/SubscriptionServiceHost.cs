@@ -36,7 +36,7 @@ namespace SwqlStudio.Subscriptions
             var processId = Process.GetCurrentProcess().Id;
             netTcpAddress = string.Format("net.tcp://{0}:17777/SolarWinds/SwqlStudio/{1}", ResolveLocalIPAddress(), processId);
 
-            httpAddress = string.Format("https://{0}:17778/SolarWinds/SwqlStudio/{1}", Utility.GetFqdn(), processId);
+            httpAddress = string.Format("https://{0}:17774/SolarWinds/SwqlStudio/{1}", Utility.GetFqdn(), processId);
         }
 
         public bool IsListening()

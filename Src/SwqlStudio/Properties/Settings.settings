@@ -30,7 +30,7 @@
       <Value Profile="(Default)">SolarWinds/InformationService/OrionBasic</Value>
     </Setting>
     <Setting Name="DefaultInfoServiceHttpsPort" Type="System.Int32" Scope="Application">
-      <Value Profile="(Default)">17778</Value>
+      <Value Profile="(Default)">17774</Value>
     </Setting>
     <Setting Name="NCMForwarderEndpointPath" Type="System.String" Scope="Application">
       <Value Profile="(Default)">SolarWinds/InformationService/NCMIntegration/ssl</Value>
@@ -100,6 +100,9 @@
     </Setting>
     <Setting Name="ShowObsolete" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="DataProviderTimeout" Type="System.TimeSpan" Scope="Application">
+      <Value Profile="(Default)">00:00:30</Value>
     </Setting>
   </Settings>
 </SettingsFile>

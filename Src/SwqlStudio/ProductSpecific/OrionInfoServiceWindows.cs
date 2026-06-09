@@ -6,9 +6,9 @@ namespace SwqlStudio
 {
     internal class OrionInfoServiceWindows : InfoServiceBase
     {
-        public OrionInfoServiceWindows(string username, string password, bool v3 = false)
+        public OrionInfoServiceWindows(string username, string password)
         {
-            _endpoint = v3 ? Settings.Default.OrionV3EndpointPathAD : Settings.Default.OrionEndpointPathAD;
+            _endpoint = Settings.Default.OrionV3EndpointPathAD;
             _endpointConfigName = "OrionWindowsTcpBinding";
             _binding = new NetTcpBinding("Windows");
             _credentials = new WindowsCredential(username, password);

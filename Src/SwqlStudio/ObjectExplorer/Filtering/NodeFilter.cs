@@ -47,7 +47,7 @@ namespace SwqlStudio.Filtering
 
             if (nodeVisibility.HasFlag(VisibilityStatus.ChildVisible))
                 // this one is not directly visible, gray it out
-                display.ForeColor = Color.LightBlue;
+                display.ForeColor = ColorTranslator.FromHtml("#2BBDBE");
 
             else if (nodeVisibility.HasFlag(VisibilityStatus.ParentVisible))
                 // this one is not directly visible, gray it out

@@ -105,23 +105,13 @@ namespace SwqlStudio
                     new ServerType { Type = "Orion (v3) AD", IsAuthenticationRequired = false },
                     new ServerType { Type = "Orion (v3) Certificate", IsAuthenticationRequired = false },
                     new ServerType { Type = "Orion (v3) over HTTPS", IsAuthenticationRequired = true },
-                    new ServerType { Type = "Orion (v2)", IsAuthenticationRequired = true },
-                    new ServerType { Type = "Orion (v2) AD", IsAuthenticationRequired = false },
-                    new ServerType { Type = "Orion (v2) Certificate", IsAuthenticationRequired = false },
-                    new ServerType { Type = "Orion (v2) over HTTPS", IsAuthenticationRequired = true },
-                    new ServerType { Type = "EOC", IsAuthenticationRequired = true },
-                    new ServerType { Type = "NCM", IsAuthenticationRequired = true },
-                    new ServerType { Type = "NCM (Windows Authentication)", IsAuthenticationRequired = false },
-                    new ServerType { Type = "NCM Integration", IsAuthenticationRequired = true },
-                    new ServerType { Type = "Java over HTTP", IsAuthenticationRequired = true }
+                    new ServerType { Type = "Orion (v3) over HTTPS legacy pre-2023", IsAuthenticationRequired = true}
                 };
 
                 if (Settings.Default.ShowCompressedModes)
                 {
                     serverTypes.AddRange(new[]
                                         {
-                                            new ServerType { Type = "Orion (v2) Compressed", IsAuthenticationRequired = true },
-                                            new ServerType { Type = "Orion (v2) AD Compressed", IsAuthenticationRequired = false },
                                             new ServerType { Type = "Orion (v3) Compressed", IsAuthenticationRequired = true },
                                             new ServerType { Type = "Orion (v3) AD Compressed", IsAuthenticationRequired = false },
                                         });
@@ -203,6 +193,7 @@ namespace SwqlStudio
                     {
                         EnsureConnection();
 
+                        using (var context = new SwisSettingsContext { DataProviderTimeout = Settings.Default.DataProviderTimeout })
                         using (InformationServiceCommand command = new InformationServiceCommand(swql, Connection) { ApplicationTag = "SWQL Studio" })
                         {
                             foreach (var param in QueryParameters)

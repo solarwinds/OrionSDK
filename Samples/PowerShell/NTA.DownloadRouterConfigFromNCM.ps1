@@ -10,20 +10,23 @@ $password = New-Object System.Security.SecureString     # Update to match your c
 $cred = New-Object -typename System.Management.Automation.PSCredential -argumentlist $username, $password
 $swis = Connect-Swis -host $hostname -cred $cred
 
-# Get Orion Node, Interface, Netflow Source information and Router identifiers for concrete Netflow Source
+# Get Orion Node, Interface, Netflow Interface Source information and Router identifiers for concrete Netflow Interface Source
 # You can use these alternative conditions
-# If you know NetflowSourceID: WHERE S.NetflowSourceID = $netflowSourceId
 # If you know NodeName: WHERE s.Node.NodeName = '$nodeName'
 # If you know InterfaceName: WHERE s.Interface.InterfaceName = '$interfaceName'
 $nodeName = "example.com"               # Update to match your configuration
 $interfaceName = "GigabitEthernet0/1"   # Update to match your configuration
 
 $query= "
-SELECT s.NetflowSourceID, s.NodeID, s.InterfaceID, s.Enabled, s.LastTimeFlow, s.LastTime, s.EngineID, 
-    s.Node.NodeName,
-    s.Interface.Name as InterfaceName, s.Interface.Index as RouterIndex
-FROM Orion.Netflow.Source s
-WHERE s.Node.NodeName = @nodeName AND s.Interface.InterfaceName = @interfaceName
+SELECT s.NodeID, s.EntityID as InterfaceID, s.Enabled, s.LastTime, ns.EngineID, 
+    ns.Node.NodeName,
+    i.InterfaceName, s.InterfaceIndex as RouterIndex
+FROM Orion.Netflow.InterfaceSources s
+JOIN Orion.Netflow.NodeSources ns ON s.NodeID = ns.NodeID
+JOIN Orion.NPM.Interfaces i ON s.EntityID = i.InterfaceID
+WHERE s.EntityType = 'Orion.NPM.Interfaces' 
+    AND ns.Node.NodeName = @nodeName 
+    AND i.InterfaceName = @interfaceName
 "
 $params = @{
     nodeName = $nodeName
@@ -57,5 +60,5 @@ Write-Host "Configuration for node with name $nodeName, Orion ID $orionNodeId, N
 # Uncomment if you want to write configuration to console
 # Write-Host $lastConfigData.Config
 
-# You can analyze configuration manually or write some parser. To identify data related to concrete Netflow Source 
+# You can analyze configuration manually or write some parser. To identify data related to concrete Netflow Node Source 
 # you can use retrieved information in $netflowSourceInfo object like: $netflowSourceInfo.InterfaceName, $netflowSourceInfo.RouterIndex

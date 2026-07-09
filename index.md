@@ -12,7 +12,9 @@ The **Orion SDK** is open source software that makes it easier for system admini
 ## Topics
 
 * [About SWIS](docs/about-swis/)
-* [SWQL Functions](docs/swql-functions/)
+* [About SWQL](docs/swql/about-swql/)
+  * [Basic SWQL Syntax](docs/swql/basic-swql-syntax)
+  * [SWQL Functions](docs/swql/swql-functions/)
 * [REST](docs/rest/) - Request and response formats
 * [PowerShell](docs/powershell/) - How to access SWIS from Windows PowerShell
   * [PowerOrion - A Module for PowerShell](docs/powershell/powerorion-a-module-for-powershell/)

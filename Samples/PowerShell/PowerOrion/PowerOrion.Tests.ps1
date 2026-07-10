@@ -251,6 +251,13 @@ InModuleScope PowerOrion {
                 $Properties.NetObject -eq 'N:7' -and $Properties.NetObjectType -eq 'N'
             }
         }
+
+        It 'does not create the poller under -WhatIf' {
+            New-OrionPollerType -PollerType 'I.Status.SNMP.IfTable' `
+                -InterfaceProperties @{ InterfaceID = 9 } `
+                -PollerObjectType 'Interface' -SwisConnection $script:swis -WhatIf | Out-Null
+            Should -Invoke New-SwisObject -Times 0 -Exactly
+        }
     }
 
     # ------------------------------------------------------------------ #
@@ -318,6 +325,11 @@ InModuleScope PowerOrion {
         It 'registers the four interface pollers' {
             New-OrionInterface -SwisConnection $script:swis -NodeId 3 -InterfaceName 'Gi0/0' | Out-Null
             Should -Invoke New-OrionPollerType -Times 4
+        }
+
+        It 'does not create the interface under -WhatIf' {
+            New-OrionInterface -SwisConnection $script:swis -NodeId 3 -InterfaceName 'Gi0/0' -WhatIf | Out-Null
+            Should -Invoke New-SwisObject -Times 0 -Exactly
         }
     }
 
@@ -391,6 +403,12 @@ InModuleScope PowerOrion {
             New-OrionCustomProperty -swisconnection $script:swis -PropertyName 'AppType' `
                 -BaseType 'Orion.NodesCustomProperties' -values $values | Out-Null
             Should -Invoke Invoke-SwisVerb -ParameterFilter { $Verb -eq 'CreateCustomPropertyWithValues' }
+        }
+        It 'does not call the verb under -WhatIf' {
+            Mock Invoke-SwisVerb { 0 }
+            New-OrionCustomProperty -swisconnection $script:swis -PropertyName 'Test1' `
+                -BaseType 'Orion.NodesCustomProperties' -WhatIf | Out-Null
+            Should -Invoke Invoke-SwisVerb -Times 0 -Exactly
         }
     }
 }

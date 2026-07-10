@@ -348,7 +348,7 @@ function Add-OrionDiscoveredInterfaces
 #>
 function New-OrionInterface
 {
-  [CmdletBinding()]
+  [CmdletBinding(SupportsShouldProcess=$True)]
   [OutputType([int])]
   Param
   (
@@ -465,6 +465,7 @@ function New-OrionInterface
   }
   Process
   {        
+    if (-not $PSCmdlet.ShouldProcess($InterfaceName, "Add Interface")) { return }
     $newIfaceUri = New-SwisObject $SwisConnection -EntityType "Orion.NPM.Interfaces" -Properties $newIfaceProps
     $ifaceProps = Get-SwisObject $SwisConnection -Uri $newIfaceUri
 
@@ -503,8 +504,8 @@ function New-OrionInterface
 
 #>
 function New-OrionPollerType
-{ 
-  [CmdletBinding()]
+{
+  [CmdletBinding(SupportsShouldProcess=$True)]
   [OutputType([int])]
   Param
   (
@@ -562,6 +563,7 @@ function New-OrionPollerType
   Process
   {
     $poller["PollerType"]=$PollerType;
+    if (-not $PSCmdlet.ShouldProcess($PollerType, "Add Poller")) { return }
     $pollerUri = New-SwisObject $SwisConnection -EntityType "Orion.Pollers" -Properties $poller
         
   }
@@ -1188,7 +1190,7 @@ function Get-OrionNextAvailableIPAddress
 #>
 function New-OrionCustomProperty
 {
-  [CmdletBinding()]
+  [CmdletBinding(SupportsShouldProcess=$True)]
   [Alias()]
   [OutputType([int])]
   Param
@@ -1279,6 +1281,7 @@ function New-OrionCustomProperty
   }
   Process
   {
+    if (-not $PSCmdlet.ShouldProcess($PropertyName, "Create Custom Property")) { return }
     #if there are no values create standard verb
     if ($values){
       Write-Verbose "$values passed in array"

@@ -34,6 +34,15 @@ Describe 'Module manifest' {
     It 'imports without error' {
         { Import-Module $script:ManifestPath -Force -ErrorAction Stop } | Should -Not -Throw
     }
+    It 'has a description' {
+        (Test-ModuleManifest -Path $script:ManifestPath).Description | Should -Not -BeNullOrEmpty
+    }
+    It 'does not export cmdlets, variables, or aliases via wildcard' {
+        $data = Import-PowerShellDataFile $script:ManifestPath
+        $data.CmdletsToExport   | Should -Not -Contain '*'
+        $data.VariablesToExport | Should -Not -Contain '*'
+        $data.AliasesToExport   | Should -Not -Contain '*'
+    }
 }
 
 Describe 'Module lifecycle' {

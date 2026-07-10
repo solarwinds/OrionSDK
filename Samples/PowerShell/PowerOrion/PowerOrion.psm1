@@ -303,6 +303,7 @@ function Add-OrionDiscoveredInterfaces
   }
   Process
   {        
+    $result = $null
     # Discover interfaces on the node
     $Interfaces = Invoke-SwisVerb $SwisConnection Orion.NPM.Interfaces DiscoverInterfacesOnNode $nodeId
     if ($Interfaces.Result -notlike "Succeed") {
@@ -816,7 +817,7 @@ function Convert-IP2OrionGuid
 function Remove-OrionNode
 {
   [CmdletBinding(SupportsShouldProcess=$True)]
-  [OutputType([int])]
+  [OutputType([string])]
   Param
   (
     [Parameter(Mandatory=$true,
@@ -1417,9 +1418,11 @@ function Get-OrionApplicationCredential
 }
 
 
-#Code to unload PSSNappin when Module is unloaded
+#Code to unload the legacy SWIS snap-in when the module is unloaded, if it happens to be loaded
 $mInfo = $MyInvocation.MyCommand.ScriptBlock.Module
 $mInfo.OnRemove = {
   write-verbose "Unloading PowerOrion"
-  remove-PSSnapin SwisSnapin
+  if (Get-PSSnapin -Name SwisSnapin -ErrorAction SilentlyContinue) {
+    Remove-PSSnapin SwisSnapin
+  }
 }

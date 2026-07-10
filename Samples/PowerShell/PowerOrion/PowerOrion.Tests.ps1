@@ -216,6 +216,11 @@ InModuleScope PowerOrion {
             Remove-OrionNode -NodeName 'router1' -SwisConnection $script:swis -Confirm:$false
             Should -Invoke Get-OrionNodeID -Times 1
         }
+        It 'returns the node URI string' {
+            $uri = Remove-OrionNode -NodeID 5 -SwisConnection $script:swis -Confirm:$false
+            $uri | Should -BeOfType [string]
+            $uri | Should -Be 'swis://localhost/Orion/Orion.Nodes/NodeID=5'
+        }
     }
 
     # ------------------------------------------------------------------ #
@@ -334,7 +339,8 @@ InModuleScope PowerOrion {
             }
             Mock Invoke-SwisVerb -ParameterFilter { $Verb -eq 'AddInterfacesOnNode' } -MockWith { }
 
-            Add-OrionDiscoveredInterfaces -SwisConnection $script:swis -NodeId 13 -WarningAction SilentlyContinue | Out-Null
+            $result = Add-OrionDiscoveredInterfaces -SwisConnection $script:swis -NodeId 13 -WarningAction SilentlyContinue
+            $result | Should -BeNullOrEmpty
             Should -Invoke Invoke-SwisVerb -ParameterFilter { $Verb -eq 'AddInterfacesOnNode' } -Times 0 -Exactly
         }
 

@@ -36,6 +36,16 @@ Describe 'Module manifest' {
     }
 }
 
+Describe 'Module lifecycle' {
+    It 'removes without writing errors (OnRemove handler is safe)' {
+        Import-Module $script:ManifestPath -Force
+        $stream = Remove-Module $script:ModuleName -Force 2>&1
+        $errors = @($stream | Where-Object { $_ -is [System.Management.Automation.ErrorRecord] })
+        $errors | Should -BeNullOrEmpty -Because ($errors | Out-String)
+    }
+    AfterAll { Import-Module $script:ManifestPath -Force }
+}
+
 Describe 'Export contract' {
     BeforeAll {
         Import-Module $script:ManifestPath -Force

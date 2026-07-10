@@ -226,7 +226,7 @@ function New-OrionNode
       $nodeProps = Get-SwisObject $SwisConnection -Uri $newNode
                 
       #Add credentials for WMI nodes
-      if($ObjectSubType = "WMI"){
+      if($ObjectSubType -eq "WMI"){
         #Adding NodeSettings
         $nodeSettings = @{
           NodeID=$nodeProps["NodeID"];

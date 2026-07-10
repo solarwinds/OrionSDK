@@ -537,7 +537,7 @@ function New-OrionPollerType
   {
     Write-Verbose "Starting $($myinvocation.mycommand)"  
     
-    if($PollerType -eq 'node'){
+    if($PollerObjectType -eq 'Node'){
       $poller = @{
         NetObject="N:"+$NodeProperties["NodeID"];
         NetObjectType="N";

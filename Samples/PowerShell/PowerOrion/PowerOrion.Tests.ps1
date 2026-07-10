@@ -288,6 +288,12 @@ InModuleScope PowerOrion {
                 -ObjectSubType 'WMI' -CredentialID 5 -Confirm:$false | Out-Null
             Should -Invoke New-SwisObject -ParameterFilter { $EntityType -eq 'Orion.NodeSettings' }
         }
+
+        It 'does not throw when only a node name is supplied' {
+            # The -NodeName parameter set has no IP; deriving the IP GUID must be skipped.
+            { New-OrionNode -SwisConnection $script:swis -NodeName 'router1' -Confirm:$false } |
+                Should -Not -Throw
+        }
     }
 
     # ------------------------------------------------------------------ #

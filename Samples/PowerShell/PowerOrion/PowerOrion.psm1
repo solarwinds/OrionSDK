@@ -85,8 +85,12 @@ function New-OrionNode
         
     Write-Verbose "Starting $($myinvocation.mycommand)"  
         
-    $ipGuid = Convert-ip2OrionGuid($IPAddress)
-        
+    # Only derive the IP GUID when an IP address was supplied; the -NodeName
+    # parameter set has no IP, and parsing an empty string would throw.
+    if ($IPAddress) {
+      $ipGuid = Convert-IP2OrionGuid -IPAddress $IPAddress
+    }
+
     Switch($ObjectSubType)
     {
       "ICMP"{ # add a node

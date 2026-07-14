@@ -1,4 +1,4 @@
-﻿# initialize SWIS connection 
+﻿# initialize SWIS connection
 <#if (Get-PSSnapin -Name SwisSnapin -ErrorAction SilentlyContinue){
     remove-PSSnapin SwisSnapin
     }
@@ -10,10 +10,10 @@
     .DESCRIPTION
     This cmdlet adds a new node to Orion. The default is an ICMP node, future versions will include SNMP and WMI options
     .EXAMPLE
-    New-OrionNode -SwisConnection $swis -IPAddress "10.160.5.83" 
+    New-OrionNode -SwisConnection $swis -IPAddress "10.160.5.83"
     .EXAMPLE
     $cred = get-OrionWMICredential -SwisConnection $swis | where-Object {$_.Name  -like "Local Admin 2"}
-    New-OrionNode -SwisConnection $swis -ObjectSubType WMI -IPAddress 10.160.5.85 -CredentialID $cred.id -Verbose 
+    New-OrionNode -SwisConnection $swis -ObjectSubType WMI -IPAddress 10.160.5.85 -CredentialID $cred.id -Verbose
 #>
 function New-OrionNode
 {
@@ -28,7 +28,7 @@ function New-OrionNode
     [validatenotnullorempty()]
     [SolarWinds.InformationService.Contract2.InfoServiceProxy]
     $SwisConnection,
-        
+
     [parameter()]
     [validatenotnullorempty()]
     [ValidateSet("ICMP","SNMPv2","WMI")]
@@ -38,7 +38,7 @@ function New-OrionNode
     [Parameter(Mandatory=$true,
         ValueFromPipelineByPropertyName=$true,
         Position=0,
-    Parametersetname="IP")]        
+    Parametersetname="IP")]
     [Alias("IP")]
     [String]$IPAddress,
 
@@ -67,7 +67,7 @@ function New-OrionNode
     [parameter()]
     [validatenotnullorempty()]
     $UnManaged=$false,
-        
+
     [parameter()]
     [validatenotnullorempty()]
     $DynamicIP=$false,
@@ -82,9 +82,9 @@ function New-OrionNode
   )
 
   Begin{
-        
-    Write-Verbose "Starting $($myinvocation.mycommand)"  
-        
+
+    Write-Verbose "Starting $($myinvocation.mycommand)"
+
     # Only derive the IP GUID when an IP address was supplied; the -NodeName
     # parameter set has no IP, and parsing an empty string would throw.
     if ($IPAddress) {
@@ -112,18 +112,18 @@ function New-OrionNode
           Location="";
           Contact="";
           IOSImage="";
-          IOSVersion=""; 
+          IOSVersion="";
           Vendor="Unknown";
           VendorIcon="Unknown.gif";
           PercentMemoryUsed="0";
-          ObjectSubType="ICMP";                     
+          ObjectSubType="ICMP";
         }
 
-        #next define the poller 
+        #next define the poller
         $PollerTypes = @("N.IPAddress.ICMP.Generic","N.ResponseTime.ICMP.Native","N.Status.ICMP.Native")
 
       }#end of ICMP
-                
+
       "SNMPv2"{ # add a node
         $newNodeProps = @{
           EntityType="Orion.Nodes";
@@ -148,25 +148,25 @@ function New-OrionNode
           ObjectSubType="SNMP";
           SNMPVersion=2;
           Community=$Community;
-          BufferNoMemThisHour="-2"; 
-          BufferNoMemToday="-2"; 
-          BufferSmMissThisHour="-2"; 
-          BufferSmMissToday="-2"; 
-          BufferMdMissThisHour="-2"; 
-          BufferMdMissToday="-2"; 
-          BufferBgMissThisHour="-2"; 
-          BufferBgMissToday="-2"; 
-          BufferLgMissThisHour="-2"; 
-          BufferLgMissToday="-2"; 
-          BufferHgMissThisHour="-2"; 
-          BufferHgMissToday="-2"; 
-          PercentMemoryUsed="-2"; 
-          TotalMemory="-2";                     
+          BufferNoMemThisHour="-2";
+          BufferNoMemToday="-2";
+          BufferSmMissThisHour="-2";
+          BufferSmMissToday="-2";
+          BufferMdMissThisHour="-2";
+          BufferMdMissToday="-2";
+          BufferBgMissThisHour="-2";
+          BufferBgMissToday="-2";
+          BufferLgMissThisHour="-2";
+          BufferLgMissToday="-2";
+          BufferHgMissThisHour="-2";
+          BufferHgMissToday="-2";
+          PercentMemoryUsed="-2";
+          TotalMemory="-2";
         }
 
-                
 
-        #next define the pollers 
+
+        #next define the pollers
         $PollerTypes = @("N.Details.SNMP.Generic","N.Uptime.SNMP.Generic","N.Cpu.SNMP.CiscoGen3","N.Memory.SNMP.CiscoGen3", "N.IPAddress.SNMP.Generic")
 
       }#end of SNMPv2
@@ -194,41 +194,41 @@ function New-OrionNode
           ObjectSubType="WMI";
           SNMPVersion=0;
           Community="";
-          BufferNoMemThisHour="-2"; 
-          BufferNoMemToday="-2"; 
-          BufferSmMissThisHour="-2"; 
-          BufferSmMissToday="-2"; 
-          BufferMdMissThisHour="-2"; 
-          BufferMdMissToday="-2"; 
-          BufferBgMissThisHour="-2"; 
-          BufferBgMissToday="-2"; 
-          BufferLgMissThisHour="-2"; 
-          BufferLgMissToday="-2"; 
-          BufferHgMissThisHour="-2"; 
-          BufferHgMissToday="-2"; 
-          PercentMemoryUsed="-2"; 
-          TotalMemory="-2";  
-                                                                              
+          BufferNoMemThisHour="-2";
+          BufferNoMemToday="-2";
+          BufferSmMissThisHour="-2";
+          BufferSmMissToday="-2";
+          BufferMdMissThisHour="-2";
+          BufferMdMissToday="-2";
+          BufferBgMissThisHour="-2";
+          BufferBgMissToday="-2";
+          BufferLgMissThisHour="-2";
+          BufferLgMissToday="-2";
+          BufferHgMissThisHour="-2";
+          BufferHgMissToday="-2";
+          PercentMemoryUsed="-2";
+          TotalMemory="-2";
+
         }
-        #check to make sure there is a valid credential ID  
+        #check to make sure there is a valid credential ID
         if(!$CredentialID) {
-          $CredentialID = "Please enter the ID of the Orion WMI Credential to be used" 
+          $CredentialID = "Please enter the ID of the Orion WMI Credential to be used"
         }
 
-        #next define the pollers 
+        #next define the pollers
         $PollerTypes = @("N.Status.ICMP.Native","N.ResponseTime.ICMP.Native","N.Details.WMI.Vista","N.Uptime.WMI.XP", "N.Cpu.WMI.Windows","N.Memory.WMI.Windows")
       } #end of WMI
 
     }#end of switch
-        
+
   }
   Process
   {
     write-verbose "Adding $IPAddress to Orion Database"
     If ($PSCmdlet.ShouldProcess("$IPAddress","Add Node")) {
-      $newNode = New-SwisObject $SwisConnection -EntityType "Orion.Nodes" -Properties $newNodeProps 
+      $newNode = New-SwisObject $SwisConnection -EntityType "Orion.Nodes" -Properties $newNodeProps
       $nodeProps = Get-SwisObject $SwisConnection -Uri $newNode
-                
+
       #Add credentials for WMI nodes
       if($ObjectSubType -eq "WMI"){
         #Adding NodeSettings
@@ -247,17 +247,17 @@ function New-OrionNode
       } #end of WMI nodes
 
     }
-        
+
     write-verbose "Node added with URI = $newNode"
 
-    write-verbose "Now Adding pollers for the node..." 
+    write-verbose "Now Adding pollers for the node..."
     $nodeProps = Get-SwisObject $SwisConnection -Uri $newNode
-    #Loop through all the pollers 
+    #Loop through all the pollers
     foreach ($PollerType in $PollerTypes){
       If ($PSCmdlet.ShouldProcess("$PollerTypes","Add Poller")) {
         New-OrionPollerType -PollerType $PollerType -NodeProperties $nodeProps -SwisConnection $SwisConnection
-      }          
-    }    
+      }
+    }
   }
   End
   {
@@ -271,7 +271,7 @@ function New-OrionNode
     .DESCRIPTION
     Discovers interfaces on an Orion Node, and adds them for monitoring. Possible to exclude certain interfaces, by passing the Interface types as a parameter
     .EXAMPLE
-    Add-OrionDiscoveredInterfaces -SwisConnection $swis -NodeId 13 
+    Add-OrionDiscoveredInterfaces -SwisConnection $swis -NodeId 13
 
     This example adds in all interfaces that have been discovered on a node
     .EXAMPLE
@@ -290,23 +290,23 @@ function Add-OrionDiscoveredInterfaces
     [validatenotnullorempty()]
     [SolarWinds.InformationService.Contract2.InfoServiceProxy]
     $SwisConnection,
-        
+
     #The Node ID of the node that has the interface to be added for monitoring
     [Parameter(Mandatory=$true,
         ValueFromPipelineByPropertyName=$true,
     Position=0)]
-    [Int32]$NodeId, 
-        
+    [Int32]$NodeId,
+
     [Parameter()]
-    [int32[]]$ExcludedInterfaceType       
+    [int32[]]$ExcludedInterfaceType
   )
 
   Begin{
-     
-    Write-Verbose "Starting $($myinvocation.mycommand)"  
+
+    Write-Verbose "Starting $($myinvocation.mycommand)"
   }
   Process
-  {        
+  {
     $result = $null
     # Discover interfaces on the node
     $Interfaces = Invoke-SwisVerb $SwisConnection Orion.NPM.Interfaces DiscoverInterfacesOnNode $nodeId
@@ -316,12 +316,12 @@ function Add-OrionDiscoveredInterfaces
     else {
       # Filter out any interface types marked for exclusion
       if ($ExcludedInterfaceType){
-        $Interfaces.DiscoveredInterfaces.DiscoveredLiteInterface | Where-Object {$_.ifType -in $ExcludedInterfaceType } | foreach { 
-          $Interfaces.DiscoveredInterfaces.RemoveChild($_) 
+        $Interfaces.DiscoveredInterfaces.DiscoveredLiteInterface | Where-Object {$_.ifType -in $ExcludedInterfaceType } | ForEach-Object {
+          $Interfaces.DiscoveredInterfaces.RemoveChild($_)
         }
       }
       # Add the remaining interfaces
-      $result = Invoke-SwisVerb $SwisConnection Orion.NPM.Interfaces AddInterfacesOnNode @($nodeId, $Interfaces.DiscoveredInterfaces, "AddDefaultPollers") 
+      $result = Invoke-SwisVerb $SwisConnection Orion.NPM.Interfaces AddInterfacesOnNode @($nodeId, $Interfaces.DiscoveredInterfaces, "AddDefaultPollers")
       if ($result.Result -notlike "Succeed") {
         Write-Warning " Adding discovered interfaces failed on Node ID : $NodeId."
       }
@@ -329,9 +329,9 @@ function Add-OrionDiscoveredInterfaces
   }
   End
   {
-    Write-Verbose "Finishing $($myinvocation.mycommand)"  
+    Write-Verbose "Finishing $($myinvocation.mycommand)"
     return $result
-        
+
   }
 }
 
@@ -343,8 +343,8 @@ function Add-OrionDiscoveredInterfaces
     .EXAMPLE
     New-OrionInterface -NodeId 3 -SwisConnection $swis -InterfaceName "GigabitEthernet0/0 · Test" -status 1 -IfName "Gi0/0" -InterfaceIndex 1 -PollInterval 120 -RediscoveryInterval 5 -StatCollection "1"
 
-    
-    
+
+
 #>
 function New-OrionInterface
 {
@@ -357,7 +357,7 @@ function New-OrionInterface
     [validatenotnullorempty()]
     [SolarWinds.InformationService.Contract2.InfoServiceProxy]
     $SwisConnection,
-        
+
     #The Node ID of the node that has the interface to be added for monitoring
     [Parameter(Mandatory=$true,
         ValueFromPipelineByPropertyName=$true,
@@ -368,7 +368,7 @@ function New-OrionInterface
     [parameter()]
     [validatenotnullorempty()]
     [string]$InterfaceName="FastEthernet0/0",
-    
+
     [parameter()]
     [validatenotnullorempty()]
     [ValidateSet("ICMP","SNMPv2","WMI")]
@@ -379,16 +379,16 @@ function New-OrionInterface
     [validatenotnullorempty()]
     [int32]$status=0,
 
-        
+
     [parameter()]
     [validatenotnullorempty()]
     $IfName="Fa0/0",
 
-        
+
     [parameter()]
     [validatenotnullorempty()]
     [int32]$InterfaceIndex=0,
-        
+
     [parameter()]
     [validatenotnullorempty()]
     [int32]$PollInterval=120,
@@ -400,47 +400,47 @@ function New-OrionInterface
     [parameter()]
     [validatenotnullorempty()]
     [int32]$StatCollection=9,
-    
+
     [parameter()]
     [validatenotnullorempty()]
     [int32]$InterfaceType=6,
-    
+
     [parameter()]
     [validatenotnullorempty()]
     [string]$InterfaceTypeName='ethernetCsmacd',
-    
+
     [parameter()]
     [validatenotnullorempty()]
     [string]$InterfaceTypeDescription='Ethernet',
-    
+
     [parameter()]
     [string]$Caption,
-    
+
     [parameter()]
     [validatenotnullorempty()]
     [int32]$AdminStatus=0,
-    
+
     [parameter()]
     [validatenotnullorempty()]
     [int32]$OperStatus=0,
-    
-   
+
+
     [parameter()]
     [validatenotnullorempty()]
     [string]$statusLED='Up.gif',
-    
+
     [parameter()]
     [validatenotnullorempty()]
     $Unmanaged=$false
   )
 
   Begin{
-    Write-Verbose "Starting $($myinvocation.mycommand)"  
-    
+    Write-Verbose "Starting $($myinvocation.mycommand)"
+
     if (-not $Caption){
       $Caption = $InterfaceName
     }
-        
+
     $newIfaceProps = @{
       NodeID=$NodeID; # NodeID on which the interface is working on
       InterfaceName=$InterfaceName; # description name of the interface to add
@@ -464,29 +464,22 @@ function New-OrionInterface
     $PollerTypes = @("I.Status.SNMP.IfTable","I.StatisticsTraffic.SNMP.Universal","I.StatisticsErrors32.SNMP.IfTable","I.Rediscovery.SNMP.IfTable")
   }
   Process
-  {        
+  {
     if (-not $PSCmdlet.ShouldProcess($InterfaceName, "Add Interface")) { return }
     $newIfaceUri = New-SwisObject $SwisConnection -EntityType "Orion.NPM.Interfaces" -Properties $newIfaceProps
     $ifaceProps = Get-SwisObject $SwisConnection -Uri $newIfaceUri
 
-    # register specific pollers for the node
-    $poller = @{
-      NetObject="I:"+$ifaceProps["InterfaceID"];
-      NetObjectType="I";
-      NetObjectID=$ifaceProps["InterfaceID"];
-    }
-      
-    <#$node = Get-OrionNode -id $NodeId -swisconnection $SwisConnection 
+    <#$node = Get-OrionNode -id $NodeId -swisconnection $SwisConnection
         Write-Debug "Node is : $node"
-      
+
         $NodeURI = $node.uri
         Write-Debug "Node URI is : $NodeURI"
-    #>    write-verbose "Now Adding pollers for the interface..." 
+    #>    write-verbose "Now Adding pollers for the interface..."
     #$nodeProps = Get-SwisObject $SwisConnection -Uri $NodeURI
-    #Loop through all the pollers 
+    #Loop through all the pollers
     foreach ($PollerType in $PollerTypes){
       New-OrionPollerType -PollerType $PollerType -InterfaceProperties $ifaceProps -SwisConnection $SwisConnection -PollerObjectType 'Interface'
-    }    
+    }
   }
   End
   {
@@ -521,14 +514,14 @@ function New-OrionPollerType
         ParameterSetName='node',
     Position=1)]
     $NodeProperties,
-    
+
     # Node Properties used to build the pollers
     [Parameter(Mandatory=$true,
         ValueFromPipelineByPropertyName=$true,
         ParameterSetName='interface',
     Position=1)]
     $InterfaceProperties,
-    
+
     [validateset('Node','Interface')]
     $PollerObjectType = 'Node',
 
@@ -541,8 +534,8 @@ function New-OrionPollerType
 
   Begin
   {
-    Write-Verbose "Starting $($myinvocation.mycommand)"  
-    
+    Write-Verbose "Starting $($myinvocation.mycommand)"
+
     if($PollerObjectType -eq 'Node'){
       $poller = @{
         NetObject="N:"+$NodeProperties["NodeID"];
@@ -565,7 +558,7 @@ function New-OrionPollerType
     $poller["PollerType"]=$PollerType;
     if (-not $PSCmdlet.ShouldProcess($PollerType, "Add Poller")) { return }
     $pollerUri = New-SwisObject $SwisConnection -EntityType "Orion.Pollers" -Properties $poller
-        
+
   }
   End
   {
@@ -583,7 +576,7 @@ function New-OrionPollerType
     If passed the  -custom switch it can return
 
     .EXAMPLE
-    Get-OrionNodeProperties -NodeID $nodeid -SwisConnection $swis  
+    Get-OrionNodeProperties -NodeID $nodeid -SwisConnection $swis
 
     .EXAMPLE
     Get-OrionNodeProperties -NodeID $nodeid -SwisConnection $swis  -custom
@@ -601,15 +594,15 @@ function Get-OrionNode
   [OutputType([psobject])]
   Param
   (
-        
+
     [Parameter(ValueFromPipelineByPropertyName=$true,
     Parametersetname="ID")]
-        
+
     [validatenotnullorempty()]
     [alias("ID")]
     [int32]
     $NodeID,
-      
+
     #The IP Address of the node
     [Parameter(ValueFromPipelineByPropertyName=$true,
     Parametersetname="IP")]
@@ -629,7 +622,7 @@ function Get-OrionNode
 
   Begin
   {
-    Write-Verbose "Starting $($myinvocation.mycommand)"  
+    Write-Verbose "Starting $($myinvocation.mycommand)"
     $OrionServer = Get-OrionHostFromSwisConnection -swisconnection $SwisConnection
     write-debug " The value of OrionServer is $OrionServer"
 
@@ -638,13 +631,13 @@ function Get-OrionNode
       write-verbose " IP passed, calling Get-OrionNodeID for $IPAddress"
       $ID = Get-OrionNodeID -IPAddress $IPAddress -SwisConnection $SwisConnection
     }else {
-            
+
       write-debug " The value of ID is $NodeID"
       write-verbose " Integer passed"
-      $ID = $NodeID           
+      $ID = $NodeID
     }
-           
-        
+
+
     if ($custom){
       $uri = "swis://$OrionServer/Orion/Orion.Nodes/NodeID=$ID/CustomProperties"
     } else {
@@ -661,7 +654,7 @@ function Get-OrionNode
     write-debug " The value of properties is $($properties.gettype())"
   }
   End
-  {        
+  {
     Write-Verbose "Finishing $($myinvocation.mycommand)"
     Write-Output $properties
   }
@@ -671,28 +664,28 @@ function Get-OrionNode
     .Synopsis
     Returns the Node ID for a given node managed in Orion
     .DESCRIPTION
-    This CmdLet returns the Node ID for a given node managed in Orion, by looking up either the node name or IP Address. 
+    This CmdLet returns the Node ID for a given node managed in Orion, by looking up either the node name or IP Address.
     if Passed the -all switch it returns all node IDs, and the associated node caption
     .EXAMPLE
     Get-OrionNodeID -node "lab-hpinsight" -swisconnection $swis
     .EXAMPLE
     Get-OrionNodeID -IPAddress 10.199.1.100 -SwisConnection $swis
-    .EXAMPLE 
+    .EXAMPLE
     $swis = Connect-Swis -UserName admin -Password "" -Hostname 10.160.5.75
     Get-OrionNodeID -Node $TestNode -SwisConnection $swis
-    
+
     3
     .EXAMPLE
     PS C:\Scripts\Modules\Orion> Get-OrionNodeID -all -SwisConnection $swis
 
-    NodeID caption                                                                                                                         
-    ------ -------                                                                                                                         
-    2 se-cor-whd                                                                                                                      
-    3 lab-apc5000                                                                                                                     
-    5 ew-2951.ew.lab                                                                                                                  
-    10 Tok-2811.lab.tok                                                                                                                
-    12 Bas-Meru1500                                                                                                                    
- 
+    NodeID caption
+    ------ -------
+    2 se-cor-whd
+    3 lab-apc5000
+    5 ew-2951.ew.lab
+    10 Tok-2811.lab.tok
+    12 Bas-Meru1500
+
 #>
 function Get-OrionNodeID
 {
@@ -705,7 +698,7 @@ function Get-OrionNodeID
     Parametersetname="All")]
     [switch]
     $all,
-        
+
     #The Caption or Nodename used to reference the entity
     [Parameter(Mandatory=$true,
         ValueFromPipelineByPropertyName=$true,
@@ -723,7 +716,7 @@ function Get-OrionNodeID
     [validatenotnullorempty()]
     [alias("IP")]
     [String]$IPAddress,
-        
+
     #SolarWinds Information Service (SWIS) Connection
     [parameter(mandatory=$true)]
     [validatenotnullorempty()]
@@ -733,10 +726,10 @@ function Get-OrionNodeID
 
   Begin
   {
-    Write-Verbose "Starting $($myinvocation.mycommand)"  
+    Write-Verbose "Starting $($myinvocation.mycommand)"
   }
   Process
-  {   
+  {
     if (!$all){ #if it's a name or IP passed.
       if ($NodeName){
         write-verbose " Querying Orion Server for Node ID for $NodeName"
@@ -749,7 +742,7 @@ function Get-OrionNodeID
     } else #-all selected
     {
       write-verbose " Querying Orion Server for all nodes"
-      $NodeID = Get-SwisData $SwisConnection "SELECT NodeID, caption FROM Orion.Nodes order by nodeid" 
+      $NodeID = Get-SwisData $SwisConnection "SELECT NodeID, caption FROM Orion.Nodes order by nodeid"
     } # end of -all
 
   }
@@ -783,11 +776,11 @@ function Convert-IP2OrionGuid
     [string]
     [alias("IP")]
     $IPAddress
-  )    
+  )
 
   Begin
   {
-    Write-Verbose "Starting $($myinvocation.mycommand)"  
+    Write-Verbose "Starting $($myinvocation.mycommand)"
     $ParsedIP = [System.Net.IPAddress]::Parse($IPAddress)
   }
   Process
@@ -807,7 +800,7 @@ function Convert-IP2OrionGuid
   {
     Write-Verbose "Finishing $($myinvocation.mycommand)"
     return (New-Object Guid (,$dest)).ToString()
-  }    
+  }
 }
 
 <#
@@ -830,13 +823,13 @@ function Remove-OrionNode
         ValueFromPipelineByPropertyName=$true,
         Position=0,
     Parametersetname="ID")]
-        
+
     [validatenotnullorempty()]
     [alias("ID")]
     [int32]
     $NodeID,
-       
-    #The Caption or Nodename used to reference the entity               
+
+    #The Caption or Nodename used to reference the entity
     [Parameter(Mandatory=$true,
         ValueFromPipelineByPropertyName=$true,
         Position=0,
@@ -846,7 +839,7 @@ function Remove-OrionNode
     [string]$NodeName,
 
     #The IP Address of the node
-    [Parameter(Mandatory=$true,                   
+    [Parameter(Mandatory=$true,
     Parametersetname="IP")]
     [Alias("IP")]
     [String]$IPAddress,
@@ -860,32 +853,32 @@ function Remove-OrionNode
 
   Begin
   {
-    Write-Verbose "Starting $($myinvocation.mycommand)"  
-        
+    Write-Verbose "Starting $($myinvocation.mycommand)"
+
     $OrionServer = Get-OrionHostFromSwisConnection -swisconnection $SwisConnection
-                
+
     #First get the node ID, either implicitly, or explicitly
-    if ($NodeName){  
-            
+    if ($NodeName){
+
       write-verbose " Node passed, calling Get-OrionNodeID for $NodeName"
-      $ID = Get-OrionNodeID -Node $NodeName -SwisConnection $SwisConnection             
+      $ID = Get-OrionNodeID -Node $NodeName -SwisConnection $SwisConnection
     }elseif($IPAddress){
-            
+
       write-verbose " IP passed, calling Get-OrionNodeID for $IPAddress"
       $ID = Get-OrionNodeID -IPAddress $IPAddress -SwisConnection $SwisConnection
     }else {
-            
+
       write-verbose " Integer passed, calling Get-OrionNodeID for $NodeID"
       $ID = $NodeID
-    }              
+    }
     $uri = "swis://$OrionServer/Orion/Orion.Nodes/NodeID=$ID"
-  }    
+  }
   Process
   {
     If ($PSCmdlet.ShouldProcess("$uri","Removing Object")) {
       remove-SwisObject $SwisConnection -Uri $uri
     }
-  }    
+  }
   End
   {
     Write-Verbose "Finishing $($myinvocation.mycommand)"
@@ -899,7 +892,7 @@ function Remove-OrionNode
     .DESCRIPTION
     Gets all credentials used by Orion to monitor nodes and applications. These are returned as an object, so standard Cmdlets such as Where-Object & Select-Object can be used to filter the data
     .EXAMPLE
-    Get-OrionWMICredential -SwisConnection $swis 
+    Get-OrionWMICredential -SwisConnection $swis
     .EXAMPLE
     Get-OrionWMICredential -SwisConnection $swis | where-Object {$_.Name  -like "Local Admin 1"} | select id
 #>
@@ -913,21 +906,21 @@ function Get-OrionWMICredential
     [parameter(mandatory=$true)]
     [validatenotnullorempty()]
     [SolarWinds.InformationService.Contract2.InfoServiceProxy]
-    $SwisConnection           
+    $SwisConnection
   )
 
   Begin
   {
-    Write-Verbose "Starting $($myinvocation.mycommand)"  
+    Write-Verbose "Starting $($myinvocation.mycommand)"
     $Credential=@()
   }
   Process
-  {                  
+  {
     $Credential = Get-SwisData $SwisConnection "SELECT ID, Name, Description,CredentialOwner FROM Orion.Credential"
   }
   End
   {
-    Write-Verbose "Finishing $($myinvocation.mycommand)"    
+    Write-Verbose "Finishing $($myinvocation.mycommand)"
     write-output $Credential
   }
 }
@@ -958,9 +951,9 @@ function Get-IPAddressFromHostName
     $NodeName
   )
 
-  Begin        
+  Begin
   {
-    Write-Verbose "Starting $($myinvocation.mycommand)"  
+    Write-Verbose "Starting $($myinvocation.mycommand)"
   }
   Process
   {
@@ -981,12 +974,12 @@ function Get-IPAddressFromHostName
     .Synopsis
     Returns an IP appddress based on a DNS resolution
     .DESCRIPTION
-    This function does a reverse DNS lookup to resolve  an IP Address back to a hostname 
+    This function does a reverse DNS lookup to resolve  an IP Address back to a hostname
     .EXAMPLE
     Get-HostNamefromIPAddress 10.110.60.213
     .EXAMPLE
     Get-HostNamefromIPAddress 10.110.60.213 -Verbose
-  
+
 #>
 function Get-HostNamefromIPAddress
 {
@@ -1003,9 +996,9 @@ function Get-HostNamefromIPAddress
     $IPAddress
   )
 
-  Begin        
+  Begin
   {
-    Write-Verbose "Starting $($myinvocation.mycommand)"  
+    Write-Verbose "Starting $($myinvocation.mycommand)"
   }
   Process
   {
@@ -1038,19 +1031,19 @@ function Get-HostNamefromIPAddress
     Test-IsValidIP -IPAddress fe80::18be:22e5:f591:4a5%25
     True
 #>
-Function Test-IsValidIP 
+Function Test-IsValidIP
 {
- 
+
   [CmdletBinding()]
- 
+
   Param (
     [parameter(ValueFromPipeLine=$True,ValueFromPipeLineByPropertyName=$True)]
     [Alias("IP")]
     [string]$IPAddress
   )
-  Begin        
+  Begin
   {
-    Write-Verbose "Starting $($myinvocation.mycommand)"  
+    Write-Verbose "Starting $($myinvocation.mycommand)"
   }
   Process {
     Try {
@@ -1085,12 +1078,12 @@ function Get-OrionHostFromSwisConnection
         ValueFromPipelineByPropertyName=$true,
     Position=0)]
     [SolarWinds.InformationService.Contract2.InfoServiceProxy]
-    $swisconnection    
+    $swisconnection
   )
 
   Begin
   {
-    Write-Verbose "Starting $($myinvocation.mycommand)"  
+    Write-Verbose "Starting $($myinvocation.mycommand)"
   }
   Process
   {
@@ -1098,11 +1091,11 @@ function Get-OrionHostFromSwisConnection
     {
       $OrionHost = $swisconnection.ChannelFactory.Endpoint.Address.Uri.Host
     }
-    catch 
+    catch
     {
       Write-Error "Unable to Parse Host"
     }
-        
+
   }
   End
   {
@@ -1119,21 +1112,21 @@ function Get-OrionHostFromSwisConnection
     .EXAMPLE
     Get-OrionNextAvailableIPAddress -swisconnection $swis
 
-    DisplayName                                                                                          Subnet                                                                                              
-    -----------                                                                                          ------                                                                                              
-    192.168.1.2                                                                                          192.168.1.0 /24 
+    DisplayName                                                                                          Subnet
+    -----------                                                                                          ------
+    192.168.1.2                                                                                          192.168.1.0 /24
     .EXAMPLE
     Get-OrionNextAvailableIPAddress -swisconnection $swis -Subnet DMZ
 
-    DisplayName                                                                                          Subnet                                                                                              
-    -----------                                                                                          ------                                                                                              
-    192.168.2.2                                                                                          DMZ      
+    DisplayName                                                                                          Subnet
+    -----------                                                                                          ------
+    192.168.2.2                                                                                          DMZ
     .EXAMPLE
     Get-OrionNextAvailableIPAddress -swisconnection $swis -Subnet %160.2%
 
-    DisplayName                                                                                          Subnet                                                                                              
-    -----------                                                                                          ------                                                                                              
-    10.160.2.2                                                                                           10.160.2.0 /24  
+    DisplayName                                                                                          Subnet
+    -----------                                                                                          ------
+    10.160.2.2                                                                                           10.160.2.0 /24
 #>
 function Get-OrionNextAvailableIPAddress
 {
@@ -1148,7 +1141,7 @@ function Get-OrionNextAvailableIPAddress
     Position=0)]
     [SolarWinds.InformationService.Contract2.InfoServiceProxy]
     $swisconnection,
-        
+
     #single string containing the text describing the subnet name. Use % as wildcard
     [validatenotnullorempty()]
     [String]
@@ -1158,21 +1151,21 @@ function Get-OrionNextAvailableIPAddress
   Begin
   {
     Write-Verbose "Starting $($myinvocation.mycommand)"
-        
+
   }
   Process
   {
     #if a subnet is specificed get the first IP in that subnet, else just return the first overall
     if (!$Subnet){
-      $IPAddress = Get-SwisData $SwisConnection "SELECT TOP 1  I.DisplayName , I.Subnet.DisplayName as Subnet FROM IPAM.IPNode I WHERE Status=2" 
+      $IPAddress = Get-SwisData $SwisConnection "SELECT TOP 1  I.DisplayName , I.Subnet.DisplayName as Subnet FROM IPAM.IPNode I WHERE Status=2"
     } else {
-      $IPAddress = Get-SwisData $SwisConnection  "SELECT TOP 1  I.DisplayName , I.Subnet.DisplayName as Subnet FROM IPAM.IPNode I WHERE Status=2 AND I.Subnet.DisplayName like @subnet" @{subnet=$Subnet} 
-    }       
+      $IPAddress = Get-SwisData $SwisConnection  "SELECT TOP 1  I.DisplayName , I.Subnet.DisplayName as Subnet FROM IPAM.IPNode I WHERE Status=2 AND I.Subnet.DisplayName like @subnet" @{subnet=$Subnet}
+    }
   }
   End
   {
     Write-Verbose "Finishing $($myinvocation.mycommand)"
-    Write-Output $IPAddress 
+    Write-Output $IPAddress
   }
 }
 
@@ -1218,13 +1211,13 @@ function New-OrionCustomProperty
     [string]
     $BaseType = "Orion.NodesCustomProperties",
 
-    #the name of the property.        
+    #the name of the property.
     [Parameter(Mandatory=$true,
         ValueFromPipeline=$true,
         ValueFromPipelineByPropertyName=$true,
     Position=2)]
     [validatenotnullorempty()]
-    [string]    
+    [string]
     $PropertyName,
 
 
@@ -1232,12 +1225,12 @@ function New-OrionCustomProperty
     [Parameter(ValueFromPipelineByPropertyName=$true,
         ValueFromPipeline=$true,
     Position=3)]
-    [string] 
+    [string]
     $Description,
 
-    #the data type for the custom property. 
+    #the data type for the custom property.
     [validateset('string', 'integer', 'datetime', 'single', 'double', 'boolean')]
-    $ValueType = 'string', 
+    $ValueType = 'string',
 
     # for string types, this is the maximum length of the values, in characters. Ignored for other types.
     [int]
@@ -1266,7 +1259,7 @@ function New-OrionCustomProperty
     $values,
 
     # Optional. You can pass null for this.
-    $Usages = $null, 
+    $Usages = $null,
 
     # Optional. Defaults to false. If set to true, the Add Node wizard in the Orion web console will require that a value for this custom property be specified at node creation time.
     $Mandatory,
@@ -1286,15 +1279,15 @@ function New-OrionCustomProperty
     if ($values){
       Write-Verbose "$values passed in array"
       $result = Invoke-SwisVerb $swisconnection $BaseType CreateCustomPropertyWithValues @( $PropertyName,
-        $Description, 
-        $ValueType, 
-        $size, 
+        $Description,
+        $ValueType,
+        $size,
         $ValidRange,
         $Parser,
-        $Header, 
-        $Alignment, 
-        $Format, 
-        $units,  
+        $Header,
+        $Alignment,
+        $Format,
+        $units,
         $values,
         $Usages
         $Mandatory,
@@ -1303,15 +1296,15 @@ function New-OrionCustomProperty
     {
       Write-Verbose "No values array passed"
       $result = Invoke-SwisVerb $swisconnection $BaseType CreateCustomProperty @( $PropertyName,
-        $Description, 
-        $ValueType, 
-        $size, 
+        $Description,
+        $ValueType,
+        $size,
         $ValidRange,
         $Parser,
-        $Header, 
-        $Alignment, 
-        $Format, 
-        $units,                                                                                       
+        $Header,
+        $Alignment,
+        $Format,
+        $units,
         $Usages
         $Mandatory,
       $Default)
@@ -1332,7 +1325,7 @@ function New-OrionCustomProperty
     Returns the Application ID for an assigned template, given it's name
     .EXAMPLE
     Get-Get-OrionApplicationTemplateId -ApplicationName 'apache' -SwisConnection $swis
-   
+
     6
 #>
 function Get-OrionApplicationTemplateId
@@ -1357,21 +1350,21 @@ function Get-OrionApplicationTemplateId
 
   Begin
   {
-    Write-Verbose "Starting $($myinvocation.mycommand)" 
+    Write-Verbose "Starting $($myinvocation.mycommand)"
   }
   Process
   {
     $ApplicationTemplateId = Get-SwisData $SwisConnection "SELECT ApplicationTemplateID FROM Orion.APM.ApplicationTemplate WHERE Name=@ApplicationName" @{ ApplicationName = $ApplicationName }
     if (!$applicationTemplateId) {
       Write-Error "Can't find template with name '$ApplicationName'."
-        
+
     }
   }
   End
   {
     Write-Output $ApplicationTemplateId
-    Write-Verbose "Finishing $($myinvocation.mycommand)" 
-    
+    Write-Verbose "Finishing $($myinvocation.mycommand)"
+
   }
 } #end of Get-Get-OrionApplicationTemplateId
 
@@ -1381,7 +1374,7 @@ function Get-OrionApplicationTemplateId
     .DESCRIPTION
     Gets all credentials used by Orion to monitor nodes and applications. These are returned as an object, so standard Cmdlets such as Where-Object & Select-Object can be used to filter the data
     .EXAMPLE
-    Get-OrionWMICredential -SwisConnection $swis 
+    Get-OrionWMICredential -SwisConnection $swis
     .EXAMPLE
     Get-OrionWMICredential -SwisConnection $swis | where-Object {$_.Name  -like "Local Admin 1"} | select id
 #>
@@ -1396,20 +1389,20 @@ function Get-OrionApplicationCredential
     [validatenotnullorempty()]
     [SolarWinds.InformationService.Contract2.InfoServiceProxy]
     $SwisConnection,
-        
+
     [parameter(mandatory=$true)]
     [validatenotnullorempty()]
     [String]
-    $credential           
+    $credential
   )
 
   Begin
   {
-    Write-Verbose "Starting $($myinvocation.mycommand)"  
-         
+    Write-Verbose "Starting $($myinvocation.mycommand)"
+
   }
   Process
-  {                  
+  {
     $credentialSetId = Get-SwisData $SwisConnection "SELECT ID FROM Orion.Credential WHERE CredentialOwner='APM' AND Name=@credential" @{ credential = $credential }
     if (!$credentialSetId) {
       Write-error "Can't find credential with name '$credential'."
@@ -1419,8 +1412,8 @@ function Get-OrionApplicationCredential
   End
   {
     write-output $credentialSetId
-    Write-Verbose "Finishing $($myinvocation.mycommand)"    
-    
+    Write-Verbose "Finishing $($myinvocation.mycommand)"
+
   }
 }
 

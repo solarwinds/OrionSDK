@@ -67,14 +67,13 @@ namespace SwqlStudio
                 await _oauthInfoService.TokenManager.AcquireTokenAsync(_oauthCts.Token);
                 _authenticatedOAuthUsername = _oauthInfoService.TokenManager.LastAccountUsername ?? string.Empty;
                 SaveHistory();
-                DialogResult = DialogResult.OK;
-
                 Win32.FlashUntilForeground(this);
                 Activate();
+                DialogResult = DialogResult.OK;
             }
             catch (OperationCanceledException)
             {
-                // user hit Cancel — dialog closes normally, nothing to report
+                DialogResult = DialogResult.Cancel;
             }
             catch (Exception ex)
             {

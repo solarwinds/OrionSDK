@@ -38,10 +38,12 @@ namespace SolarWinds.InformationService.Contract2
             if (string.IsNullOrWhiteSpace(server))
                 throw new ArgumentNullException(nameof(server));
 
-            // Validate that _server is a plain host[:port] — no path or query components
-            // that could escape into the constructed HTTPS URL opened by Process.Start.
+            // Validate that _server is a plain host[:port] — no path, query, userinfo, or
+            // fragment components that could escape into the constructed HTTPS URL opened by Process.Start.
             if (!Uri.TryCreate("https://" + server + "/", UriKind.Absolute, out var probe)
                 || !string.IsNullOrEmpty(probe.Query)
+                || !string.IsNullOrEmpty(probe.UserInfo)
+                || !string.IsNullOrEmpty(probe.Fragment)
                 || probe.PathAndQuery != "/")
             {
                 throw new ArgumentException("Server must be a plain hostname or host:port value.", nameof(server));
@@ -58,22 +60,24 @@ namespace SolarWinds.InformationService.Contract2
             string codeChallenge = GenerateCodeChallenge(codeVerifier);
             string state = GenerateRandomBase64Url(16);
 
-            int port = FindFreePort();
-            string redirectUri = $"http://localhost:{port}/";
-
-            string authUrl = AuthorizeUrl
-                + "?response_type=code"
-                + "&client_id=" + Uri.EscapeDataString(_clientId)
-                + "&redirect_uri=" + Uri.EscapeDataString(redirectUri)
-                + "&scope=" + Uri.EscapeDataString(string.Join(" ", Scopes))
-                + "&state=" + Uri.EscapeDataString(state)
-                + "&code_challenge=" + Uri.EscapeDataString(codeChallenge)
-                + "&code_challenge_method=S256";
-
+            // Bind the listener first so the port is held before building the redirect URI.
+            // Building the auth URL before Start() would open a TOCTOU window where another
+            // process could claim the port between port selection and listener binding.
             using (var listener = new HttpListener())
             {
+                int port = FindFreePort();
+                string redirectUri = $"http://localhost:{port}/";
                 listener.Prefixes.Add(redirectUri);
                 listener.Start();
+
+                string authUrl = AuthorizeUrl
+                    + "?response_type=code"
+                    + "&client_id=" + Uri.EscapeDataString(_clientId)
+                    + "&redirect_uri=" + Uri.EscapeDataString(redirectUri)
+                    + "&scope=" + Uri.EscapeDataString(string.Join(" ", Scopes))
+                    + "&state=" + Uri.EscapeDataString(state)
+                    + "&code_challenge=" + Uri.EscapeDataString(codeChallenge)
+                    + "&code_challenge_method=S256";
 
                 Process.Start(new ProcessStartInfo(authUrl) { UseShellExecute = true });
 
@@ -148,7 +152,8 @@ namespace SolarWinds.InformationService.Contract2
             // Serialize concurrent refreshes so only one thread hits the token endpoint.
             // Uses Task.Run to avoid blocking a captured SynchronizationContext (e.g. the
             // WinForms UI thread) when called from the WCF message inspector.
-            _refreshLock.Wait();
+            if (!_refreshLock.Wait(TimeSpan.FromSeconds(30)))
+                throw new InvalidOperationException("OAuth token refresh timed out waiting for the lock.");
             try
             {
                 // Re-check expiry under the lock — another thread may have already refreshed.
@@ -157,6 +162,10 @@ namespace SolarWinds.InformationService.Contract2
 
                 RefreshAccessTokenSync();
                 return _accessToken;
+            }
+            catch (OAuthSessionExpiredException)
+            {
+                throw;
             }
             catch (Exception ex)
             {

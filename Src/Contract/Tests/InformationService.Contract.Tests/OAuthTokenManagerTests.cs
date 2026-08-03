@@ -135,7 +135,20 @@ namespace SolarWinds.InformationService.Contract2.Tests
                 ExpiresIn = 300
             });
 
+            // Access token must be updated to tok2.
             Assert.That(mgr.GetCurrentToken(), Is.EqualTo("tok2"));
+
+            // Overwrite with a known new refresh token to confirm the field was not nulled by
+            // the previous response — if it had been nulled, a subsequent non-null write would
+            // still succeed, but an immediately-expired token would throw OAuthSessionExpiredException
+            // instead of returning the token.  Confirm the manager accepts a new refresh token.
+            mgr.ApplyTokenResponse(new OAuthTokenManager.TokenResponse
+            {
+                AccessToken = "tok3",
+                RefreshToken = "new-refresh",
+                ExpiresIn = 300
+            });
+            Assert.That(mgr.GetCurrentToken(), Is.EqualTo("tok3"));
         }
 
         // ── OAuthJwtParser ────────────────────────────────────────────────────

@@ -46,8 +46,11 @@ namespace SwqlStudio
             var owner = Application.OpenForms.Count > 0 ? Application.OpenForms[0] : null;
 
             // flash window as the user may be in an external browser and not see the dialog
-            Win32.FlashUntilForeground(owner);
-            owner.Activate();
+            if (owner != null)
+            {
+                Win32.FlashUntilForeground(owner);
+                owner.Activate();
+            }
 
             bool Ask() => DialogResult.Yes == MessageBox.Show(owner,
                 "Server certificate has problem " + sslPolicyErrors + ". Connect anyway?",

@@ -65,11 +65,9 @@ namespace SwqlStudio
             _credentials = new BearerTokenCredentials(() => _tokenManager.GetCurrentToken());
 
             // WCF BasicHttpBinding with ClientCredentialType.None routes TLS cert
-            // validation through ServicePointManager rather than the channel factory's
-            // credential pipeline. Register a non-interactive validator that silently
-            // accepts the Orion server cert (the user already trusted this server by
-            // completing the OAuth browser flow against it).
-            ServicePointManager.ServerCertificateValidationCallback = AcceptServerCertificate;
+            // validation through ServicePointManager. Use the same interactive validator
+            // already used for the token endpoint so the user is prompted consistently.
+            ServicePointManager.ServerCertificateValidationCallback = CertificateValidatorWithCache.ValidateRemoteCertificate;
 
             return base.CreateProxy(server);
         }
@@ -99,9 +97,5 @@ namespace SwqlStudio
             }
         }
 
-        private static bool AcceptServerCertificate(object sender, X509Certificate certificate, X509Chain chain, SslPolicyErrors errors)
-        {
-            return true;
-        }
     }
 }

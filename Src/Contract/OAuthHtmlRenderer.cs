@@ -69,7 +69,7 @@ namespace SolarWinds.InformationService.Contract2
     <div class=""icon"">{icon}</div>
     <h1>{title}</h1>
     <p>{body}</p>
-    <p class=""footer"">{clientId}</p>
+    <p class=""footer"">{WebUtility.HtmlEncode(clientId)}</p>
   </div>
 </body>
 </html>";

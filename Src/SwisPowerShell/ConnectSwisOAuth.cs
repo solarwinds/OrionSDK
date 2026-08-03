@@ -25,7 +25,8 @@ namespace SwisPowerShell
 
         protected override void StopProcessing()
         {
-            _cts?.Cancel();
+            try { _cts?.Cancel(); }
+            catch (ObjectDisposedException) { }
         }
 
         protected override void ProcessRecord()
@@ -34,7 +35,7 @@ namespace SwisPowerShell
 
             RemoteCertificateValidationCallback certCallback = TrustAllCertificates.IsPresent
                 ? (sender, cert, chain, errors) => true
-                : (RemoteCertificateValidationCallback)AcceptOrionCertificate;
+                : (RemoteCertificateValidationCallback)ValidateCertificate;
 
             var tokenManager = new OAuthTokenManager(Hostname, certCallback, "swi_powershell_sdk");
 
@@ -73,18 +74,21 @@ namespace SwisPowerShell
 
             // On .NET Core, WCF uses HttpClient internally and ignores ServicePointManager.
             // SslCertificateAuthentication is the correct hook for HTTPS transport cert validation.
-            proxy.ChannelFactory.Credentials.ServiceCertificate.SslCertificateAuthentication =
-                new System.ServiceModel.Security.X509ServiceCertificateAuthentication
-                {
-                    CertificateValidationMode = System.ServiceModel.Security.X509CertificateValidationMode.None
-                };
+            if (TrustAllCertificates.IsPresent)
+            {
+                proxy.ChannelFactory.Credentials.ServiceCertificate.SslCertificateAuthentication =
+                    new System.ServiceModel.Security.X509ServiceCertificateAuthentication
+                    {
+                        CertificateValidationMode = System.ServiceModel.Security.X509CertificateValidationMode.None
+                    };
+            }
 
             WriteObject(proxy);
         }
 
-        private static bool AcceptOrionCertificate(object sender, X509Certificate certificate, X509Chain chain, SslPolicyErrors errors)
+        private static bool ValidateCertificate(object sender, X509Certificate certificate, X509Chain chain, SslPolicyErrors errors)
         {
-            return true;
+            return errors == SslPolicyErrors.None;
         }
     }
 }

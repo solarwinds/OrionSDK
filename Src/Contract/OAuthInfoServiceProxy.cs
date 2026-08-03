@@ -19,8 +19,12 @@ namespace SolarWinds.InformationService.Contract2
 
         private void ReAuthenticate()
         {
-            _tokenManager.AcquireTokenAsync(CancellationToken.None).GetAwaiter().GetResult();
-            Close();
+            // Task.Run escapes any captured SynchronizationContext (e.g. WinForms message loop)
+            // so the async continuations inside AcquireTokenAsync are not posted back to the
+            // calling thread, preventing a deadlock when GetResult() is called.
+            Task.Run(() => _tokenManager.AcquireTokenAsync(CancellationToken.None)).GetAwaiter().GetResult();
+            try { Close(); }
+            catch (CommunicationException) { Abort(); }
             Open();
         }
 

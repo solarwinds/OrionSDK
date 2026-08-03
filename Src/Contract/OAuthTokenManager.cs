@@ -17,7 +17,7 @@ namespace SolarWinds.InformationService.Contract2
 {
     public class OAuthTokenManager
     {
-        private static readonly string[] Scopes = { "swis", "offline_access" };
+        private static readonly string[] Scopes = { "swis" };
 
         private readonly string _clientId;
         private readonly string _server;
@@ -106,80 +106,14 @@ namespace SolarWinds.InformationService.Contract2
                             if (error == null)
                             {
                                 if (!string.Equals(query["state"], state, StringComparison.Ordinal))
-                                    throw new ApplicationException("OAuth state mismatch.");
+                                    throw new InvalidOperationException("OAuth state mismatch.");
 
                                 code = query["code"];
                                 if (string.IsNullOrEmpty(code))
-                                    throw new ApplicationException("OAuth authorization response did not contain a code.");
+                                    throw new InvalidOperationException("OAuth authorization response did not contain a code.");
                             }
 
-                            bool isSuccess = error == null;
-                            string title = isSuccess ? "Authentication Successful" : "Authentication Failed";
-                            string body = isSuccess
-                                ? "You have been signed in successfully. You may close this browser tab and return to SWQL Studio."
-                                : $"Sign-in could not be completed: <strong>{System.Net.WebUtility.HtmlEncode(errorDescription ?? error)}</strong>";
-                            string iconColor = isSuccess ? "#2e7d32" : "#c62828";
-                            string icon = isSuccess ? "✔" : "✖";
-
-                            string html = $@"<!DOCTYPE html>
-<html lang=""en"">
-<head>
-  <meta charset=""utf-8"" />
-  <meta name=""viewport"" content=""width=device-width, initial-scale=1"" />
-  <title>{title}</title>
-  <style>
-    *, *::before, *::after {{ box-sizing: border-box; margin: 0; padding: 0; }}
-    body {{
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-      background: #f5f5f5;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 100vh;
-      color: #212121;
-    }}
-    .card {{
-      background: #fff;
-      border-radius: 8px;
-      box-shadow: 0 2px 8px rgba(0,0,0,.12);
-      padding: 48px 40px;
-      max-width: 480px;
-      width: 100%;
-      text-align: center;
-    }}
-    .icon {{
-      font-size: 48px;
-      color: {iconColor};
-      margin-bottom: 16px;
-    }}
-    h1 {{
-      font-size: 22px;
-      font-weight: 600;
-      margin-bottom: 12px;
-      color: {iconColor};
-    }}
-    p {{
-      font-size: 15px;
-      line-height: 1.6;
-      color: #555;
-    }}
-    .footer {{
-      margin-top: 32px;
-      font-size: 12px;
-      color: #aaa;
-    }}
-  </style>
-</head>
-<body>
-  <div class=""card"">
-    <div class=""icon"">{icon}</div>
-    <h1>{title}</h1>
-    <p>{body}</p>
-    <p class=""footer"">{_clientId}</p>
-  </div>
-</body>
-</html>";
-                            byte[] responsePage = Encoding.UTF8.GetBytes(html);
+                            byte[] responsePage = OAuthHtmlRenderer.RenderCallbackPage(error, errorDescription, _clientId);
                             context.Response.ContentType = "text/html; charset=utf-8";
                             context.Response.ContentLength64 = responsePage.Length;
                             await context.Response.OutputStream.WriteAsync(responsePage, 0, responsePage.Length).ConfigureAwait(false);
@@ -194,7 +128,7 @@ namespace SolarWinds.InformationService.Contract2
                 }
 
                 if (error != null)
-                    throw new ApplicationException($"OAuth authorization failed: {error} — {errorDescription}");
+                    throw new InvalidOperationException($"OAuth authorization failed: {error} — {errorDescription}");
 
                 await ExchangeCodeForTokensAsync(code, codeVerifier, redirectUri, cancellationToken).ConfigureAwait(false);
             }
@@ -203,7 +137,7 @@ namespace SolarWinds.InformationService.Contract2
         public string GetCurrentToken()
         {
             if (_accessToken == null)
-                throw new ApplicationException("OAuth authentication has not been completed. Please reconnect.");
+                throw new InvalidOperationException("OAuth authentication has not been completed. Please reconnect.");
 
             if (DateTime.UtcNow < _accessTokenExpiry)
                 return _accessToken;
@@ -226,7 +160,7 @@ namespace SolarWinds.InformationService.Contract2
             }
             catch (Exception ex)
             {
-                throw new ApplicationException("OAuth token refresh failed: " + ex.Message, ex);
+                throw new InvalidOperationException("OAuth token refresh failed: " + ex.Message, ex);
             }
             finally
             {
@@ -291,7 +225,7 @@ namespace SolarWinds.InformationService.Contract2
                 byte[] body = await httpResponse.Content.ReadAsByteArrayAsync().ConfigureAwait(false);
 
                 if (!httpResponse.IsSuccessStatusCode)
-                    throw new ApplicationException($"Token request failed ({(int)httpResponse.StatusCode}): {Encoding.UTF8.GetString(body)}");
+                    throw new InvalidOperationException($"Token request failed ({(int)httpResponse.StatusCode}): {Encoding.UTF8.GetString(body)}");
 
                 var serializer = new DataContractJsonSerializer(typeof(TokenResponse));
                 using (var stream = new System.IO.MemoryStream(body))
@@ -307,7 +241,7 @@ namespace SolarWinds.InformationService.Contract2
             int effectiveExpiry = response.ExpiresIn > 30 ? response.ExpiresIn - 30 : 60;
 
             string jwt = response.IdToken ?? response.AccessToken;
-            string username = ExtractUsernameFromJwt(jwt) ?? string.Empty;
+            string username = OAuthJwtParser.ExtractUsername(jwt) ?? string.Empty;
 
             _accessToken = response.AccessToken;
             // Only overwrite the refresh token when the server returns a new one.
@@ -350,37 +284,6 @@ namespace SolarWinds.InformationService.Contract2
             int port = ((IPEndPoint)tcpListener.LocalEndpoint).Port;
             tcpListener.Stop();
             return port;
-        }
-
-        internal static string ExtractUsernameFromJwt(string jwt)
-        {
-            if (string.IsNullOrEmpty(jwt))
-                return null;
-
-            string[] parts = jwt.Split('.');
-            if (parts.Length < 2)
-                return null;
-
-            try
-            {
-                string payload = parts[1].Replace('-', '+').Replace('_', '/');
-                payload += new string('=', (4 - payload.Length % 4) % 4);
-                string json = Encoding.UTF8.GetString(Convert.FromBase64String(payload));
-
-                foreach (string claim in new[] { "preferred_username", "email", "sub" })
-                {
-                    string key = $"\"{claim}\":\"";
-                    int start = json.IndexOf(key, StringComparison.Ordinal);
-                    if (start < 0) continue;
-                    start += key.Length;
-                    int end = json.IndexOf('"', start);
-                    if (end > start)
-                        return json.Substring(start, end - start);
-                }
-            }
-            catch { }
-
-            return null;
         }
 
         [DataContract]

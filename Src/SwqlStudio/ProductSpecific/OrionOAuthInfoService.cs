@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using SolarWinds.InformationService.Contract2;
 using SwqlStudio.Properties;
+using OAuthTokenManager = SolarWinds.InformationService.Contract2.OAuthTokenManager;
 
 namespace SwqlStudio
 {
@@ -49,7 +50,7 @@ namespace SwqlStudio
         public void InitTokenManager(string server)
         {
             if (_tokenManager == null || _tokenManager.Server != server)
-                _tokenManager = new OAuthTokenManager(server);
+                _tokenManager = new OAuthTokenManager(server, CertificateValidatorWithCache.ValidateRemoteCertificate);
         }
 
         public override string ServiceType => "Orion (v3) OAuth";
@@ -59,7 +60,7 @@ namespace SwqlStudio
         public override InfoServiceProxy CreateProxy(string server)
         {
             if (_tokenManager == null)
-                _tokenManager = new OAuthTokenManager(server);
+                _tokenManager = new OAuthTokenManager(server, CertificateValidatorWithCache.ValidateRemoteCertificate);
 
             _credentials = new BearerTokenCredentials(() => _tokenManager.GetCurrentToken());
 

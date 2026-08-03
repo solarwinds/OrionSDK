@@ -51,10 +51,10 @@ namespace SolarWinds.InformationService.Contract2.Tests
         // ── GetCurrentToken — pre-auth ────────────────────────────────────────
 
         [Test]
-        public void GetCurrentToken_BeforeAcquire_ThrowsApplicationException()
+        public void GetCurrentToken_BeforeAcquire_ThrowsInvalidOperationException()
         {
             var mgr = new OAuthTokenManager("host");
-            var ex = Assert.Throws<ApplicationException>(() => mgr.GetCurrentToken());
+            var ex = Assert.Throws<InvalidOperationException>(() => mgr.GetCurrentToken());
             Assert.That(ex.Message, Does.Contain("not been completed"));
         }
 
@@ -117,7 +117,7 @@ namespace SolarWinds.InformationService.Contract2.Tests
         }
 
         [Test]
-        public void ApplyTokenResponse_NullRefreshToken_PreservesExistingRefreshToken()
+        public void ApplyTokenResponse_NullRefreshToken_UpdatesAccessTokenAndPreservesRefreshToken()
         {
             var mgr = new OAuthTokenManager("host");
             mgr.ApplyTokenResponse(new OAuthTokenManager.TokenResponse
@@ -138,58 +138,58 @@ namespace SolarWinds.InformationService.Contract2.Tests
             Assert.That(mgr.GetCurrentToken(), Is.EqualTo("tok2"));
         }
 
-        // ── ExtractUsernameFromJwt ────────────────────────────────────────────
+        // ── OAuthJwtParser ────────────────────────────────────────────────────
 
         [Test]
-        public void ExtractUsernameFromJwt_Null_ReturnsNull()
+        public void ExtractUsername_Null_ReturnsNull()
         {
-            Assert.That(OAuthTokenManager.ExtractUsernameFromJwt(null), Is.Null);
+            Assert.That(OAuthJwtParser.ExtractUsername(null), Is.Null);
         }
 
         [Test]
-        public void ExtractUsernameFromJwt_Empty_ReturnsNull()
+        public void ExtractUsername_Empty_ReturnsNull()
         {
-            Assert.That(OAuthTokenManager.ExtractUsernameFromJwt(""), Is.Null);
+            Assert.That(OAuthJwtParser.ExtractUsername(""), Is.Null);
         }
 
         [Test]
-        public void ExtractUsernameFromJwt_MissingDots_ReturnsNull()
+        public void ExtractUsername_MissingDots_ReturnsNull()
         {
-            Assert.That(OAuthTokenManager.ExtractUsernameFromJwt("notajwt"), Is.Null);
+            Assert.That(OAuthJwtParser.ExtractUsername("notajwt"), Is.Null);
         }
 
         [Test]
-        public void ExtractUsernameFromJwt_MalformedBase64Payload_ReturnsNull()
+        public void ExtractUsername_MalformedBase64Payload_ReturnsNull()
         {
-            Assert.That(OAuthTokenManager.ExtractUsernameFromJwt("header.!!!.sig"), Is.Null);
+            Assert.That(OAuthJwtParser.ExtractUsername("header.!!!.sig"), Is.Null);
         }
 
         [Test]
-        public void ExtractUsernameFromJwt_PreferredUsername_ReturnsIt()
+        public void ExtractUsername_PreferredUsername_ReturnsIt()
         {
             string jwt = BuildJwt("{\"preferred_username\":\"alice\",\"email\":\"a@b.com\",\"sub\":\"123\"}");
-            Assert.That(OAuthTokenManager.ExtractUsernameFromJwt(jwt), Is.EqualTo("alice"));
+            Assert.That(OAuthJwtParser.ExtractUsername(jwt), Is.EqualTo("alice"));
         }
 
         [Test]
-        public void ExtractUsernameFromJwt_NoPreferredUsername_FallsBackToEmail()
+        public void ExtractUsername_NoPreferredUsername_FallsBackToEmail()
         {
             string jwt = BuildJwt("{\"email\":\"alice@example.com\",\"sub\":\"123\"}");
-            Assert.That(OAuthTokenManager.ExtractUsernameFromJwt(jwt), Is.EqualTo("alice@example.com"));
+            Assert.That(OAuthJwtParser.ExtractUsername(jwt), Is.EqualTo("alice@example.com"));
         }
 
         [Test]
-        public void ExtractUsernameFromJwt_OnlySub_FallsBackToSub()
+        public void ExtractUsername_OnlySub_FallsBackToSub()
         {
             string jwt = BuildJwt("{\"sub\":\"user-sub-value\"}");
-            Assert.That(OAuthTokenManager.ExtractUsernameFromJwt(jwt), Is.EqualTo("user-sub-value"));
+            Assert.That(OAuthJwtParser.ExtractUsername(jwt), Is.EqualTo("user-sub-value"));
         }
 
         [Test]
-        public void ExtractUsernameFromJwt_NoClaims_ReturnsNull()
+        public void ExtractUsername_NoClaims_ReturnsNull()
         {
             string jwt = BuildJwt("{\"iat\":1234567890}");
-            Assert.That(OAuthTokenManager.ExtractUsernameFromJwt(jwt), Is.Null);
+            Assert.That(OAuthJwtParser.ExtractUsername(jwt), Is.Null);
         }
 
         // ── Helpers ───────────────────────────────────────────────────────────

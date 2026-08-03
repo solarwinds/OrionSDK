@@ -150,7 +150,7 @@ namespace SwqlStudio
             this.lblVersionNote.Location = new System.Drawing.Point(12, 156);
             this.lblVersionNote.Name = "lblOAuthNote";
             this.lblVersionNote.TabIndex = 11;
-            this.lblVersionNote.Text = "2026.2.2 or later required";
+            this.lblVersionNote.Text = "2026.4 or later required";
             this.lblVersionNote.Visible = false;
             //
             // NewConnection

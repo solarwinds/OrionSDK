@@ -56,6 +56,8 @@ namespace SolarWinds.InformationService.Contract2
 
         public async Task AcquireTokenAsync(CancellationToken cancellationToken = default)
         {
+            await CheckEndpointAsync(cancellationToken).ConfigureAwait(false);
+
             string codeVerifier = GenerateCodeVerifier();
             string codeChallenge = GenerateCodeChallenge(codeVerifier);
             string state = GenerateRandomBase64Url(16);
@@ -184,6 +186,34 @@ namespace SolarWinds.InformationService.Contract2
             _accessTokenExpiry = DateTime.MinValue;
             LastAccountUsername = string.Empty;
             return Task.CompletedTask;
+        }
+
+        private async Task CheckEndpointAsync(CancellationToken cancellationToken)
+        {
+            var handler = new HttpClientHandler();
+            if (_certValidator != null)
+                handler.ServerCertificateCustomValidationCallback = (msg, cert, chain, errors) => _certValidator(msg, cert, chain, errors);
+
+            using (var client = new HttpClient(handler, disposeHandler: true) { Timeout = TimeSpan.FromSeconds(10) })
+            {
+                HttpResponseMessage response;
+                try
+                {
+                    response = await client.GetAsync(AuthorizeUrl, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+                }
+                catch (HttpRequestException ex)
+                {
+                    throw new InvalidOperationException(
+                        $"Cannot reach the OAuth endpoint on '{_server}'. " +
+                        "Verify the server address and that the Orion platform version is 2026.4 or later. " +
+                        "Details: " + ex.Message, ex);
+                }
+
+                if (response.StatusCode == HttpStatusCode.NotFound)
+                    throw new InvalidOperationException(
+                        $"The OAuth endpoint was not found on '{_server}' (HTTP 404). " +
+                        "Orion platform version 2026.4 or later is required for OAuth authentication.");
+            }
         }
 
         private async Task ExchangeCodeForTokensAsync(string code, string codeVerifier, string redirectUri, CancellationToken cancellationToken)

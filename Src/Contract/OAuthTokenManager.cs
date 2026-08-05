@@ -190,9 +190,12 @@ namespace SolarWinds.InformationService.Contract2
 
         private async Task CheckEndpointAsync(CancellationToken cancellationToken)
         {
-            var handler = new HttpClientHandler();
-            if (_certValidator != null)
-                handler.ServerCertificateCustomValidationCallback = (msg, cert, chain, errors) => _certValidator(msg, cert, chain, errors);
+            // Suppress cert validation for the probe — we are only checking reachability,
+            // not exchanging credentials. The interactive cert dialog must not fire here.
+            var handler = new HttpClientHandler
+            {
+                ServerCertificateCustomValidationCallback = (msg, cert, chain, errors) => true
+            };
 
             using (var client = new HttpClient(handler, disposeHandler: true) { Timeout = TimeSpan.FromSeconds(10) })
             {

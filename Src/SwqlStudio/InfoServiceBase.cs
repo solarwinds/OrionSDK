@@ -66,6 +66,9 @@ namespace SwqlStudio
 
         public virtual bool SupportsActiveSubscriber { get { return false; } }
 
+        // Returns true if re-authentication was performed and the caller should retry.
+        public virtual bool TryReAuthenticate(Exception ex) { return false; }
+
         public virtual NotificationDeliveryServiceProxy CreateNotificationDeliveryServiceProxy(string server, INotificationSubscriber notificationSubscriber)
         {
             throw new NotSupportedException();

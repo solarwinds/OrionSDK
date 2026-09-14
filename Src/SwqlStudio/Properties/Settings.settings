@@ -65,6 +65,9 @@
     <Setting Name="OrionV3HttpsEndpointPath" Type="System.String" Scope="Application">
       <Value Profile="(Default)">SolarWinds/InformationService/v3/OrionBasic</Value>
     </Setting>
+    <Setting Name="OrionV3OAuthEndpointPath" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">SolarWinds/InformationService/v3/OAuth</Value>
+    </Setting>
     <Setting Name="OrionV3EndpointPathAD" Type="System.String" Scope="Application">
       <Value Profile="(Default)">SolarWinds/InformationService/v3/Orion/ad</Value>
     </Setting>

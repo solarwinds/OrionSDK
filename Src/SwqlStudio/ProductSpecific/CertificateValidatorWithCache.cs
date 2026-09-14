@@ -1,7 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Net.Security;
 using System.Security.Cryptography.X509Certificates;
 using System.Windows.Forms;
+using SwqlStudio.Utils;
 
 namespace SwqlStudio
 {
@@ -24,9 +26,7 @@ namespace SwqlStudio
                 }
             }
 
-            var ret = (DialogResult.Yes ==
-                MessageBox.Show("Server certificate has problem " + sslpolicyerrors + ". Connect anyway?",
-                    "SSL Certificate Issue", MessageBoxButtons.YesNo));
+            var ret = AskUserOnUiThread(sslpolicyerrors);
 
             lock (_certificateAccepted)
             {
@@ -37,6 +37,29 @@ namespace SwqlStudio
             }
 
             return ret;
+        }
+
+        private static bool AskUserOnUiThread(SslPolicyErrors sslPolicyErrors)
+        {
+            // The certificate callback fires on a background thread; marshal to the UI thread
+            // so the dialog has a proper parent and doesn't appear behind other windows.
+            var owner = Application.OpenForms.Count > 0 ? Application.OpenForms[0] : null;
+
+            // flash window as the user may be in an external browser and not see the dialog
+            if (owner != null)
+            {
+                Win32.FlashUntilForeground(owner);
+                owner.Activate();
+            }
+
+            bool Ask() => DialogResult.Yes == MessageBox.Show(owner,
+                "Server certificate has problem " + sslPolicyErrors + ". Connect anyway?",
+                "SSL Certificate Issue", MessageBoxButtons.YesNo);
+
+            if (owner != null && owner.InvokeRequired)
+                return (bool)owner.Invoke((Func<bool>)Ask);
+
+            return Ask();
         }
 
     }

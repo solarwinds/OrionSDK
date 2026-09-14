@@ -415,7 +415,7 @@ namespace SolarWinds.InformationService.Contract2
 
         #endregion
 
-        public void Open()
+        public virtual void Open()
         {
             try
             {

@@ -20,6 +20,9 @@
 
                 case "ORION (V3) OVER HTTPS LEGACY PRE-2023":
                     return new OrionLegacyHttpsInfoService(username, password);
+
+                case "ORION (V3) OAUTH":
+                    return new OrionOAuthInfoService();
             }
 
             return null;

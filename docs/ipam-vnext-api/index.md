@@ -433,18 +433,19 @@ Creates Global IPv6 prefix and  subnet will be plaeced under the root folder in 
 /// <summary>
 /// Create new IpV6 Subnet
 /// </summary>
-/// <param name="prefix">IPv6 subnet global prefix, like 2001:10:100</param>
+/// <param name="prefix">IPv6 subnet global prefix, like 2001:1111::</param>
 /// <param name="prefixName">IPv6 subnet global prefix name</param>
 /// <param name="isNewPrefix">Create new or use existing</param>
-/// <param name="subnetAddress">Subnet IpV6Address like : 2001:10:100:112::</param>
+/// <param name="subnetAddress">Subnet IpV6Address like : 2001:1111:1000::</param>
 /// <param name="rawCidr">Subnet CIDR</param>
-public void CreateIPv6Subnet(string prefix, string prefixName, bool isNewPrefix, string subnetAddress, string rawCidr)
+/// <param name="prefixCidr">Global prefix CIDR (optional; defaults to the subnet CIDR)</param>
+public void CreateIPv6Subnet(string prefix, string prefixName, bool isNewPrefix, string subnetAddress, string rawCidr, string prefixCidr = null)
 ```
 
 Sample
 
 ```powershell
-Invoke-SwisVerb $swis IPAM.SubnetManagement CreateIPv6Subnet @("2001:10:100","Test","false"," 2001:10:100:112::","48")
+Invoke-SwisVerb $swis IPAM.SubnetManagement CreateIPv6Subnet @("2001:1111::","Test","true","2001:1111:1000::","48","32")
 ```
 
 # Create new IPv6 subnet for specific Hierarchy group
@@ -454,19 +455,20 @@ Creates Global IPv6 prefix and subnet will be placed in the root of Hierarchy gr
 /// <summary>
 /// Create new IpV6 Subnet for specific Hierarchy group
 /// </summary>
-/// <param name="prefix">IPv6 subnet global prefix, like 2001:10:100</param>
+/// <param name="prefix">IPv6 subnet global prefix, like 2001:1111::</param>
 /// <param name="prefixName">IPv6 subnet global prefix name</param>
 /// <param name="isNewPrefix">Create new or use existing</param>
-/// <param name="subnetAddress">Subnet IpV6Address like : 2001:10:100:112::</param>
+/// <param name="subnetAddress">Subnet IpV6Address like : 2001:1111:1000::</param>
 /// <param name="rawCidr">Subnet CIDR</param>
 /// <param name="hierarchyGroup">Hierarchy Group name</param>
-public void CreateIPv6SubnetForGroup(string prefix, string prefixName, bool isNewPrefix, string subnetAddress, string rawCidr, string hierarchyGroup)
+/// <param name="prefixCidr">Global prefix CIDR (optional; defaults to the subnet CIDR)</param>
+public void CreateIPv6SubnetForGroup(string prefix, string prefixName, bool isNewPrefix, string subnetAddress, string rawCidr, string hierarchyGroup, string prefixCidr = null)
 ```
 
 Sample
 
 ```powershell
-Invoke-SwisVerb $swis IPAM.SubnetManagement CreateIPv6SubnetForGroup @("2001:10:100","Test","false"," 2001:10:100:112::","48", "Hierarchy Group")
+Invoke-SwisVerb $swis IPAM.SubnetManagement CreateIPv6SubnetForGroup @("2001:1111::","Test","true","2001:1111:1000::","48", "IP Networks", "32")
 ```
 
 # Create Supernet under specific group

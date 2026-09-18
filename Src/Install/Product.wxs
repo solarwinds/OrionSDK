@@ -136,13 +136,9 @@
                 <File Source="$(var.OutputDir)\System.ServiceModel.Security.dll" />
                 <File Source="$(var.OutputDir)\WeifenLuo.WinFormsUI.Docking.dll" />
                 <File Source="$(var.OutputDir)\WeifenLuo.WinFormsUI.Docking.ThemeVS2015.dll" />
-                <File Source="$(var.OutputDir)\Microsoft.Bcl.HashCode.dll" />
                 <File Source="$(var.OutputDir)\System.Buffers.dll" />
-                <File Source="$(var.OutputDir)\System.Collections.Immutable.dll" />
-                <File Source="$(var.OutputDir)\System.Formats.Nrbf.dll" />
                 <File Source="$(var.OutputDir)\System.Memory.dll" />
                 <File Source="$(var.OutputDir)\System.Numerics.Vectors.dll" />
-                <File Source="$(var.OutputDir)\System.Reflection.Metadata.dll" />
                 <File Source="$(var.OutputDir)\System.Runtime.CompilerServices.Unsafe.dll" />
               </Component>
               

@@ -5,11 +5,14 @@ using System.IO;
 using System.ServiceModel;
 using System.ServiceModel.Channels;
 using System.ServiceModel.Security;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Xml;
 using System.Xml.Serialization;
 using SolarWinds.InformationService.Contract2;
 using SolarWinds.InformationService.Contract2.PubSub;
 using SolarWinds.InformationService.InformationServiceClient;
+using SolarWinds.Logging;
 using SwqlStudio.Properties;
 using SwqlStudio.Subscriptions;
 
@@ -17,6 +20,11 @@ namespace SwqlStudio
 {
     public class ConnectionInfo : IDisposable
     {
+        private static readonly Log log = new Log();
+
+        private static readonly TimeSpan KeepAliveCheckInterval = TimeSpan.FromSeconds(10);
+        private static readonly TimeSpan ReconnectRetryInterval = TimeSpan.FromSeconds(10);
+
         public string ServerType { get; set; }
         private string _server;
         private string _username;
@@ -24,19 +32,34 @@ namespace SwqlStudio
 
         private InfoServiceProxy _proxy;
         private readonly InfoServiceBase _infoServiceType;
+        private CancellationTokenSource _keepAliveCts;
+        private bool _isClosed;
+
+        // Bumped whenever the proxy is replaced or closed, so a slow reconnect can detect it lost the race.
+        private int _connectionGeneration;
+
+        private readonly SynchronizationContext _syncContext;
+        private readonly object _proxyLock = new object();
 
         public event EventHandler<EventArgs> ConnectionClosed;
         public event EventHandler<EventArgs> ConnectionClosing;
+        public event EventHandler<EventArgs> ConnectionRestored;
 
         public ConnectionInfo(string server, string username, string password, string serverType)
+            : this(server, username, password, serverType, InfoServiceFactory.Create(serverType, username, password))
+        {
+        }
+
+        internal ConnectionInfo(string server, string username, string password, string serverType, InfoServiceBase infoServiceType)
         {
             ServerType = serverType;
             _server = server;
             _username = username;
             _password = password;
 
-            _infoServiceType = InfoServiceFactory.Create(serverType, username, password);
+            _infoServiceType = infoServiceType;
             QueryParameters = new PropertyBag();
+            _syncContext = SynchronizationContext.Current;
         }
 
         internal ConnectionInfo(string server, string username, InfoServiceBase infoService)
@@ -139,24 +162,36 @@ namespace SwqlStudio
 
         public void Connect()
         {
-            if (_proxy == null || (_proxy != null && (_proxy.Channel.State == CommunicationState.Closed || _proxy.Channel.State == CommunicationState.Faulted)))
+            lock (_proxyLock)
             {
-                if (_proxy != null)
-                    _proxy.Dispose();
+                if (_proxy == null || _proxy.Channel.State == CommunicationState.Closed || _proxy.Channel.State == CommunicationState.Faulted)
+                {
+                    // Clear it first; if OpenProxy() throws, the next attempt must not inspect the disposed one.
+                    var stale = _proxy;
+                    _proxy = null;
+                    DisposeQuietly(stale);
 
-                _proxy = _infoServiceType.CreateProxy(_server);
-                _proxy.OperationTimeout = TimeSpan.FromMinutes(Settings.Default.OperationTimeout);
-                _proxy.ChannelFactory.Endpoint.Behaviors.Add(new LogHeaderReaderBehavior());
-                _proxy.Open();
+                    _proxy = OpenProxy();
+                    _isClosed = false;
+                    _connectionGeneration++;
+                    StartKeepAlive();
+                }
+
+                DisposeQuietly(Connection);
+                Connection = new InformationServiceConnection((IInformationService)_proxy);
+                Connection.Open();
             }
-
-            Connection = new InformationServiceConnection((IInformationService)_proxy);
-            Connection.Open();
         }
 
-        public bool IsConnected
+        public virtual bool IsConnected
         {
-            get { return _proxy != null && _proxy.ClientChannel.State == CommunicationState.Opened; }
+            get
+            {
+                lock (_proxyLock)
+                {
+                    return _proxy != null && _proxy.ClientChannel.State == CommunicationState.Opened;
+                }
+            }
         }
 
         internal NotificationDeliveryServiceProxy CreateActiveListenerProxy(INotificationSubscriber listener)
@@ -165,6 +200,217 @@ namespace SwqlStudio
                 throw new InvalidOperationException("This connection type doesn't support active subscriptions");
 
             return _infoServiceType.CreateNotificationDeliveryServiceProxy(_server, listener);
+        }
+
+        private void StartKeepAlive()
+        {
+            StopKeepAlive();
+
+            var cts = new CancellationTokenSource();
+            _keepAliveCts = cts;
+
+            // Capture the token before scheduling; a concurrent Close() can null the field before the task starts.
+            CancellationToken token = cts.Token;
+            Task.Run(() => KeepAliveMonitor(token));
+        }
+
+        private void StopKeepAlive()
+        {
+            if (_keepAliveCts != null)
+            {
+                _keepAliveCts.Cancel();
+                _keepAliveCts.Dispose();
+                _keepAliveCts = null;
+            }
+        }
+
+        private async Task KeepAliveMonitor(CancellationToken ct)
+        {
+            try
+            {
+                while (!ct.IsCancellationRequested)
+                {
+                    await Task.Delay(KeepAliveCheckInterval, ct);
+
+                    if (ct.IsCancellationRequested)
+                        break;
+
+                    if (!IsConnected)
+                    {
+                        OnConnectionLost();
+
+                        while (!ct.IsCancellationRequested && !IsConnected)
+                        {
+                            int? committedGeneration = await TryReconnectAsync(ct);
+
+                            if (committedGeneration.HasValue)
+                            {
+                                // Validated inside the state transition, so Close() cannot slip in behind the check.
+                                RaiseConnectionRestored(committedGeneration.Value);
+
+                                break;
+                            }
+
+                            await Task.Delay(ReconnectRetryInterval, ct);
+                        }
+                    }
+                }
+            }
+            catch (OperationCanceledException)
+            {
+                // Expected when closing
+            }
+            catch (ObjectDisposedException)
+            {
+                // The token source was disposed by Close() while we were waiting on it.
+            }
+            catch (Exception ex)
+            {
+                // This runs detached, so an escaping exception would otherwise go unobserved.
+                log.Error($"Keep-alive monitor for {_server} stopped unexpectedly", ex);
+            }
+        }
+
+        protected internal virtual void OnConnectionLost()
+        {
+            var handler = ConnectionClosed;
+            if (handler != null)
+                Dispatch(() => handler.Invoke(this, EventArgs.Empty));
+        }
+
+        protected internal virtual void OnConnectionRestored()
+        {
+            int generation;
+            lock (_proxyLock)
+            {
+                generation = _connectionGeneration;
+            }
+
+            RaiseConnectionRestored(generation);
+        }
+
+        private bool IsGenerationCurrent(int generation)
+        {
+            lock (_proxyLock)
+            {
+                return !_isClosed && _connectionGeneration == generation;
+            }
+        }
+
+        /// <summary>Runs the callback on the context this connection was created on, when there is one.</summary>
+        private void Dispatch(Action action)
+        {
+            if (_syncContext != null)
+                _syncContext.Post(_ => action(), null);
+            else
+                action();
+        }
+
+        /// <param name="expectedGeneration">Generation the caller committed; a newer one means it lost the race.</param>
+        private void RaiseConnectionRestored(int expectedGeneration)
+        {
+            if (!IsGenerationCurrent(expectedGeneration))
+                return;
+
+            var handler = ConnectionRestored;
+            if (handler != null)
+                Dispatch(() => handler.Invoke(this, EventArgs.Empty));
+        }
+
+        /// <summary>Returns the generation it committed, or null when the attempt failed or lost the race.</summary>
+        private async Task<int?> TryReconnectAsync(CancellationToken ct)
+        {
+            InfoServiceProxy newProxy = null;
+            InformationServiceConnection newConnection = null;
+
+            try
+            {
+                if (ct.IsCancellationRequested)
+                    return null;
+
+                int generationAtStart;
+                lock (_proxyLock)
+                {
+                    if (_isClosed)
+                        return null;
+
+                    generationAtStart = _connectionGeneration;
+                }
+
+                // Build the whole replacement off to the side so a partial failure cannot corrupt live state.
+                newProxy = OpenProxy();
+
+                newConnection = new InformationServiceConnection((IInformationService)newProxy);
+                newConnection.Open();
+
+                lock (_proxyLock)
+                {
+                    // Close() or another reconnect may have won while we were opening; discard our replacement.
+                    if (_isClosed || ct.IsCancellationRequested || _connectionGeneration != generationAtStart)
+                        return null;
+
+                    var oldProxy = _proxy;
+                    var oldConnection = Connection;
+
+                    _proxy = newProxy;
+                    Connection = newConnection;
+                    _connectionGeneration++;
+
+                    newProxy = null;
+                    newConnection = null;
+
+                    DisposeQuietly(oldConnection);
+                    DisposeQuietly(oldProxy);
+
+                    return _connectionGeneration;
+                }
+            }
+            catch (Exception ex)
+            {
+                log.Error($"Reconnect attempt to {_server} failed", ex);
+                return null;
+            }
+            finally
+            {
+                // Non-null only when the attempt failed or lost the race.
+                DisposeQuietly(newConnection);
+                DisposeQuietly(newProxy);
+            }
+        }
+
+        private InfoServiceProxy OpenProxy()
+        {
+            var proxy = _infoServiceType.CreateProxy(_server);
+
+            try
+            {
+                proxy.OperationTimeout = TimeSpan.FromMinutes(Settings.Default.OperationTimeout);
+                proxy.ChannelFactory.Endpoint.Behaviors.Add(new LogHeaderReaderBehavior());
+                proxy.Open();
+            }
+            catch
+            {
+                // The caller never received the proxy, so it cannot dispose it for us.
+                DisposeQuietly(proxy);
+                throw;
+            }
+
+            return proxy;
+        }
+
+        private static void DisposeQuietly(IDisposable disposable)
+        {
+            if (disposable == null)
+                return;
+
+            try
+            {
+                disposable.Dispose();
+            }
+            catch (Exception ex)
+            {
+                log.Warn("Failed to dispose a replaced connection resource.", ex);
+            }
         }
 
         private void EnsureConnection()
@@ -383,16 +629,25 @@ namespace SwqlStudio
 
         public void Close()
         {
-            if (_proxy != null)
+            lock (_proxyLock)
             {
-                var listeners = ConnectionClosing;
-                listeners?.Invoke(this, EventArgs.Empty);
+                // Set before anything else so a reconnect already in flight refuses to commit.
+                _isClosed = true;
+                _connectionGeneration++;
+                StopKeepAlive();
 
-                _proxy.Dispose();
+                if (_proxy == null)
+                    return;
+
+                ConnectionClosing?.Invoke(this, EventArgs.Empty);
+
+                DisposeQuietly(Connection);
+                Connection = null;
+
+                DisposeQuietly(_proxy);
                 _proxy = null;
 
-                listeners = ConnectionClosed;
-                listeners?.Invoke(this, EventArgs.Empty);
+                ConnectionClosed?.Invoke(this, EventArgs.Empty);
             }
         }
 

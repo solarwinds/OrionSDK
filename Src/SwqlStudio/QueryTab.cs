@@ -36,11 +36,38 @@ namespace SwqlStudio
         {
             set
             {
+                DetachConnectionEvents(base.ConnectionInfo);
+
                 base.ConnectionInfo = value;
+
+                AttachConnectionEvents(base.ConnectionInfo);
+
                 SetMetadataProvider();
                 queryStatusBar1.Initialize(base.ConnectionInfo);
             }
         }
+
+        private void AttachConnectionEvents(ConnectionInfo connection)
+        {
+            if (connection == null)
+                return;
+
+            connection.ConnectionClosed += _connectionInfo_ConnectionClosed;
+            connection.ConnectionClosing += _connectionInfo_ConnectionClosing;
+            connection.ConnectionRestored += _connectionInfo_ConnectionRestored;
+        }
+
+        private void DetachConnectionEvents(ConnectionInfo connection)
+        {
+            if (connection == null)
+                return;
+
+            connection.ConnectionClosed -= _connectionInfo_ConnectionClosed;
+            connection.ConnectionClosing -= _connectionInfo_ConnectionClosing;
+            connection.ConnectionRestored -= _connectionInfo_ConnectionRestored;
+        }
+
+        internal string CurrentStatus => queryStatusBar1?.ConnectionStatus;
 
         [Flags]
         private enum Tabs
@@ -100,6 +127,7 @@ namespace SwqlStudio
                 nullFont.Dispose();
                 nullFont = null;
             }
+            DetachConnectionEvents(ConnectionInfo);
             Unsubscribe();
         }
 
@@ -422,7 +450,7 @@ namespace SwqlStudio
                     }
 
                     queryStatusBar1.UpdateValues(arg.Results.Rows.Count, arg.QueryTime, (long?)arg.Results.ExtendedProperties["TotalRows"]);
-                    queryStatusBar1.UpdateStatusLabel("Ready");
+                    queryStatusBar1.ShowConnectionState();
 
                     RawXmlTabVisible = false;
                     ResultsTabVisible = true;
@@ -434,7 +462,7 @@ namespace SwqlStudio
                     ResultsTabVisible = false;
 
                     queryStatusBar1.UpdateValues(0, arg.QueryTime);
-                    queryStatusBar1.UpdateStatusLabel("Ready");
+                    queryStatusBar1.ShowConnectionState();
                 }
 
                 if (arg.Errors != null)
@@ -879,6 +907,49 @@ namespace SwqlStudio
         public void HideFindReplaceDialog()
         {
             findReplaceDialog.Window.Hide();
+        }
+
+        private void _connectionInfo_ConnectionClosed(object sender, EventArgs e)
+        {
+            ShowConnectionStatus(null);
+        }
+
+        private void _connectionInfo_ConnectionClosing(object sender, EventArgs e)
+        {
+            ShowConnectionStatus(QueryStatusBar.Disconnecting);
+        }
+
+        private void _connectionInfo_ConnectionRestored(object sender, EventArgs e)
+        {
+            ShowConnectionStatus(null);
+        }
+
+        /// <param name="status">Literal to show, or null to re-read the live connection state.</param>
+        private void ShowConnectionStatus(string status)
+        {
+            // The connection raises events from a background thread, so the tab may be torn down mid-flight.
+            if (IsDisposed || Disposing)
+                return;
+
+            if (InvokeRequired)
+            {
+                try
+                {
+                    BeginInvoke(new Action<string>(ShowConnectionStatus), status);
+                }
+                catch (ObjectDisposedException)
+                {
+                    // Tab was disposed between the check above and the marshalling call.
+                }
+
+                return;
+            }
+
+            // A stale event can arrive after the connection closed, so trust the state, not the event.
+            if (status == null)
+                queryStatusBar1?.ShowConnectionState();
+            else
+                queryStatusBar1?.UpdateStatusLabel(status);
         }
     }
 }

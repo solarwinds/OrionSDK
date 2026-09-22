@@ -8,11 +8,17 @@ namespace SwqlStudio
     {
         private const string NotAvailable = "N/A";
 
+        internal const string Connected = "Connected";
+        internal const string Disconnected = "Disconnected";
+        internal const string Disconnecting = "Disconnecting...";
+
         private readonly ToolStripStatusLabel _connectionLabel;
         private readonly ToolStripStatusLabel _serverLabel;
         private readonly ToolStripStatusLabel _userLabel;
         private readonly ToolStripStatusLabel _queryTimeLabel;
         private readonly ToolStripStatusLabel _rowCountLabel;
+
+        private ConnectionInfo _connection;
 
         public QueryStatusBar()
         {
@@ -51,20 +57,30 @@ namespace SwqlStudio
         {
             Items.AddRange(AllLabels);
 
+            _connection = connection;
+            ShowConnectionState();
+
             if (connection != null)
             {
-                _connectionLabel.Text = "Connected";
                 _serverLabel.Text = string.Format("Server: {0}", connection.Server);
                 _userLabel.Text = string.Format("User: {0}", connection.UserName);
             }
             else
             {
-                _connectionLabel.Text = NotAvailable;
                 _serverLabel.Text = NotAvailable;
                 _userLabel.Text = NotAvailable;
             }
 
             UpdateValues(0, TimeSpan.Zero);
+        }
+
+        /// <summary>Shows the connection state, which is the status bar's idle text.</summary>
+        public void ShowConnectionState()
+        {
+            if (_connection == null)
+                _connectionLabel.Text = NotAvailable;
+            else
+                _connectionLabel.Text = _connection.IsConnected ? Connected : Disconnected;
         }
 
         public void UpdateValues(int rowCount, TimeSpan queryTime, long? totalRows = null)
@@ -80,5 +96,7 @@ namespace SwqlStudio
         {
             _connectionLabel.Text = text;
         }
+
+        internal string ConnectionStatus => _connectionLabel.Text;
     }
 }

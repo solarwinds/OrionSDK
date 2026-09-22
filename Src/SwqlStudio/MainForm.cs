@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Drawing;
 using System.Linq;
 using System.ServiceModel;
 using System.Windows.Forms;
@@ -22,6 +23,9 @@ namespace SwqlStudio
         private readonly BindingList<ConnectionInfo> connectionsDataSource = new BindingList<ConnectionInfo>();
         private ConnectionsManager connectionsManager;
         private QueryTab lastActiveTab;
+        private readonly string executeDefaultToolTip;
+        private readonly Color executeDefaultBackColor;
+        private readonly Color executeDefaultForeColor;
 
         public PropertyBag QueryParameters
         {
@@ -41,6 +45,10 @@ namespace SwqlStudio
         {
             DpiHelper.FixFont(this);
             InitializeComponent();
+
+            executeDefaultToolTip = executeToolButton.ToolTipText;
+            executeDefaultBackColor = executeToolButton.BackColor;
+            executeDefaultForeColor = menuQueryExecute.ForeColor;
 
             InitializeDockPanel();
             SetEntityGroupingMode((EntityGroupingMode)Enum.Parse(typeof(EntityGroupingMode),
@@ -80,6 +88,7 @@ namespace SwqlStudio
             if (activeConnectionTab != null)
             {
                 SelectedConnection = activeConnectionTab.ConnectionInfo;
+                UpdateExecuteVisual(activeConnectionTab.ConnectionInfo);
             }
 
 
@@ -107,18 +116,52 @@ namespace SwqlStudio
             filesDock.AddServer(provider, addedConnection);
             SelectedConnection = addedConnection;
 
+            HookConnectionVisuals(addedConnection);
+
             if (connectionsDataSource.Count == 1)
                 filesDock.ReplaceConnection(null, addedConnection);
         }
 
         private void ServerListOnConnectionRemoved(object sender, ConnectionsEventArgs e)
         {
+            UnhookConnectionVisuals(e.Connection);
             connectionsDataSource.Remove(e.Connection);
 
             if (connectionsDataSource.Any())
                 SelectedConnection = connectionsDataSource.First();
 
             filesDock.CloseServer(e.Connection, SelectedConnection);
+        }
+
+        private void HookConnectionVisuals(ConnectionInfo connection)
+        {
+            connection.ConnectionClosed += ConnectionStateChanged;
+            connection.ConnectionRestored += ConnectionStateChanged;
+        }
+
+        private void UnhookConnectionVisuals(ConnectionInfo connection)
+        {
+            connection.ConnectionClosed -= ConnectionStateChanged;
+            connection.ConnectionRestored -= ConnectionStateChanged;
+        }
+
+        private void ConnectionStateChanged(object sender, EventArgs e)
+        {
+            var connection = sender as ConnectionInfo;
+            if (connection != SelectedConnection)
+                return;
+
+            // A stale event can arrive after the connection closed, so trust the state, not the event.
+            UpdateExecuteVisual(connection);
+        }
+
+        private void UpdateExecuteVisual(ConnectionInfo connection)
+        {
+            bool disconnected = connection != null && !connection.IsConnected;
+
+            executeToolButton.BackColor = disconnected ? Color.Gold : executeDefaultBackColor;
+            executeToolButton.ToolTipText = disconnected ? "Execute query (disconnected — retrying)" : executeDefaultToolTip;
+            menuQueryExecute.ForeColor = disconnected ? Color.DarkGoldenrod : executeDefaultForeColor;
         }
 
         private void startTimer_Tick(object sender, EventArgs e)

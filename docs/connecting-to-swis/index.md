@@ -27,6 +27,7 @@ Orion (v2) | This works like **Orion (v3)**, but it connects to the legacy SWISv
 Orion (v2) AD | This works like **Orion (v3) AD**, but it connects to the legacy SWISv2 service on the Orion server. Avoid this mode unless you are connecting to a very old version of Orion that does not support SWISv3.
 Orion (v2) Certificate | This works like **Orion (v3) Certificate**, but it connects to the legacy SWISv2 service on the Orion server. Avoid this mode unless you are connecting to a very old version of Orion that does not support SWISv3.
 Orion (v2) over HTTPS | This works like **Orion (v3) over HTTPS**, but it connects to the legacy SWISv2 service on the Orion server. Avoid this mode unless you are connecting to a very old version of Orion that does not support SWISv3.
+JWT from API Token | This is not a SWQL Studio server type. Instead, use the SWIS HTTPS JSON endpoint on port 17774 and send the JWT in the `Authorization: Bearer` header. See **JWT from an API Token** below.
 EOC | This mode connects to the old [Enterprise Operations Console (EOC)](https://www.solarwinds.com/enterprise-operations-console) product that had its own platform. This mode is not relevant to the current Orion Platform-based EOC.
 NCM | This mode connects to old versions of [Network Configuration Manager (NCM)](https://www.solarwinds.com/network-configuration-manager) from the transition period when it was a separate standalone product, but had an Orion integration module. It uses username/password authentication.
 NCM (Windows Authentication) | This is like the **NCM** mode, but it uses your Windows token instead of a username and password.
@@ -83,6 +84,20 @@ This corresponds to the **Orion (v3) Certificate** mode above.
 $host = 'localhost'
 $swis = Connect-Swis -Hostname $host -Certificate
 ```
+
+### JWT from an API Token
+
+If you have a JWT obtained from an API token, you can call the SWIS HTTPS JSON endpoint directly by sending the JWT in the `Authorization` header as a bearer token.
+
+``` pwsh
+$jwt = "jwt_string"
+
+curl.exe -vk `
+	-H "Authorization: Bearer $jwt" `
+	"https://localhost:17774/SolarWinds/InformationService/v3/Json/Query?query=SELECT+TOP+1+NodeID+FROM+Orion.Nodes"
+```
+
+This approach is useful when you want to call the SWIS JSON API over HTTPS without supplying a username and password directly in the request.
 
 ## Limitations
 

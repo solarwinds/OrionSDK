@@ -15,11 +15,11 @@
     <PackageVersion Include="NUnit3TestAdapter" Version="4.2.1" />
     <PackageVersion Include="PowerShellStandard.Library" Version="5.1.1" />
     <PackageVersion Include="System.Configuration.ConfigurationManager" Version="6.0.1" />
-    <PackageVersion Include="System.ServiceModel.Duplex" Version="4.10.0" />
-    <PackageVersion Include="System.ServiceModel.Http" Version="4.10.0" />
-    <PackageVersion Include="System.ServiceModel.NetTcp" Version="4.10.0" />
-    <PackageVersion Include="System.ServiceModel.Primitives" Version="4.10.0" />
-    <PackageVersion Include="System.ServiceModel.Security" Version="4.10.0" />
+    <PackageVersion Include="System.ServiceModel.Duplex" Version="4.10.3" />
+    <PackageVersion Include="System.ServiceModel.Http" Version="4.10.3" />
+    <PackageVersion Include="System.ServiceModel.NetTcp" Version="4.10.3" />
+    <PackageVersion Include="System.ServiceModel.Primitives" Version="4.10.3" />
+    <PackageVersion Include="System.ServiceModel.Security" Version="4.10.3" />
     <PackageVersion Include="System.Resources.Extensions" Version="8.0.0" />
     <PackageVersion Include="xunit" Version="2.4.2" />
     <PackageVersion Include="xunit.runner.visualstudio" Version="2.4.5" />

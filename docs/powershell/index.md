@@ -16,6 +16,12 @@ After installing `SwisPowerShell`, use the following steps to run a query from P
 3.	Run the command, `$swis = Connect-Swis`, and then provide your Orion credentials.
 4.	Run the command, `Get-SwisData $swis 'SELECT NodeID, Caption FROM Orion.Nodes'`. SWIS returns the results in PowerShell.
 
+If your Orion platform supports OAuth, you can also connect using `Connect-SwisOAuth`:
+
+```powershell
+$swis = Connect-SwisOAuth -Hostname localhost
+```
+
 In PowerShell terms, the results from Step 4 are returned as a set of objects with two properties: `NodeID` and `Caption` so you can manipulate them using the standard PowerShell syntax and commands. For example, use `Get-SwisData $swis 'SELECT NodeID, Caption FROM Orion.Nodes' | Export-Csv nodes.csv` to create a CSV file from the query results.
 
 ## Cmdlets Provided by SwisPowerShell
@@ -39,6 +45,28 @@ This returns a SWIS connection object. For example:
 ```powershell
 $creds = Get-Credential  # display a window asking for credentials
 $swis = Connect-Swis -Credential $creds -Hostname localhost  # create a SWIS connection object
+```
+
+### Connect-SwisOAuth
+
+Arguments:
+
+* Hostname (mandatory)
+* TrustAllCertificates (optional switch)
+
+`Connect-SwisOAuth` starts an interactive OAuth sign-in flow in your browser and returns a SWIS connection object that can be used with the same cmdlets as `Connect-Swis`.
+
+For example:
+
+```powershell
+$swis = Connect-SwisOAuth -Hostname orionserver
+Get-SwisData $swis 'SELECT TOP 10 NodeID, Caption FROM Orion.Nodes'
+```
+
+In development environments that use self-signed certificates, you can allow certificate validation bypass:
+
+```powershell
+$swis = Connect-SwisOAuth -Hostname orionserver -TrustAllCertificates
 ```
 
 #### Connecting to the Legacy Virtualization Manager appliance
@@ -167,6 +195,6 @@ Remove-SwisObject also supports deleting multiple objects in one operation by om
 
 Previously, the recommended way to access SWIS from PowerShell was to use a PowerShell snapin called `SwisSnapin`. PowerShell modules have replaced snapins as the recommended way to extend PowerShell, so the `SwisPowerShell` module replaces the older `SwisSnapin`. The Orion SDK installer still include `SwisSnapin`, so your existing scripts that use it will still work.
 
-The cmdlets provided by the `SwisPowerShell` module and `SwisSnapin` are the same (literally—it is the same code). To convert scripts written for `SwisSnapin` to use `SwisPowerShell` instead, the only change required is to replace the `Add-PSSnapin SwisSnapin` line with `Import-Module SwisPowerShell` instead.
+The cmdlets provided by the `SwisPowerShell` module and `SwisSnapin` are the same (literally—it is the same code). To convert scripts written for `SwisSnapin` to use `SwisPowerShell` instead, the only change required is to replace the `Add-PSSnapin SwisSnapin` line with `Import-Module SwisPowerShell` instead. New OAuth connection support is available through `Connect-SwisOAuth` in `SwisPowerShell`.
 
 It is not a problem to have both `SwisPowerShell` and `SwisSnapin` installed.

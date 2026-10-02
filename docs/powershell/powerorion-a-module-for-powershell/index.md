@@ -20,6 +20,13 @@ Converting this code into a module has several benefits:
  New-OrionNode -SwisConnection $swis -IPAddress 10.160.5.10
  ```
 
+ If your Orion platform supports OAuth, you can also establish the connection using `Connect-SwisOAuth`:
+
+ ```powershell
+ $swis = Connect-SwisOAuth -Hostname 10.160.5.75
+ New-OrionNode -SwisConnection $swis -IPAddress 10.160.5.10
+ ```
+
  What this boils down to is when writing your own scripts, these can now be much smaller in size, and faster to develop, as a lot of the “plumbing” is already done (instead of having to copy and paste a 75 line script, you can now achieve the same in a couple of lines).
 
 2.	It’s more intuitive, and fits conventional PowerShell Verb-Noun naming conventions

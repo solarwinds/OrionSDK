@@ -9,6 +9,8 @@ title: "SwisPowerShell Module"
 
 SwisPowerShell is a PowerShell Module, based on the Orion SDK. Essentially it is an attempt to take some of the sample scripts included in the SDK, and to convert those to PowerShell Cmdlets 
 
+For connecting to SWIS, SwisPowerShell supports both `Connect-Swis` and OAuth-based `Connect-SwisOAuth` (Orion platform 2026.4 and later).
+
 ## Why A Module?
 
 Converting this code into a module has several benefits:

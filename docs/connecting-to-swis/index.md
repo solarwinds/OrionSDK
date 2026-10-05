@@ -23,6 +23,7 @@ Orion (v3) | You must supply a **User Name** and **Password** below. These are s
 Orion (v3) AD | SWQL Studio sends your current Windows ([Kerberos](https://docs.microsoft.com/en-us/windows-server/security/kerberos/kerberos-authentication-overview)) token to the Orion server for authentication.  See [Enable Windows Authentication with Active Directory in the Orion Platform](https://documentation.solarwinds.com/en/Success_Center/orionplatform/Content/Core-Windows-Authentication-with-Active-Directory-sw2411.htm) for details on how to enable Windows Authentication on the Orion server.
 Orion (v3) Certificate | SWQL Studio looks for a certificate with the common name **SolarWinds-Orion** on the local machine.  It uses this as the client certificate in a [TLS handshake](https://docs.microsoft.com/en-us/windows/win32/secauthn/tls-handshake-protocol) with the Orion server. Generally this will only be available if SWQL Studio is running on the Orion server, and if SWQL Studio is running elevated (UAC) to be able to read the private key for this certificate. This corresponds to using the `-Certificate` option in the `Connect-Swis` PowerShell commandlet.
 Orion (v3) over HTTPS | This is identical to the username/password authentication with the **Orion (v3)** option, but it connecting using HTTPS on port 17778 rather than net.tcp over port 17777. Expect a warning popup about the self-signed certificate that SWIS will present in this case.
+Orion (v3) OAuth | This mode uses OAuth interactive sign-in in your browser (authorization code + PKCE) and connects to SWIS over HTTPS. It corresponds to using the `Connect-SwisOAuth` PowerShell cmdlet. Orion platform version 2026.4 or later is required.
 Orion (v2) | This works like **Orion (v3)**, but it connects to the legacy SWISv2 service on the Orion server. Avoid this mode unless you are connecting to a very old version of Orion that does not support SWISv3.
 Orion (v2) AD | This works like **Orion (v3) AD**, but it connects to the legacy SWISv2 service on the Orion server. Avoid this mode unless you are connecting to a very old version of Orion that does not support SWISv3.
 Orion (v2) Certificate | This works like **Orion (v3) Certificate**, but it connects to the legacy SWISv2 service on the Orion server. Avoid this mode unless you are connecting to a very old version of Orion that does not support SWISv3.
@@ -98,6 +99,24 @@ curl.exe -vk `
 ```
 
 This approach is useful when you want to call the SWIS JSON API over HTTPS without supplying a username and password directly in the request.
+
+### OAuth (Interactive Sign-In)
+
+This corresponds to the **Orion (v3) OAuth** mode above.
+
+``` pwsh
+$host = 'myorion.mydomain.local'
+$swis = Connect-SwisOAuth -Hostname $host
+```
+
+In development environments with self-signed certificates, you can bypass certificate validation:
+
+``` pwsh
+$host = 'myorion.mydomain.local'
+$swis = Connect-SwisOAuth -Hostname $host -TrustAllCertificates
+```
+
+`Connect-SwisOAuth` starts an interactive OAuth sign-in flow in your browser and returns a SWIS connection object that can be used with `Get-SwisData`, `Get-SwisObject`, `Invoke-SwisVerb`, and other SWIS cmdlets.
 
 ## Limitations
 

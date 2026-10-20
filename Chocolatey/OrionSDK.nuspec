@@ -5,7 +5,7 @@
     <!-- Read this before publishing packages to chocolatey.org: https://github.com/chocolatey/chocolatey/wiki/CreatePackages -->
     <id>orionsdk</id>
     <title>SolarWinds Orion SDK</title>
-    <version>3.2.0.50049</version>
+    <version>3.4.0.50128</version>
     <authors>SolarWinds</authors>
     <owners>Tim Danner</owners>
     <summary>Software development kit for the SolarWinds Orion platform.</summary>
@@ -26,27 +26,22 @@
       <dependency id="" />
     </dependencies>-->
     <releaseNotes><![CDATA[
-# v3.2.0.50049
+# v3.4.0.50128
 
-Change SWIS endpoints 
-- https://github.com/solarwinds/OrionSDK/pull/333 - by @petr-jancik-swi
-- https://github.com/solarwinds/OrionSDK/pull/336 - by @petr-jancik-swi
+Added valid certificate fingerprint for log4net v3 
+- https://github.com/solarwinds/OrionSDK/pull/411 - by @MichalLudik
 
+Font size scaling fix
+- https://github.com/solarwinds/OrionSDK/pull/407-  by @ViktorSydorov
 
-Remove Support of obsolete connection types
-- https://github.com/solarwinds/OrionSDK/pull/324 - by @danjagnow 
+string_agg added to autocomplete
+- https://github.com/solarwinds/OrionSDK/pull/419 - by @ViktorSydorov
 
+Fix FontSizeToolbar disposing the shared default font
+- https://github.com/solarwinds/OrionSDK/pull/422 - by @tomvladik
 
-Removing obsolete protocols
-- https://github.com/solarwinds/OrionSDK/pull/324 - by @danjagnow
-
-
-Samples for managing NTA Sources
-- https://github.com/solarwinds/OrionSDK/pull/327 - by @jan-turon
-
-
-Fix C# samples for active alerts
-- https://github.com/solarwinds/OrionSDK/pull/326  - by @danjagnow
+Add support for OAuth connection type
+- https://github.com/solarwinds/OrionSDK/pull/415 - by @etichy
 
 ]]></releaseNotes>
     <!--<provides></provides>-->

@@ -21,3 +21,6 @@ paket-files/
 
 *.nupkg
 *.user
+
+# Local Orion SDK test credentials
+Samples/PowerShell/functions/.orionsdk-test-credentials.xml

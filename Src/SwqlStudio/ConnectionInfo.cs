@@ -22,9 +22,9 @@ namespace SwqlStudio
     {
         private static readonly Log log = new Log();
 
-        private static readonly TimeSpan KeepAliveCheckInterval = TimeSpan.FromSeconds(10);
-        private static readonly TimeSpan InitialReconnectDelay = TimeSpan.FromSeconds(10);
-        private static readonly TimeSpan MaxReconnectDelay = TimeSpan.FromMinutes(5);
+        private static readonly TimeSpan KeepAliveCheckInterval = PositiveOrDefault(Settings.Default.KeepAliveCheckInterval, TimeSpan.FromSeconds(10));
+        private static readonly TimeSpan InitialReconnectDelay = PositiveOrDefault(Settings.Default.InitialReconnectDelay, TimeSpan.FromSeconds(10));
+        private static readonly TimeSpan MaxReconnectDelay = PositiveOrDefault(Settings.Default.MaxReconnectDelay, TimeSpan.FromMinutes(5));
 
         public string ServerType { get; set; }
         private string _server;
@@ -314,6 +314,12 @@ namespace SwqlStudio
         {
             var doubled = TimeSpan.FromTicks(current.Ticks * 2);
             return doubled > MaxReconnectDelay ? MaxReconnectDelay : doubled;
+        }
+
+        // A zero or negative value from config would spin the loop or make Task.Delay throw.
+        internal static TimeSpan PositiveOrDefault(TimeSpan value, TimeSpan fallback)
+        {
+            return value > TimeSpan.Zero ? value : fallback;
         }
 
         internal static bool IsAuthenticationFailure(Exception ex)

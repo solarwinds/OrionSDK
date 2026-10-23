@@ -48,6 +48,15 @@ namespace SwqlStudio.Tests
         }
 
         [Fact]
+        public void PositiveOrDefault_FallsBack_ForNonPositiveConfigValues()
+        {
+            var fallback = TimeSpan.FromSeconds(10);
+            ConnectionInfo.PositiveOrDefault(TimeSpan.FromSeconds(30), fallback).Should().Be(TimeSpan.FromSeconds(30));
+            ConnectionInfo.PositiveOrDefault(TimeSpan.Zero, fallback).Should().Be(fallback);
+            ConnectionInfo.PositiveOrDefault(TimeSpan.FromSeconds(-1), fallback).Should().Be(fallback);
+        }
+
+        [Fact]
         public void IsAuthenticationFailure_RecognisesSecurityRejections_Only()
         {
             ConnectionInfo.IsAuthenticationFailure(new System.ServiceModel.Security.SecurityAccessDeniedException()).Should().BeTrue();

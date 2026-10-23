@@ -23,7 +23,8 @@ namespace SwqlStudio
         private static readonly Log log = new Log();
 
         private static readonly TimeSpan KeepAliveCheckInterval = TimeSpan.FromSeconds(10);
-        private static readonly TimeSpan ReconnectRetryInterval = TimeSpan.FromSeconds(10);
+        private static readonly TimeSpan InitialReconnectDelay = TimeSpan.FromSeconds(10);
+        private static readonly TimeSpan MaxReconnectDelay = TimeSpan.FromMinutes(5);
 
         public string ServerType { get; set; }
         private string _server;
@@ -264,9 +265,21 @@ namespace SwqlStudio
                     {
                         OnConnectionLost();
 
+                        TimeSpan reconnectDelay = InitialReconnectDelay;
+
                         while (!ct.IsCancellationRequested && !IsConnected)
                         {
-                            int? committedGeneration = await TryReconnectAsync(ct);
+                            int? committedGeneration;
+                            try
+                            {
+                                committedGeneration = await TryReconnectAsync(ct);
+                            }
+                            catch (Exception ex) when (IsAuthenticationFailure(ex))
+                            {
+                                // Retrying stale credentials can lock the account; the next user action reconnects explicitly.
+                                log.Error($"Reconnect to {_server} was rejected; automatic reconnect stopped", ex);
+                                return;
+                            }
 
                             if (committedGeneration.HasValue)
                             {
@@ -276,7 +289,8 @@ namespace SwqlStudio
                                 break;
                             }
 
-                            await Task.Delay(ReconnectRetryInterval, ct);
+                            await Task.Delay(reconnectDelay, ct);
+                            reconnectDelay = NextReconnectDelay(reconnectDelay);
                         }
                     }
                 }
@@ -294,6 +308,19 @@ namespace SwqlStudio
                 // This runs detached, so an escaping exception would otherwise go unobserved.
                 log.Error($"Keep-alive monitor for {_server} stopped unexpectedly", ex);
             }
+        }
+
+        internal static TimeSpan NextReconnectDelay(TimeSpan current)
+        {
+            var doubled = TimeSpan.FromTicks(current.Ticks * 2);
+            return doubled > MaxReconnectDelay ? MaxReconnectDelay : doubled;
+        }
+
+        internal static bool IsAuthenticationFailure(Exception ex)
+        {
+            return ex is SecurityAccessDeniedException
+                || ex is SecurityNegotiationException
+                || ex is MessageSecurityException;
         }
 
         protected internal virtual void OnConnectionLost()
@@ -390,7 +417,7 @@ namespace SwqlStudio
                     return _connectionGeneration;
                 }
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!IsAuthenticationFailure(ex))
             {
                 log.Error($"Reconnect attempt to {_server} failed", ex);
                 return null;

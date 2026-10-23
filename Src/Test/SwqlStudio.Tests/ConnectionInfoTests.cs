@@ -40,6 +40,24 @@ namespace SwqlStudio.Tests
         }
 
         [Fact]
+        public void NextReconnectDelay_Doubles_UpToFiveMinutes()
+        {
+            ConnectionInfo.NextReconnectDelay(TimeSpan.FromSeconds(10)).Should().Be(TimeSpan.FromSeconds(20));
+            ConnectionInfo.NextReconnectDelay(TimeSpan.FromSeconds(160)).Should().Be(TimeSpan.FromMinutes(5));
+            ConnectionInfo.NextReconnectDelay(TimeSpan.FromMinutes(5)).Should().Be(TimeSpan.FromMinutes(5));
+        }
+
+        [Fact]
+        public void IsAuthenticationFailure_RecognisesSecurityRejections_Only()
+        {
+            ConnectionInfo.IsAuthenticationFailure(new System.ServiceModel.Security.SecurityAccessDeniedException()).Should().BeTrue();
+            ConnectionInfo.IsAuthenticationFailure(new System.ServiceModel.Security.SecurityNegotiationException()).Should().BeTrue();
+            ConnectionInfo.IsAuthenticationFailure(new System.ServiceModel.Security.MessageSecurityException()).Should().BeTrue();
+            ConnectionInfo.IsAuthenticationFailure(new EndpointNotFoundException()).Should().BeFalse();
+            ConnectionInfo.IsAuthenticationFailure(new TimeoutException()).Should().BeFalse();
+        }
+
+        [Fact]
         public void IsConnected_IsFalse_When_NoProxy()
         {
             var info = new TestConnectionInfo();

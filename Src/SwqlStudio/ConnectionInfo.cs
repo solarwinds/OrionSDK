@@ -150,25 +150,62 @@ namespace SwqlStudio
 
         public void Connect()
         {
+            InfoServiceProxy stale = null;
+            bool needsProxy;
             lock (_proxyLock)
             {
-                if (_proxy == null || _proxy.Channel.State == CommunicationState.Closed || _proxy.Channel.State == CommunicationState.Faulted)
+                needsProxy = !IsProxyUsable(_proxy);
+                if (needsProxy)
                 {
                     // Clear it first; if OpenProxy() throws, the next attempt must not inspect the disposed one.
-                    var stale = _proxy;
+                    stale = _proxy;
                     _proxy = null;
-                    DisposeQuietly(stale);
-
-                    _proxy = OpenProxy();
-                    _isClosed = false;
-                    _connectionGeneration++;
-                    StartKeepAlive();
                 }
-
-                DisposeQuietly(Connection);
-                Connection = new InformationServiceConnection((IInformationService)_proxy);
-                Connection.Open();
             }
+
+            DisposeQuietly(stale);
+
+            // Opening talks to SWIS and can block for the full timeout, so it must not hold the lock the UI reads through.
+            InfoServiceProxy newProxy = needsProxy ? OpenProxy() : null;
+            InformationServiceConnection oldConnection;
+
+            try
+            {
+                lock (_proxyLock)
+                {
+                    // A concurrent Connect() or reconnect may have installed a healthy proxy meanwhile; keep theirs.
+                    if (newProxy != null && !IsProxyUsable(_proxy))
+                    {
+                        DisposeQuietly(_proxy);
+                        _proxy = newProxy;
+                        newProxy = null;
+                        _isClosed = false;
+                        _connectionGeneration++;
+                        StartKeepAlive();
+                    }
+
+                    if (_proxy == null)
+                        throw new InvalidOperationException($"Connection to {_server} was closed while connecting.");
+
+                    oldConnection = Connection;
+                    Connection = new InformationServiceConnection((IInformationService)_proxy);
+                    Connection.Open();
+                }
+            }
+            finally
+            {
+                // Non-null only when another caller won the race.
+                DisposeQuietly(newProxy);
+            }
+
+            DisposeQuietly(oldConnection);
+        }
+
+        private static bool IsProxyUsable(InfoServiceProxy proxy)
+        {
+            return proxy != null
+                && proxy.Channel.State != CommunicationState.Closed
+                && proxy.Channel.State != CommunicationState.Faulted;
         }
 
         public virtual bool IsConnected

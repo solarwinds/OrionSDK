@@ -129,6 +129,35 @@ namespace SwqlStudio.Tests
             info.Close();
         }
 
+        [Fact]
+        public void IsConnected_DoesNotBlock_WhileConnectIsOpeningTheProxy()
+        {
+            using (var entered = new ManualResetEventSlim())
+            using (var release = new ManualResetEventSlim())
+            {
+                var service = new FakeInfoService { OnCreateProxy = () => { entered.Set(); release.Wait(); } };
+                var info = new TestConnectionInfo(infoService: service);
+
+                var connect = System.Threading.Tasks.Task.Run(() => info.Connect());
+                entered.Wait(TimeSpan.FromSeconds(5)).Should().BeTrue();
+
+                try
+                {
+                    // The UI polls this; it must not wait for an unreachable SWIS.
+                    var probe = System.Threading.Tasks.Task.Run(() => info.IsConnected);
+                    probe.Wait(TimeSpan.FromSeconds(2)).Should().BeTrue();
+                    probe.Result.Should().BeFalse();
+                }
+                finally
+                {
+                    release.Set();
+                }
+
+                Action awaitConnect = () => connect.GetAwaiter().GetResult();
+                awaitConnect.Should().Throw<Exception>();
+            }
+        }
+
         private static TestConnectionInfo CreateWithoutSyncContext()
         {
             var previous = SynchronizationContext.Current;
@@ -185,9 +214,12 @@ namespace SwqlStudio.Tests
 
             public int CreateProxyCount { get; private set; }
 
+            public Action OnCreateProxy { get; set; }
+
             public override InfoServiceProxy CreateProxy(string server)
             {
                 CreateProxyCount++;
+                OnCreateProxy?.Invoke();
 
                 if (FirstProxyOpens && CreateProxyCount == 1)
                 {

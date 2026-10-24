@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Linq;
 using System.Windows.Forms;
 using SwqlStudio.Metadata;
 using SwqlStudio.Properties;
@@ -41,9 +42,25 @@ namespace SwqlStudio
                 var connection = info ?? ConnectionInfo.DoWithExceptionTranslation(() => connectionsManager.ResolveConnection());
                 if (connection != null)
                 {
-                    string title = CreateQueryTitle();
-                    var queryTab = CreateQueryTab(title, connection);
+                    var queryTab = string.IsNullOrWhiteSpace(text)
+                        ? null
+                        : dockPanel.QueryTabs.FirstOrDefault(tab =>
+                            string.IsNullOrWhiteSpace(tab.QueryText) &&
+                            !tab.Modified &&
+                            string.IsNullOrEmpty(tab.FileName));
+
+                    if (queryTab == null)
+                    {
+                        string title = CreateQueryTitle();
+                        queryTab = CreateQueryTab(title, connection);
+                    }
+                    else
+                    {
+                        queryTab.ConnectionInfo = connection;
+                    }
+
                     queryTab.QueryText = text;
+                    (queryTab.Parent as DockContent)?.Activate();
                 }
             }
             catch (Exception ex)

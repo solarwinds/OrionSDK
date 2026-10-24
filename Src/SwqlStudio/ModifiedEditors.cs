@@ -110,7 +110,7 @@ namespace SwqlStudio
 
                 // The syntax highlighting strategy doesn't change
                 // automatically, so do it manually.
-                //editor.Document.HighlightingStrategy = 
+                //editor.Document.HighlightingStrategy =
                 //    HighlightingStrategyFactory.CreateHighlightingStrategyForFile(editor.FileName);
                 return true;
             }

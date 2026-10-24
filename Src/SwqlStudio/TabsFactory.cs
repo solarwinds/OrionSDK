@@ -124,7 +124,7 @@ namespace SwqlStudio
                     queryTab = CreateQueryTab(string.Empty, connectionInfo);
                     queryTab.QueryText = File.ReadAllText(fn);
                     queryTab.FileName = fn;
-                    // Modified flag is set during loading because the document 
+                    // Modified flag is set during loading because the document
                     // "changes" (from nothing to something). So, clear it again.
                     queryTab.MarkSaved();
                     RecentFiles.Add(fn);

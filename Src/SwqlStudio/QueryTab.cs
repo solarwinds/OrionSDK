@@ -504,6 +504,7 @@ namespace SwqlStudio
                 QueryStatsTabVisible = false;
                 ShowLog(error.Log);
                 MessageBox.Show(this, error.ErrorMessage, "SWQL Studio", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                queryStatusBar1.ShowConnectionState();
             }
         }
 
@@ -789,6 +790,7 @@ namespace SwqlStudio
                 ShowTabs(Tabs.Log);
                 logTextbox.Text = error.Log;
                 MessageBox.Show(this, error.ErrorMessage, "SWQL Studio", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                queryStatusBar1.ShowConnectionState();
             }
         }
 

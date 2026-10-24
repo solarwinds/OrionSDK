@@ -181,6 +181,7 @@ namespace SwqlStudio
             // Opening talks to SWIS and can block for the full timeout, so it must not hold the lock the UI reads through.
             InfoServiceProxy newProxy = needsProxy ? OpenProxy() : null;
             InformationServiceConnection oldConnection;
+            int? installedGeneration = null;
 
             try
             {
@@ -194,6 +195,7 @@ namespace SwqlStudio
                         newProxy = null;
                         _isClosed = false;
                         _connectionGeneration++;
+                        installedGeneration = _connectionGeneration;
                         StartKeepAlive();
                     }
 
@@ -212,6 +214,10 @@ namespace SwqlStudio
             }
 
             DisposeQuietly(oldConnection);
+
+            // A reconnect driven by a query must update the UI just like one made by the keep-alive monitor.
+            if (installedGeneration.HasValue)
+                RaiseConnectionRestored(installedGeneration.Value);
         }
 
         private static bool IsProxyUsable(InfoServiceProxy proxy)
@@ -272,6 +278,10 @@ namespace SwqlStudio
 
                     if (ct.IsCancellationRequested)
                         break;
+
+                    // Channel state alone misses a SWIS that died after we opened during its restart.
+                    if (IsConnected)
+                        ProbeServer();
 
                     if (!IsConnected)
                     {
@@ -346,6 +356,43 @@ namespace SwqlStudio
             return ex is SecurityAccessDeniedException
                 || ex is SecurityNegotiationException
                 || ex is MessageSecurityException;
+        }
+
+        internal void ProbeServer()
+        {
+            InfoServiceProxy proxy;
+            lock (_proxyLock)
+            {
+                proxy = _proxy;
+            }
+
+            if (proxy == null)
+                return;
+
+            try
+            {
+                using (proxy.Query(new QueryXmlRequest("SELECT TOP 1 1 AS Alive FROM Metadata.Entity", new PropertyBag())))
+                {
+                }
+            }
+            catch (FaultException)
+            {
+                // SWIS answered, so it is alive.
+            }
+            catch (Exception ex) when (ex is CommunicationException || ex is TimeoutException)
+            {
+                log.Warn($"Connection to {_server} is not responding: {ex.GetType().Name}: {ex.Message}");
+                DiscardProxy(proxy);
+            }
+            catch (ObjectDisposedException)
+            {
+                // A concurrent Connect() replaced the proxy; the new one is checked next round.
+            }
+            catch (Exception ex)
+            {
+                // An unexpected probe failure must not stop the keep-alive monitor.
+                log.Error($"Probing {_server} failed unexpectedly", ex);
+            }
         }
 
         protected internal virtual void OnConnectionLost()
@@ -559,12 +606,21 @@ namespace SwqlStudio
             {
                 return DoWithExceptionTranslation(action);
             }
-            catch (ApplicationException ex) when (IsStaleSecuritySession(ex) || _infoServiceType.TryReAuthenticate(ex))
+            catch (ApplicationException ex) when (IsStaleSecuritySession(ex) || IsServerUnreachable(ex) || _infoServiceType.TryReAuthenticate(ex))
             {
                 DiscardProxy();
                 Connect();
                 return DoWithExceptionTranslation(action);
             }
+        }
+
+        // The secure session is negotiated per request, so a channel opened during a SWIS restart stays Opened while every call fails.
+        internal static bool IsServerUnreachable(Exception ex)
+        {
+            var inner = ex?.InnerException;
+            return inner is EndpointNotFoundException
+                || inner is CommunicationObjectAbortedException
+                || inner?.GetType() == typeof(CommunicationException);
         }
 
         // A restarted SWIS forgets the session while our channel still reports Opened, so only a new channel recovers.
@@ -574,16 +630,23 @@ namespace SwqlStudio
                 && fault.Code?.SubCode?.Name == "BadContextToken";
         }
 
-        private void DiscardProxy()
+        private void DiscardProxy(InfoServiceProxy expected = null)
         {
             InfoServiceProxy stale;
             lock (_proxyLock)
             {
+                // The probe must not throw away a proxy that a concurrent Connect() just installed.
+                if (expected != null && _proxy != expected)
+                    return;
+
                 stale = _proxy;
                 _proxy = null;
             }
 
             DisposeQuietly(stale);
+
+            if (stale != null)
+                OnConnectionLost();
         }
 
         public static void DoWithExceptionTranslation(Action action)

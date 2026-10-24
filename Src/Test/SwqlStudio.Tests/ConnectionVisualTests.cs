@@ -173,6 +173,12 @@ namespace SwqlStudio.Tests
                 statusBar.ShowConnectionState();
 
                 statusBar.ConnectionStatus.Should().Be("Disconnected");
+                statusBar.IsDisconnectedHighlighted.Should().BeTrue();
+
+                statusBar.UpdateStatusLabel("Running query...");
+                statusBar.IsDisconnectedHighlighted.Should().BeFalse();
+
+                statusBar.Dispose();
             });
         }
 

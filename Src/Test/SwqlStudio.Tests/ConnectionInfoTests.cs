@@ -58,6 +58,19 @@ namespace SwqlStudio.Tests
         }
 
         [Fact]
+        public void IsServerUnreachable_MatchesTransportFailures_NotServiceFaults()
+        {
+            ApplicationException Wrap(Exception inner) => new ApplicationException(inner.Message, inner);
+
+            ConnectionInfo.IsServerUnreachable(Wrap(new EndpointNotFoundException())).Should().BeTrue();
+            ConnectionInfo.IsServerUnreachable(Wrap(new CommunicationObjectAbortedException())).Should().BeTrue();
+            ConnectionInfo.IsServerUnreachable(Wrap(new CommunicationException())).Should().BeTrue();
+            ConnectionInfo.IsServerUnreachable(Wrap(new FaultException("bad query"))).Should().BeFalse();
+            ConnectionInfo.IsServerUnreachable(Wrap(new TimeoutException())).Should().BeFalse();
+            ConnectionInfo.IsServerUnreachable(new ApplicationException("boom")).Should().BeFalse();
+        }
+
+        [Fact]
         public void IsStaleSecuritySession_MatchesBadContextToken_Only()
         {
             var badToken = new FaultException("The security context token is expired or is not valid.",
@@ -77,6 +90,56 @@ namespace SwqlStudio.Tests
             ConnectionInfo.IsAuthenticationFailure(new System.ServiceModel.Security.MessageSecurityException()).Should().BeTrue();
             ConnectionInfo.IsAuthenticationFailure(new EndpointNotFoundException()).Should().BeFalse();
             ConnectionInfo.IsAuthenticationFailure(new TimeoutException()).Should().BeFalse();
+        }
+
+        [Fact]
+        public void ProbeServer_DiscardsTheProxy_WhenServerDoesNotRespond()
+        {
+            var previous = SynchronizationContext.Current;
+            SynchronizationContext.SetSynchronizationContext(null);
+            try
+            {
+                // The fake opens without contacting anything, so it reports Opened while no server listens.
+                var info = new TestConnectionInfo(infoService: new FakeInfoService { FirstProxyOpens = true });
+                info.Connect();
+                info.IsConnected.Should().BeTrue();
+
+                bool lost = false;
+                info.ConnectionClosed += (s, e) => lost = true;
+
+                info.ProbeServer();
+
+                info.IsConnected.Should().BeFalse();
+                lost.Should().BeTrue();
+                info.Close();
+            }
+            finally
+            {
+                SynchronizationContext.SetSynchronizationContext(previous);
+            }
+        }
+
+        [Fact]
+        public void Connect_RaisesConnectionRestored_WhenItInstallsANewProxy()
+        {
+            var previous = SynchronizationContext.Current;
+            SynchronizationContext.SetSynchronizationContext(null);
+            try
+            {
+                var info = new TestConnectionInfo(infoService: new FakeInfoService { FirstProxyOpens = true });
+                int restored = 0;
+                info.ConnectionRestored += (s, e) => restored++;
+
+                // Without this the execute button stays gold after a query reconnects on its own.
+                info.Connect();
+
+                restored.Should().Be(1);
+                info.Close();
+            }
+            finally
+            {
+                SynchronizationContext.SetSynchronizationContext(previous);
+            }
         }
 
         [Fact]

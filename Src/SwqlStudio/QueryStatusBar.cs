@@ -19,6 +19,7 @@ namespace SwqlStudio
         private readonly ToolStripStatusLabel _rowCountLabel;
 
         private ConnectionInfo _connection;
+        private Font _boldFont;
 
         public QueryStatusBar()
         {
@@ -81,6 +82,48 @@ namespace SwqlStudio
                 _connectionLabel.Text = NotAvailable;
             else
                 _connectionLabel.Text = _connection.IsConnected ? Connected : Disconnected;
+
+            ApplyConnectionLabelStyle();
+        }
+
+        // Same gold as the execute button while disconnected; bold keeps it distinguishable without colour.
+        private void ApplyConnectionLabelStyle()
+        {
+            bool warn = _connectionLabel.Text == Disconnected;
+            IsDisconnectedHighlighted = warn;
+
+            if (warn)
+            {
+                _boldFont = _boldFont ?? new Font(Font, FontStyle.Bold);
+                _connectionLabel.Font = _boldFont;
+
+                if (!SystemInformation.HighContrast)
+                {
+                    _connectionLabel.BackColor = Color.Gold;
+                    _connectionLabel.ForeColor = Color.Black;
+                }
+            }
+            else
+            {
+                _connectionLabel.ResetFont();
+                _connectionLabel.ResetBackColor();
+                _connectionLabel.ResetForeColor();
+            }
+        }
+
+        internal bool IsDisconnectedHighlighted { get; private set; }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                // Detach before disposing so the label never renders with a disposed font.
+                _connectionLabel.ResetFont();
+                _boldFont?.Dispose();
+                _boldFont = null;
+            }
+
+            base.Dispose(disposing);
         }
 
         public void UpdateValues(int rowCount, TimeSpan queryTime, long? totalRows = null)
@@ -95,6 +138,7 @@ namespace SwqlStudio
         public void UpdateStatusLabel(string text)
         {
             _connectionLabel.Text = text;
+            ApplyConnectionLabelStyle();
         }
 
         internal string ConnectionStatus => _connectionLabel.Text;

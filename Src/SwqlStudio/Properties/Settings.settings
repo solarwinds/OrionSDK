@@ -107,5 +107,14 @@
     <Setting Name="DataProviderTimeout" Type="System.TimeSpan" Scope="Application">
       <Value Profile="(Default)">00:00:30</Value>
     </Setting>
+    <Setting Name="KeepAliveCheckInterval" Type="System.TimeSpan" Scope="Application">
+      <Value Profile="(Default)">00:00:10</Value>
+    </Setting>
+    <Setting Name="InitialReconnectDelay" Type="System.TimeSpan" Scope="Application">
+      <Value Profile="(Default)">00:00:10</Value>
+    </Setting>
+    <Setting Name="MaxReconnectDelay" Type="System.TimeSpan" Scope="Application">
+      <Value Profile="(Default)">00:05:00</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

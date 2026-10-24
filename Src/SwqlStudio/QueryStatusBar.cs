@@ -8,11 +8,18 @@ namespace SwqlStudio
     {
         private const string NotAvailable = "N/A";
 
+        internal const string Connected = "Connected";
+        internal const string Disconnected = "Disconnected";
+        internal const string Disconnecting = "Disconnecting...";
+
         private readonly ToolStripStatusLabel _connectionLabel;
         private readonly ToolStripStatusLabel _serverLabel;
         private readonly ToolStripStatusLabel _userLabel;
         private readonly ToolStripStatusLabel _queryTimeLabel;
         private readonly ToolStripStatusLabel _rowCountLabel;
+
+        private ConnectionInfo _connection;
+        private Font _boldFont;
 
         public QueryStatusBar()
         {
@@ -51,20 +58,72 @@ namespace SwqlStudio
         {
             Items.AddRange(AllLabels);
 
+            _connection = connection;
+            ShowConnectionState();
+
             if (connection != null)
             {
-                _connectionLabel.Text = "Connected";
                 _serverLabel.Text = string.Format("Server: {0}", connection.Server);
                 _userLabel.Text = string.Format("User: {0}", connection.UserName);
             }
             else
             {
-                _connectionLabel.Text = NotAvailable;
                 _serverLabel.Text = NotAvailable;
                 _userLabel.Text = NotAvailable;
             }
 
             UpdateValues(0, TimeSpan.Zero);
+        }
+
+        /// <summary>Shows the connection state, which is the status bar's idle text.</summary>
+        public void ShowConnectionState()
+        {
+            if (_connection == null)
+                _connectionLabel.Text = NotAvailable;
+            else
+                _connectionLabel.Text = _connection.IsConnected ? Connected : Disconnected;
+
+            ApplyConnectionLabelStyle();
+        }
+
+        // Same gold as the execute button while disconnected; bold keeps it distinguishable without colour.
+        private void ApplyConnectionLabelStyle()
+        {
+            bool warn = _connectionLabel.Text == Disconnected;
+            IsDisconnectedHighlighted = warn;
+
+            if (warn)
+            {
+                _boldFont = _boldFont ?? new Font(Font, FontStyle.Bold);
+                _connectionLabel.Font = _boldFont;
+
+                if (!SystemInformation.HighContrast)
+                {
+                    _connectionLabel.BackColor = Color.Gold;
+                    _connectionLabel.ForeColor = Color.Black;
+                }
+            }
+            else
+            {
+                _connectionLabel.ResetFont();
+                _connectionLabel.ResetBackColor();
+                _connectionLabel.ResetForeColor();
+            }
+        }
+
+        internal bool IsDisconnectedHighlighted { get; private set; }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                // Detach before disposing so the label never renders with a disposed font.
+                _connectionLabel.ResetFont();
+                _boldFont?.Dispose();
+                _boldFont = null;
+            }
+
+            base.Dispose(disposing);
         }
 
         public void UpdateValues(int rowCount, TimeSpan queryTime, long? totalRows = null)
@@ -79,6 +138,9 @@ namespace SwqlStudio
         public void UpdateStatusLabel(string text)
         {
             _connectionLabel.Text = text;
+            ApplyConnectionLabelStyle();
         }
+
+        internal string ConnectionStatus => _connectionLabel.Text;
     }
 }

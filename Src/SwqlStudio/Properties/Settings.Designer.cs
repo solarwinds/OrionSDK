@@ -361,5 +361,32 @@ namespace SwqlStudio.Properties {
                 return ((global::System.TimeSpan)(this["DataProviderTimeout"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("00:00:10")]
+        public global::System.TimeSpan KeepAliveCheckInterval {
+            get {
+                return ((global::System.TimeSpan)(this["KeepAliveCheckInterval"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("00:00:10")]
+        public global::System.TimeSpan InitialReconnectDelay {
+            get {
+                return ((global::System.TimeSpan)(this["InitialReconnectDelay"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("00:05:00")]
+        public global::System.TimeSpan MaxReconnectDelay {
+            get {
+                return ((global::System.TimeSpan)(this["MaxReconnectDelay"]));
+            }
+        }
     }
 }

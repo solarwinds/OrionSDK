@@ -39,6 +39,7 @@
             this.menuFileOpen = new System.Windows.Forms.ToolStripMenuItem();
             this.menuFileSave = new System.Windows.Forms.ToolStripMenuItem();
             this.menuFileSaveAs = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuFileRecent = new System.Windows.Forms.ToolStripMenuItem();
             this.menuFileClose = new System.Windows.Forms.ToolStripMenuItem();
             this.menuFileClose2 = new System.Windows.Forms.ToolStripMenuItem();
             this.menuNotificationListenerActive = new System.Windows.Forms.ToolStripMenuItem();
@@ -134,6 +135,7 @@
             this.menuFileOpen,
             this.menuFileSave,
             this.menuFileSaveAs,
+            this.menuFileRecent,
             this.menuFileClose,
             this.menuFileClose2,
             this.separatorAboveNotificationListenerActive,
@@ -189,6 +191,12 @@
             this.menuFileSaveAs.Size = new System.Drawing.Size(218, 22);
             this.menuFileSaveAs.Text = "Save &As...";
             this.menuFileSaveAs.Click += new System.EventHandler(this.menuFileSaveAs_Click);
+            // 
+            // menuFileRecent
+            // 
+            this.menuFileRecent.Name = "menuFileRecent";
+            this.menuFileRecent.Size = new System.Drawing.Size(218, 22);
+            this.menuFileRecent.Text = "&Recent Files";
             // 
             // menuFileClose
             // 
@@ -707,6 +715,7 @@
         private System.Windows.Forms.ToolStripMenuItem menuFileExit;
         private System.Windows.Forms.ToolStripMenuItem menuFileOpen;
         private System.Windows.Forms.ToolStripMenuItem menuFileSaveAs;
+        private System.Windows.Forms.ToolStripMenuItem menuFileRecent;
         private System.Windows.Forms.ToolStripMenuItem menuFileClose;
         private System.Windows.Forms.OpenFileDialog openFileDialog;
         private System.Windows.Forms.FontDialog fontDialog;

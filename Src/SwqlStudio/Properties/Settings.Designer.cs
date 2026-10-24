@@ -31,6 +31,15 @@ namespace SwqlStudio.Properties {
                 return ((int)(this["OperationTimeout"]));
             }
         }
+
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("{timestamp:yyyy-MM-dd HH-mm} {entity}")]
+        public string QueryFileNamePattern {
+            get {
+                return ((string)(this["QueryFileNamePattern"]));
+            }
+        }
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -89,6 +98,18 @@ namespace SwqlStudio.Properties {
             }
             set {
                 this["PreviousUsers"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string RecentFiles {
+            get {
+                return ((string)(this["RecentFiles"]));
+            }
+            set {
+                this["RecentFiles"] = value;
             }
         }
         

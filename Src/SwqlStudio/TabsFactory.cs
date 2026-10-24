@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Linq;
 using System.Windows.Forms;
 using SwqlStudio.Metadata;
 using SwqlStudio.Properties;
@@ -15,15 +16,18 @@ namespace SwqlStudio
         private readonly QueriesDockPanel dockPanel;
         private readonly IApplicationService applicationService;
         private readonly ConnectionsManager connectionsManager;
+        private readonly Func<QueryTab, bool> confirmCloseQueryTab;
         private int queryTabsCounter = 0;
 
         internal TabsFactory(QueriesDockPanel dockPanel, IApplicationService applicationService,
-            ServerList serverList, ConnectionsManager connectionsManager)
+            ServerList serverList, ConnectionsManager connectionsManager,
+            Func<QueryTab, bool> confirmCloseQueryTab)
         {
             this.dockPanel = dockPanel;
             this.applicationService = applicationService;
             this.serverList = serverList;
             this.connectionsManager = connectionsManager;
+            this.confirmCloseQueryTab = confirmCloseQueryTab;
         }
 
         public void OpenQueryTab()
@@ -38,9 +42,25 @@ namespace SwqlStudio
                 var connection = info ?? ConnectionInfo.DoWithExceptionTranslation(() => connectionsManager.ResolveConnection());
                 if (connection != null)
                 {
-                    string title = CreateQueryTitle();
-                    var queryTab = CreateQueryTab(title, connection);
+                    var queryTab = string.IsNullOrWhiteSpace(text)
+                        ? null
+                        : dockPanel.QueryTabs.FirstOrDefault(tab =>
+                            string.IsNullOrWhiteSpace(tab.QueryText) &&
+                            !tab.Modified &&
+                            string.IsNullOrEmpty(tab.FileName));
+
+                    if (queryTab == null)
+                    {
+                        string title = CreateQueryTitle();
+                        queryTab = CreateQueryTab(title, connection);
+                    }
+                    else
+                    {
+                        queryTab.ConnectionInfo = connection;
+                    }
+
                     queryTab.QueryText = text;
+                    (queryTab.Parent as DockContent)?.Activate();
                 }
             }
             catch (Exception ex)
@@ -121,9 +141,10 @@ namespace SwqlStudio
                     queryTab = CreateQueryTab(string.Empty, connectionInfo);
                     queryTab.QueryText = File.ReadAllText(fn);
                     queryTab.FileName = fn;
-                    // Modified flag is set during loading because the document 
+                    // Modified flag is set during loading because the document
                     // "changes" (from nothing to something). So, clear it again.
                     queryTab.MarkSaved();
+                    RecentFiles.Add(fn);
                 }
                 catch (Exception ex)
                 {
@@ -159,6 +180,12 @@ namespace SwqlStudio
             dockContent.Icon = Resources.TextFile_16x;
             dockContent.Controls.Add(childControl);
             dockContent.Text = title;
+            if (childControl is QueryTab queryTab)
+            {
+                // MainForm prompts for all tabs itself when the application is closing.
+                dockContent.FormClosing += (sender, e) =>
+                    e.Cancel = e.CloseReason != CloseReason.MdiFormClosing && !confirmCloseQueryTab(queryTab);
+            }
             dockContent.Show(dockPanel, DockState.Document);
         }
     }

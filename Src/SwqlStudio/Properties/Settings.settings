@@ -5,6 +5,9 @@
     <Setting Name="OperationTimeout" Type="System.Int32" Scope="Application">
       <Value Profile="(Default)">2</Value>
     </Setting>
+    <Setting Name="QueryFileNamePattern" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">{timestamp:yyyy-MM-dd HH-mm} {entity}</Value>
+    </Setting>
     <Setting Name="DefaultInfoServicePort" Type="System.Int32" Scope="Application">
       <Value Profile="(Default)">17777</Value>
     </Setting>
@@ -21,6 +24,9 @@
       <Value Profile="(Default)" />
     </Setting>
     <Setting Name="PreviousUsers" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="RecentFiles" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
     <Setting Name="NCMEndpointPath" Type="System.String" Scope="Application">

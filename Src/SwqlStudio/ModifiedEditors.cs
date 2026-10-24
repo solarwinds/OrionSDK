@@ -92,11 +92,12 @@ namespace SwqlStudio
 
         private static string GetSuggestedFileName(string queryText)
         {
-            var timestamp = DateTime.Now.ToString("yyyy-MM-dd HH-mm");
+            var timestamp = DateTime.Now;
             var entityName = QueryEntityNameParser.GetPrimaryEntityName(queryText);
-            var baseName = string.IsNullOrEmpty(entityName) ? timestamp : $"{timestamp} {entityName}";
-            // Explicit extension: entity names like "Orion.Nodes" would otherwise count as having one.
-            return baseName + ".swql";
+            return QueryFileNamePattern.TryFormat(Settings.Default.QueryFileNamePattern, entityName, timestamp,
+                out var fileName)
+                ? fileName
+                : QueryFileNamePattern.Format(QueryFileNamePattern.DefaultPattern, entityName, timestamp);
         }
 
         private bool SaveEditor(QueryTab editor, string fileName)

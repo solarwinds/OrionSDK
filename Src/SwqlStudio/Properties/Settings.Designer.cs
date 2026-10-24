@@ -31,6 +31,15 @@ namespace SwqlStudio.Properties {
                 return ((int)(this["OperationTimeout"]));
             }
         }
+
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("{timestamp:yyyy-MM-dd HH-mm} {entity}")]
+        public string QueryFileNamePattern {
+            get {
+                return ((string)(this["QueryFileNamePattern"]));
+            }
+        }
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]

@@ -20,7 +20,6 @@ namespace SwqlStudio
     {
         private static readonly SolarWinds.Logging.Log log = new SolarWinds.Logging.Log();
         private ServerList serverList;
-        private bool closingApplication;
         private readonly BindingList<ConnectionInfo> connectionsDataSource = new BindingList<ConnectionInfo>();
         private ConnectionsManager connectionsManager;
         private QueryTab lastActiveTab;
@@ -63,7 +62,7 @@ namespace SwqlStudio
             serverList.ConnectionRemoved += ServerListOnConnectionRemoved;
             connectionsManager = new ConnectionsManager(this, serverList);
             var tabsFactory = new TabsFactory(filesDock, this, serverList, connectionsManager,
-                queryTab => closingApplication || modifiedEditors1.ConfirmCloseEditor(queryTab));
+                modifiedEditors1.ConfirmCloseEditor);
             filesDock.SetAplicationService(tabsFactory);
             filesDock.ActiveContentChanged += FilesDock_ActiveContentChanged;
 
@@ -242,7 +241,6 @@ namespace SwqlStudio
                 return;
             }
 
-            closingApplication = true;
             CloseEditorConnections();
         }
 

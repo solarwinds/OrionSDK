@@ -181,7 +181,11 @@ namespace SwqlStudio
             dockContent.Controls.Add(childControl);
             dockContent.Text = title;
             if (childControl is QueryTab queryTab)
-                dockContent.FormClosing += (sender, e) => e.Cancel = !confirmCloseQueryTab(queryTab);
+            {
+                // MainForm prompts for all tabs itself when the application is closing.
+                dockContent.FormClosing += (sender, e) =>
+                    e.Cancel = e.CloseReason != CloseReason.MdiFormClosing && !confirmCloseQueryTab(queryTab);
+            }
             dockContent.Show(dockPanel, DockState.Document);
         }
     }

@@ -278,6 +278,7 @@ namespace SwqlStudio
                         OnConnectionLost();
 
                         TimeSpan reconnectDelay = InitialReconnectDelay;
+                        var outage = System.Diagnostics.Stopwatch.StartNew();
 
                         while (!ct.IsCancellationRequested && !IsConnected)
                         {
@@ -302,7 +303,7 @@ namespace SwqlStudio
                             }
 
                             await Task.Delay(reconnectDelay, ct);
-                            reconnectDelay = NextReconnectDelay(reconnectDelay);
+                            reconnectDelay = NextReconnectDelay(reconnectDelay, outage.Elapsed);
                         }
                     }
                 }
@@ -322,10 +323,16 @@ namespace SwqlStudio
             }
         }
 
-        internal static TimeSpan NextReconnectDelay(TimeSpan current)
+        // Short restarts recover at full speed; only a longer outage starts backing off.
+        private static readonly TimeSpan FlatRetryWindow = TimeSpan.FromMinutes(1);
+
+        internal static TimeSpan NextReconnectDelay(TimeSpan current, TimeSpan outageDuration)
         {
-            var doubled = TimeSpan.FromTicks(current.Ticks * 2);
-            return doubled > MaxReconnectDelay ? MaxReconnectDelay : doubled;
+            if (outageDuration < FlatRetryWindow)
+                return current;
+
+            var grown = TimeSpan.FromTicks((long)(current.Ticks * 1.5));
+            return grown > MaxReconnectDelay ? MaxReconnectDelay : grown;
         }
 
         // A zero or negative value from config would spin the loop or make Task.Delay throw.
@@ -437,7 +444,11 @@ namespace SwqlStudio
             }
             catch (Exception ex) when (!IsAuthenticationFailure(ex))
             {
-                log.Error($"Reconnect attempt to {_server} failed", ex);
+                // SWIS being unreachable is the expected case while retrying, so its stack trace is noise.
+                if (ex is CommunicationException || ex is TimeoutException)
+                    log.Warn($"Reconnect attempt to {_server} failed: {ex.GetType().Name}: {ex.Message}");
+                else
+                    log.Error($"Reconnect attempt to {_server} failed", ex);
                 return null;
             }
             finally
@@ -548,16 +559,31 @@ namespace SwqlStudio
             {
                 return DoWithExceptionTranslation(action);
             }
-            catch (ApplicationException ex) when (_infoServiceType.TryReAuthenticate(ex))
+            catch (ApplicationException ex) when (IsStaleSecuritySession(ex) || _infoServiceType.TryReAuthenticate(ex))
             {
-                if (_proxy != null)
-                {
-                    _proxy.Dispose();
-                    _proxy = null;
-                }
+                DiscardProxy();
                 Connect();
                 return DoWithExceptionTranslation(action);
             }
+        }
+
+        // A restarted SWIS forgets the session while our channel still reports Opened, so only a new channel recovers.
+        internal static bool IsStaleSecuritySession(Exception ex)
+        {
+            return ex?.InnerException is FaultException fault
+                && fault.Code?.SubCode?.Name == "BadContextToken";
+        }
+
+        private void DiscardProxy()
+        {
+            InfoServiceProxy stale;
+            lock (_proxyLock)
+            {
+                stale = _proxy;
+                _proxy = null;
+            }
+
+            DisposeQuietly(stale);
         }
 
         public static void DoWithExceptionTranslation(Action action)

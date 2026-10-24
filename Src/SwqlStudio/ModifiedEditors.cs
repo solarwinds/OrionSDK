@@ -94,6 +94,7 @@ namespace SwqlStudio
                 File.WriteAllText(fileName, editor.QueryText);
                 editor.FileName = fileName;
                 editor.MarkSaved();
+                RecentFiles.Add(fileName);
 
                 // The syntax highlighting strategy doesn't change
                 // automatically, so do it manually.

@@ -124,6 +124,7 @@ namespace SwqlStudio
                     // Modified flag is set during loading because the document 
                     // "changes" (from nothing to something). So, clear it again.
                     queryTab.MarkSaved();
+                    RecentFiles.Add(fn);
                 }
                 catch (Exception ex)
                 {

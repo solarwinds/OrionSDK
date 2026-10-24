@@ -51,12 +51,24 @@ namespace SwqlStudio
         {
             if (needsSave && Settings.Default.PromptToSaveOnClose)
             {
-                const string message = "There are unsaved changes in some editors. Do you want to save them?";
+                const string message = "There are unsaved changes. Do you want to save them?";
                 return MessageBox.Show(Parent, message, "Save?", MessageBoxButtons.YesNoCancel,
                     MessageBoxIcon.Question);
             }
 
             return DialogResult.Yes;
+        }
+
+        public bool ConfirmCloseEditor(QueryTab editor)
+        {
+            if (!editor.Modified)
+                return true;
+
+            var result = AskToSaveResult(true);
+            if (result == DialogResult.Yes)
+                return DoSave(editor);
+
+            return result == DialogResult.No;
         }
 
         public bool DoSave(QueryTab editor)

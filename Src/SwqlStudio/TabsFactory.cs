@@ -15,15 +15,18 @@ namespace SwqlStudio
         private readonly QueriesDockPanel dockPanel;
         private readonly IApplicationService applicationService;
         private readonly ConnectionsManager connectionsManager;
+        private readonly Func<QueryTab, bool> confirmCloseQueryTab;
         private int queryTabsCounter = 0;
 
         internal TabsFactory(QueriesDockPanel dockPanel, IApplicationService applicationService,
-            ServerList serverList, ConnectionsManager connectionsManager)
+            ServerList serverList, ConnectionsManager connectionsManager,
+            Func<QueryTab, bool> confirmCloseQueryTab)
         {
             this.dockPanel = dockPanel;
             this.applicationService = applicationService;
             this.serverList = serverList;
             this.connectionsManager = connectionsManager;
+            this.confirmCloseQueryTab = confirmCloseQueryTab;
         }
 
         public void OpenQueryTab()
@@ -160,6 +163,8 @@ namespace SwqlStudio
             dockContent.Icon = Resources.TextFile_16x;
             dockContent.Controls.Add(childControl);
             dockContent.Text = title;
+            if (childControl is QueryTab queryTab)
+                dockContent.FormClosing += (sender, e) => e.Cancel = !confirmCloseQueryTab(queryTab);
             dockContent.Show(dockPanel, DockState.Document);
         }
     }

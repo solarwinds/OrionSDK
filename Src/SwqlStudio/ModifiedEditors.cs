@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
+using SwqlStudio.Autocomplete;
 using SwqlStudio.Properties;
 
 namespace SwqlStudio
@@ -62,11 +63,20 @@ namespace SwqlStudio
 
         public bool DoSaveAs(QueryTab editor)
         {
-            saveFileDialog.FileName = editor.FileName;
+            saveFileDialog.FileName = string.IsNullOrEmpty(editor.FileName)
+                ? GetSuggestedFileName(editor.QueryText)
+                : editor.FileName;
             if (saveFileDialog.ShowDialog() != DialogResult.OK)
                 return false;
 
             return SaveEditor(editor, saveFileDialog.FileName);
+        }
+
+        private static string GetSuggestedFileName(string queryText)
+        {
+            var timestamp = DateTime.Now.ToString("yyyy-MM-dd HH-mm");
+            var entityName = QueryEntityNameParser.GetPrimaryEntityName(queryText);
+            return string.IsNullOrEmpty(entityName) ? timestamp : $"{timestamp} {entityName}";
         }
 
         private bool SaveEditor(QueryTab editor, string fileName)

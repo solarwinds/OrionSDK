@@ -14,6 +14,7 @@ namespace SwqlStudio
         internal const string SwqlFileFilter = "SWQL Files (*.swql)|*.swql|All Files (*.*)|*.*";
 
         private readonly SaveFileDialog saveFileDialog;
+        private QueryTab editorBeingClosedWithoutSaving;
 
         public Form Parent { get; set; }
 
@@ -30,29 +31,35 @@ namespace SwqlStudio
         {
             var modifiedEditors = queryTabs.Where(qe => qe.Modified)
                 .ToList();
-            var needsSave = modifiedEditors.Any();
-            DialogResult saveResult = AskToSaveResult(needsSave);
-
-            if (saveResult == DialogResult.Yes)
+            foreach (var editor in modifiedEditors)
             {
-                foreach (var editor in modifiedEditors)
+                ActivateEditor(editor);
+                var saveResult = AskToSaveResult(editor);
+                if (saveResult == DialogResult.Cancel)
+                    return false;
+
+                if (saveResult == DialogResult.Yes)
                 {
                     if (!DoSave(editor))
-                    {
                         return false;
-                    }
                 }
+                else
+                    CloseEditorWithoutSaving(editor);
             }
 
-            return saveResult != DialogResult.Cancel;
+            return true;
         }
 
-        private DialogResult AskToSaveResult(bool needsSave)
+        private DialogResult AskToSaveResult(QueryTab editor)
         {
-            if (needsSave && Settings.Default.PromptToSaveOnClose)
+            if (editor.Modified && Settings.Default.PromptToSaveOnClose)
             {
-                const string message = "There are unsaved changes. Do you want to save them?";
-                return MessageBox.Show(Parent, message, "Save?", MessageBoxButtons.YesNoCancel,
+                var editorName = string.IsNullOrEmpty(editor.FileName)
+                    ? editor.Parent?.Text
+                    : Path.GetFileName(editor.FileName);
+                editorName = string.IsNullOrWhiteSpace(editorName) ? "Query" : editorName.TrimEnd('*');
+                var message = $"Do you want to save changes to '{editorName}'?";
+                return MessageBox.Show(Parent, message, $"Save changes - {editorName}", MessageBoxButtons.YesNoCancel,
                     MessageBoxIcon.Question);
             }
 
@@ -61,14 +68,40 @@ namespace SwqlStudio
 
         public bool ConfirmCloseEditor(QueryTab editor)
         {
-            if (!editor.Modified)
+            if (!editor.Modified || ReferenceEquals(editorBeingClosedWithoutSaving, editor))
                 return true;
 
-            var result = AskToSaveResult(true);
+            ActivateEditor(editor);
+            var result = AskToSaveResult(editor);
             if (result == DialogResult.Yes)
                 return DoSave(editor);
 
             return result == DialogResult.No;
+        }
+
+        private void ActivateEditor(QueryTab editor)
+        {
+            if (editor.Parent is Form dockContent)
+            {
+                dockContent.Activate();
+                editor.Editor.Focus();
+            }
+        }
+
+        private void CloseEditorWithoutSaving(QueryTab editor)
+        {
+            if (!(editor.Parent is Form dockContent))
+                return;
+
+            editorBeingClosedWithoutSaving = editor;
+            try
+            {
+                dockContent.Close();
+            }
+            finally
+            {
+                editorBeingClosedWithoutSaving = null;
+            }
         }
 
         public bool DoSave(QueryTab editor)

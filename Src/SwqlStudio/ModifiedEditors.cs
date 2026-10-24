@@ -11,13 +11,19 @@ namespace SwqlStudio
 {
     internal class ModifiedEditors : Component
     {
+        internal const string SwqlFileFilter = "SWQL Files (*.swql)|*.swql|All Files (*.*)|*.*";
+
         private readonly SaveFileDialog saveFileDialog;
 
         public Form Parent { get; set; }
 
         public ModifiedEditors()
         {
-            saveFileDialog = new SaveFileDialog();
+            saveFileDialog = new SaveFileDialog
+            {
+                Filter = SwqlFileFilter,
+                DefaultExt = "swql"
+            };
         }
 
         public bool SaveModifiedEditors(IEnumerable<QueryTab> queryTabs)
@@ -76,7 +82,9 @@ namespace SwqlStudio
         {
             var timestamp = DateTime.Now.ToString("yyyy-MM-dd HH-mm");
             var entityName = QueryEntityNameParser.GetPrimaryEntityName(queryText);
-            return string.IsNullOrEmpty(entityName) ? timestamp : $"{timestamp} {entityName}";
+            var baseName = string.IsNullOrEmpty(entityName) ? timestamp : $"{timestamp} {entityName}";
+            // Explicit extension: entity names like "Orion.Nodes" would otherwise count as having one.
+            return baseName + ".swql";
         }
 
         private bool SaveEditor(QueryTab editor, string fileName)

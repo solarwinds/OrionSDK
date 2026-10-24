@@ -51,6 +51,7 @@ namespace SwqlStudio
             SubscriptionManager = new SubscriptionManager();
             AssignConnectionsDataSource();
             modifiedEditors1.Parent = this;
+            openFileDialog.Filter = ModifiedEditors.SwqlFileFilter;
         }
 
         private void InitializeDockPanel()

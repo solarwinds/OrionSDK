@@ -63,6 +63,17 @@ namespace SwqlStudio
             _syncContext = SynchronizationContext.Current;
         }
 
+        internal ConnectionInfo(string server, string username, InfoServiceBase infoService)
+        {
+            ServerType = infoService.ServiceType;
+            _server = server;
+            _username = username;
+            _password = string.Empty;
+
+            _infoServiceType = infoService;
+            QueryParameters = new PropertyBag();
+        }
+
         public Binding Binding
         {
             get { return _infoServiceType.Binding; }
@@ -129,7 +140,8 @@ namespace SwqlStudio
                     new ServerType { Type = "Orion (v3) AD", IsAuthenticationRequired = false },
                     new ServerType { Type = "Orion (v3) Certificate", IsAuthenticationRequired = false },
                     new ServerType { Type = "Orion (v3) over HTTPS", IsAuthenticationRequired = true },
-                    new ServerType { Type = "Orion (v3) over HTTPS legacy pre-2023", IsAuthenticationRequired = true}
+                    new ServerType { Type = "Orion (v3) over HTTPS legacy pre-2023", IsAuthenticationRequired = true },
+                    new ServerType { Type = "Orion (v3) OAuth", IsAuthenticationRequired = false }
                 };
 
                 if (Settings.Default.ShowCompressedModes)
@@ -504,7 +516,7 @@ namespace SwqlStudio
             XmlDocument tmpQueryPlan = null; // can't reference out parameter from closure
             XmlDocument tmpQueryStats = null; // can't reference out parameter from closure
 
-            DataTable result = DoWithExceptionTranslation(
+            DataTable result = ExecuteWithReAuth(
                 delegate
                     {
                         EnsureConnection();
@@ -528,6 +540,24 @@ namespace SwqlStudio
             queryPlan = tmpQueryPlan;
             queryStats = tmpQueryStats;
             return result;
+        }
+
+        private T ExecuteWithReAuth<T>(Func<T> action)
+        {
+            try
+            {
+                return DoWithExceptionTranslation(action);
+            }
+            catch (ApplicationException ex) when (_infoServiceType.TryReAuthenticate(ex))
+            {
+                if (_proxy != null)
+                {
+                    _proxy.Dispose();
+                    _proxy = null;
+                }
+                Connect();
+                return DoWithExceptionTranslation(action);
+            }
         }
 
         public static void DoWithExceptionTranslation(Action action)
@@ -600,14 +630,15 @@ namespace SwqlStudio
 
         public XmlDocument QueryXml(string query, out XmlDocument queryPlan, out List<ErrorMessage> errorMessages, out XmlDocument queryStats)
         {
-            EnsureConnection();
-            Message results;
+            Message results = null;
             errorMessages = null;
-
-            using (new SwisSettingsContext { DataProviderTimeout = TimeSpan.FromSeconds(30), ApplicationTag = "SWQL Studio", AppendErrors = true })
+            ExecuteWithReAuth<int>(delegate
             {
-                results = _proxy.Query(new QueryXmlRequest(query, QueryParameters));
-            }
+                EnsureConnection();
+                using (new SwisSettingsContext { DataProviderTimeout = TimeSpan.FromSeconds(30), ApplicationTag = "SWQL Studio", AppendErrors = true })
+                    results = _proxy.Query(new QueryXmlRequest(query, QueryParameters));
+                return 0;
+            });
 
             XmlReader reader = results.GetReaderAtBodyContents();
             var body = new XmlDocument(reader.NameTable);
@@ -692,6 +723,12 @@ namespace SwqlStudio
 
         internal ConnectionInfo Copy()
         {
+            // OAuth connections carry a live token manager that cannot be reconstructed
+            // from the service-type string alone — use the constructor that accepts the
+            // existing InfoServiceBase so the token is preserved across reconnects/copies.
+            if (_infoServiceType is OrionOAuthInfoService)
+                return new ConnectionInfo(_server, _username, _infoServiceType) { QueryParameters = QueryParameters };
+
             return new ConnectionInfo(_server, _username, _password, _infoServiceType.ServiceType)
             {
                 QueryParameters = QueryParameters

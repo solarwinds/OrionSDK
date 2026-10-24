@@ -223,6 +223,15 @@ namespace SwqlStudio.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("SolarWinds/InformationService/v3/OAuth")]
+        public string OrionV3OAuthEndpointPath {
+            get {
+                return ((string)(this["OrionV3OAuthEndpointPath"]));
+            }
+        }
+
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("SolarWinds/InformationService/v3/Orion/ad")]
         public string OrionV3EndpointPathAD {
             get {

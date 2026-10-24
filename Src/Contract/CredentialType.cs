@@ -16,6 +16,9 @@ namespace SolarWinds.InformationService.Contract2
         Certificate,
 
         [EnumMember(Value = "Username")]
-        Username
+        Username,
+
+        [EnumMember(Value = "Bearer")]
+        Bearer = 4
     }
 }

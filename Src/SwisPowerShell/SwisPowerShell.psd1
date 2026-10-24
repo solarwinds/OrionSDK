@@ -72,7 +72,7 @@ Description = 'This PowerShell module contains cmdlets for managing SolarWinds O
 FunctionsToExport = @()
 
 # Cmdlets to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no cmdlets to export.
-CmdletsToExport = 'Connect-Swis', 'Get-SwisData', 'Get-SwisObject', 'Invoke-SwisVerb', 
+CmdletsToExport = 'Connect-Swis', 'Connect-SwisOAuth', 'Get-SwisData', 'Get-SwisObject', 'Invoke-SwisVerb',
                'New-SwisObject', 'Remove-SwisObject', 'Set-SwisObject'
 
 # Variables to export from this module

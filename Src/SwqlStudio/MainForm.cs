@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.IO;
 using System.Linq;
 using System.ServiceModel;
 using System.Windows.Forms;
@@ -51,6 +52,7 @@ namespace SwqlStudio
             SubscriptionManager = new SubscriptionManager();
             AssignConnectionsDataSource();
             modifiedEditors1.Parent = this;
+            openFileDialog.Filter = ModifiedEditors.SwqlFileFilter;
         }
 
         private void InitializeDockPanel()
@@ -59,7 +61,8 @@ namespace SwqlStudio
             serverList.ConnectionAdded += ServerListOnConnectionAdded;
             serverList.ConnectionRemoved += ServerListOnConnectionRemoved;
             connectionsManager = new ConnectionsManager(this, serverList);
-            var tabsFactory = new TabsFactory(filesDock, this, serverList, connectionsManager);
+            var tabsFactory = new TabsFactory(filesDock, this, serverList, connectionsManager,
+                modifiedEditors1.ConfirmCloseEditor);
             filesDock.SetAplicationService(tabsFactory);
             filesDock.ActiveContentChanged += FilesDock_ActiveContentChanged;
 
@@ -363,6 +366,44 @@ namespace SwqlStudio
             menuNotificationListenerActive.CheckState = SubscriptionManager.IsListening()
                 ? CheckState.Checked
                 : CheckState.Unchecked;
+
+            PopulateRecentFilesMenu();
+        }
+
+        private void PopulateRecentFilesMenu()
+        {
+            menuFileRecent.DropDownItems.Clear();
+            var recentFiles = RecentFiles.Items;
+            menuFileRecent.Enabled = recentFiles.Length > 0;
+            if (recentFiles.Length == 0)
+                return;
+
+            for (int i = 0; i < recentFiles.Length; i++)
+            {
+                var fileName = recentFiles[i];
+                var item = new ToolStripMenuItem($"&{(i + 1) % 10} {fileName.Replace("&", "&&")}")
+                {
+                    ToolTipText = fileName
+                };
+                item.Click += (s, args) => OpenRecentFile(fileName);
+                menuFileRecent.DropDownItems.Add(item);
+            }
+
+            menuFileRecent.DropDownItems.Add(new ToolStripSeparator());
+            menuFileRecent.DropDownItems.Add("&Clear Recent Files", null, (s, args) => RecentFiles.Clear());
+        }
+
+        private void OpenRecentFile(string fileName)
+        {
+            if (!File.Exists(fileName))
+            {
+                MessageBox.Show(this, $"File '{fileName}' no longer exists and was removed from the recent files list.",
+                    "File Not Found", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                RecentFiles.Remove(fileName);
+                return;
+            }
+
+            filesDock.OpenFiles(new[] { fileName });
         }
 
         private void menuFileTabPage_Click(object sender, EventArgs e)

@@ -65,15 +65,21 @@ namespace SwqlStudio.Utils
 
         private static string GetQueryForCurlBashInternal(string query, ConnectionInfo connection, PropertyBag parameters, int port)
         {
-            var url = GetUrlForQuery(query, connection, port);
             Func<string, string> q = QuoteForBash;
             if (!parameters.Any())
             {
-                return $"curl -k -u {QuoteForBash(CredentialsPlaceholder)} {QuoteForBash(url)}";
+                var url = GetUrlForQuery(query, connection, port);
+                return $"curl -k -u {q(CredentialsPlaceholder)} {q(url)}";
             }
             else
             {
-                return GetQueryForCurlCmdInternal(query, connection, parameters, port);
+                var escapedQuery = CollapseWhitespace(query);
+                var postUrl = GetUrlForQuery(null, connection, port);
+                var parametersSerialized = string.Join(
+                    ",",
+                    parameters.Select(x => string.Format("\"{0}\" : \"{1}\"", x.Key, x.Value.ToString())));
+                var postData = $"{{ \"query\": \"{escapedQuery}\", \"parameters\": {{{parametersSerialized}}}}}";
+                return $"curl -X POST -d {q(postData)} {q(postUrl)} --insecure -u {q(CredentialsPlaceholder)} --header {q("Content-Type:application/json")}";
             }
         }
 
@@ -144,9 +150,6 @@ namespace SwqlStudio.Utils
 
         private static string QuoteForBash(string arg)
         {
-            if (arg.IndexOf('\'') == -1)
-                return arg;
-
             var quoted = new StringBuilder("'");
 
             foreach (char c in arg)

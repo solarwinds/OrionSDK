@@ -47,7 +47,7 @@ namespace SwqlStudio
                 return found;
 
             info.Connect();
-            info.ConnectionClosed += (sender, args) => serverList.Remove(info);
+            info.ConnectionClosing += (sender, args) => serverList.Remove(info);
             serverList.Add(info);
             return info;
         }

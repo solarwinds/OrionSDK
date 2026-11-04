@@ -46,8 +46,7 @@ namespace SwqlStudio
             catch (Exception ex)
             {
                 log.Error("Failed to connect", ex);
-                var msg = $"Unable to connect to Information Service.\n{ex.Message}";
-                MessageBox.Show(msg, "Connection Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(ConnectionInfo.DescribeConnectionFailure(ex), "Connection Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
